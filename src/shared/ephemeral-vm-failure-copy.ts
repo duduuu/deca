@@ -5,6 +5,7 @@ import { formatEphemeralVmRecipeTimeout } from './ephemeral-vm-recipe-timeouts'
 export const EPHEMERAL_VM_FAILURE_COPY = {
   repoNotFound: 'Repo not found: {{repoId}}',
   remoteRepoUnsupported: 'Ephemeral VM recipes run on the local desktop host in v1.',
+  recipeVmsUnavailable: 'Recipe VMs are not available in Deca.',
   recipeNotFound: 'Recipe not found: {{recipeId}}',
   runtimeNotFound: 'Unknown ephemeral VM runtime: {{runtimeId}}',
   runtimeRepoMissing: 'Ephemeral VM runtime has no repo id: {{runtimeId}}',

@@ -79,7 +79,8 @@ export function visibleRepos(
 }
 
 function reposShownWith(allRepos: Repo[], hiddenTargets: readonly string[]): Repo[] {
-  const repos = withoutWslMovedRepos(allRepos)
+  // Deca reaches no SSH hosts; their persisted repos stay on disk but are never shown.
+  const repos = withoutWslMovedRepos(allRepos).filter((repo) => !repo.connectionId)
   if (hiddenTargets.length === 0) {
     return repos
   }

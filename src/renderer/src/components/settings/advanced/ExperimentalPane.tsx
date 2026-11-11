@@ -10,7 +10,6 @@ import { HiddenExperimentalGroup } from './HiddenExperimentalGroup'
 import { NumberField } from '../form-controls/SettingsFormControls'
 import { useTranslate } from '@/i18n/use-translate'
 import { AgentDashboardExperimentalSetting } from '../../dashboard/AgentDashboardExperimentalSetting'
-import { EphemeralVmsExperimentalSetting } from '../virtual-machines/recipes/EphemeralVmsExperimentalSetting'
 import { WslHostsExperimentalSetting } from '../wsl/hosts/WslHostsExperimentalSetting'
 import { wslHostsAvailable } from '../../sidebar/use-wsl-hosts-enabled'
 import {
@@ -249,8 +248,6 @@ export function ExperimentalPane({
             </div>
           </SearchableSetting>
         ) : null}
-
-        <EphemeralVmsExperimentalSetting settings={settings} updateSettings={updateSettings} />
 
         {wslHostsAvailable() ? (
           <WslHostsExperimentalSetting settings={settings} updateSettings={updateSettings} />

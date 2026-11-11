@@ -77,12 +77,12 @@ export function getOrcaUserDataPath(): string {
   }
   // Offline CLI hooks run outside Electron and must resolve the same userData path.
   if (process.platform === 'darwin') {
-    return join(homedir(), 'Library', 'Application Support', 'orca')
+    return join(homedir(), 'Library', 'Application Support', 'deca')
   }
   if (process.platform === 'win32') {
-    return join(process.env.APPDATA ?? join(homedir(), 'AppData', 'Roaming'), 'orca')
+    return join(process.env.APPDATA ?? join(homedir(), 'AppData', 'Roaming'), 'deca')
   }
-  return join(process.env.XDG_CONFIG_HOME || join(homedir(), '.config'), 'orca')
+  return join(process.env.XDG_CONFIG_HOME || join(homedir(), '.config'), 'deca')
 }
 
 export function syncSystemCodexResourcesIntoManagedHome(managedHomePath?: string): void {

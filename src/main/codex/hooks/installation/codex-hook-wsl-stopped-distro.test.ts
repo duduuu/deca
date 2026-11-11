@@ -40,7 +40,7 @@ const STOPPED = { distro: 'Ubuntu', state: 'stopped' }
 let root: string
 
 function plan() {
-  const linuxHome = '/home/alice/.local/share/orca/codex-runtime-home/home'
+  const linuxHome = '/home/alice/.local/share/deca/codex-runtime-home/home'
   return {
     configPath: join(root, 'hooks.json'),
     tomlPath: join(root, 'config.toml'),

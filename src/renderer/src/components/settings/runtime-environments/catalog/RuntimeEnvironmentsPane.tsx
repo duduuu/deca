@@ -4,7 +4,6 @@ import type { PublicKnownRuntimeEnvironment } from '../../../../../../shared/rem
 import { useAppStore } from '@/store/index'
 import { useTranslate } from '@/i18n/use-translate'
 import { SearchableSetting } from '../../section-layout/SearchableSetting'
-import { EphemeralVmRuntimesSection } from '../../virtual-machines/runtimes/EphemeralVmRuntimesSection'
 import {
   getRuntimeEnvironmentsSearchEntry,
   getWebRuntimeEnvironmentsSearchEntry
@@ -239,8 +238,6 @@ export function RuntimeEnvironmentsPane({
 
       {/* Why gated on the managed API: WSL hosts, like managed servers, need the desktop. */}
       {managedCatalog.api ? <WslHostsSection onChanged={reloadAll} /> : null}
-
-      <EphemeralVmRuntimesSection />
 
       <RuntimeAddServerDialog
         open={dialog === 'add'}

@@ -28,6 +28,8 @@ const COPY: Record<EphemeralVmFailureCode, (params: Params | undefined) => strin
   },
   remoteRepoUnsupported: () =>
     translate('ephemeralVm.errors.remoteRepoUnsupported', EN.remoteRepoUnsupported),
+  recipeVmsUnavailable: () =>
+    translate('ephemeralVm.errors.recipeVmsUnavailable', EN.recipeVmsUnavailable),
   recipeNotFound: (p) => {
     const recipeId = text(p, 'recipeId')
     return recipeId === null

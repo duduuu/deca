@@ -3,7 +3,7 @@ import { loadHooks } from '../workspace-hooks/hooks'
 import type { EphemeralVmRecipeDoctorResult } from '../../shared/ephemeral-vm-recipes'
 import { listEphemeralVmRuntimes } from '../../shared/ephemeral-vm-runtime-store'
 import type { EphemeralVmRuntimeRecord } from '../../shared/ephemeral-vm-runtimes'
-import { isFolderRepo, isGitRepoKind } from '../../shared/repo-kind'
+import { isFolderRepo } from '../../shared/repo-kind'
 import type { OrcaVmRecipe } from '../../shared/orca-yaml-hook-types'
 import {
   EphemeralVmFailureError,
@@ -38,45 +38,17 @@ export type RecipeRepoResult =
       doctor: (recipeId: string) => EphemeralVmRecipeDoctorResult
     }
 
-export function listRecipes(
-  store: Store,
-  repoId: string,
-  pluginRecipes: readonly OrcaVmRecipe[] = []
-): EphemeralVmRecipeListResult {
+export function listRecipes(store: Store, repoId: string): EphemeralVmRecipeListResult {
   const repo = store.getRepo(repoId)
   if (!repo || isFolderRepo(repo)) {
     return failedRecipeList(null, ephemeralVmFailure('repoNotFound', { repoId }))
   }
-  if (repo.connectionId) {
-    return failedRecipeList(repo.path, ephemeralVmFailure('remoteRepoUnsupported'))
-  }
-  const hooks = loadHooks(repo.path)
-  return {
-    status: 'ok',
-    repoPath: repo.path,
-    recipes: combineEphemeralVmRecipes(hooks?.environmentRecipes ?? [], pluginRecipes),
-    diagnostics: hooks?.environmentRecipeDiagnostics ?? []
-  }
+  // Deca provisions no recipe VMs.
+  return failedRecipeList(repo.path, ephemeralVmFailure('recipeVmsUnavailable'))
 }
 
-export function listRecipeCatalog(
-  store: Store,
-  pluginRecipes: readonly OrcaVmRecipe[] = []
-): EphemeralVmRecipeCatalogEntry[] {
-  return store
-    .getRepos()
-    .filter((repo) => isGitRepoKind(repo) && !isFolderRepo(repo) && !repo.connectionId)
-    .map((repo) => {
-      const hooks = loadHooks(repo.path)
-      return {
-        repoId: repo.id,
-        repoName: repo.displayName,
-        repoPath: repo.path,
-        recipes: combineEphemeralVmRecipes(hooks?.environmentRecipes ?? [], pluginRecipes),
-        diagnostics: hooks?.environmentRecipeDiagnostics ?? []
-      }
-    })
-    .filter((entry) => entry.recipes.length > 0 || entry.diagnostics.length > 0)
+export function listRecipeCatalog(): EphemeralVmRecipeCatalogEntry[] {
+  return []
 }
 
 export function getRecipeRepo(store: Store, repoId: string): RecipeRepoResult {
@@ -88,6 +60,14 @@ export function getRecipeRepo(store: Store, repoId: string): RecipeRepoResult {
     return failedRecipeRepo(repo.path, ephemeralVmFailure('remoteRepoUnsupported'))
   }
   return { ok: true, repo }
+}
+
+/** Deca provisions no recipe VMs; cleanup of recorded runtimes still goes through getRecipeRepo. */
+export function getProvisionableRecipeRepo(store: Store, repoId: string): RecipeRepoResult {
+  const repo = getRecipeRepo(store, repoId)
+  return repo.ok
+    ? failedRecipeRepo(repo.repo.path, ephemeralVmFailure('recipeVmsUnavailable'))
+    : repo
 }
 
 export function getRuntimeRecipeContext(

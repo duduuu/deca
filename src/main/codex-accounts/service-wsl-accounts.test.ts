@@ -39,7 +39,7 @@ describe('CodexAccountService config sync', () => {
   it('preserves WSL account-home project trust while refreshing canonical settings', async () => {
     const wslManagedHomePath = join(testState.userDataDir, 'wsl-account', 'home')
     const wslCanonicalHomePath = join(testState.userDataDir, 'wsl-home', '.codex')
-    const wslLinuxHomePath = '/home/alice/.local/share/orca/codex-accounts/account-1/home'
+    const wslLinuxHomePath = '/home/alice/.local/share/deca/codex-accounts/account-1/home'
     const wslLinuxCanonicalHomePath = '/home/alice/.codex'
     mkdirSync(wslManagedHomePath, { recursive: true })
     mkdirSync(wslCanonicalHomePath, { recursive: true })

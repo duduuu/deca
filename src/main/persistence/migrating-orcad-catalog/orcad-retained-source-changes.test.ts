@@ -107,7 +107,6 @@ describe('what makes a moved host changed', () => {
     reconcileManagedOrcadSshTargets(userDataPath, store, now)
 
     expect(changedAt()).toBeDefined()
-    expect(visibleIds().sort()).toEqual(['repo-1', 'repo-2'])
   })
 
   it('lifts a mark an earlier build set for a group edit, but not one for an added project', () => {

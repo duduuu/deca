@@ -29,7 +29,7 @@ import {
 import { connectRuntimeOwnedSshTarget } from '../ephemeral-vm/runtime-ssh'
 import { reconcileInterruptedEphemeralVmProvisionsOnStartup } from '../ephemeral-vm/runtime-provisioning-persistence'
 import {
-  getRecipeRepo,
+  getProvisionableRecipeRepo,
   listRecipeCatalog,
   listRecipes,
   resolveRecipeForRepo,
@@ -84,13 +84,13 @@ export function registerEphemeralVmHandlers(store: Store, pluginService?: Plugin
   reconcileInterruptedEphemeralVmProvisionsOnStartup(app.getPath('userData'))
 
   ipcMain.handle('ephemeralVm:listRecipes', async (_event, args: { repoId: string }) => {
-    return listRecipes(store, args.repoId, await getApprovedPluginVmRecipes(pluginService))
+    return listRecipes(store, args.repoId)
   })
 
   ipcMain.handle(
     'ephemeralVm:listRecipeCatalog',
     async (): Promise<EphemeralVmRecipeCatalogEntry[]> => {
-      return listRecipeCatalog(store, await getApprovedPluginVmRecipes(pluginService))
+      return listRecipeCatalog()
     }
   )
 
@@ -100,15 +100,14 @@ export function registerEphemeralVmHandlers(store: Store, pluginService?: Plugin
       _event,
       args: { repoId: string; recipeId: string }
     ): Promise<EphemeralVmRecipeDoctorResult> => {
-      const repo = getRecipeRepo(store, args.repoId)
+      const repo = getProvisionableRecipeRepo(store, args.repoId)
       if (!repo.ok) {
         return repo.doctor(args.recipeId)
       }
-      const pluginRecipes = await getApprovedPluginVmRecipes(pluginService)
       return doctorEphemeralVmRecipe({
         repoPath: repo.repo.path,
         recipeId: args.recipeId,
-        recipes: listRecipes(store, args.repoId, pluginRecipes).recipes,
+        recipes: listRecipes(store, args.repoId).recipes,
         localExecutionSupported: true
       })
     }
@@ -129,7 +128,7 @@ export function registerEphemeralVmHandlers(store: Store, pluginService?: Plugin
         provisionId?: string
       }
     ): Promise<EphemeralVmProvisionIpcResult> => {
-      const repo = getRecipeRepo(store, args.repoId)
+      const repo = getProvisionableRecipeRepo(store, args.repoId)
       if (!repo.ok) {
         return provisionFailure(repo.failure)
       }

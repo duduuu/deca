@@ -39,7 +39,7 @@ set -euo pipefail
 # Orca managed WSL CLI launcher
 # ORCA_WIN_LAUNCHER_B64=QzpcUHJvZ3JhbSBGaWxlc1xPcmNhXHJlc291cmNlc1xiaW5cb3JjYS5jbWQ=
 ORCA_WIN_LAUNCHER='C:\\Program Files\\Orca\\resources\\bin\\orca.cmd'
-ORCA_BRIDGE_PS1='/home/alice/.local/share/orca/orca-wsl-bridge.ps1'
+ORCA_BRIDGE_PS1='/home/alice/.local/share/deca/orca-wsl-bridge.ps1'
 if command -v powershell.exe >/dev/null 2>&1; then
   ORCA_POWERSHELL=powershell.exe
 elif [ -x /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe ]; then
@@ -67,10 +67,10 @@ describe('WslCliInstaller', () => {
       const root = await mkdtemp(join(tmpdir(), 'orca-wsl-cli-rollback-'))
       const home = join(root, 'home with spaces')
       const commandPath = join(home, '.local', 'bin', 'orca-ide')
-      const bridgePath = join(home, '.local', 'share', 'orca', 'orca-wsl-bridge.ps1')
+      const bridgePath = join(home, '.local', 'share', 'deca', 'orca-wsl-bridge.ps1')
       const bridge = _internals.buildWslBridgeScript()
       await mkdir(join(home, '.local', 'bin'), { recursive: true })
-      await mkdir(join(home, '.local', 'share', 'orca'), { recursive: true })
+      await mkdir(join(home, '.local', 'share', 'deca'), { recursive: true })
       await writeFile(commandPath, PRE_RC4_MANAGED_WSL_LAUNCHER, 'utf8')
       await writeFile(bridgePath, bridge, 'utf8')
 

@@ -122,7 +122,7 @@ describe('toHostReadableTranscriptPath', () => {
 
 describe('toHostReadableTranscriptPath through guest symlinks', () => {
   // Orca's Claude profile links `<profile>/home/projects` to `~/.claude/projects`; Windows cannot follow it.
-  const PROFILE_DIR = '/home/ada/.local/share/orca/claude-profiles/acct/home/projects/-home-ada-app'
+  const PROFILE_DIR = '/home/ada/.local/share/deca/claude-profiles/acct/home/projects/-home-ada-app'
   const REAL_DIR = '/home/ada/.claude/projects/-home-ada-app'
   const LINKED_PATH = `${PROFILE_DIR}/sess.jsonl`
   const REAL_UNC =

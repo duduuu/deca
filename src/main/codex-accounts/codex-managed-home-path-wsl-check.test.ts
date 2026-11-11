@@ -14,8 +14,8 @@ vi.mock('../../shared/wsl-paths', async (importOriginal) => ({
 
 import { CodexManagedHomePath } from './codex-managed-home-path'
 
-const LINUX_HOME = '/home/alice/.local/share/orca/codex-accounts/acct/home'
-const UNC_HOME = String.raw`\\wsl.localhost\Ubuntu\home\alice\.local\share\orca\codex-accounts\acct\home`
+const LINUX_HOME = '/home/alice/.local/share/deca/codex-accounts/acct/home'
+const UNC_HOME = String.raw`\\wsl.localhost\Ubuntu\home\alice\.local\share\deca\codex-accounts\acct\home`
 const originalPlatform = process.platform
 
 /** What a guest whose rc files print a banner would send back around the fenced payload. */

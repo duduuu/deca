@@ -272,11 +272,11 @@ export function isListedRemoteServer(
   return false
 }
 
-/** Deca reaches only this computer's WSL hosts and recipe VMs; paired servers and SSH hosts stay unreachable. */
+/** Deca reaches only this computer's WSL hosts; paired servers, SSH hosts and recipe VMs stay unreachable. */
 export function isDecaReachableRuntimeEnvironment(
   environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>
 ): boolean {
-  return isWslHostRuntimeEnvironment(environment) || isEphemeralVmRuntimeEnvironment(environment)
+  return isWslHostRuntimeEnvironment(environment)
 }
 
 type PreferredEndpointSource = Pick<

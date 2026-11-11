@@ -38,12 +38,12 @@ afterEach(() => {
 function createTestPlan(): CodexWslRuntimeHookInstallPlan {
   const root = mkdtempSync(join(tmpdir(), 'orca-codex-wsl-hooks-'))
   tempRoots.push(root)
-  const linuxHome = '/home/alice/.local/share/orca/codex-runtime-home/home'
+  const linuxHome = '/home/alice/.local/share/deca/codex-runtime-home/home'
   return {
     configPath: join(root, 'hooks.json'),
     tomlPath: join(root, 'config.toml'),
-    scriptPath: join(root, '.orca', 'agent-hooks', 'codex-hook.sh'),
-    commandScriptPath: `${linuxHome}/.orca/agent-hooks/codex-hook.sh`,
+    scriptPath: join(root, '.deca', 'agent-hooks', 'codex-hook.sh'),
+    commandScriptPath: `${linuxHome}/.deca/agent-hooks/codex-hook.sh`,
     trustConfigPath: `${linuxHome}/hooks.json`,
     wslDistro: 'Ubuntu',
     linuxRuntimeHome: linuxHome

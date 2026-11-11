@@ -208,7 +208,7 @@ describe('WslHookRelayManager', () => {
       installCodex: vi.fn(async () => ({
         agent: 'codex' as const,
         state: 'installed' as const,
-        configPath: `${home}/.local/share/orca/codex-runtime-home/home/hooks.json`,
+        configPath: `${home}/.local/share/deca/codex-runtime-home/home/hooks.json`,
         managedHooksPresent: true,
         detail: null
       })),

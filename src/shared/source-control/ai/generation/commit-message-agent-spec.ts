@@ -4,14 +4,12 @@ import { labelFromModelId } from '../../../model-id-label'
 import { buildPrimaryCommitMessageAgentSpecs } from './commit-message-agent-specs-primary'
 import { buildSecondaryCommitMessageAgentSpecs } from './commit-message-agent-specs-secondary'
 import {
-  BASIC_THINKING_LEVELS,
   CLAUDE_THINKING_LEVELS,
   OPENAI_THINKING_LEVELS,
   parseAntigravityModels,
   parseClaudeModels,
   parseCursorModels,
   parseLineModels,
-  parsePiModels,
   withOpenAiThinking
 } from './commit-message-model-parsers'
 
@@ -113,15 +111,12 @@ export const COMMIT_MESSAGE_AGENT_SPECS: Partial<Record<TuiAgent, CommitMessageA
     OPENAI_THINKING_LEVELS,
     parseClaudeModels,
     parseLineModels,
-    parsePiModels,
     withOpenAiThinking
   }),
   ...buildSecondaryCommitMessageAgentSpecs({
-    BASIC_THINKING_LEVELS,
     OPENAI_THINKING_LEVELS,
     parseCursorModels,
-    parseAntigravityModels,
-    parseLineModels
+    parseAntigravityModels
   })
 }
 

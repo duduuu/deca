@@ -12,12 +12,7 @@ import {
   isCustomAgentId
 } from './commit-message-agent-spec'
 import { planCustomCommand } from './commit-message-prompt'
-import {
-  KIMI_VALUE_OPTIONS,
-  findRecipeOption,
-  planAdditionalAgentArgs,
-  compactRecipeOptions
-} from './commit-message-generation-options'
+import { planAdditionalAgentArgs, compactRecipeOptions } from './commit-message-generation-options'
 import {
   taskPolicyRecipeArgs,
   codexRecipeConfigArgs,
@@ -197,17 +192,14 @@ export function planCommitMessageGeneration(
     prefixArgs,
     recipeArgs,
     singletonOptions: spec.singletonOptions ?? DEFAULT_SINGLETON_OPTIONS,
-    valueOptions: input.agentId === 'kimi' ? KIMI_VALUE_OPTIONS : []
+    valueOptions: []
   })
-  const args =
-    input.agentId === 'kimi'
-      ? [...merged.generatedArgs, ...merged.recipeArgs]
-      : insertAdditionalAgentArgs({
-          baseArgs: merged.generatedArgs,
-          agentArgs: merged.recipeArgs,
-          promptDelivery: spec.promptDelivery,
-          prompt: argvPrompt
-        })
+  const args = insertAdditionalAgentArgs({
+    baseArgs: merged.generatedArgs,
+    agentArgs: merged.recipeArgs,
+    promptDelivery: spec.promptDelivery,
+    prompt: argvPrompt
+  })
   const generationArgs = mergeOpenCodeGenerationArgs(
     input.agentId,
     command.binary,
@@ -217,10 +209,6 @@ export function planCommitMessageGeneration(
   const formatOption =
     input.agentId === 'opencode' || input.agentId === 'opencode2'
       ? findOptionOccurrence(generationArgs, ['--format'], true)
-      : null
-  const kimiFormatOption =
-    input.agentId === 'kimi'
-      ? findRecipeOption(generationArgs, ['--output-format'], KIMI_VALUE_OPTIONS)
       : null
   const directOpenCode = isDirectOpenCodeGenerationCommand(command.binary, merged.prefixArgs)
   const launcherBoundary = openCodeGenerationLauncherBoundary(
@@ -275,9 +263,6 @@ export function planCommitMessageGeneration(
           }
         : {}),
       ...(formatOption?.value === 'json' ? { outputFormat: 'opencode-json' as const } : {}),
-      ...(kimiFormatOption?.value === 'stream-json'
-        ? { outputFormat: 'kimi-stream-json' as const }
-        : {}),
       ...(input.agentId === 'antigravity'
         ? { outputFormat: 'antigravity-stream-json' as const }
         : {}),

@@ -50,13 +50,12 @@ export function buildAgentStartupPlan(args: {
   const shell = resolveStartupShell(platform, args.shell)
   const trimmedPrompt = prompt.trim()
   const config = TUI_AGENT_CONFIG[agent]
-  const usesQuery = config.promptInjectionMode === 'hermes-query' && Boolean(trimmedPrompt)
   const baseCommand = resolveAgentLaunchCommand({
     agent,
     cmdOverrides,
     platform,
     shell,
-    agentArgs: usesQuery ? null : args.agentArgs,
+    agentArgs: args.agentArgs,
     sessionOptions: args.sessionOptions,
     sessionOptionsOverrideAgentArgs: args.sessionOptionsOverrideAgentArgs,
     isRemote: args.isRemote,
@@ -65,22 +64,10 @@ export function buildAgentStartupPlan(args: {
   if (!baseCommand.ok) {
     return null
   }
-  const launchCommand =
-    agent === 'omp' ? withFreshOmpLaunch(baseCommand.command, shell) : baseCommand.command
-  // Hermes query launches splice agentArgs themselves; record them anyway so a resume keeps them.
-  const recordedCommand = usesQuery
-    ? resolveAgentLaunchCommand({
-        agent,
-        cmdOverrides,
-        platform,
-        shell,
-        agentArgs: args.agentArgs,
-        isRemote: args.isRemote
-      })
-    : baseCommand
+  const launchCommand = baseCommand.command
   const launchConfig = buildSleepingAgentLaunchConfig({
     ...args,
-    ...(recordedCommand.ok ? recordedCommand.resumeLaunch : baseCommand.resumeLaunch)
+    ...baseCommand.resumeLaunch
   })
   // Updater overrides belong to this launch, not the saved session's environment.
   const agentEnv = baseCommand.startupEnv
@@ -108,10 +95,7 @@ export function buildAgentStartupPlan(args: {
     const promptSeparator = config.argvPromptSeparator ? ` ${config.argvPromptSeparator}` : ''
     return {
       agent,
-      launchCommand:
-        agent === 'omp'
-          ? withFreshOmpLaunch(baseCommand.command, shell, `${promptSeparator} ${quotedPrompt}`)
-          : `${launchCommand}${promptSeparator} ${quotedPrompt}`,
+      launchCommand: `${launchCommand}${promptSeparator} ${quotedPrompt}`,
       expectedProcess: config.expectedProcess,
       followupPrompt: null,
       launchConfig,
@@ -132,31 +116,6 @@ export function buildAgentStartupPlan(args: {
       sessionOptions: baseCommand.appliedSessionOptions,
       agentEnv
     })
-  }
-
-  if (config.promptInjectionMode === 'hermes-query') {
-    const queryPlan = planHermesStartupQuery({
-      baseCommand: baseCommand.command,
-      agentArgs: args.agentArgs,
-      prompt: trimmedPrompt,
-      agentEnv,
-      platform,
-      shell,
-      isRemote: args.isRemote
-    })
-    if (!queryPlan) {
-      return null
-    }
-    return {
-      agent,
-      // Hermes chat --query owns readiness/submission; Orca only bounds and quotes its native invocation.
-      launchCommand: queryPlan.command,
-      expectedProcess: config.expectedProcess,
-      followupPrompt: null,
-      launchConfig,
-      ...appliedSessionOptionProps(baseCommand.appliedSessionOptions),
-      ...(queryPlan.env ? { env: queryPlan.env } : {})
-    }
   }
 
   if (config.promptInjectionMode === 'flag-prompt-interactive') {
@@ -242,8 +201,7 @@ export function buildAgentDraftLaunchPlan(args: {
   if (!baseCommand.ok) {
     return null
   }
-  const launchCommand =
-    agent === 'omp' ? withFreshOmpLaunch(baseCommand.command, shell) : baseCommand.command
+  const launchCommand = baseCommand.command
   const launchConfig = buildSleepingAgentLaunchConfig({
     ...args,
     ...baseCommand.resumeLaunch
@@ -269,10 +227,7 @@ export function buildAgentDraftLaunchPlan(args: {
     const clearVar = clearEnvCommand(config.draftPromptEnvVar, shell)
     plan = {
       agent,
-      launchCommand:
-        agent === 'omp' && isFreshOmpLaunchCommand(launchCommand)
-          ? withOmpDraftCleanup(launchCommand, shell)
-          : `${launchCommand}${commandSeparator(shell)}${clearVar}`,
+      launchCommand: `${launchCommand}${commandSeparator(shell)}${clearVar}`,
       expectedProcess: config.expectedProcess,
       launchConfig,
       ...appliedSessionOptionProps(baseCommand.appliedSessionOptions),

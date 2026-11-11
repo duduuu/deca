@@ -211,19 +211,12 @@ export function extractAgentProviderSession(
       const id = readSessionId(payload, ['session_id'])
       return id ? withTranscriptPath({ key: 'session_id', id }, payload) : null
     }
-    case 'gemini':
-    // Why: Kimi Code posts a Claude-shaped `session_id` (e.g. session_<uuid>).
-    // falls through
-    case 'kimi': {
+    case 'gemini': {
       const id = readSessionId(payload, ['session_id'])
       return id ? { key: 'session_id', id } : null
     }
-    // ZCode deletes its per-invocation transcript_path temp file when the hook returns; only its ID is durable.
-    // DSH's bridge has no persistence artifact and sends an empty transcript_path; retain its session ID only.
-    // Kiro also reports no transcript path; its ID feeds --resume-id.
-    // Hermes' managed plugin posts the live session_id on every hook; `hermes --resume` takes it.
-    case 'kiro':
-    case 'dsh': {
+    // Kiro reports no transcript path; its ID feeds --resume-id.
+    case 'kiro': {
       const id = readSessionId(payload, ['session_id'])
       return id ? { key: 'session_id', id } : null
     }
@@ -232,8 +225,7 @@ export function extractAgentProviderSession(
       return id ? { key: 'conversation_id', id } : null
     }
     case 'opencode':
-    case 'opencode2':
-    case 'mimo-code': {
+    case 'opencode2': {
       const id = readSessionId(payload, ['sessionID'])
       return id ? { key: 'session_id', id } : null
     }

@@ -39,10 +39,7 @@ const DISPLAY_LABELS = [
 
 const WINDOWS_LAUNCHER_SUFFIX_RE = /\.(?:exe|cmd|bat|ps1)$/i
 const RESERVED_OWNER_IDS: ReadonlyMap<string, TerminalAgent> = new Map([
-  [],
-  [],
-  ['claude-agent-teams', 'claude-agent-teams'],
-  []
+  ['claude-agent-teams', 'claude-agent-teams']
 ])
 
 export function namesIn(text: string): TerminalAgent[] {
@@ -152,11 +149,11 @@ export function agentForNativeFrame(text: string): TerminalAgent | null {
 
 function agentForNativeName(text: string): TerminalAgent | null {
   const normalized = text.replace(WINDOWS_LAUNCHER_SUFFIX_RE, '').toLowerCase()
-  if (normalized === 'jcode' || normalized === 'opencode2') {
+  if (normalized === 'opencode2') {
     return normalized
   }
   const agent = agentForBareName(text)
-  // Emitted aliases and Cursor/Pi/OMP use their own closed grammars, not arbitrary named tasks.
+  // Emitted aliases and Cursor use their own closed grammars, not arbitrary named tasks.
   return agent &&
     agent !== 'cursor' &&
     (NAME_TOKENS.some(([, native]) => native === agent) ||

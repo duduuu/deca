@@ -57,14 +57,6 @@ export const SKILL_INSTALL_PROVIDERS = Object.freeze([
     globalSegments: ['.gemini', 'config', 'skills'],
     workspaceSegments: null
   },
-  // Install into OpenClaude’s own roots; native-chat skillSourceOwner uses a separate mapping.
-  {
-    id: 'openclaude',
-    displayName: 'OpenClaude',
-    globalSegments: ['.openclaude', 'skills'],
-    workspaceSegments: ['.openclaude', 'skills'],
-    homeEnv: 'OPENCLAUDE_CONFIG_DIR'
-  },
   {
     id: 'devin',
     displayName: 'Devin',

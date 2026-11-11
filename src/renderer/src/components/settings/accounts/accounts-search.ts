@@ -151,30 +151,6 @@ export const getAccountsOpencodeSearchEntries = createLocalizedCatalog(() => [
   }
 ])
 
-export const getAccountsMiniMaxSearchEntries = createLocalizedCatalog(() => [
-  {
-    title: translate('auto.components.settings.accounts.search.9b6ce52c36', 'MiniMax usage'),
-    description: translate(
-      'auto.components.settings.accounts.search.f8374c3151',
-      'Configure MiniMax usage tracking. Pick the overseas or China endpoint, then paste a session cookie or save an API key that works on either host.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('auto.components.settings.accounts.search.d16378a88f', 'minimax'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.61f7d1fcbe', 'cookie'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.9c4e40cf6b', 'session'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.b2c4e7f1a8', 'endpoint'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.3a9b6d2c4e', 'api key'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.5d8f1a3b7c', 'china'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.7e2a4b8c1d', 'overseas'),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.e949b08ffb',
-        'rate limit'
-      ),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.86edc96bc9', 'status bar')
-    ]
-  }
-])
-
 export const getAccountsGrokSearchEntries = createLocalizedCatalog(() => [
   {
     title: translate('auto.components.settings.accounts.search.f4a8c2e1b7', 'Grok (xAI) Usage'),
@@ -246,48 +222,13 @@ export const getAccountsCursorSearchEntries = createLocalizedCatalog(() => [
   }
 ])
 
-export const getAccountsZcodePlanSearchEntries = createLocalizedCatalog(() => [
-  {
-    title: translate(
-      'auto.components.settings.accounts.search.zcodePlan.0db9d0465f',
-      'GLM coding plan'
-    ),
-    description: translate(
-      'auto.components.settings.accounts.search.zcodePlan.description',
-      'Track Z.AI or Zhipu (BigModel) GLM Coding Plan usage. Pick the site and save the plan API key.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('auto.components.settings.accounts.search.zcodePlan.kw.glm', 'glm'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.zcodePlan.kw.zai', 'zai'),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.zcodePlan.kw.zhipu',
-        'zhipu'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.zcodePlan.kw.bigmodel',
-        'bigmodel'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.zcodePlan.kw.codingPlan',
-        'coding plan'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.zcodePlan.kw.rateLimit',
-        'rate limit'
-      )
-    ]
-  }
-])
-
 export const getAccountsPaneSearchEntries = createLocalizedCatalog((): SettingsSearchEntry[] => [
   ...getAccountsLocationSearchEntries(),
   ...getAccountsClaudeSearchEntries(),
   ...getAccountsCodexSearchEntries(),
   ...getAccountsGeminiSearchEntries(),
   ...getAccountsOpencodeSearchEntries(),
-  ...getAccountsMiniMaxSearchEntries(),
   ...getAccountsGrokSearchEntries(),
   ...getAccountsAntigravitySearchEntries(),
-  ...getAccountsCursorSearchEntries(),
-  ...getAccountsZcodePlanSearchEntries()
+  ...getAccountsCursorSearchEntries()
 ])

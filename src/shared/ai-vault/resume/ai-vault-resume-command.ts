@@ -30,8 +30,7 @@ export function buildAiVaultResumeCommand(args: {
   const { agent, sessionId, cwd, platform, commandOverride, codexHome, resumeFilePath, shell } =
     args
   const baseCommand = commandOverride?.trim() || defaultAiVaultResumeCommandBase(agent)
-  // OMP/Prime --resume accepts absolute transcript paths across custom roots/WSL; default-store ID lookup would miss them. Fall back to ID without a path.
-  const resumeTarget = agent === 'omp' && resumeFilePath?.trim() ? resumeFilePath.trim() : sessionId
+  const resumeTarget = sessionId
   const sessionArg =
     shell === 'cmd'
       ? quoteCmdDoubleQuoted(resumeTarget)
@@ -160,9 +159,6 @@ export function realHomeCodexResumeEnvDeletion(
 function defaultAiVaultResumeCommandBase(agent: AiVaultAgent): string {
   if (agent === 'cursor') {
     return 'cursor-agent'
-  }
-  if (agent === 'hermes') {
-    return 'hermes'
   }
   // Preserve launch subcommands and mode flags when resuming.
   if (agent === 'opencode2' || agent === 'kiro') {

@@ -23,15 +23,10 @@ const UNOPENED_TURN = 'seed'
 export function readHostTurnSignals(
   source: AgentHookSource,
   hookPayload: Record<string, unknown>,
-  promptInteractionKey: string | undefined
+  _promptInteractionKey: string | undefined
 ): Pick<AgentHookEventPayload, 'stopHookActive' | 'nativeTurnKey'> {
-  // Native keys distinguish new turns from redelivery when no prompt hook ran (Codex mail/Command Code).
-  const nativeTurnKey =
-    source === 'codex'
-      ? readString(hookPayload, 'turn_id')
-      : source === 'command-code'
-        ? promptInteractionKey
-        : undefined
+  // Native keys distinguish new turns from redelivery when no prompt hook ran (Codex mail).
+  const nativeTurnKey = source === 'codex' ? readString(hookPayload, 'turn_id') : undefined
   return {
     ...(hookPayload.stop_hook_active === true && agentReportsStopHookContinuation(source)
       ? { stopHookActive: true }

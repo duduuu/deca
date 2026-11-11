@@ -13,7 +13,6 @@ const DECRST_BRACKETED_PASTE = '\x1b[?2004l'
 // Grok ❯ also appears in shell prompts: require alt screen. Legacy Windows > is too generic, so retain quiet/timeout fallback.
 const GROK_COMPOSER_PROMPT = '❯'
 // ZCode’s locale-independent round composer corner differs from square modal corners; anchor alt screen because powerline shell prompts also draw ╭.
-const ZCODE_COMPOSER_BOX_CORNER = '╭'
 // Why: Claude Code's prompt-input mode indicator is `figures.pointer` + NBSP; its startup menus
 // (trust, theme) draw the same pointer followed by a cursor move, so the NBSP means the composer.
 const CLAUDE_COMPOSER_PROMPT = '❯\u00a0'
@@ -72,26 +71,12 @@ const DRAFT_PASTE_READY_SIGNALS: Record<SingleSignal, DraftPasteReadySignalSpec>
     // Inline/minimal grok lacks alt-screen entry; a separate 2004 quiet anchor preserves its delivery path instead of dropping drafts.
     quietAnchor: DECSET_BRACKETED_PASTE
   },
-  // DSH-TUI’s animated intro needs marker/quiet behavior independently of Grok. Evidence: dsh-tui-ready-no-key.txt (2004 byte 6, 1049h byte 40, first ❯ byte 5910).
-  'dsh-composer-prompt': {
-    markerAnchor: DECSET_ALT_SCREEN,
-    markerAnchorEnd: DECRST_ALT_SCREEN,
-    marker: GROK_COMPOSER_PROMPT,
-    quietAnchor: DECSET_BRACKETED_PASTE
-  },
   // Why: Claude renders inline (no alt screen); the quiet window keeps the old delivery where the
   // glyph differs (Windows `figures` fallback).
   'claude-composer-prompt': {
     markerAnchor: DECSET_COLOR_PALETTE_UPDATES,
     markerAnchorEnd: DECRST_COLOR_PALETTE_UPDATES,
     marker: CLAUDE_COMPOSER_PROMPT,
-    quietAnchor: DECSET_BRACKETED_PASTE
-  },
-  'zcode-composer-prompt': {
-    markerAnchor: DECSET_ALT_SCREEN,
-    markerAnchorEnd: DECRST_ALT_SCREEN,
-    marker: ZCODE_COMPOSER_BOX_CORNER,
-    // ZCode banner animates indefinitely; keep quiet fallback for inline builds whose alt-screen marker never arms.
     quietAnchor: DECSET_BRACKETED_PASTE
   },
   // agy's composer; its trust dialog, sign-in menu and a shell prompt never draw it. No quiet fallback:

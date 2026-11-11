@@ -45,7 +45,7 @@ function isUsageAuthError(message: string | null): boolean {
 
 function getDelegatedCliRefreshProvider(
   p: ProviderRateLimits
-): Extract<ProviderRateLimits['provider'], 'grok' | 'kimi'> | null {
+): Extract<ProviderRateLimits['provider'], 'grok'> | null {
   if (p.usageMetadata?.failureKind !== 'delegated-refresh-required') {
     return null
   }
@@ -72,9 +72,6 @@ export function getProviderUsageStatusLabel(
   const delegatedCliProvider = getDelegatedCliRefreshProvider(p)
   if (delegatedCliProvider === 'grok') {
     return t('auto.components.status.bar.tooltip.e2c6a4f917', 'Run Grok to refresh')
-  }
-  if (delegatedCliProvider === 'kimi') {
-    return t('auto.components.status.bar.tooltip.f90b3d7a16', 'Run Kimi to refresh')
   }
   if (p.provider === 'claude') {
     switch (p.usageMetadata?.failureKind) {
@@ -112,10 +109,6 @@ export function getProviderUsageStatusLabel(
   if (p.usageMetadata?.failureKind === 'network') {
     return t('auto.components.status.bar.tooltip.f8f0f9d8cc', 'Network issue')
   }
-  // MiniMax signals credential expiry in its payload, so generic refresh-failure copy is misleading.
-  if (p.provider === 'minimax' && p.usageMetadata?.failureKind === 'stale-token') {
-    return t('auto.components.status.bar.tooltip.minimax.expired.label', 'Sign-in expired')
-  }
   // Cursor-agent owns token rotation; signing into its CLI repairs expiry, not another Orca fetch.
   if (p.provider === 'cursor' && p.usageMetadata?.failureKind === 'stale-token') {
     return t('auto.components.status.bar.tooltip.cursor.expired.label', 'Sign-in expired')
@@ -150,12 +143,6 @@ export function getProviderUsageErrorMessage(
     return t(
       'auto.components.status.bar.tooltip.d1b7f509ac',
       'Run grok in a terminal on the computer running Orca and wait for it to start. If prompted, complete sign-in, then retry usage. You do not need to send a chat message.'
-    )
-  }
-  if (delegatedCliProvider === 'kimi') {
-    return t(
-      'auto.components.status.bar.tooltip.a37e8c15d4',
-      'Run kimi in a terminal on the computer running Orca and wait for it to start, then retry usage.'
     )
   }
   if (p.provider === 'cursor' && p.usageMetadata?.failureKind === 'stale-token') {
@@ -217,17 +204,6 @@ export function getProviderUsageErrorMessage(
   }
   if (isUsageRateLimitError(p)) {
     return formatRateLimitUserFacingError(p.error) || p.error
-  }
-  if (p.provider === 'minimax' && p.usageMetadata?.failureKind === 'stale-token') {
-    return p.usageMetadata.credentialSource === 'api-key'
-      ? t(
-          'auto.components.status.bar.tooltip.minimax.expired.apiKey',
-          'MiniMax API key expired. Replace it in Settings.'
-        )
-      : t(
-          'auto.components.status.bar.tooltip.minimax.expired.cookie',
-          'MiniMax session cookie expired. Replace it in Settings.'
-        )
   }
   // The entitlement verdict names the account state; generic auth copy would bury it.
   if (p.usageMetadata?.failureKind === 'no-subscription') {

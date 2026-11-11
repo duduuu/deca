@@ -24,8 +24,5 @@ export function agentTypeToIconAgent(
   if (!agentType || agentType === 'unknown') {
     return null
   }
-  if (agentType === 'dsb') {
-    return 'dsb'
-  }
   return isTuiAgent(agentType) && Object.hasOwn(ICONABLE_AGENT_TYPES, agentType) ? agentType : null
 }

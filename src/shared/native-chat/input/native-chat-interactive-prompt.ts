@@ -75,15 +75,6 @@ export function parseApprovalFromStatus(
   agent?: string,
   say: NativeChatApprovalSay = sayNativeChatApprovalEnglish
 ): ChatApproval | null {
-  const planReview = parseOmpPlanReviewPrompt(interactivePrompt)
-  if (planReview) {
-    return {
-      title: say('planReviewTitle'),
-      description: say('planRefineHint'),
-      subject: { kind: 'plan', text: planReview.plan },
-      options: planReview.options
-    }
-  }
   const folderTrust = parseNativeChatFolderTrustEnvelope(interactivePrompt)
   if (folderTrust) {
     return {

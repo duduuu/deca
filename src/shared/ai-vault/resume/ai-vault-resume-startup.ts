@@ -97,11 +97,6 @@ export function getAiVaultAgentProviderSession(
   if (session.agent === 'antigravity' || session.agent === 'cursor') {
     return { key: 'conversation_id', id: session.sessionId }
   }
-  if (session.agent === 'pi') {
-    return session.filePath
-      ? { key: 'session_id', id: session.sessionId, transcriptPath: session.filePath }
-      : null
-  }
   return { key: 'session_id', id: session.sessionId }
 }
 
@@ -154,32 +149,18 @@ export function buildAiVaultLocalResumeStartup(
         ...resolveTuiAgentLaunchEnv(session.agent, settings, platform),
         ...managedDataAccountResumeEnv(session)
       },
-      resumeInLaunchCwd: true,
-      ...(session.agent === 'omp' && resumeFilePath ? { ompResumeFilePath: resumeFilePath } : {})
+      resumeInLaunchCwd: true
     })
     if (startupPlan) {
       return {
-        command:
-          session.agent === 'omp'
-            ? buildAiVaultResumeCommand({
-                agent: session.agent,
-                sessionId: session.sessionId,
-                resumeFilePath,
-                cwd,
-                platform,
-                commandOverride: startupPlan.launchConfig.agentCommand,
-                codexHome,
-                shell: liveShell,
-                clearEnvNames
-              })
-            : buildAiVaultResumeShellCommand({
-                resumeCommand: startupPlan.launchCommand,
-                cwd,
-                platform,
-                codexHome,
-                shell: liveShell,
-                clearEnvNames
-              }),
+        command: buildAiVaultResumeShellCommand({
+          resumeCommand: startupPlan.launchCommand,
+          cwd,
+          platform,
+          codexHome,
+          shell: liveShell,
+          clearEnvNames
+        }),
         ...(startupPlan.env ? { env: startupPlan.env } : {}),
         ...realHomeCodexResumeEnvDeletion(session),
         ...startupCwd,

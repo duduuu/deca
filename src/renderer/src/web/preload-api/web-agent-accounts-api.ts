@@ -7,48 +7,6 @@ import type {
 import { callRuntimeResult } from './web-runtime-calls'
 import { fetchAccountsSnapshot } from './web-rate-limits-api'
 
-export function createMiniMaxCredentialsApi(): NonNullable<
-  Partial<PreloadApi>['minimaxCredentials']
-> {
-  // Nulls, not 'sealed': MiniMax credentials live on the desktop host, so this bridge
-  // stores nothing and has no protection to claim either way.
-  const notConfigured = {
-    configured: false,
-    cookieConfigured: false,
-    apiKeyConfigured: false,
-    cookieProtection: null,
-    apiKeyProtection: null
-  }
-  const unsupportedError = new Error('MiniMax cookie storage is only available in the desktop app.')
-  return {
-    getStatus: () => Promise.resolve(notConfigured),
-    saveCookie: () => Promise.reject(unsupportedError),
-    clearCookie: () => Promise.resolve(notConfigured),
-    saveApiKey: () => Promise.reject(unsupportedError),
-    clearApiKey: () => Promise.resolve(notConfigured)
-  }
-}
-
-export function createZcodePlanCredentialsApi(): PreloadApi['zcodePlanCredentials'] {
-  const status = {
-    detailsUnavailable: true,
-    apiKeyConfigured: false,
-    zcodeCliConfigured: false,
-    apiKeyProtection: null
-  }
-  const unsupported = () =>
-    Promise.reject(
-      new Error(
-        'GLM Coding Plan keys can only be changed in the desktop app on the computer running Orca.'
-      )
-    )
-  return {
-    getStatus: () => Promise.resolve(status),
-    saveApiKey: unsupported,
-    clearApiKey: unsupported
-  }
-}
-
 export function createCursorAccountsApi(): NonNullable<Partial<PreloadApi>['cursorAccounts']> {
   // Cursor auth is host-owned and unreadable here; claiming signed-out would contradict the host-provided usage meter.
   return {

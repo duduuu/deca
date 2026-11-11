@@ -19,18 +19,6 @@ export function planAdditionalAgentArgs(
   return { ok: true, args: tokenized.tokens }
 }
 
-export const KIMI_VALUE_OPTIONS = [
-  '--prompt',
-  '-p',
-  '--model',
-  '-m',
-  '--output-format',
-  '--skills-dir',
-  '--agent',
-  '--agent-file',
-  '--add-dir'
-]
-
 export function findRecipeOption(
   tokens: readonly string[],
   aliases: readonly string[],

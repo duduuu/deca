@@ -11,9 +11,6 @@ import type { HookListenerState } from '../shared/agent-hook-listener/listener-s
 import type { AgentHookSource } from '../shared/agent-hook-listener/transport/agent-hook-relay'
 import { pickHostTurnEnd } from '../shared/agent-status/contracts/agent-status-types'
 import {
-  museHookPollPane,
-  museLogOffset,
-  nextMusePollDelay,
   shouldPollHookTranscript,
   hookTranscriptWatchPath,
   transcriptPollUpdate
@@ -135,35 +132,12 @@ export class AgentHookResultRetryScheduler {
       this.transcriptPollScheduler.clear(original.paneKey)
       return
     }
-    // Codex keeps the scheduler's cadence; a Muse poll without a delay is a fresh hook's 1s poll.
-    const museDelayMs = source === 'muse' ? (delayMs ?? nextMusePollDelay()) : undefined
     this.transcriptPollScheduler.schedule(
       original.paneKey,
-      {
-        source,
-        body,
-        original,
-        env,
-        version,
-        delayMs: museDelayMs
-      },
+      { source, body, original, env, version, delayMs },
       hookTranscriptWatchPath(this.host.state, source, original.paneKey),
-      museDelayMs
+      delayMs
     )
-  }
-
-  rearmIgnoredMuseHook(body: unknown): void {
-    const paneKey = museHookPollPane(this.host.state, body, this.host.env)
-    if (!paneKey) {
-      return
-    }
-    const poll = this.transcriptPollScheduler.peek(paneKey)
-    if (
-      poll?.source === 'muse' &&
-      this.host.state.lastStatusByPaneKey.get(paneKey) === poll.original
-    ) {
-      this.scheduleTranscriptPoll('muse', poll.body, poll.original, poll.env, poll.version)
-    }
   }
 
   private runTranscriptPoll(paneKey: string, poll: TranscriptPoll): void {
@@ -177,7 +151,6 @@ export class AgentHookResultRetryScheduler {
     ) {
       return
     }
-    const logOffset = source === 'muse' ? museLogOffset(this.host.state, paneKey) : undefined
     const event =
       source === 'codex'
         ? pollCodexTranscriptStatus(this.host.state, original, body, this.host.env)
@@ -189,9 +162,7 @@ export class AgentHookResultRetryScheduler {
     // Why: the next tick's identity check compares against the stored row, not the update it was copied from.
     const next = update ? this.host.applyEvent(update, source, env, version) : original
     if (next) {
-      const quiet = !update && museLogOffset(this.host.state, paneKey) === logOffset
-      const delayMs = source === 'muse' ? nextMusePollDelay(poll.delayMs, quiet) : undefined
-      this.scheduleTranscriptPoll(source, body, next, env, version, delayMs)
+      this.scheduleTranscriptPoll(source, body, next, env, version)
     }
   }
 

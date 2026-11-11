@@ -5,7 +5,6 @@ import type {
   AutomationRun,
   AutomationRunStatus
 } from '../../../../../shared/automations/history/automation-run'
-import type { ExternalAutomationJob } from '../../../../../shared/automations/external/external-automation'
 import {
   formatAutomationDateTime,
   formatAutomationRelativeTime,
@@ -25,16 +24,6 @@ export type AutomationLastRunSnapshot = {
   tone: AutomationLastRunTone
   statusLabel: string
 }
-
-const EXTERNAL_FAILED_STATUSES = new Set(['failed', 'fail', 'error', 'dispatch_failed'])
-const EXTERNAL_SUCCEEDED_STATUSES = new Set([
-  'ok',
-  'completed',
-  'success',
-  'succeeded',
-  'done',
-  'healthy'
-])
 
 export function indexLatestAutomationRuns(
   runs: readonly AutomationRun[]
@@ -108,44 +97,6 @@ export function getLocalAutomationLastRunSnapshot(
     }
   }
   return { at: null, tone: 'never', statusLabel: '' }
-}
-
-function parseExternalLastRunAt(value: string | null): number | null {
-  if (!value) {
-    return null
-  }
-  const parsed = Date.parse(value)
-  return Number.isFinite(parsed) ? parsed : null
-}
-
-export function getExternalAutomationLastRunSnapshot(
-  job: ExternalAutomationJob,
-  t: Translate = translate
-): AutomationLastRunSnapshot {
-  const at = parseExternalLastRunAt(job.lastRunAt)
-  const raw = job.lastStatus?.trim() ?? ''
-  const normalized = raw.toLowerCase()
-  if (!at && !raw && !job.lastError) {
-    return { at: null, tone: 'never', statusLabel: '' }
-  }
-  if (EXTERNAL_SUCCEEDED_STATUSES.has(normalized)) {
-    return {
-      at,
-      tone: 'succeeded',
-      statusLabel: t('auto.components.automations.automation.list.last.run.done', 'Done')
-    }
-  }
-  if (EXTERNAL_FAILED_STATUSES.has(normalized) || Boolean(job.lastError)) {
-    return {
-      at,
-      tone: 'failed',
-      statusLabel: t('auto.components.automations.automation.list.last.run.failed', 'Failed')
-    }
-  }
-  if (raw) {
-    return { at, tone: 'unknown', statusLabel: raw }
-  }
-  return { at, tone: 'unknown', statusLabel: '' }
 }
 
 export function formatAutomationLastRunCell(

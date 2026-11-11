@@ -129,20 +129,12 @@ export type PersistedUIState = {
   _workspaceStatusesDefaultVisualsMigrated?: boolean
   /** One-shot migration flag for adding the default-on Ports status item. */
   _portsStatusBarDefaultAdded?: boolean
-  /** One-shot migration flag for adding the default-on Kimi status item. */
-  _kimiStatusBarDefaultAdded?: boolean
-  /** One-shot migration flag for adding the default-on MiniMax status item. */
-  _minimaxStatusBarDefaultAdded?: boolean
   /** One-shot migration flag for adding the default-on Antigravity status item. */
   _antigravityStatusBarDefaultAdded?: boolean
   /** One-shot migration flag for adding the default-on Grok status item. */
   _grokStatusBarDefaultAdded?: boolean
   /** One-shot migration flag for adding the default-on Cursor status item. */
   _cursorStatusBarDefaultAdded?: boolean
-  /** One-shot migration flag for adding the default-on ZCode status item. */
-  _zcodeStatusBarDefaultAdded?: boolean
-  /** One-shot migration flag for adding the default-on Muse status item. */
-  _museStatusBarDefaultAdded?: boolean
   statusBarItems: StatusBarItem[]
   statusBarVisible: boolean
   /** Why: this is client-side presentation, not a provider/account or execution-host setting. */

@@ -31,15 +31,3 @@ export function isLiveResumeAnchorForCompletedAgent(
     getAgentResumeArgv(agent, record.providerSession)
   )
 }
-
-// Manual-sleep/quit retention preserves shipped Pi-only semantics; only automatic hibernation broadened.
-export function isCompletedPiCompatibleAgentWithLiveRecoveryRecord(
-  entry: AnchorStatus | undefined,
-  record: SleepingAgentSessionRecord | undefined,
-  worktreeId?: string
-): record is SleepingAgentSessionRecord {
-  return (
-    isPiCompatibleAgentType(entry?.agentType) &&
-    isLiveResumeAnchorForCompletedAgent(entry, record, worktreeId)
-  )
-}

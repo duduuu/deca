@@ -21,21 +21,6 @@ export function OpenAIIcon({
   )
 }
 
-export function MiniMaxIcon({ size = 14 }: { size?: number }): React.JSX.Element {
-  // Keep the official MiniMax asset’s gradient intact across themes.
-  return (
-    <img
-      src={minimaxIconUrl}
-      alt=""
-      aria-hidden="true"
-      width={size}
-      height={size}
-      className="block shrink-0"
-      style={{ width: size, height: size }}
-    />
-  )
-}
-
 // SVG filter/mask IDs must be unique per instance because document-wide lookup otherwise resolves to the first icon.
 let _geminiIconCount = 0
 

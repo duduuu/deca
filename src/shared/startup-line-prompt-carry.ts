@@ -3,7 +3,6 @@
  * startup-line-typed-length.live-shell.test.ts measures real shells through the ready barrier, including config beyond its 1.5s cap;
  * only zsh preserved multiline input in both timings, with short individual lines. Long zsh lines still failed. */
 
-import { TUI_AGENT_CONFIG } from './agent-launch/catalog/tui-agent-config'
 import {
   buildAgentStartupPlan,
   type AgentStartupPlan
@@ -37,10 +36,6 @@ export function startupLineCarriesPrompt(args: {
   }
   // Without foreground proof, paste could reach an exited agent’s shell; retain the prompt on the line at any size.
   if (!args.hostProvesAgentInFront) {
-    return true
-  }
-  // Hermes reads prompt env, so line length stays fixed; its env budget already rejected oversized input above.
-  if (TUI_AGENT_CONFIG[args.agent].promptInjectionMode === 'hermes-query') {
     return true
   }
   const line = withPrompt.launchCommand

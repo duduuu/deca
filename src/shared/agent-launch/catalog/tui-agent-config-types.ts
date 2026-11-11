@@ -3,7 +3,6 @@ export type AgentPromptInjectionMode =
   | 'flag-prompt'
   | 'flag-prompt-interactive'
   | 'flag-interactive'
-  | 'hermes-query'
   | 'stdin-after-start'
 
 /** Signals a single marker settles; draft paste and the serializer read only these. */
@@ -12,9 +11,7 @@ export type DraftPasteMarkerSignal =
   | 'codex-composer-prompt'
   | 'render-cursor-after-bracketed-paste'
   | 'grok-composer-prompt'
-  | 'dsh-composer-prompt'
   | 'claude-composer-prompt'
-  | 'zcode-composer-prompt'
   | 'antigravity-composer-prompt'
   | 'copilot-composer-prompt'
 

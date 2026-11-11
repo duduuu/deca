@@ -235,14 +235,7 @@ export function normalizeHookPayload(
     extractedPrompt,
     previousOpenCodeMainAgent: options.previousOpenCodeMainAgent
   })
-  const providerSessionOnly =
-    source === 'pi' && eventName === 'session_start' && providerSession !== null
-  // A transcript session_start carries resume identity while idle; receivers discard the placeholder row.
-  const transportPayload =
-    dispatched.payload ??
-    (providerSessionOnly
-      ? normalizeAgentStatusPayload({ state: 'done', prompt: '', agentType: source })
-      : null)
+  const transportPayload = dispatched.payload
   const restoredUnconfirmed =
     source === 'claude' && state.claudeUnconfirmedRestoredStatusPaneKeys.delete(paneKey)
   if (!transportPayload) {
@@ -264,18 +257,13 @@ export function normalizeHookPayload(
     // Normalization is transport-agnostic; only ingestRemote knows the mux identity to stamp.
     connectionId: null,
     ...(restoredUnconfirmed ? { restoredUnconfirmed: true } : {}),
-    hasExplicitPrompt:
-      source === 'amp'
-        ? hasExplicitAmpPrompt(eventName, promptText, hookPayloadRecord)
-          ? true
-          : undefined
-        : hasExplicitUserPrompt(
-            source,
-            dispatched.eventName,
-            extractedPrompt,
-            dispatched.resolvedPromptText,
-            dispatched.hasTranscriptPromptEvidence
-          ),
+    hasExplicitPrompt: hasExplicitUserPrompt(
+      source,
+      dispatched.eventName,
+      extractedPrompt,
+      dispatched.resolvedPromptText,
+      dispatched.hasTranscriptPromptEvidence
+    ),
     promptInteractionKey: dispatched.promptInteractionKey,
     hookEventName: typeof dispatched.eventName === 'string' ? dispatched.eventName : undefined,
     providerPromptId:
@@ -297,7 +285,6 @@ export function normalizeHookPayload(
     ...(claudeBatchSettledRequests ? { claudeSettledRequests: claudeBatchSettledRequests } : {}),
     ...(providerSession ? { providerSession } : {}),
     ...(statusAdmissionSession ? { statusAdmissionSession } : {}),
-    ...(providerSessionOnly ? { providerSessionOnly: true } : {}),
     ...dispatched.hostTurnSignals,
     ...(dispatched.replyCandidate ? { replyCandidate: dispatched.replyCandidate } : {}),
     payload: transportPayload

@@ -34,13 +34,5 @@ export function getAgentModelProbeSpec(agentId: TuiAgent): AgentModelProbeSpec |
   if (!spec) {
     return undefined
   }
-  // OMP's `default` means the provider configured in its own settings, not a selectable model.
-  if (agentId !== 'omp') {
-    return spec
-  }
-  return {
-    ...spec,
-    models: spec.models.filter((model) => model.id !== 'default'),
-    defaultModelId: spec.defaultModelId === 'default' ? '' : spec.defaultModelId
-  }
+  return spec
 }

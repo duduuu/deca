@@ -11,11 +11,6 @@ export type UsageProviderSettings = Pick<
 > & {
   // Antigravity setup is a checked item plus PATH detection; agy usage needs no Gemini OAuth.
   antigravityUsageConfigured: boolean
-  // Why: MiniMax/Grok sign-in live on disk, not in settings; main sets these each poll.
-  minimaxCookieConfigured: boolean
-  minimaxApiKeyConfigured: boolean
-  // Main reports safeStorage plan-key presence so ZCode survives reload before the first poll.
-  zcodePlanApiKeyConfigured: boolean
   // Main reports OpenCode key presence because the renderer cannot inspect its environment or CLI store.
   opencodeGoApiKeyConfigured: boolean
   grokAuthConfigured: boolean
@@ -27,13 +22,9 @@ type UsageProviderSnapshots = {
   codex: ProviderRateLimits | null | undefined
   gemini: ProviderRateLimits | null | undefined
   opencodeGo: ProviderRateLimits | null | undefined
-  kimi: ProviderRateLimits | null | undefined
   antigravity: ProviderRateLimits | null | undefined
-  minimax: ProviderRateLimits | null | undefined
   grok: ProviderRateLimits | null | undefined
   cursor: ProviderRateLimits | null | undefined
-  zcode?: ProviderRateLimits | null
-  muse?: ProviderRateLimits | null
 }
 
 type UsageProviderId = ProviderRateLimits['provider']
@@ -66,11 +57,8 @@ export function hasUsageProviderSettings(
     Boolean(settings?.opencodeSessionCookie?.trim()) ||
     settings?.opencodeGoApiKeyConfigured === true ||
     settings?.antigravityUsageConfigured === true ||
-    settings?.minimaxCookieConfigured === true ||
-    settings?.minimaxApiKeyConfigured === true ||
     settings?.grokAuthConfigured === true ||
-    settings?.cursorAuthConfigured === true ||
-    settings?.zcodePlanApiKeyConfigured === true
+    settings?.cursorAuthConfigured === true
   )
 }
 
@@ -100,17 +88,11 @@ export function hasUsageProviderSettingsForProvider(
     // The agy probe needs only the PATH-gated checked item, independent of Gemini OAuth.
     return settings.antigravityUsageConfigured === true
   }
-  if (providerId === 'minimax') {
-    return settings.minimaxCookieConfigured === true || settings.minimaxApiKeyConfigured === true
-  }
   if (providerId === 'grok') {
     return settings.grokAuthConfigured === true
   }
   if (providerId === 'cursor') {
     return settings.cursorAuthConfigured === true
-  }
-  if (providerId === 'zcode') {
-    return settings.zcodePlanApiKeyConfigured === true
   }
   return false
 }
@@ -162,13 +144,9 @@ export function isUsageEmptyState(
     isProviderSnapshotPending(providers.codex) ||
     isProviderSnapshotPending(providers.gemini) ||
     isProviderSnapshotPending(providers.opencodeGo) ||
-    isProviderSnapshotPending(providers.kimi) ||
     antigravitySnapshotPending ||
-    isProviderSnapshotPending(providers.minimax) ||
     isProviderSnapshotPending(providers.grok) ||
-    isProviderSnapshotPending(providers.cursor) ||
-    (providers.zcode !== undefined && isProviderSnapshotPending(providers.zcode)) ||
-    (providers.muse !== undefined && isProviderSnapshotPending(providers.muse))
+    isProviderSnapshotPending(providers.cursor)
   ) {
     return false
   }
@@ -178,12 +156,8 @@ export function isUsageEmptyState(
     !isProviderConfigured(providers.codex) &&
     !isProviderConfigured(providers.gemini) &&
     !isProviderConfigured(providers.opencodeGo) &&
-    !isProviderConfigured(providers.kimi) &&
     !isProviderConfigured(providers.antigravity) &&
-    !isProviderConfigured(providers.minimax) &&
     !isProviderConfigured(providers.grok) &&
-    !isProviderConfigured(providers.cursor) &&
-    !isProviderConfigured(providers.zcode) &&
-    !isProviderConfigured(providers.muse)
+    !isProviderConfigured(providers.cursor)
   )
 }

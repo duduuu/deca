@@ -6,7 +6,7 @@ export type SecretAtRestProtection =
   | 'plaintext'
 
 /** Legacy stores mix bare tokens and raw safeStorage ciphertext without an envelope; share the reader’s heuristic
- * to keep reporting consistent. Prefer explicit kinds in stores that have them (e.g. MiniMax). */
+ * to keep reporting consistent. Prefer explicit kinds in stores that have them. */
 export function classifyUnenvelopedCredential(raw: Buffer): SecretAtRestProtection {
   const text = raw.toString('utf8')
   // Ciphertext is not printable UTF-8; Buffer.toString replaces malformed sequences with U+FFFD.

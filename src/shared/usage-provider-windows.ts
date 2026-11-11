@@ -13,7 +13,7 @@ type ProviderUsageWindows = {
 export type UsageWindowSection =
   | { kind: 'bucket'; name: string; window: RateLimitWindow }
   | {
-      kind: 'session' | 'weekly' | 'fableWeekly' | 'monthly' | 'plan' | 'mcp'
+      kind: 'session' | 'weekly' | 'fableWeekly' | 'monthly' | 'plan'
       window: RateLimitWindow | null
     }
 
@@ -74,7 +74,7 @@ export function getUsageWindowSections(p: ProviderUsageWindows): UsageWindowSect
     sections.push({ kind: 'fableWeekly', window: p.fableWeekly })
   }
   if (p.monthly) {
-    sections.push({ kind: p.provider === 'zcode' ? 'mcp' : 'monthly', window: p.monthly })
+    sections.push({ kind: 'monthly', window: p.monthly })
   }
   return sections
 }

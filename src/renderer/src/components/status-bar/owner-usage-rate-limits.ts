@@ -86,12 +86,9 @@ function adoptRemoteRateLimits(remote: RateLimitState): RateLimitState {
   return {
     ...remote,
     ...mapProviders((key) => partial[key] ?? null),
-    minimaxCookieConfigured: partial.minimaxCookieConfigured === true,
-    minimaxApiKeyConfigured: partial.minimaxApiKeyConfigured === true,
     opencodeGoApiKeyConfigured: partial.opencodeGoApiKeyConfigured === true,
     grokAuthConfigured: partial.grokAuthConfigured === true,
     cursorAuthConfigured: partial.cursorAuthConfigured === true,
-    zcodePlanApiKeyConfigured: partial.zcodePlanApiKeyConfigured === true,
     claudeTarget: partial.claudeTarget ?? { runtime: 'host', wslDistro: null },
     codexTarget: partial.codexTarget ?? { runtime: 'host', wslDistro: null },
     inactiveClaudeAccounts: partial.inactiveClaudeAccounts ?? [],
@@ -110,13 +107,6 @@ function isSetUpHere(local: RateLimitState, key: UsageProviderKey): boolean {
     (provider != null && (isProviderConfigured(provider) || hasUsageData(provider))) ||
     hasUsageProviderSettingsForProvider(USAGE_PROVIDER_IDS[key], local)
   )
-}
-
-// Why: these credentials live in this device's safe storage, so the host cannot reuse them.
-function isSignInSavedHereOnly(local: RateLimitState, key: UsageProviderKey): boolean {
-  return key === 'minimax'
-    ? local.minimaxApiKeyConfigured || local.minimaxCookieConfigured
-    : key === 'zcode' && local.zcodePlanApiKeyConfigured === true
 }
 
 // Only explicit setup failures qualify; unavailable can also mean an old CLI or an account switch without a reading.
@@ -165,7 +155,7 @@ function describePlaceholder(
     ? {
         kind: 'not-configured',
         ownerLabel,
-        signInSavedHereOnly: isSignInSavedHereOnly(local, key)
+        signInSavedHereOnly: false
       }
     : null
 }

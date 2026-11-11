@@ -84,34 +84,13 @@ export function hasExplicitUserPrompt(
   eventName: unknown,
   extractedPrompt: ExtractedPromptText,
   resolvedPromptText: string,
-  hasTranscriptPromptEvidence = false
+  _hasTranscriptPromptEvidence = false
 ): boolean {
-  if (
-    source === 'command-code' &&
-    (eventName === 'PreToolUse' || eventName === 'Stop') &&
-    (extractedPrompt.source !== 'message' || hasTranscriptPromptEvidence) &&
-    resolvedPromptText.trim().length > 0
-  ) {
-    // Command Code transcript evidence makes prompt submissions explicit despite absent hook fields.
-    return true
-  }
   if (
     source === 'antigravity' &&
     isNewTurnEvent(source, eventName) &&
     resolvedPromptText.trim().length > 0
   ) {
-    return true
-  }
-  if (
-    source === 'jcode' &&
-    (eventName === 'turn_start' ||
-      eventName === 'pre_tool' ||
-      eventName === 'post_tool' ||
-      eventName === 'turn_end') &&
-    hasTranscriptPromptEvidence &&
-    resolvedPromptText.trim().length > 0
-  ) {
-    // jcode prompts are explicit only with journal evidence.
     return true
   }
   if (extractedPrompt.source === 'role_user_text') {

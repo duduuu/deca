@@ -1,10 +1,8 @@
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
 import { hostStableKey } from '../../../../../shared/automations/ownership/automation-owner-key'
 import type { AutomationListRow } from './automation-list-row-identity'
-import type { ExternalAutomationListEntry } from '../external/external-automation-list-entries'
 import {
   getAutomationRowLastRunSnapshot,
-  getExternalAutomationLastRunSnapshot,
   type AutomationLastRunSnapshot
 } from './automation-list-last-run'
 import type { Translate } from '../../../i18n/use-translate'
@@ -19,28 +17,17 @@ export type AutomationListSort = {
   direction: AutomationListSortDirection
 }
 
-/** Flatten local/external rows for one sort; preserve authority-qualified row keys because bare IDs collide and determine the tie-break order. */
-export type AutomationListViewItem =
-  | {
-      kind: 'local'
-      id: string
-      name: string
-      enabled: boolean
-      lastRunAt: number | null
-      lastRun: AutomationLastRunSnapshot
-      agentId: TuiAgent
-      row: AutomationListRow
-    }
-  | {
-      kind: 'external'
-      id: string
-      name: string
-      enabled: boolean
-      lastRunAt: number | null
-      lastRun: AutomationLastRunSnapshot
-      agentId: null
-      entry: ExternalAutomationListEntry
-    }
+/** One sortable row; authority-qualified row keys matter because bare IDs collide and determine the tie-break order. */
+export type AutomationListViewItem = {
+  kind: 'local'
+  id: string
+  name: string
+  enabled: boolean
+  lastRunAt: number | null
+  lastRun: AutomationLastRunSnapshot
+  agentId: TuiAgent
+  row: AutomationListRow
+}
 
 export type AutomationListFilter = {
   status: AutomationListStatusFilter
@@ -115,18 +102,12 @@ function matchesLastRunFilter(
   return snapshot.tone === filter
 }
 
-/** Flattens the two rendered collections into one sortable list, preserving row identity. */
+/** Maps catalog rows into sortable list items, preserving row identity. */
 export function buildAutomationListViewItems(
-  {
-    rows,
-    externalEntries
-  }: {
-    rows: readonly AutomationListRow[]
-    externalEntries: readonly ExternalAutomationListEntry[]
-  },
+  { rows }: { rows: readonly AutomationListRow[] },
   t?: Translate
 ): AutomationListViewItem[] {
-  const locals: AutomationListViewItem[] = rows.map((row) => {
+  return rows.map((row) => {
     // Why: the same snapshot the row cell renders, so the sort matches the column.
     const lastRun = getAutomationRowLastRunSnapshot(row, t)
     return {
@@ -140,40 +121,11 @@ export function buildAutomationListViewItems(
       row
     }
   })
-  const externals: AutomationListViewItem[] = externalEntries.map((entry) => {
-    const lastRun = getExternalAutomationLastRunSnapshot(entry.job, t)
-    return {
-      kind: 'external',
-      id: entry.key,
-      name: entry.job.name,
-      enabled: entry.job.enabled,
-      lastRunAt: lastRun.at,
-      lastRun,
-      agentId: null,
-      entry
-    }
-  })
-  return [...locals, ...externals]
 }
 
 /** A pre-catalog row names no host, so a host filter (which implies a hydrated catalog) excludes it. */
 function matchesHostFilter(hostKey: string | null, keys: readonly string[]): boolean {
   return keys.length === 0 || (hostKey !== null && keys.includes(hostKey))
-}
-
-/** External jobs live on their listing scope's host, mirrored into the same stable-key space. */
-function externalEntryHostStableKey(entry: ExternalAutomationListEntry): string {
-  const owner = entry.scope.owner
-  return hostStableKey({
-    authority:
-      owner.authority.kind === 'runtime'
-        ? { kind: 'runtime', environmentId: owner.authority.environmentId }
-        : { kind: 'desktop' },
-    selector:
-      owner.selector.kind === 'ssh'
-        ? { kind: 'ssh', targetId: owner.selector.targetId }
-        : { kind: 'self' }
-  })
 }
 
 /** The attribute filter over catalog rows; identity-stable when the filter is inactive. */
@@ -192,27 +144,6 @@ export function filterAutomationListRows(
       matchesStatusFilter(row.automation.enabled, filter.status) &&
       matchesLastRunFilter(getAutomationRowLastRunSnapshot(row, t), filter.lastRun) &&
       (filter.agentIds.length === 0 || filter.agentIds.includes(row.automation.agentId))
-  )
-}
-
-/** External jobs have no Orca agent, so any agent filter excludes them — matching the old view. */
-export function filterExternalAutomationListEntries(
-  entries: readonly ExternalAutomationListEntry[],
-  filter: AutomationListFilter,
-  t?: Translate
-): readonly ExternalAutomationListEntry[] {
-  if (!isAutomationListFilterActive(filter)) {
-    return entries
-  }
-  if (filter.agentIds.length > 0) {
-    return []
-  }
-  const hostKeys = selectedHostKeys(filter)
-  return entries.filter(
-    (entry) =>
-      matchesHostFilter(externalEntryHostStableKey(entry), hostKeys) &&
-      matchesStatusFilter(entry.job.enabled, filter.status) &&
-      matchesLastRunFilter(getExternalAutomationLastRunSnapshot(entry.job, t), filter.lastRun)
   )
 }
 
@@ -243,22 +174,17 @@ export function sortAutomationListViewItems(
 /** The rendered list: filter each collection with its own rules, then sort as one. */
 export function applyAutomationListView({
   rows,
-  externalEntries,
   filter,
   sort,
   locale
 }: {
   rows: readonly AutomationListRow[]
-  externalEntries: readonly ExternalAutomationListEntry[]
   filter: AutomationListFilter
   sort: AutomationListSort | null
   locale: string
 }): AutomationListViewItem[] {
   return sortAutomationListViewItems(
-    buildAutomationListViewItems({
-      rows: filterAutomationListRows(rows, filter),
-      externalEntries: filterExternalAutomationListEntries(externalEntries, filter)
-    }),
+    buildAutomationListViewItems({ rows: filterAutomationListRows(rows, filter) }),
     sort,
     locale
   )

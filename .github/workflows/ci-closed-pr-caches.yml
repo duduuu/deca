@@ -38,12 +38,8 @@ jobs:
               ['macos-updater', 'macos-updater-tests.yml'],
               ['preflight-comparison', 'preflight-benchmark.yml'],
               ['windows-typecheck-parity', 'windows-typecheck-parity.yml'],
-              ['zcode-transcript-contract', 'zcode-transcript-contract.yml'],
               ['win-orcad-serve-switch-e2e', 'win-orcad-serve-switch-e2e.yml'],
-              ['pi-provider-runtime', 'pi-provider-runtime.yml'],
-              ['coding-plan-contract', 'zcode-credential-contract.yml', '-credentials'],
               ['ci-cache-warmup-platforms', 'ci-cache-warmup-platforms.yml'],
-              ['pi-owner-runtime', 'pi-owner-runtime.yml'],
               ['git-command-termination', 'git-command-termination-runtime.yml'],
               ['ci-cache-warmup', 'ci-cache-warmup.yml']
             ]

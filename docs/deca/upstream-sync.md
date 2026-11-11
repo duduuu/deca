@@ -1,0 +1,97 @@
+# Upstream(Orca) 업데이트 반영 절차
+
+Deca는 [Orca](https://github.com/stablyai/orca)의 git 기록을 유지한 포크다. upstream 변경은 **merge**로 받는다. squash나 rebase를 쓰면 공통 조상이 사라져 다음 동기화부터 저장소 전체가 충돌하므로 쓰지 않는다.
+
+이 문서는 사람과 에이전트가 그대로 따라 할 수 있도록 쓴 절차다. 무엇을 제거·변경했는지는 [removed-features.md](removed-features.md)를 기준으로 판단한다.
+
+## 0. 원격 설정 (최초 1회)
+
+```sh
+git remote add upstream https://github.com/stablyai/orca.git
+git remote -v   # origin = Deca 저장소, upstream = stablyai/orca
+```
+
+upstream으로는 절대 push하지 않는다. 필요하면 `git remote set-url --push upstream DISABLED`로 막아 둔다.
+
+## 1. 동기화 브랜치에서 병합
+
+```sh
+git fetch upstream
+git switch main && git pull
+git switch -c sync/upstream-YYYYMMDD
+git merge upstream/main
+```
+
+한 번에 너무 많은 upstream 커밋이 쌓이지 않게 주기적으로(예: 2~4주) 동기화한다.
+
+## 2. 충돌 해결 규칙
+
+| 충돌 유형                                                                                                                                 | 해결                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Deca가 삭제한 파일을 upstream이 수정(modify/delete)                                                                                       | **삭제 유지**(`git rm`). 단, 그 수정이 유지 기능에 필요한 공용 코드로 옮겨졌는지 확인      |
+| 삭제한 언어 파일(`src/renderer/src/i18n/locales/` 의 en·ko 외)                                                                            | 삭제 유지                                                                                  |
+| 식별자 문자열(`deca`, `Deca`, `com.deca.desktop`, `~/.deca`, `deca://`)                                                                   | Deca 쪽 유지                                                                               |
+| 생성 파일(`src/cli/bundled-skill-guides.ts`, `src/main/skills/bundled-skill-install/bundled-skill-sources.ts`, `resources/skills/*.json`) | 손으로 고치지 않는다. 원본(`skill-guides/`, `skill-stubs/`)을 해결한 뒤 생성기를 다시 실행 |
+| `en.json`, `ko.json`                                                                                                                      | upstream의 새 키는 받고, 값의 제품명은 Deca로. ko 번역이 없으면 영어 fallback 허용         |
+| 제거한 기능의 진입점(설정 섹션, 메뉴, IPC/RPC 등록, 시작 코드)                                                                            | 다시 등록되지 않게 Deca 쪽 유지                                                            |
+
+생성기 실행(Windows Git Bash에서는 절대 경로로 실행해야 동작한다):
+
+```sh
+node "$(pwd -W)/config/scripts/skills/bundle-generation/generate-bundled-skill-guides.mjs" --write
+node "$(pwd -W)/config/scripts/skills/bundle-generation/generate-skill-bundle-manifest.mjs" --write
+```
+
+## 3. 충돌 없이 들어온 변경 점검 (가장 중요)
+
+upstream이 **새 파일**로 추가한 기능은 충돌 없이 병합된다. 병합 후 아래 항목을 반드시 검색하고, 제거 정책에 어긋나는 것은 같은 동기화 브랜치에서 제거한다. 기준은 `git diff main...sync/upstream-YYYYMMDD`의 추가분이다.
+
+| 검사               | 찾을 것                                                                                                                                                                                                                                   | 조치                                                  |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| 벤더 통신          | `onorca.dev`, `posthog`, `stablyai/orca/releases`, `api.github.com/repos/stablyai`                                                                                                                                                        | 제거                                                  |
+| 텔레메트리         | 새 이벤트 전송 경로, 새 동의 화면                                                                                                                                                                                                         | 전송 제거(호출부는 stub 유지)                         |
+| 업데이트·공지      | `electron-updater` 사용 재개, changelog/nudge fetch, 업데이트 메뉴                                                                                                                                                                        | 제거                                                  |
+| 원격·모바일        | 새 SSH·페어링·모바일·relay 진입점, 데스크톱 WebSocket 활성화, `0.0.0.0` 바인드                                                                                                                                                            | 제거 또는 WSL 전용으로 제한                           |
+| 클라우드 계정·공유 | 로그인, artifact·skill 공유, connector                                                                                                                                                                                                    | 제거                                                  |
+| 에이전트           | 새 에이전트 카탈로그 항목(`src/shared/agent-launch/catalog/tui-agent-config.ts`)                                                                                                                                                          | 승인 목록에 없으면 제거                               |
+| 중국 계열          | `codebuddy`, `trae`, `mimo`, `xiaomi`, `qoder`, `qwen`, `dashscope`, `kimi`, `moonshot`, `deepseek`, `zcode`, `z.ai`, `bigmodel`, `zhipu`, `glm`, `minimax`, `tencent`, `bytedance`, `alibaba`, `aliyun`, `doubao`, `volcengine`, `baidu` | 코드 흔적까지 제거                                    |
+| CLI 이름           | 새 안내 문구·예시의 `` `orca <명령>` ``, `'orca <명령>'`, `orca-ide`                                                                                                                                                                      | `deca` / `deca-ide`로                                 |
+| 제품명             | 사용자에게 보이는 새 문자열의 `Orca`                                                                                                                                                                                                      | `Deca`로(내부 식별자·`ORCA_*`·`X-Orca-*` 헤더는 유지) |
+| 홈·데이터 경로     | `'.orca'`(홈 디렉터리 의미), `Application Support/orca`, `AppData/Roaming/orca`, `.local/share/orca`                                                                                                                                      | `deca`로(프로젝트 안 `.orca/` 폴더는 유지)            |
+| 새 언어 파일       | en·ko 외 locale JSON                                                                                                                                                                                                                      | 삭제                                                  |
+| CI                 | 새 릴리스·배포·예약 workflow                                                                                                                                                                                                              | 제거                                                  |
+
+승인된 에이전트: Claude Code(+ Agent Teams), Codex, GitHub Copilot, Gemini CLI, Cursor Agent, Devin, Grok, OpenCode(v1·v2), Antigravity, Kiro.
+
+예시 검색:
+
+```sh
+git diff main...HEAD --name-only --diff-filter=A
+git grep -niE "onorca\.dev|posthog|bigmodel|minimax|deepseek|qwen|kimi" -- src config ':!src/renderer/src/i18n/locales'
+```
+
+## 4. 검증
+
+```sh
+pnpm tc
+pnpm verify:localization-catalog
+pnpm verify:localization-extraction
+node "$(pwd -W)/config/scripts/skills/bundle-generation/generate-bundled-skill-guides.mjs" --check
+pnpm test <관련 파일> --maxWorkers=2
+pnpm check:changed
+```
+
+Windows 테스트 메모:
+
+- 이 저장소의 일부 테스트는 Windows에서 파일 잠금(EBUSY/EPERM)이나 플랫폼 차이로 실행마다 결과가 달라진다.
+- 실패를 분류할 때는 **같은 파일 묶음**을 병합 전 커밋(`main`)에서 같은 조건으로 다시 돌려 비교한다. 병합 후에만 실패하는 것만 고친다.
+- 실패 목록은 `--reporter=json --outputFile=<파일>`로 받는다(dot reporter는 목록을 남기지 않는다).
+- 명령줄 길이 제한이 있으므로 테스트 파일은 30개 정도씩 나눠 넘긴다.
+
+앱 동작 확인은 `ORCA_BACKGROUND_LAUNCH=1`로 백그라운드 실행 후 CDP 화면 캡처로 한다(AGENTS.md의 Electron UI Validation).
+
+## 5. 마무리
+
+1. `docs/deca/removed-features.md`에 변경된 내용이 있으면 갱신한다.
+2. 커밋 메시지에 반영한 upstream 범위를 남긴다(예: `merge: upstream stablyai/orca@<sha>`).
+3. `sync/upstream-YYYYMMDD`를 PR로 `main`에 병합한다(merge commit 유지).

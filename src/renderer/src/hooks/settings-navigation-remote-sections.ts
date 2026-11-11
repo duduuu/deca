@@ -8,7 +8,6 @@ import {
 import { getPrivacyPaneSearchEntries } from '@/components/settings/privacy/privacy-search'
 import { getRepositoryPaneSearchEntries } from '@/components/settings/repository/repository-search'
 import { buildSettingsProjectList } from '@/components/settings/navigation/settings-project-list'
-import { getSshPaneSearchEntries } from '@/components/settings/ssh/ssh-search'
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 import type { SettingsNavSection } from '@/components/settings/navigation/settings-navigation-types'
@@ -17,7 +16,6 @@ import type { Repo } from '../../../shared/repo-types'
 import {
   Blocks,
   Bug,
-  Cable,
   FlaskConical,
   Lock,
   Server,
@@ -42,27 +40,13 @@ export function buildRemoteSettingsSections(
 ): SettingsNavSection[] {
   const showDesktopOnlySettings = !isWebClient
   return [
-    ...(showDesktopOnlySettings
-      ? [
-          {
-            id: 'ssh',
-            title: t('auto.hooks.useSettingsNavigationMetadata.94a5afe910', 'SSH Hosts'),
-            description: t(
-              'auto.hooks.useSettingsNavigationMetadata.31e57d1c70',
-              'Use existing machines over SSH for files, terminals, Git, and workspaces.'
-            ),
-            icon: Cable,
-            searchEntries: getSshPaneSearchEntries(),
-            group: 'remote'
-          }
-        ]
-      : []),
     {
       id: 'servers',
-      title: t('auto.hooks.useSettingsNavigationMetadata.de0c2907a1', 'Remote Orca Servers'),
-      description: isWebClient
-        ? 'Connect this browser to a saved Orca server.'
-        : 'Run Orca on another machine and work on it from here.',
+      title: t('auto.hooks.useSettingsNavigationMetadata.wslHostsTitle', 'WSL hosts'),
+      description: t(
+        'auto.hooks.useSettingsNavigationMetadata.wslHostsDescription',
+        'Run Deca in a WSL distro on this computer and choose the default host.'
+      ),
       icon: Server,
       searchEntries: [runtimeEnvironmentsSearchEntry],
       group: 'remote'

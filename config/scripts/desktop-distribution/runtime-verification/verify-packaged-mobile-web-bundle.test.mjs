@@ -8,8 +8,6 @@ import { writeMobileWebBundleFixtureTree } from '../../build/mobile-web-app/mobi
 
 const require = createRequire(import.meta.url)
 const { assertMobileWebBundleBuilt } = require('./verify-packaged-mobile-web-bundle.cjs')
-const electronBuilderConfig = require('../../../electron-builder.config.cjs')
-const { darkBuildMarkers } = require('../../../dark-build-switches.cjs')
 
 async function withBundle(run, { brotli = false } = {}) {
   const scratch = await mkdtemp(join(tmpdir(), 'orca-mobile-web-guard-'))
@@ -91,22 +89,6 @@ describe('assertMobileWebBundleBuilt', () => {
         manifest.assets[0].path = '../outside.js'
       })
       expect(() => assertMobileWebBundleBuilt(bundleDir)).toThrow(/not a safe relative path/)
-    })
-  })
-})
-
-describe('electron-builder packaging wiring', () => {
-  it('verifies a dark page build, and refuses to package it', async () => {
-    await withBundle(async ({ bundleDir }) => {
-      const [marker] = darkBuildMarkers({ ORCA_SIDEBAR_INPUTS: 'main' })
-      await writeFile(join(bundleDir, marker.fileName), marker.text, 'utf8')
-      expect(() => assertMobileWebBundleBuilt(bundleDir)).not.toThrow()
-      expect(() =>
-        electronBuilderConfig.beforePack(
-          { electronPlatformName: process.platform, arch: process.arch === 'arm64' ? 3 : 1 },
-          bundleDir
-        )
-      ).toThrow(`${bundleDir} holds an ORCA_SIDEBAR_INPUTS=main build`)
     })
   })
 })

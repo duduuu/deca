@@ -19,7 +19,8 @@ import type {
   PrepareCodexSessionResume
 } from '../ipc/pty/host-env/types'
 import { registerDaemonManagementHandlers } from '../ipc/pty/pty-management'
-import { registerSshHandlers } from '../ipc/ssh/ssh'
+import { installSshTargetState } from '../ipc/ssh/ssh-target-state-installation'
+import { registerDisabledSshIpcHandlers } from '../ipc/ssh/ssh-disabled-ipc-handlers'
 import { browserManager } from '../browser/guest-lifecycle/manager/browser-manager'
 import {
   hasSystemMediaAccess,
@@ -133,7 +134,9 @@ export function attachMainWindowServices(
   } else {
     void hydrateLocalPtyRegistryAtBoot(store)
   }
-  registerSshHandlers(store, () => mainWindow, runtime)
+  // Deca: no SSH hosts; only the target registry and orcad retention WSL relies on.
+  installSshTargetState(store, () => mainWindow, runtime)
+  registerDisabledSshIpcHandlers()
   registerDroppedPathPreparation(mainWindow, async () => {
     await ensureStructuredAgentSessionHostUnlessRefused(() =>
       runtime.ensureStructuredAgentSessionHost()

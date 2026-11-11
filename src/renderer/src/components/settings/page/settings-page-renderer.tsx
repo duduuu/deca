@@ -22,7 +22,6 @@ import {
   renderAutomationsSettingsSection,
   renderGeneralSettingsSection,
   renderIntegrationsSettingsSection,
-  renderMobileSettingsSection,
   renderSetupGuideSettingsSection
 } from './settings-setup-workflow-section-renderers'
 import {
@@ -47,8 +46,7 @@ import {
 import {
   renderDeveloperPermissionsSettingsSection,
   renderPrivacySettingsSection,
-  renderServersSettingsSection,
-  renderSshSettingsSection
+  renderServersSettingsSection
 } from './settings-remote-security-section-renderers'
 import {
   renderAdvancedSettingsSection,
@@ -169,7 +167,6 @@ export function renderSettingsPage(
                     {renderSetupGuideSettingsSection(context, t)}
                     {renderGeneralSettingsSection(context, t)}
                     {renderIntegrationsSettingsSection(context, t)}
-                    {renderMobileSettingsSection(context, t)}
                     {renderAutomationsSettingsSection(context, t)}
                     {renderSessionHistorySettingsSection(context, t)}
                     {renderGitSettingsSection(context, t)}
@@ -186,7 +183,6 @@ export function renderSettingsPage(
                     {renderShortcutsSettingsSection(context, t)}
                     {renderStatsSettingsSection(context, t)}
                     {renderServersSettingsSection(context, t)}
-                    {renderSshSettingsSection(context, t)}
                     {renderDeveloperPermissionsSettingsSection(context, t)}
                     {renderPrivacySettingsSection(context, t)}
                     {renderAdvancedSettingsSection(context, t)}

@@ -3,7 +3,6 @@ import { SessionHistorySettingsPane } from '../session-history/SessionHistorySet
 import { AutomationsSettingsPane } from '../automations/AutomationsSettingsPane'
 import { GeneralPane } from '../general/GeneralPane'
 import { IntegrationsPane } from '../integrations/IntegrationsPane'
-import { MobileSettingsPane } from '../mobile/MobileSettingsPane'
 import { SettingsSetupGuidePane } from '../setup-guide/SettingsSetupGuidePane'
 import { SettingsSection } from '../section-layout/SettingsSection'
 import { translate } from '@/i18n/i18n'
@@ -98,28 +97,6 @@ export function renderIntegrationsSettingsSection(
       {view.isSectionMounted('integrations') ? <IntegrationsPane /> : null}
     </SettingsSection>
   )
-}
-
-export function renderMobileSettingsSection(
-  context: SettingsRenderContext,
-  t: Translate = translate
-): React.JSX.Element | null {
-  const { model, navigation, view } = context
-  return model.showDesktopOnlySettings ? (
-    <SettingsSection
-      id="mobile"
-      grouped
-      title={t('auto.components.settings.Settings.c40dadaac8', 'Mobile')}
-      badge="Beta"
-      description={t(
-        'auto.components.settings.Settings.c6c01ac209',
-        'Control terminals and agents from your phone.'
-      )}
-      searchEntries={navigation.getSectionSearchEntries('mobile')}
-    >
-      {view.isSectionMounted('mobile') ? <MobileSettingsPane /> : null}
-    </SettingsSection>
-  ) : null
 }
 
 export function renderAutomationsSettingsSection(

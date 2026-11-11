@@ -21,8 +21,6 @@ import {
   timeRendererStartupSyncStep
 } from '../startup/startup-diagnostics'
 import { recoverFromDegradedStartup } from '../startup/startup-degraded-recovery'
-import { restoreSshConnectionsForStartup } from '../startup/startup-ssh-connection-restore'
-import { collectActiveWorkspaceSshTargetIds } from '../startup/active-workspace-ssh-targets'
 import { publishTerminalViewAttributesAtAppStart } from '../components/terminal-pane/appearance/terminal-appearance'
 import { getSystemPrefersDark } from '../lib/terminal/appearance/terminal-theme'
 import {
@@ -32,7 +30,6 @@ import {
 import { probeTerminalProviderGoneSessions } from '../components/terminal/terminal-provider-gone-sessions'
 import {
   getRepoExecutionHostId,
-  isOwnedSshTargetId,
   LOCAL_EXECUTION_HOST_ID,
   parseExecutionHostId
 } from '../../../shared/execution-host'
@@ -235,29 +232,8 @@ export function useAppStartupHydration(onOnboardingLoaded: (state: OnboardingSta
             onOnboardingLoadedRef.current(onboardingState)
           }
 
-          // Reconnect SSH before PTY attach; defer passphrase targets to focus. Never dial runtime-owned targets here: ssh.connect would dispose the runtime’s relay.
-          const connectionIds = (sessionRead.session.activeConnectionIdsAtShutdown ?? []).filter(
-            (targetId) => !isOwnedSshTargetId(targetId)
-          )
-          if (connectionIds.length > 0) {
-            try {
-              // Await only targets needed for immediately mounted panes; dead background hosts must not stall local restoration.
-              const blockingConnectionIds = collectActiveWorkspaceSshTargetIds(
-                useAppStore.getState()
-              )
-              await restoreSshConnectionsForStartup({
-                connectionIds,
-                blockingConnectionIds,
-                setDeferredSshReconnectTargets: actions.setDeferredSshReconnectTargets,
-                removeDeferredSshReconnectTarget: actions.removeDeferredSshReconnectTarget,
-                publishSshConnectionState: actions.setSshConnectionState
-              })
-            } catch (err) {
-              console.warn('SSH startup reconnect failed:', err)
-            }
-          } else {
-            logRendererStartupDiagnostic('ssh-reconnect-skipped', { connectionIds: 0 })
-          }
+          // Deca restores no SSH hosts; saved activeConnectionIdsAtShutdown stay unread.
+          logRendererStartupDiagnostic('ssh-reconnect-skipped', { connectionIds: 0 })
 
           // prepare-terminal-startup-restoration already fenced first-window services; main also awaits them here.
           await timeRendererStartupStep('recover-legacy-worker-terminals-pre-reconnect', () =>

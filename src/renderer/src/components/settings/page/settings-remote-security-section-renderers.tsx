@@ -1,10 +1,7 @@
 import { DeveloperPermissionsPane } from '../developer-permissions/DeveloperPermissionsPane'
 import { PrivacyPane } from '../privacy/PrivacyPane'
 import { RuntimeEnvironmentsPane } from '../runtime-environments/catalog/RuntimeEnvironmentsPane'
-import { RuntimeServersHeaderActions } from '../runtime-environments/runtime-servers-header-actions'
 import { RuntimeServersPageProvider } from '../runtime-environments/runtime-servers-page-context'
-import { SshPane } from '../ssh/SshPane'
-import { SshHostsHeaderSlot, SshHostsHeaderSlotProvider } from '../ssh/ssh-hosts-header-slot'
 import { SettingsSection } from '../section-layout/SettingsSection'
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
@@ -20,24 +17,12 @@ export function renderServersSettingsSection(
     <RuntimeServersPageProvider>
       <SettingsSection
         id="servers"
-        title={t('auto.components.settings.Settings.022effa46f', 'Remote Orca servers')}
-        description={
-          model.isWebClient
-            ? t(
-                'auto.components.settings.Settings.7686cb5c36',
-                'Connect this browser to a saved Orca server.'
-              )
-            : t(
-                'auto.components.settings.Settings.remoteServersDescription',
-                'Run Orca on another machine and work on it from here.'
-              )
-        }
+        title={t('auto.components.settings.Settings.wslHostsTitle', 'WSL hosts')}
+        description={t(
+          'auto.components.settings.Settings.wslHostsDescription',
+          'Run Deca in a WSL distro on this computer and choose the default host.'
+        )}
         searchEntries={navigation.getSectionSearchEntries('servers')}
-        headerAction={
-          mounted ? (
-            <RuntimeServersHeaderActions canGeneratePairingUrl={!model.isWebClient} />
-          ) : undefined
-        }
         // Rows/cards already supply surfaces; another frame would nest cards.
         bodyClassName="rounded-none border-0 bg-transparent px-0 py-0 shadow-none"
       >
@@ -45,7 +30,7 @@ export function renderServersSettingsSection(
           <RuntimeEnvironmentsPane
             settings={model.settings}
             setActiveRuntimeEnvironmentPreference={model.setActiveRuntimeEnvironmentPreference}
-            canGeneratePairingUrl={!model.isWebClient}
+            canGeneratePairingUrl={false}
             allowLocalRuntime={!model.isWebClient}
             addServerIntentSignal={model.remoteServerAddIntentSignal}
           />
@@ -53,32 +38,6 @@ export function renderServersSettingsSection(
       </SettingsSection>
     </RuntimeServersPageProvider>
   )
-}
-
-export function renderSshSettingsSection(
-  context: SettingsRenderContext,
-  t: Translate = translate
-): React.JSX.Element | null {
-  const { model, navigation, view } = context
-  const mounted = view.isSectionMounted('ssh')
-  return model.showDesktopOnlySettings ? (
-    <SshHostsHeaderSlotProvider>
-      <SettingsSection
-        id="ssh"
-        title={t('auto.components.settings.Settings.045db77e21', 'SSH hosts')}
-        description={t(
-          'auto.components.settings.Settings.c2ee313198',
-          'Use existing machines over SSH for files, terminals, Git, and workspaces.'
-        )}
-        searchEntries={navigation.getSectionSearchEntries('ssh')}
-        headerAction={mounted ? <SshHostsHeaderSlot /> : undefined}
-        // Host groups already supply surfaces; another frame would nest cards.
-        bodyClassName="rounded-none border-0 bg-transparent px-0 py-0 shadow-none"
-      >
-        {mounted ? <SshPane addTargetIntentSignal={model.sshHostAddIntentSignal} /> : null}
-      </SettingsSection>
-    </SshHostsHeaderSlotProvider>
-  ) : null
 }
 
 export function renderDeveloperPermissionsSettingsSection(

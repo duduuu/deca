@@ -39,12 +39,10 @@ export function useManagedServerCatalog(
     if (!api) {
       return
     }
-    const [nextTargets, nextPending] = await Promise.all([
-      window.api.ssh.listTargets(),
-      api.listPendingMigrations()
-    ])
+    // Deca registers no SSH hosts, so only unfinished moves can appear.
+    const nextPending = await api.listPendingMigrations()
     if (mountedRef.current) {
-      setTargets(nextTargets)
+      setTargets([])
       setPending(nextPending)
       setLoadFailed(false)
     }

@@ -263,13 +263,20 @@ export function isWslHostRuntimeEnvironment<
 }
 
 /**
- * A server the generic remote-server surfaces list (Settings, status bar, server updates):
- * neither a recipe VM nor a WSL host, which each have their own place.
+ * A server the generic remote-server surfaces list (Settings, status bar, server updates).
+ * Deca connects to no paired or SSH servers, so persisted ones stay on disk but are never listed.
  */
 export function isListedRemoteServer(
+  _environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>
+): boolean {
+  return false
+}
+
+/** Deca reaches only this computer's WSL hosts and recipe VMs; paired servers and SSH hosts stay unreachable. */
+export function isDecaReachableRuntimeEnvironment(
   environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>
 ): boolean {
-  return isUserManagedRuntimeEnvironment(environment) && !isWslHostRuntimeEnvironment(environment)
+  return isWslHostRuntimeEnvironment(environment) || isEphemeralVmRuntimeEnvironment(environment)
 }
 
 type PreferredEndpointSource = Pick<

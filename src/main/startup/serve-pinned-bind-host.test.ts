@@ -15,9 +15,8 @@ describe('Electron serve listener pin', () => {
     expect(() =>
       getServeOptions(['/AppRun', '--serve', '--serve-bind', '127.0.0.1', '--serve-mobile-pairing'])
     ).toThrow(/--mobile-pairing needs --bind 0\.0\.0\.0/)
-    expect(
-      getServeOptions(['/AppRun', '--serve', '--serve-bind', '0.0.0.0', '--serve-mobile-pairing'])
-        .mobilePairing
-    ).toBe(true)
+    expect(() => getServeOptions(['/AppRun', '--serve', '--serve-bind', '0.0.0.0'])).toThrow(
+      /loopback only/
+    )
   })
 })

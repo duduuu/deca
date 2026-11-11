@@ -8,6 +8,7 @@ import {
 import { ipcMain } from 'electron'
 import { getRuntimeEnvironmentRegistryRoot } from './runtime-environment-registry-root'
 import { listEnvironments } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
+import { isDecaReachableRuntimeEnvironment } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { Store } from '../../persistence/loading-store/store'
 import { recordRemoteLayoutFrame } from '../../remote-layout-snapshot/remote-layout-snapshot-recorder'
 import { recordHostRepoCatalogAnswer } from '../../host-repo-catalog-snapshot/host-repo-catalog-snapshot-recorder'
@@ -43,7 +44,6 @@ import { registerOrcadRuntimeMaintenanceHandlers } from './orcad-runtime-mainten
 import { clearPublishedManagedServer } from '../ssh/ssh-renderer-broadcast'
 import { clearManagedServerNotes } from './runtime-environment-managed-tunnel'
 import { reconcileOrphanedRuntimeSessions } from './runtime-environment-session-reconcile'
-import { registerRuntimeSshAccessHandlers } from '../runtime-ssh-access-handlers'
 import { retirePairedRuntimeBrowserClientHostEnvironment } from '../../browser/client-hosts/lifecycle/paired-runtime-browser-client-host-runtime'
 import { registerRuntimeEnvironmentBrowserClientHostHandler } from './runtime-environment-browser-client-host-handler'
 import { advanceRuntimeEnvironmentCapabilityIncarnation } from './runtime-environment-capability-evidence'
@@ -189,16 +189,13 @@ export function registerRuntimeEnvironmentHandlers(store: Store): void {
   })
   for (const environment of listEnvironments(getUserDataPath())) {
     if (
+      isDecaReachableRuntimeEnvironment(environment) &&
       !isRuntimeEnvironmentManuallyDisconnected(environment.id) &&
       !isGatedOffWslHost(environment)
     ) {
       getRuntimeEnvironmentStatusOwner(getUserDataPath(), environment.id).activate()
     }
   }
-  registerRuntimeSshAccessHandlers({
-    getUserDataPath,
-    invalidateTransport: invalidateRuntimeEnvironmentTransport
-  })
   registerOrcadRuntimeLifecycleHandlers({ getUserDataPath })
   registerOrcadRuntimeConversionHandlers(getUserDataPath)
   registerOrcadDeltaMoveHandlers(getUserDataPath)

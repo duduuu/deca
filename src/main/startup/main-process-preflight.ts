@@ -1,6 +1,7 @@
 import { antigravityHookService } from '../antigravity/hook-service'
 import { getRelocatedDaemonHost } from '../daemon/executable-host/windows/daemon-host-relocation'
 import { app, ipcMain, powerMonitor, session } from 'electron'
+import { prepareLocalServeMode } from './local-serve-mode-preparation'
 import os from 'node:os'
 import { join } from 'node:path'
 import { maybeRedirectCliLaunch } from './cli-launch-redirect'
@@ -45,7 +46,6 @@ import {
 } from '../diagnostics/main-thread-churn-probe'
 import { setSpawnObserver } from '@orca/process-host/spawn-observer'
 import { settledDiffCache } from '../git/source-control/git-read-cache-invalidation'
-import { reserveServeStdoutForReadiness } from '../server/serve-stdout-boundary'
 import { createServeDesktopActivationGate } from './serve-desktop-activation'
 import {
   shouldBypassSingleInstanceLock,
@@ -153,9 +153,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
     process.stderr.write(`${missingLinuxDisplayMessage(false)}\n`)
     app.exit(1)
   }
-  if (state.isServeMode) {
-    reserveServeStdoutForReadiness()
-  }
+  prepareLocalServeMode(state.isServeMode)
   state.devInstanceIdentity = getDevInstanceIdentity(isDev)
   state.devAgentHookEndpointNamespace = state.devInstanceIdentity.isDev
     ? state.devInstanceIdentity.appUserModelId

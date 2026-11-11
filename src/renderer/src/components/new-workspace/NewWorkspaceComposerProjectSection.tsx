@@ -42,8 +42,9 @@ type NewWorkspaceComposerProjectSectionProps = Pick<
   projectHostSetupOptions: NewWorkspaceComposerCardProps['projectHostSetupOptions']
   ephemeralVmRecipes: EphemeralVmRecipeOption[]
   handleProjectHostSetupChange: (setupId: string) => void
-  handleAddSshHost: () => void
-  handleAddRemoteServer: () => void
+  /** Deca adds no SSH hosts or paired servers; WSL hosts are added from Settings. */
+  handleAddSshHost?: () => void
+  handleAddRemoteServer?: () => void
   handleConnectRunTargetHost: (option: NeedsProjectHostOption) => Promise<void>
   handleSetLocation: (option: NeedsProjectHostOption) => void
   sshStatusLabel: string

@@ -97,7 +97,6 @@
     "generate:skill-bundle-manifest": "node config/scripts/skills/bundle-generation/generate-skill-bundle-manifest.mjs --write",
     "verify:skill-bundle-manifest": "node config/scripts/skills/bundle-generation/generate-skill-bundle-manifest.mjs",
     "verify:macos-entitlements": "node config/scripts/desktop-distribution/macos/verify-macos-entitlements.mjs",
-    "vendor:feature-wall-assets": "node config/scripts/assets/feature-wall/vendor-feature-wall-assets.mjs",
     "tc:node": "node config/scripts/workspace-package-build/build-workspace-packages.mjs && node config/scripts/typecheck/project-execution/run-typecheck-projects-in-parallel.mjs --project=config/tsconfig.node.json",
     "tc:cli": "node config/scripts/workspace-package-build/build-workspace-packages.mjs && node config/scripts/typecheck/project-execution/run-typecheck-projects-in-parallel.mjs --project=config/tsconfig.tc.cli.json",
     "tc:web": "node config/scripts/workspace-package-build/build-workspace-packages.mjs && node config/scripts/typecheck/project-execution/run-typecheck-projects-in-parallel.mjs --project=config/tsconfig.tc.web.json",

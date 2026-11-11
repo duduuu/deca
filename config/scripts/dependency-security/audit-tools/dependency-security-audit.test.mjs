@@ -77,7 +77,7 @@ it('applies an exception only to the exact patched finding', () => {
   })
   expect(findings.map((item) => item.blocking)).toEqual([false, true])
   for (const change of [
-    { workspace: 'mobile' },
+    { workspace: 'config/audit-tools' },
     { package: 'other' },
     { advisory: 'GHSA-abcd-5678-9abc' }
   ]) {

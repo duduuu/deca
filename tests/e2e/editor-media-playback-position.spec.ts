@@ -14,7 +14,7 @@ test('restores media playback after switching editor tabs without retaining the 
   const folder = realpathSync(mkdtempSync(path.join(tmpdir(), 'orca-media-position-')))
   registerPostElectronShutdownCleanup(async () => rmSync(folder, { recursive: true, force: true }))
   copyFileSync(
-    path.resolve('docs/site/public/docs/videos/tab-split.mp4'),
+    path.resolve('tests/e2e/fixtures/media/tab-split.mp4'),
     path.join(folder, 'playback.mp4')
   )
   writeFileSync(path.join(folder, 'other.txt'), 'Switch back to the media tab.\n')

@@ -19,7 +19,7 @@ test('a paired terminal link to a video outside every workspace plays it', async
   // Launches and pairs a second Electron client, then streams video through it; loaded CI needs the headroom.
   test.setTimeout(240_000)
   const videoPath = `/tmp/orca-granted-${randomBytes(4).toString('hex')}.mp4`
-  copyFileSync(path.join(process.cwd(), 'docs/site/public/docs/videos/tab-split.mp4'), videoPath)
+  copyFileSync(path.join(process.cwd(), 'tests/e2e/fixtures/media/tab-split.mp4'), videoPath)
   await waitForSessionReady(orcaPage)
   await waitForActiveWorktree(orcaPage)
   const client = await launchPairedElectronClient(

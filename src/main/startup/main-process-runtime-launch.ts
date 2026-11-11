@@ -8,16 +8,13 @@ import {
 import { OrcaRuntimeRpcServer } from '../runtime/rpc/server/runtime-rpc'
 import { resolveServePinnedBindHost } from './serve-pinned-bind-host'
 import { isOrcadSidecarLaunch } from '../window/foreground-activation-policy'
-import { registerMobileHandlers } from '../ipc/mobile'
-import { createRuntimeEnvironmentMobileRelayHosts } from '../ipc/runtime-environments/runtime-environment-mobile-relay-hosts'
 import { getLocalPtyProvider } from '../ipc/pty/provider/registry'
 import { registerHeadlessPtyRuntime } from '../ipc/pty/register-headless-runtime'
 import { LocalPtyProvider } from '../providers/local-pty/local-pty-provider'
 import { publishHeadlessRuntimeGraph } from '../runtime/session-graph/headless-runtime-graph'
 import { OffscreenBrowserBackend } from '../browser/backends/offscreen-browser-backend'
 import { browserManager } from '../browser/guest-lifecycle/manager/browser-manager'
-import { getDesktopRelayStatus } from './main-process-relay-status'
-import { getServeOptions, getBundledWebClientRoot, printServeReady } from './main-process-serve'
+import { getServeOptions, printServeReady } from './main-process-serve'
 import {
   bindTerminalRuntimeStartupServices,
   handleCodexHomePtySpawned,
@@ -98,8 +95,8 @@ function installRuntimeRpc(
     runtime,
     // Pairing must use pre-setName canonical userData or restarts can lose devices.
     userDataPath: getCanonicalUserDataPath(),
-    enableWebSocket: true,
-    // STA-2370: desktop stays loopback until pairing; serve explicitly opts into remote access and E2E needs harness-wide bind.
+    // Deca: no phone, web or remote-desktop clients, so the desktop opens no WebSocket; local CLIs use the socket.
+    enableWebSocket: Boolean(serveOptions) || isE2E,
     exposeNetworkByDefault: Boolean(serveOptions) || isE2E,
     ...(pinnedBindHost !== undefined ? { pinnedBindHost } : {}),
     ...(serveOptions
@@ -120,35 +117,10 @@ function installRuntimeRpc(
           preferPinnedWsPort: true,
           requirePinnedWsPort: true
         }
-      : {}),
-    webClientRoot: getBundledWebClientRoot()
+      : {})
   })
   state.runtimeRpc = runtimeRpc
   runtime.setAgentSenderPeerKey(() => runtimeRpc.getE2EEPublicKey())
-  runtimeRpc.setMobileDesktopRelayHosts(createRuntimeEnvironmentMobileRelayHosts())
-  registerMobileHandlers(runtimeRpc, {
-    getRelayStatus: getDesktopRelayStatus,
-    consumePendingUnpairedDeviceAuthFailure: (webContentsId) => {
-      if (
-        !state.mainWindow ||
-        state.mainWindow.isDestroyed() ||
-        state.mainWindow.webContents.id !== webContentsId ||
-        !state.pendingUnpairedDeviceAuthFailure
-      ) {
-        return false
-      }
-      state.pendingUnpairedDeviceAuthFailure = false
-      return true
-    }
-  })
-  // Repeated direct-auth failures need a re-pairing explanation rather than silent nonconnection.
-  runtimeRpc.setOnUnpairedDeviceAuthFailure(() => {
-    // Retain the one-shot across the runtime-start/renderer-mount race.
-    state.pendingUnpairedDeviceAuthFailure = true
-    if (state.mainWindow && !state.mainWindow.isDestroyed()) {
-      state.mainWindow.webContents.send('mobile:unpairedDeviceAuthFailure')
-    }
-  })
   return runtimeRpc
 }
 

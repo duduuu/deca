@@ -22,7 +22,6 @@ import {
   renderAutomationsSettingsSection,
   renderGeneralSettingsSection,
   renderIntegrationsSettingsSection,
-  renderMobileSettingsSection,
   renderSetupGuideSettingsSection
 } from './settings-setup-workflow-section-renderers'
 import {
@@ -169,7 +168,6 @@ export function renderSettingsPage(
                     {renderSetupGuideSettingsSection(context, t)}
                     {renderGeneralSettingsSection(context, t)}
                     {renderIntegrationsSettingsSection(context, t)}
-                    {renderMobileSettingsSection(context, t)}
                     {renderAutomationsSettingsSection(context, t)}
                     {renderSessionHistorySettingsSection(context, t)}
                     {renderGitSettingsSection(context, t)}

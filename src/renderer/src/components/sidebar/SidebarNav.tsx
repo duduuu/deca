@@ -16,10 +16,11 @@ import { useTranslate } from '@/i18n/use-translate'
 import { lazyWithRetry } from '@/app-shell/startup/lazy-with-retry'
 import type { GlobalSettings } from '../../../../shared/global-settings-types'
 
+/** Deca ships no phone client, so the Mobile entry never shows. */
 export function shouldShowMobileButton(
-  settings: Partial<Pick<GlobalSettings, 'showMobileButton'>> | null | undefined
+  _settings: Partial<Pick<GlobalSettings, 'showMobileButton'>> | null | undefined
 ): boolean {
-  return settings?.showMobileButton !== false
+  return false
 }
 
 export function shouldShowAutomationsButton(

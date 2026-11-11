@@ -43,10 +43,6 @@ const {
   writeMacBuildCompatibility
 } = require('./scripts/desktop-distribution/macos/mac-build-compatibility.cjs')
 const {
-  MOBILE_WEB_BUNDLE_DIR,
-  assertMobileWebBundleBuilt
-} = require('./scripts/desktop-distribution/runtime-verification/verify-packaged-mobile-web-bundle.cjs')
-const {
   verifyPackagedPluginResources,
   verifyPackagedPluginTypings
 } = require('./scripts/desktop-distribution/runtime-verification/verify-packaged-plugin-resources.cjs')
@@ -378,17 +374,15 @@ module.exports = {
   // so a test can point the guard at a scratch bundle instead of needing the repo's out/ built.
   beforePack: (
     context,
-    mobileWebBundleDir = MOBILE_WEB_BUNDLE_DIR,
     ensureWaylandClipboard = ensureBundledWaylandClipboard,
     orcadTemplateDir = join(__dirname, '..', orcadTemplateExtraResource.from)
   ) => {
     // The template is the server every SSH host gets, so a dark test template must never ship.
-    assertNotDarkBuild([join(__dirname, '..', 'out', 'main'), mobileWebBundleDir, orcadTemplateDir])
+    assertNotDarkBuild([join(__dirname, '..', 'out', 'main'), orcadTemplateDir])
     assertPackagedNativeVariantsInstalled(context.electronPlatformName, context.arch)
     assertBundledRipgrepInstalled()
     assertProcessHostOutputBuilt()
     assertOrcadTemplateBuilt()
-    assertMobileWebBundleBuilt(mobileWebBundleDir)
     if (context.electronPlatformName === 'linux') {
       ensureWaylandClipboard(context.arch)
     }

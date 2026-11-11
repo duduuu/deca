@@ -6,7 +6,6 @@ import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { promisify } from 'node:util'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { writeMobileWebBundleFixtureTree } from '../../build/mobile-web-app/mobile-web-bundle-fixture-tree.mjs'
 
 const REPO_ROOT = join(import.meta.dirname, '../../..', '..')
 
@@ -142,13 +141,9 @@ describe('arch-aware packaging guard', () => {
   // electron-builder Arch enum: ia32=0, x64=1, armv7l=2, arm64=3.
   const HOST_ARCH = process.arch === 'arm64' ? 3 : 1
 
-  // Native tests need valid mobile bundle for beforePack; use temp build, leaving bundle verification to its own suite.
   let scratch
-  let bundleDir
   beforeAll(async () => {
     scratch = await mkdtemp(join(tmpdir(), 'orca-electron-builder-guard-'))
-    bundleDir = join(scratch, 'mobile-web')
-    await writeMobileWebBundleFixtureTree({ outDir: bundleDir })
   })
   afterAll(async () => {
     await rm(scratch, { recursive: true, force: true })
@@ -157,7 +152,6 @@ describe('arch-aware packaging guard', () => {
   const packHost = (arch) =>
     electronBuilderConfig.beforePack(
       { electronPlatformName: process.platform, arch },
-      bundleDir,
       () => undefined
     )
 
@@ -183,7 +177,6 @@ describe('arch-aware packaging guard', () => {
       expect(() =>
         electronBuilderConfig.beforePack(
           { electronPlatformName: process.platform, arch: HOST_ARCH },
-          bundleDir,
           () => undefined,
           templateDir
         )

@@ -34,8 +34,7 @@ export const STRUCTURED_CHAT_LANES = [
   },
   { directory: ['src', 'main', 'provider-process'] },
   { directory: ['src', 'main', 'acp'] },
-  { directory: ['src', 'main', 'jsonl-rpc'] },
-  { directory: ['src', 'main', 'pi'], basename: /^rpc-/ }
+  { directory: ['src', 'main', 'jsonl-rpc'] }
 ]
 
 export function collectStructuredChatEntryPoints(root = ROOT) {

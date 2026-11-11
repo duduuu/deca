@@ -3,7 +3,7 @@
 # A lower bound: destructured and differently named rows are not counted.
 # Prune after a fix: pnpm check:repo-host-read-ratchet --prune
 1 src/main/github/account-binding-required-host.ts
-3 src/main/ipc/ephemeral-vm-recipe-context.ts
+1 src/main/ipc/ephemeral-vm-recipe-context.ts
 2 src/main/ipc/filesystem/filesystem-source-control-ai-targets.ts
 1 src/main/ipc/folder-repo-git-upgrade.ts
 1 src/main/ipc/local-worktree-runtime-options.ts
@@ -35,9 +35,9 @@
 2 src/main/ports/workspace-port-ownership.ts
 5 src/main/project-groups/folder-workspace-path-status.ts
 1 src/main/runtime/rpc/methods/agent-launch/agent-launch-worktree-creation.ts
-3 src/main/runtime/workspaces/references/runtime-reference-agents.ts
 1 src/main/runtime/workspaces/catalog/runtime-managed-worktree-queries.ts
 1 src/main/runtime/workspaces/catalog/runtime-worktree-selection.ts
+3 src/main/runtime/workspaces/references/runtime-reference-agents.ts
 1 src/main/ssh/targets/ssh-target-orcad-claims.ts
 1 src/main/workspaces/catalog/folder-repo-git-conversion.ts
 1 src/main/workspaces/catalog/provisioned-root-ssh-adoption.ts

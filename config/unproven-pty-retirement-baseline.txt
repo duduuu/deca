@@ -2,7 +2,6 @@
 # ptyOwnership.delete outside finishPtyShutdown. This is a RATCHET: counts may only go DOWN.
 # Retire through finishPtyShutdown on a PtyExitProof, or record the stop durably first.
 # Prune after a fix: pnpm check:unproven-pty-retirement-ratchet --prune
-
 1 src/main/ipc/pty/ipc/renderer-kill.ts # SSH provider unregistered: R4-4 tab-close replay
 1 src/main/ipc/pty/pane/absent-pane-owner.ts # host-confirmed absence, untyped
 1 src/main/ipc/pty/provider/bind-listeners.ts # observed provider exit, untyped

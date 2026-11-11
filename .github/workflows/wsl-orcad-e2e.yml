@@ -18,7 +18,6 @@ on:
       - 'src/main/claude-accounts/**'
       - 'src/main/codex/**'
       - 'src/main/acp/**'
-      - 'src/main/pi/**'
       - 'src/main/orcad/**'
       - 'src/main/server/**'
       - 'src/main/persistence/**'

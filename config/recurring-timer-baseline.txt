@@ -42,14 +42,10 @@
 1 src/main/orcad/orcad-event-loop-watchdog.ts
 1 src/main/orcad/orcad-lock-clone-machine.ts
 1 src/main/orcad/orcad-stop-request-listener.ts
-1 src/main/plugins/catalog/plugin-auto-updater.ts
-1 src/main/plugins/catalog/plugin-kill-list-service.ts
 1 src/main/plugins/installation/plugin-git-repository.ts
 1 src/main/plugins/plugin-service-housekeeping.ts
 1 src/main/rate-limits/service/service-polling.ts
 1 src/main/runtime/agent-state-rules/agent-state-rules-live-update.ts
-1 src/main/runtime/mobile-cloud-relay/desktop-relay-service.ts
-3 src/main/runtime/mobile-cloud-relay/relay-control-liveness.ts
 1 src/main/runtime/rpc/methods/orchestration/messaging/check-run.ts
 1 src/main/runtime/rpc/mobile-socket-wiring.ts
 1 src/main/runtime/rpc/remote-runtime-server-heartbeat.ts
@@ -83,9 +79,9 @@
 1 src/renderer/src/components/terminal-pane/pty-transport/delivery/terminal-delivery-watchdog.ts
 1 src/renderer/src/components/terminal-pane/pty-transport/remote-runtime/recovery/RemoteRuntimeRecoveryCard.tsx
 1 src/renderer/src/components/terminal-pane/render-health/terminal-render-desync-sentinel.ts
+1 src/renderer/src/diagnostics/crash-reporting/crash-diagnostics.ts
 1 src/renderer/src/hooks/use-now.ts
 1 src/renderer/src/lib/agent-session/hibernation/agent-hibernation-coordinator.ts
-1 src/renderer/src/diagnostics/crash-reporting/crash-diagnostics.ts
 1 src/renderer/src/lib/window-activity/window-visibility-interval.ts
 1 src/renderer/src/runtime/agent-orchestration/worker-auto-close.ts
 1 src/renderer/src/runtime/hosts/wsl/wsl-refused-read-watch.ts

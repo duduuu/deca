@@ -11,7 +11,6 @@ const RUNTIME_PREFIXES = [
   'src/main/claude-accounts/',
   'src/main/codex/',
   'src/main/acp/',
-  'src/main/pi/',
   'src/shared/'
 ]
 const PLATFORM_INPUT =

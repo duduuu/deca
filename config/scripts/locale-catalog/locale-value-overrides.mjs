@@ -211,8 +211,6 @@ export const LOCALE_VALUE_OVERRIDES = {
     'Gemini Usage': 'Gemini 使用情况',
     'Antigravity Usage': 'Antigravity 使用情况',
     'OpenCode Go Usage': 'OpenCode Go 使用情况',
-    'Kimi Usage': 'Kimi 使用情况',
-    'MiniMax Usage': 'MiniMax 使用情况',
     'Grok Usage': 'Grok 使用情况',
     'Grok (xAI) Usage': 'Grok (xAI) 使用情况',
     'Force Delete Branch': '强制删除分支',

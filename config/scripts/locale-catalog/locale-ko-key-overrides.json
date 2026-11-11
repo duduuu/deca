@@ -2348,9 +2348,6 @@
   "auto.components.settings.appearance.search.0c83659f48": {
     "ko": "단축키"
   },
-  "auto.components.settings.appearance.search.3a6c028ea8": {
-    "ko": "Kimi 사용량"
-  },
   "auto.components.settings.appearance.search.3a9b69d734": {
     "ko": "시스템"
   },
@@ -4612,9 +4609,6 @@
   },
   "auto.components.settings.AccountsPane.codexLoginLinkOpen": {
     "ko": "열기"
-  },
-  "auto.components.settings.accounts.search.zcodePlan.title": {
-    "ko": "GLM Coding Plan"
   },
   "auto.components.settings.GrokAccountsSection.e6dadc1e2b": {
     "ko": "월간 사용량"

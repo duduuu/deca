@@ -100,11 +100,6 @@ export const JA_PHRASE_FIXES = [
   },
   { pattern: /再起動します/g, replacement: '再起動', whenEnIncludes: 'Restart Orca' },
   { pattern: /オウムガイ/g, replacement: 'Nautilus', whenEnIncludes: 'Nautilus' },
-  {
-    pattern: /Kim サブスクリプション/g,
-    replacement: 'Kimi サブスクリプション',
-    whenEnIncludes: 'Kimi subscription'
-  },
   { pattern: /空き状況/g, replacement: '利用可否', whenEnIncludes: 'availability' },
   { pattern: /指示/g, replacement: 'コマンド', whenEnIncludes: 'Command' },
   { pattern: /弦/g, replacement: '文字列', whenEnIncludes: 'string' },

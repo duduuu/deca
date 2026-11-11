@@ -30,7 +30,7 @@ export function resolveLocalPluginPath(
   if (process.env.ORCA_CLI_CWD) {
     throw new RuntimeClientError(
       'invalid_environment',
-      `deca plugin ${command} works on the files of the machine that runs it, but this shell forwards orca to the Orca host. Write and check the plugin files on this machine directly, or run the command on the Orca host.`
+      `deca plugin ${command} works on the files of the machine that runs it, but this shell forwards orca to the Deca host. Write and check the plugin files on this machine directly, or run the command on the Deca host.`
     )
   }
   return isAbsolute(value) ? value : resolve(ctx.cwd, value)

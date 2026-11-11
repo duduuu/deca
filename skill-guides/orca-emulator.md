@@ -1,7 +1,7 @@
 ---
 name: orca-emulator
 description: >-
-  iOS Simulator control from inside Orca, with the live device view in Orca's
+  iOS Simulator control from inside Deca, with the live device view in Deca's
   emulator pane. Use when driving a booted Apple Simulator on macOS: taps,
   gestures, typing, hardware buttons, rotation, and the accessibility tree, or
   when an iOS change needs simulator evidence. For an Android device or emulator
@@ -10,7 +10,7 @@ description: >-
 license: Apache-2.0
 ---
 
-# Orca Emulator (iOS)
+# Deca Emulator (iOS)
 
 `ORCA` is a placeholder for the executable you resolved in the stub; substitute it before running.
 
@@ -24,7 +24,7 @@ unvalidated with the active device injected.
 device with `emulator_unsupported`. `tap`, `type`, `gesture`, `button`, `rotate`, `ax`, and
 `exec` work on both backends.
 
-Commands drive devices on the host that runs the Orca runtime. Simulators need that host to
+Commands drive devices on the host that runs the Deca runtime. Simulators need that host to
 be a Mac, so a Linux `deca serve` or SSH host can drive only Android devices.
 
 ## Prerequisites
@@ -36,7 +36,7 @@ be a Mac, so a Linux `deca serve` or SSH host can drive only Android devices.
 - In a `pnpm dev` checkout, run `pnpm build:cli` before the first emulator command so the
   dev CLI shim reaches this worktree's runtime instead of a packaged install.
 
-Orca reports a clear error when the host is missing macOS or the Xcode tools.
+Deca reports a clear error when the host is missing macOS or the Xcode tools.
 
 ## Operations
 
@@ -84,9 +84,9 @@ and retry.
 - `type` sends US-ASCII only, and unsupported characters error rather than degrading.
 - The pane and the CLI share one stream and one helper, so closing the pane can stop the
   stream.
-- Run `kill` when you are done. A helper left running holds the device until Orca quits.
+- Run `kill` when you are done. A helper left running holds the device until Deca quits.
 - The iOS backend drives private simulator APIs, so an Xcode update can change its behavior.
-- While Xcode's Device Hub is running, the simulator drops Orca's touch and keyboard input, so
+- While Xcode's Device Hub is running, the simulator drops Deca's touch and keyboard input, so
   `tap`, `type`, and `gesture` fail with `emulator_input_blocked`. Quit Device Hub, which shuts
   the simulator down, then attach again. If Device Hub must stay open, run
   `xcrun simctl spawn <udid> notifyutil -s com.apple.coredevice.dtuhidd.active 0` and

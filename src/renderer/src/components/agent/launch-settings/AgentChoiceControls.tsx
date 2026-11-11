@@ -139,7 +139,7 @@ export function AgentChoiceFields({
         <p data-agent-model-list-fallback className="text-xs text-muted-foreground">
           {t(
             'settings.agents.modelListFallback',
-            'Built-in list. Orca could not get a model list from this host.'
+            'Built-in list. Deca could not get a model list from this host.'
           )}
         </p>
       ) : null}

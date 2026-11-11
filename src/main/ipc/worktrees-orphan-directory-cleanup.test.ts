@@ -174,7 +174,7 @@ describe('registerWorktreeHandlers', () => {
     runtimeStub = setupWorktreeHandlers()
   })
 
-  it('force-removes a legacy Orca-created orphaned worktree directory after Git tracking is gone', async () => {
+  it('force-removes a legacy Deca-created orphaned worktree directory after Git tracking is gone', async () => {
     const parentDir = await mkdtemp(join(tmpdir(), 'orca-ipc-orphan-'))
     const repoPath = join(parentDir, 'repo')
     const orphanPath = join(parentDir, 'orphan')
@@ -223,7 +223,7 @@ describe('registerWorktreeHandlers', () => {
     }
   })
 
-  it('prompts for force before removing an Orca-created orphaned worktree directory', async () => {
+  it('prompts for force before removing a Deca-created orphaned worktree directory', async () => {
     const parentDir = await mkdtemp(join(tmpdir(), 'orca-ipc-orphan-'))
     const repoPath = join(parentDir, 'repo')
     const orphanPath = join(parentDir, 'orphan')
@@ -262,7 +262,7 @@ describe('registerWorktreeHandlers', () => {
     }
   })
 
-  it('refuses an Orca-created unregistered directory with no git marker, even forced, until the user removes it', async () => {
+  it('refuses a Deca-created unregistered directory with no git marker, even forced, until the user removes it', async () => {
     const parentDir = await mkdtemp(join(tmpdir(), 'orca-ipc-leftover-'))
     const repoPath = join(parentDir, 'repo')
     const leftoverPath = join(parentDir, 'leftover')
@@ -312,7 +312,7 @@ describe('registerWorktreeHandlers', () => {
     }
   })
 
-  it('rejects an Orca-created unregistered local directory with a git directory', async () => {
+  it('rejects a Deca-created unregistered local directory with a git directory', async () => {
     const parentDir = await mkdtemp(join(tmpdir(), 'orca-ipc-standalone-'))
     const repoPath = join(parentDir, 'repo')
     const standalonePath = join(parentDir, 'standalone')
@@ -367,7 +367,7 @@ describe('registerWorktreeHandlers', () => {
           worktreeId: `${repo.id}::${localPath}`,
           force: true
         })
-      ).rejects.toThrow('isn’t served by Orca’s server')
+      ).rejects.toThrow('isn’t served by Deca’s server')
 
       await expect(lstat(localPath)).resolves.toBeTruthy()
       expect(removeWorktreeMock).not.toHaveBeenCalled()

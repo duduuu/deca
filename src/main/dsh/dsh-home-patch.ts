@@ -2,7 +2,7 @@
 
 import { DSH_HOOK_EXECUTOR_PACKAGE } from './dsh-hook-packages'
 
-const START_MARKER = '# >>> orca-managed-dsh-hooks (managed by Orca; do not edit) >>>'
+const START_MARKER = '# >>> orca-managed-dsh-hooks (managed by Deca; do not edit) >>>'
 const END_MARKER = '# <<< orca-managed-dsh-hooks <<<'
 
 /** DSH targets patch rows by ID, so keep this stable. */

@@ -204,7 +204,7 @@ describe('profile-state CLI recovery', () => {
   it('prints kept and backup-restored sections returned by the bundled recovery process', async () => {
     const profile = createProfile()
     getDefaultUserDataPathMock.mockReturnValue(profile.userDataPath)
-    vi.stubEnv('ORCA_APP_EXECUTABLE', '/packaged/Orca')
+    vi.stubEnv('ORCA_APP_EXECUTABLE', '/packaged/Deca')
     const result = {
       profileId: 'profile-cli-recovery',
       dataFile: profile.dataFile,
@@ -503,7 +503,7 @@ describe('profile-state CLI recovery', () => {
       expect(readFileSync(profile.dataFile, 'utf8')).toBe(
         JSON.stringify({ settings: { theme: 'old' } })
       )
-      expect(vi.mocked(console.error).mock.calls.at(-1)?.[0]).toContain('Stop Orca')
+      expect(vi.mocked(console.error).mock.calls.at(-1)?.[0]).toContain('Stop Deca')
     }
   )
 
@@ -633,6 +633,6 @@ describe('profile-state CLI recovery', () => {
 
     expect(process.exitCode).toBe(1)
     expect(readFileSync(profile.databaseFile, 'utf8')).toBe('damaged sqlite primary')
-    expect(String(vi.mocked(console.log).mock.calls.at(-1)?.[0])).toContain('Stop Orca')
+    expect(String(vi.mocked(console.log).mock.calls.at(-1)?.[0])).toContain('Stop Deca')
   })
 })

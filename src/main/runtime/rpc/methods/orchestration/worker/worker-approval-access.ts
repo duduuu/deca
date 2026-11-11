@@ -16,7 +16,7 @@ export function workerApprovalAccess({
   if (params.decision === 'allow' && !person) {
     throw new OrchestrationError(
       'approval_requires_person',
-      `Only a person can allow ${params.prompt}, from Orca or the worker itself. You can deny it with a reason, or leave it for the person.`,
+      `Only a person can allow ${params.prompt}, from Deca or the worker itself. You can deny it with a reason, or leave it for the person.`,
       { effectsApplied: false }
     )
   }

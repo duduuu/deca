@@ -231,7 +231,7 @@ export function RuntimeEnvironmentsPane({
         <p className="text-xs text-destructive">
           {t(
             'auto.components.settings.managedServers.loadFailed',
-            'Orca couldn’t load SSH hosts and unfinished moves. Reopen Settings to try again.'
+            'Deca couldn’t load SSH hosts and unfinished moves. Reopen Settings to try again.'
           )}
         </p>
       ) : null}

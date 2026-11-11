@@ -273,7 +273,7 @@ it.each(['task', 'mail', 'generic'] as const)(
     const entry = setSenderSessionStatus(sessionId)
     const paneKey = entry.paneKey
     const prefix =
-      kind === 'task' ? 'You are working inside Orca, a multi-agent IDE.\n=== TASK ===\n' : ''
+      kind === 'task' ? 'You are working inside Deca, a multi-agent IDE.\n=== TASK ===\n' : ''
     const message: NativeChatMessage = {
       id: `progress-${kind}`,
       role: 'user',

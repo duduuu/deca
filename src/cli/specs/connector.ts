@@ -2,7 +2,7 @@ import type { CommandSpec } from '../args'
 import { GLOBAL_FLAGS } from '../args'
 
 const CONNECTOR_NOTES = [
-  'Development only: drives the connector seam as a `dev` conversation, without Orca Cloud. The host refuses it unless its experimentalConnectors setting is on.',
+  'Development only: drives the connector seam as a `dev` conversation, without Deca Cloud. The host refuses it unless its experimentalConnectors setting is on.',
   'A retry with the same --delivery-id and payload returns the first answer instead of delivering again.'
 ]
 
@@ -47,7 +47,7 @@ export const CONNECTOR_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'conversation'],
     notes: [
       CONNECTOR_NOTES[0],
-      'An approval or a one-question single choice can be answered here; anything else reads unsupported, to answer in Orca.'
+      'An approval or a one-question single choice can be answered here; anything else reads unsupported, to answer in Deca.'
     ]
   },
   {

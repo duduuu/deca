@@ -5,13 +5,13 @@ const EXIT_CODES_NOTE =
   'Exit codes: 0 ok, 1 error, 3 approval is needed (approval_required or approval_stale).'
 
 const SOURCE_NOTE =
-  'Sources: a catalog id (publisher.id), owner/repo[@ref] on GitHub, any https:// or ssh:// Git URL or git@host:owner/repo.git, a GitHub or GitLab release, tag or tree page URL, or a folder path. Without a version Orca installs the newest version tag (vX.Y.Z), else the default branch, always pinned to the exact commit.'
+  'Sources: a catalog id (publisher.id), owner/repo[@ref] on GitHub, any https:// or ssh:// Git URL or git@host:owner/repo.git, a GitHub or GitLab release, tag or tree page URL, or a folder path. Without a version Deca installs the newest version tag (vX.Y.Z), else the default branch, always pinned to the exact commit.'
 
 const PRIVATE_NOTE =
-  "Git runs on the Orca host with that host's own credentials (credential helper such as `gh auth setup-git`, Git Credential Manager or osxkeychain, or the SSH agent) and never prompts. A repository it cannot read fails with git_auth_failed, which names the host and how to sign Git in there. URLs carrying a username or token are refused."
+  "Git runs on the Deca host with that host's own credentials (credential helper such as `gh auth setup-git`, Git Credential Manager or osxkeychain, or the SSH agent) and never prompts. A repository it cannot read fails with git_auth_failed, which names the host and how to sign Git in there. URLs carrying a username or token are refused."
 
 const APPROVE_NOTE =
-  'Content-only plugins (themes, icons, syntaxes, translations) install and enable without approval. Anything that runs code or acts in Orca fails with approval_required before anything is written; it lists what it would be granted, why, the publisher and repository, and the exact command to re-run with --approve <fingerprint>, which is bound to that plugin, version, files and access.'
+  'Content-only plugins (themes, icons, syntaxes, translations) install and enable without approval. Anything that runs code or acts in Deca fails with approval_required before anything is written; it lists what it would be granted, why, the publisher and repository, and the exact command to re-run with --approve <fingerprint>, which is bound to that plugin, version, files and access.'
 
 export const PLUGIN_INSTALL_COMMAND_SPECS: CommandSpec[] = [
   {
@@ -25,8 +25,8 @@ export const PLUGIN_INSTALL_COMMAND_SPECS: CommandSpec[] = [
       SOURCE_NOTE,
       PRIVATE_NOTE,
       APPROVE_NOTE,
-      'Plugins not from Orca’s official catalog also show their publisher (the repository owner) and source repository, so your user can decide whether to trust them.',
-      '--catalog picks the catalog when more than one lists the id. A folder path is on the Orca host; with --environment pass it absolute.',
+      'Plugins not from Deca’s official catalog also show their publisher (the repository owner) and source repository, so your user can decide whether to trust them.',
+      '--catalog picks the catalog when more than one lists the id. A folder path is on the Deca host; with --environment pass it absolute.',
       EXIT_CODES_NOTE
     ],
     examples: [
@@ -69,11 +69,11 @@ export const PLUGIN_INSTALL_COMMAND_SPECS: CommandSpec[] = [
   },
   {
     path: ['plugin', 'catalog', 'list'],
-    summary: 'List the plugin catalogs on the Orca host',
+    summary: 'List the plugin catalogs on the Deca host',
     usage: 'deca plugin catalog list [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      'Orca’s official catalog is always present; the community catalog is added by default.'
+      'Deca’s official catalog is always present; the community catalog is added by default.'
     ],
     examples: ['deca plugin catalog list --json']
   },
@@ -85,8 +85,8 @@ export const PLUGIN_INSTALL_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'source', 'ref', 'approve'],
     positionalArgs: ['source'],
     notes: [
-      'A catalog decides which repositories Orca installs and auto-updates plugins from, so adding one fails with approval_required until re-run with --approve <fingerprint> for that exact URL and branch. Adding one that is already there only refreshes it.',
-      '--ref defaults to main. Private catalogs use the Orca host’s Git credentials like installs do.',
+      'A catalog decides which repositories Deca installs and auto-updates plugins from, so adding one fails with approval_required until re-run with --approve <fingerprint> for that exact URL and branch. Adding one that is already there only refreshes it.',
+      '--ref defaults to main. Private catalogs use the Deca host’s Git credentials like installs do.',
       EXIT_CODES_NOTE
     ],
     examples: [
@@ -103,7 +103,7 @@ export const PLUGIN_INSTALL_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'catalog'],
     positionalArgs: ['catalog'],
     notes: [
-      'Never needs approval. Plugins installed from it stay installed but no longer update. Orca’s official catalog cannot be removed.'
+      'Never needs approval. Plugins installed from it stay installed but no longer update. Deca’s official catalog cannot be removed.'
     ],
     examples: ['deca plugin catalog rm community']
   }

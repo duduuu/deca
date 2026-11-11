@@ -83,7 +83,7 @@ describe('commands about a worker a paired server owns', () => {
           setTimeout(
             () =>
               reject(
-                Object.assign(new Error('The remote Orca runtime timed out.'), {
+                Object.assign(new Error('The remote Deca runtime timed out.'), {
                   code: 'runtime_timeout'
                 })
               ),
@@ -97,7 +97,7 @@ describe('commands about a worker a paired server owns', () => {
       if (method === 'orchestration.peerMailPull') {
         if (pullFailures > 0) {
           pullFailures -= 1
-          throw Object.assign(new Error('Could not connect to the remote Orca runtime.'), {
+          throw Object.assign(new Error('Could not connect to the remote Deca runtime.'), {
             code: 'remote_runtime_unavailable'
           })
         }
@@ -120,7 +120,7 @@ describe('commands about a worker a paired server owns', () => {
       await whileSending()
       const answer = answers[method]?.shift() ?? 'unreachable'
       if (answer === 'unreachable') {
-        throw Object.assign(new Error('Could not connect to the remote Orca runtime.'), {
+        throw Object.assign(new Error('Could not connect to the remote Deca runtime.'), {
           code: 'remote_runtime_unavailable'
         })
       }
@@ -207,7 +207,7 @@ describe('commands about a worker a paired server owns', () => {
     }
   }
 
-  it("starts the worker on a server that owns its workers, then records it under this Orca's Task", async () => {
+  it("starts the worker on a server that owns its workers, then records it under this Deca's Task", async () => {
     const receipt = await startOnB()
 
     const start = sent.find((s) => s.method === 'orchestration.workerStart')!
@@ -429,7 +429,7 @@ describe('commands about a worker a paired server owns', () => {
     expect(getRemotePlacement(db, taskId)).toMatchObject({ task_id: taskId })
   })
 
-  it("shows this Orca's record of a worker whose pairing was re-made", async () => {
+  it("shows this Deca's record of a worker whose pairing was re-made", async () => {
     await startOnB()
     closeRemoteRunLink(
       db,
@@ -443,7 +443,7 @@ describe('commands about a worker a paired server owns', () => {
     expect(show.ok ? record(show.result).server : undefined).toMatchObject({ name: 'devB' })
   })
 
-  it("shows a remote worker from this Orca's record without calling its server", async () => {
+  it("shows a remote worker from this Deca's record without calling its server", async () => {
     const { runId } = await startOnB()
     // devB is live and would say something newer; show still reads the record list reads.
     answers['orchestration.workerShow'] = [
@@ -584,7 +584,7 @@ describe('commands about a worker a paired server owns', () => {
     expect(getRemoteDispatch(db, 'ctx_b1')).toMatchObject({ stop_owed: 1 })
   })
 
-  it("updates this Orca's own Task here by the local rule, and never sends the update to its server", async () => {
+  it("updates this Deca's own Task here by the local rule, and never sends the update to its server", async () => {
     const { taskId, runId } = await startOnB()
     importState(runId, taskId, 1, {
       status: 'dispatched',
@@ -774,7 +774,7 @@ describe('commands about a worker a paired server owns', () => {
     expect(db.getTask(taskId)).toMatchObject({ status: 'failed', result: 'devB was reset.' })
   })
 
-  it('fails the Task a worker held once its server is removed from this Orca', async () => {
+  it('fails the Task a worker held once its server is removed from this Deca', async () => {
     const { taskId, runId } = await startOnB()
     paired = false
     runtime.ensureOrchestrationFederationRelay(runId)
@@ -782,7 +782,7 @@ describe('commands about a worker a paired server owns', () => {
     await vi.waitFor(() =>
       expect(db.getTask(taskId)).toMatchObject({
         status: 'failed',
-        result: "devB was removed from this Orca's paired servers. Its worker may still run there."
+        result: "devB was removed from this Deca's paired servers. Its worker may still run there."
       })
     )
   })

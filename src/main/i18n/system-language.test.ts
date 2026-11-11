@@ -9,24 +9,24 @@ vi.mock('electron', () => ({ app: { getPreferredSystemLanguages, isReady } }))
 beforeEach(() => {
   vi.resetModules()
   isReady.mockReturnValue(true)
-  getPreferredSystemLanguages.mockReturnValue(['fr-FR', 'en-US'])
+  getPreferredSystemLanguages.mockReturnValue(['ko-KR', 'en-US'])
 })
 
 describe('native language snapshot', () => {
   it('reads preferences once after app readiness and shares the ordered result', async () => {
     const { getSystemLanguageDetection } = await import('./system-language')
     isReady.mockReturnValue(false)
-    getPreferredSystemLanguages.mockReturnValueOnce(['ja-JP'])
+    getPreferredSystemLanguages.mockReturnValueOnce(['en-GB'])
     // Pre-ready reads serve startup-failure dialogs without pinning the post-ready snapshot.
-    expect(getSystemLanguageDetection()?.locale).toBe('ja')
+    expect(getSystemLanguageDetection()?.locale).toBe('en')
     isReady.mockReturnValue(true)
     expect(getSystemLanguageDetection()).toMatchObject({
-      detectedTag: 'fr-FR',
-      locale: 'fr',
+      detectedTag: 'ko-KR',
+      locale: 'ko',
       source: 'native'
     })
     getPreferredSystemLanguages.mockReturnValue(['en-US'])
-    expect(getSystemLanguageDetection()?.locale).toBe('fr')
+    expect(getSystemLanguageDetection()?.locale).toBe('ko')
     expect(getPreferredSystemLanguages).toHaveBeenCalledTimes(2)
   })
 })

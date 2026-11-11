@@ -128,7 +128,7 @@ export function buildRemoteSettingsSections(
             title: t('auto.hooks.useSettingsNavigationMetadata.pluginsTitle', 'Plugins'),
             description: t(
               'auto.hooks.useSettingsNavigationMetadata.pluginsDescription',
-              'Install and manage Orca plugins (Alpha).'
+              'Install and manage Deca plugins (Alpha).'
             ),
             icon: Blocks,
             searchEntries: getPluginsPaneSearchEntries(),

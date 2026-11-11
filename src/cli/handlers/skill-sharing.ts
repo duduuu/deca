@@ -14,7 +14,7 @@ function rejectForwardedSkillFilesystem(ctx: HandlerContext, command: string): v
   }
   throw new RuntimeClientError(
     'invalid_environment',
-    `deca skills ${command} must run on the machine whose installed skills you want to use. Run the command from an Orca terminal on that machine.`
+    `deca skills ${command} must run on the machine whose installed skills you want to use. Run the command from a Deca terminal on that machine.`
   )
 }
 

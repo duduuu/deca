@@ -1,5 +1,5 @@
 import type { GlobalSettings } from './global-settings-types'
-import { normalizeUiLanguage } from './ui-language'
+import { UI_LANGUAGE_SYSTEM, normalizeUiLanguage } from './ui-language'
 
 type PortugueseUiLanguageSettings = Pick<
   GlobalSettings,
@@ -13,7 +13,7 @@ export function migratePortugueseUiLanguageOnLoad(
     uiLanguage:
       settings?.uiLanguagePortugueseMigrationApplied !== true &&
       settings?.uiLanguage === 'plugin:stablyai.orca-portuguese/pt-BR'
-        ? 'pt'
+        ? UI_LANGUAGE_SYSTEM
         : normalizeUiLanguage(settings?.uiLanguage),
     uiLanguagePortugueseMigrationApplied: true
   }

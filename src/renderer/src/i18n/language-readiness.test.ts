@@ -7,7 +7,7 @@ vi.mock('../app-shell/platform/web-client-location', () => ({ isWebClientLocatio
 beforeEach(() => {
   vi.resetModules()
   isWebClientLocation.mockReturnValue(false)
-  Object.defineProperty(navigator, 'languages', { configurable: true, value: ['fr-FR', 'en-US'] })
+  Object.defineProperty(navigator, 'languages', { configurable: true, value: ['ko-KR', 'en-US'] })
 })
 
 function installBridge(
@@ -26,8 +26,8 @@ describe('client-local startup language', () => {
     installBridge()
     const { initializeLanguageDetection } = await import('./language-readiness')
     expect(await initializeLanguageDetection()).toMatchObject({
-      detectedTag: 'fr-FR',
-      locale: 'fr',
+      detectedTag: 'ko-KR',
+      locale: 'ko',
       source: 'browser-fallback'
     })
   })
@@ -37,7 +37,7 @@ describe('client-local startup language', () => {
     const probe = vi.fn()
     installBridge(probe)
     const { initializeLanguageDetection } = await import('./language-readiness')
-    expect(await initializeLanguageDetection()).toMatchObject({ locale: 'fr', source: 'browser' })
+    expect(await initializeLanguageDetection()).toMatchObject({ locale: 'ko', source: 'browser' })
     expect(probe).not.toHaveBeenCalled()
   })
 })
@@ -54,14 +54,14 @@ it('bounds startup with browser fallback and reconciles a late native result', a
   const { initializeLanguageDetection, useLanguageReadiness } = await import('./language-readiness')
   const detection = initializeLanguageDetection()
   await vi.advanceTimersByTimeAsync(1000)
-  expect(await detection).toMatchObject({ locale: 'fr', source: 'browser-fallback' })
-  finish({ detectedTag: 'ja-JP', locale: 'ja', status: 'supported', source: 'native' })
+  expect(await detection).toMatchObject({ locale: 'ko', source: 'browser-fallback' })
+  finish({ detectedTag: 'en-GB', locale: 'en', status: 'supported', source: 'native' })
   await Promise.resolve()
   expect(useLanguageReadiness.getState().detection).toMatchObject({
-    locale: 'ja',
+    locale: 'en',
     source: 'native'
   })
   const { getRendererLanguageDetection } = await import('../../../shared/ui-locale')
-  expect(getRendererLanguageDetection().locale).toBe('ja')
-  expect(await initializeLanguageDetection()).toMatchObject({ locale: 'ja', source: 'native' })
+  expect(getRendererLanguageDetection().locale).toBe('en')
+  expect(await initializeLanguageDetection()).toMatchObject({ locale: 'en', source: 'native' })
 })

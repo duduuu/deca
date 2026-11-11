@@ -137,7 +137,7 @@ export const CHAT_HANDLERS: Record<string, CommandHandler> = {
     if (!status.result.runtime.reachable) {
       throw new RuntimeClientError(
         'runtime_unavailable',
-        'Orca could not reach the execution host, so nothing was sent. Retry once it is reachable.'
+        'Deca could not reach the execution host, so nothing was sent. Retry once it is reachable.'
       )
     }
     // A working chat holds a queued message until its turn ends; older hosts get an ordinary send.
@@ -154,7 +154,7 @@ export const CHAT_HANDLERS: Record<string, CommandHandler> = {
     if (fence === undefined) {
       throw new RuntimeClientError(
         'agent_session_not_running',
-        `Chat ${session} has no running session on this host, so nothing was sent. Open it in Orca and retry.`
+        `Chat ${session} has no running session on this host, so nothing was sent. Open it in Deca and retry.`
       )
     }
     const mutation = structuredAgentSessionMessageSendMutation({

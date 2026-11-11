@@ -249,7 +249,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
       pending,
       parentSelector
         ? [
-            `Orca could not find the worktree selector "${worktree}" or the parent selector "${parentSelector}". The server did not identify which selector failed.`,
+            `Deca could not find the worktree selector "${worktree}" or the parent selector "${parentSelector}". The server did not identify which selector failed.`,
             'Check both selectors with deca worktree show --worktree <selector> --json.'
           ]
         : []
@@ -275,7 +275,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
     if (!hostId) {
       throw new RuntimeClientError(
         'worktree_host_unresolved',
-        'Orca cannot tell which host owns this workspace. Refresh projects and try again.'
+        'Deca cannot tell which host owns this workspace. Refresh projects and try again.'
       )
     }
     if (flags.get('allow-failed-archive-hook') === true && flags.get('run-hooks') !== true) {

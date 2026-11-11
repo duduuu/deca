@@ -48,7 +48,7 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
       if (current.result.machineName === undefined) {
         throw new RuntimeClientError(
           'incompatible_runtime',
-          'This Orca runtime does not support machine names. Update Orca on that host and try again.'
+          'This Deca runtime does not support machine names. Update Deca on that host and try again.'
         )
       }
       await client.call('settings.update', { machineName: requestedName })
@@ -114,7 +114,7 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
   'host rm': async ({ client, flags, json }) => {
     rejectLocalPairingStoreRetargeting(
       flags,
-      '`deca host rm`. It removes an SSH target from this machine\u2019s own Orca runtime, the same one `deca host list` reads.',
+      '`deca host rm`. It removes an SSH target from this machine\u2019s own Deca runtime, the same one `deca host list` reads.',
       'Run `deca host rm` on that machine to remove an SSH target registered there.'
     )
     const targetId = requireSshHostFlag(flags)
@@ -124,7 +124,7 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
     if (!target) {
       throw new RuntimeClientError(
         'invalid_argument',
-        `Unknown SSH target in --host ssh:${targetId}: this Orca host has no SSH target with that id.`,
+        `Unknown SSH target in --host ssh:${targetId}: this Deca host has no SSH target with that id.`,
         {
           knownSshTargets: targets,
           nextSteps: ['Run `deca host list` to see each SSH target and its --host ssh:<id> flag.']
@@ -209,7 +209,7 @@ function requireSshHostFlag(flags: Map<string, string | boolean>): string {
   const named = host.kind === 'alias' ? host.alias : host.id
   const nextStep =
     host.kind === 'runtime'
-      ? 'A paired Orca server is removed with `deca environment rm --environment <name>`.'
+      ? 'A paired Deca server is removed with `deca environment rm --environment <name>`.'
       : host.kind === 'local' || normalizeTypedName(named) === LOCAL_HOST_LIST_NAME
         ? 'This machine is always listed and cannot be removed.'
         : 'Pass the SSH target id as --host ssh:<target-id>; `deca host list` prints it.'

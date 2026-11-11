@@ -126,7 +126,7 @@ export function updateAgentHookSettingsFromProfileState(
 export function assertOfflineProfileStateMutationRuntime(): void {
   if (!isProfileStateSqliteAvailable()) {
     throw new Error(
-      'Changing agent hooks offline requires the bundled Orca CLI. Run that launcher, or start Orca and retry this command.'
+      'Changing agent hooks offline requires the bundled Deca CLI. Run that launcher, or start Deca and retry this command.'
     )
   }
 }

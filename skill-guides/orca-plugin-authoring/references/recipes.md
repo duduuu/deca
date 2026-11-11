@@ -33,7 +33,7 @@ plugin is `trusted-worker`. `ORCA plugin create <dir> --template worker-panel` s
 - `atom('todos', [], { persist: 'storage' })` keeps an atom in storage under its key: the worker
   reads `orca.storage.get('todos')`, and its writes update the atom. Unversioned.
 - `contributes.settings` (with `settings:own`) declares settings the user edits under the plugin
-  in Orca's Settings: `{ key, title, type: 'string'|'number'|'integer'|'boolean', default, enum,
+  in Deca's Settings: `{ key, title, type: 'string'|'number'|'integer'|'boolean', default, enum,
   minimum, maximum, multiline, ... }`. `settings.get(key)` reads the user's value or the default.
 
 ## Live agent status in a panel
@@ -45,12 +45,12 @@ agent events with `on(...)` (frames: `orca.on`) without `contributes.events`.
    `state` and `stateStartedAt` in the focused workspace.
 2. Push `on('agent.status.changed', ({ terminalId, title, state }) => ...)` into
    `ctx.subscriptions` and update the row with that `terminalId` (the id `workspace.readContext`
-   lists and `terminal.sendText` takes; `paneKey` is Orca's own id).
+   lists and `terminal.sendText` takes; `paneKey` is Deca's own id).
 3. Push `on('workspace.changed', ...)` too and re-run `agents.list`: it fires once with the
    current context as you subscribe, then when focus moves or terminals open, close or are
    renamed, with the new `readContext` answer in `context`.
 4. Keep the rows in an atom and render them as a `Table` (or `List`/`ListItem`); show "since" with
-   a `{ type: 'relative', at: stateStartedAt }` cell, which Orca keeps current. Never poll.
+   a `{ type: 'relative', at: stateStartedAt }` cell, which Deca keeps current. Never poll.
 5. Test it with `mockHost({ results: { 'agents.list': { agents: [...] } } })` and
    `panel.emit('agent.status.changed', payload)`.
 
@@ -71,7 +71,7 @@ keep their value and `visible: false` hides it. Bind a key to the same command w
 `contributes.keybindings` (`{ "command", "key": "Mod+Shift+K" }`).
 `ORCA plugin shot <plugin-key> --status-bar` saves a PNG of the status bar with the item drawn.
 
-## Changing or refusing what Orca does (hooks)
+## Changing or refusing what Deca does (hooks)
 
 `trusted-worker` with `main`; list each hook in `contributes.hooks` (`{ "event": "terminal.send" }`)
 and set `engines.orca` to at least `>=1.4.248`. Events, results and what `next` may change are in
@@ -88,12 +88,12 @@ export default function activate(orca: OrcaWorkerApi) {
 
 Other hooks: `workspace.create.before`/`.after`, `agent.launch.before` (change the command line or
 add `env`; the agent's own environment is never shown) and `agent.prompt.before` (rewrite a prompt
-Orca submits to an agent), and `agent.tool.before`/`.after` (a tool call an agent makes; Claude
+Deca submits to an agent), and `agent.tool.before`/`.after` (a tool call an agent makes; Claude
 Code waits, so `{ deny }` refuses the call and `next` can change its `input`), and
 `editor.save.before` (format on save: return `next({ ...event, text: formatted })`, or `{ deny }` to
 stop the save; autosaves are not hooked).
 
-Return `{ deny }` to stop, nothing (or `next(event)`) to pass. Past 2 s or on a throw Orca carries
+Return `{ deny }` to stop, nothing (or `next(event)`) to pass. Past 2 s or on a throw Deca carries
 on as if the hook passed and logs it (`ORCA plugin logs`); a guard that must fail closed lists the
 hook as `{ "event": "terminal.send", "onError": "deny" }`. Decide before any other awaited call:
 `await orca.host.call('notifications.show', …)` ahead of `return { deny }` can throw or time out and
@@ -112,11 +112,11 @@ There is no bundler or network: copy the library's ESM build into the plugin and
 1 MiB a `.ts` file; no `eval`). For types, write a small declaration beside the copied file
 (`vendor/lib.d.ts` for `lib.js`, `.d.mts` for `.mjs`) with only the exports you use, and import
 it by relative path; a package's split `.d.ts` files rarely resolve once copied. Style from the `--orca-*` variables in `references/host-api.md`
-and redo it on `orca.on('theme', ...)`. Orca keeps no undo for editors: the library's own undo
+and redo it on `orca.on('theme', ...)`. Deca keeps no undo for editors: the library's own undo
 gets Cmd/Ctrl+Z.
 
 ```ts
-// editor/sync.ts: the only code that talks to Orca; merge by id, never by array position.
+// editor/sync.ts: the only code that talks to Deca; merge by id, never by array position.
 export const start = () =>
   orca.document.session<Scene>({
     decode: (content) => (content.kind === 'text' ? JSON.parse(content.text) : { elements: [] }),
@@ -142,9 +142,9 @@ test('merges an agent write that lands while an edit waits', async () => {
 
 `merge` covers both outside writes: one that lands while an edit waits (base: your last accepted
 value), and one made on disk while the tab has unsaved edits (base: the disk text those edits
-started from; the tab stays unsaved with the result and Orca shows no banner, for a local file
+started from; the tab stays unsaved with the result and Deca shows no banner, for a local file
 in one editor view). Without `merge` an
-outside write wins and the draft is dropped, and a disk write under unsaved edits gets Orca's
+outside write wins and the draft is dropped, and a disk write under unsaved edits gets Deca's
 Reload/Overwrite banner. `ORCA plugin check <dir> --json`
 then reads every file the entry loads without running it, and
 `ORCA plugin open <plugin-key> --editor <file>` shows it on a real file.
@@ -161,11 +161,11 @@ maxLines })` (`terminal:read`) for its output; `agent.launch({ workspaceId, agen
 inside it) and `commands.run({ action })` (a built-in `contributes.commands[].action`, never a plugin's
 replacement) need `workspace:write` and the desktop app. Panels get none.
 
-## Replacing one of Orca's own actions
+## Replacing one of Deca's own actions
 
 Give a worker command `"replaces": "view.tasks"` (any action a declarative `action` may name;
-`engines.orca` `>=1.4.248`) and register it with `orca.commands.register`. Orca runs it when that
+`engines.orca` `>=1.4.248`) and register it with `orca.commands.register`. Deca runs it when that
 action fires from its shortcut, the palette or a menu, and its own action when the worker fails or
-takes over 2 s. To wrap Orca's own, call `orca.host.call('commands.run', { action: 'view.tasks' })`
+takes over 2 s. To wrap Deca's own, call `orca.host.call('commands.run', { action: 'view.tasks' })`
 (`workspace:write`) from the command: it always runs the built-in. The person can switch the
 replacement back on the plugin's page.

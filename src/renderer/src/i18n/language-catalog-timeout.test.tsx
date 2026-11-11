@@ -35,7 +35,7 @@ it('releases onboarding in English when a catalog stalls, ignores its late resul
       )
   )
   usePluginLanguagePackStore.setState({ entries: [], loaded: true })
-  useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'fr' } })
+  useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'ko' } })
   useLanguageReadiness.setState({ ready: false, error: false })
   function OnboardingGate(): React.JSX.Element {
     const ready = useLanguageReadiness((state) => state.ready)
@@ -54,7 +54,7 @@ it('releases onboarding in English when a catalog stalls, ignores its late resul
 
   expect(screen.getByText('Onboarding available')).toBeTruthy()
   expect(useLanguageReadiness.getState()).toMatchObject({ ready: true, error: true })
-  expect(useAppStore.getState().settings?.uiLanguage).toBe('fr')
+  expect(useAppStore.getState().settings?.uiLanguage).toBe('ko')
   expect(i18n.language).toBe('en')
   await act(async () => {
     finishCatalog(new Response(JSON.stringify({ menu: { file: 'Fichier' } })))
@@ -68,10 +68,10 @@ it('releases onboarding in English when a catalog stalls, ignores its late resul
     useLanguageReadiness.getState().retryLanguageLoad()
   })
   await act(async () => {
-    await vi.waitFor(() => expect(i18n.language).toBe('fr'))
+    await vi.waitFor(() => expect(i18n.language).toBe('ko'))
   })
 
-  expect(i18n.language).toBe('fr')
+  expect(i18n.language).toBe('ko')
   expect(useLanguageReadiness.getState().error).toBe(false)
   expect(i18n.t('menu.file')).toBe('Fichier')
 })

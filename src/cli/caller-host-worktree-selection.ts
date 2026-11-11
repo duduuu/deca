@@ -158,7 +158,7 @@ export function selectEnclosingWorktreeSelectionOnHost(
           : '--worktree'
     throw new RuntimeClientError(
       'selector_ambiguous',
-      `${action}More than one Orca workspace matched the current directory. Choose an exact ${purpose === 'parent' ? 'parent workspace' : 'workspace'}.`,
+      `${action}More than one Deca workspace matched the current directory. Choose an exact ${purpose === 'parent' ? 'parent workspace' : 'workspace'}.`,
       {
         workspaces: owners.map((row, index) => ({
           kind: isFolderRow(row) ? 'folder workspace' : 'worktree',
@@ -172,7 +172,7 @@ export function selectEnclosingWorktreeSelectionOnHost(
           purpose === 'orchestration-caller'
             ? [
                 'This command needs your own caller identity; selecting a target workspace cannot supply it.',
-                'Run the command in your own live Orca terminal with ORCA_TERMINAL_HANDLE preserved.'
+                'Run the command in your own live Deca terminal with ORCA_TERMINAL_HANDLE preserved.'
               ]
             : [
                 'Inspect a chosen workspace with `deca worktree show --worktree <selector> --json`.',
@@ -221,7 +221,7 @@ export function selectEnclosingRepoOnHost(
       .sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)))
     throw new RuntimeClientError(
       'selector_ambiguous',
-      `More than one Orca project contains the current directory: ${currentPath}. Choose the project with --repo or --project.`,
+      `More than one Deca project contains the current directory: ${currentPath}. Choose the project with --repo or --project.`,
       {
         projects,
         nextSteps: [
@@ -287,7 +287,7 @@ export function selectCallerTerminalWorkspace(
     if (!scoped) {
       throw new RuntimeClientError(
         'selector_not_found',
-        `This terminal's workspace ${worktreeId} is not listed by Orca on this host. Run the command from a workspace directory or pass --worktree <selector> (or all) where the command accepts it.`
+        `This terminal's workspace ${worktreeId} is not listed by Deca on this host. Run the command from a workspace directory or pass --worktree <selector> (or all) where the command accepts it.`
       )
     }
     return scoped

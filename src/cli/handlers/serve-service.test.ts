@@ -152,7 +152,7 @@ describe('deca serve service', () => {
     expect(String(result.content)).toContain(`Environment=PATH=/usr/local/bin:${bin}\n`)
   })
 
-  it('refuses a --command tied to one Orca version', async () => {
+  it('refuses a --command tied to one Deca version', async () => {
     const scoped = join(home, 'profile', 'cli', 'bin')
     await mkdir(scoped, { recursive: true })
     await writeFile(join(scoped, 'orca'), '#!/bin/sh\n')
@@ -162,7 +162,7 @@ describe('deca serve service', () => {
         platform: 'darwin',
         env: { ORCA_USER_DATA_PATH: join(home, 'profile') }
       })
-    ).toThrow(/one Orca version/)
+    ).toThrow(/one Deca version/)
   })
 
   it('refuses a --command inside an extract-and-run AppImage copy', async () => {
@@ -175,6 +175,6 @@ describe('deca serve service', () => {
         platform: 'linux',
         env: { ORCA_USER_DATA_PATH: join(home, 'profile') }
       })
-    ).toThrow(/one Orca version/)
+    ).toThrow(/one Deca version/)
   })
 })

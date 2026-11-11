@@ -1,7 +1,7 @@
 export const APP_ICON_OPTIONS = [
-  { id: 'classic', label: 'Classic Orca' },
-  { id: 'watercolor', label: 'Watercolor Orca' },
-  { id: 'blue', label: 'Blue Orca' }
+  { id: 'classic', label: 'Classic Deca' },
+  { id: 'watercolor', label: 'Watercolor Deca' },
+  { id: 'blue', label: 'Blue Deca' }
 ] as const
 
 export type BuiltInAppIconId = (typeof APP_ICON_OPTIONS)[number]['id']

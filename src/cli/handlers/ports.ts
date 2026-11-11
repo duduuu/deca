@@ -118,7 +118,7 @@ async function resolvePortsTarget(
   if (isNativeFolderSelector(selector)) {
     throw new RuntimeClientError(
       'invalid_argument',
-      'Orca does not tie ports to native folder workspaces yet. Run `deca ports --all` to list every listener on the host.'
+      'Deca does not tie ports to native folder workspaces yet. Run `deca ports --all` to list every listener on the host.'
     )
   }
   const shown = await client.call<{ worktree: RuntimeWorktreeRecord }>('worktree.show', {
@@ -140,7 +140,7 @@ async function scanPortsOnWorkspaceHost(
     if (error instanceof RuntimeClientError && error.code === 'method_not_found') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This Orca runtime cannot list workspace ports yet. Update Orca and try again.'
+        'This Deca runtime cannot list workspace ports yet. Update Deca and try again.'
       )
     }
     throw error

@@ -167,7 +167,7 @@ describe('a finished structured worker', () => {
     const task = turnText(worker.turns[0]!)
     expect(task).toContain(dispatchId)
     expect(task).toContain(
-      `Your Orca session ID is: ${ORCA_SESSION_ADDRESS_PREFIX}${identity.sessionId}`
+      `Your Deca session ID is: ${ORCA_SESSION_ADDRESS_PREFIX}${identity.sessionId}`
     )
     expect(db.getDispatchContextById(dispatchId)).toMatchObject({
       assignee_handle: identity.handle,

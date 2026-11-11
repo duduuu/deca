@@ -1,9 +1,9 @@
 ---
 name: orca-per-workspace-env
 description: >-
-  Set up, review, debug, or validate an Orca per-workspace environment recipe: the
+  Set up, review, debug, or validate a Deca per-workspace environment recipe: the
   on-demand, disposable runtime (cloud sandbox, VM, SSH host, or local container)
-  Orca creates fresh for each workspace. Use to stand up a new recipe end to end,
+  Deca creates fresh for each workspace. Use to stand up a new recipe end to end,
   fix an `environmentRecipes` entry in `orca.yaml`, scaffold provider lifecycle
   scripts, or resolve an `deca vm recipe doctor` failure. Use `orca-cli` for
   ordinary worktree and workspace creation with no recipe involved.
@@ -22,7 +22,7 @@ login state, scaffold and edit files under `scripts/orca-vm/`, and run `ORCA vm 
 without `--provision`. Get an explicit OK before each paid step: the base snapshot, the auth
 snapshot, and `--provision`. One OK covers the whole `--provision` fix-and-rerun loop. Stop for
 the interactive agent login, which you cannot drive; the user runs it and tells you when it is
-done. Never create an Orca workspace except for the step-10 test the user asked for. Do not create
+done. Never create a Deca workspace except for the step-10 test the user asked for. Do not create
 Git commits unless asked. Never choose a plan or region, invent a scope, project, or billing id, or
 write a credential into a script, `userData`, the state file, or a commit.
 
@@ -31,12 +31,12 @@ created by a failed step.
 
 ## The branch that shapes everything
 
-In **Orca-server** mode `create` runs `deca serve` in the environment and emits a `pairingCode`. In
-**SSH** mode `create` runs no server and emits a `connection.type:"ssh"` block Orca dials into.
+In **Deca-server** mode `create` runs `deca serve` in the environment and emits a `pairingCode`. In
+**SSH** mode `create` runs no server and emits a `connection.type:"ssh"` block Deca dials into.
 Settle this first; it changes the `create` output and half the templates.
 
-Keep Orca's checkout behavior unchanged by default: omit `checkoutMode`, emit schema version 1, and
-let Orca create a linked worktree. Use `checkoutMode: provisioned-root` only when the user
+Keep Deca's checkout behavior unchanged by default: omit `checkoutMode`, emit schema version 1, and
+let Deca create a linked worktree. Use `checkoutMode: provisioned-root` only when the user
 explicitly wants one ephemeral machine to clone the finished workspace itself. That mode requires
 direct SSH, an ordinary non-bare and non-sparse primary checkout at `projectRoot`, and schema
 version 2.
@@ -52,7 +52,7 @@ snapshot (step 5), and `create` boots from the authenticated snapshot they produ
    instead of rebuilding.
 2. **Interview the user up front.** Gather these choices and confirm them back before scaffolding
    anything. Do not pick for them and do not guess.
-   - **Connection mode:** an Orca server or SSH, as above. Settle it first.
+   - **Connection mode:** a Deca server or SSH, as above. Settle it first.
    - **Checkout ownership:** do not ask by default. Only when the user requires the environment to
      create the exact final checkout, confirm `provisioned-root` and direct SSH; otherwise omit it.
    - **Provider:** Vercel Sandbox, Fly, Modal, an existing SSH host, and so on. For a non-obvious
@@ -60,7 +60,7 @@ snapshot (step 5), and `create` boots from the authenticated snapshot they produ
      SDK docs, or `<cli> --help`, before scaffolding: you need its exact create, exec, snapshot, and
      remove verbs. If a provider advertises `ssh`, check whether it exposes a real dialable SSH
      target (host, port, user, key or proxy command) or only a provider-mediated interactive shell.
-     Orca's SSH mode needs the former.
+     Deca's SSH mode needs the former.
    - **Coding-agent CLI and account:** which agent runs in the environment (`codex`, `claude`, and
      so on) and that the user has an account for it. It is logged in during step 6.
    - **Git auth:** the token source for cloning a private repo (`GH_TOKEN`, `GITHUB_TOKEN`, or
@@ -107,7 +107,7 @@ Provisioning and building often takes 20 to 30 minutes.
 - Clone with the git token via `GIT_ASKPASS` (section 5).
 - Trap errors and remove the half-built environment, so a crash does not leave a paid resource
   running.
-- **Never snapshot a machine on which the Orca runtime has already run.** The first `deca serve`
+- **Never snapshot a machine on which the Deca runtime has already run.** The first `deca serve`
   creates the runtime's user-data directory, and everything in it is baked into the image and shared
   by every environment booted from it: the pairing keypair and device-token registry
   (`orca-devices.json`, `orca-e2ee-keypair.json`), `agent-session-authority.key`, and the build
@@ -116,10 +116,10 @@ Provisioning and building often takes 20 to 30 minutes.
   the resolved user-data directory first:
   `orca_user_data_path="${ORCA_USER_DATA_PATH:-${XDG_CONFIG_HOME:-$HOME/.config}/orca}"`.
   Resolve symlinks and inspect that path before deleting it: it must be an absolute directory
-  dedicated to Orca runtime data, never `/`, the home directory, or an ancestor of home. Refuse
+  dedicated to Deca runtime data, never `/`, the home directory, or an ancestor of home. Refuse
   empty or relative paths. Remove only that verified directory, not an unchecked environment value.
-  That matches Orca's Linux precedence for custom and default paths; deleting a named file list
-  drifts as Orca adds state.
+  That matches Deca's Linux precedence for custom and default paths; deleting a named file list
+  drifts as Deca adds state.
 - Snapshot the stopped environment, parse the snapshot id, and write it plus scope, project, port,
   and repo into state.
 
@@ -250,7 +250,7 @@ set -euo pipefail
 # 1. boot from snapshotId with a published port; capture the public URL → pairing address
 #    (an externally reachable wss:// URL); trap: remove the environment on error
 # 2. remote exec: ensure repo at desired commit; rebuild only if commit changed (cache marker)
-# 3. Orca-server mode only: remote exec starting deca serve and reading the recipe JSON it writes
+# 3. Deca-server mode only: remote exec starting deca serve and reading the recipe JSON it writes
 # 4. print one recipe-result JSON object to stdout
 ```
 
@@ -259,7 +259,7 @@ set -euo pipefail
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-payload="$(cat)"                       # Orca passes lifecycle JSON on stdin
+payload="$(cat)"                       # Deca passes lifecycle JSON on stdin
 resource_id="$(node -e 'const d=JSON.parse(process.argv[1]); process.stdout.write(d.recipeResult?.userData?.resourceId ?? "")' "$payload")"
 [ -n "$resource_id" ] || { echo "No resource id in lifecycle payload" >&2; exit 1; }
 # suspend: provider suspend "$resource_id"
@@ -292,7 +292,7 @@ fresh recipe JSON because the pairing may have changed. `destroy` may be omitted
 
 Steps have no time limit by default. Set `timeoutSeconds` on the recipe to give them one, either
 one number for every step or a map with any of `create`, `suspend`, `resume`, and `destroy`; values
-are whole seconds from 1 to 86400. When a step runs past its limit, Orca stops the whole process
+are whole seconds from 1 to 86400. When a step runs past its limit, Deca stops the whole process
 tree and reports a timeout. An invalid value is reported and the steps stay unlimited.
 
 ```yaml
@@ -301,7 +301,7 @@ timeoutSeconds:
   destroy: 120
 ```
 
-Recipe scripts inherit Orca's whole environment by default, including any API keys and tokens in
+Recipe scripts inherit Deca's whole environment by default, including any API keys and tokens in
 it. Set `passEnv` to pass only the variables the scripts need, as exact names or a prefix ending in
 `*`; `PATH`, `HOME`, `USER`, `SHELL`, `LANG`, `TMPDIR` and similar basics are always kept, and the
 `ORCA_*` recipe variables are always set. Recipes that use an SSH agent also need `SSH_AUTH_SOCK`,
@@ -315,13 +315,13 @@ passEnv: [GH_TOKEN, GITHUB_TOKEN, 'CLOUDSDK_*']
 A timed-out `create` may still have started a VM, so make `create` idempotent per
 `ORCA_VM_INSTANCE_ID` or have it record the resource before slow work starts.
 
-Orca records each VM before `create` runs. If `create` started but never returned a result (it
-failed, timed out, or Orca quit), Settings keeps the VM listed so the user can clean it up; if it
+Deca records each VM before `create` runs. If `create` started but never returned a result (it
+failed, timed out, or Deca quit), Settings keeps the VM listed so the user can clean it up; if it
 was cancelled or rejected before starting, nothing is kept. That destroy
 payload has `instanceId` but no `recipeResult`, so `destroy` should find the resource from the
 instance id (for example, a name built from `ORCA_VM_INSTANCE_ID`) or exit non-zero if it can't.
 
-The base result, which is what Orca-server mode prints:
+The base result, which is what Deca-server mode prints:
 
 ```json
 {
@@ -346,7 +346,7 @@ Three named deltas change that shape:
 
 ### The `deca serve` invocation
 
-Inside the environment, in Orca-server mode, run exactly this. These flags are verified; do not
+Inside the environment, in Deca-server mode, run exactly this. These flags are verified; do not
 improvise them.
 
 ```bash

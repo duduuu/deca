@@ -21,7 +21,7 @@ describe('main-i18n lazy locale loading', () => {
 
   it('keeps a newer explicit language when system fallback catalog loading finishes late', async () => {
     const { getSystemLanguageDetection } = await import('./system-language')
-    expect(getSystemLanguageDetection(['fr-FR'])?.locale).toBe('fr')
+    expect(getSystemLanguageDetection(['ko-KR'])?.locale).toBe('ko')
     let finishLoad: () => void = () => {}
     const load = vi.spyOn(mainI18n, 'loadLanguages').mockImplementationOnce(
       () =>
@@ -30,7 +30,7 @@ describe('main-i18n lazy locale loading', () => {
         })
     )
     const fallback = setMainUiLanguage('system')
-    await vi.waitFor(() => expect(load).toHaveBeenCalledWith('fr'))
+    await vi.waitFor(() => expect(load).toHaveBeenCalledWith('ko'))
     await setMainUiLanguage('en')
     finishLoad()
     await fallback

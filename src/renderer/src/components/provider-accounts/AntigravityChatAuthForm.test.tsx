@@ -4,7 +4,7 @@ import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, expect, it, vi } from 'vitest'
 import { i18n } from '@/i18n/i18n'
-import es from '@/i18n/locales/es.json'
+import es from '@/i18n/locales/ko.json'
 import { TooltipProvider } from '../ui/tooltip'
 import { AntigravityChatSignInRow } from './AntigravityChatSignInRow'
 import { AntigravityProviderSignInArea } from './AntigravityProviderSignInArea'
@@ -147,11 +147,11 @@ it.each(['accounts', 'provider'] as const)(
 it.each([
   { surface: 'accounts', language: 'en', action: 'Sign in with Gemini Enterprise' },
   { surface: 'provider', language: 'en', action: 'Sign in with Gemini Enterprise' },
-  { surface: 'accounts', language: 'es', action: 'Sign in with Gemini Enterprise' }
+  { surface: 'accounts', language: 'ko', action: 'Sign in with Gemini Enterprise' }
 ] as const)(
   '$surface keeps a failed-save draft editable and retries through Sign in ($language)',
   async ({ surface, language, action }) => {
-    i18n.addResourceBundle('es', 'translation', es)
+    i18n.addResourceBundle('ko', 'translation', es)
     await i18n.changeLanguage(language)
     const target = {
       kind: 'environment',

@@ -2,16 +2,7 @@ import type { TOptions } from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 import enRuntimeRequired from './en-runtime-required.json'
-import deCatalogUrl from './locales/de.json?url'
-import esCatalogUrl from './locales/es.json?url'
-import frCatalogUrl from './locales/fr.json?url'
-import jaCatalogUrl from './locales/ja.json?url'
 import koCatalogUrl from './locales/ko.json?url'
-import ptCatalogUrl from './locales/pt.json?url'
-import ruCatalogUrl from './locales/ru.json?url'
-import trCatalogUrl from './locales/tr.json?url'
-import zhCatalogUrl from './locales/zh.json?url'
-import zhHantCatalogUrl from './locales/zh-Hant.json?url'
 import {
   advanceTranslationResourceVersion,
   getTranslationResourceVersion
@@ -26,16 +17,7 @@ import { createOrcaI18n } from '../../../shared/orca-i18n-instance'
 
 // Fetch catalogs as data: Chromium caches rejected module imports for the document's lifetime.
 const NON_DEFAULT_LOCALE_URLS: Record<Exclude<SupportedUiLocale, 'en'>, string> = {
-  de: deCatalogUrl,
-  es: esCatalogUrl,
-  fr: frCatalogUrl,
-  ja: jaCatalogUrl,
-  ko: koCatalogUrl,
-  pt: ptCatalogUrl,
-  ru: ruCatalogUrl,
-  tr: trCatalogUrl,
-  zh: zhCatalogUrl,
-  'zh-Hant': zhHantCatalogUrl
+  ko: koCatalogUrl
 }
 
 const LOCALE_CATALOG_URLS = new Map<string, string>(Object.entries(NON_DEFAULT_LOCALE_URLS))

@@ -159,7 +159,7 @@ describe('registerAutoUpdaterHandlers linux package artifact tracking', () => {
     getLinuxPackageTypeMock.mockReturnValue('non-root')
     getLinuxRootPackageTypeMock.mockReturnValue(null)
     preExtractUpdateMock.mockReturnValue(new Promise(() => {}))
-    const appImagePath = '/home/tester/.cache/orca-updater/pending/Orca-1.0.61.AppImage'
+    const appImagePath = '/home/tester/.cache/orca-updater/pending/Deca-1.0.61.AppImage'
     const { context, emit } = await register()
     emit('update-downloaded', downloadedEvent({ downloadedFile: appImagePath }))
 
@@ -178,7 +178,7 @@ describe('registerAutoUpdaterHandlers linux package artifact tracking', () => {
     const status = {
       state: 'error',
       message:
-        'The downloaded package metadata could not be verified. Quit Orca before downloading and installing the update from the official release page.',
+        'The downloaded package metadata could not be verified. Quit Deca before downloading and installing the update from the official release page.',
       messageCode: 'linuxPackageMetadataUnusable',
       version: '1.0.61',
       retryable: false
@@ -202,7 +202,7 @@ describe('registerAutoUpdaterHandlers linux package artifact tracking', () => {
     expect(getArtifact()).toEqual(expect.objectContaining({ version: '1.0.61' }))
     expect(context.sendStatus).toHaveBeenLastCalledWith({
       state: 'error',
-      message: 'Quit Orca before running the system package install command.',
+      message: 'Quit Deca before running the system package install command.',
       messageCode: 'linuxPackageManualInstall',
       recovery: {
         kind: 'linux-package-install',
@@ -280,7 +280,7 @@ describe('registerAutoUpdaterHandlers linux package artifact tracking', () => {
       await vi.waitFor(() =>
         expect(context.sendStatus).toHaveBeenLastCalledWith({
           state: 'error',
-          message: 'Quit Orca before running the system package install command.',
+          message: 'Quit Deca before running the system package install command.',
           messageCode: 'linuxPackageManualInstall',
           recovery: {
             kind: 'linux-package-install',

@@ -61,7 +61,7 @@ export async function requirePeerMailServer(
   ) {
     throw new OrchestrationError(
       'server_mail_unsupported',
-      `Server ${server.name} runs an older Orca that cannot receive agent mail from another server. Update Orca on ${server.name}, then send again. Nothing was sent.`,
+      `Server ${server.name} runs an older Deca that cannot receive agent mail from another server. Update Deca on ${server.name}, then send again. Nothing was sent.`,
       { ...NOTHING_SENT, server: server.name }
     )
   }

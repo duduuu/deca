@@ -61,7 +61,7 @@ describe('file commands on a server with no app window', () => {
     ])
 
     expect(String(vi.mocked(console.error).mock.calls[0]?.[0])).toContain(
-      'This Orca server has no app window'
+      'This Deca server has no app window'
     )
   })
 })

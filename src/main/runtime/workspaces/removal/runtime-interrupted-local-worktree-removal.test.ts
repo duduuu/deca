@@ -807,7 +807,7 @@ describe('finishing an interrupted worktree removal after a restart', () => {
     )
   })
 
-  it('drops a record whose repo Orca no longer has', async () => {
+  it('drops a record whose repo Deca no longer has', async () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const { outcome, purged, records } = await finishAfterRestart({ repoGone: true })

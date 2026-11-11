@@ -107,7 +107,7 @@ export async function reclaimStaleOrcadInstanceLock(
   }
   const { evidence } = checked
   const found =
-    `${holder.role === 'desktop' ? 'The Orca desktop app' : 'orcad'} pid ${evidence.pid} on ` +
+    `${holder.role === 'desktop' ? 'The Deca desktop app' : 'orcad'} pid ${evidence.pid} on ` +
     `host ${evidence.host} took ${lockPath} ${evidence.ageMinutes} minutes ago, in boot ` +
     `${evidence.bootId} (this machine is now in boot ${evidence.currentBootId}), and nothing ` +
     'answers on this machine at its endpoints. The host name and boot checks cannot rule out ' +
@@ -115,7 +115,7 @@ export async function reclaimStaleOrcadInstanceLock(
   if (!options.yes) {
     return result(
       'eligible',
-      `${found}\nMake sure no other machine sharing this home runs Orca for this profile, then ` +
+      `${found}\nMake sure no other machine sharing this home runs Deca for this profile, then ` +
         'run the same command again with --yes added.',
       evidence
     )
@@ -134,7 +134,7 @@ export async function reclaimStaleOrcadInstanceLock(
   } catch (error) {
     return result('refused', error instanceof Error ? error.message : String(error), evidence)
   }
-  return result('reclaimed', `${found}\nReclaimed ${lockPath}. Orca can start now.`, evidence)
+  return result('reclaimed', `${found}\nReclaimed ${lockPath}. Deca can start now.`, evidence)
 }
 
 async function checkStaleLock(

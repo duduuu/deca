@@ -45,7 +45,7 @@ export function mergeText(base: string, outside: string, mine: string): string {
   return \`\${outside}\\n\${mine}\`
 }
 
-/** The only code that talks to Orca: sends edits, keeps unsaved typing, merges outside writes. */
+/** The only code that talks to Deca: sends edits, keeps unsaved typing, merges outside writes. */
 export function start() {
   const document = orca.document
   if (!document) {
@@ -105,7 +105,7 @@ export function editor(input: PluginTemplateInput): PluginTemplate {
       }),
       'README.md': readme(
         input,
-        `A custom editor for \`${extension}\` files, in TypeScript with no build step. \`editor/sync.ts\` keeps the file in step through \`orca.document.session\` (replace its stand-in \`mergeText\` with your format's merge), and \`editor/main.ts\` is the view. \`deca plugin test .\` runs \`editor/sync.test.ts\` in Node with \`mockEditorHost\`; \`deca plugin check .\` reads every file the editor loads; \`deca plugin shot <plugin-key> --editor <file>\` saves a PNG of it. \`"frame": "isolated"\` keeps it to the Orca desktop app. Loading it needs approval: \`deca plugin dev watch .\` prints the exact access and the \`--approve\` fingerprint.`
+        `A custom editor for \`${extension}\` files, in TypeScript with no build step. \`editor/sync.ts\` keeps the file in step through \`orca.document.session\` (replace its stand-in \`mergeText\` with your format's merge), and \`editor/main.ts\` is the view. \`deca plugin test .\` runs \`editor/sync.test.ts\` in Node with \`mockEditorHost\`; \`deca plugin check .\` reads every file the editor loads; \`deca plugin shot <plugin-key> --editor <file>\` saves a PNG of it. \`"frame": "isolated"\` keeps it to the Deca desktop app. Loading it needs approval: \`deca plugin dev watch .\` prints the exact access and the \`--approve\` fingerprint.`
       ),
       ...COMMON_FILES
     }

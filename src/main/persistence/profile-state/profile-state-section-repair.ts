@@ -69,7 +69,7 @@ export function repairProfileStateSections(options: {
   if (plan === undefined) {
     throw new ProfileStateRecoveryCommandError(
       'runtime_error',
-      `Orca can't repair this profile one section at a time (${reason}). Nothing was changed. Run \`deca profile state exports\` and restore a whole backup with \`deca profile state rollback --backup <id>\`.`
+      `Deca can't repair this profile one section at a time (${reason}). Nothing was changed. Run \`deca profile state exports\` and restore a whole backup with \`deca profile state rollback --backup <id>\`.`
     )
   }
   if (options.approved !== undefined && !sameSections(options.approved, plan.sections)) {
@@ -115,7 +115,7 @@ function assertProfileOpens(
   } catch (error) {
     throw new ProfileStateRecoveryCommandError(
       'runtime_error',
-      `Orca replaced the damaged sections, but the profile still can't be opened (${error instanceof Error ? error.message : String(error)}). The profile as it was before the repair is kept in ${quarantineDirectory}.`
+      `Deca replaced the damaged sections, but the profile still can't be opened (${error instanceof Error ? error.message : String(error)}). The profile as it was before the repair is kept in ${quarantineDirectory}.`
     )
   } finally {
     authority.close()

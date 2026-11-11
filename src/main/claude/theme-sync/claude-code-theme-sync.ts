@@ -125,7 +125,7 @@ async function applyToConfigDir(
       throw error
     }
   }).catch((error: unknown) => {
-    console.warn(`[claude-theme] Could not select the Orca theme in ${settingsPath}:`, error)
+    console.warn(`[claude-theme] Could not select the Deca theme in ${settingsPath}:`, error)
   })
   return replaced
 }
@@ -230,7 +230,7 @@ export async function syncClaudeCodeThemeConfigDirs(
   const result: ClaudeCodeThemeSyncResult = { replaced: [], restorePending: false }
   const owned = await readClaudeThemeOwnership()
   if (!owned) {
-    console.warn('[claude-theme] Skipping sync: Orca cannot read its record of replaced themes')
+    console.warn('[claude-theme] Skipping sync: Deca cannot read its record of replaced themes')
     return { ...result, restorePending: !target.enabled }
   }
   if (target.enabled) {

@@ -13,7 +13,7 @@ import { useMountedRef } from '@/hooks/useMountedRef'
 function copiedNote(packageFileName: string): string {
   return translate(
     'auto.components.LinuxPackageInstallRecoveryCard.aa57fa4f80',
-    'Command copied. Quit Orca, run it in a system terminal to install {{value0}}, then reopen Orca.',
+    'Command copied. Quit Deca, run it in a system terminal to install {{value0}}, then reopen Deca.',
     {
       value0: packageFileName
     }
@@ -45,11 +45,11 @@ export function LinuxPackageInstallRecoveryCard({
   )
   const SUMMARY = t(
     'auto.components.LinuxPackageInstallRecoveryCard.a7ac6ec78b',
-    'Orca downloaded the system package. Quit Orca before finishing the update from a terminal.'
+    'Deca downloaded the system package. Quit Deca before finishing the update from a terminal.'
   )
   const EXPLAINER = t(
     'auto.components.LinuxPackageInstallRecoveryCard.82c6dbea00',
-    'Copy the command, quit Orca, and run it in a system terminal on the computer where Orca is installed. Reopen Orca after it finishes.'
+    'Copy the command, quit Deca, and run it in a system terminal on the computer where Deca is installed. Reopen Deca after it finishes.'
   )
   const AGENT_NOTE = t(
     'auto.components.LinuxPackageInstallRecoveryCard.53c4b8e148',
@@ -57,7 +57,7 @@ export function LinuxPackageInstallRecoveryCard({
   )
   const TRUST_NOTE = t(
     'auto.components.LinuxPackageInstallRecoveryCard.b7e7c5bc95',
-    'Orca checks the downloaded file against the release metadata at the moment it builds this command. The system package itself is not signature-checked, and Orca cannot vouch for the file after that point.'
+    'Deca checks the downloaded file against the release metadata at the moment it builds this command. The system package itself is not signature-checked, and Deca cannot vouch for the file after that point.'
   )
   const CHECKING_LABEL = t(
     'auto.components.LinuxPackageInstallRecoveryCard.c732bcbf8f',

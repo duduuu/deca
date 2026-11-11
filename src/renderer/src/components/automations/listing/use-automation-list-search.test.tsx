@@ -37,12 +37,9 @@ function Harness({ query, rows }: { query: string; rows: readonly AutomationList
   latest = useAutomationListSearch({
     listSearchQuery: query,
     rows,
-    externalAutomationEntries: [],
     repoMap,
     selectedRowKey: null,
-    selectedExternalKey: null,
-    selectAutomationRow: () => undefined,
-    selectExternalKey: () => undefined
+    selectAutomationRow: () => undefined
   })
   return null
 }

@@ -28,7 +28,7 @@ describe('accepted spawn followed by failed startup readiness', () => {
   )(
     'keeps what a launch printed when its PTY dies mid-command ($context, exitBeforeWait=$exitBeforeWait)',
     async ({ context, exitBeforeWait }) => {
-      const { runtime, handle } = await createTranscriptPane({
+      const { runtime, handle, terminal } = await createTranscriptPane({
         paneTitle: 'shell',
         foregroundProcess: 'bash',
         launchAgent: 'claude',
@@ -46,7 +46,15 @@ describe('accepted spawn followed by failed startup readiness', () => {
       if (exitBeforeWait) {
         exit()
       }
-      const result = waitForWorkerAgentReady(runtime, handle).catch((error: unknown) => error)
+      const result = waitForWorkerAgentReady(runtime, handle, {
+        agent: 'claude',
+        reusesTerminal: false,
+        creation:
+          context === 'wrong-incarnation'
+            ? { ...terminal, incarnationId: 'replacement' }
+            : terminal,
+        timeoutMs: 50
+      }).catch((error: unknown) => error)
       if (!exitBeforeWait) {
         exit()
       }

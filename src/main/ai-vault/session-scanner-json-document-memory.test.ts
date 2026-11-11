@@ -1,14 +1,12 @@
-import { mkdtemp, open, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, open, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
 import { parseDevinSessionFile } from './scanners/devin/session-scanner-devin-parser'
 import { parseGeminiSessionFile } from './scanners/gemini/session-scanner-gemini-parsers'
 const providers = [
-  { agent: 'hermes', parse: parseHermesSessionFile, array: 'messages' },
   { agent: 'devin', parse: parseDevinSessionFile, array: 'steps' },
-  { agent: 'gemini', parse: parseGeminiSessionFile, array: 'messages' },
-  { agent: 'cline', parse: parseClineSessionFile, array: 'messages' }
+  { agent: 'gemini', parse: parseGeminiSessionFile, array: 'messages' }
 ] as const
 
 function collectHeap(): number {
@@ -59,10 +57,7 @@ it.each(providers)(
     try {
       const path = join(root, 'session.json')
       const messageCount = 8192
-      const contentPath = agent === 'cline' ? join(root, 'session.messages.json') : path
-      if (agent === 'cline') {
-        await writeFile(path, JSON.stringify({ session_id: 'long-session', model: 'model-at-end' }))
-      }
+      const contentPath = path
       await writeLongDocument(contentPath, messageCount, agent, array)
       const baseline = collectHeap()
       let firstMessageRetainedBytes = 0
@@ -99,10 +94,7 @@ it.each(providers)(
     const root = await mkdtemp(join(tmpdir(), 'orca-json-document-cancel-'))
     try {
       const path = join(root, 'session.json')
-      const contentPath = agent === 'cline' ? join(root, 'session.messages.json') : path
-      if (agent === 'cline') {
-        await writeFile(path, '{"session_id":"session"}')
-      }
+      const contentPath = path
       await writeLongDocument(contentPath, 1024, agent, array)
       const controller = new AbortController()
       let emitted = 0

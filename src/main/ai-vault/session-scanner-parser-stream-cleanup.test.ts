@@ -51,7 +51,6 @@ function expectStreamTornDown(): void {
 beforeEach(() => {
   opened.length = 0
   interfaces.length = 0
-  clearKimiSessionIndexCache()
   mocks.openStream.mockReset()
   mocks.readFile.mockReset()
   mocks.stat.mockReset()

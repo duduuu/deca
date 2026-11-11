@@ -36,7 +36,7 @@ function hostPane(state: 'done' | 'working' = 'done'): RuntimeMobileSessionTermi
     parentTabId: 'host-tab-1',
     leafId: LEAF_ID,
     title: state === 'done' ? 'Pi ready' : '⠋ Pi',
-    launchAgent: 'pi',
+    launchAgent: 'claude',
     isActive: true,
     status: 'ready',
     terminal: 'terminal-1',

@@ -17,15 +17,9 @@ vi.mock(
       listOpenCodeSqliteSessionsViaWorker: (
         args: Parameters<typeof v1List.listOpenCodeSqliteSessions>[0]
       ) => v1List.listOpenCodeSqliteSessions(args),
-      listZcodeSqliteSessionsViaWorker: (
-        args: Parameters<typeof v1List.listOpenCodeSqliteSessions>[0]
-      ) => v1List.listOpenCodeSqliteSessions({ ...args, agent: 'zcode' }),
       parseOpenCodeSqliteSessionViaWorker: (
         args: Parameters<typeof v1Parse.parseOpenCodeSqliteSession>[0]
       ) => v1Parse.parseOpenCodeSqliteSession(args),
-      parseZcodeSqliteSessionViaWorker: (
-        args: Parameters<typeof v1Parse.parseOpenCodeSqliteSession>[0]
-      ) => v1Parse.parseOpenCodeSqliteSession({ ...args, agent: 'zcode' }),
       listOpenCode2SqliteSessionsViaWorker: (
         args: Parameters<typeof v2List.listOpenCode2SqliteSessions>[0]
       ) => v2List.listOpenCode2SqliteSessions(args),

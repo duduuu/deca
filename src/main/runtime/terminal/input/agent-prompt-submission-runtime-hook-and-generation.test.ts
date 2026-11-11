@@ -63,7 +63,7 @@ describe('agent prompt submission runtime hook and generation cases', () => {
       stateStartedAt: number
       mainAgent?: { state: 'done' | 'working'; stateStartedAt: number }
     },
-    launchAgent: 'antigravity' | 'kimi' | 'codex' = 'kimi'
+    launchAgent: 'antigravity' | 'codex' = 'codex'
   ): Promise<{
     runtime: OrcaRuntimeService
     handle: string

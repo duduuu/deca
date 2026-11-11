@@ -24,8 +24,6 @@ vi.mock(
     return {
       listOpenCode2SqliteSessionsViaWorker: listOpenCode2SqliteSessions,
       listOpenCodeSqliteSessionsViaWorker: listOpenCodeSqliteSessions,
-      listZcodeSqliteSessionsViaWorker: (args: Parameters<typeof listOpenCodeSqliteSessions>[0]) =>
-        listOpenCodeSqliteSessions({ ...args, agent: 'zcode' }),
       parseOpenCodeSqliteSessionViaWorker: parseOpenCodeSqliteSession
     }
   }

@@ -38,7 +38,7 @@ afterEach(() => {
 
 const cwd = '\\\\wsl.localhost\\Actual\\home\\dev\\repo'
 function plan(content = 'sensitive request') {
-  const planned = planCommitMessageGeneration({ agentId: 'omp', model: 'default' }, content)
+  const planned = planCommitMessageGeneration({ agentId: 'codex', model: 'default' }, content)
   if (!planned.ok) {
     throw new Error(planned.error)
   }

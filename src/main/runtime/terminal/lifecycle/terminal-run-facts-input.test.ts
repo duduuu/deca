@@ -97,7 +97,7 @@ async function createFreshRun(): Promise<FreshRun> {
     getForegroundProcess: async () => null
   }
   runtime.setPtyController(controller)
-  const terminal = await runtime.createTerminal('path:/tmp/worktree-a', { launchAgent: 'aider' })
+  const terminal = await runtime.createTerminal('path:/tmp/worktree-a', { launchAgent: 'kiro' })
   runtime.terminalRunFacts.recordSpawnCommit({ id: PTY_ID })
   return { runtime, controller, handle: terminal.handle, writes, kinds, firstUserInputAt }
 }

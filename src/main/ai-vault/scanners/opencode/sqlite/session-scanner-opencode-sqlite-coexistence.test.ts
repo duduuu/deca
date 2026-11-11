@@ -17,8 +17,6 @@ vi.mock('../reader-transport/session-scanner-opencode-sqlite-worker-spawn', asyn
   return {
     listOpenCode2SqliteSessionsViaWorker: listOpenCode2SqliteSessions,
     listOpenCodeSqliteSessionsViaWorker: listOpenCodeSqliteSessions,
-    listZcodeSqliteSessionsViaWorker: (args: Parameters<typeof listOpenCodeSqliteSessions>[0]) =>
-      listOpenCodeSqliteSessions({ ...args, agent: 'zcode' }),
     parseOpenCodeSqliteSessionViaWorker: parseOpenCodeSqliteSession
   }
 })
@@ -56,7 +54,6 @@ function isolatedScanRoots(root: string) {
     droidProjectsDir: join(root, 'droid-projects'),
     kimiSessionsDir: join(root, 'kimi-sessions'),
     museSessionsDir: join(root, 'muse-sessions'),
-    zcodeDbPath: join(root, 'zcode-db.sqlite'),
     ompSessionsDir: join(root, 'omp-sessions'),
     jcodeSessionsDir: join(root, 'jcode-sessions'),
     kiroSessionsDir: join(root, 'kiro-sessions'),

@@ -26,7 +26,7 @@ const nativeSpawn = (await vi.importActual<typeof ChildProcess>('node:child_proc
 afterEach(() => {
   spawnMock.mockReset().mockImplementation(nativeSpawn)
 })
-function planned(agentId: 'omp' | 'codex' = 'omp') {
+function planned(agentId: 'codex' = 'codex') {
   const result = planCommitMessageGeneration(
     {
       agentId,

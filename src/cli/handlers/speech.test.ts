@@ -11,7 +11,7 @@ function piped(...parts: string[]): AsyncIterable<unknown> & { isTTY?: boolean }
   return chunks(...parts)
 }
 
-describe('orca speech openai-key set', () => {
+describe('deca speech openai-key set', () => {
   it('reads the key from piped stdin and trims the trailing newline', async () => {
     await expect(readOpenAiKeyFromStdin(piped('sk-test-', 'abc\n'))).resolves.toBe('sk-test-abc')
   })

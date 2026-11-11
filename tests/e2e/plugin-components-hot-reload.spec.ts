@@ -100,7 +100,7 @@ test('a dev components panel hot reloads with its memory atoms and survives a br
     await expect(orcaPage.getByRole('heading', { name: 'Panel v2' })).toBeVisible()
     await expect(orcaPage.getByText('Draft: kept across saves')).toBeVisible()
 
-    // A throw is located at the source column (as `orca plugin check` reports), not the
+    // A throw is located at the source column (as `deca plugin check` reports), not the
     // type-stripped one Chromium's stack names.
     await writeFile(
       panelFile,

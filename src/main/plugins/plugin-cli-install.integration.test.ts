@@ -204,7 +204,7 @@ async function approvalOf(promise: Promise<unknown>): Promise<PluginApprovalRequ
   return error
 }
 
-describe('orca plugin install and update over Git', () => {
+describe('deca plugin install and update over Git', () => {
   it('refuses code without --approve, writes nothing, and installs with the shown fingerprint', async () => {
     const { deps, consents, lock } = await harness()
     const source = { kind: 'git' as const, input: NOTES_URL }

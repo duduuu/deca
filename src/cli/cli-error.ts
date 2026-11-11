@@ -144,7 +144,7 @@ function formatRuntimeUnavailableError(message: string, data: unknown): string {
   if (nextSteps.length > 0) {
     return formatMessageWithNextSteps(message, nextSteps)
   }
-  return `${message}\nOrca is not running. Run 'orca open' first.`
+  return `${message}\nOrca is not running. Run 'deca open' first.`
 }
 
 // Streaming commands print one JSON object per line with --json, so their failure is one line too.

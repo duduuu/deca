@@ -6,7 +6,7 @@ export const PLUGIN_VIEW_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['plugin', 'open'],
     summary: "Show a plugin's panel in Orca's right sidebar, or open a file in its editor",
-    usage: 'orca plugin open <plugin-key> [--panel <id> | --editor <file>] [--json]',
+    usage: 'deca plugin open <plugin-key> [--panel <id> | --editor <file>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'plugin', 'panel', 'editor'],
     positionalArgs: ['plugin'],
     notes: [
@@ -17,16 +17,16 @@ export const PLUGIN_VIEW_COMMAND_SPECS: CommandSpec[] = [
       'Use it to show your user the panel you just built; `deca plugin shot` captures it for you.'
     ],
     examples: [
-      'orca plugin open acme.todos',
-      'orca plugin open acme.todos --panel stats',
-      'orca plugin open acme.notes --editor ./docs/plan.notes'
+      'deca plugin open acme.todos',
+      'deca plugin open acme.todos --panel stats',
+      'deca plugin open acme.notes --editor ./docs/plan.notes'
     ]
   },
   {
     path: ['plugin', 'shot'],
     summary: 'Save a PNG of a plugin panel exactly as Orca draws it, to look at what you built',
     usage:
-      "orca plugin shot <plugin-key|dir> [--panel <id> | --editor <file> | --status-bar | --window] [--theme <light|dark>] [--width <px>] [--height <px>] [--act '<json>' [--in-place] | --scenario <name>] [--out <file.png>] [--json]",
+      "deca plugin shot <plugin-key|dir> [--panel <id> | --editor <file> | --status-bar | --window] [--theme <light|dark>] [--width <px>] [--height <px>] [--act '<json>' [--in-place] | --scenario <name>] [--out <file.png>] [--json]",
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'plugin',
@@ -55,14 +55,14 @@ export const PLUGIN_VIEW_COMMAND_SPECS: CommandSpec[] = [
       'Desktop app only: a server with no window (`deca serve`) refuses it. With --environment the PNG (at most 5 MiB; it shows only the plugin panel) comes back to this machine and is written here.'
     ],
     examples: [
-      'orca plugin shot acme.todos',
-      'orca plugin shot acme.todos --theme light --width 360 --out ./todos-light.png',
-      'orca plugin shot acme.todos --panel stats --json',
-      'orca plugin shot . --scenario counted --theme dark',
-      'orca plugin shot . --editor ./sample.sketch --theme light --width 800 --height 600',
-      'orca plugin shot acme.todos --status-bar --theme dark',
-      'orca plugin shot acme.sketch --editor ./sample.sketch --act \'[{"click":[200,150]},{"drag":[[200,150],[400,300]]},{"key":"r"}]\'',
-      'orca plugin shot acme.todos --act \'[{"type":{"label":"New task"},"text":"Ship","submit":true},{"toggle":{"label":"Hide done"}}]\''
+      'deca plugin shot acme.todos',
+      'deca plugin shot acme.todos --theme light --width 360 --out ./todos-light.png',
+      'deca plugin shot acme.todos --panel stats --json',
+      'deca plugin shot . --scenario counted --theme dark',
+      'deca plugin shot . --editor ./sample.sketch --theme light --width 800 --height 600',
+      'deca plugin shot acme.todos --status-bar --theme dark',
+      'deca plugin shot acme.sketch --editor ./sample.sketch --act \'[{"click":[200,150]},{"drag":[[200,150],[400,300]]},{"key":"r"}]\'',
+      'deca plugin shot acme.todos --act \'[{"type":{"label":"New task"},"text":"Ship","submit":true},{"toggle":{"label":"Hide done"}}]\''
     ]
   }
 ]

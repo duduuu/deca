@@ -5,7 +5,7 @@ import { GLOBAL_FLAGS } from '../args'
 export const PLUGIN_DEV_HOOK_COMMAND_SPEC: CommandSpec = {
   path: ['plugin', 'dev', 'hook'],
   summary: "Run a hook through a development plugin's worker and print what the chain decided",
-  usage: 'orca plugin dev hook <dir|plugin-key> <hook> --data <json> [--json]',
+  usage: 'deca plugin dev hook <dir|plugin-key> <hook> --data <json> [--json]',
   allowedFlags: [...GLOBAL_FLAGS, 'target', 'event', 'data'],
   positionalArgs: ['target', 'event'],
   notes: [
@@ -13,7 +13,7 @@ export const PLUGIN_DEV_HOOK_COMMAND_SPEC: CommandSpec = {
     "--data is the hook's event as JSON (the host API reference lists them). Prints `{ pluginKey, event, decision }`, where decision is `{ kind: 'continue', event }` or `{ kind: 'deny', reason }`. A timeout or throw counts as passing and shows in `deca plugin logs`."
   ],
   examples: [
-    'orca plugin dev hook . terminal.send --data \'{"terminalId":"t1","text":"rm -rf /","enter":true,"inputKind":"driving"}\''
+    'deca plugin dev hook . terminal.send --data \'{"terminalId":"t1","text":"rm -rf /","enter":true,"inputKind":"driving"}\''
   ]
 }
 
@@ -22,7 +22,7 @@ export const PLUGIN_DEV_REQUEST_COMMAND_SPEC: CommandSpec = {
   path: ['plugin', 'dev', 'request'],
   summary: "Call a development plugin's worker handler the way a panel's plugin.request does",
   usage:
-    'orca plugin dev request <dir|plugin-key> <name> [--data <json>] [--panel <id>] [--timeout-ms <ms>] [--json]',
+    'deca plugin dev request <dir|plugin-key> <name> [--data <json>] [--panel <id>] [--timeout-ms <ms>] [--json]',
   allowedFlags: [...GLOBAL_FLAGS, 'target', 'name', 'data', 'panel', 'timeout-ms'],
   positionalArgs: ['target', 'name'],
   notes: [
@@ -32,7 +32,7 @@ export const PLUGIN_DEV_REQUEST_COMMAND_SPEC: CommandSpec = {
     'Installed plugins are refused; load the folder with `deca plugin dev load` first.'
   ],
   examples: [
-    'orca plugin dev request . count --data \'{"by":1}\'',
-    'orca plugin dev request acme.notes notes.list --json'
+    'deca plugin dev request . count --data \'{"by":1}\'',
+    'deca plugin dev request acme.notes notes.list --json'
   ]
 }

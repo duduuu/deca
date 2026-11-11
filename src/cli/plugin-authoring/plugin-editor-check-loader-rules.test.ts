@@ -34,7 +34,7 @@ async function check(root: string) {
 
 const page = (body: string) => `<!doctype html><html><body>\n${body}\n</body></html>\n`
 
-describe('orca plugin check: editors load as the frame protocol serves them', () => {
+describe('deca plugin check: editors load as the frame protocol serves them', () => {
   it.skipIf(process.platform === 'win32')(
     'refuses a script a symlink takes outside the plugin',
     async () => {

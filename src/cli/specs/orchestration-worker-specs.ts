@@ -5,7 +5,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     path: ['orchestration', 'worker-start'],
     summary: 'Start one supervised worker on the Run home or a connected Orca server',
     usage:
-      'orca orchestration worker-start (--task <task_id> | --spec <text> | --spec-file <path|->) [--keep-open] [--on <saved-environment>] [--worktree <current|selector|new-child|new-top-level>] (--agent <agent> | --terminal <handle>) [--task-title <text>] [--deps <json_array>] [--parent <task_id>] [--model <id>] [--effort <level>] [--name <name>] [--repo <selector>] [--base-branch <ref>] [--display-name <text>] [--comment <text>] [--setup <run|skip|inherit>] [--retry-of <dispatch_id>] [--timeout-ms <n>] [--run <run_id>] [--from <handle>] [--retry-request <id>] [--json]',
+      'deca orchestration worker-start (--task <task_id> | --spec <text> | --spec-file <path|->) [--keep-open] [--on <saved-environment>] [--worktree <current|selector|new-child|new-top-level>] (--agent <agent> | --terminal <handle>) [--task-title <text>] [--deps <json_array>] [--parent <task_id>] [--model <id>] [--effort <level>] [--name <name>] [--repo <selector>] [--base-branch <ref>] [--display-name <text>] [--comment <text>] [--setup <run|skip|inherit>] [--retry-of <dispatch_id>] [--timeout-ms <n>] [--run <run_id>] [--from <handle>] [--retry-request <id>] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'task',
@@ -60,7 +60,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['orchestration', 'worker-show'],
     summary: 'Inspect one supervised worker Dispatch',
-    usage: 'orca orchestration worker-show --dispatch <dispatch_id> [--json]',
+    usage: 'deca orchestration worker-show --dispatch <dispatch_id> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch'],
     notes: [
       'A Dispatch created by orchestration dispatch is shown as unsupervised and reports the exact adopted terminal when its identity is still provable.',
@@ -71,7 +71,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     path: ['orchestration', 'worker-read'],
     summary: 'Read bounded output from one supervised worker',
     usage:
-      'orca orchestration worker-read --dispatch <dispatch_id> [--source <auto|transcript|terminal>] [--cursor <cursor>] [--limit <n>] [--json]',
+      'deca orchestration worker-read --dispatch <dispatch_id> [--source <auto|transcript|terminal>] [--cursor <cursor>] [--limit <n>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'source', 'cursor', 'limit'],
     notes: [
       'The default auto source uses an exact hook-reported transcript when available and otherwise returns labeled terminal output.',
@@ -85,7 +85,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     destructive: true,
     summary: 'Fence one Dispatch and stop its supervised agent terminal and its helpers',
     usage:
-      'orca orchestration worker-stop --dispatch <dispatch_id> [--retry-request <id>] [--json]',
+      'deca orchestration worker-stop --dispatch <dispatch_id> [--retry-request <id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'retry-request'],
     notes: [
       'A Dispatch created by orchestration dispatch is fenced without closing its unsupervised terminal process.',
@@ -98,7 +98,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     path: ['orchestration', 'deny'],
     summary: "Deny a worker's permission prompt with a reason; the worker carries on",
     usage:
-      'orca orchestration deny --dispatch <dispatch_id> --prompt <approval_id> --reason <text> [--from <handle>] [--retry-request <id>] [--json]',
+      'deca orchestration deny --dispatch <dispatch_id> --prompt <approval_id> --reason <text> [--from <handle>] [--retry-request <id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'prompt', 'reason', 'from', 'retry-request'],
     identityFlagRoles: { from: 'caller' },
     notes: [
@@ -111,7 +111,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     path: ['orchestration', 'worker-abandon'],
     summary: 'Fence a worker without claiming its process stopped',
     usage:
-      'orca orchestration worker-abandon --dispatch <dispatch_id> [--retry-request <id>] [--json]',
+      'deca orchestration worker-abandon --dispatch <dispatch_id> [--retry-request <id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'retry-request'],
     notes: ['Retains all possibly-live resources and performs no process or filesystem action.']
   },
@@ -120,7 +120,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     destructive: true,
     summary: 'Release the terminal of one settled supervised worker',
     usage:
-      'orca orchestration worker-release --dispatch <dispatch_id> [--retry-request <id>] [--json]',
+      'deca orchestration worker-release --dispatch <dispatch_id> [--retry-request <id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'retry-request'],
     notes: [
       'Post-completion cleanup for a settled (succeeded or failed) worker; closes only the exact coordinator-owned agent terminal of that worker.',
@@ -135,7 +135,7 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     path: ['orchestration', 'worker-keep-open'],
     summary: 'Keep a worker open after it finishes',
     usage:
-      'orca orchestration worker-keep-open --dispatch <dispatch_id> [--retry-request <id>] [--json]',
+      'deca orchestration worker-keep-open --dispatch <dispatch_id> [--retry-request <id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'retry-request'],
     notes: [
       'Records a durable user-requested exception; a later explicit worker-release clears it and releases the terminal.',
@@ -151,14 +151,14 @@ export const ORCHESTRATION_WORKER_COMMAND_SPECS: CommandSpec[] = [
     hidden: true,
     summary: 'Keep a worker open after it finishes (old name of worker-keep-open)',
     usage:
-      'orca orchestration worker-retain --dispatch <dispatch_id> [--retry-request <id>] [--json]',
+      'deca orchestration worker-retain --dispatch <dispatch_id> [--retry-request <id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dispatch', 'retry-request']
   },
   {
     path: ['orchestration', 'worker-list'],
     summary: 'List supervised worker terminal resource accounting',
     usage:
-      'orca orchestration worker-list [--run <run_id>] [--terminal-state <active|reclaimable|retained|release_pending|release_unknown|released>] [--include-remote] [--on <server>] [--cursor <cursor>] [--limit <1-100>] [--json]',
+      'deca orchestration worker-list [--run <run_id>] [--terminal-state <active|reclaimable|retained|release_pending|release_unknown|released>] [--include-remote] [--on <server>] [--cursor <cursor>] [--limit <1-100>] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'run',

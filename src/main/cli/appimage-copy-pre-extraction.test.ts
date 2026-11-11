@@ -34,7 +34,7 @@ async function makeFixture() {
 async function writePayload(cwd: string): Promise<void> {
   const launcherDir = join(cwd, 'squashfs-root', 'resources', 'bin')
   await mkdir(launcherDir, { recursive: true })
-  await writeFile(join(launcherDir, 'orca-ide'), '', { mode: 0o755 })
+  await writeFile(join(launcherDir, 'deca-ide'), '', { mode: 0o755 })
 }
 
 const acceptCache = async (): Promise<string | null> => null

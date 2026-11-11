@@ -21,7 +21,7 @@ async function workerPanelPlugin(): Promise<string> {
   return dir
 }
 
-describe('orca plugin create --template worker-panel', () => {
+describe('deca plugin create --template worker-panel', () => {
   it(
     "passes its own panel and worker tests under `deca plugin test` on Orca's runtime",
     async () => {

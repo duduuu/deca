@@ -35,7 +35,7 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
     detectRequiredCommands: ['claude'],
     // Windows/WSL use Claude’s in-process fallback, not this native-pane/tmux wrapper.
     detectUnsupportedRuntimes: ['win32', 'wsl'],
-    launchCmd: 'orca claude-teams',
+    launchCmd: 'deca claude-teams',
     launchCmdByPlatform: {
       linux: `${getOrcaCliCommandNameForPlatform('linux')} claude-teams`,
       win32: `${getOrcaCliCommandNameForPlatform('win32')} claude-teams`

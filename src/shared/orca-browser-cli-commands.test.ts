@@ -3,8 +3,8 @@ import { parseOrcaBrowserCommand } from './orca-browser-cli-commands'
 
 describe('parseOrcaBrowserCommand', () => {
   it.each([
-    'orca worktree ls',
-    'orca terminal send --text "orca click"',
+    'deca worktree ls',
+    'deca terminal send --text "deca click"',
     'orcastra click',
     'orca',
     'echo deca click',

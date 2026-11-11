@@ -44,7 +44,7 @@ function stdoutText(spy: ReturnType<typeof vi.spyOn>): string {
   return spy.mock.calls.map((call) => String(call[0])).join('')
 }
 
-describe('orca skills get --reference', () => {
+describe('deca skills get --reference', () => {
   beforeEach(() => {
     vi.restoreAllMocks()
     process.exitCode = undefined

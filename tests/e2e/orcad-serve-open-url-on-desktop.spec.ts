@@ -66,7 +66,7 @@ async function readDesktopPageMarker(
   }, url)
 }
 
-test('orca open-url on orcad serve opens the page in the paired desktop', async ({
+test('deca open-url on orcad serve opens the page in the paired desktop', async ({
   testRepoPath
 }, testInfo) => {
   test.setTimeout(300_000)

@@ -7,10 +7,10 @@ import { useTranslate } from '@/i18n/use-translate'
 import { SettingsGroup } from '../../section-layout/SettingsGroup'
 
 const EMULATOR_CLI_COMMANDS = [
-  'orca emulator list --json',
-  'orca emulator attach "iPhone 16 Pro" --json',
-  'orca emulator tap 0.5 0.7 --json',
-  'orca emulator type "hello" --json'
+  'deca emulator list --json',
+  'deca emulator attach "iPhone 16 Pro" --json',
+  'deca emulator tap 0.5 0.7 --json',
+  'deca emulator type "hello" --json'
 ] as const
 
 export function MobileEmulatorAgentControlRow(): React.JSX.Element {

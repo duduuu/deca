@@ -90,7 +90,7 @@ const run = (argv: string[], call: ReturnType<typeof vi.fn>, remote = false) =>
 
 const printed = () => JSON.parse(stdout.join('')).result
 
-describe('orca plugin shot --scenario', () => {
+describe('deca plugin shot --scenario', () => {
   it('renders the scenario here and sends only its tree to plugins.shotReplay', async () => {
     const call = vi.fn(async () => ({ result: replayReply() }))
     await run(['plugin', 'shot', dir, '--scenario', 'counted', '--theme', 'dark'], call)

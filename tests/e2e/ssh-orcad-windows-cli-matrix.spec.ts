@@ -309,7 +309,7 @@ test('@orcad-cli-managed an empty Windows host deploys, serves CLI terminals thr
     expect(await listHostOrcadProcesses(descriptor.home)).not.toHaveLength(0)
 
     const sshRow = (await hostRows(userData)).find((row) => row.id === targetId)
-    expect(sshRow, 'orca host list names the SSH target').toMatchObject({
+    expect(sshRow, 'deca host list names the SSH target').toMatchObject({
       kind: 'ssh',
       connected: true
     })
@@ -388,7 +388,7 @@ test('@orcad-cli-managed an empty Windows host deploys, serves CLI terminals thr
     expect(`${refused.stdout}${refused.stderr}`).toContain(
       'Orca runs this server on an SSH host for you'
     )
-    expect(`${refused.stdout}${refused.stderr}`).toContain('orca environment stop')
+    expect(`${refused.stdout}${refused.stderr}`).toContain('deca environment stop')
     const unconfirmed = await runCompiledOrcaCli(userData, [
       'environment',
       'stop',

@@ -67,7 +67,7 @@ afterEach(async () => {
   await rm(cwd, { recursive: true, force: true })
 })
 
-describe('orca plugin open', () => {
+describe('deca plugin open', () => {
   it('sends --editor as a host path, absolute on a remote host', async () => {
     const call = vi.fn().mockResolvedValue({
       result: { pluginKey: 'acme.notes', kind: 'editor', editorId: 'e', title: 'N', filePath: 'x' }
@@ -90,7 +90,7 @@ describe('orca plugin open', () => {
   })
 })
 
-describe('orca plugin shot', () => {
+describe('deca plugin shot', () => {
   it('writes the PNG to .orca/shots under cwd by default', async () => {
     const call = vi.fn().mockResolvedValue(shotReply())
     await PLUGIN_VIEW_HANDLERS['plugin shot'](

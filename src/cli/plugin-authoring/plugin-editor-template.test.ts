@@ -19,7 +19,7 @@ async function editorPlugin(): Promise<string> {
   return dir
 }
 
-describe('orca plugin create --template editor', () => {
+describe('deca plugin create --template editor', () => {
   it(
     'passes plugin check and plugin test as generated',
     async () => {

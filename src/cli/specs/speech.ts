@@ -5,14 +5,14 @@ export const SPEECH_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['speech', 'openai-key', 'status'],
     summary: 'Show whether this host has an OpenAI key for cloud voice dictation',
-    usage: 'orca speech openai-key status [--json]',
+    usage: 'deca speech openai-key status [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
-    examples: ['orca speech openai-key status --json']
+    examples: ['deca speech openai-key status --json']
   },
   {
     path: ['speech', 'openai-key', 'set'],
     summary: 'Save the OpenAI key cloud voice dictation uses on this host, read from stdin',
-    usage: 'orca speech openai-key set [--json] < key-file',
+    usage: 'deca speech openai-key set [--json] < key-file',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Reads the key from stdin so it never lands in shell history or a process list.',
@@ -26,8 +26,8 @@ export const SPEECH_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['speech', 'openai-key', 'clear'],
     summary: 'Remove the OpenAI key cloud voice dictation uses on this host',
-    usage: 'orca speech openai-key clear [--json]',
+    usage: 'deca speech openai-key clear [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
-    examples: ['orca speech openai-key clear']
+    examples: ['deca speech openai-key clear']
   }
 ]

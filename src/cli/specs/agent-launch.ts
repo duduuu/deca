@@ -6,7 +6,7 @@ export const AGENT_LAUNCH_COMMAND_SPECS: CommandSpec[] = [
     path: ['agent', 'launch'],
     summary: 'Start an agent in an existing workspace, as a chat or a terminal',
     usage:
-      'orca agent launch --agent <id> [--worktree <selector>] [--prompt <text>] [--model <id>] [--effort <level>] [--surface chat|terminal] [--focus] [--retry-launch <operationId>] [--json]',
+      'deca agent launch --agent <id> [--worktree <selector>] [--prompt <text>] [--model <id>] [--effort <level>] [--surface chat|terminal] [--focus] [--retry-launch <operationId>] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'agent',
@@ -27,9 +27,9 @@ export const AGENT_LAUNCH_COMMAND_SPECS: CommandSpec[] = [
       'If the launch reply is lost, re-issue the same command from the same directory on the same host with --retry-launch <operationId> from the error. Never retry as a fresh launch; older hosts require inspecting the workspace first.'
     ],
     examples: [
-      'orca agent launch --agent codex --json',
-      'orca agent launch --agent codex --model gpt-6-astra --effort high --prompt "Write the design doc" --json',
-      'orca agent launch --agent claude --worktree path:/projects/myapp --focus'
+      'deca agent launch --agent codex --json',
+      'deca agent launch --agent codex --model gpt-6-astra --effort high --prompt "Write the design doc" --json',
+      'deca agent launch --agent claude --worktree path:/projects/myapp --focus'
     ]
   }
 ]

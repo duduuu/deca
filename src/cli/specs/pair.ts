@@ -7,7 +7,7 @@ export const PAIR_COMMAND_SPECS: CommandSpec[] = [
     summary:
       'Pair a phone or another Orca with the Orca already running here, without restarting it',
     usage:
-      'orca pair [--mobile [--relay]] [--address <host>] [--grant-desktop-control] [--rotate] [--json]',
+      'deca pair [--mobile [--relay]] [--address <host>] [--grant-desktop-control] [--rotate] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'mobile',
@@ -27,10 +27,10 @@ export const PAIR_COMMAND_SPECS: CommandSpec[] = [
       'Only this machine’s own user can run it: paired clients and phones cannot create pairing offers.'
     ],
     examples: [
-      'orca pair --mobile',
-      'orca pair --mobile --address 100.64.1.20',
-      'orca pair --address 100.64.1.20',
-      'orca pair --mobile --rotate --json'
+      'deca pair --mobile',
+      'deca pair --mobile --address 100.64.1.20',
+      'deca pair --address 100.64.1.20',
+      'deca pair --mobile --rotate --json'
     ]
   }
 ]

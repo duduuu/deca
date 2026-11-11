@@ -53,11 +53,11 @@ async function runBuiltCli(
   }
 }
 
-describeIfBuilt('orca orchestration check --wait subprocess (§3.4)', () => {})
+describeIfBuilt('deca orchestration check --wait subprocess (§3.4)', () => {})
 
-describeIfBuilt('orca orchestration reset subprocess', () => {})
+describeIfBuilt('deca orchestration reset subprocess', () => {})
 
-describeIfBuilt('orca orchestration task readiness subprocess', () => {
+describeIfBuilt('deca orchestration task readiness subprocess', () => {
   it('creates a late dependent as ready through the built CLI and runtime', async () => {
     const [{ OrcaRuntimeService }, { OrchestrationDb }, { OrcaRuntimeRpcServer }] =
       await loadRuntimeModules()

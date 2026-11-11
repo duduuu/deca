@@ -33,7 +33,7 @@ async function makeFixture(): Promise<{
 async function writePayload(cwd: string, content = ''): Promise<void> {
   const launcherDir = join(cwd, 'squashfs-root', 'resources', 'bin')
   await mkdir(launcherDir, { recursive: true })
-  await writeFile(join(launcherDir, 'orca-ide'), content, { encoding: 'utf8', mode: 0o755 })
+  await writeFile(join(launcherDir, 'deca-ide'), content, { encoding: 'utf8', mode: 0o755 })
 }
 
 describe('appimage extracted root', () => {
@@ -100,7 +100,7 @@ describe('appimage extracted root', () => {
         appImagePath,
         cacheRootPath,
         runExtract: async (_path, cwd) => {
-          const launcherPath = join(cwd, 'squashfs-root', 'resources', 'bin', 'orca-ide')
+          const launcherPath = join(cwd, 'squashfs-root', 'resources', 'bin', 'deca-ide')
           if (entryKind === 'directory') {
             await mkdir(launcherPath, { recursive: true })
           } else {
@@ -125,7 +125,7 @@ describe('appimage extracted root', () => {
         appImagePath,
         cacheRootPath,
         runExtract: async (_path, cwd) => {
-          const launcherPath = join(cwd, 'squashfs-root', 'resources', 'bin', 'orca-ide')
+          const launcherPath = join(cwd, 'squashfs-root', 'resources', 'bin', 'deca-ide')
           await mkdir(dirname(launcherPath), { recursive: true })
           await symlink(executable, launcherPath)
         }

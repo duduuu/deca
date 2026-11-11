@@ -25,7 +25,7 @@
         "systemCode": "EPERM",
         "nextSteps": [
           "Re-run this command outside its sandbox, or as a user allowed to reach the Orca runtime.",
-          "Do not restart Orca or run 'orca open'; a restart cannot grant this command access."
+          "Do not restart Orca or run 'deca open'; a restart cannot grant this command access."
         ]
       }
     },

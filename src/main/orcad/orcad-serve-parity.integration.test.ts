@@ -89,7 +89,7 @@ function profile(): string {
   return root
 }
 
-describe.skipIf(skip)('orca serve on orcad', () => {
+describe.skipIf(skip)('deca serve on orcad', () => {
   it('refuses with exit 78 while the desktop app holds the profile', async () => {
     const userData = profile()
     writeFileSync(

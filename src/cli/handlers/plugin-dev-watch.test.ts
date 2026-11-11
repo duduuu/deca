@@ -30,7 +30,7 @@ function parse(argv: string[]) {
   return normalizeCommandPositionals(COMMAND_SPECS, parseArgs(argv, paths, COMMAND_SPECS))
 }
 
-describe('orca plugin dev watch', () => {
+describe('deca plugin dev watch', () => {
   it('suggests an approval command that dev reload accepts, without watch-only flags', async () => {
     const rawArgs = [
       'plugin',

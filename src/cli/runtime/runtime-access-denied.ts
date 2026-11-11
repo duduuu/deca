@@ -17,7 +17,7 @@ export function runtimeAccessDeniedError(socketError: Error): RuntimeClientError
     systemCode,
     nextSteps: [
       retryStep,
-      "Do not restart Orca or run 'orca open'; a restart cannot grant this command access."
+      "Do not restart Orca or run 'deca open'; a restart cannot grant this command access."
     ]
   })
 }

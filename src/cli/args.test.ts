@@ -130,7 +130,7 @@ describe('parseArgs', () => {
         {
           path: ['emulator', 'permissions'],
           summary: 'Permissions',
-          usage: 'orca emulator permissions <op> <package> [permission]',
+          usage: 'deca emulator permissions <op> <package> [permission]',
           allowedFlags: ['op', 'package', 'permission'],
           positionalArgs: ['op', 'package', 'permission']
         }
@@ -175,13 +175,13 @@ describe('command aliases', () => {
         ['worktree', 'delete']
       ],
       summary: 'Remove a worktree',
-      usage: 'orca worktree rm --worktree <selector>',
+      usage: 'deca worktree rm --worktree <selector>',
       allowedFlags: ['worktree', 'force']
     },
     {
       path: ['repo', 'show'],
       summary: 'Show a repo',
-      usage: 'orca repo show --repo <selector>',
+      usage: 'deca repo show --repo <selector>',
       allowedFlags: ['repo'],
       positionalArgs: ['repo']
     }

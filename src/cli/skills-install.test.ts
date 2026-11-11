@@ -99,7 +99,7 @@ type RunJson = {
   notInstalled: string[]
 }
 
-describe('orca skills install/update', () => {
+describe('deca skills install/update', () => {
   beforeEach(async () => {
     paths = await makeHome()
     vi.stubEnv('HOME', paths.home)

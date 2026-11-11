@@ -73,7 +73,7 @@ async function terminal(
 
 type OrcadServe = { daemonPid: number; stop: () => Promise<void> }
 
-/** `orca serve` on orcad, as the T6-11 launcher runs it, on the host's own profile. */
+/** `deca serve` on orcad, as the T6-11 launcher runs it, on the host's own profile. */
 async function startOrcadServe(
   host: Pick<HeadlessPairedRuntimeHost, 'env' | 'userDataDir'>
 ): Promise<OrcadServe> {
@@ -244,7 +244,7 @@ function profileLockRole(userDataDir: string): unknown {
 }
 
 // Needs out/orcad-template for this runner's target, as a packaged install carries.
-test('`orca serve` runs on orcad by default and on Electron with ORCA_SERVE_RUNTIME=electron', async () => {
+test('`deca serve` runs on orcad by default and on Electron with ORCA_SERVE_RUNTIME=electron', async () => {
   const profile = cliServeProfile(scratch)
   try {
     const byDefault = await startCliServe(profile)

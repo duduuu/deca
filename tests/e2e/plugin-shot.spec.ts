@@ -1,5 +1,5 @@
 /**
- * Invariant: `orca plugin shot` captures exactly a plugin panel as Orca draws it, from the hidden
+ * Invariant: `deca plugin shot` captures exactly a plugin panel as Orca draws it, from the hidden
  * test window, without showing or focusing it: a components panel (Orca's own DOM) at the asked
  * width and theme, after `--act` input when asked, and an html panel whose isolated guest content
  * is in the image. `--scenario` captures a `.check.ts` scenario drawn apart from the plugin, so

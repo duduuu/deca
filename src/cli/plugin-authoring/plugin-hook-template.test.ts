@@ -19,7 +19,7 @@ async function hookPlugin(): Promise<string> {
   return dir
 }
 
-describe('orca plugin create --template hook', () => {
+describe('deca plugin create --template hook', () => {
   it(
     "passes its own worker test under `deca plugin test` on Orca's runtime",
     async () => {

@@ -6,7 +6,7 @@ export const SERVE_COMMAND_SPECS: CommandSpec[] = [
     path: ['serve'],
     summary: 'Start an Orca runtime server without opening a desktop window',
     usage:
-      'orca serve [--port <port>] [--bind <ip>] [--pairing-address <host>] [--allow-public | --refuse-public] [--mobile-pairing] [--no-pairing] [--grant-desktop-control] [--project-root <path>] [--recipe-json] [--supervise] [--force] [--reclaim-stale-lock [--data-root <dir>] [--yes]] [--json]',
+      'deca serve [--port <port>] [--bind <ip>] [--pairing-address <host>] [--allow-public | --refuse-public] [--mobile-pairing] [--no-pairing] [--grant-desktop-control] [--project-root <path>] [--recipe-json] [--supervise] [--force] [--reclaim-stale-lock [--data-root <dir>] [--yes]] [--json]',
     allowedFlags: [
       ...LOCAL_COMMAND_FLAGS,
       'port',
@@ -45,43 +45,43 @@ export const SERVE_COMMAND_SPECS: CommandSpec[] = [
       'Off by default: set ORCA_TERMINAL_MEMORY_MAX=<size> (256M or more) and ORCA_TERMINAL_MEMORY_SWAP_MAX=<size> (0 for no swap) before the terminal host starts to cap the memory and swap of each terminal on Linux, through the same per-terminal systemd user scope. A terminal over its limit has its largest process OOM-killed; the host and other terminals keep running. Sizes take K, M, G or T. A limit the host cannot enforce is skipped and logged in the terminal host log. No effect on macOS or Windows.'
     ],
     examples: [
-      'orca serve',
-      'orca serve --json',
-      'orca serve --project-root /workspace/repo --pairing-address wss://sandbox.example.com --recipe-json',
-      'orca serve --port 6768 --bind 100.64.1.20 --pairing-address 100.64.1.20',
-      'orca serve --pairing-address 100.64.1.20 --mobile-pairing',
-      'orca serve --reclaim-stale-lock'
+      'deca serve',
+      'deca serve --json',
+      'deca serve --project-root /workspace/repo --pairing-address wss://sandbox.example.com --recipe-json',
+      'deca serve --port 6768 --bind 100.64.1.20 --pairing-address 100.64.1.20',
+      'deca serve --pairing-address 100.64.1.20 --mobile-pairing',
+      'deca serve --reclaim-stale-lock'
     ]
   },
   {
     path: ['serve', 'restore', 'resume'],
     summary: 'Resume automatic terminal restores that this host paused',
-    usage: 'orca serve restore resume [--json]',
+    usage: 'deca serve restore resume [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS],
     notes: [
       'After its terminal host stops unexpectedly, or while it is overloaded, Orca keeps restored agent sessions asleep instead of starting them all at once. Each one resumes when you open it.',
       'This clears that pause so automatic restores start again, within the normal limits. It talks to the Orca running on this machine and never starts a server.',
       'It also lists restores from an older Orca client that this host refused, with the command that resumes each one.'
     ],
-    examples: ['orca serve restore resume', 'orca serve restore resume --json']
+    examples: ['deca serve restore resume', 'deca serve restore resume --json']
   },
   {
     path: ['serve', 'reset-identity'],
     summary: "Give this machine's Orca server a new pairing identity",
-    usage: 'orca serve reset-identity [--yes] [--json]',
+    usage: 'deca serve reset-identity [--yes] [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'yes'],
     notes: [
       'Replaces the pairing key and installation id and removes every paired device, so clients must pair again. Use it on each copy of a machine image that was made after Orca had run, so the copies stop sharing one identity.',
       'Asks for confirmation in a terminal; pass --yes to skip it. Stop Orca (the desktop app or `deca serve`) for this profile first; the command refuses while it runs.',
       'To have each copy rotate on its own instead, start `deca serve` with ORCA_INSTANCE_ID set to a value unique to that instance (for example the cloud-init instance id). When the value differs from the one recorded with the current identity, Orca rotates it at startup. The first value seen is only recorded, and an unset variable never rotates anything.'
     ],
-    examples: ['orca serve reset-identity', 'orca serve reset-identity --yes']
+    examples: ['deca serve reset-identity', 'deca serve reset-identity --yes']
   },
   {
     path: ['serve', 'service', 'install'],
     summary: 'Run deca serve as a per-user background service that restarts itself',
     usage:
-      'orca serve service install [--port <port>] [--bind <ip>] [--pairing-address <host>] [--allow-public | --refuse-public] [--command <path>] [--dry-run] [--json]',
+      'deca serve service install [--port <port>] [--bind <ip>] [--pairing-address <host>] [--allow-public | --refuse-public] [--command <path>] [--dry-run] [--json]',
     allowedFlags: [
       ...LOCAL_COMMAND_FLAGS,
       'port',
@@ -101,28 +101,28 @@ export const SERVE_COMMAND_SPECS: CommandSpec[] = [
       'Not available on Windows yet.'
     ],
     examples: [
-      'orca serve service install',
-      'orca serve service install --port 6768 --bind 127.0.0.1 --dry-run'
+      'deca serve service install',
+      'deca serve service install --port 6768 --bind 127.0.0.1 --dry-run'
     ]
   },
   {
     path: ['serve', 'service', 'status'],
     summary: "Show whether this profile's deca serve service is running",
-    usage: 'orca serve service status [--json]',
+    usage: 'deca serve service status [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS],
     notes: [
       'Reports live, exited, or unverifiable (when the service manager cannot be asked), plus why the supervisor gave up if it did.'
     ],
-    examples: ['orca serve service status', 'orca serve service status --json']
+    examples: ['deca serve service status', 'deca serve service status --json']
   },
   {
     path: ['serve', 'service', 'uninstall'],
     summary: "Stop and remove this profile's deca serve service",
-    usage: 'orca serve service uninstall [--json]',
+    usage: 'deca serve service uninstall [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS],
     notes: [
       'Stops the service and removes its unit file. The terminal daemon and its sessions keep running.'
     ],
-    examples: ['orca serve service uninstall']
+    examples: ['deca serve service uninstall']
   }
 ]

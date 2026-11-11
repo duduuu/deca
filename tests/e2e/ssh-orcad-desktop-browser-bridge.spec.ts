@@ -142,7 +142,7 @@ test('a managed SSH host drives the desktop browser by default until its CLI con
 
     // No saved value: on by default.
     const createdUrl = `${SSH_REMOTE_ONLY_ORIGIN}/echo/bridge-created`
-    const created = await hostCliUntilOk(page, target, tabId, `orca tab create --url ${createdUrl}`)
+    const created = await hostCliUntilOk(page, target, tabId, `deca tab create --url ${createdUrl}`)
     const browserPageId = String(created.result?.browserPageId ?? '')
     expect(browserPageId).not.toBe('')
     await expect
@@ -161,7 +161,7 @@ test('a managed SSH host drives the desktop browser by default until its CLI con
       page,
       target,
       tabId,
-      `orca goto --url ${navigatedUrl} --page ${browserPageId}`
+      `deca goto --url ${navigatedUrl} --page ${browserPageId}`
     )
     await expect
       .poll(() => readSshRemoteOnlyRequests(target).map((request) => request.path), {
@@ -173,15 +173,15 @@ test('a managed SSH host drives the desktop browser by default until its CLI con
       page,
       target,
       tabId,
-      `orca snapshot --page ${browserPageId}`
+      `deca snapshot --page ${browserPageId}`
     )
     expect(JSON.stringify(snapshot.result)).toContain('cookie:')
-    const listed = await hostCli(page, target, tabId, 'orca tab list')
+    const listed = await hostCli(page, target, tabId, 'deca tab list')
     expect(listed.ok).toBe(true)
     expect(JSON.stringify(listed.result)).toContain(browserPageId)
-    // `orca open-url` reaches the desktop the same way, as a tab in the host's workspace.
+    // `deca open-url` reaches the desktop the same way, as a tab in the host's workspace.
     const openedUrl = `${SSH_REMOTE_ONLY_ORIGIN}/echo/bridge-open-url`
-    const opened = await hostCliUntilOk(page, target, tabId, `orca open-url --url ${openedUrl}`)
+    const opened = await hostCliUntilOk(page, target, tabId, `deca open-url --url ${openedUrl}`)
     const openedPageId = String(opened.result?.browserPageId ?? '')
     expect(openedPageId).not.toBe('')
     await expect
@@ -193,7 +193,7 @@ test('a managed SSH host drives the desktop browser by default until its CLI con
         message: 'the desktop tab open-url opened never loaded through the host'
       })
       .toContain('/echo/bridge-open-url')
-    expect((await hostCli(page, target, tabId, `orca tab close --page ${openedPageId}`)).ok).toBe(
+    expect((await hostCli(page, target, tabId, `deca tab close --page ${openedPageId}`)).ok).toBe(
       true
     )
     await page.screenshot({ path: testInfo.outputPath('desktop-browser-bridge-on.png') })
@@ -202,10 +202,10 @@ test('a managed SSH host drives the desktop browser by default until its CLI con
       page,
       target,
       tabId,
-      `orca goto --url file:///etc/hosts --page ${browserPageId}`
+      `deca goto --url file:///etc/hosts --page ${browserPageId}`
     )
     expect(fileRead.error?.code).toBe('invalid_argument')
-    const closed = await hostCli(page, target, tabId, `orca tab close --page ${browserPageId}`)
+    const closed = await hostCli(page, target, tabId, `deca tab close --page ${browserPageId}`)
     expect(closed.ok).toBe(true)
     await expect
       .poll(() => browserTabUrls(page, seeded.worktreeId), { timeout: 30_000 })
@@ -214,15 +214,15 @@ test('a managed SSH host drives the desktop browser by default until its CLI con
     // Explicitly off: the bridge detaches at once and the host is refused with the setting's name.
     await setRemoteCliControl(page, seeded.targetId, false)
     await expect
-      .poll(async () => (await hostCli(page, target, tabId, 'orca tab list')).error?.code ?? 'ok', {
+      .poll(async () => (await hostCli(page, target, tabId, 'deca tab list')).error?.code ?? 'ok', {
         timeout: 60_000,
         intervals: [1_000]
       })
       .toBe('desktop_browser_bridge_unavailable')
-    const refused = await hostCli(page, target, tabId, 'orca tab list')
+    const refused = await hostCli(page, target, tabId, 'deca tab list')
     expect(refused.error?.message).toContain(DESKTOP_BROWSER_BRIDGE_SETTING_LABEL)
     // open-url names the same setting, not a desktop that is "offline".
-    const openRefused = await hostCli(page, target, tabId, `orca open-url --url ${openedUrl}`)
+    const openRefused = await hostCli(page, target, tabId, `deca open-url --url ${openedUrl}`)
     expect(openRefused.error?.code).toBe('desktop_browser_bridge_unavailable')
     expect(openRefused.error?.message).toContain(DESKTOP_BROWSER_BRIDGE_SETTING_LABEL)
   } finally {

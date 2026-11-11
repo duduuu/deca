@@ -115,7 +115,7 @@ function writeHooks(hooks: Hooks): void {
 }
 
 function olderBuildStop(): Hooks[string][number] {
-  const script = join(home, '.orca', 'agent-hooks', 'codex-hook.sh')
+  const script = join(home, '.deca', 'agent-hooks', 'codex-hook.sh')
   return {
     hooks: [
       buildCodexManagedHook(

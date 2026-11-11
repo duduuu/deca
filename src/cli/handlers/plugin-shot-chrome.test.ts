@@ -31,7 +31,7 @@ afterEach(async () => {
 const shot = (argv: string[], call: ReturnType<typeof vi.fn>) =>
   PLUGIN_VIEW_HANDLERS['plugin shot']!(context(['plugin', 'shot', ...argv], call, cwd))
 
-describe('orca plugin shot --status-bar / --window', () => {
+describe('deca plugin shot --status-bar / --window', () => {
   it('refuses both regions at once, and flags that belong to other shots', async () => {
     const call = vi.fn()
     await expect(shot(['acme.todos', '--status-bar', '--window'], call)).rejects.toThrow(

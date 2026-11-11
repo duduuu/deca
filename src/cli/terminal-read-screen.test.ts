@@ -60,7 +60,7 @@ function readFixture(overrides: Record<string, unknown> = {}) {
   })
 }
 
-describe('orca terminal read --screen', () => {
+describe('deca terminal read --screen', () => {
   useWorktreeAwarenessEnvironment({
     callMock,
     serveOrcaAppMock,

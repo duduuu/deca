@@ -5,7 +5,7 @@ export const WORKTREE_SET_COMMAND_SPEC: CommandSpec = {
   path: ['worktree', 'set'],
   summary: 'Update Orca metadata for a worktree',
   usage:
-    'orca worktree set --worktree <selector> [--display-name <name>] [--issue <number|null>] [--pr <number|null>] [--linear-issue <identifier-or-url|null>] [--gitlab-issue <number-or-url|null>] [--gitlab-mr <number-or-url|null>] [--comment <text>] [--workspace-status <id>] [--unread|--read] [--parent-worktree <selector> [--parent-environment <environment>]|--no-parent] [--json]',
+    'deca worktree set --worktree <selector> [--display-name <name>] [--issue <number|null>] [--pr <number|null>] [--linear-issue <identifier-or-url|null>] [--gitlab-issue <number-or-url|null>] [--gitlab-mr <number-or-url|null>] [--comment <text>] [--workspace-status <id>] [--unread|--read] [--parent-worktree <selector> [--parent-environment <environment>]|--no-parent] [--json]',
   allowedFlags: [
     ...GLOBAL_FLAGS,
     'worktree',
@@ -33,9 +33,9 @@ export const WORKTREE_SET_COMMAND_SPEC: CommandSpec = {
     'On a folder workspace (folder:<id>, or a path:/name: selector that matches one), only --display-name, --comment, --workspace-status and --unread/--read apply. Parent and link flags are refused; link it with deca reference add.'
   ],
   examples: [
-    'orca worktree set --worktree active --linear-issue STA-335 --json',
-    'orca worktree set --worktree active --linear-issue null --json',
-    'orca worktree set --worktree active --comment "" --json',
-    'orca worktree set --worktree active --workspace-status in-review --unread --json'
+    'deca worktree set --worktree active --linear-issue STA-335 --json',
+    'deca worktree set --worktree active --linear-issue null --json',
+    'deca worktree set --worktree active --comment "" --json',
+    'deca worktree set --worktree active --workspace-status in-review --unread --json'
   ]
 }

@@ -193,7 +193,7 @@ describe('Claude background-turn completion notifications', () => {
   })
 
   it('announces a coordinator waiting on workers in the background once, at its final turn', async () => {
-    const wait = 'orca orchestration check --wait --types worker_done,escalation --json'
+    const wait = 'deca orchestration check --wait --types worker_done,escalation --json'
     const waitFor = (id: string, at: number) => [
       {
         at,

@@ -27,17 +27,17 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       EXIT_CODES_NOTE
     ],
     examples: [
-      'orca plugin create ./dusk-theme --template theme --publisher acme',
-      'orca plugin create ./notes-editor --template editor --name "Notes" --json',
-      'orca plugin create ./todo-panel --template components',
-      'orca plugin create ./counter --template worker-panel',
-      'orca plugin create ./guard --template hook'
+      'deca plugin create ./dusk-theme --template theme --publisher acme',
+      'deca plugin create ./notes-editor --template editor --name "Notes" --json',
+      'deca plugin create ./todo-panel --template components',
+      'deca plugin create ./counter --template worker-panel',
+      'deca plugin create ./guard --template hook'
     ]
   },
   {
     path: ['plugin', 'types'],
     summary: 'Write the TypeScript typings for Orca plugins into a plugin folder',
-    usage: 'orca plugin types <dir> [--json]',
+    usage: 'deca plugin types <dir> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'dir'],
     positionalArgs: ['dir'],
     notes: [
@@ -46,12 +46,12 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       'Runs on the machine that runs this command; it does not reach the Orca app.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin types .']
+    examples: ['deca plugin types .']
   },
   {
     path: ['plugin', 'test'],
     summary: "Run a plugin's own tests on this machine, unsandboxed: only for code you trust",
-    usage: 'orca plugin test [dir] [--json]',
+    usage: 'deca plugin test [dir] [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'dir'],
     positionalArgs: ['dir'],
     notes: [
@@ -61,13 +61,13 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       'Runs on the `node` on PATH when it is 20.6 or newer, else on the Node built into Orca, so no Node install is needed. It does not reach the Orca app.',
       "Exit code: the runner's (0 when every test passes). With --json the runner output goes to stderr and one result object to stdout."
     ],
-    examples: ['orca plugin test .', 'orca plugin test ./todo-panel --json']
+    examples: ['deca plugin test .', 'deca plugin test ./todo-panel --json']
   },
   {
     path: ['plugin', 'check'],
     summary:
       'Validate a plugin, render each components panel once on this machine (unsandboxed: only for code you trust), and statically check each custom editor',
-    usage: 'orca plugin check [dir] [--json]',
+    usage: 'deca plugin check [dir] [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'dir'],
     positionalArgs: ['dir'],
     notes: [
@@ -76,12 +76,12 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       'Runs on the `node` on PATH when it is 20.6 or newer, else on the Node built into Orca. It does not reach the Orca app.',
       'Exit codes: 0 ok, 1 a panel failed to render or an editor failed its static check (plugin_check_failed), 2 the plugin is invalid (plugin_invalid).'
     ],
-    examples: ['orca plugin check .', 'orca plugin check ./todo-panel --json']
+    examples: ['deca plugin check .', 'deca plugin check ./todo-panel --json']
   },
   {
     path: ['plugin', 'validate'],
     summary: 'Check a plugin folder, manifest or catalog the way Orca will load it',
-    usage: 'orca plugin validate <dir|orca-plugin.json|orca-catalog.json> [--json]',
+    usage: 'deca plugin validate <dir|orca-plugin.json|orca-catalog.json> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'path'],
     positionalArgs: ['path'],
     notes: [
@@ -89,12 +89,12 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       'Offline; never runs plugin code. The result says whether loading needs --approve and what it would grant.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin validate .', 'orca plugin validate ./dusk-theme --json']
+    examples: ['deca plugin validate .', 'deca plugin validate ./dusk-theme --json']
   },
   {
     path: ['plugin', 'inspect'],
     summary: 'Show what a plugin folder contributes, the access it asks for, and its content hash',
-    usage: 'orca plugin inspect <dir> [--json]',
+    usage: 'deca plugin inspect <dir> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'path'],
     positionalArgs: ['path'],
     notes: [
@@ -102,12 +102,12 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       'Use it to show your user exactly what a plugin would be allowed to do before loading it.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin inspect ./notes-editor --json']
+    examples: ['deca plugin inspect ./notes-editor --json']
   },
   {
     path: ['plugin', 'release-entry'],
     summary: "Print the catalog release entry for a plugin folder's committed HEAD",
-    usage: 'orca plugin release-entry <dir> [--json]',
+    usage: 'deca plugin release-entry <dir> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'path'],
     positionalArgs: ['path'],
     notes: [
@@ -116,7 +116,7 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
       'Fails with plugin_invalid when the folder is invalid, and with invalid_argument when it is not committed in a Git repository or HEAD has no installable release.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin release-entry .', 'orca plugin release-entry ./gleam-syntax --json']
+    examples: ['deca plugin release-entry .', 'deca plugin release-entry ./gleam-syntax --json']
   }
 ]
 
@@ -127,26 +127,26 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['plugin', 'list'],
     summary: 'List plugins on the Orca host with their status and access level',
-    usage: 'orca plugin list [--json]',
+    usage: 'deca plugin list [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Status is running, idle, pending (waiting for approval), disabled, errored or invalid; dev marks development folders.'
     ],
-    examples: ['orca plugin list --json']
+    examples: ['deca plugin list --json']
   },
   {
     path: ['plugin', 'logs'],
     summary: 'Print the recent log lines of a plugin',
-    usage: 'orca plugin logs <plugin-key> [--json]',
+    usage: 'deca plugin logs <plugin-key> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'plugin'],
     positionalArgs: ['plugin'],
     notes: ['Shows the last lines a plugin worker printed and its activation errors.'],
-    examples: ['orca plugin logs acme.notes --json']
+    examples: ['deca plugin logs acme.notes --json']
   },
   {
     path: ['plugin', 'enable'],
     summary: 'Enable a plugin; code and capabilities need --approve',
-    usage: 'orca plugin enable <plugin-key> [--approve <fingerprint>] [--json]',
+    usage: 'deca plugin enable <plugin-key> [--approve <fingerprint>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'plugin', 'approve'],
     positionalArgs: ['plugin'],
     notes: [
@@ -154,42 +154,42 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
       'Enabling a plugin that is already approved and running needs nothing; re-enabling a disabled plugin that runs code needs --approve again.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin enable acme.dusk', 'orca plugin enable acme.notes --approve ap1-…']
+    examples: ['deca plugin enable acme.dusk', 'deca plugin enable acme.notes --approve ap1-…']
   },
   {
     path: ['plugin', 'disable'],
     summary: 'Disable a plugin',
-    usage: 'orca plugin disable <plugin-key> [--json]',
+    usage: 'deca plugin disable <plugin-key> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'plugin'],
     positionalArgs: ['plugin'],
     notes: ['Never needs approval.'],
-    examples: ['orca plugin disable acme.notes']
+    examples: ['deca plugin disable acme.notes']
   },
   {
     path: ['plugin', 'system', 'on'],
     summary: 'Turn plugins on for the Orca host',
-    usage: 'orca plugin system on [--json]',
+    usage: 'deca plugin system on [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'The same switch as "Turn on plugins" in Settings → Plugins, for a host with no window such as `deca serve`.',
       'Approves nothing: only plugins approved earlier start; anything else still needs its own --approve.'
     ],
-    examples: ['orca plugin system on', 'orca plugin system on --environment build-box --json']
+    examples: ['deca plugin system on', 'deca plugin system on --environment build-box --json']
   },
   {
     path: ['plugin', 'system', 'off'],
     summary: 'Turn plugins off for the Orca host',
-    usage: 'orca plugin system off [--json]',
+    usage: 'deca plugin system off [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Stops every plugin and keeps installs, approvals and development folders. Never needs approval.'
     ],
-    examples: ['orca plugin system off']
+    examples: ['deca plugin system off']
   },
   {
     path: ['plugin', 'restart'],
     summary: "Stop a plugin's worker so its next command or event starts it fresh",
-    usage: 'orca plugin restart <plugin-key> [--json]',
+    usage: 'deca plugin restart <plugin-key> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'plugin'],
     positionalArgs: ['plugin'],
     notes: [
@@ -197,13 +197,13 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
       'Dev folders restart their worker on file changes already; use this to rerun startup code.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin restart acme.notes']
+    examples: ['deca plugin restart acme.notes']
   },
   {
     path: ['plugin', 'dev', 'watch'],
     summary: 'Load a plugin folder, then stream its logs and reloads until Ctrl-C',
     usage:
-      'orca plugin dev watch <dir> [--check] [--shot <out-dir> [--shot-panel <id>]] [--approve <fingerprint>] [--json]',
+      'deca plugin dev watch <dir> [--check] [--shot <out-dir> [--shot-panel <id>]] [--approve <fingerprint>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dir', 'approve', 'check', 'shot', 'shot-panel'],
     positionalArgs: ['dir'],
     notes: [
@@ -219,16 +219,16 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
       EXIT_CODES_NOTE
     ],
     examples: [
-      'orca plugin dev watch .',
-      'orca plugin dev watch ./todo-panel --check',
-      'orca plugin dev watch ./todo-panel --check --shot ./.orca/shots',
-      'orca plugin dev watch ./notes-editor --json'
+      'deca plugin dev watch .',
+      'deca plugin dev watch ./todo-panel --check',
+      'deca plugin dev watch ./todo-panel --check --shot ./.orca/shots',
+      'deca plugin dev watch ./notes-editor --json'
     ]
   },
   {
     path: ['plugin', 'dev', 'load'],
     summary: 'Load a plugin folder into Orca as a development plugin',
-    usage: 'orca plugin dev load <dir> [--approve <fingerprint>] [--json]',
+    usage: 'deca plugin dev load <dir> [--approve <fingerprint>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dir', 'approve'],
     positionalArgs: ['dir'],
     notes: [
@@ -240,36 +240,36 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
       'With --environment the folder is a path on that Orca server; pass it absolute.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin dev load ./dusk-theme', 'orca plugin dev load ./notes-editor --json']
+    examples: ['deca plugin dev load ./dusk-theme', 'deca plugin dev load ./notes-editor --json']
   },
   {
     path: ['plugin', 'dev', 'reload'],
     summary: 'Reload development plugins now, or one folder and re-check its approval',
-    usage: 'orca plugin dev reload [<dir>] [--approve <fingerprint>] [--json]',
+    usage: 'deca plugin dev reload [<dir>] [--approve <fingerprint>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'dir', 'approve'],
     positionalArgs: ['dir'],
     notes: [
       'Orca already reloads on file changes; use this when a change was missed (network or WSL folders) or after changing commands or shortcuts, which need a new approval.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin dev reload', 'orca plugin dev reload ./notes-editor --json']
+    examples: ['deca plugin dev reload', 'deca plugin dev reload ./notes-editor --json']
   },
   {
     path: ['plugin', 'dev', 'inspect'],
     summary: "Open DevTools for a plugin's open panels and editors",
-    usage: 'orca plugin dev inspect <plugin-key> [--json]',
+    usage: 'deca plugin dev inspect <plugin-key> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'plugin'],
     positionalArgs: ['plugin'],
     notes: [
       'Desktop app only: opens one detached DevTools window per open frame. Console errors and uncaught exceptions also reach `deca plugin logs` without it.',
       EXIT_CODES_NOTE
     ],
-    examples: ['orca plugin dev inspect acme.notes']
+    examples: ['deca plugin dev inspect acme.notes']
   },
   {
     path: ['plugin', 'dev', 'emit'],
     summary: "Fire a test event at a development plugin's worker and open panels",
-    usage: 'orca plugin dev emit <dir|plugin-key> <event> [--data <json>] [--json]',
+    usage: 'deca plugin dev emit <dir|plugin-key> <event> [--data <json>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'target', 'event', 'data'],
     positionalArgs: ['target', 'event'],
     notes: [
@@ -279,8 +279,8 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
       'Installed plugins are refused; load the folder with `deca plugin dev load` first.'
     ],
     examples: [
-      'orca plugin dev emit . workspace.created --data \'{"workspaceId":"wt-1","kind":"worktree","path":"/repo","branch":"main"}\'',
-      'orca plugin dev emit acme.notes agent.status.changed --data \'{"workspaceId":null,"paneKey":"p1","state":"done","receivedAt":1}\' --json'
+      'deca plugin dev emit . workspace.created --data \'{"workspaceId":"wt-1","kind":"worktree","path":"/repo","branch":"main"}\'',
+      'deca plugin dev emit acme.notes agent.status.changed --data \'{"workspaceId":null,"paneKey":"p1","state":"done","receivedAt":1}\' --json'
     ]
   },
   PLUGIN_DEV_HOOK_COMMAND_SPEC,
@@ -288,12 +288,12 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['plugin', 'dev', 'unload'],
     summary: 'Remove a development folder from Orca',
-    usage: 'orca plugin dev unload <dir|plugin-key> [--json]',
+    usage: 'deca plugin dev unload <dir|plugin-key> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'target'],
     positionalArgs: ['target'],
     notes: [
       'Never needs approval. An installed plugin with the same key comes back, needing its own approval if access differs.'
     ],
-    examples: ['orca plugin dev unload ./notes-editor', 'orca plugin dev unload acme.notes']
+    examples: ['deca plugin dev unload ./notes-editor', 'deca plugin dev unload acme.notes']
   }
 ]

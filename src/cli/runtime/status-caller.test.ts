@@ -21,7 +21,7 @@ type ReceivedRequest = RuntimeOrchestrationEnvelope & {
 type HostReply = { result: unknown } | { error: { code: string; message: string } }
 
 describe.skipIf(process.platform === 'win32')(
-  "orca status reports a session caller's Orca session ID",
+  "deca status reports a session caller's Orca session ID",
   () => {
     let server: Server
     const sockets = new Set<Socket>()

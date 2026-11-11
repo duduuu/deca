@@ -12,7 +12,7 @@ afterEach(async () => {
   await Promise.all(cleanup.splice(0).map((path) => rm(path, { recursive: true, force: true })))
 })
 
-describe('orca plugin types under a symlinked folder', () => {
+describe('deca plugin types under a symlinked folder', () => {
   // macOS /tmp is a symlink to /private/tmp; tsc 7 loaded the typings via both paths (TS2300).
   it('typechecks a scaffolded components plugin reached through a symlink', async () => {
     const real = await mkdtemp(join(await realpath(tmpdir()), 'orca-plugin-types-real-'))

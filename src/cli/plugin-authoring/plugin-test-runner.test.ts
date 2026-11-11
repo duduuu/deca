@@ -27,7 +27,7 @@ async function componentsPlugin(): Promise<string> {
   return dir
 }
 
-describe('orca plugin test', () => {
+describe('deca plugin test', () => {
   it(
     "runs the components template's own test with node:test on Orca's runtime and passes",
     async () => {
@@ -109,7 +109,7 @@ const TESTED_EXAMPLES = readdirSync(EXAMPLES).filter((name) => {
   return existsSync(src) && readdirSync(src).some((file) => PLUGIN_TEST_FILE.test(file))
 })
 
-describe('orca plugin test with a worker', () => {
+describe('deca plugin test with a worker', () => {
   it(
     "runs a .ts worker's own tests through mountWorker, resolving its imports as Orca does",
     async () => {
@@ -189,7 +189,7 @@ describe('the example plugins', () => {
   )
 })
 
-describe('orca plugin check', () => {
+describe('deca plugin check', () => {
   it(
     "runs the plugin's worker so panel requests reach it, and renders each fixture scenario",
     async () => {

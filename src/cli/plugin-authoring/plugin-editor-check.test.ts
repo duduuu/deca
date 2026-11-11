@@ -36,7 +36,7 @@ async function editorPlugin(): Promise<string> {
   return dir
 }
 
-describe('orca plugin check: custom editors', () => {
+describe('deca plugin check: custom editors', () => {
   it('fails on a syntax error that validate lets through', async () => {
     const dir = await editorPlugin()
     await appendFile(join(dir, 'editor', 'main.ts'), 'this is not valid ts(\n')

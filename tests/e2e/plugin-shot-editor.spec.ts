@@ -1,5 +1,5 @@
 /**
- * Invariant: `orca plugin shot --editor` opens a file in a plugin's custom editor from the hidden
+ * Invariant: `deca plugin shot --editor` opens a file in a plugin's custom editor from the hidden
  * test window, waits for the editor to get and ask for its document, sends `--act` input into the
  * editor's isolated guest on a temporary copy of the file, and captures what it drew without showing or focusing the window. A
  * file no workspace holds opens its folder as a folder workspace; an editor that never asks for its

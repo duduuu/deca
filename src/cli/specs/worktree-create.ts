@@ -6,7 +6,7 @@ export const WORKTREE_CREATE_COMMAND_SPEC: CommandSpec = {
   repeatableFlags: ['reference'],
   summary: 'Create a new Orca-managed worktree',
   usage:
-    'orca worktree create --name <name> [--repo <selector>|--project <id-or-name> [--host <host>]|--project-host-setup <id>] [--agent <id>] [--prompt <text>] [--model <id>] [--effort <level>] [--surface chat|terminal] [--setup run|skip|inherit] [--base-branch <ref>] [--branch <name>] [--reference <url-or-jira-key>...] [--reference-site <id>] [--issue <number>] [--pr <number>] [--linear-issue <identifier-or-url>] [--gitlab-issue <number-or-url>] [--gitlab-mr <number-or-url>] [--comment <text>] [--parent-worktree <selector> [--parent-environment <environment>]] [--no-parent] [--run-hooks] [--activate] [--retry-launch <operationId>] [--json]',
+    'deca worktree create --name <name> [--repo <selector>|--project <id-or-name> [--host <host>]|--project-host-setup <id>] [--agent <id>] [--prompt <text>] [--model <id>] [--effort <level>] [--surface chat|terminal] [--setup run|skip|inherit] [--base-branch <ref>] [--branch <name>] [--reference <url-or-jira-key>...] [--reference-site <id>] [--issue <number>] [--pr <number>] [--linear-issue <identifier-or-url>] [--gitlab-issue <number-or-url>] [--gitlab-mr <number-or-url>] [--comment <text>] [--parent-worktree <selector> [--parent-environment <environment>]] [--no-parent] [--run-hooks] [--activate] [--retry-launch <operationId>] [--json]',
   allowedFlags: [
     ...GLOBAL_FLAGS,
     'repo',
@@ -60,15 +60,15 @@ export const WORKTREE_CREATE_COMMAND_SPEC: CommandSpec = {
     'Use --pr for GitHub pull requests; --gitlab-issue and --gitlab-mr write separate GitLab links. GitLab URLs must match the stored source project or remote; they cannot select a foreign project.'
   ],
   examples: [
-    'orca worktree create --name agent-task --agent codex --prompt "hi" --json',
-    'orca worktree create --name design --no-parent --agent codex --model gpt-6-astra --effort high --prompt "Write the design doc" --json',
-    'orca worktree create --repo id:<repoId> --name related-task --json',
-    'orca worktree create --project github:stablyai/orca --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --name benchmark --json',
-    'orca worktree create --repo id:<repoId> --name linear-task --linear-issue https://linear.app/stably/issue/STA-335/test-issue --json',
-    'orca worktree create --repo id:<repoId> --name agent-task --agent codex --prompt "hi" --json',
-    'orca worktree create --repo id:<repoId> --name folder-child --parent-worktree folder:<folderId> --json',
-    'orca worktree create --repo id:<repoId> --name related-task --parent-worktree active --json',
-    'orca worktree create --environment <environment-id> --repo id:<repoId> --name child --parent-environment local --parent-worktree folder:<folderId> --json',
-    'orca worktree create --repo id:<repoId> --name independent-task --no-parent --json'
+    'deca worktree create --name agent-task --agent codex --prompt "hi" --json',
+    'deca worktree create --name design --no-parent --agent codex --model gpt-6-astra --effort high --prompt "Write the design doc" --json',
+    'deca worktree create --repo id:<repoId> --name related-task --json',
+    'deca worktree create --project github:stablyai/orca --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --name benchmark --json',
+    'deca worktree create --repo id:<repoId> --name linear-task --linear-issue https://linear.app/stably/issue/STA-335/test-issue --json',
+    'deca worktree create --repo id:<repoId> --name agent-task --agent codex --prompt "hi" --json',
+    'deca worktree create --repo id:<repoId> --name folder-child --parent-worktree folder:<folderId> --json',
+    'deca worktree create --repo id:<repoId> --name related-task --parent-worktree active --json',
+    'deca worktree create --environment <environment-id> --repo id:<repoId> --name child --parent-environment local --parent-worktree folder:<folderId> --json',
+    'deca worktree create --repo id:<repoId> --name independent-task --no-parent --json'
   ]
 }

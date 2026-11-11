@@ -163,7 +163,7 @@ describe('ensureVirtualDisplayForHeadlessServe', () => {
       expect(message).toContain('`xorg-x11-server-Xvfb`')
       expect(message).toContain('`xorg-server-xvfb` on Arch')
     }
-    expect(MISSING_SERVE_DISPLAY_MESSAGE).not.toContain('orca-ide serve')
+    expect(MISSING_SERVE_DISPLAY_MESSAGE).not.toContain('deca-ide serve')
     expect(MISSING_SERVE_DISPLAY_MESSAGE).toContain('Wayland alone is not enough')
     expect(missingLinuxDisplayMessage(true)).toBe(MISSING_SERVE_DISPLAY_MESSAGE)
     expect(missingLinuxDisplayMessage(false)).toBe(MISSING_LINUX_DISPLAY_MESSAGE)

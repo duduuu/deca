@@ -12,7 +12,7 @@ import {
 import { resolveServiceCommand } from '../runtime/serve-app-launcher'
 import { serveSupervisorBrakePath } from '../runtime/serve-supervisor-brake'
 
-describe('orca serve service', () => {
+describe('deca serve service', () => {
   let home: string
   let bin: string
   let calls: string[]

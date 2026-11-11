@@ -15,7 +15,7 @@ import { createDaemonPtySubprocessHandle } from '../../../pty-subprocess/subproc
 const describePosix = process.platform === 'win32' ? describe.skip : describe
 const SESSION_ID = 'adapter-input-closed'
 
-// #33021: `orca terminal send` reported delivery while the child received nothing.
+// #33021: `deca terminal send` reported delivery while the child received nothing.
 describePosix('daemon adapter writes to a live session whose PTY stopped taking input', () => {
   let nodePty: typeof pty
   let harness: DaemonAdapterHarness | null = null

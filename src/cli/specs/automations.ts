@@ -26,23 +26,23 @@ export const AUTOMATION_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['automations', 'list'],
     summary: 'List scheduled Orca automations',
-    usage: 'orca automations list [--json]',
+    usage: 'deca automations list [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
-    examples: ['orca automations list', 'orca automations list --json']
+    examples: ['deca automations list', 'deca automations list --json']
   },
   {
     path: ['automations', 'show'],
     summary: 'Show one Orca automation',
-    usage: 'orca automations show <id> [--json]',
+    usage: 'deca automations show <id> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'id'],
     positionalArgs: ['id'],
-    examples: ['orca automations show 2f9e...', 'orca automations show --id 2f9e... --json']
+    examples: ['deca automations show 2f9e...', 'deca automations show --id 2f9e... --json']
   },
   {
     path: ['automations', 'create'],
     summary: 'Create a scheduled Orca automation',
     usage:
-      'orca automations create --name <name> --trigger <preset|cron|rrule> --prompt <text> --provider <agent> [--precheck <command>] [--setup run|skip] [--repo <selector>|--workspace <selector>|--project <id-or-name> [--host <host>]|--project-host-setup <id>] [--json]',
+      'deca automations create --name <name> --trigger <preset|cron|rrule> --prompt <text> --provider <agent> [--precheck <command>] [--setup run|skip] [--repo <selector>|--workspace <selector>|--project <id-or-name> [--host <host>]|--project-host-setup <id>] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'name',
@@ -69,17 +69,17 @@ export const AUTOMATION_COMMAND_SPECS: CommandSpec[] = [
       'Use --extra-agent-args="--model opus --effort high" to add arguments after the host\'s default agent Arguments on each fresh run. Only model, effort, and a few safe options are accepted (Antigravity, Claude, Codex, CodeBuddy, Cursor, Grok, OMP, Pi); extras cannot be combined with --reuse-session. On edit, --extra-agent-args= clears them.'
     ],
     examples: [
-      'orca automations create --name "Daily review" --trigger daily --prompt "Review open changes" --provider codex',
-      'orca automations create --name "Weekday triage" --trigger "0 9 * * 1-5" --prompt "Triage issues" --provider claude --repo my-repo',
-      'orca automations create --name "PR review" --trigger hourly --precheck "gh pr list --json number -q .[0].number" --prompt "Review requested PRs" --provider codex',
-      'orca automations create --name "Docs pass" --trigger daily --prompt "Tidy the docs" --provider claude --extra-agent-args="--model opus --effort high --add-dir docs"'
+      'deca automations create --name "Daily review" --trigger daily --prompt "Review open changes" --provider codex',
+      'deca automations create --name "Weekday triage" --trigger "0 9 * * 1-5" --prompt "Triage issues" --provider claude --repo my-repo',
+      'deca automations create --name "PR review" --trigger hourly --precheck "gh pr list --json number -q .[0].number" --prompt "Review requested PRs" --provider codex',
+      'deca automations create --name "Docs pass" --trigger daily --prompt "Tidy the docs" --provider claude --extra-agent-args="--model opus --effort high --add-dir docs"'
     ]
   },
   {
     path: ['automations', 'edit'],
     summary: 'Edit an Orca automation',
     usage:
-      'orca automations edit <id> [--name <name>] [--trigger <preset|cron|rrule>] [--setup run|skip] [--json]',
+      'deca automations edit <id> [--name <name>] [--trigger <preset|cron|rrule>] [--setup run|skip] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'id',
@@ -97,24 +97,24 @@ export const AUTOMATION_COMMAND_SPECS: CommandSpec[] = [
       'Use --setup run|skip only for new-per-run automations. Omit it to preserve the saved setup choice.'
     ],
     examples: [
-      'orca automations edit 2f9e... --disabled',
-      'orca automations edit --id 2f9e... --trigger "30 * * * *" --json',
-      'orca automations edit 2f9e... --extra-agent-args='
+      'deca automations edit 2f9e... --disabled',
+      'deca automations edit --id 2f9e... --trigger "30 * * * *" --json',
+      'deca automations edit 2f9e... --extra-agent-args='
     ]
   },
   {
     path: ['automations', 'remove'],
     destructive: true,
     summary: 'Remove an Orca automation and its run history',
-    usage: 'orca automations remove <id> [--json]',
+    usage: 'deca automations remove <id> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'id'],
     positionalArgs: ['id'],
-    examples: ['orca automations remove 2f9e...', 'orca automations remove --id 2f9e... --json']
+    examples: ['deca automations remove 2f9e...', 'deca automations remove --id 2f9e... --json']
   },
   {
     path: ['automations', 'run'],
     summary: 'Run an Orca automation now',
-    usage: 'orca automations run <id> [--json]',
+    usage: 'deca automations run <id> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'id'],
     positionalArgs: ['id'],
     notes: [
@@ -123,24 +123,24 @@ export const AUTOMATION_COMMAND_SPECS: CommandSpec[] = [
       'A queued or dispatching run has been accepted but may not have a workspace or terminal yet. Use deca automations runs --id <automation-id> to follow its progress.'
     ],
     examples: [
-      'orca automations run 497bafa9-5a97-4f85-9e48-2b211b8f31fa',
-      'orca automations run --id 497bafa9-5a97-4f85-9e48-2b211b8f31fa --json'
+      'deca automations run 497bafa9-5a97-4f85-9e48-2b211b8f31fa',
+      'deca automations run --id 497bafa9-5a97-4f85-9e48-2b211b8f31fa --json'
     ]
   },
   {
     path: ['automations', 'runs'],
     summary: 'List automation run history',
     usage:
-      'orca automations runs [--id <automation-id>] [--limit <n>] [--cursor <cursor>] [--json]',
+      'deca automations runs [--id <automation-id>] [--limit <n>] [--cursor <cursor>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'id', 'limit', 'cursor'],
     notes: [
       'Without --limit or --cursor, reads the whole history in pages, so a large history from a paired server still fits in its replies.',
       'With --limit or --cursor, prints one page (newest first, at most 100 runs) and its nextCursor; pass that as --cursor for the next page.'
     ],
     examples: [
-      'orca automations runs',
-      'orca automations runs --id 2f9e... --json',
-      'orca automations runs --limit 20 --json'
+      'deca automations runs',
+      'deca automations runs --id 2f9e... --json',
+      'deca automations runs --limit 20 --json'
     ]
   }
 ]

@@ -57,7 +57,7 @@ describe('NativeChatBrowserRunPageButton', () => {
           {
             type: 'tool-call',
             name: 'Bash',
-            input: { command: 'orca browser snapshot' },
+            input: { command: 'deca browser snapshot' },
             callId: 'run-a'
           }
         ]}
@@ -82,7 +82,7 @@ describe('NativeChatBrowserRunPageButton', () => {
           {
             type: 'tool-call',
             name: 'Bash',
-            input: { command: 'orca browser click @e1' },
+            input: { command: 'deca browser click @e1' },
             callId: 'run-b'
           }
         ]}

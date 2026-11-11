@@ -5,18 +5,18 @@ export const ENVIRONMENT_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['host', 'name'],
     summary: 'Show or set the name this Orca runtime reports to connected clients',
-    usage: 'orca host name [--name <name>] [--json]',
+    usage: 'deca host name [--name <name>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'name'],
     notes: [
       'With --name, updates the answering runtime over its authenticated connection. Use an empty value to return to the detected computer name.',
       'Without --name, prints the name and platform the answering runtime reports.'
     ],
-    examples: ['orca host name', 'orca host name --name build-server']
+    examples: ['deca host name', 'deca host name --name build-server']
   },
   {
     path: ['host', 'list'],
     summary: 'List every machine this Orca host can target, and how to name each one',
-    usage: 'orca host list [--json]',
+    usage: 'deca host list [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS],
     notes: [
       'Answers "what can I target and what do I pass" in one place: this machine, the SSH targets registered on it, and the Orca servers paired with it.',
@@ -28,13 +28,13 @@ export const ENVIRONMENT_COMMAND_SPECS: CommandSpec[] = [
       "SSH targets are read from this machine's own Orca runtime, so this lists that machine's targets and not another server's. Run `deca host list` on the other machine to see the targets registered there.",
       '--environment and --pairing-code are rejected rather than ignored: paired servers come from this machine\u2019s pairing store, so a routed answer would describe two machines at once.'
     ],
-    examples: ['orca host list', 'orca host list --json']
+    examples: ['deca host list', 'deca host list --json']
   },
   {
     path: ['host', 'rm'],
     destructive: true,
     summary: 'Remove one saved SSH target from this Orca host',
-    usage: 'orca host rm --host ssh:<target-id> [--json]',
+    usage: 'deca host rm --host ssh:<target-id> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'host'],
     notes: [
       'Removes the target the same way Settings does: its connection closes, and the passive ~/.ssh/config import does not add the alias back. Restore removed hosts in Settings brings it back.',
@@ -42,21 +42,21 @@ export const ENVIRONMENT_COMMAND_SPECS: CommandSpec[] = [
       '--environment and --pairing-code are rejected rather than ignored: SSH targets are removed from this machine\u2019s own Orca runtime.'
     ],
     examples: [
-      'orca host rm --host ssh:ssh-1783599077486-fyasux',
-      'orca host rm --host ssh:ssh-1783599077486-fyasux --json'
+      'deca host rm --host ssh:ssh-1783599077486-fyasux',
+      'deca host rm --host ssh:ssh-1783599077486-fyasux --json'
     ]
   },
   {
     path: ['environment', 'add'],
     summary: 'Save a remote Orca runtime environment from a pairing code',
-    usage: 'orca environment add --name <name> --pairing-code <code> [--json]',
+    usage: 'deca environment add --name <name> --pairing-code <code> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'pairing-code', 'name'],
-    examples: ['orca environment add --name work-laptop --pairing-code orca://pair?code=...']
+    examples: ['deca environment add --name work-laptop --pairing-code orca://pair?code=...']
   },
   {
     path: ['environment', 'list'],
     summary: 'List saved Orca runtime environments',
-    usage: 'orca environment list [--json]',
+    usage: 'deca environment list [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS],
     notes: [
       'Answers from this machine\u2019s pairing store. --environment and --pairing-code are rejected rather than ignored, because there is no other host that could answer.'
@@ -65,14 +65,14 @@ export const ENVIRONMENT_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['environment', 'show'],
     summary: 'Show one saved Orca runtime environment',
-    usage: 'orca environment show --environment <selector> [--json]',
+    usage: 'deca environment show --environment <selector> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment']
   },
   {
     path: ['environment', 'rm'],
     destructive: true,
     summary: 'Remove one saved Orca runtime environment',
-    usage: 'orca environment rm --environment <selector> [--json]',
+    usage: 'deca environment rm --environment <selector> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment']
   }
 ]

@@ -239,7 +239,7 @@ if (preflightReady) {
                 { detail }
               ),
             ...(failureClass === 'recovery-required' || failureClass === 'ambiguous-authority'
-              ? { recoveryCommand: 'orca profile state exports' }
+              ? { recoveryCommand: 'deca profile state exports' }
               : {}),
             showMessageBox: (options) => dialog.showMessageBox(options),
             copyToClipboard: (text) => clipboard.writeText(text),

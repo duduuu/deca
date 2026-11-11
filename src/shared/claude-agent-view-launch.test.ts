@@ -9,12 +9,12 @@ it.each(['posix', 'powershell', 'cmd'] as const)(
   'preserves existing plugin arguments and prompts in %s',
   (shell: AgentStartupShell) => {
     const command = 'claude --plugin-dir user-plugin --resume session -- "my prompt"'
-    const result = withClaudeAgentViewPlugin(command, 'orca plugin', shell)
+    const result = withClaudeAgentViewPlugin(command, 'deca plugin', shell)
     const parsed = tokenizeStartupCommand(result, shell)
     expect(parsed.ok && parsed.tokens).toEqual([
       'claude',
       '--plugin-dir',
-      'orca plugin',
+      'deca plugin',
       '--plugin-dir',
       'user-plugin',
       '--resume',

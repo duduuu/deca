@@ -39,7 +39,7 @@ async function releaseFor(dir: string) {
   return pluginReleaseEntryForFolder(await validatePluginTarget(dir))
 }
 
-describe('orca plugin release-entry', () => {
+describe('deca plugin release-entry', () => {
   it('prints the HEAD entry and source path for a plugin in a subdirectory', async () => {
     const repo = await tempRoot()
     await git(repo, ['init', '--quiet'])

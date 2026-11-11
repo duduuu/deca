@@ -204,7 +204,7 @@ describe('orchestration agent views', () => {
       stage: 'turn_start_unobserved',
       turnStart: 'unobserved',
       lastError: 'The agent did not show that it started the task.',
-      nextCommands: ['orca orchestration worker-abandon --dispatch ctx_1 --json']
+      nextCommands: ['deca orchestration worker-abandon --dispatch ctx_1 --json']
     })
 
     expect(stdout).toBe(

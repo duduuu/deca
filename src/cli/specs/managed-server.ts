@@ -10,28 +10,28 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['environment', 'status'],
     summary: 'Show a managed Orca server’s active version, terminals and pending work',
-    usage: 'orca environment status --environment <selector> [--json]',
+    usage: 'deca environment status --environment <selector> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment'],
     notes: [SELECTOR_NOTE, DESKTOP_NOTE],
-    examples: ['orca environment status --environment build-box']
+    examples: ['deca environment status --environment build-box']
   },
   {
     path: ['environment', 'update'],
     summary: 'Update a managed Orca server to this build’s version',
-    usage: 'orca environment update --environment <selector> [--force] [--json]',
+    usage: 'deca environment update --environment <selector> [--force] [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'force'],
     notes: [
       'Without --force, an update that would restart over running terminals is deferred and reported, not applied.',
       SELECTOR_NOTE,
       DESKTOP_NOTE
     ],
-    examples: ['orca environment update --environment build-box']
+    examples: ['deca environment update --environment build-box']
   },
   {
     path: ['environment', 'rollback'],
     destructive: true,
     summary: 'Roll a managed Orca server back to its previous version',
-    usage: 'orca environment rollback --environment <selector> [--json]',
+    usage: 'deca environment rollback --environment <selector> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment'],
     notes: [SELECTOR_NOTE, DESKTOP_NOTE]
   },
@@ -39,7 +39,7 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
     path: ['environment', 'recover'],
     summary: 'Finish or undo a managed Orca server’s interrupted update, rollback or stop',
     usage:
-      'orca environment recover --environment <selector> [--accept-changed-state --yes] [--json]',
+      'deca environment recover --environment <selector> [--accept-changed-state --yes] [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'accept-changed-state', 'yes'],
     notes: [
       'When a rejected build changed profile state, recover refuses rather than restart the previous build over it. --accept-changed-state --yes restores the prelaunch snapshot instead, the same as Restore in Settings > Orca on your SSH hosts; what the rejected build changed is discarded.',
@@ -47,15 +47,15 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
       DESKTOP_NOTE
     ],
     examples: [
-      'orca environment recover --environment build-box',
-      'orca environment recover --environment build-box --accept-changed-state --yes'
+      'deca environment recover --environment build-box',
+      'deca environment recover --environment build-box --accept-changed-state --yes'
     ]
   },
   {
     path: ['environment', 'stop'],
     destructive: true,
     summary: 'Stop a managed Orca server and unlink it from this machine (decommission)',
-    usage: 'orca environment stop --environment <selector> --yes [--json]',
+    usage: 'deca environment stop --environment <selector> --yes [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'yes'],
     notes: [
       'Stops orcad on the SSH host and, once the host proves it exited, removes the server from this machine and disconnects the host. Its terminals end. Connecting the host again sets up a new server. Requires --yes.',
@@ -64,13 +64,13 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
       SELECTOR_NOTE,
       DESKTOP_NOTE
     ],
-    examples: ['orca environment stop --environment build-box --yes']
+    examples: ['deca environment stop --environment build-box --yes']
   },
   {
     path: ['environment', 'forget'],
     destructive: true,
     summary: 'Unlink a managed Orca server whose SSH host is gone, without stopping it',
-    usage: 'orca environment forget --environment <selector> --yes [--json]',
+    usage: 'deca environment forget --environment <selector> --yes [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'yes'],
     notes: [
       'Removes the server from this machine without contacting its host, so the SSH host can then be removed. Use it when the host was deleted or can never be reached again. Requires --yes.',
@@ -79,12 +79,12 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
       SELECTOR_NOTE,
       DESKTOP_NOTE
     ],
-    examples: ['orca environment forget --environment build-box --yes']
+    examples: ['deca environment forget --environment build-box --yes']
   },
   {
     path: ['environment', 'cancel-stop'],
     summary: 'Withdraw a managed Orca server stop that orcad has not acted on yet',
-    usage: 'orca environment cancel-stop --environment <selector> [--json]',
+    usage: 'deca environment cancel-stop --environment <selector> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment'],
     notes: [SELECTOR_NOTE, DESKTOP_NOTE]
   }

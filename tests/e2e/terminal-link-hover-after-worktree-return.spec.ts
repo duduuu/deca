@@ -284,7 +284,7 @@ test.describe('Terminal link hover after worktree return', () => {
     const worktreePath = await activeWorktreePath(orcaPage)
     const fileName = `orca-linkfile-${randomUUID().slice(0, 8)}.txt`
     const filePath = path.join(worktreePath, fileName)
-    writeFileSync(filePath, 'orca file link target\n')
+    writeFileSync(filePath, 'deca file link target\n')
     const needle = `./${fileName}`
 
     try {

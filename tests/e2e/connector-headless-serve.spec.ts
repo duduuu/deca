@@ -1,4 +1,4 @@
-// Drives the hidden `orca connector` CLI end to end against a real headless serve host and a scripted Claude.
+// Drives the hidden `deca connector` CLI end to end against a real headless serve host and a scripted Claude.
 import { mkdtempSync, rmSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'

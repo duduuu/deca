@@ -28,7 +28,7 @@ export class RuntimeLinearRetryCommands extends RuntimeLinearCommandBase {
     const pinned =
       verb === 'create'
         ? [
-            'orca linear create',
+            'deca linear create',
             `--workspace=${this.commandToken(workspaceId, 'WORKSPACE_ID')}`,
             `--write-id=${this.commandToken(writeId, 'WRITE_ID')}`,
             '--title TITLE_HERE',

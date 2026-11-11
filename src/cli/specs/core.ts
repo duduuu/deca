@@ -13,67 +13,67 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['open'],
     summary: 'Launch Orca and wait for the runtime to be reachable',
-    usage: 'orca open [--json]',
+    usage: 'deca open [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
-    examples: ['orca open', 'orca open --json']
+    examples: ['deca open', 'deca open --json']
   },
   ...SERVE_COMMAND_SPECS,
   {
     path: ['status'],
     summary: 'Show app/runtime/graph readiness',
-    usage: 'orca status [--json]',
+    usage: 'deca status [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       "caller.orcaSessionId is this agent's Orca session ID, as Orca resolved it, when the agent runs as an Orca session; otherwise caller is omitted."
     ],
-    examples: ['orca status', 'orca status --json']
+    examples: ['deca status', 'deca status --json']
   },
   {
     path: ['claude-teams'],
     argumentMode: 'passthrough',
     summary: 'Start Claude Code Agent Teams in the current Orca terminal',
-    usage: 'orca claude-teams [claude args...]',
+    usage: 'deca claude-teams [claude args...]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Passes all following arguments through to Claude Code after enabling Agent Teams native panes.',
       'Must be run from inside an Orca terminal. Starts Claude Code Agent Teams in the current pane and opens teammates as native Orca splits.'
     ],
-    examples: ['orca claude-teams', 'orca claude-teams --resume <session-id>']
+    examples: ['deca claude-teams', 'deca claude-teams --resume <session-id>']
   },
   ...REPO_COMMAND_SPECS,
   {
     path: ['worktree', 'list'],
     summary: 'List Orca-managed worktrees',
-    usage: 'orca worktree list [--repo <selector>] [--limit <n>] [--json]',
+    usage: 'deca worktree list [--repo <selector>] [--limit <n>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'repo', 'limit'],
     notes: [...WORKTREE_LISTING_SCOPE_NOTES]
   },
   {
     path: ['worktree', 'show'],
     summary: 'Show one worktree',
-    usage: 'orca worktree show --worktree <selector> [--json]',
+    usage: 'deca worktree show --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree']
   },
   {
     path: ['worktree', 'activate'],
     summary: 'Open a worktree on its host, waking a sleeping recipe VM behind it',
-    usage: 'orca worktree activate --worktree <selector> [--json]',
+    usage: 'deca worktree activate --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree'],
     notes: [
       'With --environment naming a recipe VM that is asleep, Orca on this computer wakes the VM first and waits for it.',
       'Folder workspaces cannot be activated from the CLI yet; open them from the Orca sidebar.'
     ],
-    examples: ['orca worktree activate --worktree branch:fix-login --environment sandbox']
+    examples: ['deca worktree activate --worktree branch:fix-login --environment sandbox']
   },
   {
     path: ['worktree', 'current'],
     summary: 'Show the Orca-managed worktree for the current directory',
-    usage: 'orca worktree current [--json]',
+    usage: 'deca worktree current [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Resolves the current shell directory to a path: selector so agents can target the enclosing Orca worktree without spelling out $PWD.'
     ],
-    examples: ['orca worktree current', 'orca worktree current --json']
+    examples: ['deca worktree current', 'deca worktree current --json']
   },
   WORKTREE_CREATE_COMMAND_SPEC,
   WORKTREE_SET_COMMAND_SPEC,
@@ -86,7 +86,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     destructive: true,
     summary: 'Remove a Git worktree or a folder workspace entry from Orca',
     usage:
-      'orca worktree rm --worktree <selector> [--force] [--delete-branch] [--run-hooks] [--allow-failed-archive-hook] [--json]',
+      'deca worktree rm --worktree <selector> [--force] [--delete-branch] [--run-hooks] [--allow-failed-archive-hook] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'worktree',
@@ -107,7 +107,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['worktree', 'ps'],
     summary: 'Show a compact orchestration summary across worktrees',
-    usage: 'orca worktree ps [--limit <n>] [--agent-wait] [--json]',
+    usage: 'deca worktree ps [--limit <n>] [--agent-wait] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'limit', 'agent-wait'],
     notes: [
       ...WORKTREE_LISTING_SCOPE_NOTES,
@@ -118,7 +118,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'list'],
     summary: 'List live Orca-managed terminals',
     usage:
-      'orca terminal list [--worktree <selector>] [--limit <n>] [--include-visual-layouts] [--json]',
+      'deca terminal list [--worktree <selector>] [--limit <n>] [--include-visual-layouts] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'limit', 'include-visual-layouts'],
     notes: [
       'JSON omits visualLayouts by default; pass --include-visual-layouts when machine-readable tab and pane topology is required.'
@@ -127,14 +127,14 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['terminal', 'show'],
     summary: 'Show terminal metadata and preview',
-    usage: 'orca terminal show [--terminal <handle>] [--json]',
+    usage: 'deca terminal show [--terminal <handle>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal']
   },
   {
     path: ['terminal', 'read'],
     summary: 'Read bounded terminal output',
     usage:
-      'orca terminal read [--terminal <handle>] [--cursor <n>] [--limit <n>] [--screen] [--json]',
+      'deca terminal read [--terminal <handle>] [--cursor <n>] [--limit <n>] [--screen] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'cursor', 'limit', 'screen'],
     notes: [
       'Omit --terminal to target the active terminal in the current worktree.',
@@ -151,9 +151,9 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'Useful for capturing the response to a command: read before sending, then read --cursor <prev> after waiting.'
     ],
     examples: [
-      'orca terminal read --json',
-      'orca terminal read --terminal term_abc123 --cursor 42 --limit 1000 --json',
-      'orca terminal read --terminal term_abc123 --screen --json'
+      'deca terminal read --json',
+      'deca terminal read --terminal term_abc123 --cursor 42 --limit 1000 --json',
+      'deca terminal read --terminal term_abc123 --screen --json'
     ]
   },
   TERMINAL_SEND_COMMAND_SPEC,
@@ -161,14 +161,14 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'wait'],
     summary: 'Wait for a terminal condition',
     usage:
-      'orca terminal wait [--terminal <handle>] --for exit|tui-idle [--timeout-ms <ms>] [--json]',
+      'deca terminal wait [--terminal <handle>] --for exit|tui-idle [--timeout-ms <ms>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'for', 'timeout-ms']
   },
   {
     path: ['terminal', 'stop'],
     hidden: true,
     summary: 'Deprecated compatibility command for stopping terminal processes',
-    usage: 'orca terminal stop --worktree <selector> [--json]',
+    usage: 'deca terminal stop --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree'],
     notes: [
       'Deprecated: use terminal close --worktree <selector> --all to stop the processes and durably remove their terminal surfaces.'
@@ -178,7 +178,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'create'],
     summary: 'Create a terminal session in the current worktree',
     usage:
-      'orca terminal create [--worktree <selector>] [--title <name>] [--command <text>] [--shell <shell>] [--focus] [--json]',
+      'deca terminal create [--worktree <selector>] [--title <name>] [--command <text>] [--shell <shell>] [--focus] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'command', 'shell', 'title', 'focus'],
     notes: [
       'Creates a visible terminal tab without switching focus when possible; falls back to a background handle if the UI cannot adopt it. Pass --focus to switch to it.',
@@ -187,11 +187,11 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'A host that cannot apply --shell refuses the create rather than quietly spawning its default shell: macOS and Linux execution hosts spawn the login shell, terminals routed over SSH resolve their shell on the SSH host, a --shell that contradicts the project execution runtime (WSL vs Windows host) is refused, and an Orca host older than --shell is refused by the CLI.'
     ],
     examples: [
-      'orca terminal create --json',
-      'orca terminal create --worktree active --command "pnpm dev" --json',
-      'orca terminal create --worktree path:/projects/myapp --title "RUNNER" --command "npm test"',
-      'orca terminal create --worktree path:/projects/myapp --command "pnpm dev" --focus',
-      'orca terminal create --worktree path:C:/src/app --shell cmd.exe --json'
+      'deca terminal create --json',
+      'deca terminal create --worktree active --command "pnpm dev" --json',
+      'deca terminal create --worktree path:/projects/myapp --title "RUNNER" --command "npm test"',
+      'deca terminal create --worktree path:/projects/myapp --command "pnpm dev" --focus',
+      'deca terminal create --worktree path:C:/src/app --shell cmd.exe --json'
     ]
   },
   {
@@ -199,23 +199,23 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     // Preserve the legacy focus verb.
     aliases: [['terminal', 'focus']],
     summary: 'Switch to a terminal tab in the UI',
-    usage: 'orca terminal switch [--terminal <handle>] [--json]',
+    usage: 'deca terminal switch [--terminal <handle>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal'],
     notes: [
       "With --environment, the desktop app on this machine switches to that server's terminal; a server has no window of its own."
     ],
-    examples: ['orca terminal switch --terminal term_abc123']
+    examples: ['deca terminal switch --terminal term_abc123']
   },
   TERMINAL_CLOSE_COMMAND_SPEC,
   {
     path: ['terminal', 'rename'],
     summary: 'Set or clear the title of a terminal tab',
-    usage: 'orca terminal rename [--terminal <handle>] [--title <text>] [--json]',
+    usage: 'deca terminal rename [--terminal <handle>] [--title <text>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'title'],
     notes: ['Omit --title or pass an empty string to reset to the auto-generated title.'],
     examples: [
-      'orca terminal rename --terminal term_abc123 --title "RUNNER"',
-      'orca terminal rename --terminal term_abc123 --json'
+      'deca terminal rename --terminal term_abc123 --title "RUNNER"',
+      'deca terminal rename --terminal term_abc123 --json'
     ]
   },
   TERMINAL_SET_PANE_TITLE_COMMAND_SPEC,
@@ -223,14 +223,14 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'split'],
     summary: 'Split an existing terminal pane',
     usage:
-      'orca terminal split [--terminal <handle>] [--direction horizontal|vertical] [--command <text>] [--retry-split <leafId>] [--json]',
+      'deca terminal split [--terminal <handle>] [--direction horizontal|vertical] [--command <text>] [--retry-split <leafId>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'direction', 'command', 'retry-split'],
     notes: [
       'A timeout does not mean the split failed: the pane may still open and run --command. Re-run the same command with --retry-split <leafId> from the error to wait for that pane instead of splitting again.'
     ],
     examples: [
-      'orca terminal split --terminal term_abc123 --direction horizontal --json',
-      'orca terminal split --terminal term_abc123 --command "codex"'
+      'deca terminal split --terminal term_abc123 --direction horizontal --json',
+      'deca terminal split --terminal term_abc123 --command "codex"'
     ]
   }
 ]

@@ -202,7 +202,7 @@ it.each(verbs)(
       error: { code: 'linear_write_unconfirmed', data: { nextSteps: [expect.any(String)] } }
     })
     const nextSteps: string[] = envelope.error.data.nextSteps
-    expect(nextSteps[0]).toContain('orca linear')
+    expect(nextSteps[0]).toContain('deca linear')
     if (argv.includes('--write-id')) {
       expect(nextSteps[0]).toContain(`--write-id=${writeId}`)
     }
@@ -355,7 +355,7 @@ it.each(['status', 'duplicate comment'] as const)(
       })
       if (verb === 'status') {
         expect(envelope.error.data.nextSteps).toEqual([
-          expect.stringContaining('orca linear issue ENG-1')
+          expect.stringContaining('deca linear issue ENG-1')
         ])
       } else {
         expect(envelope.error.data).toMatchObject({

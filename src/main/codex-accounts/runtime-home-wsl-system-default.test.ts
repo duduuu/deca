@@ -125,7 +125,7 @@ describe('CodexRuntimeHomeService', () => {
       wslHome,
       '.local',
       'share',
-      'orca',
+      'deca',
       'codex-runtime-home',
       'home'
     )

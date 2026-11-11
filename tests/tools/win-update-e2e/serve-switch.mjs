@@ -1,5 +1,5 @@
 // Packaged-Windows D7: a terminal the installed desktop app opened (its daemon forked from the
-// relocated %LOCALAPPDATA%\Orca\daemon-host) survives `orca serve` taking the same profile on
+// relocated %LOCALAPPDATA%\Orca\daemon-host) survives `deca serve` taking the same profile on
 // orcad, and the desktop reattaches it afterwards. Also proves the desktop still writes its
 // settings once orcad has applied its data-root ACL. Windows-only; run on a disposable runner.
 //
@@ -55,7 +55,7 @@ function killPid(pid, { tree = false } = {}) {
   }
 }
 
-/** `orca serve` through the installed app's own CLI, on the desktop's profile. */
+/** `deca serve` through the installed app's own CLI, on the desktop's profile. */
 async function startOrcaServe(exePath, userDataDir) {
   const cli = path.join(path.dirname(exePath), 'resources', 'app.asar', 'out', 'cli', 'index.js')
   const child = spawn(
@@ -77,7 +77,7 @@ async function startOrcaServe(exePath, userDataDir) {
   child.stderr.on('data', (chunk) => (stderr += chunk))
   const readiness = await new Promise((resolve, reject) => {
     // A first run fetches and verifies the pinned Node before orcad starts.
-    const timer = setTimeout(() => reject(new Error(`orca serve not ready: ${stderr}`)), 300_000)
+    const timer = setTimeout(() => reject(new Error(`deca serve not ready: ${stderr}`)), 300_000)
     child.stdout.on('data', (chunk) => {
       stdout += chunk
       const line = stdout.split('\n').find((candidate) => candidate.trim().startsWith('{'))
@@ -88,7 +88,7 @@ async function startOrcaServe(exePath, userDataDir) {
     })
     child.once('exit', (code) => {
       clearTimeout(timer)
-      reject(new Error(`orca serve exited ${code}: ${stderr}`))
+      reject(new Error(`deca serve exited ${code}: ${stderr}`))
     })
   })
   return { child, readiness, stderr: () => stderr }

@@ -191,7 +191,7 @@ test('a relay-era profile converts its SSH host on the first connect after upgra
     await openPairedClientTab(upgraded.page, seeded.worktreeId, terminal.webTabId)
     await callEnvironment(upgraded.page, environment.id, 'terminal.send', {
       terminal: terminal.terminal,
-      text: "orca status --json > /tmp/orca-cli-status.json && orca worktree ps --json > /tmp/orca-cli-workers.json && printf 'QA_%s\\n' 'CLI_READY'",
+      text: "deca status --json > /tmp/orca-cli-status.json && orca worktree ps --json > /tmp/orca-cli-workers.json && printf 'QA_%s\\n' 'CLI_READY'",
       enter: true
     })
     await expectTerminalAccessibilityText(upgraded.page, terminal.webTabId, 'QA_CLI_READY')

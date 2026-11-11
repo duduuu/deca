@@ -5,14 +5,14 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['skills', 'installed'],
     summary: 'List installed skill selectors',
-    usage: 'orca skills installed [--json]',
+    usage: 'deca skills installed [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: ['Lists discovery IDs and names without reading skill contents into the CLI.']
   },
   {
     path: ['skills', 'list'],
     summary: 'List version-matched skill guides bundled with this Orca CLI',
-    usage: 'orca skills list [--json]',
+    usage: 'deca skills list [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Reads bundled guide metadata locally without contacting the Orca runtime.',
@@ -24,7 +24,7 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
     path: ['skills', 'get'],
     aliases: [['skills', 'show']],
     summary: 'Print a version-matched skill guide as Markdown',
-    usage: 'orca skills get <topic> [--full | --reference <name>] [--json]',
+    usage: 'deca skills get <topic> [--full | --reference <name>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'topic', 'full', 'reference', 'references'],
     positionalArgs: ['topic'],
     notes: [
@@ -35,17 +35,17 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
       'Use --json for a deterministic object containing canonical topic metadata and content.'
     ],
     examples: [
-      'orca skills get orca-cli',
-      'orca skills get orchestration --full',
-      'orca skills get orchestration --references',
-      'orca skills get orchestration --reference recovery-and-cleanup'
+      'deca skills get orca-cli',
+      'deca skills get orchestration --full',
+      'deca skills get orchestration --references',
+      'deca skills get orchestration --reference recovery-and-cleanup'
     ]
   },
   {
     path: ['skills', 'install'],
     summary: 'Install bundled Orca skills on this machine',
     usage:
-      'orca skills install [--skill <name>]... [--all] [--agent <name>[,<name>]] ' +
+      'deca skills install [--skill <name>]... [--all] [--agent <name>[,<name>]] ' +
       '[--local] [--force] [--dry-run] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'skill', 'all', 'agent', 'local', 'force', 'dry-run'],
     notes: [
@@ -67,17 +67,17 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
       'Omit --skill and --all to list installable skill names.'
     ],
     examples: [
-      'orca skills install --skill orca-cli --skill orchestration',
-      'orca skills install --skill orca-cli --local',
-      'orca skills install --skill orca-cli --agent claude,codex',
-      'orca skills install --all --dry-run'
+      'deca skills install --skill orca-cli --skill orchestration',
+      'deca skills install --skill orca-cli --local',
+      'deca skills install --skill orca-cli --agent claude,codex',
+      'deca skills install --all --dry-run'
     ]
   },
   {
     path: ['skills', 'update'],
     summary: 'Update Orca skills to the version this Orca build ships',
     usage:
-      'orca skills update [--skill <name>]... [--all] [--agent <name>[,<name>]] ' +
+      'deca skills update [--skill <name>]... [--all] [--agent <name>[,<name>]] ' +
       '[--local] [--force] [--dry-run] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'skill', 'all', 'agent', 'local', 'force', 'dry-run'],
     notes: [
@@ -91,9 +91,9 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
       'Omit --skill and --all to list updatable skill names.'
     ],
     examples: [
-      'orca skills update --all',
-      'orca skills update --skill orca-cli --dry-run',
-      'orca skills update --all --force'
+      'deca skills update --all',
+      'deca skills update --skill orca-cli --dry-run',
+      'deca skills update --all --force'
     ]
   }
 ]

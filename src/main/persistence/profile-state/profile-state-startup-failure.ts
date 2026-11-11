@@ -101,8 +101,8 @@ export function formatProfileStateStartupFailure(
           'profileState.startupFailure.restoreWholeBackup',
           'To restore a whole backup instead, run `{{exportsCommand}}`, then `{{rollbackCommand}}`.',
           {
-            exportsCommand: 'orca profile state exports',
-            rollbackCommand: 'orca profile state rollback --backup <id>'
+            exportsCommand: 'deca profile state exports',
+            rollbackCommand: 'deca profile state rollback --backup <id>'
           }
         )
       ].join('\n')
@@ -123,14 +123,14 @@ export function formatProfileStateStartupFailure(
       translate(
         'profileState.startupFailure.chooseRecoveryArtifact',
         'Stop Orca, then run `{{command}}` and choose a known-good recovery artifact.',
-        { command: 'orca profile state exports' }
+        { command: 'deca profile state exports' }
       ),
       translate(
         'profileState.startupFailure.restoreCommands',
         'Restore SQLite with `{{backupCommand}}`, or restore a JSON export with `{{revisionCommand}}`.',
         {
-          backupCommand: 'orca profile state rollback --backup <id>',
-          revisionCommand: 'orca profile state rollback --revision <revision>'
+          backupCommand: 'deca profile state rollback --backup <id>',
+          revisionCommand: 'deca profile state rollback --revision <revision>'
         }
       )
     ].join('\n')
@@ -154,19 +154,19 @@ export function formatProfileStateStartupFailure(
       translate(
         'profileState.startupFailure.authorityKeepJson',
         'To keep the current JSON, including edits from an older build, run `{{command}}`. This archives both copies and does not merge their contents.',
-        { command: 'orca profile state rollback --current-json' }
+        { command: 'deca profile state rollback --current-json' }
       ),
       translate(
         'profileState.startupFailure.authorityInspect',
         'Run `{{command}}` to inspect retained recovery points.',
-        { command: 'orca profile state exports' }
+        { command: 'deca profile state exports' }
       ),
       translate(
         'profileState.startupFailure.authorityRestore',
         'Use `{{backupCommand}}` or `{{revisionCommand}}` only after selecting the state you want to restore.',
         {
-          backupCommand: 'orca profile state rollback --backup <id>',
-          revisionCommand: 'orca profile state rollback --revision <revision>'
+          backupCommand: 'deca profile state rollback --backup <id>',
+          revisionCommand: 'deca profile state rollback --revision <revision>'
         }
       )
     ].join('\n')

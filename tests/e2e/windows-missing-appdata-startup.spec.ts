@@ -10,9 +10,9 @@ import { isolatedServeProfile } from './helpers/orca-serve-cli-host'
 import { RuntimeClient } from '../../src/cli/runtime/client'
 import { RuntimeClientError } from '../../src/cli/runtime/types'
 
-// Regression: a profile-less Windows session (e.g. `orca serve` over SSH) has no roaming AppData,
+// Regression: a profile-less Windows session (e.g. `deca serve` over SSH) has no roaming AppData,
 // and Electron 43 crashed natively resolving userData before Orca pinned it.
-test('orca serve starts on Windows when the home has no AppData folder', async (// oxlint-disable-next-line no-empty-pattern -- This spec owns its launch and opts out of the default app fixture.
+test('deca serve starts on Windows when the home has no AppData folder', async (// oxlint-disable-next-line no-empty-pattern -- This spec owns its launch and opts out of the default app fixture.
 {}, testInfo) => {
   test.skip(process.platform !== 'win32', 'Windows AppData resolution only')
 
@@ -67,7 +67,7 @@ test('orca serve starts on Windows when the home has no AppData folder', async (
             throw error
           }
         },
-        { timeout: 60_000, message: 'orca serve never became ready without AppData' }
+        { timeout: 60_000, message: 'deca serve never became ready without AppData' }
       )
       .toBe('openable')
   } finally {

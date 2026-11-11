@@ -134,7 +134,7 @@ function insertSession(
     args.timeCreated,
     args.timeUpdated,
     args.timeArchived ?? null,
-    args.model ?? JSON.stringify({ id: 'glm-5.2', providerID: 'zai-coding-plan' }),
+    args.model ?? JSON.stringify({ id: 'lmx-5.2', providerID: 'xio-coding-plan' }),
     args.agent ?? 'build',
     args.cost ?? 0,
     args.tokensInput ?? 100,

@@ -69,8 +69,6 @@ const KNOWN_PREEXISTING_I2_FAILURES: Record<string, number> = {
   'codex-fullscreen-multiline-early-input': 10,
   'codex-fullscreen-startup': 14,
   'claude-dialog-trust-workspace-answered': 13,
-  // DSH’s true-color background loss also occurs in the previous build; I1 and I3 hold.
-  'dsh-tui-ready-no-key': 10,
   // Capacity captures reproduce baseline attribute leaks.
   'codex-model-capacity-fullscreen': 12,
   // Hermes banner cells restore with an extra bold bit under the jitter schedule.

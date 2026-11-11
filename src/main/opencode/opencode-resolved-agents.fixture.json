@@ -2,7 +2,7 @@
   {
     "name": "stale-default",
     "configContent": "{\"model\": \"opencode/big-pickle\", \"default_agent\": \"qa-stale-missing\", \"agents\": {\"reviewer\": {\"mode\": \"primary\", \"model\": \"opencode/big-pickle\", \"system\": \"Review the requested change.\"}}}",
-    "model": "opencode/mimo-v2.6-flash-free",
+    "model": "opencode/nemo-v2.6-flash-free",
     "initial": {
       "location": {
         "directory": "/qa/project"
@@ -60,7 +60,7 @@
   {
     "name": "disabled-build",
     "configContent": "{\"model\": \"opencode/big-pickle\", \"agents\": {\"build\": {\"disabled\": true}}}",
-    "model": "opencode/mimo-v2.6-flash-free",
+    "model": "opencode/nemo-v2.6-flash-free",
     "initial": {
       "location": {
         "directory": "/qa/project"

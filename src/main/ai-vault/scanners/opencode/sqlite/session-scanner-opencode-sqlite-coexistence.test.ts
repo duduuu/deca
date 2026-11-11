@@ -183,7 +183,7 @@ describe('scanAiVaultSessions — OpenCode SQLite + legacy file coexistence', ()
        VALUES ('legacy-session', 'proj-1', 'slug', '/tmp/sqlite', 'SQLite session', '1.0.0',
          1777634002000, 1777634003000, ?, 'build', 0,
          100, 40, 10, 5, 0)`
-    ).run(JSON.stringify({ id: 'glm-5.2', providerID: 'zai-coding-plan' }))
+    ).run(JSON.stringify({ id: 'lmx-5.2', providerID: 'xio-coding-plan' }))
     db.prepare(
       `INSERT INTO message (id, session_id, time_created, time_updated, data)
        VALUES ('msg_sql_1', 'legacy-session', 1777634002500, 1777634002500, ?)`

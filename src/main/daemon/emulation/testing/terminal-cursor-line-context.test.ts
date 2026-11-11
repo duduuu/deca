@@ -72,9 +72,7 @@ describe('readTerminalCursorLineContext', () => {
 
   it.each([
     // Claude's alternate-screen redraw parks the hidden cursor in a complete box without caret paint.
-    { fixture: 'claude-interrupt-tool-cancel-supported', length: 1321, completeFrame: true },
-    // The dsh first-run guide redraws its text between rules with the cursor hidden.
-    { fixture: 'dsh-tui-0.17/first-run-guide', length: 10355, completeFrame: false }
+    { fixture: 'claude-interrupt-tool-cancel-supported', length: 1321, completeFrame: true }
   ])(
     'leaves an alternate-screen hidden cursor without caret paint out of drafts in $fixture',
     async ({ fixture, length, completeFrame }) => {

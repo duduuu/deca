@@ -95,7 +95,7 @@ function writeSession(db: SyncDatabase, session: OpenCodeSqliteFixtureSession): 
     `INSERT INTO session (id, project_id, parent_id, slug, directory, title, version,
        time_created, time_updated, agent, model, cost, tokens_input, tokens_output,
        tokens_reasoning, tokens_cache_read, tokens_cache_write)
-     VALUES (?, 'proj-1', NULL, 'slug-1', ?, ?, '1.0.0', ?, ?, 'build', '{"id":"glm"}',
+     VALUES (?, 'proj-1', NULL, 'slug-1', ?, ?, '1.0.0', ?, ?, 'build', '{"id":"lmx"}',
        0, 1, 1, 0, 0, 0)
      ON CONFLICT(id) DO UPDATE SET time_updated = excluded.time_updated`
   ).run(

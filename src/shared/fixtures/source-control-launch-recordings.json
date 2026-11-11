@@ -50,20 +50,20 @@
                     "name": "opencode/Big Pickle"
                   },
                   {
-                    "value": "opencode/deepseek-v4.1-flash-free",
-                    "name": "opencode/DeepSeek V4.1 Flash Free"
+                    "value": "opencode/provider-v4.1-flash-free",
+                    "name": "opencode/ProvIder V4.1 Flash Free"
                   },
                   {
-                    "value": "opencode/glm-5.3-flash-free",
-                    "name": "opencode/GLM-5.3-Flash Free"
+                    "value": "opencode/lmx-5.3-flash-free",
+                    "name": "opencode/LMX-5.3-Flash Free"
                   },
                   {
                     "value": "opencode/longcat-2.5-preview-free",
                     "name": "opencode/LongCat 2.5 Preview Free"
                   },
                   {
-                    "value": "opencode/mimo-v2.6-flash-free",
-                    "name": "opencode/MiMo-V2.6-Flash Free"
+                    "value": "opencode/nemo-v2.6-flash-free",
+                    "name": "opencode/NeMo-V2.6-Flash Free"
                   },
                   {
                     "value": "opencode/nemotron-3-ultra-free",

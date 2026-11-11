@@ -69,20 +69,20 @@
           "name": "opencode/Claude Sonnet 5.5"
         },
         {
-          "value": "opencode/deepseek-v4-flash",
-          "name": "opencode/DeepSeek V4 Flash"
+          "value": "opencode/provider-v4-flash",
+          "name": "opencode/ProvIder V4 Flash"
         },
         {
-          "value": "opencode/deepseek-v4-flash-vision-exp",
-          "name": "opencode/DeepSeek V4 Flash Vision Exp"
+          "value": "opencode/provider-v4-flash-vision-exp",
+          "name": "opencode/ProvIder V4 Flash Vision Exp"
         },
         {
-          "value": "opencode/deepseek-v4-pro",
-          "name": "opencode/DeepSeek V4 Pro"
+          "value": "opencode/provider-v4-pro",
+          "name": "opencode/ProvIder V4 Pro"
         },
         {
-          "value": "opencode/deepseek-v4.1-flash",
-          "name": "opencode/DeepSeek V4.1 Flash"
+          "value": "opencode/provider-v4.1-flash",
+          "name": "opencode/ProvIder V4.1 Flash"
         },
         {
           "value": "opencode/fledge-alpha-free",
@@ -117,24 +117,24 @@
           "name": "opencode/Gemini 3.8 Flash"
         },
         {
-          "value": "opencode/glm-5",
-          "name": "opencode/GLM-5"
+          "value": "opencode/lmx-5",
+          "name": "opencode/LMX-5"
         },
         {
-          "value": "opencode/glm-5.1",
-          "name": "opencode/GLM-5.1"
+          "value": "opencode/lmx-5.1",
+          "name": "opencode/LMX-5.1"
         },
         {
-          "value": "opencode/glm-5.2",
-          "name": "opencode/GLM-5.2"
+          "value": "opencode/lmx-5.2",
+          "name": "opencode/LMX-5.2"
         },
         {
-          "value": "opencode/glm-5.3",
-          "name": "opencode/GLM-5.3"
+          "value": "opencode/lmx-5.3",
+          "name": "opencode/LMX-5.3"
         },
         {
-          "value": "opencode/glm-5.3-flash",
-          "name": "opencode/GLM-5.3-Flash"
+          "value": "opencode/lmx-5.3-flash",
+          "name": "opencode/LMX-5.3-Flash"
         },
         {
           "value": "opencode/gpt-5",
@@ -249,20 +249,20 @@
           "name": "opencode/Grok Build 0.1"
         },
         {
-          "value": "opencode/kimi-k2.5",
-          "name": "opencode/Kimi K2.5"
+          "value": "opencode/nova-k2.5",
+          "name": "opencode/Nova K2.5"
         },
         {
-          "value": "opencode/kimi-k2.6",
-          "name": "opencode/Kimi K2.6"
+          "value": "opencode/nova-k2.6",
+          "name": "opencode/Nova K2.6"
         },
         {
-          "value": "opencode/kimi-k2.7-code",
-          "name": "opencode/Kimi K2.7 Code"
+          "value": "opencode/nova-k2.7-code",
+          "name": "opencode/Nova K2.7 Code"
         },
         {
-          "value": "opencode/kimi-k3",
-          "name": "opencode/Kimi K3"
+          "value": "opencode/nova-k3",
+          "name": "opencode/Nova K3"
         },
         {
           "value": "opencode/ling-3.0-flash-fin-free",
@@ -277,20 +277,20 @@
           "name": "opencode/LongCat 2.5 Preview Free"
         },
         {
-          "value": "opencode/mimo-v2.6-flash-free",
-          "name": "opencode/MiMo-V2.6-Flash Free"
+          "value": "opencode/nemo-v2.6-flash-free",
+          "name": "opencode/NeMo-V2.6-Flash Free"
         },
         {
-          "value": "opencode/minimax-m2.5",
-          "name": "opencode/MiniMax-M2.5"
+          "value": "opencode/maximal-m2.5",
+          "name": "opencode/MaxiMal-M2.5"
         },
         {
-          "value": "opencode/minimax-m2.7",
-          "name": "opencode/MiniMax-M2.7"
+          "value": "opencode/maximal-m2.7",
+          "name": "opencode/MaxiMal-M2.7"
         },
         {
-          "value": "opencode/minimax-m3",
-          "name": "opencode/MiniMax-M3"
+          "value": "opencode/maximal-m3",
+          "name": "opencode/MaxiMal-M3"
         },
         {
           "value": "opencode/muse-spark-1.2",
@@ -313,52 +313,52 @@
           "name": "opencode/Nemotron 3.5 Lightning Free"
         },
         {
-          "value": "opencode/qwen3.5-plus",
-          "name": "opencode/Qwen3.5 Plus"
+          "value": "opencode/acme3.5-plus",
+          "name": "opencode/Acme3.5 Plus"
         },
         {
-          "value": "opencode/qwen3.6-plus",
-          "name": "opencode/Qwen3.6 Plus"
+          "value": "opencode/acme3.6-plus",
+          "name": "opencode/Acme3.6 Plus"
         },
         {
-          "value": "opencode/qwen3.8-flash",
-          "name": "opencode/Qwen3.8 Flash"
+          "value": "opencode/acme3.8-flash",
+          "name": "opencode/Acme3.8 Flash"
         },
         {
-          "value": "opencode/qwen3.8-max",
-          "name": "opencode/Qwen3.8 Max"
+          "value": "opencode/acme3.8-max",
+          "name": "opencode/Acme3.8 Max"
         },
         {
           "value": "opencode/space-bunny-free",
           "name": "opencode/Space Bunny Free"
         },
         {
-          "value": "opencode-go/deepseek-v4-flash",
-          "name": "opencode-go/DeepSeek V4 Flash"
+          "value": "opencode-go/provider-v4-flash",
+          "name": "opencode-go/ProvIder V4 Flash"
         },
         {
-          "value": "opencode-go/deepseek-v4-flash-vision-exp",
-          "name": "opencode-go/DeepSeek V4 Flash Vision Exp"
+          "value": "opencode-go/provider-v4-flash-vision-exp",
+          "name": "opencode-go/ProvIder V4 Flash Vision Exp"
         },
         {
-          "value": "opencode-go/deepseek-v4-pro",
-          "name": "opencode-go/DeepSeek V4 Pro (New)"
+          "value": "opencode-go/provider-v4-pro",
+          "name": "opencode-go/ProvIder V4 Pro (New)"
         },
         {
-          "value": "opencode-go/deepseek-v4.1-flash",
-          "name": "opencode-go/DeepSeek V4.1 Flash"
+          "value": "opencode-go/provider-v4.1-flash",
+          "name": "opencode-go/ProvIder V4.1 Flash"
         },
         {
-          "value": "opencode-go/glm-5.2",
-          "name": "opencode-go/GLM-5.2"
+          "value": "opencode-go/lmx-5.2",
+          "name": "opencode-go/LMX-5.2"
         },
         {
-          "value": "opencode-go/glm-5.3",
-          "name": "opencode-go/GLM-5.3"
+          "value": "opencode-go/lmx-5.3",
+          "name": "opencode-go/LMX-5.3"
         },
         {
-          "value": "opencode-go/glm-5.3-flash",
-          "name": "opencode-go/GLM-5.3-Flash"
+          "value": "opencode-go/lmx-5.3-flash",
+          "name": "opencode-go/LMX-5.3-Flash"
         },
         {
           "value": "opencode-go/gpt-5.6-luna",
@@ -385,12 +385,12 @@
           "name": "opencode-go/Hy4 preview"
         },
         {
-          "value": "opencode-go/kimi-k2.7-code",
-          "name": "opencode-go/Kimi K2.7 Code"
+          "value": "opencode-go/nova-k2.7-code",
+          "name": "opencode-go/Nova K2.7 Code"
         },
         {
-          "value": "opencode-go/kimi-k3",
-          "name": "opencode-go/Kimi K3"
+          "value": "opencode-go/nova-k3",
+          "name": "opencode-go/Nova K3"
         },
         {
           "value": "opencode-go/longcat-2.5-preview-free",
@@ -401,28 +401,28 @@
           "name": "opencode-go/LongCat-2.0"
         },
         {
-          "value": "opencode-go/mimo-v2.5",
-          "name": "opencode-go/MiMo V2.5"
+          "value": "opencode-go/nemo-v2.5",
+          "name": "opencode-go/NeMo V2.5"
         },
         {
-          "value": "opencode-go/mimo-v2.5-pro",
-          "name": "opencode-go/MiMo V2.5 Pro"
+          "value": "opencode-go/nemo-v2.5-pro",
+          "name": "opencode-go/NeMo V2.5 Pro"
         },
         {
-          "value": "opencode-go/mimo-v2.6-flash",
-          "name": "opencode-go/MiMo-V2.6-Flash"
+          "value": "opencode-go/nemo-v2.6-flash",
+          "name": "opencode-go/NeMo-V2.6-Flash"
         },
         {
-          "value": "opencode-go/mimo-v2.6-pro",
-          "name": "opencode-go/MiMo-V2.6-Pro"
+          "value": "opencode-go/nemo-v2.6-pro",
+          "name": "opencode-go/NeMo-V2.6-Pro"
         },
         {
-          "value": "opencode-go/minimax-m2.7",
-          "name": "opencode-go/MiniMax-M2.7"
+          "value": "opencode-go/maximal-m2.7",
+          "name": "opencode-go/MaxiMal-M2.7"
         },
         {
-          "value": "opencode-go/minimax-m3",
-          "name": "opencode-go/MiniMax-M3"
+          "value": "opencode-go/maximal-m3",
+          "name": "opencode-go/MaxiMal-M3"
         },
         {
           "value": "opencode-go/muse-spark-1.2-contributor",
@@ -433,16 +433,16 @@
           "name": "opencode-go/Muse Spark 1.3 Contributor"
         },
         {
-          "value": "opencode-go/qwen3.7-plus",
-          "name": "opencode-go/Qwen3.7 Plus"
+          "value": "opencode-go/acme3.7-plus",
+          "name": "opencode-go/Acme3.7 Plus"
         },
         {
-          "value": "opencode-go/qwen3.8-flash",
-          "name": "opencode-go/Qwen3.8 Flash"
+          "value": "opencode-go/acme3.8-flash",
+          "name": "opencode-go/Acme3.8 Flash"
         },
         {
-          "value": "opencode-go/qwen3.8-max",
-          "name": "opencode-go/Qwen3.8 Max"
+          "value": "opencode-go/acme3.8-max",
+          "name": "opencode-go/Acme3.8 Max"
         },
         {
           "value": "opencode-go/space-bunny",

@@ -23,7 +23,7 @@ describe('terminal host-confirmed chat regression cases', () => {
       linked: ['/tmp/report.html']
     },
     {
-      text: 'HTTP/1.1, 1.5/2.0, z-ai/glm-5.3; docs/archive.7z, man/ls.1, lib/libfoo.so.1.',
+      text: 'HTTP/1.1, 1.5/2.0, z-ai/lmx-5.3; docs/archive.7z, man/ls.1, lib/libfoo.so.1.',
       files: ['/repo/docs/archive.7z', '/repo/man/ls.1', '/repo/lib/libfoo.so.1'],
       linked: ['docs/archive.7z', 'man/ls.1', 'lib/libfoo.so.1']
     },

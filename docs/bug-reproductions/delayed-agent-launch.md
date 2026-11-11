@@ -21,7 +21,7 @@ Deterministic reproductions found these failures:
 - Delayed OpenCode 2 selected and installed OpenCode v1 hooks. Disabling the
   requested version could install the other version instead.
 - Delayed Pi, OMP and Prime launches lost explicit preparation of their own
-  integration. Managed OpenCode/Devin accounts and MiMo overlays also relied on
+  integration. Managed OpenCode/Devin accounts also relied on
   first-executable classification.
 - Once foreground discovery exhausted its initial read window, a captured late
   Claude startup title did not restart confirmation. The connection test left

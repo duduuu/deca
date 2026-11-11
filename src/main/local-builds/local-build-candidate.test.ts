@@ -13,7 +13,7 @@ const tempDirectories: string[] = []
 function compatibility(): LocalBuildCompatibility {
   return {
     formatVersion: 1,
-    appId: 'com.deca.app',
+    appId: 'com.deca.desktop',
     buildId: '1.2.3-local.1-abc-arm64',
     version: '1.2.3-local.1',
     commit: 'abc',

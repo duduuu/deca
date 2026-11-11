@@ -26,8 +26,8 @@ const {
 const electronBuilderConfig = require('../electron-builder.config.cjs')
 
 const usageDescriptions = electronBuilderConfig.mac.extendInfo
-const appInfo = { CFBundleIdentifier: 'com.deca.app', CFBundleShortVersionString: '1.4.300' }
-const expectations = { appId: 'com.deca.app', usageDescriptions, minimumOs: '13.5' }
+const appInfo = { CFBundleIdentifier: 'com.deca.desktop', CFBundleShortVersionString: '1.4.300' }
+const expectations = { appId: 'com.deca.desktop', usageDescriptions, minimumOs: '13.5' }
 
 describe('terminal host binary checks', () => {
   it('reads minos from the LC_BUILD_VERSION load command only', () => {

@@ -8,5 +8,5 @@ export function macDaemonJobLabel(
   protocolVersion = PROTOCOL_VERSION
 ): string {
   const profileKey = createHash('sha256').update(resolve(userDataPath)).digest('hex').slice(0, 16)
-  return `com.deca.app.terminal.${profileKey}.v${protocolVersion}`
+  return `com.deca.desktop.terminal.${profileKey}.v${protocolVersion}`
 }

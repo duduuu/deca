@@ -22,7 +22,7 @@ const domains: string[] = []
 const DEFAULTS_MISSING_EXIT_CODE = 1
 
 function throwawayDomain(): string {
-  const domain = `com.deca.app.defaults-domain-test.${randomUUID()}`
+  const domain = `com.deca.desktop.defaults-domain-test.${randomUUID()}`
   domains.push(domain)
   return domain
 }

@@ -1,6 +1,6 @@
 import { shell } from 'electron'
 
-const MACOS_PACKAGED_BUNDLE_ID = 'com.deca.app'
+const MACOS_PACKAGED_BUNDLE_ID = 'com.deca.desktop'
 const MACOS_NOTIFICATION_SETTINGS_URL =
   'x-apple.systempreferences:com.apple.Notifications-Settings.extension'
 

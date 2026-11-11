@@ -3,7 +3,7 @@ import path from 'node:path'
 import type { AppIdentity } from '../../shared/app-identity'
 
 const BASE_APP_NAME = 'Deca'
-const BASE_APP_USER_MODEL_ID = 'com.deca.app'
+const BASE_APP_USER_MODEL_ID = 'com.deca.desktop'
 const MAX_LABEL_LENGTH = 80
 
 export type DevInstanceIdentity = AppIdentity & {

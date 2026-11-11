@@ -25,10 +25,10 @@ describe('readBundleIdentifierFromExecutablePath', () => {
   it('reads CFBundleIdentifier from the plist beside the executable', () => {
     const exe = bundleWithPlist(
       '<plist><dict>\n<key>CFBundleName</key>\n<string>Orca</string>\n' +
-        '<key>CFBundleIdentifier</key>\n\t<string>com.deca.app</string>\n</dict></plist>'
+        '<key>CFBundleIdentifier</key>\n\t<string>com.deca.desktop</string>\n</dict></plist>'
     )
 
-    expect(readBundleIdentifierFromExecutablePath(exe)).toBe('com.deca.app')
+    expect(readBundleIdentifierFromExecutablePath(exe)).toBe('com.deca.desktop')
   })
 
   it('returns null when the plist is missing or carries no identifier', () => {

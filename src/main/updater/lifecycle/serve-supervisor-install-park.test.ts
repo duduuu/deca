@@ -51,7 +51,7 @@ describe('parkServeSupervisorsForInstall', () => {
         pid: process.pid,
         childPid,
         heartbeatAt,
-        label: 'com.deca.app.serve.default'
+        label: 'com.deca.desktop.serve.default'
       })
     )
   }

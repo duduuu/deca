@@ -15,7 +15,7 @@ public enum PermissionStatusSnapshotProbe {
     public typealias Probe = @Sendable () -> Bool
 
     private static let probeQueue = DispatchQueue(
-        label: "com.deca.app.computer-use-permission-status",
+        label: "com.deca.desktop.computer-use-permission-status",
         attributes: .concurrent
     )
 
@@ -54,7 +54,7 @@ public final class PermissionStatusRefreshCoordinator: @unchecked Sendable {
 
     public init(
         workerQueue: DispatchQueue = DispatchQueue(
-            label: "com.deca.app.computer-use-permission-refresh",
+            label: "com.deca.desktop.computer-use-permission-refresh",
             qos: .userInitiated
         ),
         callbackQueue: DispatchQueue = .main,

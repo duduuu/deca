@@ -9,12 +9,12 @@ export type LogStreamChild = ChildProcessByStdio<Writable, Readable, Readable>
 
 // TCC can attribute terminal access to the detached helper independently of the main app.
 const ORCA_RESPONSIBLE_IDENTIFIERS = new Set([
-  'com.deca.app',
-  'com.deca.app.helper',
-  'com.deca.app.dev',
-  'com.deca.app.dev.helper',
-  'com.deca.app.local',
-  'com.deca.app.local.helper'
+  'com.deca.desktop',
+  'com.deca.desktop.helper',
+  'com.deca.desktop.dev',
+  'com.deca.desktop.dev.helper',
+  'com.deca.desktop.local',
+  'com.deca.desktop.local.helper'
 ])
 
 const WATCHED_SERVICES = new Set([

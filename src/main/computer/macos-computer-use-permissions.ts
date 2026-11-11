@@ -12,7 +12,7 @@ import type {
   ComputerUsePermissionStatusResult
 } from '../../shared/computer-use-permissions-types'
 
-const DEFAULT_COMPUTER_USE_BUNDLE_ID = 'com.deca.app.computer-use'
+const DEFAULT_COMPUTER_USE_BUNDLE_ID = 'com.deca.desktop.computer-use'
 
 export { getComputerUsePermissionStatus } from './macos-computer-use-permission-status'
 

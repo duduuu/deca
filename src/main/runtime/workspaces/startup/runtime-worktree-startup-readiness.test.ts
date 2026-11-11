@@ -5,14 +5,6 @@ import {
   type WorktreeStartupReadinessHost
 } from './runtime-worktree-startup-readiness'
 
-describe('startup follow-up prompt', () => {
-  afterEach(() => vi.useRealTimers())
-})
-
-describe('fresh worker composer readiness', () => {
-  afterEach(() => vi.useRealTimers())
-})
-
 describe('OpenCode submit readiness', () => {
   afterEach(() => vi.useRealTimers())
 

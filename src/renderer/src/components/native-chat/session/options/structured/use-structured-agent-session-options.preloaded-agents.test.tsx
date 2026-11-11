@@ -82,7 +82,7 @@ function saved(
 const SAVED: Readonly<Record<string, AgentSessionModelCatalogResult>> = {
   // Grok's listing names the default, and no project config can replace it.
   grok: saved(['grok-4.6', 'grok-4.7'], 'default'),
-  // OpenCode and OMP lists name no default: a chat with no pick names its model when it reports.
+  // OpenCode lists name no default: a chat with no pick names its model when it reports.
   opencode: saved(['github-copilot/claude-fable-5', 'github-copilot/gpt-6'], 'nothing')
 }
 
@@ -159,7 +159,10 @@ describe('a new chat of an agent with no saved pick', () => {
       mocks.agentsKnown = true
       mocks.agentListeners.forEach((listener) => listener())
       await waitFor(() =>
-        expect(mocks.call).toHaveBeenCalledWith({ kind: 'local' }, 'agentSession.modelCatalog')
+        expect(mocks.call).toHaveBeenCalledWith({ kind: 'local' }, 'agentSession.modelCatalog', {
+          agent: 'opencode',
+          savedOnly: true
+        })
       )
       await new Promise((resolve) => setTimeout(resolve, 0))
       const reads = mocks.call.mock.calls.length

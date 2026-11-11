@@ -8,6 +8,7 @@ const OWNED_FLAGS = new Set([
   'json-schema',
   'verbose',
   'resume',
+  'continue',
   'session-id',
   'fork-session',
   'resume-session-at',

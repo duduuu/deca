@@ -82,5 +82,3 @@ describe('codex-specific resume behavior', () => {
     )
   })
 })
-
-describe('non-resumable formats keep reuse-only caching', () => {})

@@ -126,7 +126,7 @@ export function getClaudeManagedHookPlan(
   }
 }
 
-export const OPENCLAUDE_MANAGED_HOOK_PLAN: ClaudeManagedHookPlan = {
+export const COMPATIBLE_CLI_MANAGED_HOOK_PLAN: ClaudeManagedHookPlan = {
   install: CLAUDE_EVENTS,
   retire: [CLAUDE_SESSION_END_EVENT, CLAUDE_POST_TOOL_BATCH_EVENT],
   statusLine: 'leave'

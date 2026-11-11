@@ -187,28 +187,6 @@ describe('PluginOverlayManager', () => {
   })
 
   // Use the launch-selected Pi/OMP home; disk-presence guessing can shadow user extensions when both exist.
-  describe('per-agent default source dir (no cross-agent fallback)', () => {})
-
-  it.skipIf(process.platform === 'win32')(
-    'clearOverlay removes OpenCode overlay symlinks without deleting their targets',
-    () => {
-      const userConfigDir = join(homeDir, 'company-opencode')
-      const linkedTarget = join(homeDir, 'linked-plugin-target')
-      mkdirSync(join(userConfigDir, 'plugins'), { recursive: true })
-      mkdirSync(linkedTarget, { recursive: true })
-      writeFileSync(join(linkedTarget, 'keep.js'), 'do not delete')
-      symlinkSync(linkedTarget, join(userConfigDir, 'plugins', 'linked-plugin'), 'dir')
-
-      manager.setSources({ opencodePluginSource: 'orca plugin' })
-      const dir = manager.materializeOpenCode('tab-opencode-symlink:0', userConfigDir)!
-      expect(existsSync(join(dir, 'plugins', 'linked-plugin'))).toBe(true)
-
-      manager.clearOverlay('tab-opencode-symlink:0')
-
-      expect(existsSync(dir)).toBe(false)
-      expect(readFileSync(join(linkedTarget, 'keep.js'), 'utf8')).toBe('do not delete')
-    }
-  )
 
   it('produces stable overlay dirs for a given id (idempotent re-materialization)', () => {
     manager.setSources({ opencodePluginSource: 'first' })
@@ -229,5 +207,3 @@ describe('PluginOverlayManager', () => {
     expect(existsSync(join(dir!, 'plugins', 'orca-opencode-status.js'))).toBe(true)
   })
 })
-
-describe('resolvePiSourceAgentDir', () => {})

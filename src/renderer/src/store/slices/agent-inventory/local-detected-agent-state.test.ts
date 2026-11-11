@@ -348,14 +348,16 @@ describe('local detected agent context lifecycle', () => {
     const first = store.getState().ensureNativeDetectedAgents()
     const settings = store.getState().settings!
 
+    store.setState({ settings: { ...settings, disabledTuiAgents: ['grok'] } })
     store.setState({ settings: { ...settings, disabledTuiAgents: [] } })
-    store.setState({ settings: { ...settings, disabledTuiAgents: [] } })
-    reenabledDetection.resolve(['codex'])
-    await vi.waitFor(() => expect(readNativeDetectedAgents(store.getState())).toEqual(['codex']))
+    reenabledDetection.resolve(['grok', 'codex'])
+    await vi.waitFor(() =>
+      expect(readNativeDetectedAgents(store.getState())).toEqual(['grok', 'codex'])
+    )
     disabledDetection.resolve(['codex'])
     firstDetection.resolve(['claude'])
     await first
-    expect(readNativeDetectedAgents(store.getState())).toEqual(['codex'])
+    expect(readNativeDetectedAgents(store.getState())).toEqual(['grok', 'codex'])
     expect(store.getState().detectedAgentIds).toBeNull()
     expect(store.getState().isDetectingLocalAgentsByContext).toEqual({})
   })

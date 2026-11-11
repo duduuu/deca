@@ -264,5 +264,3 @@ describe('Antigravity readiness does not absorb its own startup dialog', () => {
 })
 
 // Muse 1.3.0 node-pty capture: echo-provider ready screen with trust flag, plus trust dialog without it.
-
-describe('isMuseReadyPromptPreview', () => {})

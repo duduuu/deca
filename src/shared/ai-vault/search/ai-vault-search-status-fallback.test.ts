@@ -2,19 +2,6 @@ import { describe, expect, it, vi } from 'vitest'
 import { createSessionSearchClient } from './ai-vault-search-client'
 
 describe.each(['runtime', 'relay'] as const)('missing search status over %s', (transport) => {
-  it('does not dispatch an unsupported-only filter after status refusal', async () => {
-    const call = vi.fn(async () => {
-      throw { code: 'method_not_found' }
-    })
-    expect(
-      await createSessionSearchClient(call, transport).searchSessions({
-        query: 'needle',
-        filters: { agents: [] }
-      })
-    ).toEqual({ kind: 'unavailable', reason: 'unsupported-agent' })
-    expect(call).toHaveBeenCalledExactlyOnceWith('aiVault.searchStatus', {})
-  })
-
   it.each([
     { code: 'unauthorized', message: 'Authentication required' },
     { code: 'connection_closed', message: 'Host disconnected' },

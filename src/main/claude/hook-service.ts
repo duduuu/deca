@@ -59,7 +59,7 @@ import { claudeAcceptsExecFormHooks } from './claude-hook-event-versions'
 import { getManagedEventHook } from './claude-managed-event-hook'
 import {
   getClaudeManagedHookPlan,
-  OPENCLAUDE_MANAGED_HOOK_PLAN,
+  COMPATIBLE_CLI_MANAGED_HOOK_PLAN,
   type ClaudeManagedHookPlan
 } from './claude-managed-hook-events'
 
@@ -110,7 +110,7 @@ export class ClaudeHookService {
   private managedHookPlan(options: ClaudeHookInstallOptions): ClaudeManagedHookPlan {
     return this.options.agent === 'claude'
       ? getClaudeManagedHookPlan(options.claudeVersion)
-      : (this.options.hookPlan ?? OPENCLAUDE_MANAGED_HOOK_PLAN)
+      : (this.options.hookPlan ?? COMPATIBLE_CLI_MANAGED_HOOK_PLAN)
   }
 
   getStatus(options: ClaudeHookTargetOptions = {}): AgentHookInstallStatus {

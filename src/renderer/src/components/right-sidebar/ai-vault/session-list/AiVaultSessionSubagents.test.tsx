@@ -102,5 +102,3 @@ describe('SessionSubagentsSection', () => {
     expect(queryByText('First pass')).toBeNull()
   })
 })
-
-describe('nested OMP history', () => {})

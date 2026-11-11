@@ -215,15 +215,3 @@ describe('RuntimeTerminalIdlePolls rendered-screen blocked prompts', () => {
     expect(resolved).toEqual([])
   })
 })
-
-describe('RuntimeTerminalIdlePolls quiet foreground for a launched agent', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
-
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
-  // Amp titles never classify; disabling this lane for launches caused 60s worker readiness failure (STA-7440).
-})

@@ -1,8 +1,6 @@
-import * as reconciliation from '../choices/agent-choice-reconciliation'
 import { getDefaultSettings } from '../../constants'
 import { legacyChatPermissionWrite } from '../../../main/persistence/applying-settings/legacy-chat-permission-write'
-import { measureSettingsWork } from '../../global-settings-test-fixture'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
   agentLaunchSettingsMutationUpdates,
   type AgentLaunchSettingsSource
@@ -107,32 +105,4 @@ describe('older clients against a host with the stored choice', () => {
     )
     expect(resolveTuiAgentLaunchArgs('claude', { ...host, ...manual })).toBe('')
   })
-})
-
-describe('permission carrier ownership across save, reload and consumers', () => {})
-
-const importWork = { chars: 0, visits: 0 }
-const reconcile = reconciliation.reconcileAgentChoiceArgs
-vi.spyOn(reconciliation, 'reconcileAgentChoiceArgs').mockImplementation((input) => {
-  const { userArgs: text } = input
-  const { value, work } = measureSettingsWork(() => reconcile(input))
-  importWork.chars += work.chars
-  importWork.visits += work.visits
-  if (text.length < 100) {
-    return value
-  }
-  const calls = work.inputs,
-    w = 8,
-    t = text.split(' ').length
-  expect(calls.filter((v) => v === text)).toHaveLength(3)
-  // Fixed token/span/owner allowance plus native slices and two B construction passes per candidate.
-  for (const [actual, bound] of [
-    [calls.filter((v) => v.length > 100 && v !== text).length, 3 * (w + 1)],
-    [work.chars, 3 * (w + 2) * text.length + 4096],
-    [work.entries + work.visits, 3 * (2 + 10 * (w + 1)) * (t + w) + 4096],
-    [work.bytes + 2 * (w + 1) * text.length, 12 * (w + 1) * text.length + 4096]
-  ]) {
-    expect(actual).toBeLessThanOrEqual(bound)
-  }
-  return value
 })

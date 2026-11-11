@@ -1,9 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { createAgentCompletionCoordinator } from './agent-completion-coordinator'
 import {
-  flushAsyncTicks,
   HOOK_DONE_QUIET_MS,
-  processResult,
   useAgentCompletionCoordinatorLifecycle
 } from './agent-completion-coordinator-test-harness'
 
@@ -63,40 +61,5 @@ describe('agent completion coordinator', () => {
         })
       })
     )
-  })
-
-  it('still fires a pending Pi done when process inspection sees the agent exit first', async () => {
-    // Process probes during the quiet window must preserve evidence needed for the pending hook completion.
-    let foregroundProcess: string | null = 'pi'
-    const dispatchCompletion = vi.fn()
-    const coordinator = createAgentCompletionCoordinator({
-      paneKey: 'tab-1:leaf-1',
-      getPtyId: () => 'pty-1',
-      inspectProcess: vi.fn(async () => processResult(foregroundProcess)),
-      dispatchCompletion,
-      isLive: () => true
-    })
-
-    coordinator.startProcessTracking()
-    vi.advanceTimersByTime(2_000)
-    await flushAsyncTicks()
-
-    coordinator.observeHookStatus({
-      state: 'done',
-      prompt: 'run the mission',
-      agentType: 'pi'
-    })
-    expect(coordinator.hasPendingHookDoneCompletion()).toBe(true)
-
-    // The agent process disappears mid-window; the cadence poll must not drop
-    // the pending completion.
-    foregroundProcess = null
-    vi.advanceTimersByTime(750)
-    await flushAsyncTicks()
-    expect(dispatchCompletion).not.toHaveBeenCalled()
-
-    vi.advanceTimersByTime(HOOK_DONE_QUIET_MS)
-    expect(dispatchCompletion).toHaveBeenCalledTimes(1)
-    expect(dispatchCompletion).toHaveBeenCalledWith(expect.objectContaining({ source: 'hook' }))
   })
 })

@@ -17,5 +17,3 @@ describe('claude session roots', () => {
     ).toEqual(['/scan/projects'])
   })
 })
-
-describe('ompSessionsRootDirs', () => {})

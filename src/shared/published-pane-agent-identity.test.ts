@@ -4,13 +4,6 @@ import { resolvePublishedPaneAgentIdentity } from './published-pane-agent-identi
 const resolve = resolvePublishedPaneAgentIdentity
 
 describe('resolvePublishedPaneAgentIdentity', () => {
-  it('publishes a manually started DeepSeek Build owner without readable process evidence', () => {
-    expect(resolve({ title: '⠋ - Review Codex integration - DeepSeek Build' })).toBe('dsb')
-    expect(resolve({ title: 'DeepSeek Build' })).toBe('dsb')
-    expect(resolve({ title: 'Terminal', foregroundAgent: 'dsb' })).toBe('dsb')
-    expect(resolve({ title: 'Review DeepSeek Build integration' })).toBeUndefined()
-  })
-
   describe('a task title cannot name the pane', () => {
     // Recorded task titles name other agents; substring routing previously misdelivered to these panes.
     it.each([

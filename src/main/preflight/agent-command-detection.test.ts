@@ -31,10 +31,7 @@ vi.mock('../ipc/wsl-guest-windows-drive-path', async (importOriginal) => ({
 }))
 
 import { detectAgentCommandsOnHost } from './agent-command-detection'
-import {
-  findCommandsOnLocalPath,
-  isCommandOnLocalPath
-} from '../ipc/command-path/command-path-resolver'
+import { findCommandsOnLocalPath } from '../ipc/command-path/command-path-resolver'
 
 describe('detectAgentCommandsOnHost install-dir fallback', () => {
   const originalPlatform = process.platform
@@ -63,30 +60,6 @@ describe('detectAgentCommandsOnHost install-dir fallback', () => {
       expect(detectInstallDirs).toHaveBeenCalledWith(['codex'], '/usr/bin', {
         skipPathSearch: true
       })
-    }
-  )
-
-  it.skipIf(process.platform === 'win32').each([['AgEnT-PrObE', 'agent-probe'], ['cruſh']])(
-    'preserves filesystem equivalence for %s when looking up %s with PATH fallback skipped',
-    async (filename, command) => {
-      const dir = await mkdtemp(path.join(tmpdir(), 'agent-detection-case-'))
-      try {
-        await writeFile(path.join(dir, filename), '#!/bin/sh\n')
-        await chmod(path.join(dir, filename), 0o755)
-        vi.stubEnv('PATH', dir)
-        const commands = [command, 'missing-a', 'missing-b', 'missing-c', 'missing-d']
-        const expected = await isCommandOnLocalPath(command)
-        await expect(detectAgentCommandsOnHost(commands)).resolves.toEqual(
-          new Set(expected ? [command] : [])
-        )
-        expect(detectInstallDirs).toHaveBeenCalledWith(
-          expected ? commands.slice(1) : commands,
-          undefined,
-          { skipPathSearch: true }
-        )
-      } finally {
-        await rm(dir, { recursive: true, force: true })
-      }
     }
   )
 

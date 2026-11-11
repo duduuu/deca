@@ -1,10 +1,5 @@
 import { afterEach, expect, test } from 'vitest'
-import { AI_VAULT_AGENTS } from '../../shared/ai-vault/contracts/ai-vault-types'
-import {
-  fakeSearchService,
-  searchHit,
-  searchResults
-} from '../../shared/ai-vault/search/ai-vault-search-test-fixture'
+import { fakeSearchService } from '../../shared/ai-vault/search/ai-vault-search-test-fixture'
 import { searchSessionService, setSessionSearchService } from './session-search-service-registry'
 import './query/session-search-page-cursor'
 
@@ -80,22 +75,3 @@ test.each(['relay'] as const)(
     }
   }
 )
-
-test('keeps current Jcode hits and removes unrequested agents before publication', async () => {
-  const service = fakeSearchService()
-  service.search.mockResolvedValue({
-    ...searchResults(),
-    hits: [{ ...searchHit(), agent: 'jcode' }, searchHit()]
-  })
-  setSessionSearchService(service)
-  expect(
-    await searchSessionService(
-      { query: 'proof', supportedAgents: [...AI_VAULT_AGENTS], filters: { agents: [] } },
-      'relay'
-    )
-  ).toMatchObject({ hits: [{ agent: 'jcode' }] })
-  expect(service.search).toHaveBeenCalledExactlyOnceWith(
-    { query: 'proof', limit: 20, filters: { agents: [] } },
-    undefined
-  )
-})

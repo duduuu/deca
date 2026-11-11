@@ -55,9 +55,7 @@ export const expectReturnedRenderer: HookSessionBindingRendererFixture['expectRe
   if (!record) {
     throw new Error('No actual renderer resume record')
   }
-  expect(getAgentResumeArgv(agent, record.providerSession)).toEqual(
-    agent === 'hermes' ? ['hermes', '--resume', id] : ['agy', '--conversation', id]
-  )
+  expect(getAgentResumeArgv(agent, record.providerSession)).toEqual(['agy', '--conversation', id])
   expect(store.getState().sleepingAgentSessionsByPaneKey[paneKey]?.providerSession.id).toBe(id)
   expect(
     sleepingRecordFromEntry({

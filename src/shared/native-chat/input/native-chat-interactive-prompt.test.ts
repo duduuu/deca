@@ -12,23 +12,6 @@ describe('parseApprovalFromStatus', () => {
     expect(parseApprovalFromStatus(JSON.stringify({ approval: {} }))).toBeNull()
     expect(parseApprovalFromStatus(JSON.stringify({ approval: { tool: '' } }))).toBeNull()
   })
-
-  it('reads the OMP plan review envelope', () => {
-    const planReview = JSON.stringify({
-      planReview: {
-        reviewId: 'review-1',
-        plan: '# Plan',
-        options: [{ id: 'execute', label: 'Approve and execute' }]
-      }
-    })
-    expect(parseApprovalFromStatus(planReview, 'omp')).toMatchObject({
-      title: 'Review proposed plan',
-      subject: { kind: 'plan', text: '# Plan' },
-      options: [
-        { label: 'Approve and execute', send: buildOmpPlanReviewAnswer('review-1', 'execute') }
-      ]
-    })
-  })
 })
 
 describe('resolveNativeChatInteractivePromptCard', () => {

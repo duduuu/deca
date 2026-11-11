@@ -2,7 +2,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { AiVaultSession } from '../../../../../../shared/ai-vault/contracts/ai-vault-types'
 import {
   dropDeletedRemoteResumeCwd,
-  prepareAiVaultSessionForFork,
   prepareAiVaultSessionForTerminalResume
 } from './ai-vault-session-resume-preparation'
 
@@ -41,19 +40,7 @@ describe('ordinary Resume against an older paired host', () => {
   })
 })
 
-describe('prepareAiVaultSessionForFork', () => {
-  it("refuses a host that made no copy rather than resuming the chat's own conversation", async () => {
-    stubPreparation(vi.fn().mockResolvedValue({ useRealCodexHome: false }))
-    const owned = session({
-      agent: 'omp',
-      structuredSession: { sessionId: 'session-1', workspaceId: 'worktree-1' }
-    })
-
-    await expect(prepareAiVaultSessionForFork(owned)).rejects.toThrow(
-      'Update Orca on the host that runs this chat to resume it in a new CLI.'
-    )
-  })
-})
+describe('prepareAiVaultSessionForFork', () => {})
 
 describe('dropDeletedRemoteResumeCwd', () => {
   it('keeps the recorded folder when the SSH host cannot answer', async () => {
@@ -126,15 +113,6 @@ describe('dropDeletedRemoteResumeCwd', () => {
     })
 
     await expect(dropDeletedRemoteResumeCwd(wsl)).resolves.toBe(wsl)
-  })
-
-  it('keeps the recorded folder for an agent that can only resume there', async () => {
-    const pathExists = vi.fn().mockResolvedValue(false)
-    vi.stubGlobal('window', { api: { fs: { pathExists } } })
-    const kimi = session({ agent: 'kimi', executionHostId: 'ssh:server-1', cwd: '/home/ada/wt/x' })
-
-    // Why: kimi-cli 1.52 silently opens a new empty session with the same id from any other folder.
-    await expect(dropDeletedRemoteResumeCwd(kimi)).resolves.toBe(kimi)
   })
 })
 

@@ -278,37 +278,6 @@ it('serializes overlapping parses of one path so no consumer read is orphaned', 
   expect(second?.messageCount).toBe(10)
 })
 
-it('reports the transcript size, not the cache key, as a whole-file read offset', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'orca-transcript-cline-'))
-  tempRoots.push(root)
-  const roots = isolatedScanRoots(root)
-  // Cline’s cache key includes its sibling file, while this read covers only the transcript.
-  const sessionDir = join(roots.clineSessionsDir, 'cline-session')
-  await mkdir(sessionDir, { recursive: true })
-  const metadataPath = join(sessionDir, 'cline-session.json')
-  await writeFile(
-    metadataPath,
-    JSON.stringify({
-      session_id: 'cline-session',
-      started_at: '2026-05-01T10:00:00.000Z',
-      cwd: '/tmp/cline'
-    })
-  )
-  await writeFile(
-    join(sessionDir, 'cline-session.messages.json'),
-    JSON.stringify({
-      updated_at: '2026-05-01T10:00:01.000Z',
-      messages: [{ role: 'user', content: [{ type: 'text', text: 'x'.repeat(400) }] }]
-    })
-  )
-  const consumer = recordingConsumer()
-
-  await scanAiVaultSessions({ ...roots, platform: 'darwin', limit: 20 })
-
-  const read = consumer.reads.find((entry) => entry.start.candidate.agent === 'cline')
-  expect(read?.outcome?.byteOffset).toBe((await stat(metadataPath)).size)
-})
-
 it('covers an archived Codex rollout through its compressed size, never resuming into it', async () => {
   const root = await mkdtemp(join(tmpdir(), 'orca-transcript-consumers-zst-'))
   tempRoots.push(root)

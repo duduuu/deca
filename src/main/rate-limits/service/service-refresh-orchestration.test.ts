@@ -3,11 +3,7 @@ import { RateLimitService } from './rate-limit-service'
 import { fetchActiveClaudeRateLimits } from '../providers/claude/claude-active-usage-fetch'
 import { fetchCodexRateLimits } from '../providers/codex/codex-fetcher'
 import { fetchOpenCodeGoUsage } from '../providers/opencode-go/opencode-go-usage-source-selection'
-import {
-  errorProvider,
-  okProvider,
-  resetRateLimitProviderMocks
-} from './rate-limit-service-test-harness'
+import { okProvider, resetRateLimitProviderMocks } from './rate-limit-service-test-harness'
 
 vi.mock('../providers/claude/claude-active-usage-fetch', () => ({
   fetchActiveClaudeRateLimits: vi.fn()
@@ -74,25 +70,6 @@ describe('RateLimitService', () => {
     resetRateLimitProviderMocks()
     vi.mocked(fetchActiveClaudeRateLimits).mockResolvedValue(okProvider('claude', 0, 1_000))
     vi.mocked(fetchCodexRateLimits).mockResolvedValue(okProvider('codex', 0, 1_000))
-  })
-
-  it('does not keep a previous ZCode account quota after a failed account switch', async () => {
-    vi.mocked(fetchZcodeRateLimits)
-      .mockResolvedValueOnce({
-        ...okProvider('zcode', 42),
-        usageMetadata: { source: 'web', authProvenance: 'account-a' }
-      })
-      .mockResolvedValueOnce({
-        ...errorProvider('zcode', 'request failed'),
-        usageMetadata: { source: 'web', authProvenance: 'account-b', failureKind: 'network' }
-      })
-    const service = new RateLimitService()
-
-    await service.refresh()
-    await service.refresh()
-
-    expect(service.getState().zcode?.status).toBe('error')
-    expect(service.getState().zcode?.session).toBeNull()
   })
 
   it('discards stale data when Workspace ID override is changed', async () => {

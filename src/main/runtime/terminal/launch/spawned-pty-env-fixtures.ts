@@ -16,11 +16,6 @@ export function spawnedPtyEnv(call: unknown): Record<string, string> {
     leafId: typeof values.leafId === 'string' ? values.leafId : undefined,
     worktreeId: typeof values.worktreeId === 'string' ? values.worktreeId : undefined
   })
-  stampPtySpawnPaneEnv(env, {
-    pane,
-    jcodeRuntimeDir: pane
-      ? buildJcodeRuntimeDirEnv(pane.paneKey)?.[JCODE_RUNTIME_DIR_ENV_KEY]
-      : undefined
-  })
+  stampPtySpawnPaneEnv(env, { pane })
   return env
 }

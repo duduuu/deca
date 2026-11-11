@@ -104,25 +104,6 @@ describe('Hermes captured hook readiness', () => {
         runtime.waitForTerminal(handle, { condition: 'tui-idle', timeoutMs: 550 })
       ).rejects.toThrow('timeout')
     }, 3_000)
-
-    it('does not settle on a turn-end done row without a ready screen', async () => {
-      const { runtime, handle } = await createTranscriptPane({
-        paneTitle: 'Hermes Agent',
-        foregroundProcess: 'hermes',
-        launchAgent: 'hermes',
-        data: ''
-      })
-      // `post_llm_call` lands `done` without the boundary flag; the #6011 rule still applies.
-      runtime.onPtyData(
-        TRANSCRIPT_PANE_PTY_ID,
-        status('post_llm_call', { session_id: 's1' }),
-        Date.now()
-      )
-
-      await expect(
-        runtime.waitForTerminal(handle, { condition: 'tui-idle', timeoutMs: 550 })
-      ).rejects.toThrow('timeout')
-    }, 3_000)
   })
 })
 

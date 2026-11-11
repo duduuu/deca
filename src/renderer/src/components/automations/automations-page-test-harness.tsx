@@ -133,31 +133,16 @@ vi.mock('./listing/AutomationsListPanel', () => ({
       <div data-testid="list-panel">
         <button aria-label="Refresh automations" onClick={props.onRefresh} />
         <button onClick={props.onOpenRuns}>Runs</button>
-        {props.sortedListItems.map((item) =>
-          item.kind === 'local' ? (
-            <button
-              type="button"
-              data-testid="automation-row"
-              key={item.id}
-              onClick={() => selectAutomationRow(item.id)}
-            >
-              {item.row.automation.name}
-            </button>
-          ) : (
-            <button
-              type="button"
-              data-testid="external-row"
-              key={item.id}
-              onClick={() => {
-                props.selectAutomationRow(null)
-                props.selectExternalKey(item.id)
-                props.onOpenDetail()
-              }}
-            >
-              {item.entry.job.name}
-            </button>
-          )
-        )}
+        {props.sortedListItems.map((item) => (
+          <button
+            type="button"
+            data-testid="automation-row"
+            key={item.id}
+            onClick={() => selectAutomationRow(item.id)}
+          >
+            {item.row.automation.name}
+          </button>
+        ))}
         {props.hasListItems ? null : <div data-testid="empty-state" />}
       </div>
     )
@@ -199,8 +184,7 @@ vi.mock('./authoring/AutomationDeleteDialogs', () => ({
   AutomationDeleteDialog: (props: DeleteDialogProps) => {
     mocks.deleteDialog = props
     return null
-  },
-  ExternalAutomationDeleteDialog: () => null
+  }
 }))
 
 import AutomationsPage from './AutomationsPage'
@@ -217,18 +201,7 @@ function mockGroup<K extends string>(...names: K[]): Record<K, Mock> {
 }
 
 export const api = {
-  automations: mockGroup(
-    'list',
-    'listRuns',
-    'create',
-    'update',
-    'delete',
-    'runNow',
-    'listScoped',
-    'listExternalManagerForOwner',
-    'runExternalActionForOwner',
-    'retainExternalScopes'
-  ),
+  automations: mockGroup('list', 'listRuns', 'create', 'update', 'delete', 'runNow', 'listScoped'),
   ssh: mockGroup('listTargets', 'connect'),
   runtimeEnvironments: mockGroup('connect'),
   ui: mockGroup('get')
@@ -373,12 +346,6 @@ export function installAutomationsPageHarness(): void {
     mocks.worktreeMap = fixtures.worktreeMap
     api.automations.list.mockResolvedValue([makeAutomation()])
     api.automations.listRuns.mockResolvedValue([])
-    api.automations.listExternalManagerForOwner.mockResolvedValue({
-      manager: null,
-      error: null,
-      updatedAt: 0
-    })
-    api.automations.retainExternalScopes.mockResolvedValue(undefined)
     api.automations.listScoped.mockResolvedValue(selfScopedList([makeAutomation()]))
     api.automations.create.mockResolvedValue(makeAutomation())
     api.automations.update.mockResolvedValue(makeAutomation())

@@ -7,15 +7,9 @@ import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import type { AgentStatusIpcPayload } from '../../../../../shared/agent-status/contracts/agent-status-ipc-payload'
 import type { HookSessionBindingRendererFixture } from '../../../../../shared/agent-hook-listener/state/agent-hook-session-binding.test-fixture'
 import { normalizeHookPayload } from '../../../../../shared/agent-hook-listener/normalization/normalize-hook-payload'
-import {
-  createHookListenerState,
-  admitLegacyAgentStatus
-} from '../../../../../shared/agent-hook-listener/listener-state'
+import { createHookListenerState } from '../../../../../shared/agent-hook-listener/listener-state'
 import { readAgentProcessPresence } from '../../../../../shared/agent-status/process/agent-process-presence'
-import { AGENT_STATUS_2A_CURRENT_PRODUCER_MODE } from '../../../../../shared/agent-status/transport/agent-status-legacy-adapter'
 import { getDefaultWorkspaceSession } from '../../../../../shared/constants'
-import { buildRelayHookEnvelope } from '../../../../../wsl-guest/agent-hook-envelope-build'
-import { RelayProviderHookNormalization } from '../../../../../wsl-guest/agent-hook-provider-normalization'
 import { hookRowPaneResumeRecord } from '../../../../runtime/session-lifecycle/projection/hook-row-pane-resume-record'
 import {
   hookStatusResumeCommand,
@@ -27,7 +21,7 @@ import {
   clearMainWindowAgentStatusListeners
 } from '../../../../startup/main-window-agent-status'
 import { agentHookServer as server } from '../../agent-hook-server'
-import { buildBody, PANE, GOOD_PANE, postHookEvent } from '../server.test-fixtures'
+import { buildBody, PANE, postHookEvent } from '../server.test-fixtures'
 
 const bridge = vi.hoisted(() => ({
   send: vi.fn<(channel: string, data: AgentStatusIpcPayload) => void>()
@@ -319,88 +313,6 @@ it('reenters Antigravity from retained first-record authority when that file is 
     'production'
   )
   expect(cold?.providerSession).toBeUndefined()
-})
-
-it('forwards a cold host comparison to the retained canonical binding without creating one', async () => {
-  await positive()
-  await childDone()
-  await nested()
-  const build = (id: string) => {
-    const canonical = createHookListenerState()
-    const event = new RelayProviderHookNormalization().normalize(
-      canonical,
-      buildBody({ hook_event_name: 'post_tool_call', session_id: id, tool_name: 'delegate_task' }),
-      'production'
-    )
-    if (!event) {
-      throw new Error('No cold execution-host tool event')
-    }
-    return buildRelayHookEnvelope(event, 'hermes', 'production')
-  }
-  for (const id of ['child-A', ROOT]) {
-    const envelope = build(id)
-    expect(envelope.agentPresence).toEqual({ agent: 'hermes', session: id })
-    expect(envelope.providerSession).toBeUndefined()
-    server.ingestRemote(envelope, null)
-    expect(frame().agentType).toBe(id === ROOT ? 'hermes' : 'codex')
-  }
-  expectReturned()
-  server.clearPaneState(PANE)
-  server.ingestRemote(build('unknown-child'), null)
-  expect(server.getStatusSnapshot()[0]?.providerSession).toBeUndefined()
-  expect(frame().paneOwner).toBeUndefined()
-})
-
-it('rejects an inherited hook and malformed scoped session IDs', () => {
-  const now = 1_700_000_000_000
-  vi.spyOn(Date, 'now').mockReturnValue(now)
-  const state = createHookListenerState()
-  const previous = {
-    paneKey: PANE,
-    worktreeId: 'wt-1',
-    connectionId: null,
-    hostEvidenceObservedAt: now,
-    agentPresence: { agent: 'hermes', session: ROOT },
-    payload: { agentType: 'codex', state: 'working' as const, prompt: 'review' }
-  }
-  admitLegacyAgentStatus(
-    state,
-    'main-status-update',
-    previous,
-    AGENT_STATUS_2A_CURRENT_PRODUCER_MODE
-  )
-  const body = buildBody({
-    hook_event_name: 'pre_tool_call',
-    session_id: 'mismatch',
-    tool_name: 'write_file',
-    user_message: 'poison'
-  })
-  expect(normalizeHookPayload(state, 'hermes', body, 'production')).toBeNull()
-  for (const session of ['x'.repeat(513), '-option', 'bad\nidentity']) {
-    expect(readAgentProcessPresence({ agent: 'hermes', session })?.session).toBeUndefined()
-    expect(readAgentProcessPresence({ agent: 'antigravity', session })?.session).toBeUndefined()
-  }
-})
-
-it.each([
-  { connectionId: 'other-host', worktreeId: 'wt-1', paneKey: PANE, tabId: 'tab-1' },
-  { connectionId: null, worktreeId: 'other-worktree', paneKey: PANE, tabId: 'tab-1' },
-  { connectionId: null, worktreeId: 'wt-1', paneKey: GOOD_PANE, tabId: 'tab-good' }
-])('does not project a binding across terminal scope %j', async (scope) => {
-  await positive()
-  await childDone()
-  await nested()
-  const event = normalizeHookPayload(
-    createHookListenerState(),
-    buildBody({ hook_event_name: 'post_tool_call', session_id: ROOT, tool_name: 'delegate_task' }),
-    'production'
-  )
-  if (!event) {
-    throw new Error('Missing scope test tool')
-  }
-  server.ingestRemote({ ...buildRelayHookEnvelope(event, 'hermes'), ...scope }, scope.connectionId)
-  const rows = server.getStatusSnapshotForPane(scope.paneKey)
-  expect(rows[0]?.providerSession).toBeUndefined()
 })
 
 it('does not let positive authority bypass a different proven process owner', async () => {

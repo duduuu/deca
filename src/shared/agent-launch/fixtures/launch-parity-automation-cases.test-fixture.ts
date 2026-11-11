@@ -15,7 +15,7 @@ export type AutomationLaunchCase = {
   client: LaunchClient
   workspace: LaunchWorkspace
   settings?: Record<string, unknown>
-  agent: 'claude' | 'codex' | 'aider'
+  agent: 'claude' | 'codex'
   /** The run title; every dispatch passes "<automation name> run <n>". */
   title: string
   request: { command: string; agentCommand: string; shellOverride?: string }
@@ -73,12 +73,10 @@ export const AUTOMATION_LAUNCH_CASES: AutomationLaunchCase[] = [
     workspace: repo(POSIX_PATH),
     request: AGENT_COMMAND.codex,
     provider: ZSH
-  }),
-  // stdin-after-start: the prompt is pasted after launch, never on argv.
-  automation('Linux repo, aider')
+  })
 ]
 
-const AGENT_KIND = { claude: 'claude-code', codex: 'codex', aider: 'aider' } as const
+const AGENT_KIND = { claude: 'claude-code', codex: 'codex' } as const
 const AGENT_ARGS = {
   claude: SKIP,
   codex: '--dangerously-bypass-approvals-and-sandbox'

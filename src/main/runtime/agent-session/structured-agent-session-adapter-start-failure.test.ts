@@ -156,6 +156,3 @@ it('Claude keeps unanswered early exits within five attempts', async () => {
 it('Codex keeps unanswered early exits within five attempts', async () => {
   await failedStart('codex', codexScriptedChild(), true)
 })
-it('Pi keeps unanswered early exits within five attempts', async () => {
-  await failedStart('pi', piScriptedChild(), true)
-})

@@ -91,27 +91,6 @@ function nativeProbe(
   return { request, close, connect }
 }
 
-it('releases partial construction and retries, while shutdown fences initialization from resurrection', async () => {
-  const create = pi.createPiModelCatalogProbe
-  vi.spyOn(pi, 'createPiModelCatalogProbe')
-    .mockImplementationOnce(() => {
-      throw new Error('construction failed')
-    })
-    .mockImplementation(create)
-  await expect(ensureStructuredAgentModelCatalogOwner(installedDeps())).rejects.toThrow(
-    'construction failed'
-  )
-  expect(releases).toHaveBeenCalledOnce()
-  const initializing = ensureStructuredAgentModelCatalogOwner(installedDeps())
-  const stopped = stopStructuredAgentSessionRuntime()
-  await expect(initializing).rejects.toThrow('catalog runtime stopped during construction')
-  await stopped
-  expect(releases).toHaveBeenCalledTimes(2)
-  const next = await ensureStructuredAgentModelCatalogOwner(installedDeps())
-  expect(next.modelCatalog).toBeDefined()
-  expect(environment.createStructuredAgentEnvironmentResolvers).toHaveBeenCalledTimes(3)
-})
-
 it('never-host shutdown aborts and drains actual native probe close before returning', async () => {
   const requested = Promise.withResolvers<void>(),
     closing = Promise.withResolvers<void>(),

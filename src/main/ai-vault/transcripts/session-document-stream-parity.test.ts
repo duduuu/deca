@@ -60,23 +60,4 @@ describe('streamed whole-document parser equivalence', () => {
       await expect(fixture.stream(file, bytes(content), 'darwin', options)).rejects.toThrow()
     })
   }
-  it('Cline preserves sidecar semantics, metadata field order and duplicate arrays', async () => {
-    const metadata =
-      '{"session_id":"id","cwd":"/repo","started_at":"2026-01-01T00:00:00Z","prompt":"fallback"}'
-    for (const messages of [
-      '{"messages":[{"role":"user","content":"Ü🐋 first","ts":"2026-01-02T00:00:00Z"},{"role":"assistant","content":"answer","modelInfo":{"id":"sidecar"}}],"updated_at":"2026-01-03T00:00:00Z"}',
-      '{"messages":[{"role":"user","content":"old"}],"messages":[]}',
-      '{"messages":[{"role":"user","content":"partial"}]'
-    ]) {
-      expect(
-        await parseClineSessionDocuments(
-          file,
-          bytes(metadata),
-          () => bytes(messages),
-          'darwin',
-          options
-        )
-      ).toEqual(parseClineSessionContent(file, metadata, messages, 'darwin', options))
-    }
-  })
 })

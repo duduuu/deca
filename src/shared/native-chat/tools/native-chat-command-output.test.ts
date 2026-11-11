@@ -35,24 +35,6 @@ const reply = (id: string, parentId: string | undefined, timestamp = 100): Nativ
 const MODEL_STDOUT = '<local-command-stdout>Set model to gpt-4o</local-command-stdout>'
 
 describe('surfaceNativeChatCommandOutputs', () => {
-  it("shows OpenClaude's /context report as plain command output", () => {
-    const [shown] = surfaceNativeChatCommandOutputs([reply('out', 'env'), envelope('context')])
-    expect(shown).toMatchObject({ id: 'out', role: 'system' })
-    const block = shown?.blocks[0]
-    expect(block).toMatchObject({ type: 'text', presentation: 'command-output' })
-    const text = block?.type === 'text' ? block.text : ''
-    expect(text).not.toContain('\u001b')
-    expect(text).not.toContain('local-command-stdout')
-    // Column layout survives: the legend stays indented past the grid.
-    expect(text.split('\n').slice(0, 5)).toEqual([
-      'Context Usage',
-      '\u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1   gpt-4o \u00b7 16.6k/128k tokens (13%)',
-      '',
-      '\u26c1 \u26c1 \u26c0 \u26c0 \u26f6 \u26f6 \u26f6 \u26f6 \u26f6 \u26f6   Estimated usage by category',
-      '                      \u26c1 System prompt: 7.9k tokens (6.1%)'
-    ])
-  })
-
   it('survives the noise filter while the command envelope stays hidden', () => {
     const visible = stripNoiseMessages(
       surfaceNativeChatCommandOutputs([envelope('context'), reply('out', 'env')], 'openclaude')

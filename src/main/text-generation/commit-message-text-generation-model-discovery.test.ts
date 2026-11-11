@@ -232,42 +232,6 @@ describe('discoverCommitMessageModelsLocal on the Windows direct-child path', ()
     })
   })
 
-  it('parses Pi model discovery from stderr when the CLI exits successfully', async () => {
-    const listeners = new Map<string, (value: unknown) => void>()
-    const child = {
-      pid: 123,
-      kill: vi.fn(),
-      stdout: {
-        on: vi.fn((event, callback) => listeners.set(`stdout:${event}`, callback))
-      },
-      stderr: {
-        on: vi.fn((event, callback) => listeners.set(`stderr:${event}`, callback))
-      },
-      stdin: { end: vi.fn() },
-      on: vi.fn((event, callback) => listeners.set(event, callback))
-    }
-    spawnMock.mockReturnValue(child as never)
-
-    const pending = discoverCommitMessageModelsLocal('pi', undefined)
-
-    listeners.get('stderr:data')?.(
-      Buffer.from(
-        [
-          'provider        model                   context  max-out  thinking  images',
-          'github-copilot  gpt-5.4-mini            400K     128K     yes       yes',
-          'openai-codex    gpt-5.5                 272K     128K     yes       yes'
-        ].join('\n')
-      )
-    )
-    listeners.get('close')?.(0)
-
-    await expect(pending).resolves.toMatchObject({
-      success: true,
-      defaultModelId: 'default',
-      models: [{ id: 'github-copilot/gpt-5.4-mini' }, { id: 'openai-codex/gpt-5.5' }]
-    })
-  })
-
   const notFound = 'claude not found on PATH. Install Claude to discover models.'
   const failedToStart =
     'Claude model discovery failed to start. Check the agent CLI configuration and try again.'

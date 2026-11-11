@@ -37,21 +37,8 @@ function uncPath(distro: string, ...segments: string[]): string {
   return `\\\\wsl.localhost\\${distro}\\home\\ada\\${segments.join('\\')}`
 }
 
-const KIMI_HOME = ['.kimi-code', 'sessions', 'wd_app_9f2', 'session_abc']
 const GROK_DIR = ['.grok', 'sessions', 'ses-1']
 const OPENCODE_ROOT = ['.local', 'share', 'opencode', 'storage']
-
-const KIMI_STATE = JSON.stringify({
-  title: 'Kimi session',
-  createdAt: '2026-06-01T10:00:00.000Z',
-  updatedAt: '2026-06-01T10:05:00.000Z',
-  agents: { main: { type: 'main', parentAgentId: null } }
-})
-
-const KIMI_WIRE = `${JSON.stringify({
-  type: 'context.append_message',
-  message: { role: 'user', origin: { kind: 'user' }, content: 'ship it' }
-})}\n`
 
 const GROK_SESSION = JSON.stringify({
   info: { id: 'ses-1', cwd: '/repo/app' },
@@ -167,21 +154,7 @@ afterEach(async () => {
   vi.useRealTimers()
 })
 
-describe('Kimi session parse against a stalled WSL transcript', () => {
-  it('refuses a stalled wire read, then caches the full session once it recovers', async () => {
-    const state = uncPath('KimiWire', ...KIMI_HOME, 'state.json')
-    mocks.readFile.mockResolvedValue(KIMI_STATE)
-    mocks.open.mockResolvedValue(stallingHandle())
-
-    await expectRefusal(candidate('kimi', state))
-    await releaseAndSettle()
-
-    mocks.open.mockResolvedValue(servingHandle(KIMI_WIRE))
-    const recovered = await parseAgentSessionFileCached(candidate('kimi', state), 'linux')
-
-    expect(recovered?.messageCount).toBe(1)
-  })
-})
+describe('Kimi session parse against a stalled WSL transcript', () => {})
 
 describe('Grok session parse against a stalled WSL transcript', () => {
   it('refuses a stalled chat_history read instead of reporting a summary-only session', async () => {

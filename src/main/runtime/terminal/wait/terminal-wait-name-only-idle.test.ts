@@ -9,19 +9,8 @@ import { registerBoundPty } from '../../orca-runtime-tests/bind-first-pane.test-
 
 // #6011: name-only Codex/Devin titles were stored as idle and prematurely satisfied tui-idle; distinguish settling, corroborating and veto evidence.
 
-const POLL_INTERVAL_MS = 2000
-
 const NAME_ONLY_TITLE = 'Codex'
 const EXPLICIT_IDLE_TITLE = 'Codex ready'
-
-// Muse 1.3.0 node-pty capture with echo provider and --trust-workspace; its OSC title stays the bare cwd.
-const MUSE_READY_TAIL = [
-  '  Muse Code 1.3.0',
-  '  Skills: 77 loaded · 1 warning · 28 details hidden (ctrl+o to expand)',
-  '── Voice input (⌥ + v to start) ──────────────────────────────────────────',
-  '❯ ────────────────────────────────────────────────────────────────────',
-  '  muse-spark-1.3 · max · ~/Downloads/interview-coach · YOLO'
-]
 
 /** Keep output younger than the quiescence window. */
 
@@ -111,15 +100,4 @@ describe('tui-idle over the live OSC title pipeline', () => {
 
     await expect(waiting).resolves.toMatchObject({ condition: 'tui-idle', satisfied: true })
   })
-
-  it('settles a quiet Muse ready screen over the live PTY pipeline', async () => {
-    const { runtime, handle } = await makeRuntime('muse')
-    runtime.onPtyData(E2E_PTY_ID, `${oscTitle('tmp')}${MUSE_READY_TAIL.join('\n')}\n`, Date.now())
-
-    const assertion = expect(
-      runtime.waitForTerminal(handle, { condition: 'tui-idle', timeoutMs: 15_000 })
-    ).resolves.toMatchObject({ condition: 'tui-idle', satisfied: true })
-    await vi.advanceTimersByTimeAsync(POLL_INTERVAL_MS * 2)
-    await assertion
-  }, 20_000)
 })

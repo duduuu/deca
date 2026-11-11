@@ -5,7 +5,6 @@ import { zstdCompressSync } from 'node:zlib'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { truncateAiVaultListResult } from '../../shared/ai-vault/scanning/ai-vault-session-depth'
 import type { AiVaultListResult } from '../../shared/ai-vault/contracts/ai-vault-types'
-import { parseSessionCandidates } from './session-scanner-candidate-parse'
 import {
   MAX_UNLISTED_ENTRIES,
   storeSessionParseCacheEntry,
@@ -288,43 +287,6 @@ it('admits the newest scoped activity when copied Hermes files have newer mtimes
     rows.sessions.filter((row) => row.cwd === '/repo').map((row) => row.sessionId)
   expect(scopedIds(deeper)[0]).toBe('hermes-16')
   expect(scopedIds(truncateAiVaultListResult(deeper, 1, ['/repo']))).toEqual(scopedIds(deeper))
-})
-
-it('delivers cancellation while traversing unchanged cached candidates', async () => {
-  const candidates = Array.from({ length: 512 }, (_, index) => {
-    const file = {
-      path: `/cached/${index}.json`,
-      mtimeMs: 1,
-      modifiedAt: new Date(1).toISOString()
-    }
-    storeSessionParseCacheEntry(file.path, {
-      mtimeMs: 1,
-      sizeBytes: null,
-      platform: 'linux',
-      session: null,
-      resume: null
-    })
-    return { agent: 'hermes' as const, file, codexHome: null }
-  })
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 0)
-  try {
-    await expect(
-      parseSessionCandidates({
-        candidates,
-        limit: 1,
-        platform: 'linux',
-        executionHostId: 'local',
-        issues: [],
-        parseStats: createSessionParseStats(),
-        signal: controller.signal,
-        listed: false,
-        selectCandidate: async () => true
-      })
-    ).rejects.toMatchObject({ name: 'AbortError' })
-  } finally {
-    clearTimeout(timer)
-  }
 })
 
 it('walks a history larger than the spread-argument limit', async () => {

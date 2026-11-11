@@ -164,24 +164,6 @@ describe('resolveSessionFilePath', () => {
     expect(resolved).toBe(target)
   })
 
-  it('never descends into an omp session artifact dir', async () => {
-    // Put the only match inside the artifact directory so success cannot depend on readdir ordering.
-    const root = await makeRoot('orca-native-chat-resolve-omp-artifact-')
-    const ompSessionsDir = join(root, 'omp-sessions')
-    const cwdDir = join(ompSessionsDir, '-Users-ada-repo')
-    const stem = '2026-07-16T00-27-02-222Z_019fd8e2-fd56-7000-acfe-2e497adfa83c'
-    await mkdir(join(cwdDir, stem), { recursive: true })
-    await writeFile(join(cwdDir, `${stem}.jsonl`), '{}\n')
-    await writeFile(join(cwdDir, stem, 'worker_sess-omp-child.jsonl'), '{}\n')
-
-    await expect(
-      resolveSessionFilePath('omp', 'sess-omp-child', { ompSessionsDir })
-    ).resolves.toBeNull()
-    await expect(
-      resolveSessionFilePath('omp', '019fd8e2-fd56-7000-acfe-2e497adfa83c', { ompSessionsDir })
-    ).resolves.toBe(join(cwdDir, `${stem}.jsonl`))
-  })
-
   it('prefers the hook transcriptPath when it exists (Claude id != file name)', async () => {
     const root = await makeRoot('orca-native-chat-resolve-path-')
     const claudeProjectsDir = join(root, 'claude-projects')

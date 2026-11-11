@@ -5,16 +5,11 @@ import type {
   AutomationRun,
   AutomationRunUsage
 } from '../../../../shared/automations/history/automation-run'
-import type { ExternalAutomationManager } from '../../../../shared/automations/external/external-automation'
 import type { ProjectHostSetup } from '../../../../shared/project-types'
 import type { AutomationHostCatalogEntry } from './hosts/automation-host-catalog-types'
 import type { AppState } from '@/store/types'
 import type { Repo } from '../../../../shared/repo-types'
 import type { Worktree } from '../../../../shared/worktree/types'
-import type {
-  ExternalAutomationScope,
-  ScopedExternalAutomationManager
-} from './external/external-automation-scope-client'
 import {
   automationListRowKey,
   type AutomationListRow
@@ -113,44 +108,6 @@ export function makeRunUsage(overrides: Partial<AutomationRunUsage> = {}): Autom
     unavailableMessage: null,
     ...overrides
   }
-}
-
-export function makeExternalManager(
-  overrides: Partial<ExternalAutomationManager> = {}
-): ExternalAutomationManager {
-  return {
-    id: 'openclaw:local',
-    provider: 'openclaw',
-    label: 'OpenClaw',
-    targetLabel: 'This computer',
-    target: { type: 'local' },
-    status: 'available',
-    error: null,
-    canManage: true,
-    jobs: [],
-    ...overrides
-  }
-}
-
-/** The desktop-self scope every manager fixture is discovered under by default. */
-export function makeExternalAutomationScope(
-  overrides: Partial<ExternalAutomationScope> = {}
-): ExternalAutomationScope {
-  return {
-    owner: {
-      authority: { kind: 'desktop' },
-      selector: { kind: 'self' }
-    },
-    provider: 'openclaw',
-    ...overrides
-  }
-}
-
-export function makeScopedExternalManager(
-  overrides: Partial<ExternalAutomationManager> = {},
-  scope: ExternalAutomationScope = makeExternalAutomationScope()
-): ScopedExternalAutomationManager {
-  return { scope, manager: makeExternalManager(overrides) }
 }
 
 function makeRepo(): Repo {

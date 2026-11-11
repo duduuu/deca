@@ -144,13 +144,6 @@ export function createAcpStructuredLaunchResolver(
   )
 }
 
-/** Unsealed unless a token is passed: the env an agent part produced, before the seal. */
-export function createPiRpcLaunchResolver(deps: LaunchTestSources & PiRpcLaunchPartDeps) {
-  const resolve = withTestSpawnToken(PI_RPC_AGENT, launchSources(deps), piRpcLaunchPart(deps), null)
-  return (identity: AgentSessionJournalIdentity, spawnToken: string | null = null) =>
-    resolve({ identity, spawnToken })
-}
-
 /** Seal Claude with TEST_SPAWN_TOKEN unless overridden; resolveEnv overlays resolveInheritedEnv, which defaults to process.env. */
 export function createClaudeStructuredLaunchResolver(
   deps: Omit<LaunchTestSources, 'resolveEnvironment' | 'resolveLaunchEnv'> &

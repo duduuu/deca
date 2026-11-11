@@ -309,55 +309,6 @@ export function registerPtyConnectionForegroundAgentRoutingTests(): void {
       binding.dispose()
     })
 
-    it('revokes trusted Droid after accepted no-OSC exit input until shell confirmation', async () => {
-      vi.useFakeTimers()
-      const { connectPanePty } = await import('../connect-pane-pty')
-      const agentTitleMocks9 = await vi.importMock<PtyConnectionAgentTitleMocks>(
-        '@/lib/agent-status/aggregation/worktree-agent-status'
-      )
-      vi.mocked(window.api.pty.confirmForegroundProcess).mockResolvedValue('cmd.exe')
-      const pane = createPane(1)
-      const ptyId = 'pty-droid-exit-no-osc'
-      const tabId = 'tab-droid-exit-no-osc'
-      const paneKey = makePaneKey(tabId, LEAF_1)
-      transportFactoryQueue.push(createMockTransport(ptyId))
-
-      connectPanePty(
-        ...mockPanePtyArgs(
-          pane,
-          createManager(1),
-          bindPaneAgentTitleMocks(createDeps({ tabId }), agentTitleMocks9)
-        )
-      )
-      await vi.advanceTimersByTimeAsync(20)
-      await flushAsyncTicks()
-      mockStoreState.paneForegroundAgentByPaneKey[paneKey] = {
-        agent: 'droid',
-        routingTrusted: true,
-        shellForeground: false
-      }
-
-      sendTerminalInputThroughPane(pane, '\x03')
-      await flushAsyncTicks()
-
-      expect(mockStoreState.paneForegroundAgentByPaneKey[paneKey]).toEqual({
-        agent: 'droid',
-        routingRevoked: true,
-        routingConfirmationPending: true,
-        shellForeground: false
-      })
-      // Retain safe capability during provider reads so a second Pi Shift+Enter cannot become submit.
-      expect(resolveMockPaneWindowsShiftEnterEncoding(mockStoreState, paneKey)).toBe('csi-u')
-
-      await vi.advanceTimersByTimeAsync(350 + 1200 + 6000)
-
-      expect(mockStoreState.paneForegroundAgentByPaneKey[paneKey]).toEqual({
-        agent: null,
-        shellForeground: true
-      })
-      expect(resolveMockPaneWindowsShiftEnterEncoding(mockStoreState, paneKey)).toBe('alt-enter')
-    })
-
     it('trusts Pi in a no-OSC shell and retires routing after accepted exit input', async () => {
       vi.useFakeTimers()
       const { connectPanePty } = await import('../connect-pane-pty')

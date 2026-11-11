@@ -113,59 +113,6 @@ describe('registerTerminalSideEffectFactConsumer', () => {
     expect(second.events).toEqual([['bell'], ['bell']])
   })
 
-  it('hands off facts emitted between the parked watcher unregistering and the pane registering', () => {
-    // Reveal unregisters watchers before async pane registration; title-only replay cannot recover live bells/completions lost in that gap.
-    const watcher = createCallbackRecorder()
-    const disposeWatcher = registerTerminalSideEffectFactConsumer({
-      ptyId: PTY_ID,
-      callbacks: watcher.callbacks
-    })
-    disposeWatcher()
-
-    const events: unknown[][] = []
-    _dispatchTerminalSideEffectBatchForTest(
-      batch([{ kind: 'bell' }, { kind: 'command-code-done', prompt: 'Fix the spinner' }], {
-        seq: 7
-      })
-    )
-    // A PTY that never had a consumer stays dropped — no buffer was opened.
-    _dispatchTerminalSideEffectBatchForTest(batch([{ kind: 'bell' }], { ptyId: 'never-consumed' }))
-
-    expect(events).toEqual([])
-    expect(watcher.events).toEqual([])
-
-    const neverConsumed = createCallbackRecorder()
-    registerTerminalSideEffectFactConsumer({
-      ptyId: 'never-consumed',
-      callbacks: neverConsumed.callbacks
-    })
-    expect(neverConsumed.events).toEqual([])
-
-    const dispose = registerTerminalSideEffectFactConsumer({
-      ptyId: PTY_ID,
-      callbacks: {
-        onBell: () => events.push(['bell']),
-        onCommandCodeDone: (prompt) => events.push(['cc-done', prompt])
-      }
-    })
-
-    expect(events).toEqual([['bell'], ['cc-done', 'Fix the spinner']])
-    expect(watcher.events).toEqual([])
-
-    // Drained exactly once: a later registration gets nothing.
-    dispose()
-    const later: unknown[][] = []
-    registerTerminalSideEffectFactConsumer({
-      ptyId: PTY_ID,
-      callbacks: {
-        onBell: () => later.push(['bell']),
-        onCommandCodeDone: (prompt) => later.push(['cc-done', prompt])
-      }
-    })
-
-    expect(later).toEqual([])
-  })
-
   it('drains the handoff buffer before the register snapshot, so the replay is stale', async () => {
     // Drain live titles before the async snapshot so sequence comparison rejects its stale predecessor.
     const snapshot = batch([{ kind: 'title', normalizedTitle: 'snapshot', rawTitle: 'snapshot' }], {

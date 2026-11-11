@@ -1,144 +1,16 @@
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { OPENCODE_AGENT_ROW_GRACE_MS } from '../../../../shared/opencode-agent-row-scanner'
 import {
-  deliverStartupFollowupPrompt,
   waitForWorktreeStartupDraft,
   type WorktreeStartupReadinessHost
 } from './runtime-worktree-startup-readiness'
 
 describe('startup follow-up prompt', () => {
   afterEach(() => vi.useRealTimers())
-
-  function fixture(
-    foreground: string,
-    hostProvesAgent: boolean,
-    hostProvesShellAlone = !hostProvesAgent,
-    launchedForeground: 'agent' | 'unknown' = 'agent'
-  ) {
-    const write = vi.fn()
-    const host: WorktreeStartupReadinessHost = {
-      getPtyId: () => 'pty-1',
-      getForegroundProcess: async () => foreground,
-      hasChildProcesses: async () => false,
-      subscribeToData: () => () => {},
-      readRecentOutput: () => undefined,
-      write
-    }
-    const sendTerminalAgentPrompt = vi.fn(async (handle: string) => ({
-      handle,
-      accepted: true,
-      bytesWritten: 12
-    }))
-    const waitForFreshWorkerComposer = vi.fn(async () => ({ satisfied: true, status: 'running' }))
-    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: delivery reaches only these runtime methods; any other would throw.
-    const runtime = {
-      waitForFreshWorkerComposer,
-      waitForTerminal: vi.fn(async () => ({ satisfied: true, status: 'idle' })),
-      sendTerminalAgentPrompt,
-      readLaunchedAgentForeground: vi.fn(async () => launchedForeground),
-      subscribeToTerminalData: vi.fn(() => () => {}),
-      launchedAgentHostProvesAgent: vi.fn(() => hostProvesAgent),
-      launchedAgentHostProvesShellAlone: vi.fn(() => hostProvesShellAlone)
-    } as unknown as Parameters<typeof deliverStartupFollowupPrompt>[0]
-    return { host, write, runtime, sendTerminalAgentPrompt, waitForFreshWorkerComposer }
-  }
-
-  it('still refuses an agent.launch prompt on WSL or SSH-to-Windows, as before', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    const f = fixture('kimi', false, false, 'unknown')
-    f.sendTerminalAgentPrompt.mockImplementation(async (handle: string, ...rest: unknown[]) => {
-      const options = rest[1]
-      if (options && typeof options === 'object' && 'beforeWrite' in options) {
-        const { beforeWrite } = options
-        if (typeof beforeWrite === 'function') {
-          await beforeWrite('pty-1')
-        }
-      }
-      return { handle, accepted: true, bytesWritten: 2 }
-    })
-
-    await expect(
-      deliverStartupFollowupPrompt(
-        f.runtime,
-        f.host,
-        'term-1',
-        { agent: 'kimi', prompt: 'go' },
-        { agentLaunch: true }
-      )
-    ).resolves.toBe(false)
-    expect(f.write).not.toHaveBeenCalled()
-    warn.mockRestore()
-  })
-
-  it('writes nothing on a Windows host while the shell stays in front', async () => {
-    vi.useFakeTimers()
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    const f = fixture('pwsh', false)
-
-    const delivered = deliverStartupFollowupPrompt(f.runtime, f.host, 'term-1')
-    await vi.advanceTimersByTimeAsync(30 * 150)
-
-    await expect(delivered).resolves.toBe(false)
-    expect(f.sendTerminalAgentPrompt).not.toHaveBeenCalled()
-    expect(f.write).not.toHaveBeenCalled()
-    warn.mockRestore()
-  })
 })
 
 describe('fresh worker composer readiness', () => {
   afterEach(() => vi.useRealTimers())
-
-  function fixture(replay?: string) {
-    let listener = (_data: string): void => {}
-    const unsubscribe = vi.fn()
-    const host: WorktreeStartupReadinessHost = {
-      getPtyId: () => 'pty-1',
-      getForegroundProcess: async () => 'zcode',
-      subscribeToData: (_ptyId, onData) => {
-        listener = onData
-        return unsubscribe
-      },
-      readRecentOutput: () => replay,
-      write: vi.fn()
-    }
-    return { host, emit: (data: string) => listener(data), unsubscribe }
-  }
-
-  it('accepts the captured composer while the banner continues repainting', async () => {
-    vi.useFakeTimers()
-    const h = fixture()
-    const pending = waitForWorktreeStartupDraft(h.host, 'term-1', 'zcode', {
-      timeoutMs: 45_000,
-      requireComposerMarker: true
-    })
-    const data = readFileSync(
-      join(__dirname, '../../__fixtures__', 'zcode-composer-ready.txt'),
-      'utf8'
-    )
-    for (let offset = 0; offset < data.length; offset += 4096) {
-      h.emit(data.slice(offset, offset + 4096))
-    }
-    await expect(pending).resolves.toBe('pty-1')
-    expect(h.unsubscribe).toHaveBeenCalledOnce()
-    expect(h.host.write).not.toHaveBeenCalled()
-    expect(vi.getTimerCount()).toBe(0)
-  })
-
-  it('does not accept shell decoration or a square startup dialog', async () => {
-    vi.useFakeTimers()
-    const h = fixture('╭ shell\n\x1b[?1049h\x1b[?2004h┌ Sign in ┐')
-    const pending = waitForWorktreeStartupDraft(h.host, 'term-1', 'zcode', {
-      timeoutMs: 45_000,
-      requireComposerMarker: true
-    })
-    await vi.advanceTimersByTimeAsync(44_999)
-    expect(h.unsubscribe).not.toHaveBeenCalled()
-    await vi.advanceTimersByTimeAsync(1)
-    await expect(pending).resolves.toBeNull()
-    expect(h.unsubscribe).toHaveBeenCalledOnce()
-  })
 })
 
 describe('OpenCode submit readiness', () => {

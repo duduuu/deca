@@ -21,7 +21,7 @@ import { createManagedCommandMatcher } from '../agent-hooks/installation/command
 import { WINDOWS_CMD_SAFE_PATH } from '../agent-hooks/installation/commands/windows-hook-command'
 import { ClaudeHookService } from './hook-service'
 import { CLAUDE_EVENTS } from './claude-managed-hook-events'
-import { getWindowsManagedLifecycleHook, OPENCLAUDE_HOOK_SETTINGS } from './hook-settings'
+import { getWindowsManagedLifecycleHook } from './hook-settings'
 
 const CLAUDE_SCRIPT_FILE_NAME = process.platform === 'win32' ? 'claude-hook.cmd' : 'claude-hook.sh'
 const OPENCLAUDE_SCRIPT_FILE_NAME =

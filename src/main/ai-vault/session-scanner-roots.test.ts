@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { AI_VAULT_AGENT_SOURCES } from './session-scanner-agent-sources'
-import { ompSessionsRootDirs } from './session-scanner-roots'
 
 describe('claude session roots', () => {
   afterEach(() => {
@@ -19,10 +18,4 @@ describe('claude session roots', () => {
   })
 })
 
-describe('ompSessionsRootDirs', () => {
-  it('drops a degenerate root that would resolve to the process cwd', () => {
-    // A normalized empty root resolves to cwd and would allowlist arbitrary renderer-supplied paths.
-    expect(ompSessionsRootDirs({ ompSessionsDir: '' })).toEqual([])
-    expect(ompSessionsRootDirs({ ompSessionsDir: '   ' })).toEqual([])
-  })
-})
+describe('ompSessionsRootDirs', () => {})

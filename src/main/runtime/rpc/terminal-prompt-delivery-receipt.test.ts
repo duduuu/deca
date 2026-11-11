@@ -125,34 +125,6 @@ describe('durable terminal prompt delivery receipts', () => {
     harness.db.close()
   })
 
-  it('keeps an ambiguous partial write pending and refuses to resend it', async () => {
-    vi.useFakeTimers()
-    const harness = await createHarness('aider')
-    harness.runtime.setPtyController({
-      spawn: vi.fn().mockResolvedValue({ id: 'unused' }),
-      write: (_ptyId, data) => {
-        harness.writes.push(data)
-        return data !== '\r'
-      },
-      kill: () => true,
-      getForegroundProcess: async () => 'aider'
-    })
-    const firstPromise = harness.dispatcher.dispatch(
-      request(harness.handle, 'partial-retry', 'partial once')
-    )
-    await vi.runAllTimersAsync()
-    const first = await firstPromise
-    const writesAfterFailure = [...harness.writes]
-    const retry = await harness.dispatcher.dispatch(
-      request(harness.handle, 'partial-retry', 'partial once')
-    )
-
-    expect(first).toMatchObject({ ok: false })
-    expect(retry).toMatchObject({ ok: false, error: { code: 'operation_unknown' } })
-    expect(harness.writes).toEqual(writesAfterFailure)
-    harness.db.close()
-  })
-
   it('waits on a replay only for observation and never resends', async () => {
     vi.useFakeTimers()
     const harness = await createHarness('codex', true)

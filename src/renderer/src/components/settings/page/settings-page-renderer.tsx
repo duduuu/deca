@@ -18,15 +18,12 @@ import {
   renderOrchestrationSettingsSection
 } from './settings-capability-section-renderers'
 import {
-  renderArtifactsSettingsSection,
   renderSessionHistorySettingsSection,
   renderAutomationsSettingsSection,
   renderGeneralSettingsSection,
   renderIntegrationsSettingsSection,
   renderMobileSettingsSection,
-  renderOrcaAccountSettingsSection,
-  renderSetupGuideSettingsSection,
-  renderShareSkillsSettingsSection
+  renderSetupGuideSettingsSection
 } from './settings-setup-workflow-section-renderers'
 import {
   renderGitSettingsSection,
@@ -169,14 +166,11 @@ export function renderSettingsPage(
                     {renderOrchestrationSettingsSection(context, t)}
                     {renderLinearSettingsSection(context, t)}
                     {renderDesktopCapabilitySettingsSections(context, t)}
-                    {renderOrcaAccountSettingsSection(context, t)}
                     {renderSetupGuideSettingsSection(context, t)}
                     {renderGeneralSettingsSection(context, t)}
                     {renderIntegrationsSettingsSection(context, t)}
                     {renderMobileSettingsSection(context, t)}
                     {renderAutomationsSettingsSection(context, t)}
-                    {renderArtifactsSettingsSection(context, t)}
-                    {renderShareSkillsSettingsSection(context, t)}
                     {renderSessionHistorySettingsSection(context, t)}
                     {renderGitSettingsSection(context, t)}
                     {renderTasksSettingsSection(context, t)}

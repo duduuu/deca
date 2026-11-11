@@ -3,7 +3,6 @@ import {
   DEFAULT_LOCAL_ORCA_PROFILE_ID,
   createDefaultLocalOrcaProfile
 } from '../../../../shared/orca-profiles'
-import { noopUnsubscribe } from './web-storage'
 
 export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
   const webOrcaProfileAuthStatus = () =>
@@ -23,18 +22,12 @@ export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
           multiProfileUi: false
         }),
       authStatus: webOrcaProfileAuthStatus,
-      onAuthStatusChanged: () => noopUnsubscribe,
-      onSignInProgressChanged: () => noopUnsubscribe,
       createLocal: () =>
         Promise.resolve({
           activeProfileId: DEFAULT_LOCAL_ORCA_PROFILE_ID,
           profiles: [createDefaultLocalOrcaProfile(0)],
           profile: createDefaultLocalOrcaProfile(0)
         }),
-      createCloudLinked: async () => ({
-        status: 'unconfigured',
-        auth: await webOrcaProfileAuthStatus()
-      }),
       switchProfile: () => Promise.resolve({ status: 'already-active' }),
       transferProject: (args) =>
         Promise.resolve({
@@ -44,32 +37,7 @@ export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
           sourceRepoId: args.repoId,
           duplicateRepoId: args.repoId
         }),
-      findProjectProfiles: async () => ({ projects: [] }),
-      connectCurrent: async () => ({
-        status: 'unconfigured',
-        auth: await webOrcaProfileAuthStatus()
-      }),
-      signInProgress: async () => null,
-      cancelSignIn: async () => {},
-      refreshAuth: async () => ({
-        status: 'unconfigured',
-        auth: await webOrcaProfileAuthStatus()
-      }),
-      signOutCurrent: async () => ({
-        status: 'signed-out',
-        auth: await webOrcaProfileAuthStatus(),
-        activeProfileId: DEFAULT_LOCAL_ORCA_PROFILE_ID,
-        profiles: [createDefaultLocalOrcaProfile(0)]
-      }),
-      selectOrg: async () => ({
-        status: 'unconfigured',
-        auth: await webOrcaProfileAuthStatus()
-      }),
-      orgMembersList: async () => ({ status: 'unconfigured' }),
-      orgMemberInvite: async () => ({ status: 'unconfigured' }),
-      orgInviteRevoke: async () => ({ status: 'unconfigured' }),
-      orgMemberChangeRole: async () => ({ status: 'unconfigured' }),
-      orgMemberRemove: async () => ({ status: 'unconfigured' })
+      findProjectProfiles: async () => ({ projects: [] })
     }
   }
 }

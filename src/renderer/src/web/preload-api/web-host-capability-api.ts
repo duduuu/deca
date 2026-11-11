@@ -159,19 +159,6 @@ export function createSkillsApi(): NonNullable<Partial<PreloadApi>['skills']> {
       Promise.reject(new Error('Updating Orca skills requires the desktop app.')),
     bundledAutoUpdate: () =>
       Promise.reject(new Error('Updating Orca skills requires the desktop app.')),
-    prepareShare: () => Promise.reject(new Error('Skill publishing requires the desktop app.')),
-    publishShare: () => Promise.reject(new Error('Skill publishing requires the desktop app.')),
-    cancelShare: () => Promise.resolve(),
-    releaseShare: () => Promise.resolve(),
-    resolveShare: () => Promise.reject(new Error('Skill share links require the desktop app.')),
-    installShare: () => Promise.reject(new Error('Skill installation requires the desktop app.')),
-    installBundleShare: () =>
-      Promise.reject(new Error('Skill installation requires the desktop app.')),
-    installPackageVersion: () =>
-      Promise.reject(new Error('Skill installation requires the desktop app.')),
-    installBundlePackageVersion: () =>
-      Promise.reject(new Error('Skill installation requires the desktop app.')),
-    cancelInstall: () => Promise.resolve({ cancelled: false }),
     previewInstall: () => Promise.reject(new Error('Skill installation requires the desktop app.')),
     previewBundleInstall: () =>
       Promise.reject(new Error('Skill installation requires the desktop app.')),
@@ -186,15 +173,6 @@ export function createSkillsApi(): NonNullable<Partial<PreloadApi>['skills']> {
     delete: (request) => callRuntimeResult<SkillDeleteResult>('skills.delete', request, 5 * 60_000),
     listManagedInstalls: () =>
       Promise.reject(new Error('Skill installation requires the desktop app.')),
-    getPackage: () => Promise.reject(new Error('Skill installation requires the desktop app.')),
-    listOwnedShares: () =>
-      Promise.reject(new Error('Skill package management requires the desktop app.')),
-    revokeShare: () =>
-      Promise.reject(new Error('Skill package management requires the desktop app.')),
-    deletePackage: () =>
-      Promise.reject(new Error('Skill package management requires the desktop app.')),
-    listWslDistros: () => Promise.resolve([]),
-    onInstallProgress: () => () => {},
-    onShareProgress: () => () => {}
+    listWslDistros: () => Promise.resolve([])
   }
 }

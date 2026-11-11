@@ -2,7 +2,6 @@
 import { act } from 'react'
 import type { BrowserPage, BrowserWorkspace } from '../../../../../shared/browser-workspace-types'
 import type * as WebviewRegistryModule from '../host-guest/webview-registry'
-import type * as DocPreviewArtifactShareModule from './doc-preview-artifact-share'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ConfirmationDialogContext } from '@/components/confirmation-dialog-context'
@@ -32,8 +31,7 @@ const grants = vi.hoisted(() => {
     root: '/repo',
     entryRelativePath: 'docs/reports/index.html'
   }
-  const shareControlCalls: unknown[][] = []
-  return { mintedLocation, requestLocation: mintedLocation, shareControlCalls }
+  return { mintedLocation, requestLocation: mintedLocation }
 })
 
 vi.mock('@/lib/browser/documents/doc-preview-grants', () => ({
@@ -47,19 +45,6 @@ vi.mock('@/lib/browser/documents/doc-preview-grants', () => ({
     }),
   releaseDocPreviewGrant: () => undefined
 }))
-
-vi.mock('./doc-preview-artifact-share', async (importOriginal) => {
-  const actual = await importOriginal<typeof DocPreviewArtifactShareModule>()
-  return {
-    ...actual,
-    buildDocPreviewShareControl: (
-      ...args: Parameters<typeof actual.buildDocPreviewShareControl>
-    ) => {
-      grants.shareControlCalls.push(args)
-      return actual.buildDocPreviewShareControl(...args)
-    }
-  }
-})
 
 vi.mock('@/components/browser-pane/host-guest/webview-registry', async (importOriginal) => ({
   ...(await importOriginal<typeof WebviewRegistryModule>()),

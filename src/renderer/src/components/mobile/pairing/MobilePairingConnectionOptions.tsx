@@ -11,7 +11,6 @@ import type {
 } from '../../../../../shared/remote-runtime/relay/mobile-relay-status'
 import type { MobilePairingConnectionMode } from '../../../../../shared/remote-runtime/pairing/mobile-pairing-connection-mode'
 import { MobilePairingPathOption } from './MobilePairingPathOption'
-import { MobileRelaySignInPanel } from './MobileRelaySignInPanel'
 import { relayClockSkewMessage } from '../relay-clock-skew-message'
 
 function relayStatusLabel(status: MobileRelayStatus, t: Translate = translate): string {
@@ -57,10 +56,8 @@ export function MobilePairingConnectionOptions({
   const authStatus = useAppStore((state) => state.orcaProfileAuthStatus)
   const [relayStatus, setRelayStatus] = useState<MobileRelayStatusDetail>({ status: 'offline' })
   const signedIn = authStatus?.state === 'connected'
-  const reconnectRequired = authStatus?.state === 'reconnect-required'
   // Unconfigured builds have no Relay sign-in endpoint; mark unavailable instead of offering a dead CTA.
   const configured = authStatus?.configured !== false
-  const needsSignIn = value === 'automatic' && !signedIn && configured
   // Availability is a property of the build, not of the current selection.
   const relayUnavailable = !signedIn && !configured
   const relayDisabled = relayMintRetrying || relayUnavailable
@@ -179,7 +176,6 @@ export function MobilePairingConnectionOptions({
             ) : null
           }
         />
-        {needsSignIn ? <MobileRelaySignInPanel reconnectRequired={reconnectRequired} /> : null}
         {signedIn &&
         value === 'automatic' &&
         !relayMintFailed &&

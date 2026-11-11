@@ -86,7 +86,8 @@ export class RuntimeSkillInstallCommands {
   ): Promise<SkillInstallResult> {
     await this.refuseSshDestination(request.destination)
     await this.host.skillTransactionRecovery
-    const origins = ['https://storage.googleapis.com']
+    // Cloud skill packages are not part of this build; only staged uploads (and dev overrides) install.
+    const origins: string[] = []
     if (!this.host.isPackaged() && process.env.ORCA_SKILL_PACKAGE_DOWNLOAD_ORIGINS) {
       origins.push(
         ...process.env.ORCA_SKILL_PACKAGE_DOWNLOAD_ORIGINS.split(',')
@@ -154,7 +155,7 @@ export class RuntimeSkillInstallCommands {
     try {
       await this.refuseSshDestination(request.destination)
       await this.host.skillTransactionRecovery
-      const origins = ['https://storage.googleapis.com']
+      const origins: string[] = []
       if (!this.host.isPackaged() && process.env.ORCA_SKILL_PACKAGE_DOWNLOAD_ORIGINS) {
         origins.push(
           ...process.env.ORCA_SKILL_PACKAGE_DOWNLOAD_ORIGINS.split(',')

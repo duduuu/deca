@@ -156,7 +156,6 @@ const NODE_RUNTIME_INCLUDE = [
   'src/main/ipc/renderer-shutdown-checkpoint-sleep-records.test.ts',
   'src/main/runtime/agent-session/records/structured-agent-session-startup-tab-restore.test.ts',
   'src/shared/remote-runtime/control/remote-runtime-shared-control-connection.test.ts',
-  'src/main/runtime/mobile-cloud-relay/relay-control-client.test.ts',
   'src/main/ipc/filesystem/watchers/filesystem-watcher-ignore-real.test.ts',
   'src/main/ipc/runtime-environments/runtime-environment-preference.test.ts',
   // Real fs.watch file bindings; Bun's watcher is not the one Electron runs.

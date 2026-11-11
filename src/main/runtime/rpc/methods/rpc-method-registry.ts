@@ -70,7 +70,6 @@ import { STRUCTURED_AGENT_SESSION_ATTACHMENT_METHODS } from './structured-sessio
 import { STRUCTURED_AGENT_SESSION_VISUAL_METHODS } from './structured-sessions/attachments/structured-agent-session-visual'
 import { STRUCTURED_AGENT_SESSION_AGENTS_METHODS } from './structured-sessions/catalog/structured-agent-session-agents'
 import { MANAGED_RUNTIME_INSTALL_METHODS } from './host-management/managed-runtime-install'
-import { ARTIFACT_METHODS } from './artifacts/artifacts'
 import { AGENT_HOOK_METHODS } from './agent-hooks/agent-hooks'
 import { AGENT_LAUNCH_METHODS } from './agent-launch/agent-launch'
 import { CONNECTOR_METHODS } from './connectors/connector'
@@ -90,7 +89,6 @@ export const ALL_RPC_METHODS = [
   ...SESSION_TERMINAL_SCROLLBACK_METHODS,
   ...AGENT_HOOK_METHODS,
   ...AI_VAULT_METHODS,
-  ...ARTIFACT_METHODS,
   ...AUTOMATION_METHODS,
   ...REPO_METHODS,
   ...WORKTREE_METHODS,

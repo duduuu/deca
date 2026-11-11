@@ -1,4 +1,4 @@
-import { BookOpen, Download, History, Link2, MoreHorizontal, Share2, Trash2, X } from 'lucide-react'
+import { BookOpen, MoreHorizontal, Trash2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -20,27 +20,19 @@ export function SkillsPageHeader({
   scannedSourceCount,
   hostLabel,
   onClose,
-  onStartShare,
   deleteSupported,
   deleteUnsupportedReason,
-  onStartDelete,
-  onInstallFromLink,
-  onManageInstalls,
-  onOpenSharedLinks
+  onStartDelete
 }: {
   skillCount: number
   sourceEntries: readonly SkillSourceInventoryEntry[]
   scannedSourceCount: number
   hostLabel: string | null
   onClose: () => void
-  onStartShare: () => void
   /** Disable deletion with a reason until the target and host capability are known. */
   deleteSupported: boolean
   deleteUnsupportedReason: string | null
   onStartDelete: () => void
-  onInstallFromLink: () => void
-  onManageInstalls: () => void
-  onOpenSharedLinks: () => void
 }): React.JSX.Element {
   const t = useTranslate()
   return (
@@ -84,14 +76,6 @@ export function SkillsPageHeader({
             ) : null}
           </div>
         </div>
-        <Button type="button" size="sm" onClick={onStartShare}>
-          <Share2 className="size-3.5" />
-          {t('auto.components.skills.SkillShareSelectionControls.01c5a15e02', 'Share skills')}
-        </Button>
-        <Button type="button" variant="outline" size="sm" onClick={onInstallFromLink}>
-          <Download className="size-3.5" />
-          {t('auto.components.skills.SkillsPage.aee7b99cc6', 'Install from link')}
-        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -104,14 +88,6 @@ export function SkillsPageHeader({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={onManageInstalls}>
-              <History />
-              {t('auto.components.skills.SkillsPage.c13b82793c', 'Manage installs')}
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={onOpenSharedLinks}>
-              <Link2 />
-              {t('auto.components.skills.SkillsPage.sharedLinks', 'Shared links')}
-            </DropdownMenuItem>
             <Tooltip>
               <TooltipTrigger asChild>
                 <span className="pointer-events-auto block">

@@ -39,7 +39,6 @@ export function SkillsList({
   deleteUnsupportedReason,
   onSelectedChange,
   onSelectResults,
-  onShare,
   onDelete
 }: {
   skills: readonly DiscoveredSkill[]
@@ -55,7 +54,6 @@ export function SkillsList({
   deleteUnsupportedReason: string | null
   onSelectedChange: (skillId: string, selected: boolean) => void
   onSelectResults: (results: readonly DiscoveredSkill[]) => void
-  onShare: (skill: DiscoveredSkill) => void
   onDelete: (skill: DiscoveredSkill) => void
 }): React.JSX.Element {
   const t = useTranslate()
@@ -121,17 +119,10 @@ export function SkillsList({
         skill={detailSkill}
         agentByRootPath={agentByRootPath}
         ownerHostId={ownerHostId}
-        shareable={detailSkill ? isSkillShareEligible(detailSkill, local) : false}
         deletable={detailSkill ? deleteSupported && isSkillDeleteEligible(detailSkill) : false}
         deleteDisabledReason={detailSkill ? deleteReasonFor(detailSkill) : null}
         onOpenChange={(open) => {
           if (!open) {
-            setDetailSkill(null)
-          }
-        }}
-        onShare={() => {
-          if (detailSkill) {
-            onShare(detailSkill)
             setDetailSkill(null)
           }
         }}
@@ -168,7 +159,6 @@ export function SkillsList({
               selectionMode={selectionMode !== null}
               selected={selectedIds.has(skill.id)}
               selectable={deleting ? deleteEligible : shareEligible && !duplicateNameSelected}
-              shareable={shareEligible}
               deletable={deleteSupported && deleteEligible}
               deleteDisabledReason={deleteReasonFor(skill)}
               disabledLabel={
@@ -188,7 +178,6 @@ export function SkillsList({
               onFocus={() => setFocusedId(skill.id)}
               onOpenDetail={() => setDetailSkill(skill)}
               onSelectionChange={(selected, range) => handleSelection(index, selected, range)}
-              onShare={() => onShare(skill)}
               onDelete={() => onDelete(skill)}
               onReveal={() => void revealSkill(skill)}
               ownerHostId={ownerHostId}

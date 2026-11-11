@@ -12,18 +12,11 @@ import type { ClaudeRuntimeAuthService } from '../claude-accounts/runtime-auth-s
 import type { OrcaRuntimeService } from '../runtime/orca-runtime'
 import type { RateLimitService } from '../rate-limits/service/rate-limit-service'
 import type { OrcaRuntimeRpcServer } from '../runtime/rpc/server/runtime-rpc'
-import type { DesktopRelayService } from '../runtime/mobile-cloud-relay/desktop-relay-service'
-import type { DesktopRelayServiceInstaller } from '../runtime/mobile-cloud-relay/desktop-relay-service-installer'
-import type { DesktopPushService } from '../runtime/push/desktop-push-service'
 import type { StarNagService } from '../star-nag/service'
 import type { AgentAwakeService } from '../power/agent-awake-service'
 import type { CrashReportStore } from '../crash-reporting/crash-report-store'
 import type { AutomationService } from '../automations/service'
 import type { PluginService } from '../plugins/plugin-service'
-import type { PluginKillListService } from '../plugins/catalog/plugin-kill-list-service'
-import type { PluginInstallStatsService } from '../plugins/catalog/plugin-install-stats-service'
-import type { PluginAutoUpdater } from '../plugins/catalog/plugin-auto-updater'
-import type { PluginUpdateReviewNotices } from '../plugins/catalog/plugin-update-review-notices'
 import type { PluginMarketplaceService } from '../plugins/catalog/plugin-marketplace-service'
 import type { PluginMarketplaceInstaller } from '../plugins/catalog/plugin-marketplace-installer'
 import type { KeybindingService } from '../keybindings/keybinding-service'
@@ -39,7 +32,7 @@ import type { createWindowsShellPathHydration } from './windows-shell-path-hydra
 import type { ServeOptions } from './main-process-serve'
 import type { HangDetectionMarker } from '../hang-watchdog/hang-detection-marker'
 import { ServeReadinessPublisher } from '../server/serve-readiness'
-import { PluginInstallLinkState, SkillShareDeepLinkState } from './skill-share-deep-link-state'
+import { PluginInstallLinkState } from './skill-share-deep-link-state'
 import { OsOpenedDocumentState } from './os-opened-documents'
 import {
   DEFAULT_GPU_CRASH_FALLBACK_THRESHOLD,
@@ -93,10 +86,6 @@ export const mainProcessState = {
   rateLimits: null as RateLimitService | null,
   runtimeRpc: null as OrcaRuntimeRpcServer | null,
   serveReadinessPublisher: new ServeReadinessPublisher(),
-  desktopRelayService: null as DesktopRelayService | null,
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: widens the null slot to the installer assigned by main-process-relay-startup.
-  desktopRelayInstaller: null as DesktopRelayServiceInstaller | null,
-  desktopPushService: null as DesktopPushService | null,
   desktopRelayStatus,
   pendingUnpairedDeviceAuthFailure: false,
   // Advertise headless browser panes only when offscreen display initialization succeeds.
@@ -114,15 +103,8 @@ export const mainProcessState = {
   watcherShutdownDone: false,
   automations: null as AutomationService | null,
   pluginService: null as PluginService | null,
-  pluginKillListService: null as PluginKillListService | null,
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: widens the null initial value; assigned once plugins start.
-  pluginInstallStatsService: null as PluginInstallStatsService | null,
   pluginMarketplaceService: null as PluginMarketplaceService | null,
   pluginMarketplaceInstaller: null as PluginMarketplaceInstaller | null,
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: widens the null initial value; assigned once plugins start.
-  pluginAutoUpdater: null as PluginAutoUpdater | null,
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: widens the null initial value; assigned once plugins start.
-  pluginUpdateReviewNotices: null as PluginUpdateReviewNotices | null,
   keybindings: null as KeybindingService | null,
   // Timed reload flags cannot leak to later loads; recovery did-finish-load must preserve live PTYs (#5787).
   expectedRendererReload: createWebContentsTimedFlag(),
@@ -131,7 +113,6 @@ export const mainProcessState = {
   pendingOpenSettings: createWebContentsTimedFlag(),
   // Why: a confirmed Quit Completely can open the window; its renderer pulls this one-shot on mount.
   pendingQuitAndStopAllSessions: createWebContentsTimedFlag(),
-  skillShareDeepLinks: new SkillShareDeepLinkState(),
   pluginInstallLinks: new PluginInstallLinkState(),
   // Buffer OS Open With before any renderer listener exists.
   osOpenedDocuments: new OsOpenedDocumentState(),

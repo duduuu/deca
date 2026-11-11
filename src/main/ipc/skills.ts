@@ -17,8 +17,7 @@ import {
   resolveSkillDiscoveryTarget
 } from '../skills/discovery/skill-discovery-target'
 import { unavailableWhileWslDistroStopped } from '../skills/discovery/skill-discovery-stopped-wsl-roots'
-import { runAsWslUserAct, wslDistroForPath } from '../wsl/filesystem/wsl-unc-access-gate'
-import { registerSkillCloudIpcHandlers } from './skill-cloud-ipc-handlers'
+import { registerSkillInstallManagementIpcHandlers } from './skill-install-management-ipc-handlers'
 import { handleMainWindowSkillIpc } from './skill-ipc-main-window'
 
 export function registerSkillsHandlers(store: Store, runtime?: OrcaRuntimeService): void {
@@ -44,25 +43,6 @@ export function registerSkillsHandlers(store: Store, runtime?: OrcaRuntimeServic
       parsedTarget?.sourceKinds
     )
   }
-  // Share is a click on named skills: it may start their distro, as any user act may.
-  const discoverForUserAct = async (
-    target?: SkillDiscoveryTarget,
-    skillDirectories?: readonly string[]
-  ): Promise<SkillDiscoveryResult> => {
-    const parsedTarget = target ? SkillDiscoveryTargetSchema.parse(target) : undefined
-    const resolvedTarget = await resolveSkillDiscoveryTarget(parsedTarget)
-    const distro =
-      resolvedTarget.kind === 'wsl'
-        ? resolvedTarget.distro
-        : resolvedTarget.cwd
-          ? wslDistroForPath(resolvedTarget.cwd)
-          : null
-    return runAsWslUserAct(distro, () =>
-      // Only the chosen skills' roots may start a stopped distro; without folders, any may.
-      discoverResolved(resolvedTarget, parsedTarget?.refresh === true, skillDirectories ?? 'all')
-    )
-  }
-
   handleMainWindowSkillIpc(
     'skills:discover',
     async (_event, target?: SkillDiscoveryTarget): Promise<SkillDiscoveryResult> => discover(target)
@@ -71,7 +51,7 @@ export function registerSkillsHandlers(store: Store, runtime?: OrcaRuntimeServic
   if (!runtime) {
     return
   }
-  registerSkillCloudIpcHandlers(runtime, discoverForUserAct)
+  registerSkillInstallManagementIpcHandlers(runtime)
 
   // Local host only; paired hosts plan Orca's skills over RPC.
   handleMainWindowSkillIpc(

@@ -10,7 +10,7 @@ import {
 } from '../telemetry/client'
 import { getCohortAtEmit } from '../telemetry/cohort-classifier'
 import { getOnboardingCohortAtEmit } from '../telemetry/onboarding-cohort-classifier'
-import { resolveConsent, type ConsentState } from '../telemetry/consent'
+import type { ConsentState } from '../telemetry/consent'
 import type { Store } from '../persistence/loading-store/store'
 import { isCohortExtendedEvent, isOnboardingEvent } from '../../shared/telemetry-events'
 import type { EventName, OptInVia } from '../../shared/telemetry-events'
@@ -113,13 +113,11 @@ export function registerTelemetryHandlers(store: Store): void {
   })
 
   // Privacy UI cannot directly read main's environment-based telemetry blocks.
-  ipcMain.handle('telemetry:getConsentState', (): ConsentState => {
-    if (!storeRef) {
-      // Missing settings cannot establish enabled consent.
-      return { effective: 'pending_banner' }
-    }
-    return resolveConsent(storeRef.getSettings())
-  })
+  // Deca has no telemetry transport, so consent always reads as disabled.
+  ipcMain.handle('telemetry:getConsentState', (): ConsentState => ({
+    effective: 'disabled',
+    reason: 'user_opt_out'
+  }))
 
   ipcMain.handle('telemetry:acknowledgeBanner', (_event): Promise<void> | void => {
     // Silent banner acknowledgement must not emit telemetry_opted_in.

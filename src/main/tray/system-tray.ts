@@ -19,8 +19,6 @@ export type SystemTrayOptions = {
   onOpen: () => void
   /** Restore the main window and open its Settings surface. */
   onOpenSettings: () => void
-  /** Run the existing user-initiated update check. */
-  onCheckForUpdates: () => void
   /** Caller must mark quit intent; serve-mode user Quit may close only desktop windows. */
   onQuit: () => void
   /** Confirm, then quit with every terminal session stopped; omitted where the item must not show (serve mode). */
@@ -260,10 +258,6 @@ function buildTrayMenu(opts: SystemTrayOptions): Menu {
           {
             label: translateMain('menu.settings', 'Settings'),
             click: safeMenuAction(() => opts.onOpenSettings())
-          },
-          {
-            label: translateMain('menu.checkForUpdates', 'Check for Updates...'),
-            click: safeMenuAction(() => opts.onCheckForUpdates())
           },
           { type: 'separator' }
         ] satisfies Electron.MenuItemConstructorOptions[])

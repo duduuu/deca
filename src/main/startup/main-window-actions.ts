@@ -9,18 +9,16 @@ import {
   type WebContents
 } from 'electron'
 import { isNativeBrowserPopupWindow } from '../browser/guest-lifecycle/popups/presentation/native-browser-popup-windows'
-import type { UpdateCheckOptions } from '../../shared/update-status-types'
 import type { AppMenuQuitHandlers } from '../menu/app-menu-quit-item'
 import type { createWebContentsTimedFlag } from './web-contents-timed-flag'
 import { recordCrashBreadcrumb } from '../crash-reporting/crash-breadcrumb-store'
 import { recordDurableCrashBreadcrumb } from '../crash-reporting/durable-crash-breadcrumb'
-import { checkForUpdatesFromMenu, isQuittingForUpdate } from '../updater/updater-service'
+import { isQuittingForUpdate } from '../updater/updater-service'
 import {
   createSystemTray,
   setMacMenuBarIconVisible,
   type SystemTrayOptions
 } from '../tray/system-tray'
-import { ensureAutoUpdaterConfigured } from '../window/attach-main-window-services'
 import { focusExistingMainWindow, safelyRevealWindow } from '../window/focus-existing-window'
 import { mainProcessState as state } from './main-process-state'
 import { quitTeardownStartGate } from './quit/quit-teardown-start-gate'
@@ -204,11 +202,6 @@ export async function quitAfterRendererStoppedAllSessions(
   return true
 }
 
-export function runUserInitiatedUpdateCheck(options?: UpdateCheckOptions): void {
-  ensureAutoUpdaterConfigured()
-  checkForUpdatesFromMenu(options)
-}
-
 export function getSystemTrayOptions(): SystemTrayOptions | null {
   const store = state.store
   if (!store) {
@@ -220,10 +213,6 @@ export function getSystemTrayOptions(): SystemTrayOptions | null {
     devInstanceLabel: state.devInstanceIdentity?.devLabel ?? null,
     onOpen: showMainWindowFromTray,
     onOpenSettings: openSettingsFromSystemMenu,
-    onCheckForUpdates: () => {
-      showMainWindowFromTray()
-      runUserInitiatedUpdateCheck()
-    },
     onQuit: quitFromSystemTray,
     ...(state.isServeMode
       ? {}

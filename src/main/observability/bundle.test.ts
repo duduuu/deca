@@ -3,7 +3,6 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { _internalsForTests, collectBundle } from './bundle'
-import { validateUploadUrl } from './diagnostic-bundle-upload'
 
 let dir: string
 let traceFile: string
@@ -52,25 +51,5 @@ describe('bundle — collection', () => {
 
     expect(bundle.spanCount).toBe(1)
     expect(bundle.payload).toContain('"name":"valid"')
-  })
-})
-
-describe('validateUploadUrl', () => {
-  it('rejects http upload_url when tokenEndpoint is https (mixed scheme)', () => {
-    expect(() =>
-      validateUploadUrl('http://api.example.com/upload', 'https://api.example.com/token')
-    ).toThrow(/must use https/)
-  })
-
-  it('rejects an unparseable upload_url', () => {
-    expect(() => validateUploadUrl('not a url', 'https://api.example.com/token')).toThrow(
-      /invalid upload_url/
-    )
-  })
-
-  it('rejects a mismatched host even when both are https (same-origin pin)', () => {
-    expect(() =>
-      validateUploadUrl('https://attacker.example.com/upload', 'https://api.example.com/token')
-    ).toThrow(/must match tokenEndpoint host/)
   })
 })

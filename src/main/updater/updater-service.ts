@@ -1,3 +1,6 @@
+// Deca is distributed through the internal package channel, so the in-app updater is inert:
+// no feed, release, changelog or nudge requests are ever made.
+import { app } from 'electron'
 import type { BrowserWindow } from 'electron'
 import type {
   LinuxPackageInstallInstructions,
@@ -11,88 +14,81 @@ import type {
 } from '../../shared/remote-server-update'
 import type { ReleaseBuild, ReleaseChannel } from '../../shared/release-channel'
 import type { ReleaseBuildListOptions } from './releases/updater-release-build-cache'
-import { UpdaterSetup, type UpdaterSetupOptions } from './lifecycle/updater-setup'
+import type { UpdaterSetupOptions } from './lifecycle/updater-setup'
 import type { UpdateInstallMode } from './lifecycle/updater-state'
 
-const updater = new UpdaterSetup()
+const IDLE_STATUS: UpdateStatus = { state: 'idle' }
 
 export function resolveUpdateInstallMode(isServeMode: boolean): UpdateInstallMode {
-  return updater.resolveUpdateInstallMode(isServeMode)
+  return isServeMode ? 'unsupported-headless-serve' : 'interactive'
 }
 
 export function getUpdateStatus(): UpdateStatus {
-  return updater.getUpdateStatus()
+  return IDLE_STATUS
 }
 
 export function getRemoteServerUpdateSupport(): RemoteServerUpdateSupport {
-  return updater.getRemoteServerUpdateSupport()
+  return {
+    installMode: 'unsupported-headless-serve',
+    automatic: false,
+    reason: 'updater-unavailable'
+  }
 }
 
 export function getRemoteServerUpdaterSnapshot(runtimeId: string): RemoteServerUpdaterSnapshot {
-  return updater.getRemoteServerUpdaterSnapshot(runtimeId)
+  return {
+    appVersion: app.getVersion(),
+    runtimeId,
+    support: getRemoteServerUpdateSupport(),
+    status: IDLE_STATUS
+  }
 }
 
 export function checkForRemoteServerUpdate(
-  runtimeId: string,
-  options?: UpdateCheckOptions
+  _runtimeId: string,
+  _options?: UpdateCheckOptions
 ): RemoteServerUpdaterSnapshot {
-  return updater.checkForRemoteServerUpdate(runtimeId, options)
+  throw new Error('remote_update_manual_required')
 }
 
-export function downloadRemoteServerUpdate(runtimeId: string): RemoteServerUpdaterSnapshot {
-  return updater.downloadRemoteServerUpdate(runtimeId)
+export function downloadRemoteServerUpdate(_runtimeId: string): RemoteServerUpdaterSnapshot {
+  throw new Error('remote_update_manual_required')
 }
 
-export function installRemoteServerUpdate(runtimeId: string): RemoteServerUpdateInstallResult {
-  return updater.installRemoteServerUpdate(runtimeId)
+export function installRemoteServerUpdate(_runtimeId: string): RemoteServerUpdateInstallResult {
+  throw new Error('remote_update_manual_required')
 }
 
-export function checkForUpdates(): void {
-  updater.checkForUpdates()
-}
+export function checkForUpdates(): void {}
 
-export function checkForUpdatesFromMenu(options?: UpdateCheckOptions): void {
-  updater.checkForUpdatesFromMenu(options)
-}
+export function checkForUpdatesFromMenu(_options?: UpdateCheckOptions): void {}
 
-export function downloadUpdate(): void {
-  updater.downloadUpdate()
-}
+export function downloadUpdate(): void {}
 
-export function quitAndInstall(): void {
-  updater.quitAndInstall()
-}
+export function quitAndInstall(): void {}
 
 export function isQuittingForUpdate(): boolean {
-  return updater.isQuittingForUpdate()
+  return false
 }
 
 export async function getLinuxPackageInstallInstructions(): Promise<LinuxPackageInstallInstructions> {
-  return updater.getLinuxPackageInstallInstructions()
+  throw new Error('updater_disabled')
 }
 
-export async function showLinuxPackage(): Promise<void> {
-  return updater.showLinuxPackage()
-}
+export async function showLinuxPackage(): Promise<void> {}
 
 export async function listAvailableReleaseBuilds(
-  channel: ReleaseChannel,
-  options?: ReleaseBuildListOptions
+  _channel: ReleaseChannel,
+  _options?: ReleaseBuildListOptions
 ): Promise<ReleaseBuild[]> {
-  return updater.listAvailableReleaseBuilds(channel, options)
+  return []
 }
 
-export function dismissNudge(): void {
-  updater.dismissNudge()
-}
+export function dismissNudge(): void {}
 
-export function dismissAvailableUpdate(): void {
-  updater.dismissAvailableUpdate()
-}
+export function dismissAvailableUpdate(): void {}
 
 export function setupAutoUpdater(
-  mainWindow: BrowserWindow | null,
-  opts?: UpdaterSetupOptions
-): void {
-  updater.setupAutoUpdater(mainWindow, opts)
-}
+  _mainWindow: BrowserWindow | null,
+  _opts?: UpdaterSetupOptions
+): void {}

@@ -12,12 +12,10 @@ import { mainProcessState as state } from './main-process-state'
 import {
   getAppMenuQuitHandlers,
   openSettingsFromSystemMenu,
-  runUserInitiatedUpdateCheck,
   sendOpenCrashReport,
   sendOpenFeatureTour,
   sendOpenSetupGuide
 } from './main-window-actions'
-import { ensureAutoUpdaterConfigured } from '../window/attach-main-window-services'
 import { logStartupMilestone } from './startup-diagnostics'
 import { browserManager } from '../browser/guest-lifecycle/manager/browser-manager'
 
@@ -31,10 +29,6 @@ export async function initializeMainProcessI18nAndMenu(): Promise<void> {
   registerAppMenu({
     appMenuLabel: state.devInstanceIdentity?.name ?? app.name,
     ...getAppMenuQuitHandlers(),
-    onCheckForUpdates: (options) => {
-      ensureAutoUpdaterConfigured()
-      runUserInitiatedUpdateCheck(options)
-    },
     onBeforeReload: ({ ignoreCache, webContentsId }) => {
       if (state.mainWindow?.webContents.id === webContentsId) {
         state.expectedRendererReload.mark(webContentsId)

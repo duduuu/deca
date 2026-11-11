@@ -43,7 +43,6 @@ import type { RecentlyClosedTerminalTabsSlice } from './terminals/recently-close
 import type { RecentlyClosedTabsSlice } from './slices/tabs/recently-closed-tabs'
 import type { OrcaProfilesSlice } from './slices/orca-profiles/create-orca-profiles-slice'
 import type { NewIssueDraftSlice } from './slices/task-creation/new-issue-draft'
-import type { FeedbackDraftSlice } from './slices/feedback/feedback-draft'
 import type { TaskCreationDraftsSlice } from './slices/task-creation/task-creation-drafts'
 import type { RemoteServerUpdatesSlice } from './slices/runtime-host-updates/remote-server-updates'
 import type { TerminalQuickCommandHostsSlice } from './terminals/terminal-quick-command-hosts'
@@ -96,7 +95,6 @@ export type AppState = RepoSlice &
   RecentlyClosedTabsSlice &
   OrcaProfilesSlice &
   NewIssueDraftSlice &
-  FeedbackDraftSlice &
   TaskCreationDraftsSlice &
   RemoteServerUpdatesSlice &
   TerminalQuickCommandHostsSlice &

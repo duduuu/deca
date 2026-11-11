@@ -133,7 +133,6 @@ function createOptions(
     devInstanceLabel: overrides.devInstanceLabel ?? null,
     onOpen: vi.fn(),
     onOpenSettings: vi.fn(),
-    onCheckForUpdates: vi.fn(),
     onQuit: vi.fn()
   }
 }
@@ -230,7 +229,6 @@ describe('createSystemTray', () => {
       'Open Orca',
       undefined,
       'Settings',
-      'Check for Updates...',
       undefined,
       'Quit'
     ])
@@ -240,7 +238,6 @@ describe('createSystemTray', () => {
     for (const [label, callback] of [
       ['Open Orca', options.onOpen],
       ['Settings', options.onOpenSettings],
-      ['Check for Updates...', options.onCheckForUpdates],
       ['Quit', options.onQuit]
     ] as const) {
       builtMenuItems()
@@ -261,15 +258,7 @@ describe('createSystemTray', () => {
 
       expect(builtMenuItems().map((item) => item.label)).toEqual(
         platform === 'darwin'
-          ? [
-              'Open Orca',
-              undefined,
-              'Settings',
-              'Check for Updates...',
-              undefined,
-              'Quit Completely...',
-              'Quit'
-            ]
+          ? ['Open Orca', undefined, 'Settings', undefined, 'Quit Completely...', 'Quit']
           : ['Open Orca', undefined, 'Quit Completely...', 'Quit']
       )
       builtMenuItems().at(-2)?.click?.()
@@ -598,11 +587,8 @@ describe('language changes', () => {
       expect(options.onQuit).toHaveBeenCalledOnce()
       if (platform === 'darwin') {
         expect(builtMenuItems()[2].label).toBe('設定')
-        expect(builtMenuItems()[3].label).toBe('アップデートを確認…')
         builtMenuItems()[2].click?.()
-        builtMenuItems()[3].click?.()
         expect(options.onOpenSettings).toHaveBeenCalledOnce()
-        expect(options.onCheckForUpdates).toHaveBeenCalledOnce()
         expect(nativeThemeMock.on).toHaveBeenCalledTimes(1)
       } else {
         expect(trayInstances[0].on).toHaveBeenCalledTimes(1)

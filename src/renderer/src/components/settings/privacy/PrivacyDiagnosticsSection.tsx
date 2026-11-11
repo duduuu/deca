@@ -19,14 +19,9 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
   const t = useTranslate()
   const [status, setStatus] = useState<DiagnosticsStatusPayload | null>(null)
   const [bundle, setBundle] = useState<DiagnosticsBundlePayload | null>(null)
-  const [previewOpened, setPreviewOpened] = useState(false)
-  const [ticketId, setTicketId] = useState<string | null>(null)
   const [collecting, setCollecting] = useState(false)
   const [openingPreview, setOpeningPreview] = useState(false)
-  const [uploading, setUploading] = useState(false)
   const [discarding, setDiscarding] = useState(false)
-  const [copyingTicket, setCopyingTicket] = useState(false)
-  const [deletingTicket, setDeletingTicket] = useState(false)
   const mountedRef = useRef(true)
   const activeBundleSubmissionIdRef = useRef<string | null>(null)
 
@@ -66,8 +61,6 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       // Update retained preview IDs at mutation sites; unmount cleanup can precede passive ref mirrors.
       activeBundleSubmissionIdRef.current = nextBundle.bundleSubmissionId
       setBundle(nextBundle)
-      setPreviewOpened(false)
-      setTicketId(null)
       toast.success(
         translate(
           'auto.components.settings.PrivacyDiagnosticsSection.a2b3505c77',
@@ -100,7 +93,6 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       if (!mountedRef.current) {
         return
       }
-      setPreviewOpened(true)
       toast.success(
         translate(
           'auto.components.settings.PrivacyDiagnosticsSection.db3228e01a',
@@ -123,45 +115,6 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     }
   }, [bundle])
 
-  const handleUploadBundle = useCallback(async (): Promise<void> => {
-    if (!bundle) {
-      return
-    }
-    setUploading(true)
-    try {
-      const upload = await window.api.diagnostics.uploadBundle(bundle.bundleSubmissionId)
-      if (!mountedRef.current) {
-        return
-      }
-      if ('canceled' in upload) {
-        return
-      }
-      activeBundleSubmissionIdRef.current = null
-      setBundle(null)
-      setPreviewOpened(false)
-      setTicketId(upload.ticketId)
-      toast.success(
-        translate(
-          'auto.components.settings.PrivacyDiagnosticsSection.49fc6c80e8',
-          'Diagnostics sent'
-        )
-      )
-    } catch (error) {
-      if (mountedRef.current) {
-        toast.error(
-          diagnosticsErrorText(
-            error,
-            translate('settings.diagnostics.errors.sendFailed', 'Could not send diagnostics')
-          )
-        )
-      }
-    } finally {
-      if (mountedRef.current) {
-        setUploading(false)
-      }
-    }
-  }, [bundle])
-
   const handleDiscardBundle = useCallback(async (): Promise<void> => {
     if (!bundle) {
       return
@@ -174,7 +127,6 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       }
       activeBundleSubmissionIdRef.current = null
       setBundle(null)
-      setPreviewOpened(false)
       toast.success(
         translate(
           'auto.components.settings.PrivacyDiagnosticsSection.860bca9ec9',
@@ -197,74 +149,6 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
     }
   }, [bundle])
 
-  const handleCopyTicket = useCallback(async (): Promise<void> => {
-    if (!ticketId) {
-      return
-    }
-    setCopyingTicket(true)
-    try {
-      await window.api.ui.writeClipboardText(ticketId)
-      if (!mountedRef.current) {
-        return
-      }
-      toast.success(
-        translate(
-          'auto.components.settings.PrivacyDiagnosticsSection.13eb2c65a1',
-          'Reference ID copied'
-        )
-      )
-    } catch {
-      if (mountedRef.current) {
-        toast.error(
-          translate(
-            'auto.components.settings.PrivacyDiagnosticsSection.7a4944595b',
-            'Could not copy reference ID'
-          )
-        )
-      }
-    } finally {
-      if (mountedRef.current) {
-        setCopyingTicket(false)
-      }
-    }
-  }, [ticketId])
-
-  const handleDeleteUploadedBundle = useCallback(async (): Promise<void> => {
-    if (!ticketId) {
-      return
-    }
-    setDeletingTicket(true)
-    try {
-      await window.api.diagnostics.deleteBundle(ticketId)
-      if (!mountedRef.current) {
-        return
-      }
-      setTicketId(null)
-      toast.success(
-        translate(
-          'auto.components.settings.PrivacyDiagnosticsSection.c18cbe45df',
-          'Sent diagnostics deleted'
-        )
-      )
-    } catch (error) {
-      if (mountedRef.current) {
-        toast.error(
-          diagnosticsErrorText(
-            error,
-            translate(
-              'settings.diagnostics.errors.deleteFailed',
-              'Could not delete sent diagnostics'
-            )
-          )
-        )
-      }
-    } finally {
-      if (mountedRef.current) {
-        setDeletingTicket(false)
-      }
-    }
-  }, [ticketId])
-
   return (
     <>
       {status?.disabledReason ? (
@@ -273,30 +157,18 @@ export function PrivacyDiagnosticsSection(): React.JSX.Element {
       <Separator />
       <PrivacyDiagnosticsRow
         icon={<FileText className="size-4" />}
-        title={t(
-          'auto.components.settings.PrivacyDiagnosticsSection.af2fc82cde',
-          'Send app diagnostics to support'
-        )}
-        description={getDiagnosticBundleDescription({ bundle, previewOpened, ticketId }, t)}
+        title={t('settings.diagnostics.localBundleTitle', 'Create local diagnostic file')}
+        description={getDiagnosticBundleDescription({ bundle }, t)}
       >
         <PrivacyDiagnosticBundleControls
           status={status}
           bundle={bundle}
-          previewOpened={previewOpened}
-          ticketId={ticketId}
           collecting={collecting}
           openingPreview={openingPreview}
-          uploading={uploading}
           discarding={discarding}
-          copyingTicket={copyingTicket}
-          deletingTicket={deletingTicket}
           onCollect={handleCollectBundle}
           onOpenPreview={handleOpenPreview}
-          onUpload={handleUploadBundle}
           onDiscard={handleDiscardBundle}
-          onCopyTicket={handleCopyTicket}
-          onDeleteUploadedBundle={handleDeleteUploadedBundle}
-          onDismissTicket={() => setTicketId(null)}
         />
       </PrivacyDiagnosticsRow>
     </>

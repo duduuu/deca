@@ -1,8 +1,6 @@
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
-import { AlertTriangle, Clipboard, Send } from 'lucide-react'
-import { toast } from 'sonner'
+import { useDeferredValue, useMemo, useState } from 'react'
+import { AlertTriangle, Clipboard } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
   DialogContent,
@@ -11,24 +9,15 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import {
   formatCrashReportText,
   isReactErrorBoundaryReport,
   MAX_USER_NOTES_LENGTH,
-  type CrashReportDiagnosticBundle,
   type CrashReportRecord
 } from '../../../../shared/crash-reporting'
-import type { GitHubViewer } from '../../../../shared/github/pull-request-types'
 import { translate } from '@/i18n/i18n'
 import { useIntlLocale, useTranslate, type Translate } from '@/i18n/use-translate'
-import {
-  CRASH_REPORT_SUBMIT_FAILURE_TOAST_ID,
-  getCrashReportCopySubmissionFailure,
-  getCrashReportSubmitFailureNotice,
-  getCrashReportSubmitWarningNotice
-} from './crash-report-submit-notice'
 import { useCrashReportCopy } from './use-crash-report-copy'
 
 function formatSummary(report: CrashReportRecord, t: Translate = translate): string {
@@ -65,18 +54,18 @@ function getDialogTitle(report: CrashReportRecord | null, t: Translate = transla
 function getDialogDescription(report: CrashReportRecord | null, t: Translate = translate): string {
   if (!report) {
     return t(
-      'auto.components.crash.report.CrashReportDialogSurface.reportDescription',
-      'Send a privacy-safe crash report. Recent redacted diagnostic logs are included when available.'
+      'auto.components.crash.report.CrashReportDialogSurface.localReportDescription',
+      'Copy a privacy-safe crash report to share with your support team. Recent redacted diagnostic logs are included when available.'
     )
   }
   return report && isReactErrorBoundaryReport(report)
     ? t(
-        'auto.components.crash.report.CrashReportDialogSurface.uiErrorDescription',
-        'Send a privacy-safe diagnostic report to help us understand the failed UI surface.'
+        'auto.components.crash.report.CrashReportDialogSurface.localUiErrorDescription',
+        'Copy a privacy-safe diagnostic report describing the failed UI surface.'
       )
     : t(
-        'auto.components.crash.report.CrashReportDialogSurface.closedDescription',
-        'Send a privacy-safe diagnostic report to help us understand what happened.'
+        'auto.components.crash.report.CrashReportDialogSurface.localClosedDescription',
+        'Copy a privacy-safe diagnostic report describing what happened.'
       )
 }
 
@@ -117,11 +106,6 @@ export function CrashReportDialogSurface({
   const intlLocale = useIntlLocale()
   const mountedRef = useMountedRef()
   const [notes, setNotes] = useState('')
-  const [includeDiagnosticLogs, setIncludeDiagnosticLogs] = useState(true)
-  const [submitting, setSubmitting] = useState(false)
-  const [viewer, setViewer] = useState<GitHubViewer | null>(null)
-  // Sequence viewer lookups so late close/reopen results cannot supply a stale submission identity.
-  const viewerRequestIdRef = useRef(0)
   const deferredNotes = useDeferredValue(notes)
   const diagnosticText = useMemo(
     // Defer full-payload redaction/truncation so notes typing stays responsive.
@@ -129,59 +113,6 @@ export function CrashReportDialogSurface({
     [deferredNotes, report]
   )
   const copyCrashReportDetails = useCrashReportCopy(report, notes)
-
-  const clearViewer = useCallback((): void => {
-    viewerRequestIdRef.current += 1
-    setViewer(null)
-  }, [])
-
-  const loadViewerForOpenDialog = useCallback((): void => {
-    const requestId = ++viewerRequestIdRef.current
-    setViewer(null)
-    void window.api.gh
-      .viewer()
-      .then((nextViewer) => {
-        if (mountedRef.current && requestId === viewerRequestIdRef.current) {
-          setViewer(nextViewer)
-        }
-      })
-      .catch((error) => {
-        if (mountedRef.current && requestId === viewerRequestIdRef.current) {
-          setViewer(null)
-          console.error('Failed to load GitHub viewer for crash report:', error)
-        }
-      })
-  }, [mountedRef])
-
-  useEffect(() => {
-    if (!open) {
-      clearViewer()
-      return
-    }
-    setIncludeDiagnosticLogs(true)
-    loadViewerForOpenDialog()
-  }, [clearViewer, loadViewerForOpenDialog, open])
-
-  const showSubmitFailure = (
-    error: unknown,
-    diagnosticBundle?: CrashReportDiagnosticBundle
-  ): void => {
-    const failure = { error, ...(diagnosticBundle ? { diagnosticBundle } : {}) }
-    const notice = getCrashReportSubmitFailureNotice(failure, includeDiagnosticLogs)
-    const copyFailure = getCrashReportCopySubmissionFailure(failure)
-    toast.error(notice.title, {
-      id: CRASH_REPORT_SUBMIT_FAILURE_TOAST_ID,
-      description: notice.description,
-      duration: Infinity,
-      dismissible: true,
-      action: {
-        label: notice.actionLabel,
-        onClick: () => {
-          void copyCrashReportDetails(copyFailure)
-        }
-      }
-    })
-  }
 
   const dismissReportIfNeeded = async (): Promise<void> => {
     if (report?.status === 'pending') {
@@ -199,57 +130,11 @@ export function CrashReportDialogSurface({
     }
   }
 
-  const handleSubmit = async (): Promise<void> => {
-    setSubmitting(true)
-    try {
-      const result = await window.api.crashReports.submit({
-        ...(report ? { reportId: report.id } : {}),
-        notes,
-        includeDiagnosticLogs,
-        // Identity lookup is best-effort; allow anonymous reports when gh is unavailable.
-        submitAnonymously: !viewer,
-        githubLogin: viewer?.login ?? null,
-        githubEmail: null
-      })
-      if (!result.ok) {
-        showSubmitFailure(result.error, result.diagnosticBundle)
-        console.error('Failed to submit crash report:', result.error)
-        return
-      }
-      if (!mountedRef.current) {
-        return
-      }
-      onReportChange(result.report)
-      setNotes('')
-      toast.dismiss(CRASH_REPORT_SUBMIT_FAILURE_TOAST_ID)
-      const warningNotice = getCrashReportSubmitWarningNotice(result, includeDiagnosticLogs)
-      if (warningNotice) {
-        toast.warning(warningNotice.title, { description: warningNotice.description })
-      } else {
-        toast.success(
-          t('auto.components.crash.report.CrashReportDialog.8e24fe4f75', 'Crash report sent.')
-        )
-      }
-      onOpenChange(false)
-    } catch (error) {
-      showSubmitFailure(error)
-      console.error('Failed to submit crash report:', error)
-    } finally {
-      if (mountedRef.current) {
-        setSubmitting(false)
-      }
-    }
-  }
-
   return (
     <Dialog
       open={open}
       onOpenChange={(nextOpen) => {
-        if (submitting && !nextOpen) {
-          return
-        }
         if (!nextOpen) {
-          clearViewer()
           void dismissReportIfNeeded().finally(() => {
             if (mountedRef.current) {
               onOpenChange(false)
@@ -303,8 +188,8 @@ export function CrashReportDialogSurface({
                     'Checking for crash reports...'
                   )
                 : t(
-                    'auto.components.crash.report.CrashReportDialog.ead6fc0510',
-                    'No automatic crash report was captured. You can still send details and include recent diagnostic logs when available.'
+                    'auto.components.crash.report.CrashReportDialog.localNoReport',
+                    'No automatic crash report was captured. You can still copy details, including recent diagnostic logs when available.'
                   )}
             </div>
           )}
@@ -326,54 +211,20 @@ export function CrashReportDialogSurface({
               {MAX_USER_NOTES_LENGTH.toLocaleString(intlLocale)}
             </div>
           </div>
-          <div className="flex items-start gap-2 rounded-md border border-border/70 bg-muted/20 p-3">
-            <Checkbox
-              id="crash-report-attach-diagnostics"
-              checked={includeDiagnosticLogs}
-              onCheckedChange={(checked) => setIncludeDiagnosticLogs(checked === true)}
-              disabled={submitting}
-              className="mt-0.5"
-            />
-            <div className="space-y-1">
-              <Label htmlFor="crash-report-attach-diagnostics" className="text-xs">
-                {t(
-                  'auto.components.crash.report.CrashReportDialog.b082f27490',
-                  'Attach recent diagnostic logs'
-                )}
-              </Label>
-              <div className="text-xs leading-5 text-muted-foreground">
-                {t(
-                  'auto.components.crash.report.CrashReportDialog.e59f0b9427',
-                  'Sends a capped redacted log bundle with the report.'
-                )}
-              </div>
-            </div>
-          </div>
         </div>
 
         <DialogFooter className="gap-2">
+          <Button type="button" variant="ghost" size="sm" onClick={handleDismiss}>
+            {t('auto.components.crash.report.CrashReportDialog.localClose', 'Close')}
+          </Button>
           <Button
             type="button"
-            variant="outline"
             size="sm"
             onClick={() => void copyCrashReportDetails()}
             disabled={loading}
           >
             <Clipboard className="size-3.5" />
             {t('auto.components.crash.report.CrashReportDialog.50b00dc327', 'Copy Details')}
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={handleDismiss}
-            disabled={submitting}
-          >
-            {t('auto.components.crash.report.CrashReportDialog.88fea8e84e', "Don't Send")}
-          </Button>
-          <Button type="button" size="sm" onClick={handleSubmit} disabled={loading || submitting}>
-            <Send className="size-3.5" />
-            {t('auto.components.crash.report.CrashReportDialog.b4951cd27c', 'Send Report')}
           </Button>
         </DialogFooter>
       </DialogContent>

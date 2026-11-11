@@ -46,7 +46,6 @@ import { createRecentlyClosedTerminalTabsSlice } from '../terminals/recently-clo
 import { createRecentlyClosedTabsSlice } from '../slices/tabs/recently-closed-tabs'
 import { createOrcaProfilesSlice } from '../slices/orca-profiles/create-orca-profiles-slice'
 import { createNewIssueDraftSlice } from '../slices/task-creation/new-issue-draft'
-import { createFeedbackDraftSlice } from '../slices/feedback/feedback-draft'
 import { createTaskCreationDraftsSlice } from '../slices/task-creation/task-creation-drafts'
 import { createRemoteServerUpdatesSlice } from '../slices/runtime-host-updates/remote-server-updates'
 import { createTerminalQuickCommandHostsSlice } from '../terminals/terminal-quick-command-hosts'
@@ -116,7 +115,6 @@ export function createTestStore(
         ...createRecentlyClosedTabsSlice(...a),
         ...createOrcaProfilesSlice(...a),
         ...createNewIssueDraftSlice(...a),
-        ...createFeedbackDraftSlice(...a),
         ...createTaskCreationDraftsSlice(...a),
         ...createRemoteServerUpdatesSlice(...a),
         ...createTerminalQuickCommandHostsSlice(...a),

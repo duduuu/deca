@@ -15,13 +15,6 @@ import {
   type CollectBundleOptions,
   type CollectedBundle
 } from './bundle'
-import {
-  deleteBundle as _deleteBundle,
-  uploadBundle as _uploadBundle,
-  type DeleteBundleOptions,
-  type UploadBundleOptions,
-  type UploadBundleResult
-} from './diagnostic-bundle-upload'
 import { setActiveSink, startSpan } from './tracer'
 import { setSecurePathHardeningReporter } from '../../shared/secure-storage/secure-path-hardening-report'
 import { withTimeout } from '../../shared/promise-timeout-fallback'
@@ -198,14 +191,4 @@ export async function collectDiagnosticBundle(
     daemonLogMaxFiles: DAEMON_LOG_MAX_FILES,
     ...meta
   })
-}
-
-export async function uploadDiagnosticBundle(
-  opts: UploadBundleOptions
-): Promise<UploadBundleResult> {
-  return _uploadBundle(opts)
-}
-
-export async function deleteDiagnosticBundle(opts: DeleteBundleOptions): Promise<void> {
-  return _deleteBundle(opts)
 }

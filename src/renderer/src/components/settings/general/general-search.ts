@@ -8,7 +8,6 @@ import { searchKeywords, translateSearchKeyword } from '../search/settings-searc
 import { createLocalizedCatalog } from '@/i18n/localized-catalog'
 import { getGeneralProjectRuntimeSearchEntries } from './project-runtime/general-project-runtime-search'
 import { getGeneralSupportSearchEntries } from './general-support-search'
-import { getUpdateDelayDescription, getUpdateDelayTitle } from '../updates/update-delay-copy'
 
 export const getGeneralWorkspaceSearchDescriptors = createLocalizedCatalog(() => [
   generalSetting(GENERAL_SETTING_ANCHORS.folder, {
@@ -182,29 +181,14 @@ export const getGeneralCliSearchEntries = createLocalizedCatalog(() => [
 
 export const getGeneralUpdateSearchEntries = createLocalizedCatalog(() => [
   {
-    title: translate('auto.components.settings.general.search.0504f69ba0', 'Check for updates'),
+    title: translate('settings.general.about.versionTitle', 'Version'),
     description: translate(
-      'auto.components.settings.general.search.79ff46776e',
-      'Check for app updates and install a newer Orca version.'
+      'settings.general.about.internalUpdates',
+      'Updates are installed through your internal software distribution.'
     ),
     keywords: [
       ...translateSearchKeyword('settings.general.search.keywords.about', 'about'),
-      ...translateSearchKeyword('auto.components.settings.general.search.f89a94773c', 'update'),
-      ...translateSearchKeyword('auto.components.settings.general.search.9e86ccd05c', 'version'),
-      ...translateSearchKeyword(
-        'auto.components.settings.general.search.c9d8c1ce66',
-        'release notes'
-      ),
-      ...translateSearchKeyword('auto.components.settings.general.search.e49e739a59', 'download')
-    ]
-  },
-  {
-    title: getUpdateDelayTitle(),
-    description: getUpdateDelayDescription(),
-    keywords: [
-      ...translateSearchKeyword('settings.updateDelay.keywordDelay', 'delay'),
-      ...translateSearchKeyword('settings.updateDelay.keywordCooldown', 'cooldown'),
-      ...translateSearchKeyword('settings.updateDelay.keywordSecurity', 'security')
+      ...translateSearchKeyword('auto.components.settings.general.search.9e86ccd05c', 'version')
     ]
   }
 ])

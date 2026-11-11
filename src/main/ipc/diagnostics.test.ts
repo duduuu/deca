@@ -9,23 +9,17 @@ const {
   mkdirSyncMock,
   readFileSyncMock,
   writeFileSyncMock,
-  showMessageBoxMock,
   openPathMock,
   collectDiagnosticBundleMock,
-  deleteDiagnosticBundleMock,
-  getDiagnosticsStatusMock,
-  uploadDiagnosticBundleMock
+  getDiagnosticsStatusMock
 } = vi.hoisted(() => ({
   handleMock: vi.fn(),
   mkdirSyncMock: vi.fn(),
   readFileSyncMock: vi.fn(),
   writeFileSyncMock: vi.fn(),
-  showMessageBoxMock: vi.fn(),
   openPathMock: vi.fn(),
   collectDiagnosticBundleMock: vi.fn(),
-  deleteDiagnosticBundleMock: vi.fn(),
-  getDiagnosticsStatusMock: vi.fn(),
-  uploadDiagnosticBundleMock: vi.fn()
+  getDiagnosticsStatusMock: vi.fn()
 }))
 
 vi.mock('node:fs', async () => {
@@ -40,16 +34,13 @@ vi.mock('node:fs', async () => {
 
 vi.mock('electron', () => ({
   app: { getPath: () => '/tmp', getVersion: () => '1.2.3-test' },
-  dialog: { showMessageBox: showMessageBoxMock },
   ipcMain: { handle: handleMock },
   shell: { openPath: openPathMock }
 }))
 
 vi.mock('../observability', () => ({
   collectDiagnosticBundle: collectDiagnosticBundleMock,
-  deleteDiagnosticBundle: deleteDiagnosticBundleMock,
-  getDiagnosticsStatus: getDiagnosticsStatusMock,
-  uploadDiagnosticBundle: uploadDiagnosticBundleMock
+  getDiagnosticsStatus: getDiagnosticsStatusMock
 }))
 
 import { registerDiagnosticsHandlers } from './diagnostics'
@@ -81,17 +72,10 @@ describe('diagnostics IPC handlers', () => {
     mkdirSyncMock.mockReset()
     readFileSyncMock.mockReset()
     writeFileSyncMock.mockReset()
-    showMessageBoxMock.mockReset()
-    showMessageBoxMock.mockResolvedValue({ response: 0 })
     openPathMock.mockReset()
     openPathMock.mockResolvedValue('')
     collectDiagnosticBundleMock.mockReset()
-    deleteDiagnosticBundleMock.mockReset()
     getDiagnosticsStatusMock.mockReset()
-    uploadDiagnosticBundleMock.mockReset()
-    delete (globalThis as { ORCA_BUILD_IDENTITY?: unknown }).ORCA_BUILD_IDENTITY
-    delete (globalThis as { ORCA_DIAGNOSTICS_TOKEN_URL?: unknown }).ORCA_DIAGNOSTICS_TOKEN_URL
-    process.env.ORCA_DIAGNOSTICS_TOKEN_URL = 'https://diagnostics.example.com/diagnostics/token'
     getDiagnosticsStatusMock.mockReturnValue({
       localFileEnabled: true,
       bundleEnabled: true,
@@ -100,46 +84,8 @@ describe('diagnostics IPC handlers', () => {
     })
     collectDiagnosticBundleMock.mockReturnValue(makeBundle())
     readFileSyncMock.mockReturnValue(makeBundle().payload)
-    uploadDiagnosticBundleMock.mockResolvedValue({ ticketId: 'ticketabcdefghijklmnop' })
-    deleteDiagnosticBundleMock.mockResolvedValue(undefined)
     registerDiagnosticsHandlers()
     captureHandlers()
-  })
-
-  it('rejects upload without a main-collected bundle preview', async () => {
-    const upload = handlers.get('diagnostics:uploadBundle')!
-    await expect(upload({}, 'rendererMintedBundleId')).rejects.toThrow(/expired/)
-    expect(uploadDiagnosticBundleMock).not.toHaveBeenCalled()
-  })
-
-  it('rechecks the retained preview after upload confirmation', async () => {
-    const bundle = makeBundle({ bundleSubmissionId: 'bundleabcdefghijklmnop' })
-    collectDiagnosticBundleMock.mockReturnValue(bundle)
-    const collect = handlers.get('diagnostics:collectBundle')!
-    const openPreview = handlers.get('diagnostics:openBundlePreview')!
-    const discard = handlers.get('diagnostics:discardBundlePreview')!
-    const upload = handlers.get('diagnostics:uploadBundle')!
-    showMessageBoxMock.mockImplementation(async () => {
-      await discard({}, bundle.bundleSubmissionId)
-      return { response: 0 }
-    })
-
-    await collect({}, 30)
-    await openPreview({}, bundle.bundleSubmissionId)
-    await expect(upload({}, bundle.bundleSubmissionId)).rejects.toThrow(/expired/)
-
-    expect(uploadDiagnosticBundleMock).not.toHaveBeenCalled()
-  })
-
-  it('requires opening the retained review file before sending', async () => {
-    const bundle = makeBundle({ bundleSubmissionId: 'bundleabcdefghijklmnop' })
-    collectDiagnosticBundleMock.mockReturnValue(bundle)
-    const collect = handlers.get('diagnostics:collectBundle')!
-    const upload = handlers.get('diagnostics:uploadBundle')!
-
-    await collect({}, 30)
-    await expect(upload({}, bundle.bundleSubmissionId)).rejects.toThrow(/open.*review file/)
-    expect(uploadDiagnosticBundleMock).not.toHaveBeenCalled()
   })
 
   it('expires retained bundle previews without another diagnostics call', async () => {
@@ -148,12 +94,12 @@ describe('diagnostics IPC handlers', () => {
       const bundle = makeBundle({ bundleSubmissionId: 'bundleabcdefghijklmnop' })
       collectDiagnosticBundleMock.mockReturnValue(bundle)
       const collect = handlers.get('diagnostics:collectBundle')!
-      const upload = handlers.get('diagnostics:uploadBundle')!
+      const open = handlers.get('diagnostics:openBundlePreview')!
 
       await collect({}, 30)
       await vi.advanceTimersByTimeAsync(15 * 60 * 1000 + 1)
 
-      await expect(upload({}, bundle.bundleSubmissionId)).rejects.toThrow(/expired/)
+      await expect(open({}, bundle.bundleSubmissionId)).rejects.toThrow(/expired/)
     } finally {
       vi.useRealTimers()
     }

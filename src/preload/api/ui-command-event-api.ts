@@ -96,8 +96,6 @@ export type UiCommandEventApi = {
   consumePendingQuitAndStopAllSessions: () => Promise<boolean>
   /** Tells main every session stopped; false when main still lists one and stays open. The web client never gets a request. */
   quitAfterStoppingAllSessions?: () => Promise<boolean>
-  onOpenSkillShare: (callback: (shareId: string) => void) => () => void
-  consumePendingSkillShare: () => Promise<string | null>
   /** Raw `orca://plugins/...` link; the renderer validates it. */
   onOpenPluginInstallLink: (callback: (link: string) => void) => () => void
   consumePendingPluginInstallLink: () => Promise<string | null>

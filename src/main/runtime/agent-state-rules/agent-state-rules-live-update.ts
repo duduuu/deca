@@ -233,7 +233,8 @@ export function startAgentStateRulesLiveUpdates(
   const updater = new AgentStateRulesLiveUpdater({
     userDataPath: environment.getPath('userData'),
     appVersion: environment.getVersion(),
-    isPackaged: environment.isPackaged(),
+    // This build never downloads vendor rule bundles; bundled rules and a user override still apply.
+    isPackaged: false,
     fetch: (url, init) => getMainHttpClient().fetch(url, init),
     readSettings: () => store.getSettings(),
     onActivated

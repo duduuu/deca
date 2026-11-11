@@ -2,7 +2,6 @@
 // run `pnpm run generate:rpc-params-catalog`.
 import type { z } from 'zod'
 import { HostAccountLaunchEnvParams } from '../agent-launch/startup/host-account-launch-env'
-import { AgentSkillShareRequestSchema } from '../agent-skill-sharing-contract'
 import {
   AiVaultSearchRequestSchema,
   AiVaultSearchStatusRequestSchema,
@@ -96,7 +95,6 @@ import {
   AntigravityChatSignInCompleteParams,
   AntigravityChatSignInFlowParams
 } from './antigravity-accounts-params'
-import { ArtifactsDeleteParams, ListOptions, SourceRequest, WriteRequest } from './artifacts-params'
 import {
   AutomationCreate,
   AutomationId,
@@ -198,7 +196,6 @@ import {
   ConnectorAnswer,
   ConnectorCancel,
   ConnectorPendingPrompt,
-  ConnectorReply,
   ConnectorSend,
   ConnectorStart,
   ConnectorWatch
@@ -890,13 +887,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'aiVault.searchSessions': AiVaultSearchRequestSchema,
   'aiVault.searchStatus': AiVaultSearchStatusRequestSchema,
   'aiVault.setSearchEnabled': AiVaultSetSearchEnabledParamsSchema,
-  'artifacts.delete': ArtifactsDeleteParams,
-  'artifacts.getPublishedLink': SourceRequest,
-  'artifacts.list': ListOptions,
-  'artifacts.publish': WriteRequest,
-  'artifacts.share': WriteRequest,
-  'artifacts.unshare': SourceRequest,
-  'artifacts.update': WriteRequest,
   'automation.create': AutomationCreate,
   'automation.delete': AutomationId,
   'automation.list': AutomationList,
@@ -1024,7 +1014,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'connector.answer': ConnectorAnswer,
   'connector.cancel': ConnectorCancel,
   'connector.pendingPrompt': ConnectorPendingPrompt,
-  'connector.reply': ConnectorReply,
   'connector.send': ConnectorSend,
   'connector.start': ConnectorStart,
   'connector.watch': ConnectorWatch,
@@ -1536,7 +1525,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'skills.previewDelete': SkillDeleteRequestSchema,
   'skills.previewInstall': SkillInstallPreviewRequestSchema,
   'skills.removeInstall': SkillRemoveRequestSchema,
-  'skills.share': AgentSkillShareRequestSchema,
   'skills.uploadChunk': SkillUploadChunkRequestSchema,
   'speech.dictation.cancel': DictationHandle,
   'speech.dictation.chunk': DictationChunk,

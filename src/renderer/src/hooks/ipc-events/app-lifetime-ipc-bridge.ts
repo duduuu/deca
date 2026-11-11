@@ -20,7 +20,6 @@ import { registerDirectSshStateIpcBridge } from './direct-ssh-state-ipc-bridge'
 import { registerEphemeralVmLifecycleIpcBridge } from './ephemeral-vm-lifecycle-ipc-bridge'
 import { registerMobileAndTerminalCloseIpcBridge } from './mobile-terminal-close-ipc-bridge'
 import { registerMobileDriverIpcBridge } from './mobile-driver-ipc-bridge'
-import { registerOrcaProfileAuthIpcBridge } from './orca-profile-auth-ipc-bridge'
 import { registerPluginViewIpcBridge } from './plugin-view-ipc-bridge'
 import { registerPreflightWslRetryIpcBridge } from './preflight-wsl-retry-ipc-bridge'
 import { registerOsMarkdownFileOpenBridge } from './os-markdown-file-open-bridge'
@@ -99,7 +98,6 @@ export function installAppLifetimeIpcEvents(): () => void {
   )
   registerSettingsAndSidebarIpcBridge(unsubs)
   registerQuitAndStopAllSessionsIpcBridge(unsubs)
-  registerOrcaProfileAuthIpcBridge(unsubs)
   registerPreflightWslRetryIpcBridge(unsubs)
   registerWorkspaceShortcutIpcBridge(unsubs)
   registerOsMarkdownFileOpenBridge(unsubs)

@@ -2,7 +2,6 @@ import type { StateCreator } from 'zustand'
 import { toast } from 'sonner'
 import { translate } from '@/i18n/i18n'
 import type {
-  OrcaCloudSignInProgress,
   OrcaProfileAuthStatus,
   OrcaProfileSummary,
   SwitchOrcaProfileResult,
@@ -10,16 +9,11 @@ import type {
   TransferOrcaProfileProjectResult
 } from '../../../../../shared/orca-profiles'
 import type { AppState } from '../../types'
-import {
-  createOrcaProfilesAuthActions,
-  type OrcaProfilesAuthActions
-} from './orca-profiles-auth-actions'
 
-export type OrcaProfilesSlice = OrcaProfilesAuthActions & {
+export type OrcaProfilesSlice = {
   orcaProfiles: OrcaProfileSummary[]
   activeOrcaProfileId: string | null
   orcaProfileAuthStatus: OrcaProfileAuthStatus | null
-  orcaProfileSignInProgress: OrcaCloudSignInProgress | null
   orcaProfilesMultiProfileUi: boolean
   orcaProfilesLoading: boolean
   orcaProfileSwitching: boolean
@@ -34,13 +28,11 @@ export type OrcaProfilesSlice = OrcaProfilesAuthActions & {
 
 export const createOrcaProfilesSlice: StateCreator<AppState, [], [], OrcaProfilesSlice> = (
   set,
-  get,
-  api
+  get
 ) => ({
   orcaProfiles: [],
   activeOrcaProfileId: null,
   orcaProfileAuthStatus: null,
-  orcaProfileSignInProgress: null,
   orcaProfilesMultiProfileUi: false,
   orcaProfilesLoading: false,
   orcaProfileSwitching: false,
@@ -96,8 +88,6 @@ export const createOrcaProfilesSlice: StateCreator<AppState, [], [], OrcaProfile
       return null
     }
   },
-
-  ...createOrcaProfilesAuthActions(set, get, api),
 
   switchOrcaProfile: async (profileId) => {
     if (!profileId || profileId === get().activeOrcaProfileId) {

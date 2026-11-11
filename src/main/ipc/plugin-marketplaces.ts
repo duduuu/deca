@@ -11,9 +11,6 @@ import type { PluginMarketplaceInstaller } from '../plugins/catalog/plugin-marke
 import type { PluginMarketplaceService } from '../plugins/catalog/plugin-marketplace-service'
 import { PLUGIN_MARKETPLACE_SOURCE_ID_PATTERN } from '../plugins/catalog/plugin-marketplace-store'
 import type { PluginService } from '../plugins/plugin-service'
-import type { PluginAutoUpdater } from '../plugins/catalog/plugin-auto-updater'
-import type { PluginInstallStatsService } from '../plugins/catalog/plugin-install-stats-service'
-import type { PluginUpdateReviewNotices } from '../plugins/catalog/plugin-update-review-notices'
 import type {
   PluginAutoUpdateState,
   PluginUpdateReviewNotice
@@ -25,9 +22,6 @@ import { findPluginFileTypeSuggestion } from '../plugins/catalog/plugin-file-typ
 export type PluginMarketplaceHandlerServices = {
   marketplace: PluginMarketplaceService
   installer: PluginMarketplaceInstaller
-  autoUpdater?: Pick<PluginAutoUpdater, 'getState'>
-  reviewNotices?: Pick<PluginUpdateReviewNotices, 'take'>
-  installStats?: Pick<PluginInstallStatsService, 'getInstallCounts'>
 }
 
 /** The consent write path (applyPluginConsent), bound to the store by the caller. */
@@ -134,20 +128,16 @@ export function registerPluginMarketplaceHandlers(
     }
     return { ...preview, accessGrowth: await readPreviewAccessGrowth(installed, preview) }
   })
-  ipcMain.handle(
-    'plugins:getAutoUpdateState',
-    (): PluginAutoUpdateState =>
-      services.autoUpdater?.getState() ?? { updated: {}, needsReview: {} }
+  // Auto-update, review notices and install counts are vendor-network features absent from this build.
+  ipcMain.handle('plugins:getAutoUpdateState', (): PluginAutoUpdateState => ({
+    updated: {},
+    needsReview: {}
+  }))
+  ipcMain.handle('plugins:takeUpdateReviewNotices', (): Promise<PluginUpdateReviewNotice[]> =>
+    Promise.resolve([])
   )
-  ipcMain.handle(
-    'plugins:takeUpdateReviewNotices',
-    (): Promise<PluginUpdateReviewNotice[]> => services.reviewNotices?.take() ?? Promise.resolve([])
-  )
-  // Why never rejects: counts are decoration; a failure just hides them.
-  ipcMain.handle(
-    'plugins:getInstallCounts',
-    (): Promise<Record<string, number>> =>
-      services.installStats?.getInstallCounts().catch(() => ({})) ?? Promise.resolve({})
+  ipcMain.handle('plugins:getInstallCounts', (): Promise<Record<string, number>> =>
+    Promise.resolve({})
   )
   ipcMain.handle('plugins:getRollbackVersion', (_event, args: unknown) => {
     const { pluginKey } = installedPluginSchema.parse(args)

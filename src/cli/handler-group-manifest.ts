@@ -43,17 +43,6 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
     load: async () => (await import('./handlers/account.js')).ACCOUNT_HANDLERS
   },
   {
-    name: 'artifacts',
-    keys: [
-      'artifacts list',
-      'artifacts share',
-      'artifacts update',
-      'artifacts unshare',
-      'artifacts delete'
-    ],
-    load: async () => (await import('./handlers/artifacts.js')).ARTIFACT_HANDLERS
-  },
-  {
     name: 'automations',
     keys: [
       'automations list',
@@ -219,8 +208,7 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
       'connector prompt',
       'connector answer',
       'connector cancel',
-      'connector watch',
-      'connector reply'
+      'connector watch'
     ],
     load: async () => (await import('./handlers/connector.js')).CONNECTOR_HANDLERS
   },
@@ -247,7 +235,7 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
   ...HOST_HANDLER_GROUPS,
   {
     name: 'skill-sharing',
-    keys: ['skills installed', 'skills share'],
+    keys: ['skills installed'],
     load: async () => (await import('./handlers/skill-sharing.js')).SKILL_SHARING_HANDLERS
   },
   ...PLUGIN_HANDLER_GROUPS,

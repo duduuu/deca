@@ -64,9 +64,6 @@ const requestDesktopHandoff = createDesktopHandoff({
 })
 
 function requestDesktopActivation(argv: readonly string[] = []): void {
-  state.skillShareDeepLinks.capture(argv, (shareId) => {
-    state.mainWindow?.webContents.send('ui:openSkillShare', shareId)
-  })
   state.pluginInstallLinks.capture(argv, (link) => {
     state.mainWindow?.webContents.send('ui:openPluginInstallLink', link)
   })
@@ -163,7 +160,6 @@ if (preflightReady) {
     platform: process.platform,
     desktopLaunch: !state.isServeMode && !isBackgroundLaunch() && !isOrcadSidecarLaunch()
   })
-  state.skillShareDeepLinks.capture(process.argv)
   state.pluginInstallLinks.capture(process.argv)
   // The first renderer pulls on mount; nothing listens this early.
   state.osOpenedDocuments.capture(process.argv)

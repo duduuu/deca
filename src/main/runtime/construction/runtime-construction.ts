@@ -226,10 +226,7 @@ export abstract class OrcaRuntimeWithStateFields extends OrcaRuntimeWithLinearCo
     this.clientSettings = new RuntimeClientSettingsController(
       store,
       () => this.notifyReposChanged(),
-      {
-        artifacts: () => this.artifacts.hasService(),
-        skills: () => this.skillCommands.hasSkillCloudService()
-      }
+      { artifacts: () => false, skills: () => false }
     )
     this.automation = new RuntimeAutomationController(store, {
       showRepo: (selector) => this.showRepo(selector),

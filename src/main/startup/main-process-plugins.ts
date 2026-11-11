@@ -3,23 +3,17 @@ import { PluginImageCache } from '../plugins/plugin-image-cache'
 import { installPluginImageProtocolHandler } from '../plugins/plugin-image-protocol'
 import { getPluginDesktopFrameServices } from '../plugins/panels/plugin-frame-desktop-services'
 import { pluginHostVersion } from '../../shared/plugins/installation/plugin-host-version'
-import { app, BrowserWindow, net } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import { performance } from 'node:perf_hooks'
 import { PluginService } from '../plugins/plugin-service'
-import { PluginKillListService } from '../plugins/catalog/plugin-kill-list-service'
-import { PluginInstallStatsService } from '../plugins/catalog/plugin-install-stats-service'
 import { PluginMarketplaceService } from '../plugins/catalog/plugin-marketplace-service'
 import { PluginMarketplaceInstaller } from '../plugins/catalog/plugin-marketplace-installer'
-import { PluginAutoUpdater } from '../plugins/catalog/plugin-auto-updater'
-import { PluginReleaseFirstSeenStore } from '../plugins/catalog/plugin-release-first-seen-store'
-import { PluginUpdateReviewNotices } from '../plugins/catalog/plugin-update-review-notices'
-import { isPluginAutoUpdateOn } from '../../shared/plugins/catalog/plugin-update-policy'
 import { PluginBundledBootstrapCoordinator } from '../plugins/plugin-bundled-bootstrap-coordinator'
 import { getPluginsDataDir } from '../plugins/plugin-discovery'
 import { bundledPluginRootForApp } from '../plugins/plugin-bundled-bootstrap'
 import { approveBundledPluginsFromStore } from '../plugins/plugin-bundled-approval'
 import { resolvePluginHostEntryPath } from '../plugins/workers/plugin-host-process'
-import { applyPluginConsent, revokePluginConsent } from '../plugins/plugin-enablement'
+import { revokePluginConsent } from '../plugins/plugin-enablement'
 import { clearRemovedPluginSettings } from '../plugins/plugin-removal-settings'
 import { clearPluginFrameStorage } from '../plugins/panels/plugin-frame-guest-sessions'
 import { bindPluginRpcServices } from './main-process-plugin-rpc'
@@ -48,10 +42,6 @@ import { createDesktopPluginAppearance } from '../plugins/appearance/desktop-plu
 import { bindPluginEditorTypography } from '../plugins/appearance/plugin-editor-typography'
 import { ALL_RPC_METHODS } from '../runtime/rpc/methods/rpc-method-registry'
 
-const PLUGIN_AUTO_UPDATE_STARTUP_DELAY_MS = 60_000
-// Why: the official catalog fetch must not compete with first paint; opening the marketplace seeds sooner.
-const PLUGIN_MARKETPLACE_SEED_STARTUP_DELAY_MS = 15_000
-
 export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService): Promise<void> {
   const store = state.store
   const keybindings = state.keybindings
@@ -59,51 +49,20 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
     throw new Error('Store and keybindings must be initialized before plugins')
   }
   const pluginSystemStartupStartedAt = performance.now()
-  state.pluginKillListService = new PluginKillListService({
-    pluginsDataDir: getPluginsDataDir(app.getPath('userData'))
-  })
-  await state.pluginKillListService.initialize()
-  state.pluginInstallStatsService = new PluginInstallStatsService({
-    pluginsDataDir: getPluginsDataDir(app.getPath('userData')),
-    // Why packaged only (like the safety list): dev and e2e runs must not reach the network unasked.
-    isFetchAllowed: () =>
-      store.getSettings().pluginSystemEnabled === true &&
-      (app.isPackaged || process.env.ORCA_PLUGIN_INSTALL_STATS === '1')
-  })
-  state.pluginInstallStatsService.onChanged(() => {
-    for (const window of BrowserWindow.getAllWindows()) {
-      if (!window.isDestroyed()) {
-        window.webContents.send('plugins:installCountsChanged')
-      }
-    }
-  })
   const pluginImageCache = new PluginImageCache(
     join(getPluginsDataDir(app.getPath('userData')), 'image-cache')
   )
   state.pluginMarketplaceService = new PluginMarketplaceService({
     imageCache: pluginImageCache,
     pluginsDataDir: getPluginsDataDir(app.getPath('userData')),
-    getKillListEntry: (pluginKey) => state.pluginKillListService?.find(pluginKey) ?? null,
+    getKillListEntry: () => null,
     hostVersion: pluginHostVersion(app.getVersion())
   })
-  const requestOfficialMarketplaceSeed = (): void => {
-    if (store.getSettings().pluginSystemEnabled !== true) {
-      return
-    }
-    void state.pluginMarketplaceService
-      ?.seedOfficialSource()
-      .catch((error) =>
-        console.warn('[plugins] failed to configure the official marketplace:', error)
-      )
-    void state.pluginMarketplaceService
-      ?.seedCommunitySource()
-      .catch((error) => console.warn('[plugins] failed to add the community marketplace:', error))
-  }
   state.pluginMarketplaceInstaller = new PluginMarketplaceInstaller({
     marketplace: state.pluginMarketplaceService,
     userDataPath: app.getPath('userData'),
     hostVersion: pluginHostVersion(app.getVersion()),
-    blockedPluginReason: (pluginKey) => state.pluginKillListService?.reason(pluginKey) ?? null,
+    blockedPluginReason: () => null,
     imageCache: pluginImageCache,
     revokeConsent: (pluginKey) =>
       revokePluginConsent({ store, pluginService: state.pluginService, pluginKey })
@@ -119,7 +78,7 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
     getPluginConsents: () => normalizePluginConsents(state.store?.getSettings().pluginConsents),
     getDevPluginPaths: () => normalizePluginIdList(state.store?.getSettings().devPluginPaths),
     getKeybindings: () => state.keybindings?.getOverrides() ?? {},
-    getPluginKillListEntry: (pluginKey) => state.pluginKillListService?.find(pluginKey) ?? null,
+    getPluginKillListEntry: () => null,
     hostEntryPath: resolvePluginHostEntryPath(app.getAppPath(), app.isPackaged),
     getDesktopFrameServices: getPluginDesktopFrameServices,
     statusBar: new PluginStatusBarState(),
@@ -128,59 +87,6 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
     bundledPluginRoot
   })
   const pluginService = state.pluginService
-  const pluginAutoUpdater = new PluginAutoUpdater({
-    pluginService,
-    installer: state.pluginMarketplaceInstaller,
-    firstSeen: new PluginReleaseFirstSeenStore(getPluginsDataDir(app.getPath('userData'))),
-    isEnabled: () => {
-      const settings = store.getSettings()
-      return settings.pluginSystemEnabled === true && isPluginAutoUpdateOn(settings)
-    },
-    refreshCatalogs: () => state.pluginMarketplaceService?.refreshAll() ?? Promise.resolve(),
-    refreshKillList: () => state.pluginKillListService?.refresh() ?? Promise.resolve(),
-    approve: (pluginKey, reviewedFingerprint) =>
-      applyPluginConsent({
-        store,
-        pluginService,
-        pluginKey,
-        reviewedFingerprint,
-        decision: 'approve'
-      }),
-    onChanged: (autoUpdate, updatedNow) => {
-      const updated = Object.entries(updatedNow).map(([pluginKey, version]) => ({
-        pluginKey,
-        version,
-        name: pluginService.findValidPlugin(pluginKey)?.manifest.name ?? pluginKey
-      }))
-      for (const window of BrowserWindow.getAllWindows()) {
-        if (!window.isDestroyed()) {
-          window.webContents.send('plugins:autoUpdateChanged', { state: autoUpdate, updated })
-        }
-      }
-    }
-  })
-  state.pluginAutoUpdater = pluginAutoUpdater
-  state.pluginUpdateReviewNotices = new PluginUpdateReviewNotices({
-    pluginsDataDir: getPluginsDataDir(app.getPath('userData')),
-    getHeld: () => pluginAutoUpdater.getHeldForReview(),
-    findName: (pluginKey) => pluginService.findValidPlugin(pluginKey)?.manifest.name ?? null,
-    isKillListed: (pluginKey) => Boolean(state.pluginKillListService?.find(pluginKey))
-  })
-  // Why packaged only (like the safety list): dev and e2e runs must not update fixtures unasked.
-  const autoUpdateScheduled = app.isPackaged || process.env.ORCA_PLUGIN_AUTO_UPDATE === '1'
-  const syncPluginAutoUpdate = (runNow: boolean): void => {
-    if (!autoUpdateScheduled) {
-      return
-    }
-    const enabled =
-      store.getSettings().pluginSystemEnabled === true && isPluginAutoUpdateOn(store.getSettings())
-    pluginAutoUpdater.syncPeriodicRun(enabled)
-    if (enabled && runNow) {
-      void pluginAutoUpdater
-        .run()
-        .catch((error) => console.warn('[plugins] auto-update failed:', error))
-    }
-  }
   installPluginImageProtocolHandler({
     cache: pluginImageCache,
     findValidPlugin: (pluginKey) => state.pluginService?.findValidPlugin(pluginKey) ?? null,
@@ -192,7 +98,7 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
     userDataPath: app.getPath('userData'),
     hostVersion: pluginHostVersion(app.getVersion()),
     isEnabled: () => state.store?.getSettings().pluginSystemEnabled === true,
-    blockedPluginReason: (pluginKey) => state.pluginKillListService?.reason(pluginKey) ?? null,
+    blockedPluginReason: () => null,
     // Why: a retired bundled plugin must not leave consent, theme choices or frame storage behind.
     beforeRetire: (pluginKey) => clearRemovedPluginSettings(store, pluginKey),
     afterRetire: (pluginKey) => clearPluginFrameStorage(pluginKey),
@@ -210,30 +116,9 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
       })
       .catch((error) => console.warn('[plugins] failed to bootstrap bundled plugins:', error))
   }
-  state.pluginKillListService.onChanged(() => {
-    void state.pluginService
-      ?.reconcileActivationState()
-      .catch((error) =>
-        console.warn('[plugins] failed to apply plugin safety-list refresh:', error)
-      )
-  })
   store.onSettingsChanged((updates) => {
     if (updates.pluginSystemEnabled === true) {
       requestBundledPluginBootstrap()
-      requestOfficialMarketplaceSeed()
-    }
-    if (app.isPackaged && updates.pluginSystemEnabled === true) {
-      void state.pluginKillListService
-        ?.refresh()
-        .catch((error) =>
-          console.warn('[plugins] failed to refresh plugin safety list; using cached state:', error)
-        )
-    }
-    if (app.isPackaged && updates.pluginSystemEnabled !== undefined) {
-      state.pluginKillListService?.syncPeriodicRefresh(updates.pluginSystemEnabled === true)
-    }
-    if (updates.pluginSystemEnabled !== undefined || updates.pluginUpdatePolicy !== undefined) {
-      syncPluginAutoUpdate(true)
     }
     if ('pluginSystemEnabled' in updates || 'devPluginPaths' in updates) {
       // Main owns lifecycle refresh even when a caller crashes before its follow-up refresh.
@@ -257,18 +142,8 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
         durationMs: Number((performance.now() - pluginSystemStartupStartedAt).toFixed(2)),
         installedPlugins: state.pluginService?.getDiscovered().length ?? 0
       })
-      // Why delayed: catalog fetches and git checkouts must not compete with startup.
-      setTimeout(() => syncPluginAutoUpdate(true), PLUGIN_AUTO_UPDATE_STARTUP_DELAY_MS).unref?.()
     })
     .catch((error) => console.warn('[plugins] failed to initialize plugin service:', error))
-  if (app.isPackaged && store.getSettings().pluginSystemEnabled === true) {
-    void state.pluginKillListService
-      .refresh()
-      .catch((error) =>
-        console.warn('[plugins] failed to refresh plugin safety list; using cached state:', error)
-      )
-    state.pluginKillListService.syncPeriodicRefresh(true)
-  }
   state.pluginService.onChanged((event) => {
     if (
       event.contentPacksChanged &&
@@ -290,11 +165,6 @@ export async function initializeMainProcessPlugins(runtime: OrcaRuntimeService):
     }
   })
   requestBundledPluginBootstrap()
-  setTimeout(() => {
-    if (net.isOnline()) {
-      requestOfficialMarketplaceSeed()
-    }
-  }, PLUGIN_MARKETPLACE_SEED_STARTUP_DELAY_MS).unref?.()
   // Filter hook/worktree events server-side by each plugin subscription.
   const forwardAgentStatus = createPluginAgentStatusForwarder(pluginDelegate, pluginService)
   agentHookServer.subscribeEnrichedStatus((enriched) => {

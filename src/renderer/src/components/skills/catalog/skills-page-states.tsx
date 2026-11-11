@@ -1,4 +1,4 @@
-import { BookOpen, Download, RefreshCw } from 'lucide-react'
+import { BookOpen, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/class-names'
 import { useTranslate } from '@/i18n/use-translate'
@@ -50,13 +50,7 @@ export function SkillsNoMatchesState({
   )
 }
 
-export function SkillsEmptyState({
-  onRefresh,
-  onInstallFromLink
-}: {
-  onRefresh: () => void
-  onInstallFromLink: () => void
-}): React.JSX.Element {
+export function SkillsEmptyState({ onRefresh }: { onRefresh: () => void }): React.JSX.Element {
   const t = useTranslate()
   return (
     <div className="flex flex-col items-center gap-3 px-2 py-12 text-center">
@@ -67,16 +61,12 @@ export function SkillsEmptyState({
         </h2>
         <p className="max-w-sm text-xs leading-5 text-muted-foreground">
           {t(
-            'auto.components.skills.SkillsPage.emptyCopy',
-            'The scanned skill folders are empty. Install a shared bundle, or refresh after adding a skill.'
+            'auto.components.skills.SkillsPage.emptyCopyLocal',
+            'The scanned skill folders are empty. Refresh after adding a skill.'
           )}
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" onClick={onInstallFromLink}>
-          <Download className="size-4" />
-          {t('auto.components.skills.SkillsPage.aee7b99cc6', 'Install from link')}
-        </Button>
         <Button variant="ghost" size="sm" onClick={onRefresh}>
           <RefreshCw className="size-4" />
           {t('auto.components.skills.SkillsPage.cb142070b4', 'Refresh')}

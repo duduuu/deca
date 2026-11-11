@@ -6,7 +6,6 @@ import { getGeneralPaneSearchEntries } from '@/components/settings/general/gener
 import { getIntegrationsPaneSearchEntries } from '@/components/settings/integrations/integrations-search'
 import { getLinearAgentSkillPaneSearchEntries } from '@/components/settings/skills/linear/linear-agent-skill-search'
 import { getMobileSettingsPaneSearchEntries } from '@/components/settings/mobile/mobile-settings-search'
-import { getOrcaAccountSettingsSearchEntries } from '@/components/settings/accounts/orca/orca-account-settings-search'
 import { OrcaLogoSettingsIcon } from '@/components/settings/page/orca-logo-settings-icon'
 import { getOrchestrationPaneSearchEntries } from '@/components/settings/orchestration/orchestration-search'
 import { getVoicePaneSearchEntries } from '@/components/settings/voice/voice-pane-search'
@@ -16,7 +15,6 @@ import type { SettingsNavSection } from '@/components/settings/navigation/settin
 import {
   Blocks,
   Bot,
-  CircleUserRound,
   Mic,
   MousePointerClick,
   Network,
@@ -125,21 +123,6 @@ export function buildSetupSettingsSections(
 ): SettingsNavSection[] {
   const showDesktopOnlySettings = !isWebClient
   return [
-    ...(showDesktopOnlySettings
-      ? [
-          {
-            id: 'orca-account',
-            title: t('auto.components.settings.orcaAccount.title', 'Orca Account'),
-            description: t(
-              'auto.components.settings.orcaAccount.description',
-              'Share work instantly and reach your desktop from Orca Mobile wherever you are.'
-            ),
-            icon: CircleUserRound,
-            searchEntries: getOrcaAccountSettingsSearchEntries(),
-            group: 'setup'
-          }
-        ]
-      : []),
     {
       id: 'setup-guide',
       title: t('auto.hooks.useSettingsNavigationMetadata.ded9e9032f', 'Onboarding checklist'),

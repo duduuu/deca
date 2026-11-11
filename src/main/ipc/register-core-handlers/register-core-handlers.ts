@@ -134,9 +134,6 @@ async function closeNotificationDismissalsBeforeRelaunch(
 
 type CoreHandlerLifecycleOptions = {
   onBeforeRelaunch?: () => void | Promise<void>
-  onOrcaProfileAuthMutation?: () => void
-  onBeforeOrcaProfileSignOut?: () => void
-  onAfterOrcaProfileSignOut?: () => void
   getAdditionalAiVaultCodexHomePaths?: () => readonly string[]
   prepareAiVaultSessionResume?: (
     args: AiVaultPrepareSessionResumeArgs
@@ -240,10 +237,7 @@ export function registerCoreHandlers(
   }
   registerTelemetryHandlers(store)
   registerOrcaProfileHandlers(store, {
-    onBeforeRelaunch: lifecycleOptions.onBeforeRelaunch,
-    onAuthMutation: lifecycleOptions.onOrcaProfileAuthMutation,
-    onBeforeSignOut: lifecycleOptions.onBeforeOrcaProfileSignOut,
-    onAfterSignOut: lifecycleOptions.onAfterOrcaProfileSignOut
+    onBeforeRelaunch: lifecycleOptions.onBeforeRelaunch
   })
   registerBrowserHandlers(store)
   registerShellHandlers(store)

@@ -1,37 +1,14 @@
 import { useAppStore } from '@/store'
 import { SessionHistorySettingsPane } from '../session-history/SessionHistorySettingsPane'
-import { ArtifactsSettingsPane } from '../artifacts/ArtifactsSettingsPane'
 import { AutomationsSettingsPane } from '../automations/AutomationsSettingsPane'
 import { GeneralPane } from '../general/GeneralPane'
 import { IntegrationsPane } from '../integrations/IntegrationsPane'
 import { MobileSettingsPane } from '../mobile/MobileSettingsPane'
-import { OrcaAccountSettingsPane } from '../accounts/orca/OrcaAccountSettingsPane'
 import { SettingsSetupGuidePane } from '../setup-guide/SettingsSetupGuidePane'
-import { ShareSkillsSettingsPane } from '../skills/sharing/ShareSkillsSettingsPane'
 import { SettingsSection } from '../section-layout/SettingsSection'
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 import type { SettingsRenderContext } from './settings-render-context'
-
-export function renderOrcaAccountSettingsSection(
-  context: SettingsRenderContext,
-  t: Translate = translate
-): React.JSX.Element | null {
-  const { model, navigation, view } = context
-  return model.showDesktopOnlySettings ? (
-    <SettingsSection
-      id="orca-account"
-      title={t('auto.components.settings.orcaAccount.title', 'Orca Account')}
-      description={t(
-        'auto.components.settings.orcaAccount.description',
-        'Share work instantly and reach your desktop from Orca Mobile wherever you are.'
-      )}
-      searchEntries={navigation.getSectionSearchEntries('orca-account')}
-    >
-      {view.isSectionMounted('orca-account') ? <OrcaAccountSettingsPane /> : null}
-    </SettingsSection>
-  ) : null
-}
 
 export function renderSetupGuideSettingsSection(
   context: SettingsRenderContext,
@@ -164,52 +141,6 @@ export function renderAutomationsSettingsSection(
       {view.isSectionMounted('automations') ? (
         <AutomationsSettingsPane settings={model.settings} updateSettings={model.updateSettings} />
       ) : null}
-    </SettingsSection>
-  )
-}
-
-export function renderArtifactsSettingsSection(
-  context: SettingsRenderContext,
-  t: Translate = translate
-): React.JSX.Element {
-  const { model, navigation, view } = context
-  return (
-    <SettingsSection
-      id="artifacts"
-      grouped
-      title={t('auto.components.settings.artifacts.title', 'Artifacts')}
-      badge="Beta"
-      description={t(
-        'auto.components.settings.artifacts.description',
-        'Share HTML and Markdown files with your team and manage their public links.'
-      )}
-      searchEntries={navigation.getSectionSearchEntries('artifacts')}
-    >
-      {view.isSectionMounted('artifacts') ? (
-        <ArtifactsSettingsPane settings={model.settings} updateSettings={model.updateSettings} />
-      ) : null}
-    </SettingsSection>
-  )
-}
-
-export function renderShareSkillsSettingsSection(
-  context: SettingsRenderContext,
-  t: Translate = translate
-): React.JSX.Element {
-  const { navigation, view } = context
-  return (
-    <SettingsSection
-      id="share-skills"
-      grouped
-      title={t('auto.components.settings.shareSkills.ca754fefa1', 'Share skills')}
-      badge="Beta"
-      description={t(
-        'auto.components.settings.shareSkills.description',
-        'Share your skills with an unlisted link. Anyone who has it can install them.'
-      )}
-      searchEntries={navigation.getSectionSearchEntries('share-skills')}
-    >
-      {view.isSectionMounted('share-skills') ? <ShareSkillsSettingsPane /> : null}
     </SettingsSection>
   )
 }

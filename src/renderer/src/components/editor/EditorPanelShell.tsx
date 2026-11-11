@@ -11,7 +11,6 @@ import type { EditorToggleValue } from './view-mode/EditorViewToggle'
 import { shouldShowEditorPanelHeader } from './editor-header'
 import { getUntitledFileRoot } from './untitled-file-rename-path'
 import { useTranslate } from '@/i18n/use-translate'
-import type { ArtifactWriteRequest } from '../../../../shared/artifacts/artifacts'
 import { selectWorktreesByRepo } from '@/store/workspaces/catalog/workspace-record-fields'
 
 type EditorPanelRenderModel = ReturnType<typeof getEditorPanelRenderModel>
@@ -43,7 +42,6 @@ type EditorPanelShellProps = {
   onToggleMarkdownTableOfContents: () => void
   onToggleMarkdownFrontmatter: () => void
   onExportMarkdownToPdf: () => void
-  createArtifactRequest?: () => Promise<ArtifactWriteRequest>
   onContentChange: (content: string) => void
   onContentChangeForFile: (file: OpenFile, content: string) => void
   onDirtyStateHint: (dirty: boolean) => void
@@ -83,7 +81,6 @@ export function EditorPanelShell({
   onToggleMarkdownTableOfContents,
   onToggleMarkdownFrontmatter,
   onExportMarkdownToPdf,
-  createArtifactRequest,
   onContentChange,
   onContentChangeForFile,
   onDirtyStateHint,
@@ -131,7 +128,6 @@ export function EditorPanelShell({
           onToggleMarkdownTableOfContents={onToggleMarkdownTableOfContents}
           onToggleMarkdownFrontmatter={onToggleMarkdownFrontmatter}
           onExportMarkdownToPdf={onExportMarkdownToPdf}
-          createArtifactRequest={createArtifactRequest}
         />
       )}
       <Suspense fallback={<EditorLoadingFallback />}>

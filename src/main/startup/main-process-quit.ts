@@ -35,11 +35,9 @@ import { recordUpdaterLifecycle } from '../updater/updater-lifecycle-diagnostics
 import { stopTccPromptNotice } from '../macos-permissions/macos-tcc-prompt-notice'
 import { cancelHistoryGc } from '../pty/history/terminal-history-gc'
 import { shouldQuitWhenAllWindowsClosed } from './window-all-closed-quit-policy'
-import { desktopConnectorCloud } from './main-process-connector-startup'
 import { mainProcessState as state } from './main-process-state'
 import { isDevParentShutdownRequested } from './configure-process'
 import { getCanonicalUserDataPath } from '../persistence/loading-store/user-data-path'
-import { flushUnsavedCloudSessions } from '../orca-profiles/cloud-session/profile-cloud-session-owner'
 
 // First will-quit pass awaits teardown; the re-fired pass must exit without starting writes again.
 let daemonDisconnectDone = false
@@ -85,10 +83,6 @@ function installBeforeQuitHandler(): void {
       })
     }
     state.isQuitting = true
-    flushUnsavedCloudSessions()
-    state.desktopRelayService?.fenceAndCloseNow()
-    desktopConnectorCloud()?.fence()
-    state.runtimeRpc?.setMobileRelayPairingProvider(null)
     state.unsubscribeAgentAwakeStatusChanges?.()
     state.unsubscribeAgentAwakeStatusChanges = null
     state.agentAwakeService?.dispose()
@@ -114,9 +108,7 @@ function installWillQuitHandler(): void {
     }
     // Include pane grids still inside their write burst in final save.
     const paneGridFlush = state.runtime?.flushPaneGrids() ?? null
-    // A renderer can veto before-quit; push must survive until quit is committed.
     markHostShuttingDown()
-    state.desktopPushService?.stop()
     state.unsubscribeSystemResumeBroadcast?.()
     state.unsubscribeSystemResumeBroadcast = null
     state.stopDesktopPresenceReporter?.()
@@ -140,13 +132,8 @@ function installWillQuitHandler(): void {
     // escalates to SIGKILL so they cannot outlive the app. The promise joins
     // the teardown barrier below — quitting before it resolves would let
     // Electron exit first and orphan the hosts.
-    state.pluginKillListService?.dispose()
-    state.pluginKillListService = null
     state.pluginMarketplaceService = null
     state.pluginMarketplaceInstaller = null
-    state.pluginAutoUpdater?.dispose()
-    state.pluginAutoUpdater = null
-    state.pluginUpdateReviewNotices = null
     const pluginHostShutdown = state.pluginService?.dispose() ?? Promise.resolve()
     const codexBackfillRecoveryShutdown = stopCodexStateDbBackfillRecoveries()
     stopCodexAccountSessionBridges()

@@ -3,7 +3,6 @@ import { registerCoreHandlers } from '../ipc/register-core-handlers/register-cor
 import { attachMainWindowServices } from '../window/attach-main-window-services'
 import { initTccPromptNotice } from '../macos-permissions/macos-tcc-prompt-notice'
 import { resolveUpdateInstallMode } from '../updater/updater-service'
-import { desktopConnectorCloud } from './main-process-connector-startup'
 import { mainProcessState as state } from './main-process-state'
 import { prepareCodexAiVaultSessionResume } from '../codex/history/resume/codex-ai-vault-session-resume'
 import { resolveHostCodexSessionSourceHome } from '../codex/history/rollouts/codex-session-source-home'
@@ -21,7 +20,6 @@ import {
   prepareCodexSessionResumeForLaunch
 } from './codex-session-resume-launch'
 import { isRecoveryReloadInFlight } from './main-window-lifecycle-flags'
-import { RELAY_HOST_CLOSE_REASON } from '../../shared/relay-host-close-reason'
 import { holdLaunchReconnectOptOuts } from '../ipc/ssh/ssh-host-user-disconnect'
 
 export function attachMainWindowCoreServices(
@@ -97,36 +95,14 @@ export function attachMainWindowCoreServices(
         }),
       onBeforeRelaunch: async () => {
         state.isQuitting = true
-        state.desktopRelayService?.fenceAndCloseNow()
-        desktopConnectorCloud()?.fence()
         await preserveAgentAuthBeforeRestart({ codexRuntimeHome, store })
-      },
-      onOrcaProfileAuthMutation: () => {
-        // An auth change retries relay installation after launch-time failure.
-        void state.desktopRelayInstaller?.authChanged()
-        state.desktopRelayService?.authMutated()
-        desktopConnectorCloud()?.accountChanged()
-      },
-      // Only sign-out fences paired phones; reasonless quit/relaunch must not look like logout.
-      onBeforeOrcaProfileSignOut: () => {
-        state.desktopRelayInstaller?.suspend()
-        state.desktopRelayService?.fenceAndCloseNow(RELAY_HOST_CLOSE_REASON.SIGNED_OUT)
-        desktopConnectorCloud()?.signOutStarted()
-      },
-      onAfterOrcaProfileSignOut: () => desktopConnectorCloud()?.signOutFinished()
+      }
     },
     state.pluginService ?? undefined,
     state.pluginMarketplaceService && state.pluginMarketplaceInstaller
       ? {
           marketplace: state.pluginMarketplaceService,
-          installer: state.pluginMarketplaceInstaller,
-          ...(state.pluginAutoUpdater ? { autoUpdater: state.pluginAutoUpdater } : {}),
-          ...(state.pluginInstallStatsService
-            ? { installStats: state.pluginInstallStatsService }
-            : {}),
-          ...(state.pluginUpdateReviewNotices
-            ? { reviewNotices: state.pluginUpdateReviewNotices }
-            : {})
+          installer: state.pluginMarketplaceInstaller
         }
       : undefined
   )

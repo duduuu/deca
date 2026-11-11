@@ -2,7 +2,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '@/lib/class-names'
 import '@/lib/workspace/ownership/connection-context'
-import { getConnectionIdFromState } from '@/lib/workspace/ownership/connection-owner-resolution'
 import { useAppStore } from '@/store/index'
 import { useShortcutLabel } from '@/hooks/useShortcutLabel'
 import '../../../../../shared/constants'
@@ -16,7 +15,6 @@ import {
   setBrowserPageViewportPresetSize
 } from '../host-guest/browser-page-viewport'
 import { isBrowserPagePanePaintable } from '../host-guest/browser-page-paintability'
-import { getShareableBrowserArtifactFile } from '../describe-page/browser-artifact-upload'
 import { useGrabMode } from '../annotate/useGrabMode'
 import { getOpenableExternalUrl, toDisplayUrl } from '../describe-page/browser-page-url-display'
 import type { BrowserOverlayViewport } from '../describe-page/browser-annotation-geometry'
@@ -124,7 +122,6 @@ export function BrowserPagePane({
     version: 0
   })
 
-  const workspaceConnectionId = useAppStore((state) => getConnectionIdFromState(state, worktreeId))
   const certificateFailure = useAppStore(
     (s) => s.browserCertificateFailuresByPageId[browserTab.id] ?? null
   )
@@ -281,8 +278,6 @@ export function BrowserPagePane({
   const liveBrowserUrl = getLiveBrowserUrl(browserTab.id) ?? browserTab.url
   const externalUrl = getOpenableExternalUrl(liveBrowserUrl)
   const currentBrowserUrl = toDisplayUrl(liveBrowserUrl)
-  const shareableArtifactFile =
-    workspaceConnectionId === null ? getShareableBrowserArtifactFile(currentBrowserUrl) : null
   const failedNavigationUrl = browserTab.loadError?.validatedUrl ?? currentBrowserUrl
   const failureExternalUrl = normalizeExternalBrowserUrl(failedNavigationUrl)
   const showFailureOverlay = Boolean(browserTab.loadError) && !isBlankTab
@@ -349,7 +344,6 @@ export function BrowserPagePane({
         markupStart={markup.start}
         markupCancel={markup.cancel}
         grabElementShortcut={grabElementShortcut}
-        shareableArtifactFile={shareableArtifactFile}
         currentBrowserUrl={currentBrowserUrl}
         externalUrl={externalUrl}
         isBlankTab={isBlankTab}

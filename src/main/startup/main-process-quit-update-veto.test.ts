@@ -26,7 +26,6 @@ const dependencyExports: [string, string[]][] = [
     ['shutdownPairedRuntimeBrowserClientHosts']
   ],
   ['../ipc/browser/desktop-browser-bridge-wiring', ['disposeDesktopBrowserBridge']],
-  ['../orca-profiles/profile-cloud-session-owner', ['flushUnsavedCloudSessions']],
   ['../browser/guest-lifecycle/manager/browser-manager', ['browserManager']],
   ['../browser/sessions/profiles/browser-session-registry', ['browserSessionRegistry']],
   ['../codex/codex-state-db-backfill-recovery', ['stopCodexStateDbBackfillRecoveries']],
@@ -51,15 +50,11 @@ const dependencyExports: [string, string[]][] = [
 it('keeps startup services live when the updater has vetoed before-quit', async () => {
   vi.resetModules()
   const app = new EventEmitter()
-  const fenceAndCloseNow = vi.fn()
-  const setMobileRelayPairingProvider = vi.fn()
   const unsubscribeAgentAwakeStatusChanges = vi.fn()
   const dispose = vi.fn()
   const stop = vi.fn()
   const state = {
     isQuitting: false,
-    desktopRelayService: { fenceAndCloseNow },
-    runtimeRpc: { setMobileRelayPairingProvider },
     unsubscribeAgentAwakeStatusChanges,
     agentAwakeService: { dispose },
     rateLimits: { stop }
@@ -76,8 +71,6 @@ it('keeps startup services live when the updater has vetoed before-quit', async 
   app.emit('before-quit', { defaultPrevented: true })
 
   expect(state.isQuitting).toBe(false)
-  expect(fenceAndCloseNow).not.toHaveBeenCalled()
-  expect(setMobileRelayPairingProvider).not.toHaveBeenCalled()
   expect(unsubscribeAgentAwakeStatusChanges).not.toHaveBeenCalled()
   expect(dispose).not.toHaveBeenCalled()
   expect(stop).not.toHaveBeenCalled()
@@ -87,8 +80,6 @@ it('keeps startup services live when the updater has vetoed before-quit', async 
   app.emit('before-quit', { defaultPrevented: false })
 
   expect(state.isQuitting).toBe(true)
-  expect(fenceAndCloseNow).toHaveBeenCalledOnce()
-  expect(setMobileRelayPairingProvider).toHaveBeenCalledWith(null)
   expect(unsubscribeAgentAwakeStatusChanges).toHaveBeenCalledOnce()
   expect(dispose).toHaveBeenCalledOnce()
   expect(stop).toHaveBeenCalledOnce()

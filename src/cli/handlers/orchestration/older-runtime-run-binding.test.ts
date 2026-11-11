@@ -7,7 +7,7 @@ const client = new RuntimeClient('/tmp/orca-older-runtime-run', 60_000, null, nu
 
 describe('an older Orca server that binds one Run per coordinator', () => {
   beforeEach(() => {
-    vi.stubEnv('ORCA_CLI_COMMAND', 'orca')
+    vi.stubEnv('ORCA_CLI_COMMAND', 'deca')
     vi.stubEnv('ORCA_TERMINAL_HANDLE', '')
     vi.stubEnv('ORCA_AGENT_SESSION_ID', undefined)
     vi.spyOn(console, 'log').mockImplementation(() => {})

@@ -27,7 +27,7 @@ describe('KeybindingService profile defaults', () => {
   }
 
   function write(document: unknown): void {
-    mkdirSync(join(home, '.orca'), { recursive: true })
+    mkdirSync(join(home, '.deca'), { recursive: true })
     writeFileSync(getUserKeybindingsPath(home), JSON.stringify(document))
   }
 

@@ -312,7 +312,7 @@ describe('worktree rm needs an explicit workspace', () => {
       const { error } = JSON.parse(output)
       expect(error.code).toBe('invalid_argument')
       expect(error.data.current).toEqual({ resolution: 'resolved', selectors: ['folder:hub-a'] })
-      expect(error.data.nextSteps[0]).toBe('orca worktree rm --worktree folder:hub-a')
+      expect(error.data.nextSteps[0]).toBe('deca worktree rm --worktree folder:hub-a')
       const methods = callMock.mock.calls.map(([method]) => method)
       expect(methods).not.toContain('folderWorkspace.delete')
       expect(methods).not.toContain('worktree.show')

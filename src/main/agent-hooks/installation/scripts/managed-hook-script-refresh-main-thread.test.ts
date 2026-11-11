@@ -33,7 +33,7 @@ describe('managed hook script refresh and owned profile cleanup', () => {
   })
 
   it('refreshes stale scripts and removes owned profile plugins while preserving unowned files', async () => {
-    const hooksDir = join(state.home, '.orca', 'agent-hooks')
+    const hooksDir = join(state.home, '.deca', 'agent-hooks')
     const claudeScript = join(
       hooksDir,
       process.platform === 'win32' ? 'claude-hook.cmd' : 'claude-hook.sh'

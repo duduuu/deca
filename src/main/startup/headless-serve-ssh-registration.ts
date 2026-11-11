@@ -1,9 +1,11 @@
 import type { Store } from '../persistence/loading-store/store'
 import type { OrcaRuntimeService } from '../runtime/orca-runtime'
-import { registerSshHandlers } from '../ipc/ssh/ssh'
+import { installSshTargetState } from '../ipc/ssh/ssh-target-state-installation'
+import { registerDisabledSshIpcHandlers } from '../ipc/ssh/ssh-disabled-ipc-handlers'
 import { mainProcessState as state } from './main-process-state'
 
-/** Register SSH before any window so headless serve can list/connect targets (#25886, #8489); later window registration is idempotent. */
+/** Headless serve installs the same target state the window does; Deca registers no SSH IPC. */
 export function registerHeadlessServeSshHandlers(store: Store, runtime: OrcaRuntimeService): void {
-  registerSshHandlers(store, () => state.mainWindow ?? null, runtime)
+  installSshTargetState(store, () => state.mainWindow ?? null, runtime)
+  registerDisabledSshIpcHandlers()
 }

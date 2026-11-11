@@ -1,6 +1,7 @@
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import {
   getOrcadSshDeployment,
+  isDecaReachableRuntimeEnvironment,
   type KnownRuntimeEnvironment
 } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { classifyRuntimeEnvironmentHost } from '../../../shared/remote-runtime/host-catalog/runtime-environment-host-kind'
@@ -70,6 +71,11 @@ export async function prepareManagedRuntimeRequest(
   signal?: AbortSignal
 ): Promise<PreparedManagedRuntimeRequest> {
   const environment = resolveEnvironment(userDataPath, selector)
+  if (!isDecaReachableRuntimeEnvironment(environment)) {
+    throw new Error(
+      'Deca connects only to WSL hosts on this computer, not to remote or SSH servers.'
+    )
+  }
   // Enforce the WSL gate for calls, subscriptions and status probes.
   assertWslHostReachable(environment)
   const vm = await prepareRecipeVm(

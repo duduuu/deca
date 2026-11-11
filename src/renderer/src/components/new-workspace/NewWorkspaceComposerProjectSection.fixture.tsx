@@ -110,8 +110,6 @@ function ProjectAndHostPreview({
           }
         }}
         ephemeralVmRecipes={[]}
-        handleAddSshHost={() => {}}
-        handleAddRemoteServer={() => {}}
         handleConnectRunTargetHost={async () => {}}
         handleSetLocation={() => {}}
         onConnectSelectedRepo={async () => {}}

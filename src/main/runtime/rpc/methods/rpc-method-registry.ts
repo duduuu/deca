@@ -39,7 +39,6 @@ import { HOSTED_REVIEW_METHODS } from './source-control/reviews/hosted-review'
 import { LINEAR_METHODS } from './integrations/linear/linear'
 import { LINEAR_AGENT_ACCESS_METHODS } from './integrations/linear/linear-agent-access'
 import { JIRA_METHODS } from './integrations/jira/jira'
-import { SSH_METHODS } from './ssh/ssh'
 import { MANAGED_SERVER_METHODS } from './host-management/managed-server'
 import { RECIPE_VM_WAKE_METHODS } from './host-management/recipe-vm-wake'
 import { ENVIRONMENT_DOCTOR_METHODS } from './host-management/environment-doctor'
@@ -56,7 +55,6 @@ import { PLUGIN_INSTALL_METHODS } from './plugins/plugin-install-methods'
 import { SKILL_METHODS } from './skills/skills'
 import { CLIPBOARD_METHODS } from './clipboard/clipboard'
 import { HOST_CAPABILITY_METHODS } from './host-management/host-capabilities'
-import { MOBILE_WEB_BUNDLE_METHODS } from './mobile-delivery/mobile-web-bundle'
 import { RUNTIME_CLIENT_CAPABILITY_METHODS } from './client-events/runtime-client-capabilities'
 import { EMULATOR_METHODS } from './emulator/emulator'
 import { PAIRING_METHODS } from './pairing/pairing'
@@ -135,7 +133,6 @@ export const ALL_RPC_METHODS = [
   ...LINEAR_METHODS,
   ...LINEAR_AGENT_ACCESS_METHODS,
   ...JIRA_METHODS,
-  ...SSH_METHODS,
   ...MANAGED_SERVER_METHODS,
   ...RECIPE_VM_WAKE_METHODS,
   ...ENVIRONMENT_DOCTOR_METHODS,
@@ -150,7 +147,6 @@ export const ALL_RPC_METHODS = [
   ...SKILL_METHODS,
   ...CLIPBOARD_METHODS,
   ...HOST_CAPABILITY_METHODS,
-  ...MOBILE_WEB_BUNDLE_METHODS,
   ...RUNTIME_CLIENT_CAPABILITY_METHODS,
   ...CLIENT_EVENT_METHODS,
   ...CLIENT_UI_METHODS,

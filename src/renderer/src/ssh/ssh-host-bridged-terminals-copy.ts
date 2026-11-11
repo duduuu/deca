@@ -15,7 +15,7 @@ export function bridgedTerminalsLine(
     tone: 'warning',
     text: t(
       'auto.components.settings.sshHostServer.olderTerminalsBridged',
-      'Orca isn’t set up on this host yet: terminals started by an older version of Orca are still running in this host’s projects. They keep working here. Close them or end them on the host, then reconnect.'
+      'Deca isn’t set up on this host yet: terminals started by an older version of Deca are still running in this host’s projects. They keep working here. Close them or end them on the host, then reconnect.'
     ),
     ...(detail ? { detail } : {})
   }

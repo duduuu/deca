@@ -138,13 +138,13 @@ export function MobilePairingConnectionOptions({
           onSelect={() => onChange('automatic')}
           title={t(
             'auto.components.settings.MobilePairingConnectionOptions.anywhereTitle',
-            'Orca Relay'
+            'Deca Relay'
           )}
           description={
             relayUnavailable
               ? t(
                   'auto.components.settings.MobilePairingConnectionOptions.relayUnavailable',
-                  'Orca Relay isn’t available in this build. Use LAN.'
+                  'Deca Relay isn’t available in this build. Use LAN.'
                 )
               : t(
                   'auto.components.settings.MobilePairingConnectionOptions.anywhereDescription',

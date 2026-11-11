@@ -33,7 +33,7 @@ const SERVER: OrchestrationWorkerServer = {
 }
 const LAST_HEARD = '2026-11-09 08:30:00'
 
-describe('reads of workers a paired server runs, from this Orca’s records', () => {
+describe('reads of workers a paired server runs, from this Deca’s records', () => {
   let db: OrchestrationDb
   let runtime: OrcaRuntimeService
   let run: RunRow
@@ -134,7 +134,7 @@ describe('reads of workers a paired server runs, from this Orca’s records', ()
     )
   })
 
-  it('keeps the time devB last reported when this Orca only owes it a stop', () => {
+  it('keeps the time devB last reported when this Deca only owes it a stop', () => {
     const record = remoteWorker('task_1', 'ctx_w1')
     oweRemoteDispatchStop(db, record.dispatch_id, 'intent_1')
 
@@ -176,13 +176,13 @@ describe('reads of workers a paired server runs, from this Orca’s records', ()
     closeRemoteRunLink(
       db,
       record.conversation_id,
-      "devB was removed from this Orca's paired servers."
+      "devB was removed from this Deca's paired servers."
     )
 
     const shown = remoteWorkerShow(runtime, record)
     expect(shown.server.name).toBe('devB')
     expect(shown.observation.reason).toBe(
-      "devB was removed from this Orca's paired servers. It no longer reports this worker here; this is devB's state as of 2026-11-09T08:30:00Z. Its output is kept only on devB."
+      "devB was removed from this Deca's paired servers. It no longer reports this worker here; this is devB's state as of 2026-11-09T08:30:00Z. Its output is kept only on devB."
     )
   })
 
@@ -234,7 +234,7 @@ describe('reads of workers a paired server runs, from this Orca’s records', ()
   it('says a server that never answered cannot confirm a change, and passes its own unknown outcome through', () => {
     const offline = new OrchestrationError(
       'remote_runtime_unavailable',
-      'Could not connect to the remote Orca runtime.'
+      'Could not connect to the remote Deca runtime.'
     )
     const change = explainRemoteServerFailure(offline, {
       server: 'devB',
@@ -249,7 +249,7 @@ describe('reads of workers a paired server runs, from this Orca’s records', ()
     expect(change).toHaveProperty(
       'message',
       expect.stringContaining(
-        'devB did not answer (Could not connect to the remote Orca runtime.), so this Orca cannot tell whether the command reached it.'
+        'devB did not answer (Could not connect to the remote Deca runtime.), so this Deca cannot tell whether the command reached it.'
       )
     )
     expect(change).toHaveProperty(

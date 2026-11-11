@@ -31,7 +31,7 @@ describe('HermesHookService', () => {
     rmSync(homeDir, { recursive: true, force: true })
   })
 
-  it('preserves other enabled plugins and removes Orca from disabled list', () => {
+  it('preserves other enabled plugins and removes Deca from disabled list', () => {
     writeFileSync(
       join(homeDir, 'config.yaml'),
       [
@@ -104,7 +104,7 @@ describe('HermesHookService', () => {
   })
 
   it('refreshes named profiles that keep the plugin enabled, and only those', () => {
-    const stale = '# Managed by Orca. Do not edit; changes may be overwritten.\n# stale\n'
+    const stale = '# Managed by Deca. Do not edit; changes may be overwritten.\n# stale\n'
     // `hermes profile create --clone` copies the plugin but not later passthrough edits.
     const profile = (name: string, config: string): string => {
       const home = join(homeDir, 'profiles', name)
@@ -199,7 +199,7 @@ describe('HermesHookService', () => {
     expect(config.plugins.disabled).toBe('not-a-list')
   })
 
-  it('registered plugin hooks post normalized JSON to Orca', async () => {
+  it('registered plugin hooks post normalized JSON to Deca', async () => {
     const pythonAvailable = spawnSync('python3', ['--version'], { encoding: 'utf-8' }).status === 0
     if (!pythonAvailable) {
       return
@@ -369,7 +369,7 @@ describe('HermesHookService', () => {
         '    ctx.hooks["pre_tool_call"](session_id="sess-C", tool_name="patch")',
         '# Gateway housekeeping runs outside any session, so it has no proven pane.',
         'ctx.hooks["on_session_finalize"](session_id="sess-B", platform="local")',
-        '# A non-Orca shell attached to the same gateway.',
+        '# A non-Deca shell attached to the same gateway.',
         'with client_env_scope({"PATH": "/usr/bin"}):',
         '    ctx.hooks["pre_llm_call"](session_id="sess-X", user_message="not a pane")'
       ].join('\n')

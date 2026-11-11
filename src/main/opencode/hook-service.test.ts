@@ -264,7 +264,7 @@ describe('OpenCodeHookService overlay mode (user OPENCODE_CONFIG_DIR set)', () =
     )
   }
 
-  it('builds an overlay under userData and exposes user config + Orca plugin together', () => {
+  it('builds an overlay under userData and exposes user config + Deca plugin together', () => {
     const service = new OpenCodeHookService()
     const env = service.buildPtyEnv(ptyId, userConfigDir)
 
@@ -290,7 +290,7 @@ describe('OpenCodeHookService overlay mode (user OPENCODE_CONFIG_DIR set)', () =
     expectUserConfigIntact()
   })
 
-  it("does not overwrite a user plugin file with the same filename as Orca's plugin", () => {
+  it("does not overwrite a user plugin file with the same filename as Deca's plugin", () => {
     // Mirroring this filename would let plugin installation overwrite the user’s file.
     const userOrcaSentinel = 'USER OWNED ORCA-NAMED PLUGIN — DO NOT CLOBBER'
     writeFileSync(join(userConfigDir, 'plugins', 'orca-opencode-status.js'), userOrcaSentinel)

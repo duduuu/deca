@@ -4,7 +4,7 @@ import { resolveLaunchUserDataPath } from '../runtime/launch-user-data-path'
 import { pluginDevWatchConfirmFor } from '../plugin-dev-watch/plugin-dev-watch-approval'
 
 const RESET_WARNING =
-  "This gives this machine's Orca server a new pairing key and installation id and removes every " +
+  "This gives this machine's Deca server a new pairing key and installation id and removes every " +
   'paired device. Desktops and phones paired with it must pair again.'
 
 export async function resetServeHostIdentity(userDataPath: string): Promise<void> {
@@ -13,12 +13,12 @@ export async function resetServeHostIdentity(userDataPath: string): Promise<void
     await import('../../main/orcad/orcad-host-identity-reset.js')
   const result = resetHostIdentityUnderLock(userDataPath)
   if (result.status === 'missing') {
-    throw new RuntimeClientError('not_found', `No Orca data at ${userDataPath}; nothing to reset.`)
+    throw new RuntimeClientError('not_found', `No Deca data at ${userDataPath}; nothing to reset.`)
   }
   if (result.status === 'running') {
     throw new RuntimeClientError(
       'runtime_running',
-      `Stop Orca (the desktop app or \`deca serve\`) for ${userDataPath} first. ${result.message}`
+      `Stop Deca (the desktop app or \`deca serve\`) for ${userDataPath} first. ${result.message}`
     )
   }
   if (result.status === 'failed') {
@@ -27,7 +27,7 @@ export async function resetServeHostIdentity(userDataPath: string): Promise<void
   if (result.status === 'incomplete') {
     throw new RuntimeClientError(
       'reset_incomplete',
-      `The reset did not finish (${result.message}). The next Orca start for ${userDataPath} finishes it before pairing is served; fix the cause first.`
+      `The reset did not finish (${result.message}). The next Deca start for ${userDataPath} finishes it before pairing is served; fix the cause first.`
     )
   }
 }
@@ -55,7 +55,7 @@ export const SERVE_RESET_IDENTITY_HANDLERS: Record<string, CommandHandler> = {
       return
     }
     console.log(
-      `Reset the pairing identity in ${userDataPath}. Start Orca again and pair clients with it.`
+      `Reset the pairing identity in ${userDataPath}. Start Deca again and pair clients with it.`
     )
   }
 }

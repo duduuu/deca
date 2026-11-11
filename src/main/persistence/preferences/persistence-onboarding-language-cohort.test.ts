@@ -47,21 +47,21 @@ describe('persisted onboarding language cohorts', () => {
     expect(readDataFile()).toHaveProperty('settings.telemetry.onboardingLanguageCohort', cohort)
     expect(readDataFile()).toHaveProperty('settings.uiLanguage', 'system')
 
-    store.updateSettings({ uiLanguage: 'fr' })
+    store.updateSettings({ uiLanguage: 'ko' })
     store.updateSettings({ telemetry: { ...telemetry, optedIn: false } })
     store.flush()
     await closeTestStores()
 
     const reopened = createStore()
     expect(reopened.getSettings().telemetry).toEqual({ ...telemetry, optedIn: false })
-    expect(reopened.getSettings().uiLanguage).toBe('fr')
+    expect(reopened.getSettings().uiLanguage).toBe('ko')
     expect(crypto.randomInt).toHaveBeenCalledExactlyOnceWith(2)
   })
 
   it('keeps a previously migrated profile excluded through restart', async () => {
     writeDataFile({
       settings: {
-        uiLanguage: 'ja',
+        uiLanguage: 'ko',
         telemetry: {
           optedIn: false,
           installId: 'existing-profile',
@@ -75,7 +75,7 @@ describe('persisted onboarding language cohorts', () => {
     const reopened = createStore()
     expect(reopened.getSettings().telemetry?.onboardingLanguageCohort).toBeUndefined()
     expect(reopened.getSettings().telemetry?.optedIn).toBe(false)
-    expect(reopened.getSettings().uiLanguage).toBe('ja')
+    expect(reopened.getSettings().uiLanguage).toBe('ko')
     expect(crypto.randomInt).not.toHaveBeenCalled()
   })
 })

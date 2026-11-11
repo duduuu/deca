@@ -113,7 +113,7 @@ export function TaskPageLinearIssueBoard({
                 }
                 return t(
                   'auto.components.TaskPage.linearEmptyHasWorktree',
-                  'No Linear tickets are linked to an Orca workspace yet. Start work from a Linear issue to see it here.'
+                  'No Linear tickets are linked to a Deca workspace yet. Start work from a Linear issue to see it here.'
                 )
               }
               const emptyKind = resolveLinearIssueEmptyKind({

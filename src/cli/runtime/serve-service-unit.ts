@@ -156,7 +156,7 @@ function renderSystemdUnit(argv: string[], env: Record<string, string>): string 
     .join('\n')
   // Kill only the supervisor: it stops its server while the terminal daemon survives.
   return `[Unit]
-Description=Orca server (deca serve --supervise)
+Description=Deca server (deca serve --supervise)
 StartLimitIntervalSec=900
 StartLimitBurst=5
 

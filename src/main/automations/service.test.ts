@@ -238,7 +238,7 @@ describe('AutomationService', () => {
     const poisonRun = reloaded.listAutomationRuns(poison.id)[0]
     expect(poisonRun?.status).toBe('skipped_unavailable')
     expect(poisonRun?.error).toBe(
-      'Orca could not evaluate this automation and skipped the occurrence.'
+      'Deca could not evaluate this automation and skipped the occurrence.'
     )
     expect(logged).toHaveBeenCalled()
   })
@@ -285,7 +285,7 @@ describe('AutomationService', () => {
     expect(launch.mock.calls[0]?.[0].automation.id).toBe(healthy.id)
     expect(reloaded.listAutomationRuns(healthy.id)[0]?.status).toBe('dispatched')
     expect(reloaded.listAutomationRuns(poison.id)[0]?.error).toBe(
-      'Orca could not evaluate this automation and skipped the occurrence.'
+      'Deca could not evaluate this automation and skipped the occurrence.'
     )
     expect(logged).toHaveBeenCalled()
   })
@@ -385,7 +385,7 @@ describe('AutomationService', () => {
       expect.objectContaining({
         id: retained.id,
         status: 'dispatch_failed',
-        error: 'Orca stopped before this run could launch.'
+        error: 'Deca stopped before this run could launch.'
       })
     ])
     expect(launch).not.toHaveBeenCalled()

@@ -75,14 +75,14 @@ const agentLaunchAnswer = z.object({
 
 function renderer(services: PluginHostServices): PluginHostRendererActions {
   if (!services.renderer) {
-    throw new PluginHostCallError('unavailable', 'only the Orca desktop app can do this')
+    throw new PluginHostCallError('unavailable', 'only the Deca desktop app can do this')
   }
   return services.renderer
 }
 
 function rpc(services: PluginHostServices): PluginRuntimeRpc {
   if (!services.runtimeRpc) {
-    throw new PluginHostCallError('unavailable', 'this Orca host cannot run workspace actions')
+    throw new PluginHostCallError('unavailable', 'this Deca host cannot run workspace actions')
   }
   return services.runtimeRpc
 }

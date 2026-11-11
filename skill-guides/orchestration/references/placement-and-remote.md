@@ -26,11 +26,11 @@ ORCA orchestration worker-start --task <task_id> --on <server> --worktree new-to
 
 With `--on`, both `new-child` and `new-top-level` need `--repo` naming a
 project on that server. `new-child` nests the server's worktree under your
-workspace on this machine. A server whose Orca is too old to nest across
+workspace on this machine. A server whose Deca is too old to nest across
 machines still starts the worker, top-level, and the receipt's `warning` says
 so; the worker is fine to use. `current` is not valid with `--on`.
 
-`--name` is optional: without it Orca picks a name as it does for an unnamed
+`--name` is optional: without it Deca picks a name as it does for an unnamed
 workspace, and the start output names the workspace it created.
 
 After start, address a remote worker only by Dispatch ID, never by a terminal
@@ -45,14 +45,14 @@ using the same server names as `worker-start --on`:
 ORCA orchestration send --on <server> --to <term_…|orca_session_id:…> --subject "<text>" --body "<text>"
 ```
 
-Your own Orca carries the mail and keeps the conversation. Replies come back to
+Your own Deca carries the mail and keeps the conversation. Replies come back to
 your own `check`, and they wake you like local mail. The other agent answers
 with a plain `reply --id <msg_id> --body <text>`; no flag is needed on either
 side. Mail from another server names its sender as `<sender> on <server name>`.
 
 `--environment <server>` runs one command on that server and delivers nothing back
-to you, so an agent never mails with it. Your mailbox stays on your own Orca:
+to you, so an agent never mails with it. Your mailbox stays on your own Deca:
 `check` takes no `--environment`. Read-only commands such as `inbox` or
-`worker-list` with `--environment` show that server's records. A server whose Orca
+`worker-list` with `--environment` show that server's records. A server whose Deca
 is too old answers `server_mail_unsupported` and nothing is sent. Pair servers
 with `deca pair` or in Settings.

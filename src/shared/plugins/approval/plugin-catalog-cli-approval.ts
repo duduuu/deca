@@ -33,14 +33,14 @@ export function buildPluginCatalogApprovalRequest(source: {
     catalog: { url: source.url, ref: source.ref, owner, repository: origin?.repository ?? null },
     approvalFingerprint,
     grants: [
-      `Orca lists this catalog's plugins in Settings → Plugins, and \`deca plugin install <publisher.id>\` installs them by name.`,
-      'With plugin auto-update on, Orca installs new versions of plugins you installed from it without asking, as long as they ask for no new access.',
+      `Deca lists this catalog's plugins in Settings → Plugins, and \`deca plugin install <publisher.id>\` installs them by name.`,
+      'With plugin auto-update on, Deca installs new versions of plugins you installed from it without asking, as long as they ask for no new access.',
       'Adding it installs and enables nothing by itself; each plugin that runs code still needs its own approval.'
     ],
-    why: `A catalog decides which repositories Orca installs and updates plugins from. It is published by ${owner ?? 'its owner'}, not Orca, so only add it if you trust ${owner ?? 'its owner'}.`,
+    why: `A catalog decides which repositories Deca installs and updates plugins from. It is published by ${owner ?? 'its owner'}, not Deca, so only add it if you trust ${owner ?? 'its owner'}.`,
     approveFlag,
     nextSteps: [
-      'Adding a catalog changes where Orca installs plugins from. Confirm with your user first unless they asked for exactly this catalog.',
+      'Adding a catalog changes where Deca installs plugins from. Confirm with your user first unless they asked for exactly this catalog.',
       `To approve, run the same command again with ${approveFlag}`
     ]
   }

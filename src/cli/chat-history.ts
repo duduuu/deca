@@ -60,7 +60,7 @@ export function requireWorkingFlag(page: AgentSessionHistoryPage): void {
   if (page.working === undefined) {
     throw new RuntimeClientError(
       'incompatible_runtime',
-      'This Orca host does not report when a chat is working, so it cannot wait. Update Orca on the host.'
+      'This Deca host does not report when a chat is working, so it cannot wait. Update Deca on the host.'
     )
   }
 }
@@ -127,7 +127,7 @@ export function formatSettled(result: ChatTranscript & { settled: ChatSettled })
     result.settled === 'timeout'
       ? 'Still working when the wait timed out.'
       : result.settled === 'held'
-        ? 'Your message is held in the queue (the chat was stopped or the send failed). Resume it in Orca.'
+        ? 'Your message is held in the queue (the chat was stopped or the send failed). Resume it in Deca.'
         : result.settled === 'blocked'
           ? 'Blocked: waiting for you to answer an approval or question.'
           : 'Done.'
@@ -161,7 +161,7 @@ export function explainChatRefusal(
   ) {
     return new RuntimeClientError(
       'incompatible_runtime',
-      `This Orca host cannot ${action} chats from the CLI. Update Orca on that host, or check that it has chats turned on.`
+      `This Deca host cannot ${action} chats from the CLI. Update Deca on that host, or check that it has chats turned on.`
     )
   }
   return error

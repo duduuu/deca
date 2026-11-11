@@ -105,19 +105,19 @@ export function settingsModel(): SettingsPersistenceModel {
 
 export async function pickerLocaleFixture() {
   const { i18n } = await import('@/i18n/i18n')
-  const { default: spanish } = await import('@/i18n/locales/es.json')
-  const previous = i18n.hasResourceBundle('es', 'translation')
-    ? structuredClone(i18n.getResourceBundle('es', 'translation'))
+  const { default: spanish } = await import('@/i18n/locales/ko.json')
+  const previous = i18n.hasResourceBundle('ko', 'translation')
+    ? structuredClone(i18n.getResourceBundle('ko', 'translation'))
     : undefined
   const language = i18n.language
-  i18n.addResourceBundle('es', 'translation', spanish, true, true)
+  i18n.addResourceBundle('ko', 'translation', spanish, true, true)
   await i18n.changeLanguage('en')
   return {
     i18n,
     async restore() {
-      i18n.removeResourceBundle('es', 'translation')
+      i18n.removeResourceBundle('ko', 'translation')
       if (previous) {
-        i18n.addResourceBundle('es', 'translation', previous)
+        i18n.addResourceBundle('ko', 'translation', previous)
       }
       await i18n.changeLanguage(language)
     }

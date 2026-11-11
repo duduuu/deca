@@ -6,7 +6,7 @@ export function createTerminalRevealWarning(handle: string, error?: unknown): st
       ? ` Reason: ${error.message.trim()}.`
       : ''
   return [
-    `Terminal ${handle} is running, but Orca could not make it discoverable.${reason}`,
+    `Terminal ${handle} is running, but Deca could not make it discoverable.${reason}`,
     `Run \`deca terminal focus --terminal ${handle}\` to reveal and focus it.`
   ].join(' ')
 }

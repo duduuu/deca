@@ -6,9 +6,9 @@ Host API 1.6 (`"pluginApi": 1`). Call `host.call(method, params, { signal })`; a
 
 ## Methods per surface
 
-- Worker (`trusted-worker`, `main`): `deca` passed to `activate(orca)`: `workspace.readContext`, `terminal.sendText`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `agents.list`, `statusBar.update`, `appearance.read`, `appearance.apply`, `workspace.list`, `workspace.open`, `workspace.rename`, `terminal.create`, `terminal.read`, `agent.launch`, `editor.open`, `commands.run`, `editor.readTypography`
-- Panel: global `deca` in an HTML panel; `host` imported from `deca` in a components panel: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
-- Custom editor: global `deca` in the editor frame: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
+- Worker (`trusted-worker`, `main`): `orca` passed to `activate(orca)`: `workspace.readContext`, `terminal.sendText`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `agents.list`, `statusBar.update`, `appearance.read`, `appearance.apply`, `workspace.list`, `workspace.open`, `workspace.rename`, `terminal.create`, `terminal.read`, `agent.launch`, `editor.open`, `commands.run`, `editor.readTypography`
+- Panel: global `orca` in an HTML panel; `host` imported from `orca` in a components panel: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
+- Custom editor: global `orca` in the editor frame: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
 
 ## Worker API (`import type { OrcaWorkerApi } from 'orca/worker'`)
 
@@ -22,9 +22,9 @@ Host API 1.6 (`"pluginApi": 1`). Call `host.call(method, params, { signal })`; a
 - `settings: SettingsApi`: `settings:own`; `onDidChange` also hears the person changing them in Settings.
 - `secrets: SecretsApi`: `secrets:own`.
 - `grantedCapabilities: readonly string[]`: Consented capability kinds; informational, the host re-checks every call.
-- `log(message: string)`: Lands in `deca plugin logs`.
+- `log(message: string)`: Lands in `orca plugin logs`.
 
-## Frame API (global `deca`, also `window.orca`, in HTML panels and custom editors)
+## Frame API (global `orca`, also `window.orca`, in HTML panels and custom editors)
 
 - `api: HostApiVersion`
 - `host: HostApi<'panel' | 'editor'>`
@@ -95,9 +95,9 @@ HTML panels and custom editors get these CSS variables from Orca's active theme,
   `(params?: {}) => { settings: Record<string, JSON> }`
 - `settings.set` (capability `settings:own`; worker, panel, editor; since 1.0): Writes one setting the plugin owns.
   `(params: { key: string; value: JSON }) => { ok: true }`
-- `shell.openExternal` (no capability; panel, editor; since 1.1; needs a user gesture): Opens an http:, https: or mailto: URL in the default browser. Needs a click or key press in the frame; desktop app only. Orca asks the person before an http(s) host the plugin was not allowed; `opened` is false if they cancel.
+- `shell.openExternal` (no capability; panel, editor; since 1.1; needs a user gesture): Opens an http:, https: or mailto: URL in the default browser. Needs a click or key press in the frame; desktop app only. Deca asks the person before an http(s) host the plugin was not allowed; `opened` is false if they cancel.
   `(params: { url: string }) => { opened: boolean; reason?: "cancelled" | "consent-unavailable" }`
-- `files.saveAs` (no capability; panel, editor; since 1.1; needs a user gesture): Offers data (a string or ArrayBuffer, up to 64 MiB) in Orca's save dialog; the plugin never learns the path. Needs a click or key press in the frame; desktop app only.
+- `files.saveAs` (no capability; panel, editor; since 1.1; needs a user gesture): Offers data (a string or ArrayBuffer, up to 64 MiB) in Deca's save dialog; the plugin never learns the path. Needs a click or key press in the frame; desktop app only.
   `(params: { suggestedName?: string; mimeType?: string; data: string | ArrayBuffer }) => { status: "saved" | "cancelled" }`
 - `plugin.request` (no capability; panel, editor; since 1.2): Asks the plugin's own worker to run the handler it registered with `orca.panels.handle(name)`, starting the worker if needed; resolves with what the handler returned. `unknown_method` when no handler has that name.
   `(params: { name: string; input?: JSON; timeoutMs?: number }) => { output: JSON }`
@@ -105,17 +105,17 @@ HTML panels and custom editors get these CSS variables from Orca's active theme,
   `(params?: {}) => { agents: { terminalId: string | null; title: string | null; agent: string | null; state: "working" | "blocked" | "waiting" | "done"; stateStartedAt: number }[] }`
 - `events.subscribe` (no capability; panel, editor; since 1.2): Delivers a workspace, agent or editor event to this panel as `orca.on(event)`; needs the event's read capability, when it has one. The frame APIs call it for you.
   `(params: { event: "workspace.created" | "workspace.removed" | "agent.status.changed" | "workspace.changed" | "editor.typography.changed" }) => { ok: true }`
-- `statusBar.update` (no capability; worker; since 1.2): Changes one of the plugin's `contributes.statusBarItems` (named by `id`): fields given replace their current value, `visible: false` hides it. Desktop app only; lasts until Orca restarts, and is hidden while the plugin is disabled. A plugin with `main` and status bar items has its worker started when it is enabled and kept running while it stays enabled, so a worker can poll and update its items without an event or a hook.
+- `statusBar.update` (no capability; worker; since 1.2): Changes one of the plugin's `contributes.statusBarItems` (named by `id`): fields given replace their current value, `visible: false` hides it. Desktop app only; lasts until Deca restarts, and is hidden while the plugin is disabled. A plugin with `main` and status bar items has its worker started when it is enabled and kept running while it stays enabled, so a worker can poll and update its items without an event or a hook.
   `(params: { id: string; text?: string; icon?: "activity" | "bar-chart-3" | "bell" | "blocks" | "book" | "bot" | "bug" | "calendar" | "cloud" | "code" | "database" | "file-text" | "flag" | "folder" | "gauge" | "globe" | "hammer" | "layers" | "lightbulb" | "package" | "plug" | "puzzle" | "rocket" | "star" | "terminal" | "wrench" | "zap" | "add" | "remove" | "delete" | "edit" | "refresh" | "search" | "settings" | "check" | "close" | "info" | "warning" | "error" | "open-external" | "copy" | "download" | "upload" | "play" | "pause" | "stop" | "more" | "expand" | "collapse" | "next" | "filter" | "branch" | "file" | "agent" | "link"; tone?: "neutral" | "accent" | "success" | "warning" | "danger"; tooltip?: string; visible?: boolean }) => { ok: true }`
 - `appearance.read` (capability `appearance:write`; worker; since 1.4): Reads the current desktop appearance revision for a conditional update.
   `(params?: {}) => { revision: string }`
 - `appearance.apply` (capability `appearance:write`; worker; since 1.4): Publishes owned app/editor and terminal colors and selects them in the desktop. Returns publication, not renderer acknowledgement.
   `(params: { expectedRevision: string; app: string; terminal: string }) => { revision: string; themeId: string; mode: "dark" | "light"; delivery: "published" }`
-- `workspace.list` (capability `workspace:read`; worker; since 1.3): Lists every workspace, Git worktrees and folders, on every host Orca reaches.
+- `workspace.list` (capability `workspace:read`; worker; since 1.3): Lists every workspace, Git worktrees and folders, on every host Deca reaches.
   `(params?: {}) => { workspaces: { id: string; kind: "worktree" | "folder"; name: string; project?: string | null; path: string; branch: string | null; hostId: string | null }[]; truncated: boolean }`
-- `workspace.open` (capability `workspace:write`; worker; since 1.3): Shows a workspace in Orca, as clicking it in the sidebar does; a folder workspace needs the desktop app.
+- `workspace.open` (capability `workspace:write`; worker; since 1.3): Shows a workspace in Deca, as clicking it in the sidebar does; a folder workspace needs the desktop app.
   `(params: { workspaceId: string }) => { opened: true }`
-- `workspace.rename` (capability `workspace:write`; worker; since 1.5): Renames a workspace in Orca's sidebar, as renaming it by hand does; the name stays until it is renamed again.
+- `workspace.rename` (capability `workspace:write`; worker; since 1.5): Renames a workspace in Deca's sidebar, as renaming it by hand does; the name stays until it is renamed again.
   `(params: { workspaceId: string; name: string }) => { name: string }`
 - `terminal.create` (capability `terminal:send`; worker; since 1.3): Opens a terminal in a workspace, optionally running a command, in the background.
   `(params: { workspaceId: string; title?: string; command?: string }) => { terminalId: string }`
@@ -123,38 +123,38 @@ HTML panels and custom editors get these CSS variables from Orca's active theme,
   `(params: { terminalId: string; maxLines?: number }) => { lines: string[]; truncated: boolean }`
 - `agent.launch` (capability `agent:launch`; worker; since 1.3): Starts an agent's CLI in a new terminal of a workspace, in the background, and returns as soon as it starts; a `prompt` is sent once the agent is ready.
   `(params: { workspaceId: string; agent: string; prompt?: string }) => { terminalId: string }`
-- `editor.open` (capability `workspace:write`; worker; since 1.3): Opens a file of a workspace in an editor tab of Orca's window; desktop app only. `workspace.open` shows the workspace.
+- `editor.open` (capability `workspace:write`; worker; since 1.3): Opens a file of a workspace in an editor tab of Deca's window; desktop app only. `workspace.open` shows the workspace.
   `(params: { workspaceId: string; path: string }) => { opened: true }`
-- `commands.run` (capability `workspace:write`; worker; since 1.3): Runs one of Orca's built-in actions in its window, never a plugin's replacement of it; desktop app only.
+- `commands.run` (capability `workspace:write`; worker; since 1.3): Runs one of Deca's built-in actions in its window, never a plugin's replacement of it; desktop app only.
   `(params: { action: "worktree.history.back" | "worktree.history.forward" | "sidebar.left.toggle" | "sidebar.sleepingWorkspaces.toggle" | "floatingWorkspace.maximize" | "tab.rename" | "workspace.rename" | "workspace.openBoard" | "view.tasks" | "sidebar.right.toggle" | "sidebar.explorer.toggle" | "sidebar.search.toggle" | "sidebar.sourceControl.toggle" | "sidebar.checks.toggle" | "sidebar.ports.toggle" }) => { ran: true }`
-- `editor.readTypography` (no capability; worker, panel, editor; since 1.6): The font family, size, weight, line height, ligatures, word wrap and minimap Orca's file editor uses now, editor zoom included. `editor.typography.changed` reports each change after.
+- `editor.readTypography` (no capability; worker, panel, editor; since 1.6): The font family, size, weight, line height, ligatures, word wrap and minimap Deca's file editor uses now, editor zoom included. `editor.typography.changed` reports each change after.
   `(params?: {}) => { fontFamily: string; cssFontFamily: string; fontSize: number; fontWeight: string; lineHeight: number; fontLigatures: boolean; wordWrap: "on" | "off"; minimap: boolean }`
 
 ## Hooks
 
 List each in `contributes.hooks` (`{ "event", "onError"? }`; `main` and `trusted-worker`) and handle it with `orca.hooks.on(event, (event, next) => ...)`. Return `next(event)` (or nothing) to go on, or the stop result. Plugins run in turn, 2 s each; a throw, timeout or crash passes unless the entry says `"onError": "deny"`. Decide first: an awaited call before you return (a notification, say) can fail or time out and turn your deny into a pass.
 
-- `terminal.send` (since 1.4.248): Text Orca, the CLI or a plugin is about to send to a terminal. A person typing (on the desktop, a phone or a paired client) is never hooked, and prompts Orca submits to an agent take `agent.prompt.before` instead. Writes to one terminal stay in order while a hook decides. Rewrite `text` or `enter` with `next`, or return `{ deny }` to refuse the send.
+- `terminal.send` (since 1.4.248): Text Deca, the CLI or a plugin is about to send to a terminal. A person typing (on the desktop, a phone or a paired client) is never hooked, and prompts Deca submits to an agent take `agent.prompt.before` instead. Writes to one terminal stay in order while a hook decides. Rewrite `text` or `enter` with `next`, or return `{ deny }` to refuse the send.
   event `{ terminalId: string; text: string; enter: boolean; inputKind: "driving" | "orchestration" | "launch" }`; `next` may change `text`, `enter`; stop with `{ deny: string }`
 - `workspace.create.before` (since 1.4.248): A worktree or folder workspace is about to be created. Change `name`, `branch` or `base` with `next`, or return `{ deny }` to refuse it.
   event `{ kind: "worktree" | "folder"; projectId: string; name: string; branch?: string; base?: string }`; `next` may change `name`, `branch`, `base`; stop with `{ deny: string }`
-- `workspace.create.after` (since 1.4.248): A worktree or folder workspace was created. Observe only: Orca does not wait for it, and results are ignored.
+- `workspace.create.after` (since 1.4.248): A worktree or folder workspace was created. Observe only: Deca does not wait for it, and results are ignored.
   event `{ workspaceId: string; kind: "worktree" | "folder"; path: string; branch: string }`; `next` may change nothing; stop with nothing (observe only)
-- `agent.launch.before` (since 1.4.248): Orca is about to start an agent CLI in a terminal, from any launcher (new tab, workspace create, CLI, automation, orchestration). Change `command` or add `env` with `next`, or return `{ deny }` to refuse the launch. Restores of saved sessions are not hooked.
+- `agent.launch.before` (since 1.4.248): Deca is about to start an agent CLI in a terminal, from any launcher (new tab, workspace create, CLI, automation, orchestration). Change `command` or add `env` with `next`, or return `{ deny }` to refuse the launch. Restores of saved sessions are not hooked.
   event `{ agent: string; workspaceId: string | null; workspaceKind: "worktree" | "folder" | null; terminalId?: string; command: string; env: Record<string, string> }`; `next` may change `command`, `env`; stop with `{ deny: string }`
-- `agent.prompt.before` (since 1.4.248): Orca is about to submit a prompt to an agent in a terminal: a launch prompt, an orchestration dispatch, an issue or task prompt, or `deca terminal send` to an agent. A prompt a person submits is never hooked, and writes to one terminal stay in order while it decides. Rewrite `prompt` with `next`, or return `{ deny }` to refuse it.
+- `agent.prompt.before` (since 1.4.248): Deca is about to submit a prompt to an agent in a terminal: a launch prompt, an orchestration dispatch, an issue or task prompt, or `deca terminal send` to an agent. A prompt a person submits is never hooked, and writes to one terminal stay in order while it decides. Rewrite `prompt` with `next`, or return `{ deny }` to refuse it.
   event `{ agent: string | null; terminalId: string; prompt: string; inputKind: "driving" | "orchestration" | "launch" }`; `next` may change `prompt`; stop with `{ deny: string }`
-- `agent.tool.before` (since 1.4.248): An agent in an Orca terminal is about to run a tool. Claude Code waits for the answer: return `{ deny }` to refuse the call (the agent sees the reason) or change `input` with `next`; the person is still asked as usual. Other agents only report the call, so their results are ignored. Agents on SSH or WSL hosts are not hooked yet.
+- `agent.tool.before` (since 1.4.248): An agent in a Deca terminal is about to run a tool. Claude Code waits for the answer: return `{ deny }` to refuse the call (the agent sees the reason) or change `input` with `next`; the person is still asked as usual. Other agents only report the call, so their results are ignored. Agents on SSH or WSL hosts are not hooked yet.
   event `{ agent: string; workspaceId: string | null; terminalId?: string; tool: string; input: JSON; callId?: string }`; `next` may change `input`; stop with `{ deny: string }`
-- `agent.tool.after` (since 1.4.248): An agent in an Orca terminal finished a tool call (successfully or not). Observe only: Orca does not wait for it.
+- `agent.tool.after` (since 1.4.248): An agent in a Deca terminal finished a tool call (successfully or not). Observe only: Deca does not wait for it.
   event `{ agent: string; workspaceId: string | null; terminalId?: string; tool: string; input: JSON; callId?: string; output?: JSON }`; `next` may change nothing; stop with nothing (observe only)
-- `editor.save.before` (since 1.4.248): The person is about to save a text file from an Orca editor tab (an explicit save, not autosave). Change `text` with `next` (format on save) or return `{ deny }` to refuse the save, which shows your reason. Edits made while the hook ran stay unsaved.
+- `editor.save.before` (since 1.4.248): The person is about to save a text file from a Deca editor tab (an explicit save, not autosave). Change `text` with `next` (format on save) or return `{ deny }` to refuse the save, which shows your reason. Edits made while the hook ran stay unsaved.
   event `{ workspaceId: string | null; path: string; languageId?: string; text: string }`; `next` may change `text`; stop with `{ deny: string }`
 
 ## Capabilities
 
 - `workspace:read` (since 1.4.160): Read the name, branch, and terminal list of your focused workspace, and get notified when workspaces are created or removed
-- `workspace:write` (since 1.4.248): Open and rename your workspaces, open their files in Orca, and run its built-in commands
+- `workspace:write` (since 1.4.248): Open and rename your workspaces, open their files in Deca, and run its built-in commands
 - `agent:read` (since 1.4.245): Get notified when agent status changes
 - `agent:launch` (since 1.4.248): Start agents in your workspaces, local and SSH
 - `terminal:send` (since 1.4.160): Type and run commands in your terminals, local and SSH
@@ -170,8 +170,8 @@ List each in `contributes.hooks` (`{ "event", "onError"? }`; `main` and `trusted
 A failed call rejects with an `Error` carrying `code`, `message`, `retryable` and, for `rate_limited`, `retryAfterMs`. Treat an unknown code as `action_failed`.
 
 - `invalid_request`: the call itself is malformed
-- `invalid_params`: params do not match the method, including a field this Orca does not know; the message names it
-- `unknown_method`: the method does not exist in this Orca
+- `invalid_params`: params do not match the method, including a field this Deca does not know; the message names it
+- `unknown_method`: the method does not exist in this Deca
 - `capability_denied`: the manifest does not declare the capability
 - `consent_required`: the plugin is disabled or the user has not approved this version
 - `not_permitted`: the method or document is not available here, e.g. a worker-only method from a panel
@@ -179,6 +179,6 @@ A failed call rejects with an `Error` carrying `code`, `message`, `retryable` an
 - `unavailable`: the service behind the method is not running yet
 - `action_failed`: the method ran and failed
 - `cancelled`: the caller aborted the call through its `signal`
-- `timeout`: Orca gave up waiting
+- `timeout`: Deca gave up waiting
 - `conflict`: the call was made against a stale version, e.g. an editor edit after an outside change
-- `too_large`: the message is larger than Orca accepts
+- `too_large`: the message is larger than Deca accepts

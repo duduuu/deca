@@ -18,15 +18,15 @@ export function appCliName(platform: NodeJS.Platform): string {
 }
 
 const NOT_AN_APP_CLI =
-  "This `deca` command isn't running from an installed Orca app. On a host Orca reaches over SSH, it belongs to that connection's server and can't start one of its own."
+  "This `deca` command isn't running from an installed Deca app. On a host Deca reaches over SSH, it belongs to that connection's server and can't start one of its own."
 
 export function serverOnlyServeMessage(platform: NodeJS.Platform): string {
-  return `${NOT_AN_APP_CLI} Install the Orca app on this machine and run \`${appCliName(platform)} serve\` from a plain login shell, or set ORCA_APP_EXECUTABLE to the Orca app executable.`
+  return `${NOT_AN_APP_CLI} Install the Deca app on this machine and run \`${appCliName(platform)} serve\` from a plain login shell, or set ORCA_APP_EXECUTABLE to the Deca app executable.`
 }
 
 function serverOnlyServiceInstallMessage(platform: NodeJS.Platform): string {
   const name = appCliName(platform)
-  return `Could not find the installed Orca app's \`${name}\` command on PATH. ${NOT_AN_APP_CLI} Install the Orca app on this machine, then run \`${name} serve service install\` from a plain login shell so the service uses the app's own profile, or pass --command <absolute path to the app's ${name}>.`
+  return `Could not find the installed Deca app's \`${name}\` command on PATH. ${NOT_AN_APP_CLI} Install the Deca app on this machine, then run \`${name} serve service install\` from a plain login shell so the service uses the app's own profile, or pass --command <absolute path to the app's ${name}>.`
 }
 
 function isVersionScopedDir(dir: string, userData: string): boolean {
@@ -72,7 +72,7 @@ export function resolveServiceCommand(
     if (isVersionScopedDir(dirname(explicit), userData)) {
       throw new RuntimeClientError(
         'invalid_argument',
-        `--command points at a launcher tied to one Orca version, which the next update replaces: ${explicit}. Pass the installed Orca app's \`${appCliName(deps.platform)}\` instead.`
+        `--command points at a launcher tied to one Deca version, which the next update replaces: ${explicit}. Pass the installed Deca app's \`${appCliName(deps.platform)}\` instead.`
       )
     }
     return explicit
@@ -87,7 +87,7 @@ export function resolveServiceCommand(
   throw new RuntimeClientError(
     'cli_not_found',
     canStartOrcaServer(deps.env)
-      ? `Could not find the \`${name}\` command on PATH. Install it from Orca Settings, or pass --command <absolute path>.`
+      ? `Could not find the \`${name}\` command on PATH. Install it from Deca Settings, or pass --command <absolute path>.`
       : serverOnlyServiceInstallMessage(deps.platform)
   )
 }

@@ -62,7 +62,7 @@ export function buildCapabilitySettingsSections(
       title: t('auto.hooks.useSettingsNavigationMetadata.58a868e8e4', 'Orchestration'),
       description: t(
         'auto.hooks.useSettingsNavigationMetadata.cd50cec5d7',
-        'Coordinate multiple coding agents through Orca.'
+        'Coordinate multiple coding agents through Deca.'
       ),
       icon: Network,
       searchEntries: getOrchestrationPaneSearchEntries({
@@ -78,7 +78,7 @@ export function buildCapabilitySettingsSections(
             title: t('auto.hooks.useSettingsNavigationMetadata.linearTitle', 'Linear'),
             description: t(
               'auto.hooks.useSettingsNavigationMetadata.linearDescription',
-              'How Linear works in Orca, setup checklist, agent skill, and example prompts.'
+              'How Linear works in Deca, setup checklist, agent skill, and example prompts.'
             ),
             icon: LinearIcon,
             searchEntries: getLinearAgentSkillPaneSearchEntries(),
@@ -125,7 +125,7 @@ export function buildSetupSettingsSections(
       title: t('auto.hooks.useSettingsNavigationMetadata.ded9e9032f', 'Onboarding checklist'),
       description: t(
         'auto.hooks.useSettingsNavigationMetadata.5f32ac08f3',
-        'Finish the onboarding checklist for core Orca workflows.'
+        'Finish the onboarding checklist for core Deca workflows.'
       ),
       icon: OrcaLogoSettingsIcon,
       searchEntries: [
@@ -137,7 +137,7 @@ export function buildSetupSettingsSections(
           ),
           keywords: [
             t('auto.hooks.useSettingsNavigationMetadata.ea0b1bc7b8', 'setup guide'),
-            t('auto.hooks.useSettingsNavigationMetadata.0505d0df29', 'get started with Orca'),
+            t('auto.hooks.useSettingsNavigationMetadata.0505d0df29', 'get started with Deca'),
             t('auto.hooks.useSettingsNavigationMetadata.724c440e72', 'getting started')
           ]
         }

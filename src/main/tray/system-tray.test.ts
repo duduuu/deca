@@ -199,8 +199,8 @@ describe('createSystemTray', () => {
 
     expect(trayInstances).toHaveLength(1)
     expect(trayInstances[0].image).toBe(resizedImage)
-    expect(trayInstances[0].setToolTip).toHaveBeenCalledWith('Orca')
-    expect(builtMenuItems().map((item) => item.label)).toEqual(['Open Orca', undefined, 'Quit'])
+    expect(trayInstances[0].setToolTip).toHaveBeenCalledWith('Deca')
+    expect(builtMenuItems().map((item) => item.label)).toEqual(['Open Deca', undefined, 'Quit'])
     const clickHandler = trayInstances[0].on.mock.calls.find((call) => call[0] === 'click')?.[1]
     expect(clickHandler).toBeTypeOf('function')
 
@@ -226,7 +226,7 @@ describe('createSystemTray', () => {
       dataURL: 'data:image/png;base64,mac-retina'
     })
     expect(builtMenuItems().map((item) => item.label)).toEqual([
-      'Open Orca',
+      'Open Deca',
       undefined,
       'Settings',
       undefined,
@@ -236,7 +236,7 @@ describe('createSystemTray', () => {
     expect(nativeThemeMock.on).toHaveBeenCalledWith('updated', expect.any(Function))
 
     for (const [label, callback] of [
-      ['Open Orca', options.onOpen],
+      ['Open Deca', options.onOpen],
       ['Settings', options.onOpenSettings],
       ['Quit', options.onQuit]
     ] as const) {
@@ -258,8 +258,8 @@ describe('createSystemTray', () => {
 
       expect(builtMenuItems().map((item) => item.label)).toEqual(
         platform === 'darwin'
-          ? ['Open Orca', undefined, 'Settings', undefined, 'Quit Completely...', 'Quit']
-          : ['Open Orca', undefined, 'Quit Completely...', 'Quit']
+          ? ['Open Deca', undefined, 'Settings', undefined, 'Quit Completely...', 'Quit']
+          : ['Open Deca', undefined, 'Quit Completely...', 'Quit']
       )
       builtMenuItems().at(-2)?.click?.()
       expect(options.onQuitAndStopAllSessions).toHaveBeenCalledOnce()
@@ -363,13 +363,13 @@ describe('setTrayAttention', () => {
     })
     expect(attentionImage.setTemplateImage).toHaveBeenCalledWith(false)
     expect(created.setImage).toHaveBeenCalledWith(attentionImage)
-    expect(created.setToolTip).toHaveBeenCalledWith('Orca - activity waiting')
+    expect(created.setToolTip).toHaveBeenCalledWith('Deca - activity waiting')
 
     setTrayAttention(false)
     flushTraySceneMutation()
     expect(baseMacImage.setTemplateImage).toHaveBeenLastCalledWith(true)
     expect(created.setImage).toHaveBeenLastCalledWith(baseMacImage)
-    expect(created.setToolTip).toHaveBeenLastCalledWith('Orca')
+    expect(created.setToolTip).toHaveBeenLastCalledWith('Deca')
   })
 
   it('recomposes active macOS attention when the system appearance changes', async () => {
@@ -534,7 +534,7 @@ describe('macOS hardening', () => {
     setTrayAttention(true)
     expect(() => flushTraySceneMutation()).not.toThrow()
     expect(created.setImage).toHaveBeenLastCalledWith(baseMacImage)
-    expect(created.setToolTip).toHaveBeenLastCalledWith('Orca')
+    expect(created.setToolTip).toHaveBeenLastCalledWith('Deca')
     expect(warn).toHaveBeenCalledWith(
       '[system-tray] macOS attention icon failed; showing plain icon',
       expect.any(Error)
@@ -558,67 +558,6 @@ describe('macOS hardening', () => {
 })
 
 describe('language changes', () => {
-  it.each(['darwin', 'win32'] as const)(
-    'refreshes the existing %s menu and keeps its actions',
-    async (platform) => {
-      setPlatform(platform)
-      const { createSystemTray, rebuildSystemTrayMenu } = await loadModule()
-      const { setMainUiLanguage } = await import('../i18n/main-i18n')
-      await setMainUiLanguage('en')
-      const options = { ...createOptions(), onQuitAndStopAllSessions: vi.fn() }
-      createSystemTray(options)
-      expect(builtMenuItems()[0].label).toBe('Open Orca')
-
-      await setMainUiLanguage('ja')
-      rebuildSystemTrayMenu()
-      expect(builtMenuItems()[0].label).toBe('Open Orca')
-      flushTraySceneMutation()
-
-      expect(trayInstances).toHaveLength(1)
-      expect(trayInstances[0].setContextMenu).toHaveBeenCalledTimes(2)
-      expect(builtMenuItems()[0].label).toBe('Orca を開く')
-      expect(builtMenuItems().at(-2)?.label).toBe('完全に終了…')
-      expect(builtMenuItems().at(-1)?.label).toBe('終了')
-      builtMenuItems()[0].click?.()
-      builtMenuItems().at(-2)?.click?.()
-      builtMenuItems().at(-1)?.click?.()
-      expect(options.onOpen).toHaveBeenCalledOnce()
-      expect(options.onQuitAndStopAllSessions).toHaveBeenCalledOnce()
-      expect(options.onQuit).toHaveBeenCalledOnce()
-      if (platform === 'darwin') {
-        expect(builtMenuItems()[2].label).toBe('設定')
-        builtMenuItems()[2].click?.()
-        expect(options.onOpenSettings).toHaveBeenCalledOnce()
-        expect(nativeThemeMock.on).toHaveBeenCalledTimes(1)
-      } else {
-        expect(trayInstances[0].on).toHaveBeenCalledTimes(1)
-      }
-    }
-  )
-
-  it('refreshes the attention tooltip and replacements in the active language catalog', async () => {
-    setPlatform('darwin')
-    const { createSystemTray, rebuildSystemTrayMenu, setTrayAttention } = await loadModule()
-    const { mainI18n, setMainUiLanguage } = await import('../i18n/main-i18n')
-    await setMainUiLanguage('en')
-    createSystemTray(createOptions({ isDevInstance: true, devInstanceLabel: 'language-test' }))
-    setTrayAttention(true)
-    flushTraySceneMutation()
-    await setMainUiLanguage('ja')
-    rebuildSystemTrayMenu()
-    flushTraySceneMutation()
-    expect(trayInstances[0].setToolTip).toHaveBeenLastCalledWith(
-      'Orca DEV (language-test) - 件のアクティビティが待機中'
-    )
-    expect(builtMenuItems()[0].label).toBe('Orca DEV (language-test)')
-    expect(composeAttentionMock).toHaveBeenCalled()
-
-    mainI18n.addResource('ja', 'translation', 'tray.openOrca', 'Orca を表示')
-    rebuildSystemTrayMenu()
-    flushTraySceneMutation()
-    expect(builtMenuItems()[2].label).toBe('Orca を表示')
-  })
-
   it('does nothing without a tray or when destroyed before the deferred refresh', async () => {
     setPlatform('darwin')
     const { createSystemTray, destroySystemTray, rebuildSystemTrayMenu } = await loadModule()

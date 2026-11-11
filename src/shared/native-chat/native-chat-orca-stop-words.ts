@@ -3,11 +3,11 @@ import { joinSentences } from '../sentence-joining'
 
 /** English pieces; desktop translates each with the same fallback, the phone keeps English. */
 export const NATIVE_CHAT_ORCA_STOP_COPY = {
-  update: 'Orca on {{machine}} restarted for an update while this response was in progress.',
-  quit: 'Orca on {{machine}} was closed while this response was in progress.',
-  crash: 'Orca on {{machine}} stopped unexpectedly while this response was in progress.',
+  update: 'Deca on {{machine}} restarted for an update while this response was in progress.',
+  quit: 'Deca on {{machine}} was closed while this response was in progress.',
+  crash: 'Deca on {{machine}} stopped unexpectedly while this response was in progress.',
   // A remote graceful stop is a server stop or a shared desktop's quit; "stopped" is true of both.
-  remote: 'Orca on {{machine}} stopped while this response was in progress.',
+  remote: 'Deca on {{machine}} stopped while this response was in progress.',
   canContinue: 'You can continue in this conversation.',
   unnamedServer: 'the remote server'
 } as const

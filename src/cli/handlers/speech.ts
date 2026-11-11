@@ -57,7 +57,7 @@ export async function callOpenAiKeyMethod(
     if (error instanceof RuntimeClientError && error.code === 'method_not_found') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This Orca server cannot store a voice dictation key yet. Update Orca on the server and try again.'
+        'This Deca server cannot store a voice dictation key yet. Update Deca on the server and try again.'
       )
     }
     throw error

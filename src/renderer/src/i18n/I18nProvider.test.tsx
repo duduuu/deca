@@ -77,22 +77,22 @@ describe('I18nProvider startup language', () => {
       )
       const load = vi.spyOn(rendererI18n, 'loadRendererUiLanguage')
       if (outcome === 'loaded') {
-        load.mockResolvedValue('fr')
+        load.mockResolvedValue('ko')
       } else {
         load.mockRejectedValue(new Error('Catalog offline'))
       }
       const changeLanguage = vi.spyOn(i18n, 'changeLanguage')
-      useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'fr' } })
+      useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'ko' } })
 
       await renderProvider()
 
-      expect(load).toHaveBeenCalledWith('fr')
+      expect(load).toHaveBeenCalledWith('ko')
       expect(changeLanguage).not.toHaveBeenCalled()
       expect(useLanguageReadiness.getState()).toMatchObject({ ready: false, loading: true })
 
       await act(async () => finishDetection())
 
-      expect(changeLanguage).toHaveBeenCalledWith(outcome === 'loaded' ? 'fr' : 'en')
+      expect(changeLanguage).toHaveBeenCalledWith(outcome === 'loaded' ? 'ko' : 'en')
       await vi.waitFor(() =>
         expect(useLanguageReadiness.getState()).toMatchObject({
           ready: true,
@@ -126,8 +126,8 @@ describe('I18nProvider startup language', () => {
   })
 
   it('never applies the OS locale on a non-English system when English is persisted (#7188)', async () => {
-    // No locale request may start before persisted settings arrive, even on a Spanish OS.
-    stubSystemLocale('es-ES')
+    // No locale request may start before persisted settings arrive, even on a Korean OS.
+    stubSystemLocale('ko-KR')
     const changeLanguage = vi.spyOn(i18n, 'changeLanguage')
 
     await renderProvider()
@@ -139,9 +139,9 @@ describe('I18nProvider startup language', () => {
       })
     })
 
-    expect(useLanguageReadiness.getState().detection?.locale).toBe('es')
+    expect(useLanguageReadiness.getState().detection?.locale).toBe('ko')
     expect(changeLanguage).toHaveBeenCalledWith('en')
-    expect(changeLanguage).not.toHaveBeenCalledWith('es')
+    expect(changeLanguage).not.toHaveBeenCalledWith('ko')
   })
 })
 
@@ -150,7 +150,7 @@ it('does not apply a delayed catalog after a newer saved preference', async () =
   const load = vi
     .spyOn(rendererI18n, 'loadRendererUiLanguage')
     .mockImplementation(async (language) => {
-      if (language === 'es') {
+      if (language === 'ko') {
         return new Promise<string>((resolve) => {
           finishSpanish = resolve
         })
@@ -160,15 +160,15 @@ it('does not apply a delayed catalog after a newer saved preference', async () =
   const changeLanguage = vi.spyOn(i18n, 'changeLanguage')
   await renderProvider()
   await act(async () => {
-    useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'es' } })
+    useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'ko' } })
   })
-  await vi.waitFor(() => expect(load).toHaveBeenCalledWith('es'))
+  await vi.waitFor(() => expect(load).toHaveBeenCalledWith('ko'))
   await act(async () => {
     useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'en' } })
   })
   await vi.waitFor(() => expect(changeLanguage).toHaveBeenCalledWith('en'))
-  await act(async () => finishSpanish('es'))
-  expect(changeLanguage).not.toHaveBeenCalledWith('es')
+  await act(async () => finishSpanish('ko'))
+  expect(changeLanguage).not.toHaveBeenCalledWith('ko')
   expect(i18n.language).toBe('en')
 })
 
@@ -176,13 +176,13 @@ it('settles catalog failure to English with recovery while preserving the saved 
   vi.spyOn(rendererI18n, 'loadRendererUiLanguage').mockRejectedValue(new Error('Catalog offline'))
   await renderProvider()
   await act(async () => {
-    useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'fr' } })
+    useAppStore.setState({ settings: { ...getDefaultSettings('/tmp'), uiLanguage: 'ko' } })
   })
   await vi.waitFor(() =>
     expect(useLanguageReadiness.getState()).toMatchObject({ ready: true, error: true })
   )
   expect(i18n.language).toBe('en')
-  expect(useAppStore.getState().settings?.uiLanguage).toBe('fr')
+  expect(useAppStore.getState().settings?.uiLanguage).toBe('ko')
 })
 
 it('continues in English while plugin discovery is pending without changing the saved preference', async () => {

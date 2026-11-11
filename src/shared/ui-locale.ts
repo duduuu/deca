@@ -1,18 +1,6 @@
 import { UI_LANGUAGE_SYSTEM, isPluginUiLanguage, type UiLanguage } from './ui-language'
 
-export const SUPPORTED_UI_LOCALES = [
-  'en',
-  'zh',
-  'zh-Hant',
-  'ko',
-  'ja',
-  'es',
-  'fr',
-  'pt',
-  'ru',
-  'tr',
-  'de'
-] as const
+export const SUPPORTED_UI_LOCALES = ['en', 'ko'] as const
 export type SupportedUiLocale = (typeof SUPPORTED_UI_LOCALES)[number]
 
 export const DEFAULT_UI_LOCALE: SupportedUiLocale = 'en'
@@ -54,19 +42,8 @@ export type UiLocaleParts = {
 }
 
 // Takes parsed subtags so runtimes without Intl.Locale (Hermes) share the same mapping.
-export function matchUiLocaleParts({
-  language,
-  script,
-  region
-}: UiLocaleParts): SupportedUiLocale | null {
+export function matchUiLocaleParts({ language }: UiLocaleParts): SupportedUiLocale | null {
   const base = language.toLowerCase()
-  if (base === 'zh') {
-    if (script) {
-      const scriptName = script.toLowerCase()
-      return scriptName === 'hans' ? 'zh' : scriptName === 'hant' ? 'zh-Hant' : null
-    }
-    return ['TW', 'HK', 'MO'].includes(region?.toUpperCase() ?? '') ? 'zh-Hant' : 'zh'
-  }
   return SUPPORTED_UI_LOCALES.find((supported) => supported === base) ?? null
 }
 

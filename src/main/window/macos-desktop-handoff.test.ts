@@ -5,7 +5,7 @@ const { spawnProcessMock } = vi.hoisted(() => ({ spawnProcessMock: vi.fn() }))
 
 vi.mock('electron', () => ({
   app: {
-    getPath: () => '/Applications/Orca.app/Contents/MacOS/Orca',
+    getPath: () => '/Applications/Orca.app/Contents/MacOS/Deca',
     dock: { hide: vi.fn() },
     setActivationPolicy: vi.fn()
   }
@@ -50,7 +50,7 @@ describe('handOffToDesktopApp', () => {
     handOffToDesktopApp(['orca://skills/share/abc', '/Users/me/notes.md'], {
       platform: 'darwin',
       env: {},
-      executablePath: '/Users/me/Applications/Orca.app/Contents/MacOS/Orca',
+      executablePath: '/Users/me/Applications/Orca.app/Contents/MacOS/Deca',
       reapplyActivationPolicy: vi.fn()
     })
 

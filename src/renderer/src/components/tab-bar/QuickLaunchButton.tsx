@@ -247,7 +247,7 @@ export function ProjectedAgentMenuItems({
           {needsServerUpdate
             ? t(
                 'auto.components.tab.bar.QuickLaunchButton.terminalListNeedsServerUpdate',
-                'Update Orca on this server to list terminal agents'
+                'Update Deca on this server to list terminal agents'
               )
             : detectionFailed
               ? t(

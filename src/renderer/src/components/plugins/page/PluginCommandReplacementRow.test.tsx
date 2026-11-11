@@ -31,13 +31,13 @@ afterEach(async () => {
 })
 
 describe('a replacing command on the plugin page', () => {
-  it('names the action it replaces and keeps Orca’s own when switched off', async () => {
+  it('names the action it replaces and keeps Deca’s own when switched off', async () => {
     await act(async () =>
       root.render(
         <PluginCommandReplacementRow command={{ title: 'Board', replaces: 'view.tasks' }} />
       )
     )
-    expect(container.textContent).toContain('Board runs instead of Orca’s')
+    expect(container.textContent).toContain('Board runs instead of Deca’s')
     const toggle = container.querySelector('button[role="switch"]')
     expect(toggle?.getAttribute('aria-checked')).toBe('true')
     await act(async () => (toggle instanceof HTMLElement ? toggle.click() : undefined))

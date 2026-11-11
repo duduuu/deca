@@ -87,11 +87,11 @@ export const PLUGIN_EVENT_SUMMARIES: Record<PluginEventName, string> = {
   'workspace.created': 'A worktree workspace was created.',
   'workspace.removed': 'A worktree workspace was removed.',
   'agent.status.changed':
-    'An agent in a terminal pane changed status; `workspaceId` is null when Orca cannot tie the pane to a workspace, and `terminalId` names its terminal when Orca lists it.',
+    'An agent in a terminal pane changed status; `workspaceId` is null when Deca cannot tie the pane to a workspace, and `terminalId` names its terminal when Deca lists it.',
   'workspace.changed':
     'The focused workspace changed, or its terminals were opened, closed or renamed; `context` is what `workspace.readContext` now answers. Each new subscriber first gets the current context.',
   'editor.typography.changed':
-    "What Orca's file editor uses changed (a setting or the editor zoom); the payload is what `editor.readTypography` now answers. Needs no capability."
+    "What Deca's file editor uses changed (a setting or the editor zoom); the payload is what `editor.readTypography` now answers. Needs no capability."
 }
 
 export type PluginEventPayload<E extends PluginEventName> = z.infer<

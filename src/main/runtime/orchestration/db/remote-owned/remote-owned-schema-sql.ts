@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS remote_run_links (
   home_fingerprint         TEXT NOT NULL,
   pairing_revision         INTEGER,
   peer_run_id              TEXT,
-  -- The server's name when the link was made, for a server removed from this Orca since.
+  -- The server's name when the link was made, for a server removed from this Deca since.
   server_name              TEXT,
   state                    TEXT NOT NULL DEFAULT 'open'
     CHECK(state IN ('open', 'cancel_owed', 'closed')),
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS remote_placements (
   created_at         TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
--- What the server last said about one of its Dispatches here, and any stop this Orca owes it.
+-- What the server last said about one of its Dispatches here, and any stop this Deca owes it.
 CREATE TABLE IF NOT EXISTS remote_dispatches (
   dispatch_id        TEXT PRIMARY KEY,
   conversation_id    TEXT NOT NULL,
@@ -60,13 +60,13 @@ CREATE TABLE IF NOT EXISTS remote_dispatches (
   stop_retries       INTEGER NOT NULL DEFAULT 0,
   stop_retry_at      INTEGER,
   stop_last_error    TEXT,
-  -- This Orca already ran the Task half for the attempt: 1 for a stop the server did not answer,
+  -- This Deca already ran the Task half for the attempt: 1 for a stop the server did not answer,
   -- 2 once it was abandoned here. The first result stands: later states from the server change
   -- only this record. Abandoned here, the attempt is settled for a retry, as a local abandon is.
   task_settled_here  INTEGER NOT NULL DEFAULT 0,
   created_at         TEXT NOT NULL DEFAULT (datetime('now')),
-  -- When this Orca recorded the server's start answer or, after that, its latest state for the
-  -- Dispatch. Reports and this Orca's own stop bookkeeping leave it.
+  -- When this Deca recorded the server's start answer or, after that, its latest state for the
+  -- Dispatch. Reports and this Deca's own stop bookkeeping leave it.
   updated_at         TEXT NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_remote_dispatches_run ON remote_dispatches(run_id);
@@ -74,7 +74,7 @@ CREATE INDEX IF NOT EXISTS idx_remote_dispatches_task ON remote_dispatches(task_
 CREATE INDEX IF NOT EXISTS idx_remote_dispatches_stop_owed
   ON remote_dispatches(environment_id) WHERE stop_owed = 1;
 
--- Each distinct stop intent from this Orca and the count it was given, so a retry of an older
+-- Each distinct stop intent from this Deca and the count it was given, so a retry of an older
 -- intent finds its own count instead of minting another.
 CREATE TABLE IF NOT EXISTS remote_stop_intents (
   dispatch_id  TEXT NOT NULL,

@@ -75,7 +75,7 @@ export function BrowserUserAgentSetting({
       <span className="text-xs text-muted-foreground">
         {t(
           'settings.browser.userAgent.remoteUnsupported',
-          'Manage browser identity on the remote host with the Orca CLI.'
+          'Manage browser identity on the remote host with the Deca CLI.'
         )}
       </span>
     )
@@ -118,7 +118,7 @@ export function BrowserUserAgentSetting({
               label: t('settings.browser.userAgent.optionClean', 'Cleaned'),
               tooltip: t(
                 'settings.browser.userAgent.optionCleanTooltip',
-                'Removes Orca and Electron tokens to match imported Chrome sessions.'
+                'Removes Deca and Electron tokens to match imported Chrome sessions.'
               )
             },
             {

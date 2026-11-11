@@ -36,7 +36,7 @@ export function GeneralUpdateSettingsSection({
         className="space-y-3 py-3"
       >
         <span className="text-sm">
-          {t('settings.general.about.version', 'Orca {{version}}', {
+          {t('settings.general.about.version', 'Deca {{version}}', {
             version: appVersion ?? '…'
           })}
         </span>

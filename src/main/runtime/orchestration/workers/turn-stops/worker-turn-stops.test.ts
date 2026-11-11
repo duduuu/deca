@@ -632,11 +632,11 @@ describe('chat worker approvals', () => {
     }
 
     const chat = report(true, ['allow', 'deny'])
-    expect(chat.body).toContain('The user has been shown Allow/Deny in your chat in Orca.')
+    expect(chat.body).toContain('The user has been shown Allow/Deny in your chat in Deca.')
     expect(chat.body).toContain(`orchestration deny --dispatch ${chat.dispatchId} --prompt apr_1`)
     for (const terminal of [report(false, ['allow', 'deny']), report(undefined, ['allow'])]) {
       expect(terminal.body).toContain(
-        `No one has been shown this prompt in Orca. Tell the user that worker ${HANDLE} is waiting for permission in its terminal.`
+        `No one has been shown this prompt in Deca. Tell the user that worker ${HANDLE} is waiting for permission in its terminal.`
       )
       expect(terminal.body).not.toContain('The user has been shown')
     }
@@ -666,10 +666,10 @@ describe('chat worker approvals', () => {
     )
     // A chat worker's own chat in Orca shows the prompt, even when the coordinator has no card.
     expect(chatWorker.mail()[0].body).toContain(
-      "Your chat has no approval card for it; only the worker's own chat in Orca shows it."
+      "Your chat has no approval card for it; only the worker's own chat in Deca shows it."
     )
     const noDeny = report(true, ['allow']).body
-    expect(noDeny).toContain('The user has been shown Allow in your chat in Orca.')
+    expect(noDeny).toContain('The user has been shown Allow in your chat in Deca.')
     expect(noDeny).not.toContain('orchestration deny')
     expect(noDeny).toContain('stop the worker or tell the user')
   })
@@ -736,7 +736,7 @@ describe('chat worker approvals', () => {
     expect(closing).toHaveLength(1)
   })
 
-  it('reports a prompt Orca can answer neither way as a plain prompt, with no card', async () => {
+  it('reports a prompt Deca can answer neither way as a plain prompt, with no card', async () => {
     const { ctx, prompts, report, idle } = chat()
     prompts.set('item_1', {
       revision: 1,
@@ -769,7 +769,7 @@ describe('chat worker approvals', () => {
 
     const closing = all().filter((message) => message.subject === 'Worker approval closed')
     expect(closing).toHaveLength(1)
-    expect(closing[0].body).toContain('Closed without an answer Orca can name: approval item_1')
+    expect(closing[0].body).toContain('Closed without an answer Deca can name: approval item_1')
   })
 
   it('tells the coordinator a plain prompt needs a person, not a message', async () => {

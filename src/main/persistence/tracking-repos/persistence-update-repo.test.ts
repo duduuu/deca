@@ -185,7 +185,7 @@ describe('Store', () => {
         repo,
         write
       )
-    ).rejects.toThrow('The project changed while Orca was checking it')
+    ).rejects.toThrow('The project changed while Deca was checking it')
     expect(write).not.toHaveBeenCalled()
   })
 })

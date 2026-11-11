@@ -207,9 +207,9 @@ describe('Windows managed hook stdin structure', () => {
           { name: 'Git Bash', executable: gitBash, args: ['-c', entry.command] }
         ]
         const environments = [
-          { name: 'no Orca env', env: hookEnvironment({ USERPROFILE: home }) },
+          { name: 'no Deca env', env: hookEnvironment({ USERPROFILE: home }) },
           {
-            name: 'Orca env with dead listener',
+            name: 'Deca env with dead listener',
             env: hookEnvironment({
               USERPROFILE: home,
               ORCA_AGENT_HOOK_PORT: '59999',

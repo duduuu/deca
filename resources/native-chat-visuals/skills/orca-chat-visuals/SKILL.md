@@ -1,14 +1,14 @@
 ---
 name: orca-chat-visuals
-description: Show a chart, diagram, table, report or mockup inline in this Orca chat as an HTML
+description: Show a chart, diagram, table, report or mockup inline in this Deca chat as an HTML
   page. Use when a visual would help the user understand your answer. Only available when the
   ORCA_CHAT_SCRATCH_DIR environment variable is set.
 user-invocable: false
 ---
 
-# Inline visuals in an Orca chat
+# Inline visuals in a Deca chat
 
-Orca can show an HTML page inside your reply. Use one whenever a visual would make the answer
+Deca can show an HTML page inside your reply. Use one whenever a visual would make the answer
 clearer.
 
 ## Writing the page
@@ -22,14 +22,14 @@ clearer.
 - Inline your styles, scripts and data. Libraries and fonts may load only from cdn.jsdelivr.net,
   unpkg.com, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com and fonts.gstatic.com. The page
   can't make network requests; use inline SVG or `data:` URLs for images.
-- Don't size anything to the viewport height (`100vh`); Orca fits the frame to your content.
-- Use Orca's theme variables for surfaces, text, and controls; pair hover `--accent` with
-  `--accent-foreground`. Scope fixed-palette CSS to its mockup. Orca updates tokens and
+- Don't size anything to the viewport height (`100vh`); Deca fits the frame to your content.
+- Use Deca's theme variables for surfaces, text, and controls; pair hover `--accent` with
+  `--accent-foreground`. Scope fixed-palette CSS to its mockup. Deca updates tokens and
   `color-scheme` live. Charts use `--chart-1` to `--chart-5`.
 - Make the saved HTML readable in an ordinary browser too: use paired fallback values such as
   `background:var(--background,#fff);color:var(--foreground,#171717)` for every theme-token use.
   Scripts reading chart colors need a fallback too: `getComputedStyle(document.documentElement)
-  .getPropertyValue('--chart-1').trim() || '#2563eb'`. Never redefine Orca's tokens on `:root`:
+  .getPropertyValue('--chart-1').trim() || '#2563eb'`. Never redefine Deca's tokens on `:root`:
   those declarations would override the viewer's live theme. Use separate names for local colors.
 - Exposed tokens: `--background`, `--foreground`, `--card`, `--card-foreground`, `--popover`,
   `--popover-foreground`, `--primary`, `--primary-foreground`, `--secondary`,

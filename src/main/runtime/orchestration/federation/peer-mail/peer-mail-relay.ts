@@ -123,7 +123,7 @@ export class PeerMailRelay {
             closeRemoteRunLinksOfRemovedServer(
               loop.db,
               environmentId,
-              `${serverName} was removed from this Orca's paired servers.`,
+              `${serverName} was removed from this Deca's paired servers.`,
               (handle, type) => this.runtime.notifyMessageArrived(handle, type)
             )
           } catch (error) {

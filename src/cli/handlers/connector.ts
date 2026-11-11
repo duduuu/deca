@@ -39,7 +39,7 @@ export async function callConnector<TResult>(
     if (error instanceof RuntimeClientError && error.code === 'method_not_found') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This Orca host has no connectors. Update Orca on the host and try again.'
+        'This Deca host has no connectors. Update Deca on the host and try again.'
       )
     }
     throw error
@@ -66,7 +66,7 @@ export function formatPendingPrompt(prompt: ConnectorPrompt | null): string {
       ? `approval ${prompt.tool}${prompt.summary ? `: ${prompt.summary}` : ''}`
       : prompt.kind === 'question'
         ? `question: ${prompt.question}`
-        : 'unsupported (answer in Orca)'
+        : 'unsupported (answer in Deca)'
   const options = known ? (prompt.options ?? []) : []
   return [
     head,

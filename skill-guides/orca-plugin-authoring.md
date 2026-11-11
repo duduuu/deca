@@ -1,15 +1,15 @@
 ---
 name: orca-plugin-authoring
 description: >-
-  Build, debug, test, and publish Orca plugins end to end: app, terminal, and icon themes,
+  Build, debug, test, and publish Deca plugins end to end: app, terminal, and icon themes,
   syntaxes, language packs, custom editors, HTML or TSX components sidebar panels, palette
   commands and shortcuts, and Node worker commands that react to workspace and agent events.
-  Use when the user asks to make, change, fix, or ship an Orca plugin, to add a panel,
-  command, theme, editor, or language to Orca, or works in a folder with an orca-plugin.json.
+  Use when the user asks to make, change, fix, or ship a Deca plugin, to add a panel,
+  command, theme, editor, or language to Deca, or works in a folder with an orca-plugin.json.
   Use `orca-cli` only to list, enable, or disable plugins that are already installed.
 ---
 
-# Orca Plugin Authoring
+# Deca Plugin Authoring
 
 `ORCA` is a placeholder for the executable you resolved in the stub; substitute it before running.
 Pass `--json` to every `ORCA plugin` command and branch on `error.code`, not on wording.
@@ -17,11 +17,11 @@ Pass `--json` to every `ORCA plugin` command and branch on `error.code`, not on 
 ## Where things live
 
 - **Your files:** a new folder, ideally its own Git repository, with `orca-plugin.json` at its
-  root, made by `ORCA plugin create` (never overwrites). Paths are on the machine that runs Orca;
+  root, made by `ORCA plugin create` (never overwrites). Paths are on the machine that runs Deca;
   with `--environment` pass an absolute path on that server.
 - **Types:** `ORCA plugin types <dir>` (also run by `dev watch`) writes `.orca/types/` for every
   surface; the plugin's `tsconfig.json` extends `./.orca/types/tsconfig.json`. Never edit `.orca/`.
-- **Ground truth:** the references below match this Orca. Read them instead of guessing.
+- **Ground truth:** the references below match this Deca. Read them instead of guessing.
 
 ## Pick the shape
 
@@ -33,14 +33,14 @@ Use the lowest `execution` profile that covers the request; it decides what the 
 | A terminal color palette                                                            | `data`; `contributes.terminalThemes`                                | `--template terminal-theme`                      |
 | File icons                                                                          | `data`; `contributes.iconThemes`                                    | `--template icon-theme`                          |
 | Highlighting for a language                                                         | `data`; `contributes.syntaxes` (TextMate grammar)                   | `--template syntax`; example `orca-gleam-syntax` |
-| Orca's UI in another language                                                       | `data`; `contributes.languagePacks`                                 | `--template language-pack`                       |
+| Deca's UI in another language                                                       | `data`; `contributes.languagePacks`                                 | `--template language-pack`                       |
 | A custom view or editor for a file type                                             | `sandboxed-ui`; `contributes.customEditors`, optionally `newFiles`  | `--template editor`                              |
 | A sidebar panel of lists, forms, buttons, status                                    | `sandboxed-ui`; `panels` entry `.tsx` with `"ui": "components"`     | `--template components`; example `hello-tsx`     |
 | A sidebar panel needing its own HTML, canvas or libraries                           | `sandboxed-ui`; `panels` entry `.html` (or `.ts`/`.tsx`)            | `--template panel`                               |
-| A palette command or shortcut for a built-in Orca action                            | `declarative`; `commands[].action`, `keybindings`                   | hand-written; fields in `references/manifest.md` |
+| A palette command or shortcut for a built-in Deca action                            | `declarative`; `commands[].action`, `keybindings`                   | hand-written; fields in `references/manifest.md` |
 | A command that runs code, storage, secrets, terminal text                           | `trusted-worker`; `main`, `commands` (no `action`), `capabilities`  | example `hello-orca`                             |
 | A panel backed by its own Node code, storage or settings                            | `trusted-worker`; `main`, a panel, `capabilities`, `settings`       | `--template worker-panel`                        |
-| Settings the user edits in Orca's Settings                                          | `contributes.settings` and `settings:own`                           | `references/manifest.md`                         |
+| Settings the user edits in Deca's Settings                                          | `contributes.settings` and `settings:own`                           | `references/manifest.md`                         |
 | Reacting to workspace or agent status changes                                       | `trusted-worker`; `main`, `contributes.events`, `*:read` capability | example `hello-orca`                             |
 | Changing or refusing terminal text, workspace creates or agent launches and prompts | `trusted-worker`; `main`, `contributes.hooks`                       | `--template hook`; `references/recipes.md`       |
 | A virtual machine environment recipe                                                | `declarative`; `contributes.vmRecipes`                              | hand-written; fields in `references/manifest.md` |
@@ -68,7 +68,7 @@ with `terminal:send` can.
    ./my-plugin/.orca/shots --json` and keep reading it (events in `references/workflow.md`).
    Consent exits `3`: see [Approval](#approval).
 3. Edit and save. Each save prints `reloaded`, a `check` of what each panel drew or threw, and a
-   `shot` whose `path` is a PNG of the panel exactly as Orca draws it: read the image and fix
+   `shot` whose `path` is a PNG of the panel exactly as Deca draws it: read the image and fix
    what looks wrong. Fix every `log` error (`[frame] <file>:<line>`) and `check` issue. To see a
    state behind input, `ORCA plugin shot <plugin-key> --act '<json>'` types and presses first.
 4. `ORCA plugin test <dir> --json` after changes, and `ORCA plugin check <dir> --json` before you
@@ -89,11 +89,11 @@ with `terminal:send` can.
 ## Approval
 
 Content-only plugins (themes, icons, syntaxes, language packs) load without approval. Anything
-that runs code or acts in Orca fails with `approval_required` (exit `3`); `error.data` lists what it
+that runs code or acts in Deca fails with `approval_required` (exit `3`); `error.data` lists what it
 would be granted and the command with `--approve <fingerprint>`. Approving grants real access on
 the user's machine: show them that list, and re-run with `--approve` only when they asked for
 exactly this plugin and this access. Never approve on their behalf otherwise, and never pass a
-fingerprint Orca did not give you. New capabilities or changed commands print a new approval.
+fingerprint Deca did not give you. New capabilities or changed commands print a new approval.
 `plugin_system_disabled`: ask the user to click "Turn on plugins" in Settings → Plugins.
 
 ## Gotchas

@@ -22,7 +22,7 @@ export const CHAT_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca chat list [--worktree <selector>] [--state <state>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'state'],
     notes: [
-      'Lists the top-level chats Orca shows as agent tabs. Terminal agents are read with `deca terminal`.',
+      'Lists the top-level chats Deca shows as agent tabs. Terminal agents are read with `deca terminal`.',
       '--state keeps chats in one state: working, blocked, waiting or done.'
     ],
     examples: ['orca chat list --json', 'orca chat list --state working']

@@ -11,7 +11,7 @@ export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
       configured: false,
       state: 'unconfigured' as const,
       persistence: 'none' as const,
-      setupMessage: 'Orca Cloud sign-in is not available in the browser fallback.'
+      setupMessage: 'Deca Cloud sign-in is not available in the browser fallback.'
     })
   return {
     orcaProfiles: {

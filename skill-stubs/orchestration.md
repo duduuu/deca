@@ -1,12 +1,12 @@
-# Orca Orchestration
+# Deca Orchestration
 
-This discovery stub loads the version-matched guide from the Orca executable used for this session.
+This discovery stub loads the version-matched guide from the Deca executable used for this session.
 
-Never substitute a non-Orca subagent tool when the user asked for Orca orchestration.
+Never substitute a non-Deca subagent tool when the user asked for Deca orchestration.
 
 <!-- shared: resolver -->
 
-## Load the version-matched guide before running Orca commands
+## Load the version-matched guide before running Deca commands
 
 ```text
 ORCA skills get orchestration
@@ -23,8 +23,8 @@ recovery, or expanded DAG work, load only the reference that gate names with
 <!-- shared-omit: no-guessing -->
 
 Use the selected executable's `--help` for commands or flags the guide does not cover. If a
-command reports that Orca is not running, start it with `ORCA open --json` and retry. If it
+command reports that Deca is not running, start it with `ORCA open --json` and retry. If it
 fails with `runtime_access_denied`, your sandbox blocked the connection: re-run it with
-escalated permissions, and do not run `ORCA open` or restart Orca. If `skills get` is unknown,
-explain that updating Orca restores the guide; use `--help` for read-only discovery and do not
+escalated permissions, and do not run `ORCA open` or restart Deca. If `skills get` is unknown,
+explain that updating Deca restores the guide; use `--help` for read-only discovery and do not
 guess unsupported commands.

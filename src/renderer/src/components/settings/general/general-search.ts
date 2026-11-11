@@ -30,7 +30,7 @@ export const getGeneralWorkspaceSearchDescriptors = createLocalizedCatalog(() =>
     ),
     description: translate(
       'auto.components.settings.general.search.externalWorktreesDescription',
-      'Choose whether worktrees created outside Orca appear by default.'
+      'Choose whether worktrees created outside Deca appear by default.'
     ),
     keywords: [
       ...translateSearchKeyword('settings.general.search.keywords.source', 'source'),
@@ -143,10 +143,10 @@ export const getGeneralCliSearchEntries = createLocalizedCatalog(() => [
     }),
     description: translate(
       'auto.components.settings.general.search.ca529079bf',
-      'Register or remove the Orca CLI command.'
+      'Register or remove the Deca CLI command.'
     ),
     keywords: [
-      translate('auto.components.settings.general.search.327e3fa70d', 'Orca CLI'),
+      translate('auto.components.settings.general.search.327e3fa70d', 'Deca CLI'),
       ...translateSearchKeyword('settings.general.search.keywords.command_line', 'command line'),
       ...translateSearchKeyword('auto.components.settings.general.search.924a660a78', 'cli'),
       ...translateSearchKeyword('auto.components.settings.general.search.fb4f338a3d', 'path'),
@@ -166,10 +166,10 @@ export const getGeneralCliSearchEntries = createLocalizedCatalog(() => [
     targetSectionId: 'cli'
   },
   {
-    title: translate('settings.general.cli.skillTitle', 'Orca skill for agents'),
+    title: translate('settings.general.cli.skillTitle', 'Deca skill for agents'),
     description: translate(
       'auto.components.settings.general.search.244e3fb4c8',
-      'Install the Orca skill so agents know to use the Orca CLI.'
+      'Install the Deca skill so agents know to use the Deca CLI.'
     ),
     keywords: [
       translate('auto.components.settings.general.search.2d9f7b42df', 'Agent skill'),

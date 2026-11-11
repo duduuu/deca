@@ -35,7 +35,7 @@ export async function shootPluginReplay(
       `The scenario's tree is invalid: ${parsed.error}`,
       {
         reason: 'invalid_tree',
-        nextSteps: ['`deca plugin check` shows what the panel draws and why Orca refuses it.']
+        nextSteps: ['`deca plugin check` shows what the panel draws and why Deca refuses it.']
       }
     )
   }
@@ -69,7 +69,7 @@ export async function shootPluginReplay(
         })
       }
       if (!reply.panel) {
-        throw new Error('Orca did not report where the preview is drawn.')
+        throw new Error('Deca did not report where the preview is drawn.')
       }
       const drawn = reply.panel
       const image = await capturePluginPanelPng(contents, drawn.rect)

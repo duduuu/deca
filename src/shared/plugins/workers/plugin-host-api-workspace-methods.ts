@@ -149,7 +149,7 @@ const commandsRunResult = z.object({ ran: z.literal(true) })
 
 export const PLUGIN_WORKSPACE_ACTIONS_API = {
   'workspace.list': spec({
-    summary: 'Lists every workspace, Git worktrees and folders, on every host Orca reaches.',
+    summary: 'Lists every workspace, Git worktrees and folders, on every host Deca reaches.',
     since: 3,
     scope: 'any-workspace',
     capability: 'workspace:read',
@@ -160,7 +160,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'workspace.open': spec({
     summary:
-      'Shows a workspace in Orca, as clicking it in the sidebar does; a folder workspace needs the desktop app.',
+      'Shows a workspace in Deca, as clicking it in the sidebar does; a folder workspace needs the desktop app.',
     since: 3,
     scope: 'any-workspace',
     capability: 'workspace:write',
@@ -171,7 +171,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'workspace.rename': spec({
     summary:
-      "Renames a workspace in Orca's sidebar, as renaming it by hand does; the name stays until it is renamed again.",
+      "Renames a workspace in Deca's sidebar, as renaming it by hand does; the name stays until it is renamed again.",
     since: 5,
     scope: 'any-workspace',
     capability: 'workspace:write',
@@ -213,7 +213,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'editor.open': spec({
     summary:
-      "Opens a file of a workspace in an editor tab of Orca's window; desktop app only. `workspace.open` shows the workspace.",
+      "Opens a file of a workspace in an editor tab of Deca's window; desktop app only. `workspace.open` shows the workspace.",
     since: 3,
     scope: 'any-workspace',
     capability: 'workspace:write',
@@ -224,7 +224,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'commands.run': spec({
     summary:
-      "Runs one of Orca's built-in actions in its window, never a plugin's replacement of it; desktop app only.",
+      "Runs one of Deca's built-in actions in its window, never a plugin's replacement of it; desktop app only.",
     since: 3,
     scope: 'desktop',
     capability: 'workspace:write',

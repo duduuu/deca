@@ -3,8 +3,8 @@ import { POSIX_SHELL_STARTUP_COMMAND_ENV } from './posix-shell-startup-command'
 
 export const ZSH_WRAPPER_DIR_MARKER_FILE = '.orca-shell-wrapper'
 
-export const ZSH_WRAPPER_DIR_MARKER_CONTENT = `# Orca-generated zsh startup wrapper directory.
-# Its presence is how Orca recognises its own wrapper dir instead of treating it
+export const ZSH_WRAPPER_DIR_MARKER_CONTENT = `# Deca-generated zsh startup wrapper directory.
+# Its presence is how Deca recognises its own wrapper dir instead of treating it
 # as the user's ZDOTDIR. Do not edit; the whole directory is regenerated.
 `
 

@@ -99,7 +99,7 @@ describe('installLinuxBareOrcaDispatcher', () => {
   it('skips (does not clobber) a user-owned orca already at ~/.local/bin', async () => {
     const { homePath, resourcesPath } = await makeFixture()
     const dispatcherPath = join(homePath, '.local', 'bin', 'orca')
-    const appImagePath = join(homePath, 'Orca.AppImage')
+    const appImagePath = join(homePath, 'Deca.AppImage')
     await mkdir(join(homePath, '.local', 'bin'), { recursive: true })
     await writeFile(dispatcherPath, '#!/bin/sh\necho my own orca\n', 'utf8')
     await writeFile(appImagePath, '#!/usr/bin/env bash\n', 'utf8')
@@ -120,7 +120,7 @@ describe('installLinuxBareOrcaDispatcher', () => {
 
   it('preserves a foreign dispatcher created while AppImage extraction is in flight', async () => {
     const { homePath, resourcesPath } = await makeFixture()
-    const appImagePath = join(homePath, 'Orca.AppImage')
+    const appImagePath = join(homePath, 'Deca.AppImage')
     const cacheRootPath = join(homePath, 'cache')
     const dispatcherPath = join(homePath, '.local', 'bin', 'orca')
     await mkdir(homePath, { recursive: true })

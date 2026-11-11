@@ -12,7 +12,7 @@ import { TERMINAL_SET_PANE_TITLE_COMMAND_SPEC } from './terminal-set-pane-title'
 export const CORE_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['open'],
-    summary: 'Launch Orca and wait for the runtime to be reachable',
+    summary: 'Launch Deca and wait for the runtime to be reachable',
     usage: 'orca open [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     examples: ['orca open', 'orca open --json']
@@ -24,26 +24,26 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca status [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      "caller.orcaSessionId is this agent's Orca session ID, as Orca resolved it, when the agent runs as an Orca session; otherwise caller is omitted."
+      "caller.orcaSessionId is this agent's Deca session ID, as Deca resolved it, when the agent runs as a Deca session; otherwise caller is omitted."
     ],
     examples: ['orca status', 'orca status --json']
   },
   {
     path: ['claude-teams'],
     argumentMode: 'passthrough',
-    summary: 'Start Claude Code Agent Teams in the current Orca terminal',
+    summary: 'Start Claude Code Agent Teams in the current Deca terminal',
     usage: 'orca claude-teams [claude args...]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Passes all following arguments through to Claude Code after enabling Agent Teams native panes.',
-      'Must be run from inside an Orca terminal. Starts Claude Code Agent Teams in the current pane and opens teammates as native Orca splits.'
+      'Must be run from inside a Deca terminal. Starts Claude Code Agent Teams in the current pane and opens teammates as native Deca splits.'
     ],
     examples: ['orca claude-teams', 'orca claude-teams --resume <session-id>']
   },
   ...REPO_COMMAND_SPECS,
   {
     path: ['worktree', 'list'],
-    summary: 'List Orca-managed worktrees',
+    summary: 'List Deca-managed worktrees',
     usage: 'orca worktree list [--repo <selector>] [--limit <n>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'repo', 'limit'],
     notes: [...WORKTREE_LISTING_SCOPE_NOTES]
@@ -60,18 +60,18 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca worktree activate --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree'],
     notes: [
-      'With --environment naming a recipe VM that is asleep, Orca on this computer wakes the VM first and waits for it.',
-      'Folder workspaces cannot be activated from the CLI yet; open them from the Orca sidebar.'
+      'With --environment naming a recipe VM that is asleep, Deca on this computer wakes the VM first and waits for it.',
+      'Folder workspaces cannot be activated from the CLI yet; open them from the Deca sidebar.'
     ],
     examples: ['orca worktree activate --worktree branch:fix-login --environment sandbox']
   },
   {
     path: ['worktree', 'current'],
-    summary: 'Show the Orca-managed worktree for the current directory',
+    summary: 'Show the Deca-managed worktree for the current directory',
     usage: 'orca worktree current [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      'Resolves the current shell directory to a path: selector so agents can target the enclosing Orca worktree without spelling out $PWD.'
+      'Resolves the current shell directory to a path: selector so agents can target the enclosing Deca worktree without spelling out $PWD.'
     ],
     examples: ['orca worktree current', 'orca worktree current --json']
   },
@@ -84,7 +84,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       ['worktree', 'delete']
     ],
     destructive: true,
-    summary: 'Remove a Git worktree or a folder workspace entry from Orca',
+    summary: 'Remove a Git worktree or a folder workspace entry from Deca',
     usage:
       'orca worktree rm --worktree <selector> [--force] [--delete-branch] [--run-hooks] [--allow-failed-archive-hook] [--json]',
     allowedFlags: [
@@ -96,12 +96,12 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'allow-failed-archive-hook'
     ],
     notes: [
-      'Needs an explicit workspace: --worktree current and active are refused, and the error names the selector they resolve to right now, as `git worktree remove` needs a path. For a non-root folder workspace, removes its Orca entry and stops its sessions without deleting the folder or touching Git. The folder project root cannot be removed with this command. For a group folder workspace (folder:<id>, or a path:/name: selector that matches one), Orca forgets it and the folder stays on disk; --delete-branch, --run-hooks and --allow-failed-archive-hook are refused for it.',
+      'Needs an explicit workspace: --worktree current and active are refused, and the error names the selector they resolve to right now, as `git worktree remove` needs a path. For a non-root folder workspace, removes its Deca entry and stops its sessions without deleting the folder or touching Git. The folder project root cannot be removed with this command. For a group folder workspace (folder:<id>, or a path:/name: selector that matches one), Deca forgets it and the folder stays on disk; --delete-branch, --run-hooks and --allow-failed-archive-hook are refused for it.',
       'Use --worktree "id:<full-instance-id>" with the full id from deca worktree list --json to select one folder workspace; several entries can share the same path.',
       'Repo-defined orca.yaml archive hooks are skipped unless --run-hooks is passed.',
       'With --run-hooks, a failed archive hook blocks the removal: nothing is stopped, deleted or deregistered, and the command exits non-zero with error code worktree_archive_hook_failed. --force does not waive this.',
       'Pass --allow-failed-archive-hook to delete anyway after the hook has run and failed; the waived failure is reported back on result.archiveHookOverride. It requires --run-hooks and is rejected without it, because with no hook running there is no failure to waive.',
-      'On newer hosts with branch-choice support, Git worktree removal keeps the local branch, including with --force. Pass --delete-branch to attempt safe branch deletion, including branches that predated the worktree. Branches whose changes Orca cannot prove are already merged are retained. Older hosts keep their existing branch policy and print a warning; keep-by-default and --delete-branch do not apply there. A removal result without branch evidence does not confirm branch deletion.'
+      'On newer hosts with branch-choice support, Git worktree removal keeps the local branch, including with --force. Pass --delete-branch to attempt safe branch deletion, including branches that predated the worktree. Branches whose changes Deca cannot prove are already merged are retained. Older hosts keep their existing branch policy and print a warning; keep-by-default and --delete-branch do not apply there. A removal result without branch evidence does not confirm branch deletion.'
     ]
   },
   {
@@ -116,7 +116,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
   },
   {
     path: ['terminal', 'list'],
-    summary: 'List live Orca-managed terminals',
+    summary: 'List live Deca-managed terminals',
     usage:
       'orca terminal list [--worktree <selector>] [--limit <n>] [--include-visual-layouts] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'limit', 'include-visual-layouts'],
@@ -184,7 +184,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'Creates a visible terminal tab without switching focus when possible; falls back to a background handle if the UI cannot adopt it. Pass --focus to switch to it.',
       'This creates a terminal and runs --command in it. To start an agent, use `deca agent launch` (or `deca worktree create --agent` for a new checkout), which follows your Chat | CLI choice.',
       '--shell picks the shell the terminal IS on a Windows host (cmd.exe, powershell.exe, pwsh.exe, wsl.exe, bash.exe, git-bash); --command is typed into whatever shell the host started, so `--command cmd.exe` leaves a cmd running INSIDE the default shell and exiting it drops back to that shell.',
-      'A host that cannot apply --shell refuses the create rather than quietly spawning its default shell: macOS and Linux execution hosts spawn the login shell, terminals routed over SSH resolve their shell on the SSH host, a --shell that contradicts the project execution runtime (WSL vs Windows host) is refused, and an Orca host older than --shell is refused by the CLI.'
+      'A host that cannot apply --shell refuses the create rather than quietly spawning its default shell: macOS and Linux execution hosts spawn the login shell, terminals routed over SSH resolve their shell on the SSH host, a --shell that contradicts the project execution runtime (WSL vs Windows host) is refused, and a Deca host older than --shell is refused by the CLI.'
     ],
     examples: [
       'orca terminal create --json',

@@ -31,7 +31,7 @@ export abstract class UpdaterMacInstallPreflight extends UpdaterPackageRecovery 
         version: pendingVersion,
         retryAction: 'install',
         message:
-          'Could not check for other running Orca instances. Orca remains open. Try again. If the check keeps failing, close the other Orca instances and background deca serve servers, then quit Orca to let the update install on exit. Reopen Orca afterwards.'
+          'Could not check for other running Deca instances. Deca remains open. Try again. If the check keeps failing, close the other Deca instances and background deca serve servers, then quit Deca to let the update install on exit. Reopen Deca afterwards.'
       })
       recordUpdaterLifecycle('macos_running_instances_check_failed')
       return false

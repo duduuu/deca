@@ -39,7 +39,6 @@ export function AutomationsPageSurface({
     migrateAction,
     managementActions,
     runActions,
-    externalActions,
     openRunWorkspace
   } = controller
   const { projectHostSetups, repoMap, settings, setPendingAutomationRunNavigation } = store
@@ -55,11 +54,7 @@ export function AutomationsPageSurface({
     deleteConfirmButtonRef,
     setDeleteTarget,
     setDontAskDeleteAgain,
-    externalDeleteTarget,
-    externalDeleteConfirmButtonRef,
-    setExternalDeleteTarget,
     relativeNow,
-    externalActionKey,
     activePaneTab,
     setActivePaneTab,
     setSelectedAutomationRunPageId,
@@ -79,7 +74,7 @@ export function AutomationsPageSurface({
     runPageOrigin,
     setRunPageOrigin
   } = local
-  const { hostCatalog, hasListItems, selected, selectedRow, selectedExternal } = list
+  const { hostCatalog, hasListItems, selected, selectedRow } = list
   const selectedAutomationRunPage = setup.selectedAutomationRunPage
   const selectedRunWorktreeMap = new Map(
     setup.selectedRuns.flatMap((run) => {
@@ -103,7 +98,7 @@ export function AutomationsPageSurface({
     }
   }
   const openAutomationRunPage = (run: (typeof setup.selectedRuns)[number]): void => {
-    externalActions.openAutomationRunPage(run)
+    setSelectedAutomationRunPageId(run.id)
     setRunPageOrigin('automation')
     setPageView('run')
   }
@@ -201,12 +196,6 @@ export function AutomationsPageSurface({
         setDeleteTarget={setDeleteTarget}
         setDontAskDeleteAgain={setDontAskDeleteAgain}
         confirmDeleteAutomation={() => void managementActions.confirmDeleteAutomation()}
-        externalDeleteTarget={externalDeleteTarget}
-        externalDeleteConfirmButtonRef={externalDeleteConfirmButtonRef}
-        setExternalDeleteTarget={setExternalDeleteTarget}
-        confirmDeleteExternalAutomation={() =>
-          void externalActions.confirmDeleteExternalAutomation()
-        }
       />
       {pageView === 'runs' ? (
         <AutomationRunsDashboardSurface
@@ -257,10 +246,9 @@ export function AutomationsPageSurface({
         <AutomationsPageSkeleton />
       ) : isLoading && !hasListItems ? (
         <AutomationsPageSkeleton />
-      ) : isDetailOpen && (selected || selectedExternal) ? (
+      ) : isDetailOpen && selected ? (
         <AutomationsDetailPane
           selected={selected}
-          selectedExternal={selectedExternal}
           selectedRuns={setup.selectedRuns}
           selectedRunsNotice={setup.selectedRunsNotice}
           selectedHostEntry={destination.rowRecoveryHost(selectedRow?.key ?? null)}
@@ -271,7 +259,6 @@ export function AutomationsPageSurface({
           }}
           activePaneTab={activePaneTab}
           relativeNow={relativeNow}
-          externalActionKey={externalActionKey}
           selectedRepoDisplayName={
             (selected &&
               automationProjectName(
@@ -299,7 +286,6 @@ export function AutomationsPageSurface({
           selectedRunNowAvailability={presentation.selectedRunNowAvailability}
           worktreeMap={selectedRunWorktreeMap}
           onActivePaneTabChange={setActivePaneTab}
-          requestExternalAction={externalActions.requestExternalAction}
           runNow={() => runSelectedRowAction(runActions.runNow)}
           openEditDialog={() => runSelectedRowAction(editorActions.openEditDialog)}
           migrateAutomation={() => runSelectedRowAction(migrateAction.migrateAutomation)}

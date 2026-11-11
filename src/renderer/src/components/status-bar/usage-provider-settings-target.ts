@@ -13,19 +13,13 @@ export function getUsageProviderAccountsSectionId(
       return 'accounts-gemini'
     case 'opencode-go':
       return 'accounts-opencode-go'
-    case 'minimax':
-      return 'accounts-minimax'
     case 'grok':
       return 'accounts-grok'
     case 'cursor':
       return 'accounts-cursor'
     case 'antigravity':
-    case 'kimi':
-    case 'muse':
       // These CLIs keep their own credentials; Orca has no account settings for them.
       return null
-    case 'zcode':
-      return 'accounts-zcode'
   }
 }
 

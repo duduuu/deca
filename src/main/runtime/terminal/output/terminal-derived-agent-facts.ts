@@ -1,9 +1,5 @@
 import { OrcaRuntimeWithApplyTrackedPtyTitle } from './terminal-title-observation'
-import type {
-  RuntimePtyTitleTrackerEntry,
-  RuntimePtyWorktreeRecord
-} from '../records/runtime-terminal-state-records'
-import { createCommandCodeOutputStatusDetector } from '../../../../shared/command-code-output-status'
+import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
 import {
   extractLastOsc7Uri,
   extractOscScanTail
@@ -31,7 +27,7 @@ type TerminalAgentStatusTarget = Pick<
   'source' | 'paneKey' | 'tabId' | 'worktreeId' | 'connectionId' | 'terminalHandle'
 >
 
-export abstract class OrcaRuntimeWithCreateTerminalSideEffectCommandCodeDetector extends OrcaRuntimeWithApplyTrackedPtyTitle {
+export abstract class OrcaRuntimeWithTerminalDerivedAgentFacts extends OrcaRuntimeWithApplyTrackedPtyTitle {
   abstract getAgentStatusTerminalHandleForPaneKey(paneKey: string): string | undefined
 
   /** Each live OSC 7501 program's latest row payload; renewed while its PTY keeps a live facet. */
@@ -40,20 +36,6 @@ export abstract class OrcaRuntimeWithCreateTerminalSideEffectCommandCodeDetector
     { payload: ParsedAgentStatusPayload; trackedAt: number }
   >()
   private programStatusLeaseTimer: ReturnType<typeof setInterval> | null = null
-
-  protected createTerminalSideEffectCommandCodeDetector(
-    ptyId: string
-  ): NonNullable<RuntimePtyTitleTrackerEntry['commandCodeDetector']> {
-    return createCommandCodeOutputStatusDetector({
-      startupCommand: this.terminalSpawnCommandsByPtyId.get(ptyId) ?? null,
-      onWorking: (prompt) => {
-        this.recordTerminalSideEffectFact(ptyId, { kind: 'command-code-working', prompt })
-      },
-      onDone: (prompt) => {
-        this.recordTerminalSideEffectFact(ptyId, { kind: 'command-code-done', prompt })
-      }
-    })
-  }
 
   protected extractLastOsc7CwdForPty(
     ptyId: string,

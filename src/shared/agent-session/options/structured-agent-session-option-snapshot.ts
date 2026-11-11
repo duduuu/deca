@@ -13,10 +13,6 @@ import type {
   SessionOptionValue
 } from '../../native-chat/input/native-chat-session-options'
 import type { TrackedNativeChatSessionOption } from '../../native-chat/input/native-chat-session-option-state'
-import {
-  catalogEffortLevels,
-  effectiveAgentEffort
-} from './structured-agent-session-effective-effort'
 import { effectiveServiceTier } from './structured-agent-session-effective-tier'
 import { serviceTierOption } from './structured-agent-session-discovered-model'
 import {
@@ -162,24 +158,9 @@ function drawnModelControls(state: StructuredAgentSessionOptionState) {
       { catalog, verifiedModelIds: state.verifiedModelIds },
       shown.shown.currentId
     ) !== undefined
-  let values = normalises
+  const values = normalises
     ? valuesUnderControls(catalog, controls, record.values, state.olderHost === true)
     : record.values
-  if (record.agent === 'pi' && state.reportedEffort !== undefined) {
-    values = { ...values, effort: { value: state.reportedEffort, source: 'reported' } }
-  }
-  const requested = values.effort
-  if (
-    normalises &&
-    record.agent === 'pi' &&
-    typeof requested?.value === 'string' &&
-    requested.source !== 'reported'
-  ) {
-    const effort = effectiveAgentEffort(requested.value, catalogEffortLevels(controls))
-    if (effort && effort !== requested.value) {
-      values = { ...values, effort: { ...requested, value: effort } }
-    }
-  }
   return { catalog, models, ...shown, controls, values }
 }
 

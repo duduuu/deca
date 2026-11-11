@@ -17,19 +17,7 @@ import {
   isOpenCodeNativeTitleHeader,
   isDirectOpenCodeNativeTitle
 } from './providers/opencode-terminal-title'
-import {
-  hasDeepSeekBuildWorkingTitlePrefix,
-  isDeepSeekBuildWorkingTitle,
-  isDeepSeekBuildTerminalTitle
-} from './providers/dsb-terminal-title'
 import { stripLeadingAgentTitleDecorationOrEmpty } from './agent-title-decoration'
-import {
-  getPiCompatibleSyntheticAgentLabel,
-  getPiCompatibleTitleBrand,
-  isLegacyPiCompatibleTitle
-} from './providers/pi-compatible-synthetic-title'
-import { isDshTerminalTitle } from './providers/dsh-terminal-title'
-import { hasQoderTitleLabelPayload, isQoderTerminalTitle } from './providers/qoder-terminal-title'
 import {
   SYNTHETIC_AGENT_TITLE_AGENTS,
   SYNTHETIC_AGENT_TITLE_PROFILES
@@ -140,22 +128,12 @@ function collectVendorMarkers(segments: readonly string[]): TerminalAgent[] {
   return [...markers]
 }
 
-function collectAnchoredNames(
-  segments: readonly string[],
-  vendorMarkers: readonly TerminalAgent[]
-): TerminalAgent[] {
+function collectAnchoredNames(segments: readonly string[]): TerminalAgent[] {
   const anchored = new Set<TerminalAgent>()
-  // Why: a native owner's task text can end with DSB's product-name suffix, including inside wrappers.
-  const nativeOpenCode = segments.some(isOpenCodeNativeTitle)
-  const allowDsbTitle = vendorMarkers.length === 0 && !nativeOpenCode
-
   for (const segment of segments) {
     // Native wrapped titles own their envelope even when session text names other agents.
     if (isOpenCodeNativeTitle(segment)) {
       anchored.add('opencode')
-    }
-    if (allowDsbTitle && isDeepSeekBuildTerminalTitle(segment)) {
-      anchored.add('dsb')
     }
 
     const suffix = OWNER_SUFFIX_RE.exec(segment)
@@ -187,13 +165,6 @@ function collectAnchoredNames(
     if (ANTIGRAVITY_MODEL_TITLE_RE.test(undecorated)) {
       anchored.add('antigravity')
     }
-
-    const piCompatible = getPiCompatibleSyntheticAgentLabel(segment)
-    if (piCompatible === 'Pi') {
-      anchored.add('pi')
-    } else if (piCompatible === 'OMP') {
-      anchored.add('omp')
-    }
   }
 
   return [...anchored]
@@ -210,11 +181,6 @@ function observerFrameStart(title: string): number {
     const neutralWrapper = isNeutralAgentTitleWrapper(header)
     if (
       isOpenCodeNativeTitleHeader(header) ||
-      hasQoderTitleLabelPayload(header) ||
-      undecorated.startsWith('🐋') ||
-      getPiCompatibleTitleBrand(header) ||
-      isLegacyPiCompatibleTitle(header) ||
-      hasDeepSeekBuildWorkingTitlePrefix(header) ||
       agentForNamedTitlePrefix(header) ||
       ANTIGRAVITY_MODEL_TITLE_RE.test(undecorated) ||
       !neutralWrapper
@@ -238,7 +204,6 @@ function collectObserverAnchors(title: string): TerminalAgent[] {
   const segment = title.slice(observerFrameStart(title)).trim()
   const undecorated = stripLeadingAgentTitleDecorationOrEmpty(segment).trim()
   const nativeOpenCode = isOpenCodeNativeTitle(segment)
-  const piBrand = getPiCompatibleTitleBrand(segment)
   const genericClaude =
     segment === CLAUDE_IDLE ||
     segment.startsWith(`${CLAUDE_IDLE} `) ||
@@ -247,12 +212,6 @@ function collectObserverAnchors(title: string): TerminalAgent[] {
   let agent: TerminalAgent | null
   if (!genericClaude && nativeOpenCode && isDirectOpenCodeNativeTitle(segment)) {
     agent = 'opencode'
-  } else if (isDshTerminalTitle(segment) && undecorated.startsWith('🐋')) {
-    agent = 'dsh'
-  } else if (isQoderTerminalTitle(segment)) {
-    agent = segment.includes('Qoder CLI CN') ? 'qoder-cn' : 'qoder'
-  } else if (piBrand || isLegacyPiCompatibleTitle(segment)) {
-    agent = piBrand === 'OMP' ? 'omp' : 'pi'
   } else if (GEMINI_GLYPHS.some((glyph) => segment.startsWith(glyph))) {
     agent = 'gemini'
   } else if (genericClaude) {
@@ -260,19 +219,10 @@ function collectObserverAnchors(title: string): TerminalAgent[] {
   } else {
     agent =
       (isGrokRotatingWorkingTitle(segment) ? 'grok' : null) ??
-      (isDeepSeekBuildWorkingTitle(segment) ||
-      (!segment.includes('|') && isDeepSeekBuildTerminalTitle(segment))
-        ? 'dsb'
-        : null) ??
       agentForNativeFrame(segment) ??
       agentForWholeTitle(segment) ??
       agentForSyntheticTitle(segment) ??
       (ANTIGRAVITY_MODEL_TITLE_RE.test(undecorated) ? 'antigravity' : null) ??
-      (getPiCompatibleSyntheticAgentLabel(segment) === 'OMP'
-        ? 'omp'
-        : getPiCompatibleSyntheticAgentLabel(segment) === 'Pi'
-          ? 'pi'
-          : null) ??
       (!suffixAgent ? agentForShellCommand(segment) : null)
   }
   if (agent) {
@@ -293,7 +243,7 @@ function collectTitleEvidence(title: string, nativeFrames: boolean): AgentTitleE
   const vendorMarkers = collectVendorMarkers(segments)
   const anchoredNames = nativeFrames
     ? collectObserverAnchors(title)
-    : collectAnchoredNames(segments, vendorMarkers)
+    : collectAnchoredNames(segments)
   const anchoredSet = new Set(anchoredNames)
   const anchoredLabelNames = namesConsumedByAnchoredLabels(segments, anchoredSet)
   const freeTextNames = namesIn(title).filter(

@@ -16,7 +16,7 @@ export async function sendFollowupPromptWhenAgentReady(args: {
   if (!(await waitForAgentForeground(ptyId, agent))) {
     return false
   }
-  // Why: an agent in front may not read input yet; Kimi drops text typed before its composer is up (#10336).
+  // Why: an agent in front may not read input yet; text typed before its composer is up can be dropped (#10336).
   try {
     return await pasteDraftToAgentPtyWhenReady({
       ptyId,

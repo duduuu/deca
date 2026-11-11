@@ -1,6 +1,4 @@
 import { openOpenCodeDatabaseReadonly } from '../ai-vault/scanners/opencode/sqlite/session-scanner-opencode-sqlite-open'
-import { zcodeVisibleMessageFilter } from '../ai-vault/scanners/zcode/session-scanner-zcode-visibility'
-import { zcodeTranscriptOrder } from '../ai-vault/scanners/zcode/session-scanner-zcode-order'
 import {
   readOpenCode2TranscriptPage,
   readOpenCode2TranscriptSignal
@@ -51,8 +49,7 @@ function sessionExists(db: SyncDatabase, sessionId: string): boolean {
 
 export function readOpenCodeTranscriptSignal(
   dbPath: string,
-  sessionId: string,
-  agent?: 'zcode'
+  sessionId: string
 ): OpenCodeTranscriptSignal | null {
   const db = openOpenCodeDatabaseReadonly(dbPath)
   try {
@@ -63,7 +60,6 @@ export function readOpenCodeTranscriptSignal(
     if (!sessionExists(db, sessionId)) {
       return null
     }
-    const visibility = zcodeVisibleMessageFilter(agent ?? 'opencode', 'data')
     const [messageRow] = rowsOf<{
       message_count: number
       max_message_rowid: number
@@ -72,23 +68,16 @@ export function readOpenCodeTranscriptSignal(
       db.prepare(
         `SELECT COUNT(*) AS message_count, COALESCE(MAX(rowid), 0) AS max_message_rowid,
          COALESCE(MAX(time_updated), 0) AS max_message_time_updated
-         FROM message WHERE session_id = ? ${visibility}`
+         FROM message WHERE session_id = ?`
       ),
       sessionId
     )
     const [partRow] = rowsOf<{ part_count: number; max_part_time_updated: number }>(
       db.prepare(
         `SELECT COUNT(*) AS part_count, COALESCE(MAX(time_updated), 0) AS max_part_time_updated
-         FROM part WHERE session_id = ? ${
-           agent === 'zcode'
-             ? `AND message_id IN (
-           SELECT id FROM message WHERE session_id = ? ${visibility}
-         )`
-             : ''
-         }`
+         FROM part WHERE session_id = ?`
       ),
-      sessionId,
-      ...(agent === 'zcode' ? [sessionId] : [])
+      sessionId
     )
     return {
       cwd: columnExists(db, 'session', 'directory')
@@ -100,10 +89,7 @@ export function readOpenCodeTranscriptSignal(
       messageCount: messageRow?.message_count ?? 0,
       partCount: partRow?.part_count ?? 0,
       maxMessageRowId: messageRow?.max_message_rowid ?? 0,
-      maxPartTimeUpdated: Math.max(
-        partRow?.max_part_time_updated ?? 0,
-        agent === 'zcode' ? (messageRow?.max_message_time_updated ?? 0) : 0
-      )
+      maxPartTimeUpdated: partRow?.max_part_time_updated ?? 0
     }
   } finally {
     db.close()
@@ -115,7 +101,6 @@ export function readOpenCodeTranscriptPage(args: {
   sessionId: string
   limit: number
   beforeMessageRowId?: number
-  agent?: 'zcode'
 }): OpenCodeTranscriptPage | null {
   const db = openOpenCodeDatabaseReadonly(args.dbPath)
   try {
@@ -127,30 +112,12 @@ export function readOpenCodeTranscriptPage(args: {
       return null
     }
     const limit = openCodeTranscriptPageLimit(args.limit)
-    // Keep stable storage IDs on the wire; ranks exist only inside this query.
-    const ranked = args.agent === 'zcode'
-    const orderColumn = ranked ? 'ordered.transcript_order' : 'm.rowid'
-    if (
-      ranked &&
-      args.beforeMessageRowId !== undefined &&
-      !db
-        .prepare('SELECT 1 FROM message WHERE session_id = ? AND rowid = ?')
-        .get(args.sessionId, args.beforeMessageRowId)
-    ) {
-      throw new Error('Transcript pagination cursor was removed; reload the conversation')
-    }
-    const ordered = ranked
-      ? `WITH ordered AS (
-      SELECT m.rowid AS storage_rowid, ROW_NUMBER() OVER (
-        ORDER BY ${zcodeTranscriptOrder(db, 'zcode', 'message', 'm', 'ASC')}
-      ) AS transcript_order FROM message m WHERE session_id = ?
-    )`
-      : ''
+    const orderColumn = 'm.rowid'
     // Always bind an upper bound: batching advances it mid-page; MAX_SAFE_INTEGER starts at newest.
     const select = db.prepare(
-      `${ordered} SELECT m.rowid AS message_rowid, ${orderColumn} AS transcript_order, m.id, m.time_created, m.time_updated, CASE WHEN length(CAST(m.data AS BLOB)) <= ${OPENCODE_TRANSCRIPT_MAX_ROW_BYTES} THEN m.data ELSE NULL END AS data
-         FROM message m ${ranked ? 'JOIN ordered ON ordered.storage_rowid = m.rowid' : ''}
-         WHERE m.session_id = ? AND ${orderColumn} < ${ranked ? 'COALESCE((SELECT transcript_order FROM ordered WHERE storage_rowid = ?), 9007199254740991)' : '?'} ${zcodeVisibleMessageFilter(args.agent ?? 'opencode')}
+      `SELECT m.rowid AS message_rowid, ${orderColumn} AS transcript_order, m.id, m.time_created, m.time_updated, CASE WHEN length(CAST(m.data AS BLOB)) <= ${OPENCODE_TRANSCRIPT_MAX_ROW_BYTES} THEN m.data ELSE NULL END AS data
+         FROM message m
+         WHERE m.session_id = ? AND ${orderColumn} < ?
          ORDER BY ${orderColumn} DESC
          LIMIT ?`
     )
@@ -165,7 +132,6 @@ export function readOpenCodeTranscriptPage(args: {
       const rows = rowsWithinBudget<MessageRow>(
         select,
         rawBudget,
-        ...(ranked ? [args.sessionId] : []),
         args.sessionId,
         cursor ?? Number.MAX_SAFE_INTEGER,
         limit + 1
@@ -191,7 +157,7 @@ export function readOpenCodeTranscriptPage(args: {
             record.finish !== 'tool-calls'
         })
       }
-      const mapped = mapMessageRows(db, args.sessionId, selected, rawBudget, args.agent)
+      const mapped = mapMessageRows(db, args.sessionId, selected, rawBudget)
       pageBytes += Buffer.byteLength(JSON.stringify(mapped))
       if (pageBytes > 16 * 1024 * 1024) {
         throw new Error('OpenCode transcript page exceeds its byte limit')
@@ -242,8 +208,7 @@ function mapMessageRows(
   db: SyncDatabase,
   sessionId: string,
   rows: MessageRow[],
-  rawBudget: { bytes: number },
-  agent?: 'zcode'
+  rawBudget: { bytes: number }
 ): OpenCodeTranscriptItem[] {
   if (rows.length === 0) {
     return []
@@ -257,7 +222,7 @@ function mapMessageRows(
       db.prepare(
         `SELECT message_id, time_updated, CASE WHEN length(CAST(data AS BLOB)) <= ${OPENCODE_TRANSCRIPT_MAX_ROW_BYTES} THEN data ELSE NULL END AS data FROM part p
          WHERE session_id = ? AND message_id IN (${placeholders})
-         ORDER BY ${agent === 'zcode' ? zcodeTranscriptOrder(db, agent, 'part', 'p', 'ASC') : 'rowid'} LIMIT 10001`
+         ORDER BY rowid LIMIT 10001`
       ),
       rawBudget,
       sessionId,
@@ -300,8 +265,7 @@ function mapMessageRows(
         fingerprint: `${row.time_updated}:${partList.length}:${updated}`,
         message: {
           ...message,
-          transcriptOffset: row.message_rowid,
-          ...(agent === 'zcode' ? { transcriptOrder: row.transcript_order } : {})
+          transcriptOffset: row.message_rowid
         }
       })
     }

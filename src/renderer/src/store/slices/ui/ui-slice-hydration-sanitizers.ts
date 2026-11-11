@@ -220,12 +220,26 @@ export function presetToQuery(presetId: TaskViewPresetId | null): string {
   }
 }
 
+// Persisted lists may name usage providers this build no longer ships; drop them on load.
+const KNOWN_STATUS_BAR_ITEMS: ReadonlySet<string> = new Set<StatusBarItem>([
+  'claude',
+  'codex',
+  'gemini',
+  'antigravity',
+  'opencode-go',
+  'grok',
+  'cursor',
+  'ssh',
+  'resource-usage',
+  'ports'
+])
+
 export function migrateStatusBarItems(items: readonly string[] | undefined): StatusBarItem[] {
   const source = items ?? DEFAULT_STATUS_BAR_ITEMS
   const out: string[] = []
   for (const id of source) {
     const mapped = id === 'memory' || id === 'sessions' ? 'resource-usage' : id
-    if (!out.includes(mapped)) {
+    if (KNOWN_STATUS_BAR_ITEMS.has(mapped) && !out.includes(mapped)) {
       out.push(mapped)
     }
   }

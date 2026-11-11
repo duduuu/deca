@@ -226,8 +226,7 @@ function installWillQuitHandler(): void {
     const usageCacheFlush = Promise.all([
       state.claudeUsage?.flush(),
       state.codexUsage?.flush(),
-      state.openCodeUsage?.flush(),
-      state.museUsage?.flush()
+      state.openCodeUsage?.flush()
     ]).then(() => {})
     disposeDesktopBrowserBridge()
     const browserClientHostShutdown = shutdownPairedRuntimeBrowserClientHosts()

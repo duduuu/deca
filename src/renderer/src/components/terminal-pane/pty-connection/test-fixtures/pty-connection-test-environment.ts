@@ -180,7 +180,6 @@ async function resetSharedTerminalModuleState(): Promise<void> {
     startupDeliveryGuards,
     hookCommandDelivery,
     completionIdentity,
-    commandCodeDoneSettle,
     processInspection,
     rendererOwnedStatus,
     deliveryClaims,
@@ -194,7 +193,6 @@ async function resetSharedTerminalModuleState(): Promise<void> {
     import('@/lib/agent-session/launch/startup/agent-startup-delivery-guards'),
     import('@/lib/workspace/creation/setup/hook-command-delayed-delivery'),
     import('../../agent-completion/agent-completion-identity-store'),
-    import('../../agent-completion/command-code/command-code-done-settle'),
     import('../../agent-completion/process-inspection/agent-process-inspection-queue'),
     import('../../agent-status/renderer-owned-agent-status-registry'),
     import('../../pty-transport/delivery/pty-renderer-delivery-claims'),
@@ -212,7 +210,6 @@ async function resetSharedTerminalModuleState(): Promise<void> {
   startupDeliveryGuards.clearConsumedAgentStartupDeliveriesForTests()
   hookCommandDelivery.resetHookCommandDelayedDeliveryForTests()
   completionIdentity.resetAgentCompletionIdentityStoreForTest()
-  commandCodeDoneSettle._resetCommandCodeDoneSettlesForTest()
   processInspection.resetAgentProcessInspectionQueueForTests()
   rendererOwnedStatus.resetRendererOwnedAgentStatusPanesForTests()
   deliveryClaims._resetPtyRendererDeliveryClaimsForTest()

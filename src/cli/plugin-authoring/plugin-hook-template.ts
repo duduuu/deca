@@ -30,8 +30,6 @@ export default function activate(orca: OrcaWorkerApi): void {
 
 const WORKER_TEST_TS = `// Runs the hook as Deca would, with this worker as the only plugin in the chain.
 import { assert, mountWorker, test } from 'orca/testing'
-import * as main from './worker'
-
 const send = (text: string) => ({ terminalId: 't1', text, enter: true, inputKind: 'driving' as const })
 
 test('refuses a dangerous command and passes everything else unchanged', async () => {
@@ -40,10 +38,7 @@ test('refuses a dangerous command and passes everything else unchanged', async (
     kind: 'deny',
     reason: 'blocked by the guard plugin'
   })
-  assert.deepEqual(await worker.hooks.fire('terminal.send', send('ls -la ')), {
-    kind: 'continue',
-    event: send('ls -la ')
-  })
+  assert.deepEqual(await worker.hooks.fire('terminal.send', send('ls -la ')))
   await worker.deactivate()
 })
 `

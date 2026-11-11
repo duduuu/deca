@@ -20,7 +20,7 @@ async function heldLaunch(hold: 'launch' | 'delivery') {
   const automation = store.createAutomation({
     name: 'Nightly',
     prompt: 'Fix the flaky test',
-    agentId: 'aider',
+    agentId: 'kiro',
     projectId: 'r1',
     workspaceMode: 'new_per_run',
     timezone: 'UTC',

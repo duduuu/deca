@@ -40,7 +40,7 @@ export function buildAgentResumeStartupPlan(args: {
 }): AgentStartupPlan | null {
   const resumeArgv = args.fork
     ? getAgentForkArgv(args.agent, args.providerSession)
-    : getAgentResumeArgv(args.agent, args.providerSession, args.ompResumeFilePath)
+    : getAgentResumeArgv(args.agent, args.providerSession)
   if (!resumeArgv) {
     return null
   }

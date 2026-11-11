@@ -14,7 +14,7 @@ export type OpenCodeSqliteListRequest = {
   kind: 'list'
   dbPaths: readonly string[]
   limit: number | null
-  agent?: 'opencode2' | 'zcode'
+  agent?: 'opencode2'
   /** Lists only sessions whose directory is in scope; an older reader ignores it and lists unfiltered. */
   scopePaths?: readonly string[]
 }
@@ -26,7 +26,7 @@ export type OpenCodeSqliteParseRequest = {
   dbPath: string
   sessionId: string
   platform: NodeJS.Platform
-  agent?: 'opencode2' | 'zcode'
+  agent?: 'opencode2'
 }
 
 // Separate capture requests keep full-transcript response types distinct from preview-only parses.
@@ -36,7 +36,7 @@ export type OpenCodeSqliteCaptureRequest = {
   dbPath: string
   sessionId: string
   platform: NodeJS.Platform
-  agent?: 'opencode2' | 'zcode'
+  agent?: 'opencode2'
 }
 
 export type OpenCodeNativeChatReadRequest = {
@@ -46,8 +46,6 @@ export type OpenCodeNativeChatReadRequest = {
   sessionId: string
   limit?: number
   beforeMessageRowId?: number
-  /** When 'zcode', reads apply ZCode's hidden-transcript filter. */
-  agent?: 'zcode'
 }
 
 export type OpenCodeForkCoverageRequest = {

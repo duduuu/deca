@@ -17,8 +17,6 @@ export type AiVaultScanOptions = {
   claudeProjectsDir?: string
   /** Account `projects` folders the System default does not link; resolved by the host process. */
   claudeProfileProjectsDirs?: readonly string[]
-  codebuddyProjectsDir?: string
-  qoderProjectsDir?: string
   codexSessionsDir?: string
   additionalCodexSessionsDirs?: readonly string[]
   // Override the default Codex home to test unprefixed resume commands without reading user data.
@@ -37,22 +35,15 @@ export type AiVaultScanOptions = {
   opencodeDbPaths?: readonly string[]
   /** Managed account OpenCode data directories; resolved by the host process. */
   opencodeAccountDataDirs?: readonly string[]
-  zcodeDbPath?: string
   grokSessionsDir?: string
   devinTranscriptsDir?: string
-  hermesSessionsDir?: string
   rovoSessionsDir?: string
-  openclawStateDir?: string
-  openclawLegacyStateDir?: string
   piSessionsDir?: string
   ompSessionsDir?: string
   primeAgentSessionsDir?: string
   droidSessionsDir?: string
   droidProjectsDir?: string
   clineSessionsDir?: string
-  kimiSessionsDir?: string
-  museSessionsDir?: string
-  jcodeSessionsDir?: string
   kiroSessionsDir?: string
   limit?: number
   unlimited?: boolean

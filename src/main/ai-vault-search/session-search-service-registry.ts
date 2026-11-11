@@ -37,7 +37,7 @@ export async function searchSessionService(
     return { kind: 'unavailable', reason: 'no-service' }
   }
   // Let the service answer disabled/not-ready before scope errors.
-  const { within, supportedAgents, supportsQoderHistory, supportsJcodeHistory, ...request } = parsed
+  const { within, supportedAgents, ...request } = parsed
   // Older clients reject the whole page when a hit has an unknown agent tag.
   const requestedAgents = request.filters?.agents
   const agents = requestedAgents?.length ? requestedAgents : AI_VAULT_AGENTS
@@ -48,9 +48,7 @@ export async function searchSessionService(
       : {
           // An explicit tag also proves the requesting parser understands that agent.
           supportedAgents:
-            supportedAgents ?? (requestedAgents?.length ? requestedAgents : undefined),
-          supportsQoderHistory,
-          supportsJcodeHistory
+            supportedAgents ?? (requestedAgents?.length ? requestedAgents : undefined)
         }
   )
   const compatibleRequest =
@@ -100,9 +98,7 @@ export async function sessionSearchServiceStatus(
   return redactStatusForTransport(
     AiVaultSearchStatusSchema.parse({
       ...(service ? await service.status() : unavailableSessionSearchStatus()),
-      supportedAgents: [...AI_VAULT_AGENTS],
-      supportsQoderHistory: true,
-      supportsJcodeHistory: true
+      supportedAgents: [...AI_VAULT_AGENTS]
     }),
     transport
   )

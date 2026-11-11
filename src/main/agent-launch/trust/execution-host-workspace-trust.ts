@@ -1,14 +1,12 @@
 import { realpathSync } from 'node:fs'
 import { homedir } from 'node:os'
-import { join, resolve } from 'node:path'
-import { markQoderWorkspaceTrusted } from '../../qoder/workspace-trust'
+import { resolve } from 'node:path'
 import {
   type AgentTrustPreset,
   markAntigravityWorkspaceTrusted,
   markCodexProjectTrusted,
   markCopilotFolderTrusted,
-  markCursorWorkspaceTrusted,
-  markKimiWorkspaceTrusted
+  markCursorWorkspaceTrusted
 } from './agent-trust-presets'
 import { awaitAgentTrustWriteWithinDeadline } from './agent-trust-write-deadline'
 import {
@@ -29,8 +27,6 @@ export type WorkspaceTrustHost = {
   codexConfigFiles: () => readonly string[]
   /** The workspace as a WSL agent sees it, when it differs from the host path. */
   guestWorkspacePath?: string
-  /** KIMI_CODE_HOME for the launched Kimi; unset means `<agentHome>/.kimi-code`. */
-  kimiHome?: string
   deadlineMs: number
 }
 
@@ -47,14 +43,8 @@ export const AGENT_TRUST_INHERITS_FROM_A_HOME: Record<AgentTrustPreset, boolean>
   codex: false,
   cursor: false,
   copilot: true,
-  qoder: true,
-  'qoder-cn': true,
-  antigravity: false,
-  kimi: false
+  antigravity: false
 }
-
-/** Exact-folder agents that load project config (Kimi: MCP servers) from a trusted home or root. */
-const AGENT_TRUST_UNSAFE_AT_A_HOME: ReadonlySet<AgentTrustPreset> = new Set(['kimi'])
 
 /** Trust these agents’ starting folders; a workspace ancestor may not be a valid trust key. */
 export const AGENT_TRUST_KEYED_BY_START_FOLDER: Record<AgentTrustPreset, boolean> = {
@@ -62,10 +52,7 @@ export const AGENT_TRUST_KEYED_BY_START_FOLDER: Record<AgentTrustPreset, boolean
   codex: true,
   cursor: false,
   copilot: false,
-  qoder: false,
-  'qoder-cn': false,
-  antigravity: false,
-  kimi: true
+  antigravity: false
 }
 
 // Claude stores resolved paths; resolve also collapses .. when realpath fails.
@@ -102,17 +89,8 @@ async function writePreset(
       return markCursorWorkspaceTrusted(storedPath, host.agentHome)
     case 'copilot':
       return markCopilotFolderTrusted(storedPath, host.agentHome)
-    case 'qoder-cn':
-      return markQoderWorkspaceTrusted(storedPath, host.agentHome, '.qoder-cn')
-    case 'qoder':
-      return markQoderWorkspaceTrusted(storedPath, host.agentHome)
     case 'antigravity':
       return markAntigravityWorkspaceTrusted(storedPath, host.agentHome, host.guestWorkspacePath)
-    case 'kimi':
-      return markKimiWorkspaceTrusted(
-        storedPath,
-        host.kimiHome || join(host.agentHome, '.kimi-code')
-      )
   }
 }
 
@@ -124,7 +102,7 @@ export async function applyWorkspaceTrustOnThisHost(
 ): Promise<void> {
   try {
     const host = describeHost()
-    if (AGENT_TRUST_INHERITS_FROM_A_HOME[preset] || AGENT_TRUST_UNSAFE_AT_A_HOME.has(preset)) {
+    if (AGENT_TRUST_INHERITS_FROM_A_HOME[preset]) {
       const homes = host.homes.filter((home): home is string => Boolean(home))
       if (homes.length === 0 || wouldTrustAHome(workspacePath, homes)) {
         return

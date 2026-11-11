@@ -3,9 +3,6 @@ import { join } from 'node:path'
 
 // MSYS rewrites paths and switches, so Windows hook tests also exercise Git Bash.
 export function findGitBash(): string {
-  if (process.env.KIMI_SHELL_PATH) {
-    return process.env.KIMI_SHELL_PATH
-  }
   const candidates = [
     process.env.ProgramFiles && join(process.env.ProgramFiles, 'Git', 'bin', 'bash.exe'),
     process.env['ProgramFiles(x86)'] &&

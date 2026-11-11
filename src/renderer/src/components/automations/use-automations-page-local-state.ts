@@ -1,9 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import type { Automation } from '../../../../shared/automations/automation-definition'
-import type {
-  ExternalAutomationJob,
-  ExternalAutomationManager
-} from '../../../../shared/automations/external/external-automation'
 import type { OrcaHooks } from '../../../../shared/orca-yaml-hook-types'
 import { useContextualTour } from '@/components/contextual-tours/use-contextual-tour'
 import type { AutomationDraft } from './authoring/AutomationEditorDialog'
@@ -22,7 +18,6 @@ import type {
   AutomationRunPageOrigin,
   AutomationsPageView
 } from './automation-page-state'
-import type { ExternalAutomationScope } from './external/external-automation-scope-client'
 import type { SelectedAutomationRunHistoryOutcome } from './runs/use-selected-automation-run-history'
 import type { AutomationsPageStoreState } from './use-automations-page-store-state'
 
@@ -53,7 +48,6 @@ export function useAutomationsPageLocalState(store: AutomationsPageStoreState) {
   } | null>(null)
   const [editorNotice, setEditorNotice] = useState<AutomationActionNotice | null>(null)
   const [editorNoticeHost, setEditorNoticeHost] = useState<AutomationHostCatalogEntry | null>(null)
-  const [externalActionKey, setExternalActionKey] = useState<string | null>(null)
   const [rerunRunIdsInFlight, setRerunRunIdsInFlight] = useState<ReadonlySet<string>>(
     () => new Set()
   )
@@ -79,12 +73,7 @@ export function useAutomationsPageLocalState(store: AutomationsPageStoreState) {
     null
   )
   const [selectedRowKey, setSelectedRowKey] = useState<string | null>(null)
-  const [selectedExternalKey, setSelectedExternalKey] = useState<string | null>(null)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
-  const selectedExternalKeyRef = useRef<string | null>(null)
-  useEffect(() => {
-    selectedExternalKeyRef.current = selectedExternalKey
-  }, [selectedExternalKey])
 
   const selectAutomationId = useCallback(
     (automationId: string | null): void => {
@@ -95,26 +84,13 @@ export function useAutomationsPageLocalState(store: AutomationsPageStoreState) {
     },
     [setSelectedId]
   )
-  const selectExternalKey = useCallback((externalKey: string | null): void => {
-    setSelectedExternalKey(externalKey)
-  }, [])
   const [targetEdited, setTargetEdited] = useState(false)
   const [draftAtOpen, setDraftAtOpen] = useState<AutomationDraft | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<AutomationListRow | null>(null)
-  const [externalDeleteTarget, setExternalDeleteTarget] = useState<{
-    manager: ExternalAutomationManager
-    job: ExternalAutomationJob
-    scope: ExternalAutomationScope
-  } | null>(null)
-  useContextualTour(
-    'automations',
-    !isLoading && !createOpen && !deleteTarget && !externalDeleteTarget,
-    'automations_open'
-  )
+  useContextualTour('automations', !isLoading && !createOpen && !deleteTarget, 'automations_open')
   const [dontAskDeleteAgain, setDontAskDeleteAgain] = useState(false)
   const editRequestRef = useRef(0)
   const deleteConfirmButtonRef = useRef<HTMLButtonElement>(null)
-  const externalDeleteConfirmButtonRef = useRef<HTMLButtonElement>(null)
   const rerunRunIdsInFlightRef = useRef<Set<string>>(new Set())
   const workspaceNameCacheRef = useRef<Map<string, string>>(new Map())
   const setupDecisionPolicyDefaultRef = useRef<AutomationDraft['setupDecision']>(undefined)
@@ -171,8 +147,6 @@ export function useAutomationsPageLocalState(store: AutomationsPageStoreState) {
     setEditorNotice,
     editorNoticeHost,
     setEditorNoticeHost,
-    externalActionKey,
-    setExternalActionKey,
     rerunRunIdsInFlight,
     setRerunRunIdsInFlight,
     isLoading,
@@ -208,26 +182,19 @@ export function useAutomationsPageLocalState(store: AutomationsPageStoreState) {
     setSelectedAutomationRunPageId,
     selectedRowKey,
     setSelectedRowKey,
-    selectedExternalKey,
-    setSelectedExternalKey,
     isDetailOpen,
     setIsDetailOpen,
-    selectedExternalKeyRef,
     selectAutomationId,
-    selectExternalKey,
     targetEdited,
     setTargetEdited,
     draftAtOpen,
     setDraftAtOpen,
     deleteTarget,
     setDeleteTarget,
-    externalDeleteTarget,
-    setExternalDeleteTarget,
     dontAskDeleteAgain,
     setDontAskDeleteAgain,
     editRequestRef,
     deleteConfirmButtonRef,
-    externalDeleteConfirmButtonRef,
     rerunRunIdsInFlightRef,
     workspaceNameCacheRef,
     setupDecisionPolicyDefaultRef,

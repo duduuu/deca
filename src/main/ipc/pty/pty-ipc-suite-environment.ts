@@ -23,7 +23,6 @@ import {
   spawnMock,
   openCodeBuildPtyEnvMock,
   openCode2BuildPtyEnvMock,
-  mimoCodeBuildPtyEnvMock,
   openCodeClearPtyMock,
   buildAgentHookEnvMock,
   clearAgentHookPaneStateMock,
@@ -144,7 +143,6 @@ export function createPtyIpcSuiteEnvironment(): PtyIpcSuiteEnvironment {
     spawnMock.mockReset()
     openCodeBuildPtyEnvMock.mockReset()
     openCode2BuildPtyEnvMock.mockReset()
-    mimoCodeBuildPtyEnvMock.mockReset()
     openCodeClearPtyMock.mockReset()
     buildAgentHookEnvMock.mockReset()
     clearAgentHookPaneStateMock.mockReset()
@@ -220,11 +218,6 @@ export function createPtyIpcSuiteEnvironment(): PtyIpcSuiteEnvironment {
       OPENCODE_CONFIG_DIR: existingConfigDir
         ? '/tmp/orca-opencode2-overlay'
         : '/tmp/orca-opencode2-config'
-    }))
-    mimoCodeBuildPtyEnvMock.mockImplementation((_ptyId: string, existingConfigDir?: string) => ({
-      MIMOCODE_CONFIG_DIR: existingConfigDir
-        ? '/tmp/orca-mimocode-overlay'
-        : '/tmp/orca-mimocode-shared'
     }))
     buildAgentHookEnvMock.mockReturnValue({
       ORCA_AGENT_HOOK_PORT: '5678',

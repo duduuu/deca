@@ -13,10 +13,9 @@ import { useSubagentSessions } from './use-subagent-sessions'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { AgentStateDot, type AgentDotState } from '@/components/AgentStateDot'
-import {
-  isAiVaultSessionResumableContent,
-  type AiVaultSession,
-  type AiVaultSubagentRunStatus
+import type {
+  AiVaultSession,
+  AiVaultSubagentRunStatus
 } from '../../../../../../shared/ai-vault/contracts/ai-vault-types'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../../../shared/execution-host'
 import { canOpenAiVaultSessionLogInOrca } from '../session-actions/ai-vault-session-path-actions'
@@ -32,15 +31,9 @@ export type AiVaultSubagentResumeActions = {
   onResume: (session: AiVaultSession, worktreeId: string) => void
 }
 
-function isIndependentlyResumableSubagent(session: AiVaultSession): boolean {
-  return (
-    session.agent === 'omp' &&
-    Boolean(session.subagent) &&
-    Boolean(session.sessionId.trim()) &&
-    session.sessionId !== session.subagent?.parentSessionId &&
-    Boolean(session.filePath.trim()) &&
-    isAiVaultSessionResumableContent(session)
-  )
+// No kept agent writes independently resumable subagent transcripts.
+function isIndependentlyResumableSubagent(_session: AiVaultSession): boolean {
+  return false
 }
 
 /** `resume` null: the lines offer no action at all, not even View Log. */
@@ -131,11 +124,8 @@ function SubagentBranchRow({
   const contentId = useId()
   const locator = subagentTranscriptKey(session)
   const key = JSON.stringify([...ancestors, locator])
-  const expandable =
-    session.agent === 'omp' &&
-    session.executionHostId === LOCAL_EXECUTION_HOST_ID &&
-    session.subagentTranscriptCount > 0 &&
-    !ancestors.includes(locator)
+  // Only removed agents wrote expandable subagent transcripts.
+  const expandable = false
   const open = expandable && Boolean(expansion?.expanded.has(key))
   const label = t(
     'auto.components.right.sidebar.AiVaultSessionSubagents.subagentsCount',

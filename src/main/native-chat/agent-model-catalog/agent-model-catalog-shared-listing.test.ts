@@ -381,7 +381,6 @@ it('publishes cached catalogs immediately and completes queued discoveries after
     drivesRecord: () => true,
     resolveAccountHome: async () => ({ variable: 'CODEX_HOME', path: '/account' }),
     probes: {
-      pi: probe('pi'),
       gemini: probe('gemini'),
       claude: probe('claude'),
       codex: probe('codex')
@@ -394,7 +393,7 @@ it('publishes cached catalogs immediately and completes queued discoveries after
     warming = false
     await vi.advanceTimersByTimeAsync(120_001)
 
-    for (const agent of ['pi', 'gemini', 'claude', 'codex']) {
+    for (const agent of ['gemini', 'claude', 'codex']) {
       await discover(service, { agent })
     }
     expect(await service.read({ agent: 'claude' })).toMatchObject({

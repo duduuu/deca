@@ -5,40 +5,20 @@ import type { AiVaultSearchStatus } from './ai-vault-search-types'
 const LEGACY_SEARCH_AGENTS: readonly AiVaultAgent[] = [
   'claude',
   'codex',
-  'hermes',
-  'pi',
-  'omp',
-  'prime-agent',
   'cursor',
   'gemini',
   'antigravity',
-  'rovo',
   'copilot',
   'opencode',
   'opencode2',
   'grok',
-  'openclaw',
-  'devin',
-  'droid',
-  'cline',
-  'kimi',
-  'muse'
+  'devin'
 ]
 
 export function compatibleSearchAgents(
   agents: readonly AiVaultAgent[],
-  status: Pick<
-    AiVaultSearchStatus,
-    'supportedAgents' | 'supportsQoderHistory' | 'supportsJcodeHistory'
-  >
+  status: Pick<AiVaultSearchStatus, 'supportedAgents'>
 ): AiVaultAgent[] {
-  // Qoder's shipped capability also proves the earlier CodeBuddy and ZCode enum additions.
-  const supported = new Set(
-    status.supportedAgents ?? [
-      ...LEGACY_SEARCH_AGENTS,
-      ...(status.supportsQoderHistory === true ? ['codebuddy', 'zcode', 'qoder'] : []),
-      ...(status.supportsJcodeHistory === true ? ['jcode'] : [])
-    ]
-  )
+  const supported = new Set(status.supportedAgents ?? LEGACY_SEARCH_AGENTS)
   return agents.filter((agent) => supported.has(agent))
 }

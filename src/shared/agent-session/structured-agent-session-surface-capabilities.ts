@@ -3,9 +3,6 @@ import { AGENT_SESSION_PERMISSION_OWN_RUNTIME_CAPABILITY } from './agent-session
 // Clients advertising this can render those agents’ tabs; withhold extra-agent tabs from older clients to avoid empty panes.
 export const STRUCTURED_AGENT_SESSION_REGISTERED_AGENTS_RUNTIME_CAPABILITY =
   'agent-session.structured.registered-agents.v1' as const
-// Pi dialog rendering/answers require a capability beyond registered-agent support.
-export const PI_STRUCTURED_DIALOGS_RUNTIME_CAPABILITY =
-  'agent-session.structured.pi-dialogs.v1' as const
 // Explicit surface holds let hosts stop children after the last visible surface closes, independently of transports.
 export const STRUCTURED_AGENT_SESSION_HOLD_RUNTIME_CAPABILITY =
   'agent-session.structured.hold.v1' as const
@@ -62,7 +59,6 @@ export const STRUCTURED_AGENT_SESSION_SURFACE_RUNTIME_CAPABILITIES = [
   STRUCTURED_AGENT_SESSION_HOLD_RUNTIME_CAPABILITY,
   STRUCTURED_AGENT_SESSION_REVEAL_RUNTIME_CAPABILITY,
   STRUCTURED_AGENT_SESSION_REGISTERED_AGENTS_RUNTIME_CAPABILITY,
-  PI_STRUCTURED_DIALOGS_RUNTIME_CAPABILITY,
   STRUCTURED_AGENT_SESSION_RESUME_HISTORY_RUNTIME_CAPABILITY,
   STRUCTURED_AGENT_SESSION_RESUME_LINKED_CWD_RUNTIME_CAPABILITY,
   STRUCTURED_AGENT_SESSION_CLI_SOURCE_RUNTIME_CAPABILITY,

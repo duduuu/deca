@@ -1,3 +1,4 @@
+import { openCodeTranscriptOrder } from './opencode-transcript-order'
 import {
   OPENCODE_CAPTURE_RECORD_LIMIT,
   OPENCODE_CAPTURE_TEXT_LIMIT
@@ -16,8 +17,6 @@ import {
   toolCallContent,
   transcriptMessageFromText
 } from '../../../transcripts/session-transcript-message-content'
-import { zcodeVisibleMessageFilter } from '../../zcode/session-scanner-zcode-visibility'
-import { zcodeTranscriptOrder } from '../../zcode/session-scanner-zcode-order'
 import type SyncDatabase from '../../../../sqlite/sync-database'
 
 // Capture shares session decoding with listing but selects the full transcript instead of the preview window.
@@ -111,7 +110,7 @@ function captureRole(role: string | null): TranscriptMessageRole | null {
   return role === 'user' || role === 'assistant' ? role : null
 }
 
-function buildCaptureQuery(db: SyncDatabase, agent: 'opencode' | 'zcode'): string {
+function buildCaptureQuery(): string {
   return `SELECT m.id AS message_id,
                  json_extract(m.data, '$.role') AS role,
                  json_extract(p.data, '$.type') AS part_type,
@@ -120,30 +119,26 @@ function buildCaptureQuery(db: SyncDatabase, agent: 'opencode' | 'zcode'): strin
           FROM message m
           JOIN part p ON p.message_id = m.id
           WHERE m.session_id = ?
-            ${zcodeVisibleMessageFilter(agent)}
             AND json_extract(m.data, '$.role') IN ('user','assistant')
             AND json_extract(p.data, '$.type') IN ${OPENCODE_CAPTURE_PART_TYPES}
-          ORDER BY ${zcodeTranscriptOrder(db, agent, 'message', 'm', 'ASC')},
-                   ${zcodeTranscriptOrder(db, agent, 'part', 'p', 'ASC')}
+          ORDER BY ${openCodeTranscriptOrder('message', 'm', 'ASC')},
+                   ${openCodeTranscriptOrder('part', 'p', 'ASC')}
           LIMIT ?`
 }
 
 /** Join each turn’s text/reasoning into one searchable message, followed by separate tool messages. */
 export function readOpenCodeSessionMessages(
   db: SyncDatabase,
-  sessionId: string,
-  agent: 'opencode' | 'zcode' = 'opencode'
+  sessionId: string
 ): TranscriptMessage[] {
-  const agentName = agent === 'zcode' ? 'ZCode' : 'OpenCode'
+  const agentName = 'OpenCode'
   if (!canReadOpenCodeMessageParts(db)) {
     // Empty success would advance the search cursor permanently; schema failures must remain retryable.
     throw new Error(
       `${agentName} session ${sessionId} uses an unreadable message-part schema; its transcript was not read.`
     )
   }
-  const rows = db
-    .prepare(buildCaptureQuery(db, agent))
-    .all(sessionId, OPENCODE_CAPTURE_RECORD_LIMIT + 1)
+  const rows = db.prepare(buildCaptureQuery()).all(sessionId, OPENCODE_CAPTURE_RECORD_LIMIT + 1)
   if (rows.length > OPENCODE_CAPTURE_RECORD_LIMIT) {
     throw new Error(
       `${agentName} session ${sessionId} holds more than ${OPENCODE_CAPTURE_RECORD_LIMIT} text parts; its transcript was not read.`
@@ -219,7 +214,7 @@ export async function captureOpenCodeSqliteSession(args: {
   dbPath: string
   sessionId: string
   platform: NodeJS.Platform
-  agent?: 'opencode' | 'zcode'
+  agent?: 'opencode'
 }): Promise<OpenCodeSqliteCapture> {
   return readOpenCodeDatabase({
     dbPath: args.dbPath,
@@ -227,7 +222,7 @@ export async function captureOpenCodeSqliteSession(args: {
       const session = readOpenCodeSqliteSession({ db, ...args })
       return {
         session,
-        messages: session ? readOpenCodeSessionMessages(db, args.sessionId, args.agent) : []
+        messages: session ? readOpenCodeSessionMessages(db, args.sessionId) : []
       }
     }
   })

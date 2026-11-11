@@ -120,7 +120,7 @@ export function comparablePath(token: string): string {
     .replace(/^["']|["']$/g, '')
     .replace(/\\/g, '/')
     .toLowerCase()
-  // Why: npm's local `.bin` shims and Qwen's standalone launcher run `<dir>/../<script>` paths.
+  // Why: npm's local `.bin` shims and standalone launchers run `<dir>/../<script>` paths.
   const prefix = /^\/*/.exec(path)?.[0] ?? ''
   const segments: string[] = []
   for (const segment of path.slice(prefix.length).split('/')) {

@@ -1,11 +1,9 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { parse as parseYaml } from 'yaml'
 import { afterEach, expect, it, vi } from 'vitest'
 import { planCommitMessageGeneration } from '../../shared/source-control/ai/generation/commit-message-plan'
 import { prepareSourceControlReadOnlyPlan } from './source-control-read-only-policy'
-import { stageLocalPromptFiles } from './source-control-prompt-files'
 import './source-control-local-generation'
 import './source-control-generation-lanes'
 
@@ -23,7 +21,7 @@ async function directory() {
   owned.push(result)
   return result
 }
-function planned(agentId: 'codex' | 'kimi' | 'antigravity', agentArgs?: string) {
+function planned(agentId: 'codex' | 'antigravity', agentArgs?: string) {
   const result = planCommitMessageGeneration(
     { agentId, model: agentId === 'codex' ? 'gpt-5.4-mini' : 'default', agentArgs },
     'Name this chat'
@@ -97,34 +95,6 @@ it('disables every effective Codex MCP name, including dotted names, after recip
       spawnAgent
     }).result
   ).rejects.toThrow('Unsupported configuration query')
-})
-
-it('copies an explicit Kimi profile with its prompt and identity preserved and an empty tool policy', async () => {
-  const cwd = await directory()
-  await writeFile(
-    join(cwd, 'reviewer.md'),
-    '---\nname: careful-reviewer\ndescription: Review code\ntools: ["*"]\ndisallowedTools: [read]\nsubagents: [explore]\n---\nReview precisely. ${base_prompt}\n'
-  )
-  const policy = await prepareSourceControlReadOnlyPlan({
-    agentId: 'kimi',
-    plan: planned('kimi', '--agent-file reviewer.md'),
-    target: { kind: 'local', cwd },
-    signal: new AbortController().signal,
-    spawnAgent
-  }).result
-  const plan = stageLocalPromptFiles(policy, (directory) => owned.push(directory))
-  const flag = plan.args.indexOf('--agent-file')
-  const content = await readFile(plan.args[flag + 1], 'utf8')
-  const sections = content.split('---\n')
-  expect(content.startsWith('---\n')).toBe(true)
-  expect(parseYaml(sections[1])).toEqual({
-    name: 'careful-reviewer',
-    description: 'Review code',
-    tools: [],
-    subagents: ['explore']
-  })
-  expect(sections[2]).toBe('Review precisely. ${base_prompt}\n')
-  expect(await readFile(join(cwd, 'reviewer.md'), 'utf8')).toContain('tools: ["*"]')
 })
 
 it('composes agy session settings without losing existing read denies or selected recipe fields', async () => {

@@ -1,4 +1,3 @@
-import { getPowerShellOmpShellWrapper } from './omp-shell-wrapper'
 import { MANAGED_DATA_ACCOUNT_POWERSHELL_RESTORE } from '../../../shared/managed-data-account-shell'
 import { getPowerShellAgentWrappers } from '../../../shared/powershell-agent-wrappers'
 
@@ -9,7 +8,6 @@ const POWERSHELL_OSC133_BOOTSTRAP = `# Deca OSC 133 shell integration for PowerS
 # Restore managed ownership before the shell-integration compatibility guard.
 if ($env:ORCA_OPENCODE_CONFIG_DIR) { $env:OPENCODE_CONFIG_DIR = $env:ORCA_OPENCODE_CONFIG_DIR }
 ${MANAGED_DATA_ACCOUNT_POWERSHELL_RESTORE}
-if ($env:ORCA_MIMOCODE_CONFIG_DIR) { $env:MIMOCODE_CONFIG_DIR = $env:ORCA_MIMOCODE_CONFIG_DIR }
 if ($env:ORCA_CODEX_HOME) { $env:CODEX_HOME = $env:ORCA_CODEX_HOME }
 
 if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage" -and
@@ -25,7 +23,6 @@ if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage" -and
         $OutputEncoding = [Console]::OutputEncoding
     } catch { Write-Error $_ -ErrorAction Continue }
 
-${getPowerShellOmpShellWrapper()}
 ${getPowerShellAgentWrappers()}
 
     $Global:__OrcaOsc133State = @{

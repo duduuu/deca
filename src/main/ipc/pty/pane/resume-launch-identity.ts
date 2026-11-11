@@ -47,10 +47,6 @@ export function seedResumeLaunchIdentity(args: {
   if (!providerSession || !isResumableTuiAgent(agent)) {
     return
   }
-  // Pi-family resumes require transcript paths, not session IDs alone.
-  if ((agent === 'pi' || agent === 'prime-agent') && !providerSession.transcriptPath) {
-    return
-  }
   agentHookServer.recordLaunchResumeIdentity({
     paneKey: args.paneKey,
     ...(typeof args.worktreeId === 'string' ? { worktreeId: args.worktreeId } : {}),

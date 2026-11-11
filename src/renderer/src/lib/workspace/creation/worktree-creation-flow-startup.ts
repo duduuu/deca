@@ -45,10 +45,6 @@ export function buildWorktreeCreationStartupOpt(
     ...(plan?.startupCommandDelivery
       ? { startupCommandDelivery: plan?.startupCommandDelivery }
       : {}),
-    // Command Code needs prompt status before its first hook; carry it through startup.
-    ...(request.agent === 'command-code' && request.quickPrompt.trim().length > 0
-      ? { initialAgentStatus: { agent: request.agent, prompt: request.quickPrompt.trim() } }
-      : {}),
     ...(request.quickTelemetry ? { telemetry: request.quickTelemetry } : {})
   }
 }

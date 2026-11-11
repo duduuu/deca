@@ -216,7 +216,7 @@ export function applyStructuredAgentSessionOptions(
     interactionModeSupported: current.interactionMode !== undefined,
     sessionNeverStarted: result.sessionNeverStarted,
     reportedModel: current.reportedModel,
-    reportedEffort: state.record.agent === 'pi' ? current.reportedEffort : undefined,
+    reportedEffort: undefined,
     catalog: keepCatalog ? state.catalog : answeredCatalog,
     fastModeRestricted:
       installed &&

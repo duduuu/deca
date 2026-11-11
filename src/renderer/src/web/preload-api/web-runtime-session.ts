@@ -2,7 +2,6 @@ import type {
   RuntimeHostStatusSnapshot,
   RuntimeHostStatusResponse
 } from '../../../../shared/remote-runtime/host-status/runtime-host-status'
-import type { ZcodePlanSite } from '../../../../shared/zcode-plan-sites'
 import type { WorktreeVisibilityDefaults } from '../../../../shared/global-settings-types'
 import { RuntimeRpcCallQueuePool } from '../../../../shared/runtime-rpc-call-queue'
 import type { RuntimeRpcResponse } from '../../../../shared/runtime-rpc-envelope'
@@ -22,8 +21,6 @@ import { translate } from '@/i18n/i18n'
 
 export const webRuntimeState: {
   activeEnvironment: StoredWebRuntimeEnvironment | null
-  zcodePlanSiteRuntimeOwner: string | null
-  zcodePlanSiteRuntimeValue: ZcodePlanSite | null
   worktreeVisibilityDefaultsRuntimeEnvironmentId: string | null
   worktreeVisibilityDefaultsRuntimeValue: WorktreeVisibilityDefaults | null
   activeClient: WebRuntimeClient | null
@@ -31,13 +28,20 @@ export const webRuntimeState: {
   cachedDetectedWorktrees: { loadedAt: number; worktrees: Worktree[] } | null
 } = {
   activeEnvironment: null,
-  zcodePlanSiteRuntimeOwner: null,
-  zcodePlanSiteRuntimeValue: null,
   worktreeVisibilityDefaultsRuntimeEnvironmentId: null,
   worktreeVisibilityDefaultsRuntimeValue: null,
   activeClient: null,
   activeClientEnvironmentId: null,
   cachedDetectedWorktrees: null
+}
+
+/** One pairing of one host; host-owned settings apply only while this owner is still active. */
+export function runtimePairingOwner(
+  environment: StoredWebRuntimeEnvironment | null
+): string | null {
+  return environment
+    ? JSON.stringify([environment.id, environment.pairingRevision ?? environment.createdAt])
+    : null
 }
 
 const statusListeners = new Set<(snapshot: RuntimeHostStatusSnapshot) => void>()

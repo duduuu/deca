@@ -15,7 +15,6 @@ type PrimaryAgentSpecDeps = {
   OPENAI_THINKING_LEVELS: ThinkingLevel[]
   parseClaudeModels: (stdout: string) => CommitMessageModel[]
   parseLineModels: (stdout: string) => CommitMessageModel[]
-  parsePiModels: (stdout: string) => CommitMessageModel[]
   withOpenAiThinking: (
     id: string
   ) => Pick<CommitMessageModel, 'thinkingLevels' | 'defaultThinkingLevel'>
@@ -26,7 +25,6 @@ export function buildPrimaryCommitMessageAgentSpecs({
   OPENAI_THINKING_LEVELS,
   parseClaudeModels,
   parseLineModels,
-  parsePiModels,
   withOpenAiThinking
 }: PrimaryAgentSpecDeps): Partial<Record<TuiAgent, CommitMessageAgentSpec>> {
   return {
@@ -208,35 +206,6 @@ export function buildPrimaryCommitMessageAgentSpecs({
           id: 'opencode/gpt-5.4-mini',
           label: 'OpenCode GPT 5.4 Mini',
           ...withOpenAiThinking('gpt-5.4-mini')
-        }
-      ],
-      defaultModelId: 'default'
-    },
-    pi: {
-      id: 'pi',
-      modelFlag: [{ aliases: ['--model'] }],
-      effortFlag: [{ aliases: ['--thinking'] }],
-      label: 'Pi',
-      binary: 'pi',
-      promptDelivery: 'stdin',
-      buildArgs: ({ model, thinkingLevel }) => [
-        '--print',
-        '--no-session',
-        '--no-tools',
-        '--no-skills',
-        '--no-context-files',
-        '--mode',
-        'text',
-        ...(model && model !== 'default' ? ['--model', model] : []),
-        ...(thinkingLevel ? ['--thinking', thinkingLevel] : [])
-      ],
-      modelSource: 'dynamic',
-      modelDiscovery: { binary: 'pi', args: ['--list-models'], parse: parsePiModels },
-      models: [
-        {
-          // Let Pi choose its configured provider instead of forcing Copilot credentials during automation.
-          id: 'default',
-          label: 'Config default'
         }
       ],
       defaultModelId: 'default'

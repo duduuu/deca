@@ -96,7 +96,6 @@ export function bindLiveDataCallback(session: ConnectPanePtySession): void {
       }
       session.commandLifecycle.handlePtyData(data)
     }
-    session.commandCodeOutputStatusDetector?.observe(data)
     const codexBackfillNotice = session.codexBackfillErrorDetector?.observe(data)
     if (codexBackfillNotice) {
       session.reportError(codexBackfillNotice)

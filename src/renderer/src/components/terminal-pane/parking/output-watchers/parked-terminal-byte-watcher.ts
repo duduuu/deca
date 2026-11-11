@@ -12,12 +12,8 @@ import {
   isAgentTaskCompleteOsNotificationEnabledFromState,
   isAgentTaskCompleteTrackingEnabledFromState
 } from '../../notifications/agent-task-complete-policy'
-import { createCommandCodeOutputStatusDetector } from '../../../../../../shared/command-code-output-status'
 import { createOsc133CommandFinishedScanner } from '../../../../../../shared/terminal/output/terminal-osc133-command-finished'
-import {
-  createParkedTerminalCommandStatusPolicy,
-  readInFlightCommandCodeTurn
-} from './parked-terminal-command-status'
+import { createParkedTerminalCommandStatusPolicy } from './parked-terminal-command-status'
 import { subscribeToPtyData } from '../../pty-transport/delivery/pty-data-sidecar-subscriptions'
 import { createPtyOutputProcessor } from '../../pty-transport/output/pty-output-processor'
 import { isRendererHiddenPtyDeliveryGateEnabled } from '../../pty-transport/delivery/terminal-hidden-delivery-gate'
@@ -259,14 +255,6 @@ export function startParkedTerminalByteWatcher(
   const commandFinishedScanner = factSideEffectAuthority
     ? null
     : createOsc133CommandFinishedScanner(commandStatusPolicy.onCommandFinished)
-  // Seed Command Code’s in-flight turn: the banner is gone and the recreated detector otherwise misses return to idle.
-  const commandCodeOutputStatusDetector = factSideEffectAuthority
-    ? null
-    : createCommandCodeOutputStatusDetector({
-        inFlightTurn: readInFlightCommandCodeTurn(paneKey),
-        onWorking: commandStatusPolicy.onCommandCodeWorking,
-        onDone: commandStatusPolicy.onCommandCodeDone
-      })
   const unregisterFactConsumer = factSideEffectAuthority
     ? registerTerminalSideEffectFactConsumer({
         ptyId,
@@ -274,8 +262,6 @@ export function startParkedTerminalByteWatcher(
         callbacks: {
           ...sideEffectCallbacks,
           onCommandFinished: commandStatusPolicy.onCommandFinished,
-          onCommandCodeWorking: commandStatusPolicy.onCommandCodeWorking,
-          onCommandCodeDone: commandStatusPolicy.onCommandCodeDone,
           onPrLink: (link) =>
             useAppStore.getState().observeTerminalGitHubPullRequestLink(worktreeId, link, {
               tabId,
@@ -300,7 +286,6 @@ export function startParkedTerminalByteWatcher(
     }
     processor.processData(data, {})
     commandFinishedScanner?.scan(data)
-    commandCodeOutputStatusDetector?.observe(data)
     if (observeTerminalGitHubPRLink) {
       for (const link of observeTerminalGitHubPRLink(data)) {
         useAppStore.getState().observeTerminalGitHubPullRequestLink(worktreeId, link, {

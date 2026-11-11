@@ -25,7 +25,6 @@ import {
 import { callRuntimeResult } from './web-runtime-calls'
 import { followHostVoiceSettings } from './web-speech-api'
 import { requireActiveEnvironmentOrNull, webRuntimeState } from './web-runtime-session'
-import { zcodePlanSiteOwner, settingsForZcodePlanSiteOwner } from './web-zcode-plan-site'
 import { SETTINGS_STORAGE_KEY, UI_STORAGE_KEY, readJson, writeJson } from './web-storage'
 
 export type WebSettingsApi = NonNullable<PreloadApi['settings']>
@@ -83,7 +82,6 @@ export function getStoredSettings(): GlobalSettings {
     migratedStored
   )
   delete settings.nativeChatAutoContinueAfterUsageLimit
-  delete settings.zcodePlanSite
   settings.floatingTerminalEnabled = false // A browser tab cannot host it, whatever was stored (#40268).
   return settings
 }
@@ -116,7 +114,6 @@ function settleRuntimeSettings(patch: Partial<GlobalSettings>): GlobalSettings {
 export async function getRuntimeBackedStoredSettings(): Promise<GlobalSettings> {
   const local = getStoredSettings()
   const requestedEnvironment = requireActiveEnvironmentOrNull()
-  const requestedSiteOwner = zcodePlanSiteOwner(requestedEnvironment)
   if (!requestedEnvironment) {
     return settingsForActiveVisibilityOwner(local)
   }
@@ -139,24 +136,6 @@ export async function getRuntimeBackedStoredSettings(): Promise<GlobalSettings> 
         runtimeSettings[key] = result.settings[key]
       }
     }
-    if (typeof result.settings.minimaxGroupId === 'string') {
-      runtimeSettings.minimaxGroupId = result.settings.minimaxGroupId
-    }
-    if (typeof result.settings.minimaxUsageModels === 'string') {
-      runtimeSettings.minimaxUsageModels = result.settings.minimaxUsageModels
-    }
-    if (zcodePlanSiteOwner(currentEnvironment) === requestedSiteOwner) {
-      webRuntimeState.zcodePlanSiteRuntimeOwner = requestedSiteOwner
-      const site = result.settings.zcodePlanSite
-      webRuntimeState.zcodePlanSiteRuntimeValue =
-        site === 'zai' || site === 'bigmodel' ? site : null
-    }
-    if (
-      result.settings.minimaxEndpoint === 'overseas' ||
-      result.settings.minimaxEndpoint === 'cn'
-    ) {
-      runtimeSettings.minimaxEndpoint = result.settings.minimaxEndpoint
-    }
     if (Array.isArray(result.settings.prBotAuthorOverrides)) {
       runtimeSettings.prBotAuthorOverrides = normalizePRBotAuthorOverrides(
         result.settings.prBotAuthorOverrides
@@ -176,7 +155,7 @@ export async function getRuntimeBackedStoredSettings(): Promise<GlobalSettings> 
 
 export function settingsForActiveVisibilityOwner(settings: GlobalSettings): GlobalSettings {
   const environment = requireActiveEnvironmentOrNull()
-  const ownedSettings = chatSettings.project(settingsForZcodePlanSiteOwner(settings, environment))
+  const ownedSettings = chatSettings.project(settings)
   if (!environment) {
     return ownedSettings
   }
@@ -210,15 +189,6 @@ export async function syncRuntimeBackedSettings(
     }
     if (typeof updates.compactWorktreeCards === 'boolean') {
       runtimeUpdates.compactWorktreeCards = updates.compactWorktreeCards
-    }
-    if (typeof updates.minimaxGroupId === 'string') {
-      runtimeUpdates.minimaxGroupId = updates.minimaxGroupId
-    }
-    if (typeof updates.minimaxUsageModels === 'string') {
-      runtimeUpdates.minimaxUsageModels = updates.minimaxUsageModels
-    }
-    if (updates.minimaxEndpoint === 'overseas' || updates.minimaxEndpoint === 'cn') {
-      runtimeUpdates.minimaxEndpoint = updates.minimaxEndpoint
     }
     if (Array.isArray(updates.prBotAuthorOverrides)) {
       runtimeUpdates.prBotAuthorOverrides = normalizePRBotAuthorOverrides(

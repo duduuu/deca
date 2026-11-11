@@ -33,8 +33,6 @@ export function bindPaneSideEffectFacts(session: ConnectPanePtySession): void {
               executionHostId: session.transport.getExecutionHostId?.() ?? undefined
             }),
         // Pane policy owns Command Code settling against the live row; main supplies scrape facts only.
-        onCommandCodeWorking: session.seedCommandCodeOutputWorkingStatus,
-        onCommandCodeDone: session.scheduleCommandCodeOutputDoneStatus,
         ...(session.shouldOwnAgentStatusInRenderer
           ? { onAgentStatus: (payload) => session.handleRendererOwnedAgentStatus(payload) }
           : {}),

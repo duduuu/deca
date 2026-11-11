@@ -1,8 +1,6 @@
 import type { ProviderRateLimits } from '../../../shared/rate-limit-types'
-import type { ZcodePlanSite } from '../../../shared/zcode-plan-sites'
 import type { ClaudeRuntimeAuthPreparation } from '../../claude-accounts/runtime-auth/runtime-auth-types'
 import type { ClaudeAccountSelectionTarget } from '../../claude-accounts/runtime-selection'
-import type { KimiHomeResolution } from '../../kimi/kimi-runtime-home'
 import type { CodexAccountSelectionTarget } from '../../../shared/codex-selection-lane'
 import type { CodexRateLimitHomeResolution } from '../../codex-accounts/runtime-home-service-types'
 
@@ -17,7 +15,6 @@ export type InactiveCodexAccountInfo = {
 export type CodexHomePathResolver = (
   target?: CodexAccountSelectionTarget
 ) => CodexRateLimitHomeResolution | Promise<CodexRateLimitHomeResolution>
-export type KimiHomeResolver = () => Promise<KimiHomeResolution>
 export type ClaudeAuthPreparationResolver = (
   target?: ClaudeAccountSelectionTarget
 ) => Promise<ClaudeRuntimeAuthPreparation>
@@ -36,33 +33,9 @@ export type OpenCodeGoResolvedConfig = OpenCodeGoRateLimitConfig & {
   apiKeyReadSkipped: boolean
 }
 
-export type MiniMaxRateLimitConfig = {
-  sessionCookie: string
-  groupId: string
-  models: string
-  endpoint: 'overseas' | 'cn'
-  apiKey: string
-}
-
-export type MiniMaxResolvedConfig = {
-  config: MiniMaxRateLimitConfig
-  error: string | null
-}
-
-export type ZcodePlanRateLimitConfig = {
-  site: ZcodePlanSite
-  apiKey: string
-}
-
-export type ZcodePlanResolvedConfig = {
-  config: ZcodePlanRateLimitConfig
-  error: string | null
-}
-
 export type GeminiCliOAuthEnabledResolver = () => boolean
 
 export type AntigravityUsageEnabledResolver = () => boolean
-export type MuseUsageEnabledResolver = () => boolean
 export type ActiveRateLimitProvider = ProviderRateLimits['provider']
 export type ActiveProviderState = {
   provider: ActiveRateLimitProvider
@@ -104,13 +77,9 @@ export type InternalRateLimitState = {
   codex: ProviderRateLimits | null
   gemini: ProviderRateLimits | null
   opencodeGo: ProviderRateLimits | null
-  kimi: ProviderRateLimits | null
   antigravity: ProviderRateLimits | null
-  minimax: ProviderRateLimits | null
   grok: ProviderRateLimits | null
   cursor: ProviderRateLimits | null
-  zcode: ProviderRateLimits | null
-  muse: ProviderRateLimits | null
 }
 
 export function normalizePollingInterval(ms: number): number {

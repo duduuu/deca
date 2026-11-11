@@ -57,7 +57,6 @@ export function buildAiVaultRemoteResumeStartup(
     session.executionHostId === LOCAL_EXECUTION_HOST_ID ||
     !session.resumeCommand ||
     isAntigravityReferenceSession(session) ||
-    session.agent === 'omp' ||
     (session.agent === 'codex' && session.codexHome === null) ||
     commandOverride?.trim()
   ) {

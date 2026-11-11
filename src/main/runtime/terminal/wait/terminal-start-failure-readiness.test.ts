@@ -3,10 +3,7 @@ import {
   createTranscriptPane,
   TRANSCRIPT_PANE_PTY_ID
 } from '../../orca-runtime-tests/agent-transcript-pane-test-harness'
-import {
-  waitForWorkerAgentReady,
-  waitForLaunchedAgentComposer
-} from './launched-agent-composer-readiness'
+import { waitForWorkerAgentReady } from './launched-agent-composer-readiness'
 import {
   formatTerminalStartFailure,
   readTerminalStartFailure
@@ -34,7 +31,7 @@ describe('accepted spawn followed by failed startup readiness', () => {
       const { runtime, handle, terminal } = await createTranscriptPane({
         paneTitle: 'shell',
         foregroundProcess: 'bash',
-        launchAgent: 'hermes',
+        launchAgent: 'claude',
         data: '\x1b]133;C\x07\x1b[31mTraceback: startup failed\x1b[0m\r\nImportError: broken client\r\n'
       })
       const exit = () => {
@@ -50,7 +47,7 @@ describe('accepted spawn followed by failed startup readiness', () => {
         exit()
       }
       const result = waitForWorkerAgentReady(runtime, handle, {
-        agent: 'hermes',
+        agent: 'claude',
         reusesTerminal: false,
         creation:
           context === 'wrong-incarnation'
@@ -70,7 +67,7 @@ describe('accepted spawn followed by failed startup readiness', () => {
   )
 
   it.each(
-    (['pi', 'codex', 'claude', 'opencode'] as const).flatMap((agent) =>
+    (['codex', 'claude', 'opencode'] as const).flatMap((agent) =>
       [true, false].map((exitBeforeWait) => ({ agent, exitBeforeWait }))
     )
   )(
@@ -111,54 +108,6 @@ describe('accepted spawn followed by failed startup readiness', () => {
       })
       expect(formatTerminalStartFailure(await result)).toContain('128 open terminals on this PC')
       expect(readTerminalStartFailure(await result)?.incarnationId).toBe('inc-1')
-    }
-  )
-
-  it.each(['fresh', 'reattach', 'adopted', 'missing', 'wrong-incarnation'] as const)(
-    'uses actual create provenance independently of readiness scheduling (%s)',
-    async (context) => {
-      const { runtime, handle, terminal } = await createTranscriptPane({
-        paneTitle: 'shell',
-        foregroundProcess: 'bash',
-        data: '',
-        launchAgent: 'pi',
-        ...(context === 'reattach' ? { isReattach: true } : {})
-      })
-      const creation =
-        context === 'missing'
-          ? undefined
-          : {
-              ...terminal,
-              ...(context === 'adopted' ? { agentSessionDisposition: 'adopted' as const } : {}),
-              ...(context === 'wrong-incarnation' ? { incarnationId: 'replacement' } : {})
-            }
-      runtime.onPtyExit(TRANSCRIPT_PANE_PTY_ID, 256, 'inc-1', {
-        providerExitObserved: true,
-        cause: {
-          kind: 'exited',
-          exitCode: 256,
-          initialOutputDiagnostic: 'git-bash-console-capacity'
-        }
-      })
-      vi.useFakeTimers()
-      const worker = waitForWorkerAgentReady(runtime, handle, {
-        agent: 'pi',
-        reusesTerminal: false,
-        timeoutMs: 50,
-        creation
-      }).catch((error: unknown) => error)
-      const prompt = waitForLaunchedAgentComposer(
-        runtime,
-        handle,
-        'pi',
-        50,
-        undefined,
-        creation
-      ).catch((error: unknown) => error)
-      await vi.advanceTimersByTimeAsync(100)
-      for (const result of await Promise.all([worker, prompt])) {
-        expect(formatTerminalStartFailure(result) !== undefined).toBe(context === 'fresh')
-      }
     }
   )
 })

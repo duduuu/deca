@@ -25,8 +25,7 @@ export function notSignedInSentence(
   const signIn = agentSessionSetupFor(context.agentName ?? context.provider)
   const copy = say(signIn ? agentSessionSignInCopyId(signIn.agent, fact.account) : 'notSignedIn', {
     ...agent(say, context),
-    loginCommand: signIn?.loginCommand.join(' '),
-    slashCommand: signIn && 'slashCommand' in signIn ? signIn.slashCommand : undefined
+    loginCommand: signIn?.loginCommand.join(' ')
   })
   const next = context.retryControl
     ? undefined

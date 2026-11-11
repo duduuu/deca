@@ -15,7 +15,6 @@ import {
   recoveryRecordTargetsSameSession,
   sleepingRecordsEquivalentIgnoringCaptureTime
 } from './agent-resume-record-equivalence'
-import { isCompletedPiCompatibleAgentWithLiveRecoveryRecord } from './live-resume-anchor-record'
 
 export type ResumeRecordStatus = Pick<
   AgentStatusEntry,
@@ -176,14 +175,7 @@ export function capturedResumeRecord(args: {
   const { entry, existing, mode, capturedAt } = args
   const origin = mode === 'quit' ? ('quit' as const) : ('live' as const)
   if (entry.state === 'done') {
-    if (
-      !isCompletedPiCompatibleAgentWithLiveRecoveryRecord(entry, existing) ||
-      mode === 'periodic'
-    ) {
-      return null
-    }
-    const record = { ...existing, capturedAt, origin }
-    return sleepingRecordsEquivalentIgnoringCaptureTime(existing, record) ? null : record
+    return null
   }
   const worktreeId = args.worktreeIdOf()
   if (!worktreeId) {

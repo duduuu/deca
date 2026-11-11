@@ -10,7 +10,7 @@ function makeSession(index: number): AiVaultSession {
   return {
     id: `local:omp:session-${index}:/tmp/session-${index}.jsonl`,
     executionHostId: 'local',
-    agent: 'omp',
+    agent: 'codex',
     sessionId: `session-${index}`,
     title: `Session ${index}`,
     cwd: '/repo',

@@ -9,7 +9,7 @@ const HIDE_CURSOR = '\x1b[?25l'
 const ALT_SCREEN_ENTER = '\x1b[?1049h'
 
 describe('createDraftPasteReadyScanner', () => {
-  describe('render-cursor-after-bracketed-paste (opencode / mimo-code)', () => {
+  describe('render-cursor-after-bracketed-paste (opencode)', () => {
     it('never joins a show-cursor across a chunk seam from bytes it already scanned', () => {
       // Why: the stream holds only a hide-cursor; re-reading carried chars used to assemble a show.
       const scanner = createDraftPasteReadyScanner('render-cursor-after-bracketed-paste')

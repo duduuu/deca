@@ -178,13 +178,6 @@ const WORKERS: Agent[] = [
     taskState: 'failed',
     message: 'Build failed: path too long in the packaging step',
     minutesAgo: 900
-  },
-  {
-    name: 'worker-task_j10',
-    agent: 'pi',
-    status: 'unknown',
-    task: 'Check the docs links',
-    minutesAgo: 2000
   }
 ]
 

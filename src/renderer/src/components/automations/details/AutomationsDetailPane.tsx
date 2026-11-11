@@ -3,18 +3,10 @@ import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { Automation } from '../../../../../shared/automations/automation-definition'
-import type {
-  ExternalAutomationAction,
-  ExternalAutomationJob,
-  ExternalAutomationManager
-} from '../../../../../shared/automations/external/external-automation'
 import type { AutomationRun } from '../../../../../shared/automations/history/automation-run'
 import type { Worktree } from '../../../../../shared/worktree/types'
 import { AutomationDetail } from './AutomationDetail'
 import { AutomationRunHistory } from '../runs/AutomationRunHistory'
-import { ExternalAutomationManagers } from '../external/ExternalAutomationManagers'
-import type { ExternalAutomationListEntry } from '../external/external-automation-list-entries'
-import type { ExternalAutomationScope } from '../external/external-automation-scope-client'
 import type { AutomationActionNotice } from '../hosts/automation-row-action-dispatch'
 import type { AutomationHostRecoveryAction } from '../hosts/automation-host-status-descriptors'
 import type { AutomationHostCatalogEntry } from '../hosts/automation-host-catalog-types'
@@ -29,13 +21,11 @@ import { useTranslate } from '@/i18n/use-translate'
 
 type AutomationsDetailPaneProps = {
   selected: Automation | null
-  selectedExternal: ExternalAutomationListEntry | null
   selectedRuns: AutomationRun[]
   /** Set when the selected automation's history read failed; its runs are unknown. */
   selectedRunsNotice: AutomationActionNotice | null
   activePaneTab: AutomationPaneTab
   relativeNow: number
-  externalActionKey: string | null
   selectedRepoDisplayName: string
   selectedRepoDefaultBaseRef: string | null
   selectedWorkspaceName: string
@@ -45,12 +35,6 @@ type AutomationsDetailPaneProps = {
   selectedRunNowAvailability: AutomationTargetAvailability | null
   worktreeMap: ReadonlyMap<string, Worktree>
   onActivePaneTabChange: (tab: AutomationPaneTab) => void
-  requestExternalAction: (
-    manager: ExternalAutomationManager,
-    job: ExternalAutomationJob,
-    action: ExternalAutomationAction,
-    scope: ExternalAutomationScope
-  ) => void
   runNow: (automation: Automation) => void
   openEditDialog: (automation: Automation) => void
   migrateAutomation?: (automation: Automation) => void
@@ -64,12 +48,10 @@ type AutomationsDetailPaneProps = {
 
 export function AutomationsDetailPane({
   selected,
-  selectedExternal,
   selectedRuns,
   selectedRunsNotice,
   activePaneTab,
   relativeNow,
-  externalActionKey,
   selectedRepoDisplayName,
   selectedRepoDefaultBaseRef,
   selectedWorkspaceName,
@@ -78,7 +60,6 @@ export function AutomationsDetailPane({
   selectedRunNowAvailability,
   worktreeMap,
   onActivePaneTabChange,
-  requestExternalAction,
   runNow,
   openEditDialog,
   migrateAutomation,
@@ -98,7 +79,7 @@ export function AutomationsDetailPane({
         return
       }
 
-      if (selectedExternal || !selected) {
+      if (!selected) {
         return
       }
 
@@ -117,36 +98,11 @@ export function AutomationsDetailPane({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [activePaneTab, onActivePaneTabChange, onBackToList, selected, selectedExternal])
+  }, [activePaneTab, onActivePaneTabChange, onBackToList, selected])
 
   return (
     <section className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      {selectedExternal ? (
-        <div className="scrollbar-sleek min-h-0 flex-1 overflow-auto p-5">
-          <div className="mb-3">
-            <Button type="button" variant="ghost" size="sm" onClick={onBackToList}>
-              <ArrowLeft className="size-4" />
-              {t('auto.components.automations.AutomationsPage.backToList', 'All automations')}
-            </Button>
-          </div>
-          <ExternalAutomationManagers
-            managers={[
-              {
-                // The synthesized single-job manager keeps the entry's scope, so
-                // every action it dispatches names the host the row came from.
-                scope: selectedExternal.scope,
-                manager: {
-                  ...selectedExternal.manager,
-                  jobs: [selectedExternal.job]
-                }
-              }
-            ]}
-            now={relativeNow}
-            runningActionKey={externalActionKey}
-            onAction={requestExternalAction}
-          />
-        </div>
-      ) : (
+      {
         <Tabs
           value={activePaneTab}
           onValueChange={(value) => onActivePaneTabChange(value as AutomationPaneTab)}
@@ -224,7 +180,7 @@ export function AutomationsDetailPane({
             </div>
           </TabsContent>
         </Tabs>
-      )}
+      }
     </section>
   )
 }

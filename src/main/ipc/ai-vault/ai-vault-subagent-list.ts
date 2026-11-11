@@ -2,7 +2,6 @@ import { resolve } from 'node:path'
 import { getAiVaultWslHomeDirs } from '../../ai-vault/cached-session-list'
 import { listAiVaultSubagentSessionsInBackground } from '../../ai-vault/scan-service/session-scanner-background'
 import { claudeProjectsRootDirs } from '../../ai-vault/session-scanner-roots'
-import { sessionRowRootDirs } from '../../ai-vault/session-scanner-agent-sources'
 import { isPathInsideOrEqual } from '../../../shared/cross-platform-path'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../shared/execution-host'
 import type {
@@ -10,14 +9,14 @@ import type {
   AiVaultSubagentListResult
 } from '../../../shared/ai-vault/contracts/ai-vault-types'
 
-// Only Claude and OMP currently store Task subagents as sibling transcripts.
+// Only Claude stores Task subagents as sibling transcripts.
 export async function listAiVaultSubagentSessions(
   args?: AiVaultSubagentListArgs
 ): Promise<AiVaultSubagentListResult> {
   // Untyped malformed IPC input follows the empty-result rejection contract.
   if (
     !args ||
-    (args.agent !== 'claude' && args.agent !== 'omp') ||
+    args.agent !== 'claude' ||
     typeof args.parentFilePath !== 'string' ||
     !args.parentFilePath.trim()
   ) {
@@ -30,10 +29,7 @@ export async function listAiVaultSubagentSessions(
   // Resolve .. before textual root checks so renderer paths cannot escape the agent's session roots.
   const parentFilePath = resolve(args.parentFilePath)
   const wslHomeDirs = await getAiVaultWslHomeDirs()
-  const roots =
-    args.agent === 'claude'
-      ? claudeProjectsRootDirs({ wslHomeDirs })
-      : sessionRowRootDirs('omp', {}, wslHomeDirs)
+  const roots = claudeProjectsRootDirs({ wslHomeDirs })
   if (!roots.some((root) => isPathInsideOrEqual(resolve(root), parentFilePath))) {
     return { sessions: [], issues: [] }
   }

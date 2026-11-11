@@ -65,10 +65,7 @@ export function createNativeChatPtySessionOptions(
   if (!baseCatalog) {
     return null
   }
-  const catalog =
-    args.agent === 'omp' && args.mode === 'live' && !args.canSwitchOmpModel
-      ? { ...baseCatalog, modelApply: { ...baseCatalog.modelApply, midSession: undefined } }
-      : baseCatalog
+  const catalog = baseCatalog
   let models = [...(args.initialModels ?? catalog.models)]
   // Cached enrichment contains probe results, so its default is authoritative rather than a seed guess.
   let modelsAreDiscovered = args.initialModels !== undefined

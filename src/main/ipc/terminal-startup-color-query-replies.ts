@@ -25,20 +25,6 @@ function isAgentLaunch(args: {
   return recognizeAgentLaunchCommand(command) !== null
 }
 
-// jcode queries before TUI input is ready; suppress cooked replies via agent, telemetry kind or quick-launch command.
-export function agentSkipsStartupOscColorQueryReplies(args: {
-  launchAgent?: unknown
-  telemetry?: { agent_kind?: unknown } | undefined
-  command?: string
-  launchConfig?: SleepingAgentLaunchConfig
-}): boolean {
-  if (args.launchAgent === 'jcode' || args.telemetry?.agent_kind === 'jcode') {
-    return true
-  }
-  const command = args.launchConfig?.agentCommand?.trim() || args.command?.trim() || ''
-  return command.length > 0 && recognizeAgentLaunchCommand(command)?.agent === 'jcode'
-}
-
 export function getStartupTerminalIngressIntent(args: {
   launchAgent?: unknown
   telemetry?: { agent_kind?: unknown } | undefined
@@ -49,14 +35,9 @@ export function getStartupTerminalIngressIntent(args: {
   launcherViewAttributes?: unknown
   terminalKittyKeyboardProtocol?: boolean
 }) {
-  const skipColors = agentSkipsStartupOscColorQueryReplies(args)
   // Seed every PTY: agents launched later from plain shells can also query before viewer colors arrive.
-  const colors = skipColors
-    ? {}
-    : (normalizeColorQueryReplyColors(args.terminalColorQueryReplies) ?? {})
-  const launcherColors = skipColors
-    ? null
-    : normalizeColorQueryReplyColors(args.launcherColorQueryReplies)
+  const colors = normalizeColorQueryReplyColors(args.terminalColorQueryReplies) ?? {}
+  const launcherColors = normalizeColorQueryReplyColors(args.launcherColorQueryReplies)
   return parsePtyStartupIngressIntent({
     kittyKeyboardProtocol: args.terminalKittyKeyboardProtocol === true && isAgentLaunch(args),
     colors,

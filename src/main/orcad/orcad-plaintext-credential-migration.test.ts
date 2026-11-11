@@ -66,8 +66,8 @@ describe('migratePlaintextCredentials', () => {
   })
 
   it('rewrites a plaintext envelope as an encrypted one', () => {
-    const path = join(dir, 'minimax-api-key.enc')
-    const prefix = 'orca-minimax-api-key:v1:'
+    const path = join(dir, 'usage-api-key.enc')
+    const prefix = 'orca-usage-api-key:v1:'
     writeFileSync(path, `${prefix}plaintext:${Buffer.from('mm-key').toString('base64')}`)
 
     migratePlaintextCredentials(store, [{ path, envelopePrefix: prefix }], log)

@@ -25,7 +25,6 @@ import {
   canAdmitLegacyAgentStatus,
   olderPeerAgentStatusLegacyMode
 } from '../../../shared/agent-status/transport/agent-status-legacy-adapter'
-import { isValidPiProviderSessionOnly } from './server-status-identity'
 import {
   normalizeRemoteEnvelopeFields,
   type RemoteAgentStatusEnvelope
@@ -142,13 +141,6 @@ export abstract class AgentHookServerIngestRemote extends AgentHookServerIngestS
     if (!validatedPayload) {
       return
     }
-    if (
-      envelope.source !== undefined &&
-      (source === 'omp' || validatedPayload.agentType === 'omp') &&
-      envelope.source !== validatedPayload.agentType
-    ) {
-      return
-    }
     // Restore shed fields only against a matching digest and turn.
     let normalizedPayload = restoreShedStatusFields(
       validatedPayload,
@@ -157,15 +149,11 @@ export abstract class AgentHookServerIngestRemote extends AgentHookServerIngestS
     )
     if (
       envelope.providerSessionOnly === true &&
-      !readAgentProcessPresence(envelope.agentPresence)?.ended &&
-      !isValidPiProviderSessionOnly(providerSession, normalizedPayload.agentType)
+      !readAgentProcessPresence(envelope.agentPresence)?.ended
     ) {
       return
     }
-    // Older relays omit source; canonical OMP identity preserves boundary provenance.
-    const effectiveSource =
-      source ??
-      (envelope.source === undefined && validatedPayload.agentType === 'omp' ? 'omp' : undefined)
+    const effectiveSource = source
     const statusDisposition = this.getAgentStatusDisposition(paneKey, {
       source: effectiveSource,
       rawSource: envelope.source,
@@ -182,14 +170,6 @@ export abstract class AgentHookServerIngestRemote extends AgentHookServerIngestS
     })
     if (statusDisposition === 'suppress') {
       return
-    }
-    const restartedAuthority =
-      statusDisposition === 'restart' && effectiveSource === 'omp'
-        ? this.restoreRetiredStatusRestart(paneKey)
-        : undefined
-    if (restartedAuthority && restartedAuthority.paneKey !== paneKey) {
-      paneKey = restartedAuthority.paneKey
-      tabId = parsePaneKey(paneKey)?.tabId
     }
     if (statusDisposition === 'restart') {
       // Rebind the resolved stable key so a new session cannot inherit retired observation order.
@@ -257,9 +237,6 @@ export abstract class AgentHookServerIngestRemote extends AgentHookServerIngestS
       agentPresence: readAgentProcessPresence(envelope.agentPresence),
       ...this.relaySessions.rootProof(trimmedConnectionId, physicalPaneKey, envelope.agentPresence),
       source: effectiveSource,
-      ...(restartedAuthority?.authorityRestartId
-        ? { authorityRestartId: restartedAuthority.authorityRestartId }
-        : {}),
       hostTurnRevision: normalizeHostTurnRevision(envelope.hostTurnRevision),
       launchToken: statusDisposition === 'restart' ? undefined : envelope.launchToken,
       tabId,

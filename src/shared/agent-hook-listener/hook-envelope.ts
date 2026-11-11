@@ -181,9 +181,7 @@ export function parseHookEnvelope(
   const eventName =
     readFirstString(record, ['hook_event_name', 'hookEventName', 'hook_type', 'hookType']) ??
     ('hook_event_name' in hookPayload ? hookPayload.hook_event_name : undefined) ??
-    ('hookEventName' in hookPayload ? hookPayload.hookEventName : undefined) ??
-    // Only jcode uses event for lifecycle; other providers may use it for unrelated data.
-    (source === 'jcode' && 'event' in hookPayload ? hookPayload.event : undefined)
+    ('hookEventName' in hookPayload ? hookPayload.hookEventName : undefined)
   return {
     record,
     paneKey,

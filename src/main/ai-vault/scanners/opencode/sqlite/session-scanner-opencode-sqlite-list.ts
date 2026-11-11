@@ -63,11 +63,7 @@ function readSessionRows(
     : Array.from(rows)
 }
 
-function rowToCandidate(
-  row: SessionRow,
-  dbPath: string,
-  agent: 'opencode' | 'zcode'
-): SessionFileCandidate {
+function rowToCandidate(row: SessionRow, dbPath: string, agent: 'opencode'): SessionFileCandidate {
   const mtimeMs =
     typeof row.time_updated === 'number' && row.time_updated > 0
       ? row.time_updated
@@ -85,7 +81,7 @@ function rowToCandidate(
 
 function dedupeAndSortSqliteCandidates(
   candidates: SessionFileCandidate[],
-  agent: 'opencode' | 'zcode'
+  agent: 'opencode'
 ): SessionFileCandidate[] {
   const candidatesBySessionId = new Map<string, SessionFileCandidate>()
   for (const candidate of candidates) {
@@ -108,7 +104,7 @@ export async function listOpenCodeSqliteSessions(args: {
   dbPaths: readonly string[]
   limit: number
   issues: AiVaultScanIssue[]
-  agent?: 'opencode' | 'zcode'
+  agent?: 'opencode'
   /** Lists only sessions whose directory is in scope, newest `limit` of them. */
   scopePaths?: readonly string[]
 }): Promise<SessionFileCandidate[]> {

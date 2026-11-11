@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 
 import type { ComponentProps, JSX } from 'react'
-import { act, cleanup, fireEvent, render } from '@testing-library/react'
+import { act, cleanup, render } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -100,63 +100,5 @@ describe('SessionSubagentsSection', () => {
     })
     expect(queryByText('Second pass')).not.toBeNull()
     expect(queryByText('First pass')).toBeNull()
-  })
-})
-
-describe('nested OMP history', () => {
-  const parent = makeSession({ agent: 'omp' })
-  const child = {
-    ...makeSubagent('Worker'),
-    agent: 'omp' as const,
-    sessionId: 'worker',
-    subagentTranscriptCount: 1
-  }
-  const grandchild = { ...makeSubagent('Research'), agent: 'omp' as const, sessionId: 'research' }
-
-  it('ignores late nested results after collapse and refetches on reopen', async () => {
-    let resolveChild: (value: AiVaultSubagentListResult) => void = () => {}
-    listSubagentSessions
-      .mockResolvedValueOnce({ sessions: [child], issues: [] })
-      .mockImplementationOnce(
-        () =>
-          new Promise((resolve) => {
-            resolveChild = resolve
-          })
-      )
-      .mockResolvedValueOnce({ sessions: [grandchild], issues: [] })
-    const view = render(<SessionSubagentsSection session={parent} />)
-    await act(async () => {})
-    const disclosure = view.getByRole('button', { name: 'Subagents (1)' })
-    fireEvent.click(disclosure)
-    fireEvent.click(disclosure)
-    await act(async () => {
-      resolveChild({ sessions: [grandchild], issues: [] })
-    })
-    expect(view.queryByText('Research')).toBeNull()
-    fireEvent.click(disclosure)
-    await act(async () => {})
-    expect(view.queryByText('Research')).not.toBeNull()
-    expect(listSubagentSessions).toHaveBeenCalledTimes(3)
-  })
-
-  it('never accepts a late response from a replaced parent', async () => {
-    let finish: (value: AiVaultSubagentListResult) => void = () => {}
-    listSubagentSessions
-      .mockImplementationOnce(
-        () =>
-          new Promise((resolve) => {
-            finish = resolve
-          })
-      )
-      .mockResolvedValueOnce({ sessions: [grandchild], issues: [] })
-    const view = render(<SessionSubagentsSection session={parent} />)
-    view.rerender(
-      <SessionSubagentsSection session={{ ...parent, filePath: '/new-parent.jsonl' }} />
-    )
-    await act(async () => {
-      finish({ sessions: [child], issues: [] })
-    })
-    expect(view.queryByText('Research')).not.toBeNull()
-    expect(view.queryByText('Worker')).toBeNull()
   })
 })

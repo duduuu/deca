@@ -3,7 +3,6 @@ import {
   type CommitMessageAgentSpec
 } from './source-control/ai/generation/commit-message-agent-spec'
 import { GROK_MODEL_LIST_ARGS, parseGrokModelList } from './grok-model-list-probe'
-import { OMP_MODEL_LIST_ARGS, parseOmpModelList } from './omp-model-list-probe'
 import type { TuiAgent } from './agent-launch/catalog/tui-agent'
 
 /** Exclude generation inputs so discovery-only agents stay outside the commit-message registry. */
@@ -27,20 +26,6 @@ const MODEL_DISCOVERY_ONLY_SPECS: Partial<Record<TuiAgent, AgentModelProbeSpec>>
     // Fall back to the catalog seed instead of maintaining a second model list.
     models: [],
     defaultModelId: 'grok-4.7'
-  },
-  omp: {
-    id: 'omp',
-    label: 'OMP',
-    binary: 'omp',
-    modelSource: 'dynamic',
-    modelDiscovery: {
-      binary: 'omp',
-      args: OMP_MODEL_LIST_ARGS,
-      parse: parseOmpModelList
-    },
-    // No OMP model is universal; use discovered first row when a default is required.
-    models: [],
-    defaultModelId: ''
   }
 }
 
@@ -49,13 +34,5 @@ export function getAgentModelProbeSpec(agentId: TuiAgent): AgentModelProbeSpec |
   if (!spec) {
     return undefined
   }
-  // OMP's `default` means the provider configured in its own settings, not a selectable model.
-  if (agentId !== 'omp') {
-    return spec
-  }
-  return {
-    ...spec,
-    models: spec.models.filter((model) => model.id !== 'default'),
-    defaultModelId: spec.defaultModelId === 'default' ? '' : spec.defaultModelId
-  }
+  return spec
 }

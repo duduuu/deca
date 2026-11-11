@@ -3,7 +3,6 @@ import { BASH_PROMPT_COMMAND_COMPOSITION_BLOCK } from '../../pty/shell-startup/b
 import { ORCA_CLI_POSIX_PATH_RESTORE } from '../../../shared/orca-cli-shell-path'
 import { MANAGED_DATA_ACCOUNT_POSIX_RESTORE } from '../../../shared/managed-data-account-shell'
 import { WSL_MANAGED_CLI_PATH_RESTORE } from '../../wsl/execution/wsl-managed-cli-path-restore'
-import { getPosixOmpShellWrapper } from '../../pty/shell-startup/omp-shell-wrapper'
 import { getPosixCodexShellLaunchPreflight } from '../../../shared/codex-shell-function'
 import { getPosixClaudeShellFunction } from '../../../shared/claude-shell-function'
 import { getBashStartupCommandPromptBlock } from '../../pty/shell-startup/posix-shell-startup-command'
@@ -47,8 +46,6 @@ ${WSL_MANAGED_CLI_PATH_RESTORE}
 # Restore Deca-managed config after user startup files may override it.
 [[ -n "\${ORCA_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${ORCA_OPENCODE_CONFIG_DIR}"
 ${MANAGED_DATA_ACCOUNT_POSIX_RESTORE}
-[[ -n "\${ORCA_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${ORCA_MIMOCODE_CONFIG_DIR}"
-${getPosixOmpShellWrapper()}
 # Profile scripts must not replace Deca's runtime CODEX_HOME.
 [[ -n "\${ORCA_CODEX_HOME:-}" ]] && export CODEX_HOME="\${ORCA_CODEX_HOME}"
 ${getPosixCodexShellLaunchPreflight() + getPosixClaudeShellFunction()}

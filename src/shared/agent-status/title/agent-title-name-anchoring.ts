@@ -1,9 +1,4 @@
-import {
-  AGY_AGENT_NAME_RE,
-  DROID_AGENT_NAME_RE,
-  HERMES_AGENT_NAME_RE,
-  titleHasAgentName
-} from './agent-name-token-match'
+import { AGY_AGENT_NAME_RE, titleHasAgentName } from './agent-name-token-match'
 import { isCursorAgentTitle } from './agent-title-core'
 import { stripLeadingAgentTitleDecorationOrEmpty } from './agent-title-decoration'
 import type { TerminalAgent } from '../identity/terminal-agent'
@@ -12,33 +7,24 @@ import { TUI_AGENT_DISPLAY_NAMES } from '../../agent-launch/catalog/tui-agent-di
 /** Names matched as whole tokens, paired with the agent each identifies. */
 const NAME_TOKENS: readonly (readonly [string, TerminalAgent])[] = [
   ['claude', 'claude'],
-  ['openclaude', 'openclaude'],
   ['codex', 'codex'],
   ['copilot', 'copilot'],
   ['cursor', 'cursor'],
   ['gemini', 'gemini'],
   ['antigravity', 'antigravity'],
   ['opencode', 'opencode'],
-  ['mimo', 'mimo-code'],
-  ['openclaw', 'openclaw'],
-  ['aider', 'aider'],
   ['grok', 'grok'],
   ['devin', 'devin']
 ]
 
 /** Agents whose name is matched by a dedicated pattern rather than a plain token. */
 const PATTERN_NAMES: readonly (readonly [RegExp, TerminalAgent])[] = [
-  [AGY_AGENT_NAME_RE, 'antigravity'],
-  [DROID_AGENT_NAME_RE, 'droid'],
-  [HERMES_AGENT_NAME_RE, 'hermes']
+  [AGY_AGENT_NAME_RE, 'antigravity']
 ]
 
 /** Catalog labels known to be emitted as terminal titles, not merely presented in Orca's UI. */
 const EMITTED_DISPLAY_LABEL_AGENTS = [
   'claude-agent-teams',
-  'mimo-code',
-  'prime-agent',
-  'command-code',
   'copilot'
 ] as const satisfies readonly TerminalAgent[]
 
@@ -53,10 +39,7 @@ const DISPLAY_LABELS = [
 
 const WINDOWS_LAUNCHER_SUFFIX_RE = /\.(?:exe|cmd|bat|ps1)$/i
 const RESERVED_OWNER_IDS: ReadonlyMap<string, TerminalAgent> = new Map([
-  ['pi', 'pi'],
-  ['omp', 'omp'],
-  ['claude-agent-teams', 'claude-agent-teams'],
-  ['qwen-code', 'qwen-code']
+  ['claude-agent-teams', 'claude-agent-teams']
 ])
 
 export function namesIn(text: string): TerminalAgent[] {
@@ -166,11 +149,11 @@ export function agentForNativeFrame(text: string): TerminalAgent | null {
 
 function agentForNativeName(text: string): TerminalAgent | null {
   const normalized = text.replace(WINDOWS_LAUNCHER_SUFFIX_RE, '').toLowerCase()
-  if (normalized === 'jcode' || normalized === 'opencode2') {
+  if (normalized === 'opencode2') {
     return normalized
   }
   const agent = agentForBareName(text)
-  // Emitted aliases and Cursor/Pi/OMP use their own closed grammars, not arbitrary named tasks.
+  // Emitted aliases and Cursor use their own closed grammars, not arbitrary named tasks.
   return agent &&
     agent !== 'cursor' &&
     (NAME_TOKENS.some(([, native]) => native === agent) ||

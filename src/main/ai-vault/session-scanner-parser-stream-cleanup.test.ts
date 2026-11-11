@@ -25,12 +25,7 @@ vi.mock('node:readline', async (importOriginal) => ({
 }))
 
 import { parseAntigravitySessionFile } from './scanners/antigravity/session-scanner-antigravity-parser'
-import { parseDroidSessionFile } from './scanners/droid/session-scanner-droid-parser'
-import { parseMessageGraphSessionFile } from './scanners/session-scanner-graph-parsers'
 import { parseGrokSessionFile } from './scanners/grok/session-scanner-grok-parser'
-import { parseKimiSessionFile } from './scanners/kimi/session-scanner-kimi-parser'
-import { clearKimiSessionIndexCache } from './scanners/kimi/session-scanner-kimi-paths'
-
 const PARSE_FAILURE = 'parser failed mid-transcript'
 
 const opened: { path: string; stream: Readable }[] = []
@@ -56,7 +51,6 @@ function expectStreamTornDown(): void {
 beforeEach(() => {
   opened.length = 0
   interfaces.length = 0
-  clearKimiSessionIndexCache()
   mocks.openStream.mockReset()
   mocks.readFile.mockReset()
   mocks.stat.mockReset()
@@ -99,15 +93,6 @@ describe('session parsers that stop consuming a gated transcript early', () => {
     expect(stream.destroyed).toBe(true)
   })
 
-  it.each([
-    ['droid', () => parseDroidSessionFile(file('/w/session.jsonl'), 'linux')],
-    ['message graph', () => parseMessageGraphSessionFile('pi', file('/w/session.jsonl'), 'linux')]
-  ])('destroys the stream when the %s parse throws', async (_agent, parse) => {
-    await expect(parse()).rejects.toThrow(PARSE_FAILURE)
-
-    expectStreamTornDown()
-  })
-
   it('destroys the chat_history stream when the Grok parse swallows the failure', async () => {
     mocks.readFile.mockResolvedValue(JSON.stringify({ info: { id: 'ses-1' } }))
 
@@ -117,19 +102,6 @@ describe('session parsers that stop consuming a gated transcript early', () => {
     ).resolves.toBeTruthy()
 
     expect(lastOpened().path).toContain('chat_history.jsonl')
-    expectStreamTornDown()
-  })
-
-  it('destroys the wire stream when the Kimi parse swallows the failure', async () => {
-    mocks.readFile.mockResolvedValue(JSON.stringify({ title: 'Kimi session' }))
-    // No session_index.jsonl, so only the wire transcript opens a stream.
-    mocks.stat.mockRejectedValue(Object.assign(new Error('ENOENT'), { code: 'ENOENT' }))
-
-    await expect(
-      parseKimiSessionFile(file('/w/.kimi-code/sessions/wd_app/session_abc/state.json'))
-    ).resolves.toBeTruthy()
-
-    expect(lastOpened().path).toContain('wire.jsonl')
     expectStreamTornDown()
   })
 })

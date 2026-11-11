@@ -14,11 +14,6 @@ import type {
 } from './source-control-text-generation-types'
 import { parseOpenCodeGenerationOutput } from '../../shared/opencode-generation-output'
 import { parseAntigravityGenerationOutput } from '../../shared/antigravity-generation-stream'
-import {
-  findKimiGenerationFailure,
-  parseKimiGenerationOutput
-} from '../../shared/kimi-generation-output'
-import { formatKimiGenerationFailure } from './kimi-generation-failure'
 import type { CommitMessagePlan } from '../../shared/source-control/ai/generation/commit-message-plan'
 import {
   textGenerationFailure,
@@ -121,9 +116,7 @@ export function finalizeFromAgentOutput(args: {
       ? parseOpenCodeGenerationOutput(stdout)
       : args.outputFormat === 'antigravity-stream-json'
         ? parseAntigravityGenerationOutput(stdout)
-        : args.outputFormat === 'kimi-stream-json' && code === 0
-          ? parseKimiGenerationOutput(stdout)
-          : null
+        : null
   if (code !== 0) {
     console.error('[commit-message] Generator failed:', {
       label,
@@ -133,16 +126,14 @@ export function finalizeFromAgentOutput(args: {
     })
     return {
       success: false,
-      ...(args.outputFormat === 'kimi-stream-json'
-        ? formatKimiGenerationFailure(findKimiGenerationFailure(stdout), stderr, code, args)
-        : agentCliFailure(
-            label,
-            stdout,
-            // Orca's own parse failures (coded) say nothing about why the agent exited.
-            parsed && !parsed.ok && parsed.errorCode === undefined ? parsed.error : stderr,
-            code,
-            args
-          )),
+      ...agentCliFailure(
+        label,
+        stdout,
+        // Orca's own parse failures (coded) say nothing about why the agent exited.
+        parsed && !parsed.ok && parsed.errorCode === undefined ? parsed.error : stderr,
+        code,
+        args
+      ),
       failureOutput: captureFailureOutput(label, code, stdout, stderr)
     }
   }
@@ -173,11 +164,7 @@ export function finalizeFromAgentOutput(args: {
   }
   return {
     success: false,
-    ...emptyResultFailure(
-      args.operation,
-      label,
-      args.outputFormat !== 'kimi-stream-json' ? detail : null
-    ),
+    ...emptyResultFailure(args.operation, label, detail),
     failureOutput: captureFailureOutput(label, code, stdout, stderr)
   }
 }

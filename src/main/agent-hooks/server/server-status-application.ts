@@ -4,7 +4,6 @@ import { createHash } from 'node:crypto'
 
 import { getCohortAtEmit } from '../../telemetry/cohort-classifier'
 import { track } from '../../telemetry/client'
-import { isCommandCodeNewTurnWhileWorking } from '../../../shared/command-code-turn-boundary'
 import { isNewTurnEvent } from '../../../shared/agent-hook-listener/provider-event-routing'
 import { reduceHostTurnEnd } from '../../../shared/agent-hook-listener/state/agent-hook-turn-end-timing'
 import type { AgentHookEventPayload } from '../../../shared/agent-hook-listener/listener-event'
@@ -144,20 +143,8 @@ export abstract class AgentHookServerStatusApplication extends AgentHookServerSt
       | EnrichedAgentHookEventPayload
       | undefined
     const previousTurn = previousCodexTurnContext(previous, payload)
-    const commandCodeNewTurn =
-      previous !== undefined &&
-      isCommandCodeNewTurnWhileWorking({
-        agentType: payload.payload.agentType,
-        previousState: previous.payload.state,
-        incomingState: payload.payload.state,
-        previousPrompt: previous.payload.prompt,
-        incomingPrompt: payload.payload.prompt,
-        hasExplicitPrompt: payload.hasExplicitPrompt,
-        previousPromptInteractionKey: previous.promptInteractionKey,
-        incomingPromptInteractionKey: payload.promptInteractionKey
-      })
     const stateStartedAt =
-      previousTurn && previousTurn.payload.state === payload.payload.state && !commandCodeNewTurn
+      previousTurn && previousTurn.payload.state === payload.payload.state
         ? previousTurn.stateStartedAt
         : (observedAt ?? now)
     const turnStartedAt = resolveTurnStartedAt(previousTurn, payload, observedAt ?? now)

@@ -1,10 +1,7 @@
 import { RateLimitServiceResultPolicy } from './service-result-policy'
 import { fetchCodexRateLimits } from '../providers/codex/codex-fetcher'
-import { fetchKimiRateLimits } from '../providers/kimi/kimi-fetcher'
 import {
   isSystemDefaultClaudeAuth,
-  type MiniMaxResolvedConfig,
-  type ZcodePlanResolvedConfig,
   type OpenCodeGoResolvedConfig,
   toErrorMessage
 } from './service-types'
@@ -59,14 +56,6 @@ export abstract class RateLimitServiceFetchTargets extends RateLimitServiceResul
     return resolution.kind === 'skip'
       ? { skip: true, homePath: null }
       : { skip: false, homePath: resolution.codexHomePath }
-  }
-
-  // WSL home resolution probes wsl.exe; chain it so other providers start immediately.
-  protected fetchKimiWithResolvedHome(): Promise<ProviderRateLimits> {
-    const pendingHome = this.kimiHomeResolver?.()
-    return pendingHome
-      ? pendingHome.then((home) => fetchKimiRateLimits({ home }))
-      : fetchKimiRateLimits({ home: undefined })
   }
 
   protected isSameCodexTarget(
@@ -215,45 +204,6 @@ export abstract class RateLimitServiceFetchTargets extends RateLimitServiceResul
           'OpenCode Go API key could not be decrypted. Re-enter or clear the key in Settings.',
         apiKeyReadSkipped: false
       }
-    }
-  }
-
-  protected resolveMiniMaxConfig(): MiniMaxResolvedConfig {
-    try {
-      return {
-        config: this.miniMaxConfigResolver?.() ?? {
-          sessionCookie: '',
-          groupId: '',
-          models: 'general',
-          endpoint: 'overseas',
-          apiKey: ''
-        },
-        error: null
-      }
-    } catch (error) {
-      // Cookie failure affects MiniMax only, not sibling refreshes.
-      return {
-        config: {
-          sessionCookie: '',
-          groupId: '',
-          models: 'general',
-          endpoint: 'overseas',
-          apiKey: ''
-        },
-        error: toErrorMessage(error)
-      }
-    }
-  }
-
-  protected resolveZcodePlanConfig(): ZcodePlanResolvedConfig {
-    try {
-      return {
-        config: this.zcodePlanConfigResolver?.() ?? { site: 'zai', apiKey: '' },
-        error: null
-      }
-    } catch (error) {
-      // Key decryption failure affects ZCode only, not sibling refreshes.
-      return { config: { site: 'zai', apiKey: '' }, error: toErrorMessage(error) }
     }
   }
 }

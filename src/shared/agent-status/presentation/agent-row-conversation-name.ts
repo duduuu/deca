@@ -3,7 +3,6 @@ import type { AgentType } from '../contracts/agent-status-types'
 import { isClaudeManagementTitle } from '../title/agent-title-core'
 import { stripLeadingAgentTitleDecorationOrEmpty } from '../title/agent-title-decoration'
 import { formatAgentTypeLabel } from './agent-type-label'
-import { isJcodeIdentityTerminalTitle } from '../title/providers/jcode-terminal-title'
 import { SYNTHETIC_AGENT_TITLE_PROFILES } from '../title/synthetic-agent-title'
 import type { TerminalTab } from '../../workspace-layout/terminal-tab-types'
 import { resolveTabNameSource } from '../../tab-title-resolution'
@@ -88,8 +87,6 @@ function conversationNameFromLiveTitle(
     STATUS_WITH_CONTEXT_RE.test(stripped) ||
     DEFAULT_TERMINAL_TITLE_RE.test(stripped) ||
     isClaudeManagementTitle(stripped) ||
-    // jcode repaints codename/diff/duration each second; accepting that identity hides the prompt preview.
-    isJcodeIdentityTerminalTitle(stripped) ||
     isCwdLikeTitle(stripped)
   ) {
     return null

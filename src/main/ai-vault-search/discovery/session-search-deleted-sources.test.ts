@@ -1,5 +1,5 @@
 import '../worker/session-search-worker.test-fixture'
-import { mkdir, rm, writeFile } from 'node:fs/promises'
+import { rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, beforeEach, expect, it } from 'vitest'
 import { resetTranscriptConsumersForTests } from '../../ai-vault/transcripts/session-transcript-consumers'
@@ -51,19 +51,6 @@ function retire(
     directoryLimit: options.directoryLimit
   })
 }
-
-it('judges each merged-root directory on its own', async () => {
-  const current = join(harness.roots.openclawStateDir ?? '', 'agents')
-  const legacy = join(harness.roots.openclawLegacyStateDir ?? '', 'agents')
-  const onMissing = join(current, 'main', 'sessions', 'mounted.jsonl')
-  const deleted = join(legacy, 'main', 'sessions', 'deleted.jsonl')
-  await mkdir(join(legacy, 'main', 'sessions'), { recursive: true })
-
-  const result = await retire([onMissing, deleted], { roots: [current, legacy] })
-  expect(result.retired).toEqual([deleted])
-  expect(result.unverifiable).toEqual([onMissing])
-  expect(result.degradedRoots.map((one) => one.root)).toEqual([current])
-})
 
 it('retires a synthetic row when the container it came from is gone', async () => {
   const db = join(harness.root, 'opencode.db')

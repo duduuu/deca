@@ -38,8 +38,6 @@ export function useAutomationRunPageState({
     | 'setSelectedAutomationRunPageId'
     | 'setActivePaneTab'
     | 'rerunRunIdsInFlight'
-    | 'selectedExternalKey'
-    | 'selectExternalKey'
     | 'pageView'
     | 'setPageView'
     | 'setRunPageOrigin'
@@ -67,22 +65,13 @@ export function useAutomationRunPageState({
     setSelectedAutomationRunPageId,
     setActivePaneTab,
     rerunRunIdsInFlight,
-    selectedExternalKey,
-    selectExternalKey,
     pageView,
     setPageView,
     setRunPageOrigin,
     isDetailOpen,
     setIsDetailOpen
   } = local
-  const {
-    selected,
-    selectedRow,
-    visibleRows,
-    externalAutomationEntries,
-    hostCatalog,
-    selectAutomationRow
-  } = list
+  const { selected, selectedRow, visibleRows, hostCatalog, selectAutomationRow } = list
   const { selectedRuns, selectedRunsReady, selectedRunsNotice, selectedAutomationRunPage } = setup
 
   useEffect(() => {
@@ -96,10 +85,7 @@ export function useAutomationRunPageState({
     const hasSelectedLocal = selectedRow?.key
       ? visibleRows.some((row) => row.key === selectedRow.key)
       : selectedId !== null && selectedRow !== null
-    const hasSelectedExternal =
-      selectedExternalKey !== null &&
-      externalAutomationEntries.some((entry) => entry.key === selectedExternalKey)
-    if (hasSelectedLocal || hasSelectedExternal) {
+    if (hasSelectedLocal) {
       return
     }
     setIsDetailOpen(false)
@@ -109,10 +95,8 @@ export function useAutomationRunPageState({
     isDetailOpen,
     pageView,
     selectedAutomationRunPage,
-    externalAutomationEntries,
     visibleRows,
     pendingAutomationRunNavigation,
-    selectedExternalKey,
     selectedId,
     selectedRow,
     setActivePaneTab,
@@ -140,9 +124,6 @@ export function useAutomationRunPageState({
     const pendingAutomation = automations.find(
       (automation) => automation.id === pending.automationId
     )
-    if (selectedExternalKey !== null) {
-      selectExternalKey(null)
-    }
     if (!pendingAutomation) {
       setSelectedId(pending.automationId)
       setSelectedAutomationRunPageId(null)
@@ -226,8 +207,6 @@ export function useAutomationRunPageState({
     pendingAutomationRunNavigation,
     pageView,
     runtimeEnvironments,
-    selectExternalKey,
-    selectedExternalKey,
     selectedId,
     selectedRow,
     selectedRuns,

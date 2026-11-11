@@ -125,9 +125,9 @@ export function nativeChatHookAwaitsInput(
   )
 }
 
-/** omp retries its own agent_end hook, so trailing mid-run prose/tool rows cannot stand in for a lost end signal. */
-function hookDeliversTurnEnd(agent: AgentType): boolean {
-  return agent === 'omp'
+/** No kept agent retries its own end hook, so trailing rows may stand in for a lost end signal. */
+function hookDeliversTurnEnd(_agent: AgentType): boolean {
+  return false
 }
 
 function liveStatusOverride(

@@ -29,14 +29,8 @@ import {
 } from './claude-async-permission-request'
 
 export type ClaudeCompatibleHookSettings = {
-  configDirName: '.claude' | '.openclaude' | '.qoder' | '.qoder-cn' | '.qwen' | '.codebuddy'
-  scriptBaseName:
-    | 'claude-hook'
-    | 'openclaude-hook'
-    | 'qoder-hook'
-    | 'qoder-cn-hook'
-    | 'qwen-code-hook'
-    | 'codebuddy-hook'
+  configDirName: '.claude'
+  scriptBaseName: 'claude-hook'
   usesWindowsCompatLauncher: boolean
   windowsHookShell?: 'powershell'
 }
@@ -45,12 +39,6 @@ export const CLAUDE_HOOK_SETTINGS: ClaudeCompatibleHookSettings = {
   configDirName: '.claude',
   scriptBaseName: 'claude-hook',
   usesWindowsCompatLauncher: true
-}
-
-export const OPENCLAUDE_HOOK_SETTINGS: ClaudeCompatibleHookSettings = {
-  configDirName: '.openclaude',
-  scriptBaseName: 'openclaude-hook',
-  usesWindowsCompatLauncher: false
 }
 
 /** Exec form (`args`) is only valid for Claude versions that support it. */

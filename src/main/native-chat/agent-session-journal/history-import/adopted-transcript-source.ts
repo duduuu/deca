@@ -7,7 +7,6 @@ import { extractString, parseJsonObject } from '../../../ai-vault/session-scanne
 import { asRecord } from '../../../ai-vault/session-scanner-record-value'
 
 import { readOpenCodeTranscriptSignalViaWorker } from '../../../ai-vault/scanners/opencode/reader-transport/session-scanner-opencode-sqlite-worker-spawn'
-import { samePiDirectory } from '../../../pi/rpc-launch-resolution'
 import { admitTranscriptPath } from '../../transcript-path-admission'
 import { adoptedDirectoryProbes } from './adopted-directory-probe'
 
@@ -22,8 +21,7 @@ export async function assertAdoptedSourceIdentity(
   source: AdoptedTranscriptSource,
   actual: { sessionId: string | null; cwd: string | null },
   requireCwd = true,
-  signal?: AbortSignal,
-  agent?: AgentType
+  signal?: AbortSignal
 ): Promise<void> {
   if (actual.sessionId !== source.providerSessionId) {
     throw new Error('The saved conversation does not match the requested provider identity.')
@@ -40,10 +38,7 @@ export async function assertAdoptedSourceIdentity(
   ) {
     return
   }
-  const matched =
-    agent === 'pi'
-      ? await samePiDirectory(actual.cwd, source.workspaceCwd)
-      : await adoptedDirectoryProbes.matches(source.workspaceCwd, actual.cwd, signal)
+  const matched = await adoptedDirectoryProbes.matches(source.workspaceCwd, actual.cwd, signal)
   if (!matched) {
     throw new Error('This conversation belongs to another directory.')
   }
@@ -76,9 +71,6 @@ export function adoptedTranscriptSourceObserver(input: {
         sawCodexMetadata = true
         const payload = asRecord(record.payload)
         sessionId = extractString(payload?.id) ?? sessionId
-      } else if ((input.agent === 'omp' || input.agent === 'pi') && record.type === 'session') {
-        sessionId = extractString(record.id)
-        cwd = extractString(record.cwd)
       }
     },
     async validate() {
@@ -94,15 +86,11 @@ export function adoptedTranscriptSourceObserver(input: {
         sessionId = extractString(summary?.id) ?? sessionIdFromFileName(dirname(input.filePath))
         cwd = extractString(summary?.cwd)
       }
-      if (input.agent === 'pi' && sessionIdFromFileName(input.filePath) !== sessionId) {
-        throw new Error('The saved conversation header does not match its file identity.')
-      }
       await assertAdoptedSourceIdentity(
         input.source,
         { sessionId, cwd },
         input.agent !== 'codex',
-        input.signal,
-        input.agent
+        input.signal
       )
     }
   }

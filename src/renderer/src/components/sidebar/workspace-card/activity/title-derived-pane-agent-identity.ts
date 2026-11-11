@@ -6,22 +6,14 @@ import type { PaneForegroundAgentEntry } from '@/store/slices/agent-status/pane-
 
 export const TITLE_AGENT_LABEL_TO_TYPE: Record<string, AgentType> = {
   'Claude Code': 'claude',
-  OpenClaude: 'openclaude',
   Codex: 'codex',
   'Gemini CLI': 'gemini',
   'GitHub Copilot': 'copilot',
   Grok: 'grok',
   Devin: 'devin',
-  Jcode: 'jcode',
   Antigravity: 'antigravity',
   OpenCode: 'opencode',
-  Aider: 'aider',
-  Cursor: 'cursor',
-  Droid: 'droid',
-  Hermes: 'hermes',
-  'DeepSeek Build': 'dsb',
-  Pi: 'pi',
-  OMP: 'omp'
+  Cursor: 'cursor'
 }
 
 export function resolveTitleDerivedAgentType(

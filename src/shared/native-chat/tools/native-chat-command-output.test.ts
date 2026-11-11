@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { surfaceNativeChatCommandOutputs } from './native-chat-command-output'
-import { stripNoiseMessages } from '../native-chat-noise'
 import type { NativeChatMessage } from '../native-chat-types'
 
 // The two user rows OpenClaude 0.31.0 writes for `/context` (its caveat row is
@@ -32,55 +31,7 @@ const envelope = (name: string, id = 'env', timestamp = 100): NativeChatMessage 
 const reply = (id: string, parentId: string | undefined, timestamp = 100): NativeChatMessage =>
   userTurn(id, CONTEXT_STDOUT, timestamp, parentId)
 
-const MODEL_STDOUT = '<local-command-stdout>Set model to gpt-4o</local-command-stdout>'
-
 describe('surfaceNativeChatCommandOutputs', () => {
-  it("shows OpenClaude's /context report as plain command output", () => {
-    const [shown] = surfaceNativeChatCommandOutputs(
-      [reply('out', 'env'), envelope('context')],
-      'openclaude'
-    )
-    expect(shown).toMatchObject({ id: 'out', role: 'system' })
-    const block = shown?.blocks[0]
-    expect(block).toMatchObject({ type: 'text', presentation: 'command-output' })
-    const text = block?.type === 'text' ? block.text : ''
-    expect(text).not.toContain('\u001b')
-    expect(text).not.toContain('local-command-stdout')
-    // Column layout survives: the legend stays indented past the grid.
-    expect(text.split('\n').slice(0, 5)).toEqual([
-      'Context Usage',
-      '\u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1 \u26c1   gpt-4o \u00b7 16.6k/128k tokens (13%)',
-      '',
-      '\u26c1 \u26c1 \u26c0 \u26c0 \u26f6 \u26f6 \u26f6 \u26f6 \u26f6 \u26f6   Estimated usage by category',
-      '                      \u26c1 System prompt: 7.9k tokens (6.1%)'
-    ])
-  })
-
-  it('survives the noise filter while the command envelope stays hidden', () => {
-    const visible = stripNoiseMessages(
-      surfaceNativeChatCommandOutputs([envelope('context'), reply('out', 'env')], 'openclaude')
-    )
-    expect(visible.map(({ id }) => id)).toEqual(['out'])
-  })
-
-  it('pairs each reply with the row it links to, whatever the timestamps say', () => {
-    // Equal timestamps/id sorting place each reply by the wrong command; only the explicit link identifies its answer.
-    const modelReply = userTurn('a-model-out', MODEL_STDOUT, 100, 'd-model')
-    const messages = [
-      modelReply,
-      envelope('context', 'b-context', 100),
-      reply('c-context-out', 'b-context', 100),
-      envelope('model', 'd-model', 100)
-    ]
-    const surfaced = surfaceNativeChatCommandOutputs(messages, 'openclaude')
-    expect(surfaced.find(({ id }) => id === 'c-context-out')?.role).toBe('system')
-    // Replies to commands whose effect is the feedback stay hidden.
-    expect(surfaced.find(({ id }) => id === 'a-model-out')).toBe(modelReply)
-    // A reply stamped before its command row still answers it.
-    const early = [reply('out', 'env', 99), envelope('context', 'env', 100)]
-    expect(surfaceNativeChatCommandOutputs(early, 'openclaude')[0]?.role).toBe('system')
-  })
-
   it('leaves a reply hidden without a link to a loaded /context row', () => {
     // An older host sends no link, even for a reply right after its command.
     const unlinked = [envelope('context'), reply('out', undefined)]

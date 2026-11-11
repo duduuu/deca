@@ -248,8 +248,7 @@ export function selectRuntimeHookAgentRowForPane(
     }
     if (
       entry.agentType &&
-      (entry.providerSessionOnly !== true ||
-        (entry.agentType === 'pi' && entry.providerSession != null)) &&
+      entry.providerSessionOnly !== true &&
       (entry.evidenceObservedAt ?? entry.receivedAt) >= freshAfter &&
       (!agent || entry.receivedAt > agent.receivedAt)
     ) {

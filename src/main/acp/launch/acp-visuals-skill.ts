@@ -71,8 +71,3 @@ export const loadOpenCodeVisualsSkill: AcpVisualsSkillLoader = async ({ skill, e
   const content = withOpenCodeSkillsPath(env.OPENCODE_CONFIG_CONTENT, skill.skillsRoot)
   return content === null ? null : { env: { OPENCODE_CONFIG_CONTENT: content } }
 }
-
-// OMP 18.1.5–18.1.8 accept plugin-dir but skip its skills by default.
-export const loadOmpVisualsSkill: AcpVisualsSkillLoader = async ({ skill }) => ({
-  pluginDir: skill.pluginDir
-})

@@ -11,10 +11,8 @@ import {
   type AutomationListSearchFields,
   type AutomationListSearchIndex
 } from './automation-list-search'
-import { getExternalProviderLabel } from '../external/external-automation-display'
-import type { ExternalAutomationListEntry } from '../external/external-automation-list-entries'
 
-/** Row identity is the authority-qualified row key / external key, so reorders invalidate the index. */
+/** Row identity is the authority-qualified row key, so reorders invalidate the index. */
 export type AutomationListSearchRowSource = {
   key: string
   fields: AutomationListSearchFields
@@ -67,20 +65,6 @@ export function buildAutomationSearchFields(
   }
 }
 
-export function buildExternalAutomationSearchFields(
-  entry: ExternalAutomationListEntry
-): AutomationListSearchFields {
-  return {
-    name: entry.job.name,
-    project: entry.job.workdir ?? '',
-    workspace: '',
-    // Why: an external job runs under its manager, so the provider is the closest agent term.
-    agent: getExternalProviderLabel(entry.manager),
-    host: entry.manager.targetLabel,
-    prompt: entry.job.prompt ?? entry.job.promptPreview ?? ''
-  }
-}
-
 export function buildAutomationSearchRowSources(
   rows: readonly AutomationListRow[],
   context: AutomationSearchRowContext
@@ -88,15 +72,6 @@ export function buildAutomationSearchRowSources(
   return rows.map((row) => ({
     key: row.key,
     fields: buildAutomationSearchFields(row, context)
-  }))
-}
-
-export function buildExternalAutomationSearchRowSources(
-  entries: readonly ExternalAutomationListEntry[]
-): AutomationListSearchRowSource[] {
-  return entries.map((entry) => ({
-    key: entry.key,
-    fields: buildExternalAutomationSearchFields(entry)
   }))
 }
 

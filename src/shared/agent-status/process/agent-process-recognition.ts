@@ -16,8 +16,6 @@ import {
   PYTHON_PROCESS_RE,
   tokenizeCommandLine
 } from './agent-command-line-entrypoint'
-import { isFreshOmpLaunchCommand } from '../../agent-launch/startup/omp-fresh-launch'
-
 export type RecognizedAgentProcess = { agent: TerminalAgent; processName: string }
 
 const PROCESS_EXTENSION_RE = /\.(?:exe|cmd|bat|ps1)$/i
@@ -43,12 +41,8 @@ function normalizeProcessName(
 const FOREGROUND_AGENT_WRAPPER_PROCESS_NAMES = new Set(['node', 'python', 'python3'])
 const PYTHON_SCRIPT_ENTRYPOINT_DIRECTORIES = ['/bin/', '/scripts/', '/site-packages/']
 
-const PROCESS_TO_AGENT = new Map<string, TerminalAgent>([
-  ['dsb', 'dsb'],
-  ['deepseek-build', 'dsb'],
-  ['deepseek-build-agent', 'dsb']
-])
-const AGENT_TYPE_IDS = new Set<string>(['dsb'])
+const PROCESS_TO_AGENT = new Map<string, TerminalAgent>()
+const AGENT_TYPE_IDS = new Set<string>([])
 
 for (const [agent, config] of Object.entries(TUI_AGENT_CONFIG)) {
   if (!isTuiAgent(agent)) {
@@ -79,19 +73,8 @@ function agentForNormalizedProcess(normalized: string): TerminalAgent | undefine
   if (normalized.startsWith('codex-')) {
     return PROCESS_TO_AGENT.get('codex')
   }
-  // Qoder's launcher resolves to a versioned native binary.
-  if (/^(?:qoderclicn|qodercn)-\d/.test(normalized)) {
-    return PROCESS_TO_AGENT.get('qoderclicn')
-  }
-  if (/^qodercli-\d/.test(normalized)) {
-    return PROCESS_TO_AGENT.get('qodercli')
-  }
   if (normalized.startsWith('grok-')) {
     return PROCESS_TO_AGENT.get('grok')
-  }
-  // Muse execs a versioned muse-bin binary; this prefix also covers truncated comm without matching unrelated muse-* tools.
-  if (normalized.startsWith('muse-bin-')) {
-    return PROCESS_TO_AGENT.get('muse')
   }
   return undefined
 }
@@ -153,25 +136,6 @@ function recognizePythonEntrypoint(
   return recognizeAgentProcess(entrypoint) ?? recognizePythonScriptEntrypoint(entrypoint)
 }
 
-// Hermes' installed launcher execs `python -I -c '<bootstrap>'` (hermes_cli/_launchers.py), so argv names no hermes entrypoint.
-function isHermesInlineBootstrap(tokens: readonly string[], firstNormalized: string): boolean {
-  if (!PYTHON_PROCESS_RE.test(firstNormalized)) {
-    return false
-  }
-  let index = 1
-  while (index < tokens.length && tokens[index] !== '-c') {
-    if (tokens[index] === '-X' || tokens[index] === '-W') {
-      index += 2
-    } else if (/^-[bBdEiIOqRsSuvx]+$/.test(tokens[index])) {
-      index += 1
-    } else {
-      return false
-    }
-  }
-  // ps flattens argv, so the -c program runs to the end of the line there.
-  return /\bimport hermes_bootstrap\b/.test(tokens.slice(index + 1).join(' '))
-}
-
 // Muse's versioned binary needs a scoped prefix match; generic suffix matching would misclassify names such as ante-obsidian.
 export function isExpectedAgentProcess(
   processName: string | null | undefined,
@@ -184,24 +148,16 @@ export function isExpectedAgentProcess(
   }
   return (
     normalizedProcess === normalizedExpected ||
-    normalizedProcess.startsWith(`${normalizedExpected}.`) ||
-    (['qoderclicn', 'qodercn'].includes(normalizedExpected) &&
-      /^(?:qoderclicn|qodercn)(?:-\d.*)?$/.test(normalizedProcess)) ||
-    (['qoder', 'qodercli'].includes(normalizedExpected) &&
-      /^(?:qoder|qodercli(?:-\d.*)?)$/.test(normalizedProcess)) ||
-    (normalizedExpected === 'muse' && normalizedProcess.startsWith('muse-bin-'))
+    normalizedProcess.startsWith(`${normalizedExpected}.`)
   )
 }
 
-/** Agents whose process names (orca, acli, cn, vibe) also belong to ordinary tools. */
+/** Agents whose process names (orca) also belong to ordinary tools. */
 export const GENERIC_PROCESS_NAME_AGENTS: ReadonlySet<TerminalAgent> = new Set([
-  'claude-agent-teams',
-  'rovo',
-  'continue',
-  'mistral-vibe'
+  'claude-agent-teams'
 ])
 
-/** Before writing to `agent`: its expectedProcess, or a name it is recognized by (dsh-TUI 0.19 runs as `dsh-tui`, not `dsh`); generic names such as Agent Teams' `orca` launcher prove nothing. */
+/** Before writing to `agent`: its expectedProcess, or a name it is recognized by ; generic names such as Agent Teams' `orca` launcher prove nothing. */
 export function isAgentForegroundProcess(
   processName: string | null | undefined,
   agent: TuiAgent
@@ -227,17 +183,10 @@ export function recognizeAgentProcessFromCommandLine(
   if (!commandLine) {
     return null
   }
-  if (isFreshOmpLaunchCommand(commandLine)) {
-    return recognizedAgentForProcess('omp')
-  }
   const keep = options?.includeHeadlessOneShot === true
   const tokens = tokenizeCommandLine(commandLine)
   const firstNormalized = normalizeProcessName(tokens[0])
   let direct = recognizedAgentForProcess(firstNormalized)
-  // Qoder's public dispatcher routes these commands to the IDE rather than the agent CLI.
-  if (firstNormalized === 'qoder' && tokens[1] && !tokens[1].startsWith('-')) {
-    return null
-  }
   // Why: the generic Orca CLI is not an agent; only this subcommand launches its TUI mode.
   if (direct?.agent === 'claude-agent-teams' && tokens[1]?.toLowerCase() !== 'claude-teams') {
     direct = null
@@ -245,9 +194,6 @@ export function recognizeAgentProcessFromCommandLine(
   const directRecognition = keep ? direct : filterHeadlessOneShotAgentCommand(direct, tokens)
   if (directRecognition) {
     return directRecognition
-  }
-  if (isHermesInlineBootstrap(tokens, firstNormalized)) {
-    return recognizedAgentForProcess('hermes')
   }
   const entrypoint = findInterpreterEntrypointToken(tokens, firstNormalized)
   if (!entrypoint) {

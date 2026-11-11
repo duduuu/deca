@@ -10,32 +10,26 @@ import { readFirstString } from './interactive-tool'
 import type { HookListenerState } from './listener-state'
 import type { AgentHookEventPayload } from './listener-event'
 import { isGrokSubagentEvent } from './providers/grok-tool-fields'
-import { isHermesRootSessionEvent, withHermesPaneSessionId } from './providers/hermes-events'
 import { readString } from './tool-input-preview'
 import { readFirstTranscriptRecord } from './transcript-reader'
 
 export function hasSeparateHookSessionAdmission(
   source: string | undefined
-): source is 'hermes' | 'antigravity' {
-  return source === 'hermes' || source === 'antigravity'
+): source is 'antigravity' {
+  return source === 'antigravity'
 }
 
 export function readPaneSessionContext(
   state: HookListenerState,
   source: AgentHookSource,
   envelope: { paneKey: string; hookPayloadRecord: Record<string, unknown> },
-  eventName: unknown
+  _eventName: unknown
 ) {
   const { paneKey, hookPayloadRecord } = envelope
   return {
-    providerSession: readPaneProviderSession(state, source, paneKey, hookPayloadRecord, eventName),
+    providerSession: readPaneProviderSession(state, source, paneKey, hookPayloadRecord),
     statusAdmissionSession: hasSeparateHookSessionAdmission(source)
-      ? extractAgentProviderSession(
-          source,
-          source === 'hermes'
-            ? withHermesPaneSessionId(state, paneKey, hookPayloadRecord)
-            : hookPayloadRecord
-        )?.id
+      ? extractAgentProviderSession(source, hookPayloadRecord)?.id
       : undefined
   }
 }
@@ -45,8 +39,7 @@ function readPaneProviderSession(
   state: HookListenerState,
   source: AgentHookSource,
   paneKey: string,
-  hookPayload: Record<string, unknown>,
-  eventName: unknown
+  hookPayload: Record<string, unknown>
 ): AgentProviderSessionMetadata | null {
   if (
     source === 'copilot' &&
@@ -62,25 +55,9 @@ function readPaneProviderSession(
     const previous = state.lastStatusByPaneKey.get(paneKey)
     return previous?.source === 'grok' ? (previous.providerSession ?? null) : null
   }
-  if (
-    source === 'hermes' &&
-    (!isHermesRootSessionEvent(eventName) ||
-      typeof hookPayload.platform !== 'string' ||
-      !['cli', 'tui', 'desktop', 'acp'].includes(hookPayload.platform))
-  ) {
-    return null
-  }
   const providerSession = extractAgentProviderSession(source, hookPayload)
   if (!providerSession) {
     return null
-  }
-  if (source === 'droid') {
-    const previous = state.lastStatusByPaneKey.get(paneKey)
-    const owner = previous?.payload.agentType === 'droid' ? previous.providerSession : undefined
-    if (owner?.id !== providerSession.id && isDroidSubSession(hookPayload)) {
-      // Sub-droids inherit the pane, so a worker's hook keeps the orchestrator's session.
-      return owner ?? null
-    }
   }
   if (source === 'antigravity') {
     const transcriptPath = readPathFromKeys(hookPayload, ['transcriptPath', 'transcript_path'])
@@ -112,19 +89,6 @@ function readPaneProviderSession(
     ...(effort ? { effort } : {}),
     ...(permissionMode ? { permissionMode } : {})
   }
-}
-
-/** Droid marks a sub-session only in its transcript's first record. */
-function isDroidSubSession(hookPayload: Record<string, unknown>): boolean {
-  const transcriptPath = readPathFromKeys(hookPayload, ['transcriptPath', 'transcript_path'])
-  const origin = transcriptPath ? readFirstTranscriptRecord(transcriptPath) : undefined
-  return (
-    typeof origin === 'object' &&
-    origin !== null &&
-    'callingSessionId' in origin &&
-    typeof origin.callingSessionId === 'string' &&
-    origin.callingSessionId.length > 0
-  )
 }
 
 /** The pane's previous session when this hook continues it; /clear and compact restart Claude in the same process. */
@@ -236,11 +200,7 @@ export function readHookSessionContext<T extends AgentHookEventPayload>(
       ? { ...event, agentPresence: { ...event.agentPresence, session: undefined } }
       : event
   const rootEvent =
-    fromHook &&
-    ((event.payload.agentType === 'copilot' && event.toolAgentId) ||
-      (event.payload.agentType === 'hermes' &&
-        event.hookEventName !== undefined &&
-        !isHermesRootSessionEvent(event.hookEventName)))
+    fromHook && event.payload.agentType === 'copilot' && event.toolAgentId
       ? { ...ownershipEvent, providerSession: undefined }
       : ownershipEvent
   return {
@@ -264,7 +224,7 @@ export function retainHookRootContext(
     previous.payload.agentType === incoming.payload.agentType &&
     ((incoming.payload.agentType === 'codex' && incoming.toolAgentId) ||
       (fromHook &&
-        ['copilot', 'hermes', 'antigravity', 'droid'].includes(incoming.payload.agentType ?? '') &&
+        ['copilot', 'antigravity'].includes(incoming.payload.agentType ?? '') &&
         sameTerminalOwner))
       ? previous
       : undefined

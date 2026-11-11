@@ -7,8 +7,6 @@ import {
   type SleepingAgentSessionRecord
 } from './agent-session-resume'
 import { getAgentResumeArgv } from '../../agent-launch/startup/agent-resume-argv'
-import { isPiCompatibleAgentType } from '../../pi-agent-kind'
-
 /** Identify a completed pane’s own live resume anchor written at turn end, not a sleep capture.
  * No vendor/automatic-resume gate: this checks record identity, not hibernation eligibility. */
 export function isLiveResumeAnchorForCompletedAgent(
@@ -31,17 +29,5 @@ export function isLiveResumeAnchorForCompletedAgent(
     (!worktreeId || worktreeId === record.worktreeId) &&
     agentProviderSessionsEqual(agent, entry.providerSession, record.providerSession) &&
     getAgentResumeArgv(agent, record.providerSession)
-  )
-}
-
-// Manual-sleep/quit retention preserves shipped Pi-only semantics; only automatic hibernation broadened.
-export function isCompletedPiCompatibleAgentWithLiveRecoveryRecord(
-  entry: AnchorStatus | undefined,
-  record: SleepingAgentSessionRecord | undefined,
-  worktreeId?: string
-): record is SleepingAgentSessionRecord {
-  return (
-    isPiCompatibleAgentType(entry?.agentType) &&
-    isLiveResumeAnchorForCompletedAgent(entry, record, worktreeId)
   )
 }

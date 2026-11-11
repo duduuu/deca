@@ -1,7 +1,4 @@
 import { fixture } from '../../publication/history/testing/agent-session-history-contract-test-fixture'
-import { PI_CWD_BUCKET_LAYOUT } from '../../../../ai-vault/session-cwd-bucket-layouts'
-import { prepareStructuredAgentSessionFork } from '../structured-agent-session-fork'
-import type { StructuredAgentSessionHost } from '../../host/structured-agent-session-host'
 import { acpHistoryTurns } from '../../../../acp/history/acp-history-replay'
 import { translateHistoryTurn } from '../../../../acp/history/acp-history-translation'
 import { OPENCODE_ACP_DIALECT } from '../../../../acp/acp-dialects/opencode-dialect'
@@ -10,8 +7,7 @@ import { structuredRewindCut } from '../../rewind/structured-rewind-cut'
 import type { JournalReplacementItem } from '../../../agent-session-journal/context-epochs/journal-epoch-replacement'
 import { prepareForkSnapshot } from '../structured-agent-session-fork-snapshot'
 import type { AgentJournalSnapshot } from '../../../../../shared/agent-session/journal/agent-session-journal-types'
-import { readFile, writeFile, mkdir } from 'node:fs/promises'
-import { join } from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { expect, it } from 'vitest'
 import { claudeConversationForkBoundary } from '../../../../claude/claude-conversation-fork-boundary'
 import { agentJournalItemKey } from '../../../../../shared/agent-session/journal/agent-session-journal-item-key'
@@ -389,94 +385,4 @@ it('retains the notice for an encoded ACP replay turn only while its introduced 
   ).toEqual([
     'legacy:opencode:chat:turn-lifecycle%3Ap%3Asession-1%3Amsg_15fad6c9f001d4ix8WtRMUSWtI'
   ])
-})
-
-it('refuses an imported ACP tip with assistant prose but no native terminal evidence', async () => {
-  const nativeId = '019e6b26-18e2-7103-b7a0-7ba6bb071123'
-  const home = join(fixture.root, 'omp-account')
-  const sessions = join(home, 'sessions')
-  const directory = join(sessions, `${PI_CWD_BUCKET_LAYOUT.encodeScopePrefixes(fixture.root)[0]}--`)
-  await mkdir(directory, { recursive: true })
-  await writeFile(
-    join(directory, `${nativeId}.jsonl`),
-    `${[
-      { type: 'session', version: 3, id: nativeId, cwd: fixture.root },
-      {
-        type: 'message',
-        id: 'prompt',
-        parentId: null,
-        message: { role: 'user', content: 'Remember 57319' }
-      },
-      {
-        type: 'message',
-        id: 'response',
-        parentId: 'prompt',
-        message: { role: 'assistant', content: [{ type: 'text', text: 'Remembered' }] }
-      }
-    ]
-      .map((row) => JSON.stringify(row))
-      .join('\n')}\n`
-  )
-  for (const [recordId, role] of [
-    ['prompt', 'user'],
-    ['response', 'assistant']
-  ] as const) {
-    await fixture.journal.appendItem(
-      { provider: 'legacy', agent: 'omp', sessionId: nativeId, recordId },
-      {
-        kind: 'message',
-        role,
-        blocks: [{ type: 'text', text: role === 'user' ? 'Remember 57319' : 'Remembered' }]
-      },
-      { fence: 1, turnScope: { kind: 'thread' } }
-    )
-  }
-  const record = agentSessionRecordFixture({
-    sessionId: 'session-1',
-    provider: 'omp',
-    accountHome: { variable: 'PI_CODING_AGENT_DIR', path: home },
-    launchDirectory: fixture.root,
-    providerHandleChain: [
-      {
-        linkId: 'omp-head',
-        origin: 'created',
-        mintedAtFence: 1,
-        observedAt: 1,
-        handle: { transport: 'acp', agent: 'omp', nativeId }
-      }
-    ]
-  })
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: boundary preparation reads only these saved source and adapter facets.
-  const host = {
-    deps: {
-      store: {
-        selectWritableRecord: () => ({ kind: 'writable' }),
-        requireWritableRecord: () => record,
-        admittedSendCount: () => 0
-      },
-      agents: { capabilities: () => ({ fork: 'tip' }) },
-      adapter: {
-        copyConversation: async () => {
-          throw new Error('unexpected copy')
-        }
-      },
-      resolveLaunchEnv: async () => ({ PI_CODING_AGENT_DIR: home, OMP_CODING_AGENT_DIR: sessions })
-    },
-    journalSnapshot: async () => fixture.journal.snapshot()
-  } as unknown as StructuredAgentSessionHost
-  await expect(
-    prepareStructuredAgentSessionFork({
-      host,
-      agent: 'omp',
-      sessionId: 'session-1',
-      throughItemId: 'legacy:omp:019e6b26-18e2-7103-b7a0-7ba6bb071123:response',
-      location: record.location,
-      envelope: {
-        sessionId: 'omp-child',
-        clientOperationId: 'copy',
-        expectedRuntimeFence: null,
-        payloadFingerprint: ''
-      }
-    })
-  ).rejects.toMatchObject({ refusal: { details: { reason: 'turnActive' } } })
 })

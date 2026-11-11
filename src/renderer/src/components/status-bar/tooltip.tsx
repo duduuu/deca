@@ -4,7 +4,7 @@ import {
   formatResetDuration
 } from '../../../../shared/rate-limit-reset-format'
 import { AgentIcon } from '@/components/agent/icons/AgentIcon'
-import { ClaudeIcon, GeminiIcon, MiniMaxIcon, OpenAIIcon, OpenCodeGoIcon } from './icons'
+import { ClaudeIcon, GeminiIcon, OpenAIIcon, OpenCodeGoIcon } from './icons'
 import { translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 import type { Translate } from '@/i18n/use-translate'
@@ -86,23 +86,11 @@ export function ProviderIcon({ provider }: { provider: string }): React.JSX.Elem
   if (provider === 'opencode-go') {
     return <OpenCodeGoIcon size={13} />
   }
-  if (provider === 'kimi') {
-    return <AgentIcon agent="kimi" size={13} />
-  }
   if (provider === 'antigravity') {
     return <AgentIcon agent="antigravity" size={13} />
   }
-  if (provider === 'minimax') {
-    return <MiniMaxIcon size={13} />
-  }
   if (provider === 'grok') {
     return <AgentIcon agent="grok" size={13} />
-  }
-  if (provider === 'zcode') {
-    return <AgentIcon agent="zcode" size={13} />
-  }
-  if (provider === 'muse') {
-    return <AgentIcon agent="muse" size={13} />
   }
   if (provider === 'cursor') {
     return <AgentIcon agent="cursor" size={13} />
@@ -167,8 +155,6 @@ function getWindowSectionLabel(section: UsageWindowSection, t: Translate = trans
       return t('auto.components.status.bar.tooltip.7f7f208060', 'Monthly')
     case 'plan':
       return t('auto.components.status.bar.tooltip.cursor.plan', 'Plan')
-    case 'mcp':
-      return t('auto.components.status.bar.tooltip.zcode.mcp', 'MCP')
   }
 }
 

@@ -6,13 +6,11 @@ import {
   buildAutomationListSearchRowFingerprint,
   buildAutomationListSearchRows,
   buildAutomationSearchRowSources,
-  buildExternalAutomationSearchRowSources,
   matchAutomationListSearchRowKeys,
   type AutomationListSearchRow,
   type AutomationListSearchRowSource,
   type AutomationWorkspaceNameLookup
 } from './automation-list-search-rows'
-import type { ExternalAutomationListEntry } from '../external/external-automation-list-entries'
 
 /** Counts the empty-state view consumes, so it never recomputes what search already knows. */
 export type AutomationListSearchCounts = {
@@ -36,28 +34,21 @@ function useAutomationSearchRows(
 export function useAutomationListSearch({
   listSearchQuery,
   rows,
-  externalAutomationEntries,
   repoMap,
   worktreeMap,
   selectedRowKey,
-  selectedExternalKey,
-  selectAutomationRow,
-  selectExternalKey
+  selectAutomationRow
 }: {
   listSearchQuery: string
   rows: readonly AutomationListRow[]
-  externalAutomationEntries: readonly ExternalAutomationListEntry[]
   repoMap: ReadonlyMap<string, Repo>
   worktreeMap?: AutomationWorkspaceNameLookup
   /** The row currently on screen, not the bare id: two hosts can hold that id. */
   selectedRowKey: string | null
-  selectedExternalKey: string | null
   selectAutomationRow: (rowKey: string | null) => void
-  selectExternalKey: (externalKey: string | null) => void
 }): {
   isListSearchQueryTooLarge: boolean
   filteredRows: readonly AutomationListRow[]
-  filteredExternalAutomationEntries: readonly ExternalAutomationListEntry[]
   hasListItems: boolean
   hasFilteredListItems: boolean
   searchCounts: AutomationListSearchCounts
@@ -85,12 +76,6 @@ export function useAutomationListSearch({
   )
   const automationSearchRows = useAutomationSearchRows(automationSearchSources)
 
-  const externalAutomationSearchSources = useMemo(
-    () => buildExternalAutomationSearchRowSources(externalAutomationEntries),
-    [externalAutomationEntries]
-  )
-  const externalAutomationSearchRows = useAutomationSearchRows(externalAutomationSearchSources)
-
   // Match only on normalized query/search-content changes, ignoring clock/next-run/usage refreshes.
   const filteredRowKeys = useMemo(
     (): readonly string[] | null =>
@@ -98,14 +83,6 @@ export function useAutomationListSearch({
         ? null
         : matchAutomationListSearchRowKeys(automationSearchRows, activeListSearchQuery),
     [activeListSearchQuery, automationSearchRows]
-  )
-
-  const filteredExternalAutomationKeys = useMemo(
-    (): readonly string[] | null =>
-      activeListSearchQuery === null
-        ? null
-        : matchAutomationListSearchRowKeys(externalAutomationSearchRows, activeListSearchQuery),
-    [activeListSearchQuery, externalAutomationSearchRows]
   )
 
   const filteredRows = useMemo((): readonly AutomationListRow[] => {
@@ -127,70 +104,26 @@ export function useAutomationListSearch({
     return next
   }, [rows, filteredRowKeys])
 
-  const filteredExternalAutomationEntries = useMemo((): readonly ExternalAutomationListEntry[] => {
-    if (filteredExternalAutomationKeys === null) {
-      return externalAutomationEntries
-    }
-    if (filteredExternalAutomationKeys.length === 0) {
-      return []
-    }
-    const byKey = new Map(externalAutomationEntries.map((entry) => [entry.key, entry]))
-    const next: ExternalAutomationListEntry[] = []
-    for (const key of filteredExternalAutomationKeys) {
-      const entry = byKey.get(key)
-      if (entry) {
-        next.push(entry)
-      }
-    }
-    return next
-  }, [externalAutomationEntries, filteredExternalAutomationKeys])
-
-  const hostRowCount = rows.length + externalAutomationEntries.length
-  const visibleRowCount = filteredRows.length + filteredExternalAutomationEntries.length
+  const hostRowCount = rows.length
+  const visibleRowCount = filteredRows.length
 
   // Align detail/highlight with the first visible match when search hides selection; no matches preserve detail.
   useEffect(() => {
     if (activeListSearchQuery === null) {
       return
     }
-    const localVisible =
-      selectedExternalKey === null &&
-      selectedRowKey != null &&
-      filteredRows.some((row) => row.key === selectedRowKey)
-    const externalVisible =
-      selectedExternalKey != null &&
-      filteredExternalAutomationEntries.some((entry) => entry.key === selectedExternalKey)
-    if (localVisible || externalVisible) {
+    if (selectedRowKey != null && filteredRows.some((row) => row.key === selectedRowKey)) {
       return
     }
     const firstLocal = filteredRows[0]
-    if (firstLocal) {
-      if (selectedExternalKey !== null) {
-        selectExternalKey(null)
-      }
-      if (selectedRowKey !== firstLocal.key) {
-        selectAutomationRow(firstLocal.key)
-      }
-      return
+    if (firstLocal && selectedRowKey !== firstLocal.key) {
+      selectAutomationRow(firstLocal.key)
     }
-    const firstExternal = filteredExternalAutomationEntries[0]
-    if (firstExternal && selectedExternalKey !== firstExternal.key) {
-      selectExternalKey(firstExternal.key)
-    }
-  }, [
-    activeListSearchQuery,
-    filteredRows,
-    filteredExternalAutomationEntries,
-    selectAutomationRow,
-    selectExternalKey,
-    selectedExternalKey,
-    selectedRowKey
-  ])
+  }, [activeListSearchQuery, filteredRows, selectAutomationRow, selectedRowKey])
 
   return {
     isListSearchQueryTooLarge,
     filteredRows,
-    filteredExternalAutomationEntries,
     hasListItems: hostRowCount > 0,
     hasFilteredListItems: visibleRowCount > 0,
     searchCounts: { hostRowCount, visibleRowCount, searchActive: isListSearchActive }

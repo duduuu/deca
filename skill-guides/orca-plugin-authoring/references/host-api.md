@@ -22,7 +22,7 @@ Host API 1.6 (`"pluginApi": 1`). Call `host.call(method, params, { signal })`; a
 - `settings: SettingsApi`: `settings:own`; `onDidChange` also hears the person changing them in Settings.
 - `secrets: SecretsApi`: `secrets:own`.
 - `grantedCapabilities: readonly string[]`: Consented capability kinds; informational, the host re-checks every call.
-- `log(message: string)`: Lands in `orca plugin logs`.
+- `log(message: string)`: Lands in `deca plugin logs`.
 
 ## Frame API (global `orca`, also `window.orca`, in HTML panels and custom editors)
 

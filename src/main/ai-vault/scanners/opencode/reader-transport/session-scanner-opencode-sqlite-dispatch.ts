@@ -34,7 +34,7 @@ export async function handleOpenCodeSqliteRequest(
     if (request.kind === 'native-page' || request.kind === 'native-signal') {
       const value =
         request.kind === 'native-signal'
-          ? readOpenCodeTranscriptSignal(request.dbPath, request.sessionId, request.agent)
+          ? readOpenCodeTranscriptSignal(request.dbPath, request.sessionId)
           : readOpenCodeTranscriptPage({ ...request, limit: request.limit ?? 50 })
       return { id: request.id, ok: true, value }
     }
@@ -52,7 +52,7 @@ export async function handleOpenCodeSqliteRequest(
               dbPaths: request.dbPaths,
               limit: request.limit ?? Infinity,
               issues,
-              agent: request.agent === 'zcode' ? 'zcode' : 'opencode',
+              agent: 'opencode',
               scopePaths: request.scopePaths
             })
       return { id: request.id, ok: true, value: { candidates, issues } }
@@ -61,10 +61,7 @@ export async function handleOpenCodeSqliteRequest(
       const capture =
         request.agent === 'opencode2'
           ? await captureOpenCode2SqliteSession(request)
-          : await captureOpenCodeSqliteSession({
-              ...request,
-              agent: request.agent === 'zcode' ? 'zcode' : 'opencode'
-            })
+          : await captureOpenCodeSqliteSession({ ...request, agent: 'opencode' })
       return { id: request.id, ok: true, value: capture }
     }
     if (request.kind !== 'parse') {
@@ -81,7 +78,7 @@ export async function handleOpenCodeSqliteRequest(
             dbPath: request.dbPath,
             sessionId: request.sessionId,
             platform: request.platform,
-            agent: request.agent === 'zcode' ? 'zcode' : 'opencode'
+            agent: 'opencode'
           })
     const session = request.fullFirstUserPrompt
       ? await withFullFirstUserPromptCapture(parse)

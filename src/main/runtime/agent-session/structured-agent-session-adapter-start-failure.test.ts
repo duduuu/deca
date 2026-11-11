@@ -12,7 +12,6 @@ import {
   HOST_TEST_SESSION as SESSION
 } from '../../native-chat/agent-session-wire/host/testing/structured-agent-session-host-test-data'
 import { createStructuredAgentSessionLogger } from '../../native-chat/agent-session-wire/host/structured-agent-session-logger'
-import { piScriptedChild } from '../../pi/pi-scripted-child.test-fixture'
 import { codexScriptedChild } from '../../codex/structured/session-lifecycle/codex-scripted-child.test-fixture'
 import type { ScriptedAgentChild } from './installation/structured-agent-scripted-child.test-fixture'
 import {
@@ -156,7 +155,4 @@ it('Claude keeps unanswered early exits within five attempts', async () => {
 })
 it('Codex keeps unanswered early exits within five attempts', async () => {
   await failedStart('codex', codexScriptedChild(), true)
-})
-it('Pi keeps unanswered early exits within five attempts', async () => {
-  await failedStart('pi', piScriptedChild(), true)
 })

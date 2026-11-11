@@ -118,8 +118,6 @@ export default function Panel() {
 
 const PANEL_TEST_TSX = `// \`deca plugin test .\` runs this in Node with the same runtime and checks Deca uses.
 import { assert, mockHost, mount, test } from 'orca/testing'
-import * as panel from './panel'
-
 test('shows the worker total and adds the step', async () => {
   let total = 4
   // Stands in for src/worker.ts: what each plugin.request answers.
@@ -150,8 +148,6 @@ test('shows the worker total and adds the step', async () => {
 
 const WORKER_TEST_TS = `// Runs src/worker.ts's activate(orca) with the orca object Deca passes, over a mock host.
 import { assert, mockHost, mountWorker, test } from 'orca/testing'
-import * as main from './worker'
-
 test('adds to the stored total and tells open panels', async () => {
   const host = mockHost({ storage: { total: 2 } })
   const worker = await mountWorker(main, { host })

@@ -1,16 +1,8 @@
 import type React from 'react'
 import { getAgentCatalog, getAgentLabel } from '../../../lib/agent-catalog/agent-catalog'
-import { ClaudeIcon, DroidIcon, OpenAIIcon } from '@/components/status-bar/icons'
+import { ClaudeIcon, OpenAIIcon } from '@/components/status-bar/icons'
 import type { TerminalAgent } from '../../../../../shared/agent-status/identity/terminal-agent'
-import {
-  AgentLetterIcon,
-  AiderIcon,
-  CopilotIcon,
-  KiloIcon,
-  OmpIcon,
-  OpenCodeIcon,
-  PiIcon
-} from './agent-icon-glyphs'
+import { AgentLetterIcon, CopilotIcon, OpenCodeIcon } from './agent-icon-glyphs'
 import { AGENT_FAVICON_ASSETS } from './agent-favicon-assets'
 
 export function AgentIcon({
@@ -32,21 +24,6 @@ export function AgentIcon({
   if (agent === 'codex') {
     return <OpenAIIcon size={size} className={className} />
   }
-  if (agent === 'droid') {
-    return <DroidIcon size={size} className={className} />
-  }
-  if (agent === 'pi') {
-    return <PiIcon size={size} className={className} />
-  }
-  if (agent === 'omp') {
-    return <OmpIcon size={size} className={className} />
-  }
-  if (agent === 'aider') {
-    return <AiderIcon size={size} className={className} />
-  }
-  if (agent === 'kilo') {
-    return <KiloIcon size={size} className={className} />
-  }
   if (agent === 'copilot') {
     return <CopilotIcon size={size} className={className} />
   }
@@ -55,8 +32,7 @@ export function AgentIcon({
   }
   const catalogEntry = getAgentCatalog().find((a) => a.id === agent)
   // Prefer bundled favicons for offline use and regions where Google’s service is unreachable (#8451).
-  const iconAgent = agent === 'dsb' ? 'dsh' : agent
-  const bundledFaviconUrl = AGENT_FAVICON_ASSETS[iconAgent]
+  const bundledFaviconUrl = AGENT_FAVICON_ASSETS[agent]
   // Resolve src once so empty iconUrl cannot pass a truthy fallback guard yet render src="".
   const iconSrc = catalogEntry?.iconUrl ?? bundledFaviconUrl
   if (iconSrc) {

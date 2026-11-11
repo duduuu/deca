@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import {
-  parseHermesSessionContent,
-  parseHermesSessionDocument
-} from '../scanners/hermes/session-scanner-hermes-parser'
-import {
   parseDevinSessionContent,
   parseDevinSessionDocument
 } from '../scanners/devin/session-scanner-devin-parser'
@@ -11,11 +7,6 @@ import {
   parseGeminiSessionContent,
   parseGeminiSessionDocument
 } from '../scanners/gemini/session-scanner-gemini-parsers'
-import {
-  parseClineSessionContent,
-  parseClineSessionDocuments
-} from '../scanners/cline/session-scanner-cline-parser'
-
 const file = {
   path: '/sessions/identity/identity.json',
   mtimeMs: 1000,
@@ -29,13 +20,6 @@ async function* bytes(content: string) {
   }
 }
 const fixtures = [
-  {
-    agent: 'hermes',
-    parse: parseHermesSessionContent,
-    stream: parseHermesSessionDocument,
-    content:
-      '{"messages":[{"role":"user","content":"Ü🐋 first"},{"role":"assistant","content":"answer"}],"session_id":"id","cwd":"/repo","model":"root","session_start":"2026-01-01T00:00:00Z","last_updated":"2026-01-02T00:00:00Z","message_count":99}'
-  },
   {
     agent: 'devin',
     parse: parseDevinSessionContent,
@@ -76,23 +60,4 @@ describe('streamed whole-document parser equivalence', () => {
       await expect(fixture.stream(file, bytes(content), 'darwin', options)).rejects.toThrow()
     })
   }
-  it('Cline preserves sidecar semantics, metadata field order and duplicate arrays', async () => {
-    const metadata =
-      '{"session_id":"id","cwd":"/repo","started_at":"2026-01-01T00:00:00Z","prompt":"fallback"}'
-    for (const messages of [
-      '{"messages":[{"role":"user","content":"Ü🐋 first","ts":"2026-01-02T00:00:00Z"},{"role":"assistant","content":"answer","modelInfo":{"id":"sidecar"}}],"updated_at":"2026-01-03T00:00:00Z"}',
-      '{"messages":[{"role":"user","content":"old"}],"messages":[]}',
-      '{"messages":[{"role":"user","content":"partial"}]'
-    ]) {
-      expect(
-        await parseClineSessionDocuments(
-          file,
-          bytes(metadata),
-          () => bytes(messages),
-          'darwin',
-          options
-        )
-      ).toEqual(parseClineSessionContent(file, metadata, messages, 'darwin', options))
-    }
-  })
 })

@@ -18,7 +18,6 @@ import { LOCAL_EXECUTION_HOST_ID } from '../../shared/execution-host'
 import { isWslUncPath } from '../../shared/wsl-paths'
 import { getStructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import { structuredAgentRuntimeMetadata } from '../runtime/agent-session/installation/structured-agent-runtime-metadata'
-import { readPiSessionHeader } from '../pi/rpc-launch-resolution'
 import { copyStructuredChatRecordConversation } from './structured-chat-conversation-copy'
 import { isAiVaultAgent } from './session-list-result-validation'
 import type { AgentJournalSnapshot } from '../../shared/agent-session/journal/agent-session-journal-types'
@@ -135,7 +134,7 @@ export async function prepareStructuredChatCliFork(
     requireCurrent()
     const result = await copyStructuredChatRecordConversation(record, providerSessionId)
     const copy = result.forkedSession
-    if (!copy || (agent === 'omp' && !copy.filePath)) {
+    if (!copy) {
       throw new Error('The agent did not return a saved conversation copy.')
     }
     return {
@@ -161,10 +160,6 @@ export async function prepareStructuredChatCliFork(
     filePath = head.handle.nativeId
     if (head.handle.transport !== 'jsonl-rpc' || !isAbsolute(filePath) || isWslUncPath(filePath)) {
       throw new Error('The chat has no valid saved session file.')
-    }
-    const header = await readPiSessionHeader(filePath)
-    if (!header || header.id !== providerSessionId) {
-      throw new Error('The saved conversation does not match this chat.')
     }
   } else {
     const store = importer.conversationStore({ accountHome: record.accountHome, launchEnv })

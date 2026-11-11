@@ -18,9 +18,11 @@ export function agentPromptTakesLeadLine(agent: TerminalAgent | null | undefined
   return !isTuiAgent(agent) || TUI_AGENT_CONFIG[agent].pasteNeedsTypedRequest === true
 }
 
-/** OMP recognizes a submitted bracketed paste only when Enter shares its PTY write. */
-export function agentPromptSubmitJoinsPasteFrame(agent: TerminalAgent | null | undefined): boolean {
-  return agent === 'omp'
+/** No kept agent needs Enter to share the bracketed-paste PTY write. */
+export function agentPromptSubmitJoinsPasteFrame(
+  _agent: TerminalAgent | null | undefined
+): boolean {
+  return false
 }
 
 // Win11 bundled ConPTY ingest, 16KiB chunks: 2KB=14/25ms, 8KB=60/89ms, 40KB=347/440ms, 160KB=1662/1499ms, 320KB=3342/2969ms on two hosts. 64B/ms gives 1.5x margin over the slowest slope (0.0104ms/B); rendering was ~0ms.

@@ -9,7 +9,7 @@ const NO_OPTIONS: AiVaultScanOptions = {}
 const NO_WSL: readonly string[] = []
 
 async function rootDirsFor(
-  agent: 'codex' | 'copilot' | 'devin' | 'openclaw' | 'kimi' | 'grok',
+  agent: 'codex' | 'copilot' | 'devin' | 'grok',
   env: Record<string, string>
 ): Promise<string[]> {
   vi.resetModules()
@@ -61,20 +61,6 @@ const CASES = [
             ),
         'transcripts'
       )
-  },
-  {
-    agent: 'openclaw',
-    envVar: 'OPENCLAW_STATE_DIR',
-    absolute: '/srv/openclaw',
-    absoluteRoot: join('/srv/openclaw', 'agents'),
-    defaultRoot: () => join(homedir(), '.openclaw', 'agents')
-  },
-  {
-    agent: 'kimi',
-    envVar: 'KIMI_CODE_HOME',
-    absolute: '/srv/kimi',
-    absoluteRoot: join('/srv/kimi', 'sessions'),
-    defaultRoot: () => join(homedir(), '.kimi-code', 'sessions')
   },
   {
     agent: 'grok',

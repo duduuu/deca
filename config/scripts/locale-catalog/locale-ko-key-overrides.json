@@ -575,17 +575,11 @@
   "auto.components.automations.CreateFromPicker.dd3841b442": {
     "ko": "브랜치 생성 기준"
   },
-  "auto.components.automations.ExternalAutomationManagers.0a2d4359a8": {
-    "ko": "관리 가능"
-  },
   "auto.components.automations.ExternalAutomationManagers.701515f010": {
     "ko": "자동화"
   },
   "auto.components.automations.ExternalAutomationManagers.8e9165af08": {
     "ko": "실행"
-  },
-  "auto.components.automations.ExternalAutomationManagers.92405f1431": {
-    "ko": "사용 불가"
   },
   "auto.components.automations.ExternalAutomationManagers.bf5f67b590": {
     "ko": "Hermes"
@@ -619,9 +613,6 @@
   },
   "auto.components.automations.automation.templates.repoHealth.category": {
     "ko": "Repo 상태"
-  },
-  "auto.components.automations.external.automation.schedule.display.a8e92b815a": {
-    "ko": "일정을 사용할 수 없음"
   },
   "auto.components.browser.pane.BrowserMobileDriverOverlay.20539eca03": {
     "ko": "휴대폰에서 이 브라우저를 제어 중입니다."
@@ -2357,17 +2348,11 @@
   "auto.components.settings.appearance.search.0c83659f48": {
     "ko": "단축키"
   },
-  "auto.components.settings.appearance.search.35565867cb": {
-    "ko": "Moonshot"
-  },
   "auto.components.settings.appearance.search.3a6c028ea8": {
     "ko": "Kimi 사용량"
   },
   "auto.components.settings.appearance.search.3a9b69d734": {
     "ko": "시스템"
-  },
-  "auto.components.settings.appearance.search.40e5c3c285": {
-    "ko": "kimi"
   },
   "auto.components.settings.appearance.search.43cfba3b95": {
     "ko": "서버"
@@ -4241,9 +4226,6 @@
   "sessionHistory.settings.computersConsent": {
     "ko": "각 컴퓨터는 자체 에이전트 대화와 도구 출력의 검색 가능한 사본을 보관합니다. 이 데이터는 해당 컴퓨터 밖으로 전송되지 않습니다."
   },
-  "settings.appearance.statusBar.zcodeToggleDescription": {
-    "ko": "ZCode Coding Plan 할당량 사용량을 표시합니다."
-  },
   "auto.components.settings.AppearancePane.ef89200c1f": {
     "ko": "터미널 패널에 없을 때."
   },
@@ -4306,9 +4288,6 @@
   },
   "auto.components.settings.appearance.search.d18b54ca90": {
     "ko": "Dock"
-  },
-  "auto.components.settings.appearance.search.zcodeUsageDescription": {
-    "ko": "상태 표시줄에 ZCode Coding Plan 할당량 사용량을 표시합니다."
   },
   "auto.components.settings.terminal.search.3023e01415": {
     "ko": "개별 터미널 색상을 재정의합니다."
@@ -4634,29 +4613,8 @@
   "auto.components.settings.AccountsPane.codexLoginLinkOpen": {
     "ko": "열기"
   },
-  "auto.components.settings.AccountsPane.a7b1e3c5d2": {
-    "ko": "저장된 키 삭제"
-  },
-  "auto.components.settings.AccountsPane.copySelectedConsoleCookie": {
-    "ko": "선택한 콘솔을 열고 로그인한 뒤 DevTools에서 Cookie 요청 헤더를 복사하세요(Network → 임의의 remains 요청 → Cookie)."
-  },
-  "auto.components.settings.AccountsPane.apiKeyInstructions": {
-    "ko": "MiniMax 콘솔 → API 키에서 API 키를 복사하세요. 저장된 API 키가 쿠키보다 우선합니다. 쿠키로 다시 전환하려면 저장된 키 삭제를 사용하세요."
-  },
-  "auto.components.settings.accounts.search.f8374c3151": {
-    "ko": "MiniMax 사용량 추적을 설정합니다. 해외 또는 중국 엔드포인트를 선택한 다음, 세션 쿠키를 붙여넣거나 두 호스트 모두에서 작동하는 API 키를 저장하세요."
-  },
-  "auto.components.settings.accounts.search.d16378a88f": {
-    "ko": "minimax"
-  },
-  "auto.components.settings.accounts.search.b2c4e7f1a8": {
-    "ko": "엔드포인트"
-  },
   "auto.components.settings.accounts.search.zcodePlan.title": {
     "ko": "GLM Coding Plan"
-  },
-  "auto.components.settings.accounts.search.zcodePlan.description": {
-    "ko": "Z.AI 또는 Zhipu(BigModel) GLM Coding Plan 사용량을 추적합니다. 사이트를 선택하고 요금제 API 키를 저장하세요."
   },
   "auto.components.settings.GrokAccountsSection.e6dadc1e2b": {
     "ko": "월간 사용량"
@@ -4669,54 +4627,6 @@
   },
   "auto.components.settings.GrokAccountsSection.0bb18642b7": {
     "ko": "사용량"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.keySaved": {
-    "ko": "GLM Coding Plan API 키를 저장했습니다."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.keySaveFailed": {
-    "ko": "GLM Coding Plan 자격 증명 업데이트에 실패했습니다."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.title": {
-    "ko": "GLM Coding Plan"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.subtitle": {
-    "ko": "상태 표시줄에서 Z.AI 또는 Zhipu(BigModel) GLM Coding Plan 사용량을 추적합니다. 여기에 요금제 API 키를 저장하면 ZCode CLI 설정이 필요하지 않습니다."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.consoleLink": {
-    "ko": "API 키 받기"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.usingCliHelp": {
-    "ko": "Orca는 이 컴퓨터의 ZCode CLI 자격 증명 저장소에서 선택한 Coding Plan을 읽습니다. 대신 여기에서 요금제를 연결하려면 아래에 API 키를 저장하세요."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.notConfigured": {
-    "ko": "연결된 GLM Coding Plan 없음"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.siteTitle": {
-    "ko": "요금제 사이트"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.siteDescription": {
-    "ko": "Coding Plan이 속한 콘솔을 선택하세요. 국제 사이트는 Z.AI, 중국 본토 사이트는 Zhipu BigModel입니다."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.keyPlaceholder": {
-    "ko": "GLM Coding Plan API 키를 붙여넣으세요"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.forgetKey": {
-    "ko": "저장된 키 삭제"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.keyHelp": {
-    "ko": "코딩 도구가 이 요금제에 사용하는 것과 같은 키입니다(예: ANTHROPIC_BASE_URL을 해당 사이트로 지정한 Claude Code). 위에서 사이트를 바꾸면 키를 받는 호스트도 바뀝니다."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.usageTitle": {
-    "ko": "요금제 사용량"
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.usageDescription": {
-    "ko": "연결된 Coding Plan의 실시간 할당량 구간입니다. 상태 표시줄의 사용량 갱신 주기에 맞춰 새로 고쳐집니다."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.hostOnly": {
-    "ko": "요금제 사이트와 API 키는 Orca를 실행 중인 컴퓨터의 데스크톱 앱에서 변경하세요."
-  },
-  "auto.components.settings.ZcodePlanAccountsSection.detailsUnavailable": {
-    "ko": "요금제 자격 증명 세부 정보는 Orca를 실행 중인 컴퓨터에서만 볼 수 있습니다."
   },
   "accounts.antigravity.signIn": {
     "ko": "이 호스트에서 agy를 실행하고 브라우저 로그인을 완료한 후 현재 계정을 저장하세요. 다른 계정을 추가하려면 agy에서 /logout 명령을 실행하고 다시 로그인하세요."
@@ -4744,42 +4654,6 @@
   },
   "auto.components.settings.AccountsPane.remoteScopeLocalAccountsKeptHostPicker": {
     "ko": "이 데스크톱에서 관리하는 계정은 그대로 유지됩니다. 확인하려면 설정 상단의 호스트 메뉴에서 이 컴퓨터를 선택하세요."
-  },
-  "auto.components.settings.ZcodeCliSetupSection.apiKey": {
-    "ko": "ZCode API 키 설정"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.apiKeyInstructions": {
-    "ko": "Enter를 눌러 ZCode를 시작한 뒤 /login을 입력하고, 이용 중인 요금제 사이트에 맞는 API 키 옵션을 선택하세요. ZCode에서 입력 내용이 가려지는 프롬프트에 키를 입력하세요."
-  },
-  "auto.components.settings.ZcodeCliSetupSection.bigmodel": {
-    "ko": "BigModel 브라우저 로그인"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.close": {
-    "ko": "설정 터미널 닫기"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.description": {
-    "ko": "GLM을 코딩 에이전트로 사용하려면 로그인하세요. 위의 할당량 API 키는 사용량 조회에만 사용되며, 로그인과 모델 선택은 ZCode에서 별도로 관리합니다."
-  },
-  "auto.components.settings.ZcodeCliSetupSection.help": {
-    "ko": "이용 중인 요금제 사이트의 브라우저 로그인을 선택하거나, 입력 내용이 가려지는 ZCode API 키 설정을 사용하세요. 로그인 후 ZCode를 시작하고 /model로 GLM 모델을 선택하세요."
-  },
-  "auto.components.settings.ZcodeCliSetupSection.loading": {
-    "ko": "로그인 터미널 불러오는 중…"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.oauthInstructions": {
-    "ko": "Enter를 눌러 로그인 명령을 실행한 뒤 ZCode가 출력한 인증 URL을 여세요. 로그인 정보는 이 터미널이 실행되는 호스트에 저장됩니다."
-  },
-  "auto.components.settings.ZcodeCliSetupSection.terminalLabel": {
-    "ko": "ZCode 로그인 터미널"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.terminalTitle": {
-    "ko": "ZCode 로그인"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.title": {
-    "ko": "ZCode로 GLM 사용"
-  },
-  "auto.components.settings.ZcodeCliSetupSection.zai": {
-    "ko": "Z.AI 브라우저 로그인"
   },
   "auto.components.settings.ExperimentalPane.a20d5ea365": {
     "ko": "해당 패널과 상호 작용할 때까지 터미널 벨 또는 에이전트 완료 이벤트 후에 패널 수준 강조 표시를 유지합니다. 신호를 조정하는 동안 실험적입니다."
@@ -5480,9 +5354,6 @@
   "auto.components.settings.EphemeralVmRuntimesSection.failed": {
     "ko": "실패"
   },
-  "auto.components.automations.automation.list.last.run.failed": {
-    "ko": "실패"
-  },
   "auto.components.settings.CommitMessageAiPane.47e45cbd5a": {
     "ko": "사용자 지정 명령"
   },
@@ -5497,9 +5368,6 @@
   },
   "auto.components.feature.wall.AiCommitPrSettingsCard.9ee54037a4": {
     "ko": "사용자 지정 명령"
-  },
-  "auto.components.settings.AccountsPane.316ca4e610": {
-    "ko": "저장된 쿠키 삭제"
   },
   "menu.appearance": {
     "ko": "모양"

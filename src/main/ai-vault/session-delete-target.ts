@@ -23,11 +23,7 @@ import { subagentTranscriptsDirFor } from './scanners/claude/session-scanner-sub
 import type { AiVaultScanOptions } from './session-scanner-types'
 
 // These sessions own their containing directory, including companion files.
-const AI_VAULT_WHOLE_DIRECTORY_DELETE_AGENTS = new Set<AiVaultDeletableAgent>([
-  'rovo',
-  'grok',
-  'cline'
-])
+const AI_VAULT_WHOLE_DIRECTORY_DELETE_AGENTS = new Set<AiVaultDeletableAgent>(['grok'])
 
 export type ValidateAiVaultSessionDeleteTargetArgs = {
   agent: AiVaultAgent

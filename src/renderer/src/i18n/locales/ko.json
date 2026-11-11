@@ -151,15 +151,12 @@
         "codexToggleDescription": "활성 워크스페이스에 대한 Codex 토큰 및 비용 사용량을 표시합니다.",
         "geminiToggleDescription": "활성 워크스페이스에 대한 Gemini 토큰 및 비용 사용량을 표시합니다.",
         "opencodeGoToggleDescription": "활성 워크스페이스에 대한 OpenCode Go 토큰 및 비용 사용량을 표시합니다.",
-        "kimiToggleDescription": "활성 워크스페이스의 Kimi 구독 사용량을 표시합니다.",
-        "minimaxToggleDescription": "활성 워크스페이스의 MiniMax 구독 사용량을 표시합니다.",
         "sshToggleDescription": "사용 가능한 SSH 및 원격 Deca 호스트가 있으면 표시합니다.",
         "resourceUsageToggleDescription": "리소스 관리자를 표시합니다. 클릭하면 CPU, 메모리, 세션, 데몬 제어, 워크스페이스 디스크 스캔을 볼 수 있습니다.",
         "portsToggleDescription": "라이브 워크스페이스 포트를 표시합니다. 워크스페이스 범위 포트 및 외부 수신기를 보려면 클릭하세요.",
         "antigravityToggleDescription": "활성 워크스페이스에 대한 Antigravity 구독 사용량을 표시합니다.",
         "grokToggleDescription": "Grok CLI로 로그인한 경우 Grok 구독 크레딧 사용량을 표시합니다.",
-        "cursorToggleDescription": "cursor-agent 또는 Cursor IDE로 로그인한 경우 Cursor 플랜 사용량을 표시합니다.",
-        "zcodeToggleDescription": "ZCode Coding Plan 할당량 사용량을 표시합니다."
+        "cursorToggleDescription": "cursor-agent 또는 Cursor IDE로 로그인한 경우 Cursor 플랜 사용량을 표시합니다."
       },
       "menuBarIcon": {
         "description": "macOS 메뉴 바에 Deca 바로가기 및 활동 표시기를 유지합니다.",
@@ -933,51 +930,18 @@
     "lib": {
       "agent": {
         "catalog": {
-          "5dff448636": "OpenClaw",
-          "8a9ba743cc": "Hermes",
-          "4e63c7b956": "Rovo Dev",
-          "bee242fe3d": "Qwen Code",
-          "ca73055bd0": "Mistral Vibe",
-          "28810273af": "Kimi",
-          "739a930554": "Droid",
           "667c104cff": "Cursor",
-          "9e2a9bb87b": "Continue",
-          "6f8056a565": "Command Code",
-          "4238b771b5": "Codebuff",
-          "cbaf0c2e0b": "Cline",
-          "1f8a19e9ad": "Autohand Code",
-          "5e8eff11b3": "Auggie",
-          "9477377a2a": "Charm",
           "e0247254f2": "Kiro",
-          "918ba4ffed": "Kilocode",
-          "c73c573939": "Amp",
-          "8da11d876c": "Goose",
-          "b32627f09b": "Aider",
           "691dd11789": "Antigravity",
           "12e6baa4f7": "Gemini",
-          "09973b4d84": "OMP",
-          "302934c5d9": "Pi",
           "e7a4ca5103": "OpenCode",
           "706b0fe68b": "GitHub Copilot",
           "0baad2d5d2": "Grok",
           "760bc6883d": "Codex",
-          "a5fc0cb622": "OpenClaude",
           "bf53f09bf8": "Claude Agent Teams",
           "0708ed89f1": "Claude",
           "fc80296033": "Devin",
-          "da41abbdd4": "Ante",
-          "060d152fb5": "Trae",
-          "d443a47995": "Prime Agent",
-          "mimo_code_label": "MiMo Code",
-          "muse_label": "Muse",
-          "opencode2_label": "OpenCode 2",
-          "codebuddy_label": "CodeBuddy",
-          "zcode_label": "ZCode",
-          "jcode_label": "Jcode",
-          "freebuff_label": "Freebuff",
-          "dsh_label": "DeepSeek Harness",
-          "qoder_label": "Qoder CLI",
-          "qoder_cn_label": "Qoder CLI China"
+          "opencode2_label": "OpenCode 2"
         },
         "skill": {
           "cli": {
@@ -1545,7 +1509,7 @@
         "cd50cec5d7": "Deca를 통해 여러 코딩 에이전트를 조율합니다.",
         "58a868e8e4": "오케스트레이션",
         "7c79d3b7bf": "선택 사항",
-        "b1c2f8b0ac": "Claude, Codex, Gemini, OpenCode Go, MiniMax, Grok의 선택적 계정 전환 및 사용량 설정.",
+        "b1c2f8b0ac": "Claude, Codex, Gemini, OpenCode Go, Grok의 선택적 계정 전환 및 사용량 설정.",
         "f70ac54d38": "AI 제공자 계정",
         "4121f7a0a2": "AI agents를 관리하고, 기본값을 설정하고, 명령을 사용자 정의하세요.",
         "b49abbd2f7": "에이전트",
@@ -3451,14 +3415,6 @@
             "ae20d0ffc2": "닫기",
             "38c282a2c4": "분석기는 여기에서 직접 열립니다. 나중에 공간 분석기를 선택하여 왼쪽 하단 도구 상자 메뉴에서 열 수도 있습니다."
           },
-          "zcode": {
-            "missing": {
-              "tui": {
-                "title": "이 ZCode 빌드에는 터미널 UI가 없습니다",
-                "description": "Deca 후크는 올바르게 설치되었습니다 — PATH에 있는 zcode는 세션을 열 수 없을 뿐입니다. ZCode 데스크톱 앱은 터미널 UI 없이 에이전트 런타임을 번들로 제공합니다. TUI가 포함된 zcode를 설치한 다음 Deca 외부에서 zcode를 실행하여 확인하세요."
-              }
-            }
-          },
           "osc52": {
             "clipboard": {
               "blocked": {
@@ -4015,7 +3971,6 @@
             "9659e38343": "포트",
             "d1e1a7a6bf": "리소스 관리자",
             "24ac89df1a": "원격 호스트",
-            "5e59007df4": "Kimi 사용량",
             "8c86cd77b0": "OpenCode Go 사용량",
             "c1df0d67ec": "Gemini 사용량",
             "c0909c686e": "Codex 사용량",
@@ -4045,7 +4000,6 @@
             "6d1042aa6f": "활성 계정의 Codex rate-limit 재설정 크레딧 1회를 사용해 재설정 가능한 사용량 창을 즉시 초기화합니다.",
             "f077f586db": "다시 묻지 않기",
             "c0e972d726": "취소",
-            "3bbf140864": "MiniMax 사용량",
             "remoteServerLabel": "원격 서버",
             "antigravityUsage": "Antigravity 사용량",
             "grokUsageMenu": "Grok 사용량",
@@ -4055,7 +4009,6 @@
             "codexSignInError": "Codex 로그인에 실패했습니다. 다시 시도해 주세요.",
             "cursorUsageMenu": "Cursor 사용량",
             "hiddenUsageProviders": "그 외: {{value0}}",
-            "zcodeUsageMenu": "ZCode 사용",
             "rateLimitResetsAvailable_other": "속도 제한 재설정 {{count}}회 사용 가능",
             "staleCodexSessions_other": "Codex 세션 {{count}}개가 아직 이전 계정을 사용하고 있습니다."
           },
@@ -4211,15 +4164,6 @@
             "a7517cccb6": "현재 Claude 사용량을 사용할 수 없습니다.",
             "e2c6a4f917": "Grok을 실행하여 새로 고침",
             "d1b7f509ac": "Deca를 실행하는 컴퓨터의 터미널에서 grok을 실행하고 시작될 때까지 기다리세요. 메시지가 표시되면 로그인을 완료한 후 사용량 조회를 다시 시도하세요. 채팅 메시지를 보낼 필요는 없습니다.",
-            "f90b3d7a16": "새로고침하려면 Kimi를 실행하세요.",
-            "a37e8c15d4": "Deca를 실행하는 컴퓨터의 터미널에서 kimi를 실행하고 시작될 때까지 기다린 후 사용량 조회를 다시 시도하세요.",
-            "minimax": {
-              "expired": {
-                "label": "로그인이 만료되었습니다",
-                "apiKey": "MiniMax API 키가 만료되었습니다. 설정에서 교체하세요.",
-                "cookie": "MiniMax 세션 쿠키가 만료되었습니다. 설정에서 교체하세요."
-              }
-            },
             "usage": {
               "noSubscription": {
                 "label": "구독 없음"
@@ -4231,9 +4175,6 @@
                 "message": "Deca가 실행 중인 컴퓨터의 터미널에서 cursor-agent login을 실행한 뒤 사용량을 다시 시도하세요."
               },
               "plan": "플랜"
-            },
-            "zcode": {
-              "mcp": "MCP"
             },
             "claude": {
               "waiting": {
@@ -4663,7 +4604,6 @@
           "e06d1baf5c": "사용량 개요 새로고침",
           "c760c481c5": "사용량 개요",
           "55c910f4f1": "- 일부 모델 가격 확인 불가",
-          "enableMuse": "Muse 사용",
           "noLocalUsageYet": "아직 로컬 Claude, Codex, OpenCode 또는 Muse 사용량을 찾지 못했습니다. 다음 에이전트 세션이 토큰 로그를 기록하면 개요가 채워집니다.",
           "providersEnabledWithData": "{{enabled}}개 활성화 - {{withData}}개에 데이터 있음",
           "sessionCount_other": "세션 {{formatted}}개"
@@ -4703,8 +4643,7 @@
             "e7f0a1b2c3": "구독",
             "d6e9f0a1b2": "크레딧",
             "a3b6c7d8e9": "grok 사용량",
-            "9f2a3b4c5d": "xai",
-            "museKeyword": "muse"
+            "9f2a3b4c5d": "xai"
           }
         },
         "usage": {
@@ -4756,17 +4695,6 @@
           "e5a6b7c8d9": "사용한 주간 크레딧",
           "f6b7c8d9e0": "결제 기간 재설정",
           "a7b8c9d0e1": "Grok 계정 설정"
-        },
-        "MuseUsagePane": {
-          "title": "Muse 사용량 추적",
-          "enableLabel": "Muse 사용량 분석 사용",
-          "disabledDescription": "로컬 Muse 세션 로그를 읽어 토큰, 모델, 세션 통계를 표시합니다.",
-          "scopeAll": "모든 로컬 Muse 사용량",
-          "optionsLabel": "Muse 사용량 옵션",
-          "refreshAriaLabel": "Muse 사용량 새로 고침",
-          "emptyMessage": "이 범위에서 아직 로컬 Muse 사용량을 찾지 못했습니다.",
-          "noCostNote": "Muse 세션 로그에는 토큰만 기록되고 비용은 기록되지 않으므로 비용 추정치를 표시하지 않습니다.",
-          "recentSessionsDescription": "이 범위에서 가장 최근의 로컬 Muse 세션입니다."
         },
         "usageFormatters": {
           "notScannedYet": "아직 스캔하지 않음",
@@ -6477,7 +6405,6 @@
           "ae3b21eb6c": "opencode.ai/workspace/wrk_…/go",
           "51c9104e13": "opencode.ai에 로그인한 후 URL에서 이를 찾으세요(예:",
           "b398b834c9": "지우기",
-          "316ca4e610": "저장된 쿠키 삭제",
           "a122332371": "wrk_… (자동 조회를 위해 비워두세요)",
           "dbdb0b0bd8": "워크스페이스 ID 재정의",
           "d70a5287a4": "자동 조회가 실패할 때 사용할 선택적 워크스페이스 ID 재정의입니다.",
@@ -6523,38 +6450,10 @@
           "e4a28e8894": "Codex는 {{value0}} 로그인에 새로 로그인해야 한다고 보고했습니다. 새 Codex 세션을 시작하기 전에 다시 로그인하세요.",
           "75ca9b718e": "Codex는 활성 계정에 새로 로그인해야 한다고 보고했습니다. 새 Codex 세션을 시작하기 전에 다시 인증하세요.",
           "e05d0ff737": "현재 {{value0}} Claude 로그인을 사용하세요.",
-          "2f24f244a4": "MiniMax Cookie가 필요합니다.",
-          "8e6f0cb1d8": "MiniMax Cookie가 저장되지 않았습니다.",
-          "8d61637a77": "MiniMax Cookie가 저장되었습니다.",
-          "b43e761fe5": "MiniMax Cookie 업데이트에 실패했습니다.",
-          "5d63bbfbec": "MiniMax",
-          "33bba5ad83": "로컬 rate-limit 가져오기에 사용할 MiniMax 세션 Cookie를 붙여넣으세요.",
           "73ea15f24b": "저장됨",
           "23afe8f226": "저장되지 않음",
           "f38b9cc4bd": "교체",
           "590a3130f9": "저장",
-          "9dd50d3f75": "고급",
-          "174fb408f9": "MiniMax 사용량 새로 고침이 잘못된 워크스페이스나 모델을 가리키는 경우에만 이 기본값을 변경하세요.",
-          "bf160bb6c0": "Group ID 재정의",
-          "b1e2743313": "선택 항목입니다. 비워두면 Cookie의 minimax_group_id_v2가 사용됩니다.",
-          "0747d6391a": "Cookie의 Group ID 사용",
-          "4ff2af7524": "사용 모델 이름",
-          "5cf4b0f85f": "선택적인 쉼표로 구분된 모델 이름. MiniMax가 모델 관련 오류를 반환하지 않는 한 general로 두세요.",
-          "3c92b0d31c": "general",
-          "0d8e77bc40": "콘솔 열기",
-          "0b8c1c7e02": "로컬에 저장됨",
-          "43d7a45b97": "복사 방법",
-          "b8a4f21c3e": "DevTools에서 Cookie 헤더 붙여넣기",
-          "53f7b8c7a2": "마지막 새로 고침: {{value0}}",
-          "31d24a4e87": "브라우저에서 로그아웃하면 Cookie가 만료됩니다.",
-          "3a30aaf526": "방금 전",
-          "24560fe830": "DevTools를 엽니다.",
-          "4cab0fa42d": "네트워크 탭으로 이동하여 Preserve log를 활성화합니다.",
-          "bee4e63e1c": "페이지를 새로 고침합니다.",
-          "87f814af6f": "remains로 필터링하고 coding_plan/remains 요청을 선택합니다.",
-          "435df0ee51": "Request Headers에서 Cookie 값을 복사합니다.",
-          "7492fb3bba": "여기에 붙여넣고 저장을 클릭합니다.",
-          "9fec52de4b": "Cookie 복사 방법",
           "remoteServerFallback": "원격 서버",
           "loadAccountsFailed": "프로바이더 계정을 불러오지 못했습니다.",
           "accountScopePrefix": "계정 범위",
@@ -6577,24 +6476,6 @@
           "codexLoginLinkCopy": "링크 복사",
           "codexLoginLinkOpen": "열기",
           "codexLoginLinkCopyFailed": "링크를 복사할 수 없습니다.",
-          "d6f1b9b6a2": "MiniMax API 키가 필요합니다.",
-          "7c5d8a4e1b": "MiniMax API 키가 저장되지 않았습니다.",
-          "4d2c7b9e83": "MiniMax API 키가 저장되었습니다.",
-          "f8a4b9d210": "MiniMax 엔드포인트",
-          "0b3a9f6c2e": "귀하의 계정과 일치하는 호스트를 선택하십시오. 해외(platform.minimax.io)와 중국(platform.minimaxi.com) 모두 세션 쿠키 또는 API 키를 허용합니다.",
-          "83b6a1f7c4": "MiniMax API 키",
-          "4f2c8a7e1b": "MiniMax API 키를 붙여넣으세요.",
-          "a7b1e3c5d2": "저장된 키 삭제",
-          "usageTracking": "귀하의 계정에 대한 MiniMax 사용량 추적을 구성하십시오.",
-          "credentialsNotSet": "자격 증명이 설정되지 않았습니다.",
-          "selectedEndpointStorage": "로컬에 저장되고 사용량 새로 고침을 위해 선택한 MiniMax 엔드포인트로 전송됩니다.",
-          "endpointOverseas": "해외 (platform.minimax.io)",
-          "endpointChina": "중국(platform.minimaxi.com)",
-          "openSelectedConsole": "브라우저에서 {{url}}을(를) 열고 로그인하세요.",
-          "cookieSelectedEndpoint": "로컬에 저장되고 사용량 새로 고침을 위해 선택한 MiniMax 엔드포인트로 전송됩니다.",
-          "copySelectedConsoleCookie": "선택한 콘솔을 열고 로그인한 뒤 DevTools에서 Cookie 요청 헤더를 복사하세요(Network → 임의의 remains 요청 → Cookie).",
-          "apiKeySelectedEndpoint": "MiniMax 콘솔 → API 키에서 API 키를 붙여넣으세요. 로컬에 저장되고 사용량 새로 고침을 위해 선택한 MiniMax 엔드포인트로 전송됩니다. API 키는 쿠키보다 우선순위가 높습니다.",
-          "apiKeyInstructions": "MiniMax 콘솔 → API 키에서 API 키를 복사하세요. 저장된 API 키가 쿠키보다 우선합니다. 쿠키로 다시 전환하려면 저장된 키 삭제를 사용하세요.",
           "opencodeGo": {
             "apiKey": {
               "description": "선택적 재정의. 지정하지 않으면 Deca는 /connect 실행 시 OpenCode가 저장한 키(다음으로 OPENCODE_API_KEY)를 사용합니다.",
@@ -6607,13 +6488,11 @@
             }
           },
           "remoteScopeLocalAccountsKeptHostPicker": "이 데스크톱에서 관리하는 계정은 그대로 유지됩니다. 확인하려면 설정 상단의 호스트 메뉴에서 이 컴퓨터를 선택하세요.",
-          "apiKeyUpdateFailed": "MiniMax API 키를 업데이트하지 못했습니다.",
           "91a1b78e67": "계정 위치",
           "699680a328": "계정 삭제",
           "89b9a151c3": "Claude 계정",
           "bd16d363ed": "Codex 계정",
           "4d274a02f0": "OpenCode Go 세션 쿠키",
-          "4d41177f74": "MiniMax 세션 Cookie",
           "7e9977b560": "계정 추가",
           "109431f707": "OpenCode Go 워크스페이스 ID"
         },
@@ -8509,7 +8388,6 @@
             "bdbd1e668e": "Windows",
             "593720c17f": "위치",
             "b84a5b0c8a": "이 기기 또는 WSL에서 공급자 계정을 검사하고 추가할지 선택합니다.",
-            "f8374c3151": "MiniMax 사용량 추적을 설정합니다. 해외 또는 중국 엔드포인트를 선택한 다음, 세션 쿠키를 붙여넣거나 두 호스트 모두에서 작동하는 API 키를 저장하세요.",
             "f4a8c2e1b7": "Grok(xAI) 사용량",
             "e3b7d1f9a2": "주간 크레딧 사용량을 위한 Grok CLI(grok login) OAuth 로그인.",
             "d2c6a0e8f1": "grok",
@@ -8518,11 +8396,6 @@
             "a9f3d7b5c8": "로그인",
             "37020a02c2": "콘솔",
             "25591bf95b": "속도 제한 가져오기를 위해 __Host-console_session을 포함한 전체 opencode.ai 쿠키 헤더를 붙여넣습니다.",
-            "d16378a88f": "minimax",
-            "b2c4e7f1a8": "엔드포인트",
-            "3a9b6d2c4e": "API 키",
-            "5d8f1a3b7c": "중국",
-            "7e2a4b8c1d": "해외",
             "cursor": {
               "description": "이 컴퓨터에 이미 있는 Cursor 로그인(cursor-agent login)에서 읽은 플랜 사용량입니다.",
               "kw": {
@@ -8534,25 +8407,12 @@
               },
               "39bbdebe13": "Cursor 사용량"
             },
-            "zcodePlan": {
-              "description": "Z.AI 또는 Zhipu(BigModel) GLM Coding Plan 사용량을 추적합니다. 사이트를 선택하고 요금제 API 키를 저장하세요.",
-              "kw": {
-                "glm": "glm",
-                "zai": "zai",
-                "zhipu": "zhipu",
-                "bigmodel": "bigmodel",
-                "codingPlan": "코딩 계획",
-                "rateLimit": "속도 제한 :"
-              },
-              "0db9d0465f": "GLM Coding Plan"
-            },
             "5e2101f61f": "계정 위치",
             "f0e6678f99": "OpenCode Go 세션 쿠키",
             "8eef999193": "OpenCode Go 워크스페이스 ID",
             "54c541fc6e": "Codex 계정",
             "4518496456": "활성 Codex 계정",
-            "be3a748ebb": "Claude 계정",
-            "9b6ce52c36": "MiniMax 사용량"
+            "be3a748ebb": "Claude 계정"
           }
         },
         "advanced": {
@@ -8720,15 +8580,8 @@
             "a278406ed5": "원격",
             "6ecad74eb3": "SSH",
             "f17d66d0d2": "상태 표시줄에 원격 호스트 연결 상태를 표시합니다.",
-            "35565867cb": "Moonshot",
             "de586def95": "구독",
             "00a028f25f": "사용량",
-            "40e5c3c285": "kimi",
-            "c927a155d5": "상태 표시줄에 Kimi 구독 사용량을 표시합니다.",
-            "25e51b62ee": "사용 한도",
-            "d9e7cef86f": "쿠키",
-            "d16378a88f": "minimax",
-            "e46178eb1b": "상태 표시줄에 MiniMax 구독 사용량을 표시합니다.",
             "edbf0f63a0": "비용",
             "afbb6a3767": "토큰",
             "d77537b580": "opencode-go",
@@ -8801,15 +8654,10 @@
               },
               "34f2b8c539": "Cursor 사용량"
             },
-            "zcodeUsageDescription": "상태 표시줄에 ZCode Coding Plan 할당량 사용량을 표시합니다.",
-            "zcode": "zcode",
-            "zai": "zai",
-            "glm": "glm",
             "matchTerminal": "Terminal에 맞춤",
             "37e6b58b0e": "UI 줌",
             "931c53cd16": "Claude 사용량",
             "1b404ee6ad": "Deca 모바일 버튼 표시",
-            "183e6b8ef9": "ZCode 사용",
             "d408ece868": "닫을 때 트레이로 최소화",
             "585be839e9": "Gemini 사용량",
             "20e7d30150": "OpenCode Go 사용량",
@@ -8822,8 +8670,6 @@
             "40c10c4deb": "Codex 사용량",
             "19aa904233": "앱 아이콘",
             "9bc701a4d1": "작업 버튼 표시",
-            "c29089716e": "Kimi 사용량",
-            "96e32c1118": "MiniMax 사용량",
             "aff6e6afdf": "IDE 글꼴",
             "ba1f9d39a6": "Antigravity 사용량"
           }
@@ -11417,51 +11263,6 @@
         "UnsealedCredentialNotice": {
           "body": "{{credential}}이(가) 암호화되지 않은 상태로 저장되어 있습니다. 이 시스템에는 Deca가 사용할 수 있는 OS 키링이 없습니다. 디스크나 디스크 백업을 읽을 수 있는 사람은 이 자격 증명도 읽을 수 있습니다. gnome-keyring 또는 kwallet을 설치하고 잠금 해제한 뒤 다시 저장해 암호화하세요."
         },
-        "ZcodePlanAccountsSection": {
-          "site": {
-            "bigmodel": "Zhipu · BigModel (open.bigmodel.cn)",
-            "zai": "Z.AI (z.ai)"
-          },
-          "window": {
-            "session": "5시간",
-            "weekly": "주간",
-            "mcp": "매월 MCP"
-          },
-          "resetIn": "— {{value0}} 후 초기화",
-          "keySaved": "GLM Coding Plan API 키를 저장했습니다.",
-          "keySaveFailed": "GLM Coding Plan 자격 증명 업데이트에 실패했습니다.",
-          "title": "GLM Coding Plan",
-          "subtitle": "상태 표시줄에서 Z.AI 또는 Zhipu(BigModel) GLM Coding Plan 사용량을 추적합니다. 여기에 요금제 API 키를 저장하면 ZCode CLI 설정이 필요하지 않습니다.",
-          "consoleLink": "API 키 받기",
-          "keyStored": "API 키 저장 완료 · {{value0}}",
-          "keyStoredHelp": "로컬로 저장되고 사용량 갱신을 위해 선택한 사이트로만 전송됩니다. ZCode CLI 로그인보다 우선합니다.",
-          "usingCli": "ZCode CLI 로그인 사용",
-          "usingCliHelp": "Deca는 이 컴퓨터의 ZCode CLI 자격 증명 저장소에서 선택한 Coding Plan을 읽습니다. 대신 여기에서 요금제를 연결하려면 아래에 API 키를 저장하세요.",
-          "notConfigured": "연결된 GLM Coding Plan 없음",
-          "notConfiguredHelp": "아래에 요금제 API 키를 저장하거나 이 컴퓨터에서 ZCode CLI로 로그인합니다.",
-          "refreshUsage": "사용량 새로 고침",
-          "siteTitle": "요금제 사이트",
-          "siteDescription": "Coding Plan이 속한 콘솔을 선택하세요. 국제 사이트는 Z.AI, 중국 본토 사이트는 Zhipu BigModel입니다.",
-          "keyTitle": "API 키",
-          "keyDescription": "선택한 콘솔의 API 키 페이지에서 API 키를 붙여넣습니다. 로컬에 저장되고 OS가 지원할 때 암호화되며 사용량 새로 고침을 위해 해당 사이트로만 전송됩니다.",
-          "saved": "저장했습니다",
-          "notSaved": "저장 안 됨",
-          "keyPlaceholder": "GLM Coding Plan API 키를 붙여넣으세요",
-          "replace": "교체",
-          "save": "저장",
-          "forgetKey": "저장된 키 삭제",
-          "keyHelp": "코딩 도구가 이 요금제에 사용하는 것과 같은 키입니다(예: ANTHROPIC_BASE_URL을 해당 사이트로 지정한 Claude Code). 위에서 사이트를 바꾸면 키를 받는 호스트도 바뀝니다.",
-          "usageTitle": "요금제 사용량",
-          "usageDescription": "연결된 Coding Plan의 실시간 할당량 구간입니다. 상태 표시줄의 사용량 갱신 주기에 맞춰 새로 고쳐집니다.",
-          "planLevel": "요금제: {{value0}}",
-          "hostOnly": "요금제 사이트와 API 키는 Deca를 실행 중인 컴퓨터의 데스크톱 앱에서 변경하세요.",
-          "detailsUnavailable": "요금제 자격 증명 세부 정보는 Deca를 실행 중인 컴퓨터에서만 볼 수 있습니다.",
-          "siteUnavailable": "호스트 요금제 사이트 이용 불가",
-          "keyStoredOnHostHelp": "{{host}}에 저장되며, 사용량을 새로 고칠 때 그곳에서 선택한 사이트로만 전송됩니다. ZCode CLI 로그인보다 우선합니다.",
-          "usingCliOnHostHelp": "Deca는 {{host}}의 ZCode CLI 자격 증명 저장소에서 선택한 Coding Plan을 읽습니다. 그곳에 플랜을 연결하려면 아래에 API 키를 저장하세요.",
-          "notConfiguredOnHostHelp": "아래에 플랜 API 키를 저장하거나 {{host}}에서 ZCode CLI로 로그인하세요.",
-          "keyOnHostDescription": "선택한 콘솔의 API Keys 페이지에서 API 키를 붙여 넣으세요. {{host}}에 저장되며, 사용량을 새로 고칠 때 그곳에서 해당 사이트로만 전송됩니다."
-        },
         "sshManagedHostRemove": {
           "descriptionServerHost": "Deca는 {{label}}에서 실행 중입니다. 원격 Deca 서버에서 {{label}}의 ⋯ 메뉴를 열고 중지…를 선택하여 호스트에서 Deca를 제거하세요. 호스트가 더 이상 없으면 잊기…를 선택하세요. 그 후 이 SSH 호스트를 제거할 수 있습니다.",
           "2ca95e9fd7": "원격 Deca 서버 열기"
@@ -11654,20 +11455,6 @@
           "cancel": "취소",
           "confirm": "그래도 이동"
         },
-        "ZcodeCliSetupSection": {
-          "apiKey": "ZCode API 키 설정",
-          "apiKeyInstructions": "Enter를 눌러 ZCode를 시작한 뒤 /login을 입력하고, 이용 중인 요금제 사이트에 맞는 API 키 옵션을 선택하세요. ZCode에서 입력 내용이 가려지는 프롬프트에 키를 입력하세요.",
-          "bigmodel": "BigModel 브라우저 로그인",
-          "close": "설정 터미널 닫기",
-          "description": "GLM을 코딩 에이전트로 사용하려면 로그인하세요. 위의 할당량 API 키는 사용량 조회에만 사용되며, 로그인과 모델 선택은 ZCode에서 별도로 관리합니다.",
-          "help": "이용 중인 요금제 사이트의 브라우저 로그인을 선택하거나, 입력 내용이 가려지는 ZCode API 키 설정을 사용하세요. 로그인 후 ZCode를 시작하고 /model로 GLM 모델을 선택하세요.",
-          "loading": "로그인 터미널 불러오는 중…",
-          "oauthInstructions": "Enter를 눌러 로그인 명령을 실행한 뒤 ZCode가 출력한 인증 URL을 여세요. 로그인 정보는 이 터미널이 실행되는 호스트에 저장됩니다.",
-          "terminalLabel": "ZCode 로그인 터미널",
-          "terminalTitle": "ZCode 로그인",
-          "title": "ZCode로 GLM 사용",
-          "zai": "Z.AI 브라우저 로그인"
-        },
         "SettingsHostScopePicker": {
           "label": "호스트",
           "unavailable": "{{value0}} (사용 불가)",
@@ -11697,20 +11484,6 @@
           "success": "Re-paired with {{name}}",
           "failed": "Re-pair failed",
           "descriptionShareComputer": "{{name}}이(가) 더 이상 이 컴퓨터를 허용하지 않습니다. {{name}}에서 설정 → 원격 Deca 서버 → 이 컴퓨터 공유를 열고 다른 Deca용 링크를 만든 다음 여기에 붙여 넣으세요."
-        },
-        "usageCredentialHost": {
-          "outdated": "이 키를 {{host}}에 저장하려면 해당 호스트의 Deca를 업데이트하세요.",
-          "unreachable": "{{host}}에 연결할 수 없어 키가 저장되어 있는지 알 수 없습니다.",
-          "storedOnHost": "{{host}}에 저장됨",
-          "miniMaxStorage": "{{host}}에 저장되며, 사용량을 새로 고칠 때 그곳에서 선택한 MiniMax 엔드포인트로 전송됩니다.",
-          "cookieNeedsDesktop": "{{host}}에는 세션 쿠키를 보낼 Deca 데스크톱 앱이 없습니다. 대신 API 키를 저장하세요.",
-          "checking": "{{host}} 확인 중…",
-          "sealedElsewhereForgettable": "{{host}}의 다른 Deca 앱에서 저장되어 이 앱에서는 읽을 수 없습니다. 해당 앱에서 변경하거나 여기서 삭제하세요.",
-          "unreadableKey": "{{host}}의 Deca가 저장된 키를 읽을 수 없습니다. 교체하거나 삭제하세요.",
-          "miniMaxApiKeyDescription": "MiniMax 콘솔 → API keys에서 API 키를 붙여 넣으세요. {{host}}에 저장되며, 사용량을 새로 고칠 때 그곳에서 선택한 MiniMax 엔드포인트로 전송됩니다. API 키가 쿠키보다 우선합니다."
-        },
-        "useUsageHostSettings": {
-          "updateFailed": "{{host}}의 설정을 업데이트하지 못했습니다."
         },
         "nodeDistMirrorDialog": {
           "action": "Node.js 미러 사용…",
@@ -16447,17 +16220,11 @@
           "2faecab10b": "지금 실행",
           "13118faadf": "알 수 없는 프로젝트",
           "73f630b49d": "취소",
-          "9adfab2596": "외부 자동화 삭제",
           "1e2e41392f": "다시 묻지 마세요",
           "080dcb5fbb": "자동화 삭제",
           "19a6e30eae": "자동화 새로 고침",
           "77c2778945": "자동화",
           "e1bf9b1512": "워크스페이스를 사용할 수 없습니다.",
-          "126d726546": "외부 자동화 작업이 실패했습니다.",
-          "37288942f0": "외부 자동화가 재개되었습니다.",
-          "77c518a34b": "외부 자동화가 일시중지되었습니다.",
-          "4d7878402c": "외부 자동화가 대기 중입니다.",
-          "4c22bc9913": "외부 자동화가 삭제되었습니다.",
           "3a4c476aa0": "자동화를 다시 실행하지 못했습니다.",
           "a1bdb57008": "자동화 실행이 대기 중입니다.",
           "8a3226f172": "설정 열기",
@@ -16476,7 +16243,6 @@
           "2430fecf53": "실행 위치를 선택하고 저장하기 전에 프롬프트를 입력하세요.",
           "376631ef2b": "재개",
           "b457436d6a": "일시 중지",
-          "8500baacb4": "외부 소스",
           "36f71740a7": "선택된 워크스페이스",
           "cd8397cc32": "실행될 때마다 새로운 워크스페이스",
           "pendingAutomationMissing": "자동화를 더 이상 사용할 수 없습니다.",
@@ -16496,12 +16262,10 @@
           "tableStatus": "상태",
           "tableActions": "작업",
           "newAutomation": "새 자동화",
-          "rowActions": "자동화 작업",
           "tableLastRun": "마지막 실행",
           "ownerChanged": "이 자동화로 인해 호스트가 변경되었습니다. 새로고침하고 다시 시도하세요.",
           "runError": "오류:",
           "deleteAutomationDescription": "<name/> 및 실행 기록을 삭제합니다. 이전 실행에서 생성된 워크스페이스는 삭제되지 않습니다.",
-          "deleteExternalAutomationDescription": "<host/>의 <provider/>에서 <name/>을(를) 삭제합니다.",
           "runUsageSummaryTokens_other": "예상 {{cost}} · {{tokens}} 토큰"
         },
         "CreateFromPicker": {
@@ -16511,25 +16275,6 @@
           "e53d306056": "{{value0}}(기본값)",
           "79512f22a7": "브랜치를 찾을 수 없습니다.",
           "9ce96621f4": "브랜치 검색 중..."
-        },
-        "ExternalAutomationManagers": {
-          "e02f970595": "외부 자동화 관리자를 찾을 수 없습니다.",
-          "6da3bfba4b": "자동화가 발견되었습니다.",
-          "3d58d5b67d": "아니요",
-          "a42bf2b27e": "외부 자동화 삭제",
-          "1c3bfd38fe": "외부 자동화 재개",
-          "0def1693bb": "외부 자동화 일시 중지",
-          "cc77ba88ff": "외부 자동화 실행",
-          "5820648765": "마지막",
-          "20fd7a3a15": "다음",
-          "c6695e6fbd": "외부 자동화",
-          "5524365227": "OpenClaw",
-          "2b0adbce21": "일시중지됨",
-          "b3feba84c7": "활성",
-          "92405f1431": "사용 불가",
-          "dbdcec22bd": "읽기 전용",
-          "0a2d4359a8": "관리 가능",
-          "automationCount_other": "자동화 {{count}}개"
         },
         "WorkspaceCombobox": {
           "ee5b280eba": "워크스페이스를 찾을 수 없습니다.",
@@ -16580,18 +16325,7 @@
           "list": {
             "last": {
               "run": {
-                "done": "완료",
-                "failed": "실패",
                 "statusWithRelative": "{{status}} · {{relative}}"
-              }
-            }
-          }
-        },
-        "external": {
-          "automation": {
-            "schedule": {
-              "display": {
-                "a8e92b815a": "일정을 사용할 수 없음"
               }
             }
           }
@@ -16734,10 +16468,6 @@
         "ownerAction": {
           "failed": "해당 자동화 작업이 완료되지 않았습니다."
         },
-        "externalScope": {
-          "uncheckedHost": "{{hostLabel}}의 외부 자동화 관리자를 확인할 수 없습니다.",
-          "uncheckedHostCount_other": "호스트 {{count}}개의 외부 자동화 관리자를 확인할 수 없습니다."
-        },
         "enablement": {
           "paused": "일시중지됨"
         },
@@ -16801,17 +16531,6 @@
         "usage": {
           "tokensAndCost_other": "{{tokens}} 토큰 · {{cost}}",
           "costUnavailable": "알 수 없음"
-        },
-        "externalDisplay": {
-          "sshHost": "SSH 호스트",
-          "local": "로컬"
-        },
-        "externalActionDisabled": {
-          "actionInProgress": "다른 자동화 작업이 아직 실행 중입니다.",
-          "sshConnecting": "이 SSH 호스트의 연결이 완료될 때까지 기다리세요.",
-          "connectSshHost": "{{provider}} 자동화를 관리하기 전에 이 SSH 호스트에 연결하세요.",
-          "cannotManageOnSshHost": "{{provider}}에서 이 SSH 호스트의 자동화를 관리할 수 없습니다.",
-          "cannotManageLocally": "{{provider}}에서 이 컴퓨터의 자동화를 관리할 수 없습니다."
         },
         "hostSummary": {
           "partialFailureOfHosts_other": "호스트 {{count}}개 중 {{failed}}개를 불러오지 못했습니다"
@@ -18656,7 +18375,6 @@
         "clearConversation": "대화 지우기",
         "clearHistory": "대화 기록 지우기",
         "clearTerminal": "터미널을 지우고 새 채팅 시작",
-        "clearKeepSession": "세션은 유지하고 컨텍스트 지우기",
         "help": "사용 가능한 명령어 표시",
         "compactSummarize": "대화를 요약하고 압축",
         "compactConversation": "대화 압축",
@@ -18665,9 +18383,7 @@
         "initAgents": "AGENTS.md 파일 만들기",
         "review": "현재 변경 사항 검토",
         "contextUsage": "컨텍스트 사용량 표시",
-        "contextEstimated": "예상 컨텍스트 사용량 표시",
         "modelAndEffort": "모델과 추론 강도 선택",
-        "modelTerminal": "터미널에서 모델 선택기 열기",
         "model": "모델 선택",
         "effort": "추론 강도 선택",
         "ide": "IDE 컨텍스트 포함",
@@ -18681,18 +18397,13 @@
         "import": "Claude Code에서 설정 가져오기",
         "hooks": "수명 주기 후크 보기",
         "renameThread": "현재 스레드 이름 바꾸기",
-        "renameSession": "세션 이름 바꾸기",
         "newChat": "새 채팅 시작",
-        "newSession": "새 세션 시작",
         "archive": "이 세션을 보관하고 종료",
         "delete": "이 세션을 삭제하고 종료",
         "resumeSaved": "저장된 채팅 재개",
-        "resumeSession": "세션 재개. 인수가 없으면 터미널에서 선택",
         "forkChat": "현재 채팅 포크",
-        "forkMessage": "터미널에서 이전 메시지부터 포크",
         "app": "Codex Desktop에서 계속하기",
         "planSwitch": "계획 모드로 전환",
-        "planToggle": "계획 모드 전환",
         "goal": "목표 설정 또는 보기",
         "agent": "활성 Agent 스레드 전환",
         "subagents": "활성 Agent 스레드 전환",
@@ -18703,7 +18414,6 @@
         "mention": "파일 멘션",
         "status": "세션 구성 및 사용량 표시",
         "usageAccount": "계정 사용량 보기",
-        "usageProvider": "제공자 사용량 및 한도 표시",
         "title": "터미널 제목 구성",
         "statusline": "상태 줄 구성",
         "theme": "구문 강조 테마 선택",
@@ -18715,19 +18425,7 @@
         "feedback": "유지 관리자에게 로그 보내기",
         "ps": "백그라운드 터미널 나열",
         "stop": "모든 백그라운드 터미널 중지",
-        "personality": "커뮤니케이션 스타일 선택",
-        "switch": "터미널에서 임시 모델 선택기 열기",
-        "branch": "터미널에서 이전 메시지로 되돌리기",
-        "tree": "터미널에서 세션 트리 찾아보기",
-        "session": "세션 정보 및 컨트롤 표시",
-        "fast": "우선 서비스 등급 전환",
-        "tools": "Agent에 표시되는 도구 표시",
-        "jobs": "백그라운드 작업 표시",
-        "git": "터미널에서 Git 뷰어 열기",
-        "export": "세션을 HTML로 내보내기",
-        "settings": "터미널에서 설정 열기",
-        "extensions": "터미널에서 확장 대시보드 열기",
-        "hotkeys": "터미널에서 키보드 단축키 표시"
+        "personality": "커뮤니케이션 스타일 선택"
       },
       "modelDescriptions": {
         "grok_4_7": "xAI의 최신 프런티어 모델",
@@ -20376,35 +20074,7 @@
         "openCodeInvalidEvents": "OpenCode가 잘못된 JSON 이벤트를 반환했습니다.",
         "antigravityInvalidEvents": "Antigravity가 잘못된 JSON 이벤트를 반환했습니다.",
         "antigravityInvalidResult": "Antigravity가 잘못된 결과를 반환했습니다.",
-        "antigravityNoFinalResult": "Antigravity가 최종 결과를 반환하지 않았습니다.",
-        "kimiUnreadableOutput": "Kimi가 Deca에서 읽을 수 없는 출력을 반환했습니다. 다시 시도하세요.",
-        "kimiSessionOccupied": "다른 클라이언트에서 활성 상태인 세션이므로 Kimi가 이 세션을 사용할 수 없습니다. 해당 클라이언트에서 세션을 중지하거나 클라이언트를 종료한 후 다시 시도하세요.",
-        "kimiInterrupted": "Kimi가 텍스트 생성을 마치기 전에 중단되었습니다. 다시 시도하세요.",
-        "kimiFailed": "Kimi가 텍스트 생성을 완료하지 못했습니다. 다시 시도하기 전에 실행 호스트에서 Kimi를 열어 오류를 확인하세요.",
-        "kimiAgentOptionsConflict": "Kimi가 충돌하거나 중복된 에이전트 옵션을 받았습니다. 텍스트 생성 레시피 또는 CLI 인수에 --agent 또는 --agent-file 옵션을 하나만 남긴 후 다시 시도하세요.",
-        "kimiOptionRejected": "Kimi가 옵션 또는 인수를 거부했습니다. 텍스트 생성 레시피 또는 CLI 인수를 수정한 후 다시 시도하세요.",
-        "kimiSessionNotFound": "Kimi가 요청한 세션을 찾지 못했습니다. 기존 세션을 사용하거나 새 세션을 시작하세요.",
-        "kimiSessionOtherDirectory": "이 Kimi 세션은 다른 디렉터리에 속합니다. 해당 디렉터리에서 재개하거나 이 워크스페이스용으로 만든 세션을 사용하세요.",
-        "kimiCredentialVariableMissing": "Kimi에 자격 증명용으로 지정된 환경 변수가 없습니다. 다시 시도하기 전에 실행 호스트에서 설정하세요.",
-        "kimiCredentialsRequired": "Kimi에 공급자 자격 증명이 필요합니다. 실행 호스트에서 Kimi를 열어 공급자를 구성하거나 로그인한 후 다시 시도하세요.",
-        "kimiModelMissing": "Kimi에 사용 가능한 모델이 구성되어 있지 않습니다. 실행 호스트에서 Kimi를 열어 모델을 구성하거나 선택한 후 다시 시도하세요.",
-        "kimiPromptHookBlocked": "Kimi 프롬프트 후크가 요청을 차단했거나 턴을 시작할 수 없습니다. 다시 시도하기 전에 Kimi 후크와 구성을 검토하세요.",
-        "kimiCancelled": "Kimi가 텍스트 생성을 마치기 전에 요청을 취소했습니다. 다시 시도하세요.",
-        "kimiEmptyPrompt": "Kimi가 빈 프롬프트를 받았습니다. 텍스트 생성 레시피 또는 CLI 인수에서 해당 입력을 수정한 후 다시 시도하세요.",
-        "kimiEmptyModel": "Kimi가 빈 모델 값을 받았습니다. 텍스트 생성 레시피 또는 CLI 인수에서 해당 입력을 수정한 후 다시 시도하세요.",
-        "kimiEmptyAgent": "Kimi가 빈 에이전트 값을 받았습니다. 텍스트 생성 레시피 또는 CLI 인수에서 해당 입력을 수정한 후 다시 시도하세요.",
-        "kimiEmptyAgentFilePath": "Kimi가 빈 에이전트 파일 경로를 받았습니다. 텍스트 생성 레시피 또는 CLI 인수에서 해당 입력을 수정한 후 다시 시도하세요.",
-        "kimiOutputFormatInvalid": "Kimi 출력 형식에는 프롬프트 모드와 지원되는 text 또는 stream-json 값이 필요합니다. 다시 시도하기 전에 텍스트 생성 레시피 또는 CLI 인수를 수정하세요.",
-        "kimiSessionIdRequired": "Kimi가 프롬프트 모드에서 재개하려면 세션 ID가 필요합니다. 텍스트 생성 레시피 또는 CLI 인수를 수정한 후 다시 시도하세요.",
-        "kimiConflictingOptions": "Kimi가 충돌하는 옵션을 받았습니다: {{option}} 및 {{otherOption}}. 다시 시도하기 전에 텍스트 생성 레시피 또는 CLI 인수를 수정하세요.",
-        "kimiAgentChangeOnResume": "Kimi는 세션을 재개할 때 에이전트를 변경할 수 없습니다. 텍스트 생성 레시피 또는 CLI 인수에서 에이전트 재정의를 제거하거나 새 세션을 시작하세요.",
-        "kimiResponseBlocked": "응답이 차단되어 Kimi가 응답을 반환하지 못했습니다. 다시 시도하기 전에 프롬프트 또는 모델 구성을 수정하세요.",
-        "kimiAuthFailed": "Kimi가 인증하지 못했습니다. 실행 호스트에서 로그인하거나 공급자 자격 증명을 수정한 후 다시 시도하세요.",
-        "kimiConnectionFailed": "Kimi가 공급자에 연결하지 못했습니다. 실행 호스트의 네트워크를 확인한 후 다시 시도하세요.",
-        "kimiProviderLimited": "Kimi가 공급자 한도에 도달했거나 공급자가 혼잡한 상태입니다. 잠시 기다린 후 다시 시도하거나 요청 빈도를 줄이세요.",
-        "kimiContextOverflow": "Kimi의 컨텍스트 한도에 도달했습니다. 프롬프트를 줄이거나 새 세션을 시작한 후 다시 시도하세요.",
-        "kimiConfigInvalid": "Kimi의 구성이 잘못되었습니다. 다시 시도하기 전에 실행 호스트의 모델 및 공급자 구성을 확인하세요.",
-        "kimiContinueSessionConflict": "Kimi가 충돌하는 옵션을 받았습니다: --continue, --session. 다시 시도하기 전에 텍스트 생성 레시피 또는 CLI 인수를 수정하세요."
+        "antigravityNoFinalResult": "Antigravity가 최종 결과를 반환하지 않았습니다."
       },
       "enableSourceControlAi": "설정 -> Git에서 소스 제어 AI를 활성화하세요.",
       "chooseBaseBranch": "생성하기 전에 기준 브랜치를 선택하세요.",

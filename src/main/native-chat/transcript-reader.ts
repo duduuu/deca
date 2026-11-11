@@ -13,8 +13,7 @@ import { wslTranscriptFsRefusal } from './wsl-transcript-fs-gate'
 import {
   decodeClaudeTranscriptLine,
   decodeCodexTranscriptLine,
-  decodeGrokTranscriptLine,
-  decodeOmpTranscriptLine
+  decodeGrokTranscriptLine
 } from './transcript-line-decoders'
 import { decodeTranscriptStream } from './transcript-stream-lines'
 
@@ -40,12 +39,7 @@ export async function readNativeChatTranscript(
   options: ReadTranscriptOptions = {}
 ): Promise<ReadTranscriptResult> {
   if (resolveNativeChatTranscriptAgent(agent) === 'opencode') {
-    return readOpenCodeNativeChatTranscriptFull(
-      sessionId,
-      {},
-      undefined,
-      agent === 'zcode' ? 'zcode' : undefined
-    )
+    return readOpenCodeNativeChatTranscriptFull(sessionId, {}, undefined)
   }
   let filePath: string | null
   try {
@@ -72,11 +66,6 @@ export async function readNativeChatTranscript(
     if (transcriptAgent === 'grok') {
       return {
         messages: await readTranscript(filePath, decodeGrokTranscriptLine, options.sourceOrder)
-      }
-    }
-    if (transcriptAgent === 'omp') {
-      return {
-        messages: await readTranscript(filePath, decodeOmpTranscriptLine, options.sourceOrder)
       }
     }
     return { error: `Unsupported agent for Chat UI transcript: ${agent}` }

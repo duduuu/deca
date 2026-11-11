@@ -47,7 +47,6 @@ import { installHibernatedPaneWake } from './lifecycle/hibernated-pane-wake'
 
 import { installPaneTitleObservation } from './agent-identity/pane-title-observation'
 import { bindInitialAgentStatus } from './startup/initial-agent-status'
-import { bindCommandCodeOutputStatus } from './agent-identity/command-code-pane-status'
 import { installActivePanePtyBinding } from './lifecycle/active-pane-pty-binding'
 import { installTerminalBellCompletionArbitration } from './notifications/terminal-bell-completion-arbitration'
 import { installAgentTaskCompleteNotify } from './notifications/agent-task-complete-notify'
@@ -56,7 +55,6 @@ import { initializePaneConnectionContext } from './pane-connection-context'
 import { installNativeWindowsPanePolicy } from './emulation/native-windows-pane-policy'
 import { bindPaneProjectRuntime } from './host-ownership/pane-project-runtime'
 import { installRendererOwnedPaneStatus } from './agent-identity/renderer-owned-pane-status'
-import { installCommandCodeOutputStatusDetector } from './agent-identity/command-code-output-status'
 import {
   initializeTerminalInputActivityState,
   installTerminalInputActivity,
@@ -213,7 +211,6 @@ export function connectPanePty(
   installSpawnDeferredSleep(session)
   installPaneTitleObservation(session)
   bindInitialAgentStatus(session)
-  bindCommandCodeOutputStatus(session)
 
   installActivePanePtyBinding(session)
   installTerminalBellCompletionArbitration(session)
@@ -286,7 +283,6 @@ export function connectPanePty(
   // Share the structural gate predicate with subscription recording; a fact can outrun the hidden mark set by data delivery.
   session.isHiddenDeliveryGateManagedPty = (ptyId: string | null): ptyId is string =>
     session.hiddenDeliveryGateActive && Boolean(ptyId) && !isRemoteRuntimePtyId(ptyId)
-  installCommandCodeOutputStatusDetector(session)
 
   session.shouldDeliverStartupViaTerminalPaste = session.paneStartup?.delivery === 'terminal-paste'
   session.hadExistingPaneTransportAtConnect = session.deps.paneTransportsRef.current.size > 0

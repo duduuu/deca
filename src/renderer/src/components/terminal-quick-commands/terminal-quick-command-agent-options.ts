@@ -8,12 +8,7 @@ const QUICK_COMMAND_AGENT_PRESENTATION_ORDER = [
   'gemini',
   'copilot',
   'opencode',
-  'pi',
-  'omp',
-  'cursor',
-  'droid',
-  'command-code',
-  'openclaude'
+  'cursor'
 ] as const satisfies readonly TuiAgent[]
 
 const QUICK_COMMAND_AGENT_ORDER_RANK = new Map<TuiAgent, number>(

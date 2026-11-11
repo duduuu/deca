@@ -21,14 +21,8 @@ vi.mock('node:child_process', async (importOriginal) =>
 vi.mock('../../opencode/hook-service', () =>
   import('./pty-ipc-mock-registry').then((m) => m.openCodeHookServiceModuleMock())
 )
-vi.mock('../../mimo/hook-service', () =>
-  import('./pty-ipc-mock-registry').then((m) => m.mimoHookServiceModuleMock())
-)
 vi.mock('../../agent-hooks/server/agent-hook-server', () =>
   import('./pty-ipc-mock-registry').then((m) => m.agentHookServerModuleMock())
-)
-vi.mock('../../pi/titlebar-extension-service', () =>
-  import('./pty-ipc-mock-registry').then((m) => m.piTitlebarExtensionModuleMock())
 )
 vi.mock('../../pty/shell-startup/pwsh', () =>
   import('./pty-ipc-mock-registry').then((m) => m.pwshModuleMock())

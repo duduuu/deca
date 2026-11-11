@@ -49,7 +49,7 @@ export type AgentSmartKey = {
 }
 
 export type AgentSmartKeySet = {
-  /** The tab's own agent, e.g. openclaude, for its icon. */
+  /** The tab's own agent, for its icon. */
   readonly agentId: string
   readonly state: AgentSmartKeyState
   readonly keys: readonly AgentSmartKey[]

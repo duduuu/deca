@@ -3,7 +3,6 @@ export type AgentPromptInjectionMode =
   | 'flag-prompt'
   | 'flag-prompt-interactive'
   | 'flag-interactive'
-  | 'hermes-query'
   | 'stdin-after-start'
 
 /** Signals a single marker settles; draft paste and the serializer read only these. */
@@ -12,9 +11,7 @@ export type DraftPasteMarkerSignal =
   | 'codex-composer-prompt'
   | 'render-cursor-after-bracketed-paste'
   | 'grok-composer-prompt'
-  | 'dsh-composer-prompt'
   | 'claude-composer-prompt'
-  | 'zcode-composer-prompt'
   | 'antigravity-composer-prompt'
   | 'copilot-composer-prompt'
 
@@ -45,15 +42,7 @@ export type TuiAgentConfig = {
   /** Claude Code follows pasted text only where the user's typed words ask, so dispatch briefs need a typed lead line. */
   pasteNeedsTypedRequest?: boolean
   /** Trust Orca pre-writes at PTY spawn (agent-workspace-trust.ts) so the agent's first-launch "trust this folder?" menu doesn't consume the bracketed paste. */
-  preflightTrust?:
-    | 'claude'
-    | 'cursor'
-    | 'copilot'
-    | 'codex'
-    | 'antigravity'
-    | 'qoder'
-    | 'qoder-cn'
-    | 'kimi'
+  preflightTrust?: 'claude' | 'cursor' | 'copilot' | 'codex' | 'antigravity'
   /** Agent-specific signal that the composer is ready for paste, stronger than the default quiet-render window. */
   draftPasteReadySignal?: DraftPasteMarkerSignal
   /** Signal before a paste that Enter follows, for agents that show their composer before it can submit; defaults to `draftPasteReadySignal`. */

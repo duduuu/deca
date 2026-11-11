@@ -12,7 +12,6 @@ import type { TerminalAgent } from '../../../../shared/agent-status/identity/ter
 import { isTuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent-config'
 import { getTuiAgentRestSignal } from '../../../../shared/agent-status/title/tui-agent-rest-signal'
 import { detectExplicitIdleStatusFromTitle } from './terminal-wait-detection'
-import { isOmpIdleStateTitle } from './omp-terminal-readiness'
 import {
   hasQuietReadyRules,
   idleTitleRequiresQuiet,
@@ -163,7 +162,7 @@ export function hasQuietReadyScreen(
   readBodyEvidence: () => boolean,
   quiescenceMs: number
 ): boolean {
-  if (agent && agent !== 'muse' && !hasQuietReadyRules(agent)) {
+  if (agent && !hasQuietReadyRules(agent)) {
     return false
   }
   // Why: same rule as the tier-3 lane — without an output clock there is no
@@ -203,26 +202,6 @@ function rankTuiIdleEvidence(input: TuiIdleEvaluationInput): TuiIdleVerdict {
       ? { kind: 'blocked', reason: 'agent-sign-in-prompt' }
       : { kind: 'pending', quietForeground: 'closed', recheckAt: blockedAt }
   }
-  // Qoder's title and Hermes's session-start hook can precede input readiness; require the composer.
-  if (input.agent === 'qoder' || input.agent === 'qoder-cn' || input.agent === 'hermes') {
-    if (
-      hasFreshWorkingFirstPartyStatus(input.firstPartyStatus) ||
-      input.record.lastAgentStatus === 'working'
-    ) {
-      // Hermes' blocked/waiting hooks leave the decision to the screen.
-      if (
-        input.agent === 'hermes' &&
-        input.firstPartyStatus?.state !== 'working' &&
-        input.record.lastAgentStatus !== 'working'
-      ) {
-        return { kind: 'pending', quietForeground: 'closed' }
-      }
-      return WORKING
-    }
-    return input.readPositiveBodyEvidence()
-      ? READY_STRONG
-      : { kind: 'pending', quietForeground: 'closed' }
-  }
   // Both settle at tier 1; prefer memoized title lookup over a multi-KB body scan.
   if (hasExplicitIdleTitle(input.record) || input.readPositiveBodyEvidence()) {
     return READY_STRONG
@@ -237,14 +216,6 @@ function rankTuiIdleEvidence(input: TuiIdleEvaluationInput): TuiIdleVerdict {
     // when a dialog is on screen, so the screen read must still run.
     return input.firstPartyStatus?.state === 'working'
       ? WORKING
-      : { kind: 'pending', quietForeground: 'closed' }
-  }
-  // OMP titles idle before setup opens; require title age and a readable screen clear of the wizard. Output quiet cannot work because paste-mode keepalives repeat each second.
-  if (input.agent === 'omp' && isOmpIdleStateTitle(input.record.lastOscTitle)) {
-    return input.titleObservedAtEpochMs !== null &&
-      Date.now() - input.titleObservedAtEpochMs >= input.quiescenceMs &&
-      input.readScreenInputVeto() === false
-      ? READY_STRONG
       : { kind: 'pending', quietForeground: 'closed' }
   }
   // First-party working outranks body inference; quiet body can outrank a stale spinner title because live spinners keep emitting output.

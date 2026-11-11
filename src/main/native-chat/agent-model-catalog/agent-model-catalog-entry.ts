@@ -229,23 +229,13 @@ export function agentModelCatalogEntryWithSuccess(
   const listing: AgentModelCatalogListing = {
     models: configuredDeclarationModels(
       models.map((model) => ({ ...model })),
-      agent === 'pi' && source === 'discovery' && success.configured?.model
-        ? { modelId: success.configured.model, effort: success.configured.effort }
-        : undefined
+      undefined
     ),
     ...(success.fastModeSupport ? { fastModeSupport: success.fastModeSupport } : {}),
     origin: success.origin,
     at
   }
   let configured = previous?.configured ?? null
-  if (agent === 'pi' && source === 'discovery') {
-    const { model, effort } = success.configured ?? {}
-    if (model) {
-      const facts = configuredDefaultFacts({ modelId: model, effort }, configured)
-      configured = facts && { ...facts, at }
-    }
-    return agentModelCatalogEntry(agent, fingerprint, listing, null, configured)
-  }
   return source === 'discovery'
     ? agentModelCatalogEntry(agent, fingerprint, listing, previous?.live ?? null, configured)
     : agentModelCatalogEntry(agent, fingerprint, previous?.discovered ?? null, listing, configured)

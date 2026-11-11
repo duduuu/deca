@@ -1,5 +1,4 @@
 import { getCatalogPlatform } from './agent-catalog-platform'
-import openClaudeLogoUrl from '../../../../../resources/openclaude-logo.png?url'
 import {
   getTuiAgentLaunchCommand,
   TUI_AGENT_CONFIG
@@ -21,14 +20,6 @@ export function primaryAgentCatalogEntries(): AgentCatalogEntry[] {
       label: translate('auto.lib.agent.catalog.bf53f09bf8', 'Claude Agent Teams'),
       cmd: getTuiAgentLaunchCommand(TUI_AGENT_CONFIG['claude-agent-teams'], getCatalogPlatform()),
       homepageUrl: 'https://code.claude.com/docs/en/agent-teams'
-    },
-    {
-      id: 'openclaude',
-      label: translate('auto.lib.agent.catalog.a5fc0cb622', 'OpenClaude'),
-      cmd: 'openclaude',
-      // Crop OpenClaude’s official padded favicon so the mark remains legible at 12px.
-      iconUrl: openClaudeLogoUrl,
-      homepageUrl: 'https://openclaude.gitlawb.com/'
     },
     {
       id: 'codex',
@@ -59,78 +50,6 @@ export function primaryAgentCatalogEntries(): AgentCatalogEntry[] {
       label: translate('auto.lib.agent.catalog.e7a4ca5103', 'OpenCode'),
       cmd: 'opencode',
       homepageUrl: 'https://opencode.ai/docs/cli/'
-    },
-    {
-      id: 'mimo-code',
-      label: translate('auto.lib.agent.catalog.mimo_code_label', 'MiMo Code'),
-      cmd: 'mimo',
-      homepageUrl: 'https://mimo.xiaomi.com/coder'
-    },
-    {
-      id: 'ante',
-      label: translate('auto.lib.agent.catalog.da41abbdd4', 'Ante'),
-      cmd: 'ante',
-      homepageUrl: 'https://github.com/AntigmaLabs/ante-preview'
-    },
-    {
-      id: 'trae',
-      label: translate('auto.lib.agent.catalog.060d152fb5', 'Trae'),
-      // Why: matches TUI_AGENT_CONFIG.trae.detectCmd, not the ambiguous `trae-cli` — see the Why there.
-      cmd: 'traecli',
-      // Why: bare `trae.cn` 404s on Google's favicon service.
-      homepageUrl: 'https://docs.trae.cn/cli_get-started-with-trae-cli'
-    },
-    {
-      id: 'muse',
-      label: translate('auto.lib.agent.catalog.muse_label', 'Muse'),
-      cmd: 'muse',
-      homepageUrl: 'https://dev.meta.ai/docs/muse-code'
-    },
-    {
-      id: 'dsh',
-      label: translate('auto.lib.agent.catalog.dsh_label', 'DeepSeek Harness'),
-      cmd: 'dsh-tui',
-      searchAliases: ['deepseek', 'dsh', 'dst', 'deepseek harness'],
-      // Why: Orca launches the community dsh-TUI; DeepSeek's site installs only `dsh`, and the unscoped npm `dsh-tui` is a dead prototype.
-      homepageUrl: 'https://github.com/ccch1mneyyy/dsh-TUI#quick-start'
-    },
-    {
-      id: 'qoder',
-      label: translate('auto.lib.agent.catalog.qoder_label', 'Qoder CLI'),
-      cmd: 'qodercli',
-      homepageUrl: 'https://docs.qoder.com/cli/overview'
-    },
-    {
-      id: 'qoder-cn',
-      label: translate('auto.lib.agent.catalog.qoder_cn_label', 'Qoder CLI China'),
-      cmd: 'qoderclicn',
-      homepageUrl: 'https://docs.qoder.cn/cli/overview'
-    },
-    {
-      id: 'zcode',
-      label: translate('auto.lib.agent.catalog.zcode_label', 'ZCode'),
-      cmd: 'zcode',
-      homepageUrl: 'https://zcode.z.ai/en/docs'
-    },
-    {
-      id: 'pi',
-      label: translate('auto.lib.agent.catalog.302934c5d9', 'Pi'),
-      cmd: 'pi',
-      homepageUrl: 'https://pi.dev'
-    },
-    {
-      id: 'omp',
-      label: translate('auto.lib.agent.catalog.09973b4d84', 'OMP'),
-      cmd: 'omp',
-      searchAliases: ['oh-my-pi', 'oh my pi'],
-      // OmpIcon supplies the glyph, so no favicon fallback is needed.
-      homepageUrl: 'https://omp.sh'
-    },
-    {
-      id: 'prime-agent',
-      label: translate('auto.lib.agent.catalog.d443a47995', 'Prime Agent'),
-      cmd: 'prime-agent',
-      homepageUrl: 'https://github.com/PrimeIntellect-ai/prime-agent'
     },
     {
       id: 'gemini',

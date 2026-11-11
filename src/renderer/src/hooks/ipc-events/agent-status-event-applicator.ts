@@ -59,9 +59,7 @@ export function createAgentStatusEventApplicator(args: {
     if (!store.workspaceSessionReady) {
       return 'dropped'
     }
-    const authorityRestartId =
-      options?.replay !== true && data.agentType === 'omp' ? data.authorityRestartId : undefined
-    if (isAgentStatusForRecentlyClosedTab(store, data.paneKey, authorityRestartId)) {
+    if (isAgentStatusForRecentlyClosedTab(store, data.paneKey, undefined)) {
       return 'dropped'
     }
     const paneKey = resolveAgentPaneAuthorityKey(data.paneKey)
@@ -93,12 +91,7 @@ export function createAgentStatusEventApplicator(args: {
       identityTitle = projectedTitles.identityTitle
     }
     tabTitle = options?.batch?.tabTitlesByTabId.get(ownerTabId ?? '') ?? tabTitle
-    if (
-      !exists &&
-      !authorityRestartId &&
-      data.worktreeId &&
-      hasRuntimeBackedWorktreeAttribution(data)
-    ) {
+    if (!exists && data.worktreeId && hasRuntimeBackedWorktreeAttribution(data)) {
       const fallbackOwnership = resolveWorktreeConnectionFromRoutingIndex(
         routingIndex,
         data.worktreeId
@@ -244,7 +237,7 @@ export function createAgentStatusEventApplicator(args: {
         terminalHandle: data.terminalHandle,
         ...(ownershipConnectionId !== undefined ? { connectionId: ownershipConnectionId } : {})
       },
-      metadata: normalizeAgentStatusMetadata(data, authorityRestartId)
+      metadata: normalizeAgentStatusMetadata(data, undefined)
     }
     // Why: replays are cached state, so they seed completion tracking unless they carry an unseen completion.
     const replayed =

@@ -22,8 +22,6 @@ export type TerminalSideEffectFact =
   /** Carry the parsed URL to avoid renderer parse drift breaking per-PTY dedupe. */
   | { kind: 'pr-link'; link: TerminalGitHubPRLink }
   /** Command Code lacks hooks: scrape working to seed status, but settle-check done against the live row before completing. */
-  | { kind: 'command-code-working'; prompt: string }
-  | { kind: 'command-code-done'; prompt: string }
   /** Gated views miss subscription bytes; carry state for later theme pushes, never an immediate reply. */
   | { kind: '2031-subscribe' }
   /** Gated views miss withdrawal bytes; retire their registry entry before a later theme flip. */

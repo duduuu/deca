@@ -12,9 +12,6 @@ export type WslRelayDistroState = {
   claudeConfigDir?: string
   opencodeOverlayDir?: string
   opencode2OverlayDir?: string
-  piAgentDir?: string
-  ompStatusExtension?: string
-  launchKinds: Set<'pi' | 'omp'>
   startup?: Promise<void>
   installation?: Promise<void>
   failures: number
@@ -36,6 +33,4 @@ export type WslRelayRestartSetup = Pick<
   | 'claudeConfigDir'
   | 'opencodeOverlayDir'
   | 'opencode2OverlayDir'
-  | 'piAgentDir'
-  | 'ompStatusExtension'
-> & { launchKinds: readonly ('pi' | 'omp')[] }
+>

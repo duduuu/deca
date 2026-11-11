@@ -3,10 +3,8 @@ import { readdir, readFile, stat } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { independentAgentModelCatalog } from '../../../shared/agent-session/options/agent-model-catalog-ownership'
 import {
-  ompSettingsMayPickModel,
   openCodeAgentFileMayPickModel,
-  openCodeConfigMayPickModel,
-  piSettingsMayPickModel
+  openCodeConfigMayPickModel
 } from './agent-project-model-config-keys'
 
 // Project model/effort settings invalidate the account default without resolving a replacement.
@@ -78,30 +76,7 @@ const OPENCODE_PROJECT_MODEL_LAYERS: ProjectModelLayers = {
 
 const PROJECT_MODEL_LAYERS: Readonly<Record<string, ProjectModelLayers>> = {
   opencode: OPENCODE_PROJECT_MODEL_LAYERS,
-  opencode2: OPENCODE_PROJECT_MODEL_LAYERS,
-  // OMP also merges other agents' project settings.
-  omp: {
-    files: [
-      ...files(
-        [
-          '.omp/settings.json',
-          '.claude/settings.json',
-          '.cursor/settings.json',
-          '.gemini/settings.json',
-          'opencode.json'
-        ],
-        (text) => ompSettingsMayPickModel(text, 'json')
-      ),
-      ...files(['.omp/config.yml', '.omp/config.yaml'], (text) =>
-        ompSettingsMayPickModel(text, 'yaml')
-      ),
-      ...files(['.codex/config.toml'], (text) => ompSettingsMayPickModel(text, 'toml'))
-    ]
-  },
-  pi: {
-    files: files(['.pi/settings.json'], piSettingsMayPickModel),
-    codeFolders: ['.pi/extensions']
-  }
+  opencode2: OPENCODE_PROJECT_MODEL_LAYERS
 }
 
 function isMissing(error: unknown): boolean {

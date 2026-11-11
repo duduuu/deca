@@ -58,8 +58,6 @@ export type TerminalSideEffectFactConsumerCallbacks = {
   onPrLink?: (link: TerminalGitHubPRLink) => void
   /** Command Code output scrape (no hooks): working seeds the status row;
    *  done is settle-checked by the pane policy before completing the turn. */
-  onCommandCodeWorking?: (prompt: string) => void
-  onCommandCodeDone?: (prompt: string) => void
   /** Record live mode-2031 subscriptions for hidden-view theme pushes; this fact does not answer queries. */
   onMode2031Subscribe?: () => void
   /** DECSET 2031 withdrawal observed by main's tracker. Clears the pane's
@@ -109,12 +107,6 @@ function applyLiveFact(entry: ConsumerEntry, fact: TerminalSideEffectFact, seq: 
       return
     case 'pr-link':
       entry.callbacks.onPrLink?.(fact.link)
-      return
-    case 'command-code-working':
-      entry.callbacks.onCommandCodeWorking?.(fact.prompt)
-      return
-    case 'command-code-done':
-      entry.callbacks.onCommandCodeDone?.(fact.prompt)
       return
     case '2031-subscribe':
       entry.callbacks.onMode2031Subscribe?.()

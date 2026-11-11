@@ -7,13 +7,9 @@ const STATUS_BAR_USAGE_PROVIDERS: ReadonlySet<string> = new Set<StatusBarUsagePr
   'codex',
   'gemini',
   'opencode-go',
-  'kimi',
-  'minimax',
   'grok',
   'antigravity',
-  'cursor',
-  'zcode',
-  'muse'
+  'cursor'
 ])
 
 /** User-defined footer usage text. Empty `template` means Orca's built-in rendering. */

@@ -23,9 +23,7 @@ import {
   getAccountsGrokSearchEntries,
   getAccountsAntigravitySearchEntries,
   getAccountsLocationSearchEntries,
-  getAccountsMiniMaxSearchEntries,
-  getAccountsOpencodeSearchEntries,
-  getAccountsZcodePlanSearchEntries
+  getAccountsOpencodeSearchEntries
 } from './accounts-search'
 import { getRemoteAccountsPaneScope } from '../../provider-accounts/provider-account-scope'
 import { ProviderHostScopeControl } from '../../provider-accounts/ProviderHostScopeControl'
@@ -43,7 +41,6 @@ import { AntigravityAccountsSection } from './providers/AntigravityAccountsSecti
 import type { RuntimeClientTarget } from '../../../../../shared/runtime-client-target'
 import { runtimeTargetEnvironmentId } from '@/runtime/rpc/targets/runtime-client-target'
 import { CursorAccountsSection } from './providers/CursorAccountsSection'
-import { ZcodePlanAccountsSection } from './usage/ZcodePlanAccountsSection'
 import type {
   AccountsPaneProps,
   AccountsPaneSectionModel,
@@ -62,8 +59,6 @@ import { renderClaudeAccountsSection } from './claude/accounts-pane-claude-secti
 import { renderCodexAccountsSection } from './codex/accounts-pane-codex-section'
 import { renderGeminiAccountsSection } from './providers/accounts-pane-gemini-section'
 import { renderOpenCodeAccountsSection } from './providers/accounts-pane-opencode-section'
-import { MiniMaxAccountsSection } from './usage/MiniMaxAccountsSection'
-import { useUsageHostSettings } from './usage/use-usage-host-settings'
 import { ManagedDataAccountsSection } from './providers/ManagedDataAccountsSection'
 import { renderAccountsRemovalDialogs } from './accounts-pane-removal-dialogs'
 
@@ -86,7 +81,6 @@ export function AccountsPane({
   const searchQuery = useAppStore((s) => s.settingsSearchQuery)
   const codexRateLimits = useAppStore((s) => s.rateLimits.codex)
   const codexRateLimitTarget = useAppStore((s) => s.rateLimits.codexTarget)
-  const miniMaxRateLimits = useAppStore((s) => s.rateLimits.minimax)
   const recordFeatureInteraction = useAppStore((s) => s.recordFeatureInteraction)
   const fetchSettings = useAppStore((s) => s.fetchSettings)
   const runtimeEnvironments = useAppStore((s) => s.runtimeEnvironments)
@@ -211,14 +205,6 @@ export function AccountsPane({
     recordedOpenCodeSettingEditsRef.current.add(field)
     recordFeatureInteraction('usage-tracking')
   }
-  // Usage credentials belong beside the selected host’s poller.
-  const usageCredentialHost = { owner: accountOwner, label: remoteServerLabel }
-  const usageHostSettings = useUsageHostSettings(
-    accountOwner,
-    remoteServerLabel,
-    settings,
-    updateSettings
-  )
 
   useEffect(() => {
     const owner: RuntimeClientTarget = scopeEnvironmentId
@@ -353,27 +339,11 @@ export function AccountsPane({
     matchesSettingsSearch(searchQuery, getAccountsOpencodeSearchEntries())
       ? renderOpenCodeAccountsSection(model, t)
       : null,
-    matchesSettingsSearch(searchQuery, getAccountsMiniMaxSearchEntries()) ? (
-      <MiniMaxAccountsSection
-        key={`minimax:${accountOwnerKey}`}
-        host={usageCredentialHost}
-        usageSettings={usageHostSettings}
-        miniMaxRateLimits={isRemoteAccountScope ? null : miniMaxRateLimits}
-        recordFeatureInteraction={recordFeatureInteraction}
-      />
-    ) : null,
     matchesSettingsSearch(searchQuery, getAccountsGrokSearchEntries()) ? (
       <GrokAccountsSection key="grok" />
     ) : null,
     matchesSettingsSearch(searchQuery, getAccountsCursorSearchEntries()) ? (
       <CursorAccountsSection key="cursor" />
-    ) : null,
-    matchesSettingsSearch(searchQuery, getAccountsZcodePlanSearchEntries()) ? (
-      <ZcodePlanAccountsSection
-        key={`zcode:${accountOwnerKey}`}
-        host={usageCredentialHost}
-        usageSettings={usageHostSettings}
-      />
     ) : null
   ]
 

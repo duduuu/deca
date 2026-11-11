@@ -149,14 +149,14 @@ export const ExplicitEnsure = z
   })
   .strict()
   .superRefine((value, context) => {
-    if (value.ompResumeFilePath !== undefined && value.agent !== 'omp') {
+    if (value.ompResumeFilePath !== undefined) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         path: ['ompResumeFilePath'],
         message: 'OMP resume path requires the OMP agent'
       })
     }
-    if (getAgentResumeArgv(value.agent, value.providerSession, value.ompResumeFilePath) === null) {
+    if (getAgentResumeArgv(value.agent, value.providerSession) === null) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         path: ['providerSession'],

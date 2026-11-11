@@ -20,8 +20,6 @@ const mocks = vi.hoisted(() => ({
   cursor: vi.fn<(path: string, home: string) => void>(),
   copilot: vi.fn<(path: string, home: string) => void>(),
   antigravity: vi.fn<(path: string, home: string, guestPath?: string) => void>(),
-  qoder: vi.fn<(path: string, home: string) => void>(),
-  kimi: vi.fn<(path: string, kimiHome: string) => void>(),
   codexConfigFiles: vi.fn<(agentHome: string) => string[]>(() => CODEX_CONFIG_FILES),
   claudeGrant: vi.fn<typeof ClaudeFolderTrustFile.grantClaudeWorkspaceTrust>()
 }))
@@ -40,13 +38,11 @@ vi.mock('./agent-trust-presets', () => ({
   markCodexProjectTrusted: mocks.codex,
   markCursorWorkspaceTrusted: mocks.cursor,
   markCopilotFolderTrusted: mocks.copilot,
-  markAntigravityWorkspaceTrusted: mocks.antigravity,
-  markKimiWorkspaceTrusted: mocks.kimi
+  markAntigravityWorkspaceTrusted: mocks.antigravity
 }))
 vi.mock('../../codex/configuration/homes/codex-home-paths', () => ({
   getLocalCodexTrustConfigFiles: mocks.codexConfigFiles
 }))
-vi.mock('../../qoder/workspace-trust', () => ({ markQoderWorkspaceTrusted: mocks.qoder }))
 vi.mock('../../claude/claude-folder-trust-file', async (importOriginal) => {
   const actual = await importOriginal<typeof ClaudeFolderTrustFile>()
   mocks.claudeGrant.mockImplementation(actual.grantClaudeWorkspaceTrust)

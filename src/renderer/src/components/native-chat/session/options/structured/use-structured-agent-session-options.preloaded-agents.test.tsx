@@ -54,7 +54,7 @@ import { installHostModelCatalogSnapshotsSync } from '@/runtime/native-chat/mode
 import { useStructuredAgentSessionOptions } from './use-structured-agent-session-options'
 
 // Previously used agents without saved picks should paint cached host models immediately.
-const REGISTERED = ['claude', 'codex', 'grok', 'opencode', 'omp'].map((agent) => ({ agent }))
+const REGISTERED = ['claude', 'codex', 'grok', 'opencode'].map((agent) => ({ agent }))
 const EFFORTS = [
   { value: 'low', label: 'Low' },
   { value: 'high', label: 'High' }
@@ -82,9 +82,8 @@ function saved(
 const SAVED: Readonly<Record<string, AgentSessionModelCatalogResult>> = {
   // Grok's listing names the default, and no project config can replace it.
   grok: saved(['grok-4.6', 'grok-4.7'], 'default'),
-  // OpenCode and OMP lists name no default: a chat with no pick names its model when it reports.
-  opencode: saved(['github-copilot/claude-fable-5', 'github-copilot/gpt-6'], 'nothing'),
-  omp: saved(['openai-codex/gpt-5.5', 'openai-codex/gpt-5.6-sol'], 'nothing')
+  // OpenCode lists name no default: a chat with no pick names its model when it reports.
+  opencode: saved(['github-copilot/claude-fable-5', 'github-copilot/gpt-6'], 'nothing')
 }
 
 type Pill = { model: string | null; label: string | null; effort: string | null; usable: boolean }
@@ -152,8 +151,7 @@ describe('a new chat of an agent with no saved pick', () => {
 
   it.each([
     ['grok', { model: 'grok-4.6', label: 'grok-4.6 (saved)', effort: null, usable: true }],
-    ['opencode', { model: null, label: null, effort: null, usable: true }],
-    ['omp', { model: null, label: null, effort: null, usable: true }]
+    ['opencode', { model: null, label: null, effort: null, usable: true }]
   ] as const)(
     '%s: the host’s saved list, preloaded at startup, paints the final pills on the first frame',
     async (agent, final) => {
@@ -162,7 +160,7 @@ describe('a new chat of an agent with no saved pick', () => {
       mocks.agentListeners.forEach((listener) => listener())
       await waitFor(() =>
         expect(mocks.call).toHaveBeenCalledWith({ kind: 'local' }, 'agentSession.modelCatalog', {
-          agent: 'omp',
+          agent: 'opencode',
           savedOnly: true
         })
       )

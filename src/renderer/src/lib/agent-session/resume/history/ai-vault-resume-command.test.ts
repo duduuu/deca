@@ -123,47 +123,6 @@ describe('ai vault resume command runtime', () => {
     ).toBe('claude "--resume" "session one"')
   })
 
-  it('queues a PowerShell-valid local OMP resume by absolute transcript path', () => {
-    // Rebuilds must retain OMP session.filePath and quote for the live Windows shell.
-    const state = makeState({ worktreePath: 'C:\\Users\\alice\\repo' })
-
-    const command = buildQueuedAiVaultResumeCommand({
-      state,
-      worktreeId: 'repo-1::worktree-1',
-      session: {
-        agent: 'omp',
-        sessionId: '019f27cd-4268-7000-96e7-62f42a55c144',
-        filePath: 'C:\\Users\\alice\\.omp\\agent\\sessions\\repo\\sess.jsonl',
-        cwd: 'C:\\Users\\alice\\repo',
-        codexHome: null
-      }
-    })
-
-    expect(command).toBe("omp --resume 'C:\\Users\\alice\\.omp\\agent\\sessions\\repo\\sess.jsonl'")
-    expect(command).not.toContain('019f27cd-4268-7000-96e7-62f42a55c144')
-  })
-
-  it('queues a direct local OMP resume when cmd.exe is configured', () => {
-    const state = makeState({
-      worktreePath: 'C:\\Users\\alice\\repo',
-      terminalWindowsShell: 'cmd.exe'
-    })
-
-    expect(
-      buildQueuedAiVaultResumeCommand({
-        state,
-        worktreeId: 'repo-1::worktree-1',
-        session: {
-          agent: 'omp',
-          sessionId: '019f27cd-4268-7000-96e7-62f42a55c144',
-          filePath: 'C:\\Users\\alice\\.omp\\agent\\sessions\\repo\\sess.jsonl',
-          cwd: 'C:\\Users\\alice\\repo',
-          codexHome: null
-        }
-      })
-    ).toBe('omp --resume "C:\\Users\\alice\\.omp\\agent\\sessions\\repo\\sess.jsonl"')
-  })
-
   it('copies a real-home Codex command that clears inherited homes in PowerShell', () => {
     const state = makeState({ worktreePath: 'C:\\Users\\alice\\repo' })
 
@@ -302,52 +261,28 @@ describe('ai vault resume command runtime', () => {
     )
   })
 
-  it('converts WSL UNC OMP transcript paths before building Linux resume commands', () => {
+  // #24408: Pi resumes by transcript path, and the shell it runs in is inside WSL.
+  it.each([] as const)('gives %s the Linux transcript path when resuming into WSL', (agent) => {
     const state = makeState({
       worktreePath: '\\\\wsl.localhost\\Ubuntu\\home\\alice\\repo'
     })
+    const linuxPath = '/home/alice/.pi/agent/sessions/--home-alice-repo--/2026_sess.jsonl'
+    const startup = buildAiVaultResumeStartupForWorktree({
+      state,
+      worktreeId: 'repo-1::worktree-1',
+      session: {
+        agent,
+        sessionId: 'sess',
+        filePath: `\\\\wsl.localhost\\Ubuntu${linuxPath.replaceAll('/', '\\')}`,
+        cwd: '/home/alice/repo',
+        codexHome: null
+      }
+    })
 
-    expect(
-      buildQueuedAiVaultResumeCommand({
-        state,
-        worktreeId: 'repo-1::worktree-1',
-        session: {
-          agent: 'omp',
-          sessionId: '019f27cd-4268-7000-96e7-62f42a55c144',
-          filePath:
-            '\\\\wsl.localhost\\Ubuntu\\home\\alice\\.omp\\agent\\sessions\\repo\\sess.jsonl',
-          cwd: '/home/alice/repo',
-          codexHome: null
-        }
-      })
-    ).toBe("omp --resume '/home/alice/.omp/agent/sessions/repo/sess.jsonl'")
+    expect(startup.command).toContain(linuxPath)
+    expect(startup.command).not.toContain('wsl.localhost')
+    expect(startup.providerSession).toMatchObject({ transcriptPath: linuxPath })
   })
-
-  // #24408: Pi resumes by transcript path, and the shell it runs in is inside WSL.
-  it.each(['pi', 'prime-agent'] as const)(
-    'gives %s the Linux transcript path when resuming into WSL',
-    (agent) => {
-      const state = makeState({
-        worktreePath: '\\\\wsl.localhost\\Ubuntu\\home\\alice\\repo'
-      })
-      const linuxPath = '/home/alice/.pi/agent/sessions/--home-alice-repo--/2026_sess.jsonl'
-      const startup = buildAiVaultResumeStartupForWorktree({
-        state,
-        worktreeId: 'repo-1::worktree-1',
-        session: {
-          agent,
-          sessionId: 'sess',
-          filePath: `\\\\wsl.localhost\\Ubuntu${linuxPath.replaceAll('/', '\\')}`,
-          cwd: '/home/alice/repo',
-          codexHome: null
-        }
-      })
-
-      expect(startup.command).toContain(linuxPath)
-      expect(startup.command).not.toContain('wsl.localhost')
-      expect(startup.providerSession).toMatchObject({ transcriptPath: linuxPath })
-    }
-  )
 
   it('deletes inherited Codex homes when resuming a real-home session', () => {
     const state = makeState({ worktreePath: '/home/alice/repo' })

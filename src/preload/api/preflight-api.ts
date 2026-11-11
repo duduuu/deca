@@ -1,4 +1,3 @@
-import type { ZCodeInteractiveCapability } from '../../shared/zcode-missing-tui'
 import type { ProjectExecutionRuntimeResolution } from '../../shared/execution-host/project-execution-runtime'
 import type {
   PathSource,
@@ -53,7 +52,6 @@ export type PreflightApi = {
   /** A WSL distro a background check was refused for is running now; re-ask. Desktop only. */
   onWslDistroRunning?: (callback: (distro: string) => void) => () => void
   /** Cached in main for the process lifetime. */
-  zcodeInteractiveCapability: () => Promise<ZCodeInteractiveCapability>
   /** `wakeWslDistro`: a user act that may start a stopped WSL distro; background refreshes omit it. */
   refreshAgents: (
     args?: PreflightRuntimeContext & { enabledOnly?: boolean; wakeWslDistro?: boolean }

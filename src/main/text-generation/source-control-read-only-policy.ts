@@ -1,19 +1,14 @@
 import { readFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import path from 'node:path'
-import { prepareKimiTextTaskPolicy } from './source-control-kimi-policy'
 import { parse as parseJson, type ParseError } from 'jsonc-parser'
 import { z } from 'zod'
 import { findOptionOccurrence } from '../../shared/command-option-occurrence'
-import {
-  compactRecipeOptions,
-  KIMI_VALUE_OPTIONS
-} from '../../shared/source-control/ai/generation/commit-message-generation-options'
+import { compactRecipeOptions } from '../../shared/source-control/ai/generation/commit-message-generation-options'
 import type { CommitMessagePlan } from '../../shared/source-control/ai/generation/commit-message-plan'
 import { parseWslUncPath, wslDistroForCommand } from '../../shared/wsl-paths'
 import { CODEX_DISABLE_PLUGINS_ARGS } from '../codex-cli/codex-read-only-app-server-args'
 import { runWslProcess } from '../wsl/execution/wsl-runner'
-import { TEXT_TASK_DIRECTORY } from './source-control-prompt-files'
 import { runSourceControlPolicyProbe } from './source-control-policy-probe'
 import type {
   LocalGenerationTarget,
@@ -159,34 +154,6 @@ async function antigravityPolicy(
   }
 }
 
-function dshPolicy(plan: CommitMessagePlan): CommitMessagePlan {
-  const plugin = `export const inject = ['tools']\nexport function apply(ctx) {\n  ctx.tools.guard(exec => exec.name === 'read' ? undefined : 'This text task permits only file reads')\n  ctx.provide('orcaTextReadPolicy', Object.freeze({}))\n}\n`
-  const patch = JSON.stringify([
-    { id: 'tools', config: { mode: 'native' } },
-    {
-      insert: [{ id: 'orca-text-read-policy', name: `${TEXT_TASK_DIRECTORY}/text-task-policy.mjs` }]
-    },
-    { id: 'headless-runner', inject: ['headlessStartup', 'orcaTextReadPolicy'] }
-  ])
-  // Launcher overlays must precede its task operand and follow the user's overlays.
-  const args = [...plan.args]
-  const task = args.indexOf('-')
-  args.splice(task === -1 ? args.length : task, 0, '--patch', '{text-task-policy}')
-  return {
-    ...plan,
-    args,
-    taskFiles: [
-      { name: 'text-task-policy.mjs', content: plugin },
-      {
-        name: 'text-task-policy.json',
-        content: patch,
-        interpolateDirectory: true,
-        argIndex: task === -1 ? args.length - 1 : task + 1
-      }
-    ]
-  }
-}
-
 export function prepareSourceControlReadOnlyPlan(input: {
   agentId: string
   plan: CommitMessagePlan
@@ -216,12 +183,6 @@ export function prepareSourceControlReadOnlyPlan(input: {
   async function prepare(): Promise<CommitMessagePlan> {
     const { plan, target, signal } = input
     const naming = input.operation === 'conversation-name'
-    if (input.agentId === 'amp' || input.agentId === 'muse') {
-      if (naming) {
-        return plan
-      }
-      throw new Error('The agent cannot apply the text task tool policy')
-    }
     if (input.agentId === 'antigravity') {
       const help = await probe([...(plan.policyProbeArgs ?? []), '--help'])
       if (![help.stdout, help.stderr].some((text) => /^\s*--settings(?:[= \t]|$)/m.test(text))) {
@@ -231,26 +192,6 @@ export function prepareSourceControlReadOnlyPlan(input: {
         throw new Error('The agent cannot apply session-only text task settings')
       }
       return antigravityPolicy(plan, target, signal)
-    }
-    if (input.agentId === 'kimi') {
-      const selected = findOptionOccurrence(
-        plan.args,
-        ['--agent', '--session', '-S', '--resume', '-r', '--continue', '-c', '-C'],
-        true,
-        [...KIMI_VALUE_OPTIONS, '--session', '-S', '--resume', '-r'],
-        0,
-        false
-      )
-      if (selected) {
-        if (naming) {
-          return plan
-        }
-        throw new Error('Kimi selected history/profile cannot apply the text task tool policy')
-      }
-      return prepareKimiTextTaskPolicy(plan, (file) => recipeFile(file, target, signal, plan.env))
-    }
-    if (input.agentId === 'dsh') {
-      return dshPolicy(plan)
     }
     if (input.agentId !== 'codex') {
       return plan

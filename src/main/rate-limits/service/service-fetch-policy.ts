@@ -19,31 +19,6 @@ import { readUserClaudeConfigDir } from '../../claude-accounts/claude-profile-pa
 import { getClaudeProfileRouter } from '../../claude-accounts/claude-profile-installed-router'
 
 export abstract class RateLimitServiceFetchPolicy extends RateLimitServiceFetchTargets {
-  protected getMiniMaxCredentialError(message: string): ProviderRateLimits {
-    return {
-      provider: 'minimax',
-      session: null,
-      weekly: null,
-      updatedAt: Date.now(),
-      error: message,
-      status: 'error',
-      usageMetadata: { failureKind: 'keychain-unavailable', source: 'web' }
-    }
-  }
-
-  protected getZcodePlanCredentialError(message: string): ProviderRateLimits {
-    return {
-      provider: 'zcode',
-      session: null,
-      weekly: null,
-      monthly: null,
-      updatedAt: Date.now(),
-      error: message,
-      status: 'error',
-      usageMetadata: { failureKind: 'keychain-unavailable', source: 'web' }
-    }
-  }
-
   // Retry-After remains binding even when live posts restore ok display; early polls waste budget and prolong 429s.
   protected isRetryAfterActive(limits: ProviderRateLimits | null): boolean {
     return Boolean(limits?.usageMetadata?.retryAtMs && limits.usageMetadata.retryAtMs > Date.now())

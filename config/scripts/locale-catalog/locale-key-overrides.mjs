@@ -305,11 +305,6 @@ const BASE_LOCALE_KEY_OVERRIDES = {
     zh: '立即重启',
     ja: '今すぐ再起動'
   },
-  'settings.appearance.statusBar.kimiToggleDescription': {
-    ko: '활성 워크스페이스의 Kimi 구독 사용량을 표시합니다.',
-    zh: '显示当前工作区的 Kimi 订阅使用情况',
-    ja: 'アクティブなワークスペースの Kimi サブスクリプション使用状況を表示します。'
-  },
   'auto.components.mobile.MobileHero.cd4e5e816f': {
     ko: '주머니 속의 워크스페이스.',
     zh: '您的工作区就在您的口袋里',

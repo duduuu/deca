@@ -20,19 +20,12 @@ vi.mock('../providers/codex/codex-fetcher', () => ({
 }))
 
 vi.mock('../providers/gemini/gemini-usage-fetcher', () => ({ fetchGeminiRateLimits: vi.fn() }))
-vi.mock('../providers/kimi/kimi-fetcher', () => ({ fetchKimiRateLimits: vi.fn() }))
 vi.mock('../providers/opencode-go/opencode-go-usage-source-selection', () => ({
   fetchOpenCodeGoUsage: vi.fn()
 }))
-vi.mock('../providers/minimax/minimax-fetcher', () => ({ fetchMiniMaxRateLimits: vi.fn() }))
 vi.mock('../providers/grok/grok-fetcher', () => ({ fetchGrokRateLimits: vi.fn() }))
 vi.mock('../providers/grok/grok-auth', () => ({
   readGrokAuthSession: vi.fn(() => ({ status: 'missing' }))
-}))
-vi.mock('../providers/zcode/zcode-usage-fetcher', () => ({ fetchZcodeRateLimits: vi.fn() }))
-
-vi.mock('../providers/muse/muse-usage-fetcher', () => ({
-  fetchMuseRateLimits: vi.fn()
 }))
 
 vi.mock('../providers/antigravity/antigravity-usage-fetcher', () => ({
@@ -41,9 +34,6 @@ vi.mock('../providers/antigravity/antigravity-usage-fetcher', () => ({
 
 vi.mock('../providers/cursor/cursor-fetcher', () => ({ fetchCursorRateLimits: vi.fn() }))
 vi.mock('../providers/cursor/cursor-auth', () => ({ readCursorAuthSession: vi.fn() }))
-vi.mock('../../minimax/minimax-cookie-store', () => ({
-  hasMiniMaxSessionCookie: vi.fn(() => false)
-}))
 
 type JwtSegment = Record<string, unknown>
 

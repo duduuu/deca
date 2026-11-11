@@ -44,13 +44,9 @@ const USAGE_PROVIDER_IDS: Record<UsageProviderKey, ProviderRateLimits['provider'
   codex: 'codex',
   gemini: 'gemini',
   opencodeGo: 'opencode-go',
-  kimi: 'kimi',
   antigravity: 'antigravity',
-  minimax: 'minimax',
   grok: 'grok',
-  cursor: 'cursor',
-  zcode: 'zcode',
-  muse: 'muse'
+  cursor: 'cursor'
 }
 
 // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the keys of a Record<UsageProviderKey, …>.
@@ -90,12 +86,9 @@ function adoptRemoteRateLimits(remote: RateLimitState): RateLimitState {
   return {
     ...remote,
     ...mapProviders((key) => partial[key] ?? null),
-    minimaxCookieConfigured: partial.minimaxCookieConfigured === true,
-    minimaxApiKeyConfigured: partial.minimaxApiKeyConfigured === true,
     opencodeGoApiKeyConfigured: partial.opencodeGoApiKeyConfigured === true,
     grokAuthConfigured: partial.grokAuthConfigured === true,
     cursorAuthConfigured: partial.cursorAuthConfigured === true,
-    zcodePlanApiKeyConfigured: partial.zcodePlanApiKeyConfigured === true,
     claudeTarget: partial.claudeTarget ?? { runtime: 'host', wslDistro: null },
     codexTarget: partial.codexTarget ?? { runtime: 'host', wslDistro: null },
     inactiveClaudeAccounts: partial.inactiveClaudeAccounts ?? [],
@@ -116,26 +109,13 @@ function isSetUpHere(local: RateLimitState, key: UsageProviderKey): boolean {
   )
 }
 
-// Why: these credentials live in this device's safe storage, so the host cannot reuse them.
-function isSignInSavedHereOnly(local: RateLimitState, key: UsageProviderKey): boolean {
-  return key === 'minimax'
-    ? local.minimaxApiKeyConfigured || local.minimaxCookieConfigured
-    : key === 'zcode' && local.zcodePlanApiKeyConfigured === true
-}
-
 // Only explicit setup failures qualify; unavailable can also mean an old CLI or an account switch without a reading.
 const NOT_SET_UP_FAILURE_KINDS: ReadonlySet<UsageRateLimitFailureKind> = new Set([
   'missing-credentials',
   'cli-unavailable'
 ])
 // Why: these fetchers name every not-set-up answer, so a reasonless `unavailable` is not one.
-const NOT_SET_UP_NEEDS_REASON: ReadonlySet<UsageProviderKey> = new Set([
-  'minimax',
-  'zcode',
-  'cursor',
-  'antigravity',
-  'muse'
-])
+const NOT_SET_UP_NEEDS_REASON: ReadonlySet<UsageProviderKey> = new Set(['cursor', 'antigravity'])
 
 /** Null may mean an unfinished or skipped fetch; only positive absence can establish missing host setup. */
 function isMissingOnHost(remote: RateLimitState, key: UsageProviderKey): boolean {
@@ -175,7 +155,7 @@ function describePlaceholder(
     ? {
         kind: 'not-configured',
         ownerLabel,
-        signInSavedHereOnly: isSignInSavedHereOnly(local, key)
+        signInSavedHereOnly: false
       }
     : null
 }

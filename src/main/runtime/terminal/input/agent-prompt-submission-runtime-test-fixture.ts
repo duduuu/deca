@@ -8,7 +8,7 @@ export const AGENT_PROMPT_TEST_WORKTREE_ID = 'repo-1::/tmp/worktree-a'
 
 export async function createAgentPromptSubmissionRuntime(
   onWrite: (runtime: OrcaRuntimeService, data: string, writeIndex: number) => void,
-  launchAgent: TuiAgent = 'aider',
+  launchAgent: TuiAgent = 'kiro',
   write?: (runtime: OrcaRuntimeService, ptyId: string, data: string) => boolean,
   runtimeDeps?: ConstructorParameters<typeof OrcaRuntimeService>[2],
   controller?: Partial<NonNullable<Parameters<OrcaRuntimeService['setPtyController']>[0]>>

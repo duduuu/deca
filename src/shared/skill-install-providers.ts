@@ -38,53 +38,11 @@ export const SKILL_INSTALL_PROVIDERS = Object.freeze([
     workspaceSegments: null
   },
   {
-    id: 'droid',
-    displayName: 'Droid',
-    globalSegments: ['.factory', 'skills'],
-    workspaceSegments: ['.factory', 'skills']
-  },
-  {
-    id: 'continue',
-    displayName: 'Continue',
-    globalSegments: ['.continue', 'skills'],
-    workspaceSegments: ['.continue', 'skills']
-  },
-  {
-    id: 'trae',
-    displayName: 'Trae',
-    globalSegments: ['.trae-cn', 'skills'],
-    workspaceSegments: ['.trae', 'skills']
-  },
-  {
     id: 'grok',
     displayName: 'Grok',
     globalSegments: ['.grok', 'skills'],
     workspaceSegments: ['.grok', 'skills'],
     homeEnv: 'GROK_HOME'
-  },
-  {
-    id: 'aug',
-    displayName: 'Augment',
-    globalSegments: ['.augment', 'skills'],
-    workspaceSegments: ['.augment', 'skills']
-  },
-  {
-    id: 'muse',
-    displayName: 'Muse',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'zcode',
-    displayName: 'ZCode',
-    globalSegments: ['.zcode', 'skills'],
-    workspaceSegments: null
-  },
-  {
-    id: 'codebuddy',
-    displayName: 'CodeBuddy',
-    globalSegments: ['.codebuddy', 'skills'],
-    workspaceSegments: ['.codebuddy', 'skills']
   },
   {
     id: 'kiro',
@@ -97,62 +55,6 @@ export const SKILL_INSTALL_PROVIDERS = Object.freeze([
     id: 'antigravity',
     displayName: 'Antigravity',
     globalSegments: ['.gemini', 'config', 'skills'],
-    workspaceSegments: null
-  },
-  // Install into OpenClaude’s own roots; native-chat skillSourceOwner uses a separate mapping.
-  {
-    id: 'openclaude',
-    displayName: 'OpenClaude',
-    globalSegments: ['.openclaude', 'skills'],
-    workspaceSegments: ['.openclaude', 'skills'],
-    homeEnv: 'OPENCLAUDE_CONFIG_DIR'
-  },
-  {
-    id: 'autohand',
-    displayName: 'Autohand Code',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'goose',
-    displayName: 'Goose',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'crush',
-    displayName: 'Crush',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'command-code',
-    displayName: 'Command Code',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'mistral-vibe',
-    displayName: 'Mistral Vibe',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'qwen-code',
-    displayName: 'Qwen Code',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'rovo',
-    displayName: 'Rovo Dev',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'openclaw',
-    displayName: 'OpenClaw',
-    globalSegments: null,
     workspaceSegments: null
   },
   {
@@ -168,36 +70,6 @@ export const SKILL_INSTALL_PROVIDERS = Object.freeze([
     workspaceSegments: null
   },
   {
-    id: 'pi',
-    displayName: 'Pi',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'amp',
-    displayName: 'Amp',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'kilo',
-    displayName: 'Kilo Code',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'cline',
-    displayName: 'Cline',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'kimi',
-    displayName: 'Kimi',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
     id: 'copilot',
     displayName: 'GitHub Copilot',
     globalSegments: null,
@@ -206,66 +78,6 @@ export const SKILL_INSTALL_PROVIDERS = Object.freeze([
   {
     id: 'opencode2',
     displayName: 'OpenCode 2',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'mimo-code',
-    displayName: 'MiMo Code',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'omp',
-    displayName: 'OMP',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'prime-agent',
-    displayName: 'Prime Agent',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'qoder',
-    displayName: 'Qoder',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'qoder-cn',
-    displayName: 'Qoder CN',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'codebuff',
-    displayName: 'Codebuff',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'freebuff',
-    displayName: 'Freebuff',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'ante',
-    displayName: 'Ante',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'jcode',
-    displayName: 'Jcode',
-    globalSegments: null,
-    workspaceSegments: null
-  },
-  {
-    id: 'dsh',
-    displayName: 'DeepSeek Harness',
     globalSegments: null,
     workspaceSegments: null
   }

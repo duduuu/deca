@@ -11,8 +11,6 @@ import type {
 import { parseAskFromStatus, resolveNativeChatAsk } from './native-chat-ask'
 import type { AskPrompt } from './native-chat-ask-types'
 import type { NativeChatMessage } from '../native-chat-types'
-import { parseOmpPlanReviewPrompt } from '../../omp-plan-review-prompt'
-
 export type ChatApproval = {
   title: string
   displayName?: string
@@ -77,15 +75,6 @@ export function parseApprovalFromStatus(
   agent?: string,
   say: NativeChatApprovalSay = sayNativeChatApprovalEnglish
 ): ChatApproval | null {
-  const planReview = parseOmpPlanReviewPrompt(interactivePrompt)
-  if (planReview) {
-    return {
-      title: say('planReviewTitle'),
-      description: say('planRefineHint'),
-      subject: { kind: 'plan', text: planReview.plan },
-      options: planReview.options
-    }
-  }
   const folderTrust = parseNativeChatFolderTrustEnvelope(interactivePrompt)
   if (folderTrust) {
     return {

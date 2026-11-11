@@ -66,12 +66,8 @@ export const StatusBarItem = z.enum([
   'gemini',
   'antigravity',
   'opencode-go',
-  'kimi',
-  'minimax',
   'grok',
   'cursor',
-  'zcode',
-  'muse',
   'ssh',
   'resource-usage',
   'ports'
@@ -192,13 +188,9 @@ export const UiUpdateFields = z
     _workspaceStatusesDefaultVisualsMigrated: z.boolean().optional(),
     statusBarItems: z.array(StatusBarItem).optional(),
     _portsStatusBarDefaultAdded: z.boolean().optional(),
-    _kimiStatusBarDefaultAdded: z.boolean().optional(),
-    _minimaxStatusBarDefaultAdded: z.boolean().optional(),
     _antigravityStatusBarDefaultAdded: z.boolean().optional(),
     _grokStatusBarDefaultAdded: z.boolean().optional(),
     _cursorStatusBarDefaultAdded: z.boolean().optional(),
-    _zcodeStatusBarDefaultAdded: z.boolean().optional(),
-    _museStatusBarDefaultAdded: z.boolean().optional(),
     statusBarVisible: z.boolean().optional(),
     usagePercentageDisplay: z.enum(['used', 'remaining']).optional(),
     statusBarUsageMode: z.enum(['verbose', 'compact']).optional(),
@@ -211,13 +203,9 @@ export const UiUpdateFields = z
             codex: z.string().optional(),
             gemini: z.string().optional(),
             'opencode-go': z.string().optional(),
-            kimi: z.string().optional(),
-            minimax: z.string().optional(),
             grok: z.string().optional(),
             antigravity: z.string().optional(),
-            cursor: z.string().optional(),
-            zcode: z.string().optional(),
-            muse: z.string().optional()
+            cursor: z.string().optional()
           })
           .optional()
       })

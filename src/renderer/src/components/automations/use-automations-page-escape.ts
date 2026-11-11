@@ -15,7 +15,6 @@ export function useAutomationsPageEscape({
   const {
     createOpen,
     deleteTarget,
-    externalDeleteTarget,
     isDetailOpen,
     selectedAutomationRunPageId,
     pageView,
@@ -26,7 +25,7 @@ export function useAutomationsPageEscape({
     setSelectedAutomationRunPageId
   } = local
   useEffect(() => {
-    if (createOpen || deleteTarget || externalDeleteTarget || activeModal !== 'none') {
+    if (createOpen || deleteTarget || activeModal !== 'none') {
       return
     }
 
@@ -101,7 +100,6 @@ export function useAutomationsPageEscape({
     closeAutomationsPage,
     createOpen,
     deleteTarget,
-    externalDeleteTarget,
     isDetailOpen,
     pageView,
     runPageOrigin,

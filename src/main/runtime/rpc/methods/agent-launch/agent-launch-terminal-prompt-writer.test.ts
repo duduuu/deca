@@ -68,15 +68,6 @@ async function deliverAbortingAt(agent: TuiAgent, abortWhen: (data: string) => b
 }
 
 describe('cancelling a launch prompt in the real writer', () => {
-  it("reports OMP's combined paste and Enter as delivered when the abort follows it", async () => {
-    const { delivered, writes } = await deliverAbortingAt('omp', (data) => data.endsWith('\r'))
-
-    expect(writes).toHaveLength(1)
-    expect(writes[0]).toContain('fix the flaky test')
-    expect(writes[0]!.endsWith('\r')).toBe(true)
-    expect(delivered).toBe(true)
-  })
-
   it('reports a separate Enter as delivered when the abort follows it', async () => {
     const { delivered, writes } = await deliverAbortingAt('claude', (data) => data === '\r')
 

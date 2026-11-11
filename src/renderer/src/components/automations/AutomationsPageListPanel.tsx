@@ -19,7 +19,6 @@ export function AutomationsPageListPanel({
     runActions,
     editorActions,
     managementActions,
-    externalActions,
     presentation
   } = controller
   const {
@@ -36,7 +35,6 @@ export function AutomationsPageListPanel({
     listFilter,
     setListFilter,
     relativeNow,
-    externalActionKey,
     setActivePaneTab,
     isLoading,
     setPageView
@@ -47,7 +45,6 @@ export function AutomationsPageListPanel({
     hasFilteredListItems,
     isListSearchQueryTooLarge,
     selectedRow,
-    selectedExternal,
     searchCounts
   } = list
   const onListFilterChange = (next: typeof listFilter): void => {
@@ -65,12 +62,8 @@ export function AutomationsPageListPanel({
       onListSearchQueryChange={setListSearchQuery}
       listFilter={listFilter}
       onListFilterChange={onListFilterChange}
-      searchCounts={{
-        ...searchCounts,
-        hostRowCount: list.visibleRows.length + list.externalAutomationEntries.length
-      }}
+      searchCounts={{ ...searchCounts, hostRowCount: list.visibleRows.length }}
       hostCatalog={hostCatalog}
-      externalManagersUncheckedNotice={list.externalManagersUncheckedNotice}
       onSelectHost={hostCatalog.selectHost}
       onRecoverHost={(action, entry) => {
         hostCatalog.recover(action, entry)
@@ -82,8 +75,6 @@ export function AutomationsPageListPanel({
       listSort={local.listSort}
       onListSortChange={(field) => local.setListSort(nextAutomationListSort(local.listSort, field))}
       selectedRowKey={selectedRow?.key ?? null}
-      selectedExternalKey={local.selectedExternalKey}
-      selectedExternal={selectedExternal}
       relativeNow={relativeNow}
       repoMap={repoMap}
       worktreeMap={worktreeMap}
@@ -97,16 +88,13 @@ export function AutomationsPageListPanel({
       hostLabelById={presentation.hostLabelById}
       isActionEnabled={destination.isAutomationRowActionEnabled}
       needsMigration={(row) => !!destination.rowRecoveryHost(row.key)?.servedBy}
-      externalActionKey={externalActionKey}
       selectAutomationRow={list.selectAutomationRow}
-      selectExternalKey={local.selectExternalKey}
       setActivePaneTab={setActivePaneTab}
       runNow={(row) => void runActions.runNow(row)}
       openEditDialog={(row) => void editorActions.openEditDialog(row)}
       toggleAutomation={(row) => void managementActions.toggleAutomation(row)}
       reviewSkippedSetup={managementActions.reviewSkippedSetup}
       requestDeleteAutomation={managementActions.requestDeleteAutomation}
-      requestExternalAction={externalActions.requestExternalAction}
       openCreateDialog={editorActions.openCreateDialog}
       canCreateAutomation={destination.canCreateAutomation}
       onOpenDetail={onOpenDetail}

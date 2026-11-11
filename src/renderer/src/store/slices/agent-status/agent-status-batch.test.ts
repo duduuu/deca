@@ -53,56 +53,6 @@ describe('setAgentStatuses', () => {
     vi.unstubAllGlobals()
   })
 
-  it('exposes cap evictions to later updates in the same transaction', () => {
-    const store = seedBatchStore()
-    const firstPane = 'orphan-tab:orphan-0'
-    const entries = Object.fromEntries(
-      Array.from({ length: MAX_LIVE_AGENT_STATUSES }, (_, index) => {
-        const paneKey = `orphan-tab:orphan-${index}`
-        return [
-          paneKey,
-          {
-            paneKey,
-            state: 'working',
-            prompt: 'old turn',
-            agentType: 'pi',
-            updatedAt: BASE_TIME,
-            stateStartedAt: BASE_TIME,
-            stateHistory: []
-          } satisfies AgentStatusEntry
-        ]
-      })
-    )
-    store.setState({ agentStatusByPaneKey: entries } as Partial<AppState>)
-    let publications = 0
-    const unsubscribe = store.subscribe(() => {
-      publications += 1
-    })
-
-    const outcomes = store.getState().transactAgentStatuses((transaction) => {
-      const added = transaction.apply({
-        paneKey: 'orphan-tab:new-pane',
-        payload: { state: 'working', prompt: 'new turn', agentType: 'pi' },
-        timing: { updatedAt: BASE_TIME + 1, stateStartedAt: BASE_TIME + 1 }
-      })
-      expect(transaction.getState().agentStatusByPaneKey[firstPane]).toBeUndefined()
-      const completed = transaction.apply({
-        paneKey: firstPane,
-        payload: { state: 'done', prompt: 'different agent', agentType: 'claude' },
-        timing: { updatedAt: BASE_TIME + 2, stateStartedAt: BASE_TIME + 2 }
-      })
-      return [added, completed]
-    })
-
-    expect(outcomes).toEqual([true, true])
-    expect(store.getState().agentStatusByPaneKey[firstPane]).toMatchObject({
-      agentType: 'claude',
-      state: 'done'
-    })
-    expect(publications).toBe(1)
-    unsubscribe()
-  })
-
   it('preserves a store write that bypassed the transaction instead of reverting it', () => {
     const store = seedBatchStore()
 

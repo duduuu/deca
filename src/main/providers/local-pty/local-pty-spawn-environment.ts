@@ -7,7 +7,6 @@ import {
 import { removeAppImageRuntimeEnv } from '../../pty/shell-startup/appimage-terminal-env'
 import { removeChromiumDisabledSessionBus } from '../../pty/shell-startup/chromium-session-bus-env'
 import { stripInheritedBuildModeEnv } from '../../pty/shell-startup/build-mode-env'
-import { stripPiProcessOwnerEnv } from '../../pty/shell-startup/pi-process-owner-env'
 import { removeInheritedNoColor } from '../../pty/shell-startup/terminal-color-env'
 import { isWindowsGitBashShellPath } from '../../pty/shell-startup/git-bash'
 import { applyScrubSafeAgentEnvAliases } from '../../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
@@ -71,7 +70,6 @@ export function buildInheritedLocalPtyEnvironment(
     [ORCA_IMAGE_PROTOCOL_ENV]: ORCA_IMAGE_PROTOCOL_VALUE
   } satisfies Record<string, string>
   removeUnspecifiedPaneIdentityEnv(spawnEnv, explicitEnv)
-  stripPiProcessOwnerEnv(spawnEnv)
   removeAppImageRuntimeEnv(spawnEnv)
   removeChromiumDisabledSessionBus(spawnEnv)
   removeInheritedNoColor(spawnEnv)
@@ -94,7 +92,6 @@ export function enforceLocalPtySpawnEnvironmentOverrides(
   spawn: PtySpawnOptions,
   finalEnv: Record<string, string>
 ): void {
-  stripPiProcessOwnerEnv(finalEnv)
   stripInheritedClaudeSessionEnv(finalEnv, {
     launchEnv: spawn.env,
     envToDelete: spawn.envToDelete

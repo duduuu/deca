@@ -4,9 +4,7 @@ import type { StoredWebRuntimeEnvironment } from '../web-runtime-environment'
 import { AGENT_SESSION_USAGE_LIMIT_AUTO_CONTINUE_RUNTIME_CAPABILITY } from '../../../../shared/agent-session/agent-session-create-capabilities'
 import { runtimeChatPermissionSetting } from './web-preference-normalization'
 import { callEnvironmentEnvelope } from './web-runtime-calls'
-import { requireActiveEnvironmentOrNull } from './web-runtime-session'
-import { zcodePlanSiteOwner } from './web-zcode-plan-site'
-
+import { requireActiveEnvironmentOrNull, runtimePairingOwner } from './web-runtime-session'
 let consent: { owner: string | null; value: boolean | undefined } | undefined
 
 export const read = runtimeChatPermissionSetting
@@ -15,8 +13,8 @@ export function publish(
   environment: StoredWebRuntimeEnvironment,
   settings: Partial<GlobalSettings>
 ): void {
-  const owner = zcodePlanSiteOwner(environment)
-  if (owner === zcodePlanSiteOwner(requireActiveEnvironmentOrNull())) {
+  const owner = runtimePairingOwner(environment)
+  if (owner === runtimePairingOwner(requireActiveEnvironmentOrNull())) {
     consent = {
       owner,
       value:
@@ -32,7 +30,7 @@ export function project(settings: GlobalSettings): GlobalSettings {
   return {
     ...settings,
     nativeChatAutoContinueAfterUsageLimit:
-      consent?.owner === zcodePlanSiteOwner(environment) ? consent?.value : undefined
+      consent?.owner === runtimePairingOwner(environment) ? consent?.value : undefined
   }
 }
 

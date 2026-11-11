@@ -11,31 +11,16 @@ import type { TuiAgent } from '../../agent-launch/catalog/tui-agent'
 
 export const RESUMABLE_TUI_AGENTS = [
   'claude',
-  'codebuddy',
   'codex',
-  'qoder',
-  'qoder-cn',
-  'qwen-code',
   'gemini',
   'antigravity',
   'opencode',
   'opencode2',
-  'pi',
-  'mimo-code',
-  'droid',
   'grok',
   'devin',
-  'omp',
-  'prime-agent',
   'copilot',
   'cursor',
-  'kimi',
-  'muse',
-  'zcode',
-  'dsh',
-  'jcode',
-  'kiro',
-  'hermes'
+  'kiro'
 ] as const satisfies readonly TuiAgent[]
 
 export type ResumableTuiAgent = (typeof RESUMABLE_TUI_AGENTS)[number]
@@ -198,21 +183,16 @@ export function normalizeAgentProviderSession(raw: unknown): AgentProviderSessio
   }
 }
 
-/** Compare the provider-owned values that identify the CLI resume target.
- *  Pi-family transcript resumes use file identity; other agents use provider ids. */
+/** Compare the provider-owned values that identify the CLI resume target. */
 export function agentProviderSessionsEqual(
-  agent: string | undefined,
+  _agent: string | undefined,
   left: AgentProviderSessionMetadata | undefined,
   right: AgentProviderSessionMetadata | undefined
 ): boolean {
   if (left === undefined || right === undefined) {
     return left === right
   }
-  return (
-    left.key === right.key &&
-    left.id === right.id &&
-    ((agent !== 'pi' && agent !== 'prime-agent') || left.transcriptPath === right.transcriptPath)
-  )
+  return left.key === right.key && left.id === right.id
 }
 
 export function extractAgentProviderSession(
@@ -221,38 +201,17 @@ export function extractAgentProviderSession(
 ): AgentProviderSessionMetadata | null {
   switch (source) {
     // Capture transcript_path: recent Claude filenames differ from hook session_id, defeating ID-based globs.
-    case 'qoder-cn':
-    case 'qwen-code':
-    case 'qoder':
-    case 'codebuddy':
     case 'claude':
     case 'codex': {
       const id = readSessionId(payload, ['session_id'])
       return id ? withTranscriptPath({ key: 'session_id', id }, payload) : null
     }
-    case 'gemini':
-    case 'droid':
-    // Why: Kimi Code posts a Claude-shaped `session_id` (e.g. session_<uuid>).
-    // falls through
-    case 'kimi': {
+    case 'gemini': {
       const id = readSessionId(payload, ['session_id'])
       return id ? { key: 'session_id', id } : null
     }
-    case 'muse': {
-      const id = readSessionId(payload, ['session_id'])
-      return id ? withTranscriptPath({ key: 'session_id', id }, payload) : null
-    }
-    // ZCode deletes its per-invocation transcript_path temp file when the hook returns; only its ID is durable.
-    case 'zcode': {
-      const id = readSessionId(payload, ['session_id'])
-      return id ? { key: 'session_id', id } : null
-    }
-    // DSH's bridge has no persistence artifact and sends an empty transcript_path; retain its session ID only.
-    // Kiro also reports no transcript path; its ID feeds --resume-id.
-    // Hermes' managed plugin posts the live session_id on every hook; `hermes --resume` takes it.
-    case 'hermes':
-    case 'kiro':
-    case 'dsh': {
+    // Kiro reports no transcript path; its ID feeds --resume-id.
+    case 'kiro': {
       const id = readSessionId(payload, ['session_id'])
       return id ? { key: 'session_id', id } : null
     }
@@ -261,18 +220,9 @@ export function extractAgentProviderSession(
       return id ? { key: 'conversation_id', id } : null
     }
     case 'opencode':
-    case 'opencode2':
-    case 'mimo-code': {
+    case 'opencode2': {
       const id = readSessionId(payload, ['sessionID'])
       return id ? { key: 'session_id', id } : null
-    }
-    case 'pi':
-    case 'prime-agent': {
-      const id = readSessionId(payload, ['session_id'])
-      const providerSession = id
-        ? withTranscriptPath({ key: 'session_id', id }, payload, ['session_file'])
-        : null
-      return providerSession?.transcriptPath ? providerSession : null
     }
     case 'grok': {
       const id = readSessionId(payload, ['sessionId', 'session_id'])
@@ -282,15 +232,7 @@ export function extractAgentProviderSession(
       const id = readSessionId(payload, ['session_id', 'sessionId'])
       return id ? { key: 'session_id', id } : null
     }
-    case 'jcode': {
-      const id = readSessionId(payload, ['session_id', 'sessionId'])
-      return id ? { key: 'session_id', id } : null
-    }
     // OMP keeps id-based resume while optionally locating its native-chat transcript.
-    case 'omp': {
-      const id = readSessionId(payload, ['session_id'])
-      return id ? withTranscriptPath({ key: 'session_id', id }, payload, ['session_file']) : null
-    }
     // Why: Copilot's hook `session_id` is also its `~/.copilot/session-state/<id>/`
     // directory name, so the same id is the CLI's resume locator.
     case 'copilot': {
@@ -301,9 +243,6 @@ export function extractAgentProviderSession(
       const id = readSessionId(payload, ['conversation_id'])
       return id ? { key: 'conversation_id', id } : null
     }
-    case 'amp':
-    case 'command-code':
-      return null
   }
 }
 

@@ -117,10 +117,7 @@ export async function openCreateDialogFor(projectId: string, workspaceId: string
   })
 }
 
-export async function holdRuntimeSave(
-  draft: Partial<AutomationDraft> = {},
-  initialAgents = ['pi']
-) {
+export async function holdRuntimeSave(draft: Partial<AutomationDraft> = {}, initialAgents = []) {
   api.automations.list.mockResolvedValue([])
   scopedList([])
   runtimeHost([], [])

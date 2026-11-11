@@ -1,6 +1,6 @@
-import { Menu, Tray, nativeImage, nativeTheme, type NativeImage } from 'electron'
 import menuBarIconPath from '../../../resources/tray/orca-menu-barTemplate.png?asset&asarUnpack'
 import menuBarIconRetinaPath from '../../../resources/tray/orca-menu-barTemplate@2x.png?asset&asarUnpack'
+import { Menu, Tray, nativeImage, nativeTheme, type NativeImage } from 'electron'
 import { deferAppKitSceneMutation } from '../window/desktop-integration/appkit-scene-mutation'
 import { createAppIconImage } from '../window/desktop-integration/app-icon'
 import { translateMain } from '../i18n/main-i18n'

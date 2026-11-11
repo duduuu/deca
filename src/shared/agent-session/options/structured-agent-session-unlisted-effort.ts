@@ -12,13 +12,12 @@ export function withUnlistedEffort(
   /** The ids the chat's own options answer lists; absent from an older host. */
   listed: readonly string[] | undefined,
   snapshot: SessionOptionDescriptor[],
-  agent: AgentType
+  _agent: AgentType
 ): SessionOptionDescriptor[] {
   if (!modelId || typeof effort?.value !== 'string') {
     return snapshot
   }
   if (
-    agent !== 'pi' &&
     snapshot.some(
       (entry) =>
         entry.id === 'effort' &&
@@ -32,7 +31,7 @@ export function withUnlistedEffort(
     .find((model) => model.id === modelId)
     ?.options.find((option) => option.id === 'effort')
   if (
-    (listed?.includes(modelId) || (agent === 'pi' && !listed)) &&
+    listed?.includes(modelId) &&
     offered?.kind.type === 'select' &&
     offered.kind.choices.some((choice) => choice.value === effort.value)
   ) {

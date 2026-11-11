@@ -5,9 +5,6 @@ import type {
 } from '../../shared/managed-account-types'
 import type { CodexConfigSyncStatus } from '../../shared/codex-config-sync-types'
 import type { CursorAccountStatus, GrokAccountStatus } from '../../shared/rate-limit-types'
-import type { ZcodePlanCredentialsStatus } from '../../shared/zcode-plan-sites'
-import type { MiniMaxCredentialsStatus } from '../../shared/minimax-credentials-status'
-
 export type CodexAccountsApi = {
   list: () => Promise<CodexRateLimitAccountsState>
   add: (args?: {
@@ -72,22 +69,6 @@ export type GrokAccountsApi = {
 
 export type CursorAccountsApi = {
   getStatus: () => Promise<CursorAccountStatus>
-}
-
-export type MinimaxCredentialsApi = {
-  // configured remains cookie OR API key for existing callers.
-  getStatus: () => Promise<MiniMaxCredentialsStatus>
-  saveCookie: (cookie: string) => Promise<MiniMaxCredentialsStatus>
-  clearCookie: () => Promise<MiniMaxCredentialsStatus>
-  saveApiKey: (key: string) => Promise<MiniMaxCredentialsStatus>
-  clearApiKey: () => Promise<MiniMaxCredentialsStatus>
-}
-
-export type ZcodePlanCredentialsApi = {
-  // Report presence of the saved key and read-only CLI credentials without exposing either value.
-  getStatus: () => Promise<ZcodePlanCredentialsStatus>
-  saveApiKey: (key: string) => Promise<ZcodePlanCredentialsStatus>
-  clearApiKey: () => Promise<ZcodePlanCredentialsStatus>
 }
 
 export type CodexConfigSyncApi = {

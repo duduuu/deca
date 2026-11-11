@@ -1,5 +1,4 @@
 import { OPENCODE_LAUNCH_OPTION_CATALOG } from './agent-session-option-catalog-opencode'
-import { CODEBUDDY_SESSION_OPTION_CATALOG } from './agent-session-option-catalog-codebuddy'
 import type { AgentType } from '../../agent-status/contracts/agent-status-types'
 import { ANTIGRAVITY_SESSION_OPTION_CATALOG } from './agent-session-option-catalog-antigravity'
 import {
@@ -11,9 +10,6 @@ import {
   GEMINI_SESSION_OPTION_CATALOG
 } from './agent-session-option-catalog-gemini-cursor'
 import { GROK_SESSION_OPTION_CATALOG } from './agent-session-option-catalog-grok'
-import { MUSE_SESSION_OPTION_CATALOG } from './agent-session-option-catalog-muse'
-import { OMP_SESSION_OPTION_CATALOG } from './agent-session-option-catalog-omp'
-import { PI_LAUNCH_OPTION_CATALOG } from './agent-session-option-catalog-pi'
 import type {
   AgentSessionOptionCatalog,
   AgentSessionOptionCatalogMap,
@@ -25,13 +21,10 @@ import type { SessionOptionValue } from '../../native-chat/input/native-chat-ses
 const CATALOGS: AgentSessionOptionCatalogMap = {
   antigravity: ANTIGRAVITY_SESSION_OPTION_CATALOG,
   claude: CLAUDE_SESSION_OPTION_CATALOG,
-  codebuddy: CODEBUDDY_SESSION_OPTION_CATALOG,
   codex: CODEX_SESSION_OPTION_CATALOG,
   gemini: GEMINI_SESSION_OPTION_CATALOG,
   cursor: CURSOR_SESSION_OPTION_CATALOG,
-  grok: GROK_SESSION_OPTION_CATALOG,
-  muse: MUSE_SESSION_OPTION_CATALOG,
-  omp: OMP_SESSION_OPTION_CATALOG
+  grok: GROK_SESSION_OPTION_CATALOG
 }
 
 export function getAgentSessionOptionCatalog(agent: AgentType): AgentSessionOptionCatalog | null {
@@ -92,9 +85,5 @@ export function sessionOptionValueIsValid(value: unknown): value is SessionOptio
 export function getAgentSessionOptionLaunchCatalog(
   agent: AgentType
 ): AgentSessionOptionCatalog | null {
-  return agent === 'opencode'
-    ? OPENCODE_LAUNCH_OPTION_CATALOG
-    : agent === 'pi'
-      ? PI_LAUNCH_OPTION_CATALOG
-      : getAgentSessionOptionCatalog(agent)
+  return agent === 'opencode' ? OPENCODE_LAUNCH_OPTION_CATALOG : getAgentSessionOptionCatalog(agent)
 }

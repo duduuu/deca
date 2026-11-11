@@ -9,16 +9,7 @@ import { afterAll, afterEach } from 'vitest'
 
 type GuardState = { roots: string[]; violations: string[] }
 
-const AGENT_HOME_ENTRIES = [
-  '.codex',
-  '.claude',
-  '.orca',
-  '.deca',
-  '.cursor',
-  '.copilot',
-  '.gemini',
-  '.qoder'
-]
+const AGENT_HOME_ENTRIES = ['.codex', '.claude', '.orca', '.deca', '.cursor', '.copilot', '.gemini']
 // Guard Claude file/temp prefixes beside .claude directory, not only inside it.
 const AGENT_HOME_FILE_PREFIXES = ['.claude.json']
 // Capture live Orca/agent roots from terminal env before clearing inherited values.

@@ -25,10 +25,7 @@ function buildPosixBranch(
 ): string {
   const posixScript = `"\${HOME-}/.deca/agent-hooks/${scriptBaseName}.sh"`
   const homeGuard = options.requireHome ? '[ -n "${HOME-}" ] && ' : ''
-  const parentCapture =
-    scriptBaseName === 'claude-hook' || scriptBaseName === 'openclaude-hook'
-      ? HOOK_PARENT_CAPTURE
-      : ''
+  const parentCapture = scriptBaseName === 'claude-hook' ? HOOK_PARENT_CAPTURE : ''
   return `if ${homeGuard}[ -f ${posixScript} ] && [ -r ${posixScript} ] && [ -x ${posixScript} ]; then ${parentCapture}/bin/sh ${posixScript}; else ${missingScriptFallback}; fi`
 }
 

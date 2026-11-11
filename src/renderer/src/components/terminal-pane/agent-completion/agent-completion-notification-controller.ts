@@ -7,7 +7,6 @@ import type {
   AgentCompletionIdentityScope,
   LastCompletionIdentity
 } from './agent-completion-identity-store'
-import { isPiCompatibleAgentType } from '../../../../../shared/pi-agent-kind'
 import { AGENT_DONE_QUIET_MS } from '../../../../../shared/agent-status/lifecycle/agent-transitions'
 
 type CompletionSource = 'hook' | 'title' | 'process-exit'
@@ -88,11 +87,8 @@ export function createAgentCompletionNotificationController({
     return payload.agentType?.trim().toLowerCase() || null
   }
 
-  function doneShouldUseQuietWindow(payload: AgentCompletionStatusSnapshot): boolean {
-    // Why: Pi/OMP emit milestone 'done' while still working, so route it through the quiet window so later work can cancel it.
-    return (
-      state.workingStatusObserved || isPiCompatibleAgentType(hookCompletionAgentIdentity(payload))
-    )
+  function doneShouldUseQuietWindow(_payload: AgentCompletionStatusSnapshot): boolean {
+    return state.workingStatusObserved
   }
 
   function hookAttentionToken(payload: AgentCompletionStatusSnapshot): string {

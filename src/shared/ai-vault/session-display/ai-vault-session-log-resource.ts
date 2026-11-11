@@ -30,36 +30,18 @@ const jsonLog: LogFileResolver = (filePath) => (/\.json$/i.test(filePath) ? file
 // Storage locators may name metadata or a shared database, rather than one conversation's log.
 const logFileResolvers = {
   claude: jsonlLog,
-  codebuddy: jsonlLog,
-  qoder: jsonlLog,
   codex: jsonlLog,
-  hermes: jsonLog,
-  pi: jsonlLog,
-  omp: jsonlLog,
-  'prime-agent': jsonlLog,
   cursor: jsonlLog,
   gemini: (filePath) => jsonLog(filePath) ?? jsonlLog(filePath),
   antigravity: jsonlLog,
-  rovo: (filePath) =>
-    getRuntimePathBasename(filePath) === 'metadata.json'
-      ? rovoTranscriptPathForMetadata(filePath)
-      : null,
   copilot: jsonlLog,
   opencode: () => null,
   opencode2: () => null,
-  zcode: () => null,
   grok: (filePath) =>
     getRuntimePathBasename(filePath) === 'summary.json'
       ? grokTranscriptPathForMetadata(filePath)
       : null,
-  openclaw: jsonlLog,
   devin: jsonLog,
-  droid: jsonlLog,
-  cline: (filePath) => clineMessagesPathForMetadata(filePath) || null,
-  // The primary wire path requires state contents unavailable in a History row.
-  kimi: () => null,
-  muse: jsonlLog,
-  jcode: jsonLog,
   kiro: (filePath) => kiroTranscriptPathForMetadata(filePath) || null
 } satisfies Record<AiVaultAgent, LogFileResolver>
 

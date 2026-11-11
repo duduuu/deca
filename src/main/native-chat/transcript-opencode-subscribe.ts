@@ -19,18 +19,14 @@ const OPENCODE_POLL_MS = 1_000
 export function subscribeOpenCodeNativeChatTranscript(
   args: SubscribeNativeChatTranscriptArgs,
   setupSignal?: AbortSignal,
-  deps: OpenCodeTranscriptDeps = {},
-  agent?: 'zcode'
+  deps: OpenCodeTranscriptDeps = {}
 ): NativeChatTranscriptSubscription {
   setupSignal?.throwIfAborted()
   const controller = new AbortController()
   const resolveDbPath = deps.resolveDbPath ?? openCodeTranscriptDefaultDeps.resolveDbPath
   const readSignal = deps.readSignal ?? openCodeTranscriptDefaultDeps.readSignal
   const readPage = (page: Parameters<NonNullable<OpenCodeTranscriptDeps['readPage']>>[0]) =>
-    (deps.readPage ?? openCodeTranscriptDefaultDeps.readPage)(
-      { ...page, ...(agent ? { agent } : {}) },
-      controller.signal
-    )
+    (deps.readPage ?? openCodeTranscriptDefaultDeps.readPage)(page, controller.signal)
   const pollMs = args.resolvePollIntervalMs ?? OPENCODE_POLL_MS
   const initialLimit = openCodeTranscriptPageLimit(
     args.initialLimit && args.initialLimit > 0 ? args.initialLimit : DESKTOP_READ_WINDOW
@@ -98,7 +94,7 @@ export function subscribeOpenCodeNativeChatTranscript(
       return
     }
     try {
-      dbPath ??= await resolveDbPath(args.sessionId, controller.signal, agent)
+      dbPath ??= await resolveDbPath(args.sessionId, controller.signal)
       if (closed) {
         return
       }
@@ -106,7 +102,7 @@ export function subscribeOpenCodeNativeChatTranscript(
         scheduleTick()
         return
       }
-      const signal = await readSignal(dbPath, args.sessionId, controller.signal, agent)
+      const signal = await readSignal(dbPath, args.sessionId, controller.signal)
       if (closed) {
         return
       }
@@ -151,17 +147,6 @@ export function subscribeOpenCodeNativeChatTranscript(
           () => args.onInitialSnapshot?.(snapshot, snapshotHasMore, snapshotBefore),
           'snapshot'
         )
-        scheduleTick()
-        return
-      }
-      // Imported ZCode rows may precede the frontier regardless of storage rowid.
-      if (agent === 'zcode') {
-        if (
-          await replaceWithBridgedWindow(dbPath, page, signal.messageCount < lastCounts.messages)
-        ) {
-          lastSignal = fingerprint
-          lastCounts = { messages: signal.messageCount, parts: signal.partCount }
-        }
         scheduleTick()
         return
       }
@@ -246,7 +231,7 @@ export function subscribeOpenCodeNativeChatTranscript(
         lastEmittedRowId = item.rowid
       }
     }
-    pruneOpenCodeFingerprintCache(fingerprints, OPENCODE_TRANSCRIPT_MAX_WINDOW, agent)
+    pruneOpenCodeFingerprintCache(fingerprints, OPENCODE_TRANSCRIPT_MAX_WINDOW)
     windowLimit = Math.max(windowLimit, fingerprints.size)
   }
 
@@ -279,10 +264,7 @@ export function subscribeOpenCodeNativeChatTranscript(
         emitSafely(() => args.onReplace?.([], hasMore, before), 'replace')
         return true
       }
-      const overlaps =
-        agent === 'zcode'
-          ? replacement.items.some((item) => fingerprints.has(item.rowid))
-          : oldest <= lastEmittedRowId
+      const overlaps = oldest <= lastEmittedRowId
       if (shrinking || overlaps || !replacement.hasMore) {
         fingerprints.clear()
         lastEmittedRowId = 0

@@ -10,8 +10,7 @@ import { resolveSessionFilePath, type ResolveSessionFileOptions } from './sessio
 import {
   decodeClaudeTranscriptLine,
   decodeCodexTranscriptLine,
-  decodeGrokTranscriptLine,
-  decodeOmpTranscriptLine
+  decodeGrokTranscriptLine
 } from './transcript-line-decoders'
 import { transcriptFallbackId } from './transcript-fallback-id'
 import { inTranscriptFileOrder } from './transcript-file-order'
@@ -47,9 +46,6 @@ export function nativeChatLineDecoderForAgent(agent: AgentType): NativeChatLineD
   }
   if (transcriptAgent === 'grok') {
     return decodeGrokTranscriptLine
-  }
-  if (transcriptAgent === 'omp') {
-    return decodeOmpTranscriptLine
   }
   return null
 }
@@ -255,11 +251,7 @@ export async function readNativeChatTranscriptTail(
   | { error: string; notFound?: true }
 > {
   if (resolveNativeChatTranscriptAgent(args.agent) === 'opencode') {
-    return readOpenCodeNativeChatTranscriptTail(
-      { ...args, agent: args.agent === 'zcode' ? 'zcode' : undefined },
-      {},
-      signal
-    )
+    return readOpenCodeNativeChatTranscriptTail(args, {}, signal)
   }
   const decode = nativeChatLineDecoderForAgent(args.agent)
   const decodeLifecycle = nativeChatTurnLifecycleDecoderForAgent(args.agent)

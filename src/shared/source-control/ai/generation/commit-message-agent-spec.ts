@@ -1,18 +1,15 @@
-import { OMP_MODEL_LIST_ARGS, parseOmpModelList } from '../../../omp-model-list-probe'
 import type { TuiAgent } from '../../../agent-launch/catalog/tui-agent'
 import { isTuiAgentEnabled } from '../../../agent-launch/catalog/tui-agent-selection'
 import { labelFromModelId } from '../../../model-id-label'
 import { buildPrimaryCommitMessageAgentSpecs } from './commit-message-agent-specs-primary'
 import { buildSecondaryCommitMessageAgentSpecs } from './commit-message-agent-specs-secondary'
 import {
-  BASIC_THINKING_LEVELS,
   CLAUDE_THINKING_LEVELS,
   OPENAI_THINKING_LEVELS,
   parseAntigravityModels,
   parseClaudeModels,
   parseCursorModels,
   parseLineModels,
-  parsePiModels,
   withOpenAiThinking
 } from './commit-message-model-parsers'
 
@@ -109,46 +106,17 @@ export type CommitMessageAgentCapability = {
 }
 
 export const COMMIT_MESSAGE_AGENT_SPECS: Partial<Record<TuiAgent, CommitMessageAgentSpec>> = {
-  omp: {
-    id: 'omp',
-    label: 'OMP',
-    binary: 'omp',
-    promptDelivery: 'file',
-    buildArgs: ({ prompt, model, thinkingLevel }) => [
-      '--print',
-      '--no-session',
-      '--no-tools',
-      '--no-extensions',
-      '--no-skills',
-      '--no-rules',
-      '--mode',
-      'text',
-      ...(model && model !== 'default' ? ['--model', model] : []),
-      ...(thinkingLevel ? ['--thinking', thinkingLevel] : []),
-      prompt
-    ],
-    singletonOptions: [['--model'], ['--thinking']],
-    modelFlag: [{ aliases: ['--model'] }],
-    effortFlag: [{ aliases: ['--thinking'] }],
-    modelSource: 'dynamic',
-    modelDiscovery: { binary: 'omp', args: OMP_MODEL_LIST_ARGS, parse: parseOmpModelList },
-    models: [{ id: 'default', label: 'Config default' }],
-    defaultModelId: 'default'
-  },
   ...buildPrimaryCommitMessageAgentSpecs({
     CLAUDE_THINKING_LEVELS,
     OPENAI_THINKING_LEVELS,
     parseClaudeModels,
     parseLineModels,
-    parsePiModels,
     withOpenAiThinking
   }),
   ...buildSecondaryCommitMessageAgentSpecs({
-    BASIC_THINKING_LEVELS,
     OPENAI_THINKING_LEVELS,
     parseCursorModels,
-    parseAntigravityModels,
-    parseLineModels
+    parseAntigravityModels
   })
 }
 

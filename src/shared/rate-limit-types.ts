@@ -88,18 +88,7 @@ export type UsageRateLimitMetadata = {
 }
 
 export type ProviderRateLimits = {
-  provider:
-    | 'claude'
-    | 'codex'
-    | 'gemini'
-    | 'opencode-go'
-    | 'kimi'
-    | 'minimax'
-    | 'grok'
-    | 'antigravity'
-    | 'cursor'
-    | 'zcode'
-    | 'muse'
+  provider: 'claude' | 'codex' | 'gemini' | 'opencode-go' | 'grok' | 'antigravity' | 'cursor'
   /** 5-hour session window, null if not available. */
   session: RateLimitWindow | null
   /** 7-day weekly window, null if not available. */
@@ -188,25 +177,15 @@ export type RateLimitState = {
   codex: ProviderRateLimits | null
   gemini: ProviderRateLimits | null
   opencodeGo: ProviderRateLimits | null
-  kimi: ProviderRateLimits | null
   antigravity: ProviderRateLimits | null
-  minimax: ProviderRateLimits | null
   grok: ProviderRateLimits | null
   cursor: ProviderRateLimits | null
-  zcode: ProviderRateLimits | null
-  muse: ProviderRateLimits | null
-  /** Cookie is stored outside GlobalSettings; this durable flag keeps MiniMax visible across reloads/snapshot refreshes. */
-  minimaxCookieConfigured: boolean
-  /** Expose API-key presence only; main retains the secret. Combined with cookie presence, keeps MiniMax visible across reloads. */
-  minimaxApiKeyConfigured: boolean
   /** Main resolves settings/env/OpenCode-connect keys but exposes only presence; combine with session cookie for persistent bar visibility. */
   opencodeGoApiKeyConfigured: boolean
   /** True when main finds a Grok CLI session file (~/.grok/auth.json or GROK_HOME). */
   grokAuthConfigured: boolean
   /** Presence of Cursor Keychain/legacy auth/IDE login only; tokens never leave main. */
   cursorAuthConfigured: boolean
-  /** Expose GLM Coding Plan key presence only; retain secret in main and keep ZCode visible across reloads/refreshes. */
-  zcodePlanApiKeyConfigured?: boolean
   claudeTarget: RateLimitRuntimeTarget
   codexTarget: RateLimitRuntimeTarget
   inactiveClaudeAccounts: InactiveAccountUsage[]

@@ -157,7 +157,7 @@ const {
     invalidateAuthorizedRootsCacheMock: vi.fn() as TestMock,
     prepareLocalWorktreeRootForRepoMock: vi.fn() as TestMock,
     applyAgentStatusHooksEnabledMock: vi.fn() as TestMock,
-    detectAgentCommandsOnHostMock: vi.fn(async () => new Set(['qodercli'])),
+    detectAgentCommandsOnHostMock: vi.fn(async () => new Set(['claude'])),
     detectInstalledAgentsWithShellPathHydrationMock: vi.fn() as TestMock,
     markCodexProjectTrustedMock: vi.fn() as TestMock,
     markCopilotFolderTrustedMock: vi.fn() as TestMock,

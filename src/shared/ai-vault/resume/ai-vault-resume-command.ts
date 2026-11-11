@@ -30,11 +30,7 @@ export function buildAiVaultResumeCommand(args: {
   const { agent, sessionId, cwd, platform, commandOverride, codexHome, resumeFilePath, shell } =
     args
   const baseCommand = commandOverride?.trim() || defaultAiVaultResumeCommandBase(agent)
-  // OMP/Prime --resume accepts absolute transcript paths across custom roots/WSL; default-store ID lookup would miss them. Fall back to ID without a path.
-  const resumeTarget =
-    (agent === 'omp' || agent === 'prime-agent') && resumeFilePath?.trim()
-      ? resumeFilePath.trim()
-      : sessionId
+  const resumeTarget = sessionId
   const sessionArg =
     shell === 'cmd'
       ? quoteCmdDoubleQuoted(resumeTarget)
@@ -164,11 +160,8 @@ function defaultAiVaultResumeCommandBase(agent: AiVaultAgent): string {
   if (agent === 'cursor') {
     return 'cursor-agent'
   }
-  if (agent === 'hermes') {
-    return 'hermes'
-  }
   // Preserve launch subcommands and mode flags when resuming.
-  if (agent === 'rovo' || agent === 'opencode2' || agent === 'kiro') {
+  if (agent === 'opencode2' || agent === 'kiro') {
     return TUI_AGENT_CONFIG[agent].launchCmd
   }
   return TUI_AGENT_CONFIG[agent].detectCmd
@@ -182,39 +175,20 @@ function buildAgentResumeInvocation(
   switch (agent) {
     case 'codex':
       return `${baseCommand} resume ${sessionArg}`
-    case 'rovo':
-      // Why: the base is the full launch command, as a settings override is.
-      return `${baseCommand} --restore ${sessionArg}`
     case 'opencode2':
     case 'opencode':
-    case 'pi':
-    // Kimi --session/-S is workspace-scoped; retain the cwd prefix or resume fails.
-    // falls through
-    case 'kimi':
+      // falls through
       return `${baseCommand} --session ${sessionArg}`
     case 'copilot':
       return `${baseCommand} --resume=${sessionArg}`
     // Muse resume is workspace-scoped; retain the cwd prefix.
-    case 'muse':
-      return `${baseCommand} resume ${sessionArg}`
-    case 'cline':
-      return `${baseCommand} --id ${sessionArg}`
-    case 'qoder':
-    case 'codebuddy':
     case 'claude':
-    case 'zcode':
     case 'cursor':
     case 'gemini':
     case 'grok':
-    case 'hermes':
     case 'devin':
-    case 'openclaw':
-    case 'droid':
-    case 'jcode':
-    // OMP/Prime use the same --resume form with absolute transcript paths.
-    // falls through
-    case 'omp':
-    case 'prime-agent':
+      // OMP/Prime use the same --resume form with absolute transcript paths.
+      // falls through
       return `${baseCommand} --resume ${sessionArg}`
     case 'antigravity':
       return `${baseCommand} --conversation ${sessionArg}`

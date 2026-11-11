@@ -1,17 +1,11 @@
 import { AgentStateRulesFileSchema, type AgentStateRulesFile } from './agent-state-rules-schema'
 import antigravity from './antigravity.json'
 import claude from './claude.json'
-import cline from './cline.json'
 import codex from './codex.json'
 import cursor from './cursor.json'
-import dsh from './dsh.json'
 import gemini from './gemini.json'
-import hermes from './hermes.json'
-import omp from './omp.json'
 import opencode from './opencode.json'
 import opencode2 from './opencode2.json'
-import pi from './pi.json'
-import primeAgent from './prime-agent.json'
 import unknownPane from './unknown-pane.json'
 
 export function parseAgentStateRuleFiles(files: readonly unknown[]): AgentStateRulesFile[] {
@@ -36,17 +30,11 @@ export function parseAgentStateRuleFiles(files: readonly unknown[]): AgentStateR
 export const RAW_BUNDLED_AGENT_STATE_RULE_FILES: readonly unknown[] = [
   antigravity,
   claude,
-  cline,
   codex,
   cursor,
-  dsh,
   gemini,
-  hermes,
-  omp,
   opencode,
   opencode2,
-  pi,
-  primeAgent,
   unknownPane
 ]
 

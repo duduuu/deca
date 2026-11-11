@@ -78,13 +78,6 @@ function readToolFields(
   eventName: string,
   hook: Record<string, unknown>
 ): ToolFields {
-  if (source === 'amp') {
-    return {
-      tool: firstString(hook, ['tool', 'toolName', 'name']),
-      input: firstValue(hook, ['input', 'tool_input', 'arguments']),
-      output: firstValue(hook, ['output', 'result', 'error'])
-    }
-  }
   if (source === 'copilot') {
     const call = readCopilotToolCall(hook)
     const args = hook.toolArgs

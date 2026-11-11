@@ -13,7 +13,6 @@ import {
 } from '../view/terminal-surface-deadlines'
 import { isClientDisconnectedError } from '../../client/runtime-client-disconnect'
 import { rendererPublicationThrottle } from '../../../window/renderer-publication-throttle'
-import { deterministicAgentSessionUuid } from './runtime-agent-launch-resolution'
 import { assertMobileTerminalShellSupported } from './mobile-terminal-shell-refusal'
 import { anchorTabOfCreate, mainPlacedAfter } from './mobile-terminal-create-anchor'
 import type { MobileTerminalCreateOptions } from './mobile-terminal-create'
@@ -98,32 +97,6 @@ export abstract class OrcaRuntimeWithRunCreateMobileSessionTerminal extends Orca
     this.assertStableReadyGraph(graphEpoch)
     if (opts.signal?.aborted) {
       throw new Error('client_disconnected')
-    }
-    if (opts.clientMutationId && startupCommand.command && startupCommand.launchAgent === 'qoder') {
-      const clientIdentity = opts.clientNavigationId ?? 'local'
-      const seed = `${clientIdentity}\0${worktreeId}\0${opts.clientMutationId}`
-      // A command-bearing retry must reconcile the owning PTY before delivering the resume again.
-      return await this.createRuntimeOwnedMobileSessionTerminal(
-        worktreeId,
-        opts.activate !== false,
-        afterTabId,
-        {
-          // The paired client's own create: its user's act.
-          wslUserAct: true,
-          ...startupCommand,
-          ...(opts.trustWorktreeId ? { trustWorktreeId: opts.trustWorktreeId } : {}),
-          cwd,
-          identity: {
-            tabId: deterministicAgentSessionUuid(`mobile-qoder-tab\0${seed}`),
-            leafId: deterministicAgentSessionUuid(`mobile-qoder-leaf\0${seed}`)
-          },
-          createMutation: { clientIdentity, id: opts.clientMutationId },
-          viewMode: opts.viewMode,
-          targetGroupId: opts.targetGroupId,
-          supportsSplitGroupPlacement: opts.supportsSplitGroupPlacement,
-          signal: opts.signal
-        }
-      )
     }
     const win = this.getAvailableAuthoritativeWindow()
     if (!win) {

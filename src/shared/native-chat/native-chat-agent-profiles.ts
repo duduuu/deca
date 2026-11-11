@@ -8,7 +8,7 @@ import {
 
 export type NativeChatAgentProfile = {
   skillPrefix: '$' | '/'
-  /** OpenClaude reads Claude-owned roots, so this can differ from the agent. */
+  /** An agent may read another agent’s roots, so this can differ from the agent. */
   skillSourceOwner: AgentType
   /** The agent reports and invokes each skill under this prefix, e.g. Pi's `skill:<name>`. */
   skillNamePrefix?: string
@@ -45,22 +45,11 @@ const NATIVE_CHAT_AGENT_PROFILES: Partial<Record<AgentType, NativeChatAgentProfi
     skillSourceOwner: 'claude',
     expandsSlashCommandsFromText: true
   },
-  openclaude: {
-    skillPrefix: '/',
-    skillSourceOwner: 'claude',
-    expandsSlashCommandsFromText: true
-  },
   opencode: OPENCODE_PROFILE,
   opencode2: OPENCODE_PROFILE,
   grok: {
     skillPrefix: '/',
     skillSourceOwner: 'grok'
-  },
-  // Pi expands only `/skill:<name>`; a bare `/<name>` reaches the model as text.
-  pi: {
-    skillPrefix: '/',
-    skillSourceOwner: 'pi',
-    skillNamePrefix: 'skill:'
   }
 }
 

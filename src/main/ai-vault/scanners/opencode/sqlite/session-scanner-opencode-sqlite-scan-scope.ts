@@ -68,8 +68,8 @@ export async function withOpenCodeSqliteScanScope<T>(fn: () => Promise<T>): Prom
 export function runOpenCodeSqliteScanRequest<T>(
   signal: AbortSignal | undefined,
   fn: (signal?: AbortSignal, owner?: WorkerThreadRequestOwner) => Promise<T>,
-  agent?: 'opencode2' | 'zcode' | 'native-chat'
+  agent?: 'opencode2' | 'native-chat'
 ): Promise<T> {
-  const scope = agent === 'zcode' || agent === 'native-chat' ? undefined : scanScope.getStore()
+  const scope = agent === 'native-chat' ? undefined : scanScope.getStore()
   return scope ? scope.run(signal, fn) : fn(signal)
 }

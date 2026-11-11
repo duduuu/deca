@@ -70,7 +70,7 @@ describe('host model catalog snapshots', () => {
 })
 
 const SAVED_ONLY = 'agent-session.model-catalog.saved-only.v1'
-const REGISTERED = ['claude', 'codex', 'grok', 'opencode', 'omp'].map((agent) => ({ agent }))
+const REGISTERED = ['claude', 'codex', 'grok', 'opencode'].map((agent) => ({ agent }))
 
 function registerAgents(hostId: string, runtimeId: string | null): void {
   mocks.agents.set(hostId, { runtimeId, agents: REGISTERED })

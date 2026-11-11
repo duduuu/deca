@@ -174,16 +174,8 @@
           "tableName": "Name",
           "tableProject": "Project"
         },
-        "ExternalAutomationManagers": {
-          "automationCount_one": "{{count}} automation",
-          "automationCount_other": "{{count}} automations"
-        },
         "capturedOwner": {
           "hostReselection": "Edit the automation and reselect its host before running it."
-        },
-        "externalScope": {
-          "uncheckedHostCount_one": "External automation managers on {{count}} host could not be checked.",
-          "uncheckedHostCount_other": "External automation managers on {{count}} hosts could not be checked."
         },
         "extraAgentArgs": {
           "unsupported": "Extra arguments aren't supported for this agent yet."
@@ -1335,24 +1327,6 @@
           "grokUsageFailedHttp": "Grok usage request failed (HTTP {{status}})",
           "grokUsageRequestFailed": "Grok usage request failed",
           "grokUsageUnauthorizedHttp": "Grok usage request unauthorized (HTTP {{status}})",
-          "kimiCredentialsInvalid": "Kimi credentials file is invalid",
-          "kimiCredentialsMissingToken": "Kimi credentials file is missing an access token",
-          "kimiCredentialsUnreadable": "Unable to read Kimi credentials",
-          "kimiNotSignedIn": "Not signed in to Kimi Code",
-          "kimiQuotaWindowsMissing": "Kimi usage response did not include quota windows",
-          "kimiSessionExpired": "Kimi session expired — run kimi {{where}}, then retry usage.",
-          "kimiUsageFailedHttp": "Kimi usage request failed (HTTP {{status}})",
-          "kimiUsageRequestFailed": "Kimi usage request failed",
-          "kimiUsageUnauthorizedHttp": "Kimi usage request unauthorized (HTTP {{status}})",
-          "minimaxAuthCookieMissing": "MiniMax auth cookie not found — paste a Cookie header with _token",
-          "minimaxCookieDecryptFailed": "MiniMax session cookie could not be decrypted",
-          "minimaxCookieNotConfigured": "MiniMax session cookie not configured",
-          "minimaxInvalidUsageResponse": "Invalid MiniMax usage response",
-          "minimaxModelUsageMissing": "MiniMax usage data for the configured model was not found",
-          "minimaxReturnedError": "MiniMax returned an error",
-          "minimaxSessionExpired": "MiniMax session expired. Replace the MiniMax cookie in Settings.",
-          "minimaxUnknownUsageError": "Unknown MiniMax usage error",
-          "minimaxUsageFetchFailed": "MiniMax usage fetch failed ({{status}})",
           "noCredentials": "No credentials",
           "noSubscriptionApiKeyBilling": "No subscription plan — API key billing",
           "opencodeNoAuthCookie": "No auth cookie found — paste the full Cookie header from opencode.ai DevTools",
@@ -1372,8 +1346,7 @@
           "waitingForClaudeSession": "Waiting for Claude session",
           "workspacesFetchFailed": "Workspaces fetch failed ({{status}})",
           "wslClaudeConfigUnavailable": "WSL Claude config unavailable for {{distro}}",
-          "wslCodexHomeUnavailable": "WSL Codex home unavailable for {{distro}}",
-          "wslKimiHomeUnavailable": "WSL Kimi home unavailable for {{distro}}"
+          "wslCodexHomeUnavailable": "WSL Codex home unavailable for {{distro}}"
         }
       }
     },
@@ -2585,34 +2558,6 @@
         "jiraDescriptionRequired": "Description is required.",
         "jiraSummaryBusyInOtherDraft": "A Jira title is already being generated in another draft.",
         "jiraSummaryEmptyAfterSanitization": "Generated summary was empty after sanitization.",
-        "kimiAgentChangeOnResume": "Kimi cannot change the agent when resuming a session. Remove the agent override or start a new session in the generation recipe or CLI arguments.",
-        "kimiAgentOptionsConflict": "Kimi received conflicting or repeated agent options. Keep a single --agent or --agent-file option in the generation recipe or CLI arguments, then retry.",
-        "kimiAuthFailed": "Kimi could not authenticate. Sign in or correct provider credentials on the execution host, then retry.",
-        "kimiCancelled": "Kimi cancelled the request before it finished generating text. Try again.",
-        "kimiConfigInvalid": "Kimi has invalid configuration. Check the model and provider configuration on the execution host before retrying.",
-        "kimiConflictingOptions": "Kimi received conflicting options: {{option}} with {{otherOption}}. Correct the generation recipe or CLI arguments before retrying.",
-        "kimiConnectionFailed": "Kimi could not connect to its provider. Check the network on the execution host, then retry.",
-        "kimiContextOverflow": "Kimi ran out of context. Shorten the prompt or start a new session, then retry.",
-        "kimiContinueSessionConflict": "Kimi received conflicting options: --continue, --session. Correct the generation recipe or CLI arguments before retrying.",
-        "kimiCredentialVariableMissing": "Kimi is missing a configured credential environment variable. Set it on the execution host before retrying.",
-        "kimiCredentialsRequired": "Kimi needs provider credentials. Open Kimi on the execution host to configure a provider or sign in, then retry.",
-        "kimiEmptyAgent": "Kimi received an empty agent. Correct that input in the generation recipe or CLI arguments, then retry.",
-        "kimiEmptyAgentFilePath": "Kimi received an empty agent file path. Correct that input in the generation recipe or CLI arguments, then retry.",
-        "kimiEmptyModel": "Kimi received an empty model. Correct that input in the generation recipe or CLI arguments, then retry.",
-        "kimiEmptyPrompt": "Kimi received an empty prompt. Correct that input in the generation recipe or CLI arguments, then retry.",
-        "kimiFailed": "Kimi couldn't finish generating text. Open Kimi on the execution host to check the failure before retrying.",
-        "kimiInterrupted": "Kimi was interrupted before it finished generating text. Try again.",
-        "kimiModelMissing": "Kimi has no usable model configured. Open Kimi on the execution host to configure or select a model, then retry.",
-        "kimiOptionRejected": "Kimi rejected an option or argument. Correct the generation recipe or CLI arguments, then retry.",
-        "kimiOutputFormatInvalid": "Kimi output format requires prompt mode and a supported text or stream-json value. Correct the generation recipe or CLI arguments before retrying.",
-        "kimiPromptHookBlocked": "A Kimi prompt hook blocked the request or the turn couldn't start. Review Kimi hooks and configuration before retrying.",
-        "kimiProviderLimited": "Kimi reached a provider limit or the provider is busy. Wait before retrying or reduce request frequency.",
-        "kimiResponseBlocked": "Kimi could not return a response because it was blocked. Revise the prompt or model configuration before retrying.",
-        "kimiSessionIdRequired": "Kimi needs a session id to resume in prompt mode. Correct the generation recipe or CLI arguments, then retry.",
-        "kimiSessionNotFound": "Kimi couldn't find the requested session. Use an existing session or start a new one.",
-        "kimiSessionOccupied": "Kimi couldn't use this session because it is active in another client. Stop the session there or exit that client, then try again.",
-        "kimiSessionOtherDirectory": "This Kimi session belongs to another directory. Resume it there or use a session created for this workspace.",
-        "kimiUnreadableOutput": "Kimi returned output Deca couldn't read. Try again.",
         "noBranchChanges": "No branch changes to summarize.",
         "noModelForAgent": "No model is available for {{label}}.",
         "noStagedChanges": "No staged changes to summarize.",

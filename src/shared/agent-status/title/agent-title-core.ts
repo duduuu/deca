@@ -6,19 +6,12 @@ import {
   containsBrailleSpinner
 } from './agent-title-glyphs'
 
-import { isDeepSeekBuildTerminalTitle } from './providers/dsb-terminal-title'
-import { isDshTerminalTitle } from './providers/dsh-terminal-title'
-
-import { isQoderTerminalTitle } from './providers/qoder-terminal-title'
 import {
   AGY_AGENT_NAME_RE,
-  DROID_AGENT_NAME_RE,
-  HERMES_AGENT_NAME_RE,
   titleHasAgentName,
   titleHasAnyLegacyAgentName
 } from './agent-name-token-match'
 import { stripLeadingAgentTitleDecorationOrEmpty } from './agent-title-decoration'
-import { isLegacyPiCompatibleTitle } from './providers/pi-compatible-synthetic-title'
 import { memoizeTitleClassification } from './terminal-title-classification-memo'
 import { getWrapperTitleSegments } from './terminal-title-wrapper-segments'
 
@@ -63,20 +56,9 @@ export function hasGeminiStatusGlyph(title: string): boolean {
 }
 
 function computeIsGeminiTerminalTitle(title: string): boolean {
-  // Why: native Qoder and DSH markers own titles before the shared Gemini glyphs.
-  if (isQoderTerminalTitle(title)) {
-    return false
-  }
-  if (isDshTerminalTitle(title) || isDeepSeekBuildTerminalTitle(title)) {
-    return false
-  }
   // Why: Gemini OSC glyphs are stronger evidence than any cwd/session text.
   if (hasGeminiStatusGlyph(title)) {
     return true
-  }
-  // Pi/OMP cwd/session text may contain gemini-project; substrings cannot establish Gemini identity.
-  if (isPiAgentTitle(title)) {
-    return false
   }
   // agy model names contain Gemini tokens. Defer token identity when agy is present; real Gemini OSC glyphs remain decisive.
   if (titleHasAgentName(title, 'antigravity') || AGY_AGENT_NAME_RE.test(title)) {
@@ -90,25 +72,12 @@ export const isGeminiTerminalTitle: (title: string) => boolean = memoizeTitleCla
   computeIsGeminiTerminalTitle
 )
 
-export function isPiTerminalTitle(title: string): boolean {
-  return isLegacyPiCompatibleTitle(title) && !containsBrailleSpinner(title)
-}
-
-export function isPiAgentTitle(title: string): boolean {
-  return isLegacyPiCompatibleTitle(title)
-}
-
 export function containsLegacyAgentName(title: string): boolean {
   return titleHasAnyLegacyAgentName(title)
 }
 
 export function containsAgentName(title: string): boolean {
-  return (
-    containsLegacyAgentName(title) ||
-    AGY_AGENT_NAME_RE.test(title) ||
-    DROID_AGENT_NAME_RE.test(title) ||
-    HERMES_AGENT_NAME_RE.test(title)
-  )
+  return containsLegacyAgentName(title) || AGY_AGENT_NAME_RE.test(title)
 }
 
 export function isClaudeManagementTitle(title: string): boolean {

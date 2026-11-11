@@ -33,8 +33,6 @@ export const AiVaultSearchRequestSchema = z
     cursor: z.string().optional(),
     filters: AiVaultSearchFiltersSchema.optional(),
     supportedAgents: z.array(z.string()).optional(),
-    supportsQoderHistory: z.boolean().optional(),
-    supportsJcodeHistory: z.boolean().optional(),
     /** Scope by identity, resolved into paths by whichever host answers. */
     within: AiVaultSearchScopeIdentitySchema.optional(),
     debug: z.boolean().optional()
@@ -147,8 +145,6 @@ export const AiVaultSetSearchEnabledParamsSchema = z.object({ enabled: z.boolean
 export const AiVaultSearchStatusSchema = z.object({
   // Strings keep a future host's larger catalog readable by this client.
   supportedAgents: z.array(z.string()).optional(),
-  supportsQoderHistory: z.boolean().optional(),
-  supportsJcodeHistory: z.boolean().optional(),
   enabled: z.boolean(),
   phase: z.enum(['idle', 'indexing', 'current', 'degraded', 'closed']),
   filesIndexed: z.number().int().nonnegative(),

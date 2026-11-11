@@ -67,10 +67,6 @@ export const createMobileCommandMenuHostFixture: MobileCommandMenuHostFixtureMod
     const { join } = await import('node:path')
     const { ClaudeAtRestCommandCatalog } =
       await import('../../../../claude/claude-at-rest-commands')
-    const { commandDiscoveryRig, OMP, DISCOVERY_SESSION } =
-      await import('../../../../acp/discovery/testing/acp-command-discovery.test-fixture')
-    const { acpStructuredAgentDefinition } =
-      await import('../../../../acp/session/acp-structured-agent-definitions')
     const { CLAUDE_STRUCTURED_AGENT } =
       await import('../../../../claude/structured/claude-structured-agent-definition')
     const { structuredAgentsDeclaringNothing } =
@@ -102,38 +98,15 @@ export const createMobileCommandMenuHostFixture: MobileCommandMenuHostFixtureMod
       }
       return cwd
     }
-    const omp =
-      provider === 'omp'
-        ? await commandDiscoveryRig(
-            (child) => {
-              starts++
-              child.agent.on('session/new', (frame) => {
-                child.agent.notify('session/update', {
-                  sessionId: DISCOVERY_SESSION,
-                  update: {
-                    sessionUpdate: 'available_commands_update',
-                    availableCommands: [{ name: 'fast', description: 'Fast', input: { hint: '' } }]
-                  }
-                })
-                child.agent.reply(frame, { sessionId: DISCOVERY_SESSION })
-              })
-            },
-            { resolveWorkspacePath }
-          )
-        : undefined
-    const catalog =
-      omp?.catalog ??
-      new ClaudeAtRestCommandCatalog({
-        resolveWorkspacePath,
-        probe: async () => {
-          starts++
-          return [{ name: 'fast', kind: 'command' }]
-        }
-      })
+    const catalog = new ClaudeAtRestCommandCatalog({
+      resolveWorkspacePath,
+      probe: async () => {
+        starts++
+        return [{ name: 'fast', kind: 'command' }]
+      }
+    })
     const agents = new StructuredAgentRegistry(
-      structuredAgentsDeclaringNothing([
-        provider === 'omp' ? acpStructuredAgentDefinition(OMP) : CLAUDE_STRUCTURED_AGENT
-      ])
+      structuredAgentsDeclaringNothing([CLAUDE_STRUCTURED_AGENT])
         .registrations()
         .map((registration) => ({
           ...registration,
@@ -150,7 +123,7 @@ export const createMobileCommandMenuHostFixture: MobileCommandMenuHostFixtureMod
         sessionId,
         provider,
         accountHome: {
-          variable: provider === 'claude' ? 'CLAUDE_CONFIG_DIR' : 'PI_CODING_AGENT_DIR',
+          variable: 'CLAUDE_CONFIG_DIR',
           path: root
         },
         location: {
@@ -220,7 +193,6 @@ export const createMobileCommandMenuHostFixture: MobileCommandMenuHostFixtureMod
         catalog.dispose()
         preparation.resolve()
         await host.flushAllStreamedEvents()
-        await omp?.dispose()
         await closeTestJournalHostDatabase(root)
         await rm(root, { recursive: true, force: true })
       }

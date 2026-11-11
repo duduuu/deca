@@ -18,8 +18,6 @@ import { installOwnership } from './structured-session-ownership.test-support'
 
 const UUID = '019fd622-3c4d-7e5f-a061-7c8d9e0f1a2b'
 const OPENCODE_ID = 'ses_2f9aB3cD4eF5gH6iJ7kL8mN9oP'
-const SESSION_FILE = (root: string) =>
-  `/Users/me/${root}/agent/sessions/--Users-me-repo--/2026-10-09T10-00-00-000Z_${UUID}.jsonl`
 
 type OwnedConversation = {
   rowAgent: AiVaultAgent
@@ -46,22 +44,6 @@ const CONVERSATIONS: OwnedConversation[] = [
     sessionId: UUID,
     filePath: `/Users/me/.grok/sessions/%2FUsers%2Fme%2Frepo/${UUID}/summary.json`,
     handle: { transport: 'acp', agent: 'grok', nativeId: UUID }
-  },
-  {
-    rowAgent: 'omp',
-    sessionId: UUID,
-    filePath: SESSION_FILE('.omp'),
-    handle: { transport: 'acp', agent: 'omp', nativeId: UUID }
-  },
-  {
-    rowAgent: 'pi',
-    sessionId: UUID,
-    filePath: SESSION_FILE('.pi'),
-    handle: {
-      transport: 'jsonl-rpc',
-      agent: 'pi',
-      nativeId: SESSION_FILE('.pi')
-    }
   }
 ]
 

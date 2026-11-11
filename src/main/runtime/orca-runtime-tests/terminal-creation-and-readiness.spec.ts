@@ -19,8 +19,6 @@ import {
   store
 } from './orca-runtime-test-fixtures.spec'
 import { spawnedPtyEnv } from '../terminal/launch/spawned-pty-env-fixtures'
-import '../../../shared/jcode-runtime-dir'
-
 describe('OrcaRuntimeService', () => {
   it('refuses a requested shell the execution host cannot apply instead of spawning its default', async () => {
     const spawn = vi.fn().mockResolvedValue({ id: 'pty-unreachable-shell' })

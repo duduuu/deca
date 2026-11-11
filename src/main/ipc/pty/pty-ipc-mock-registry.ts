@@ -23,7 +23,6 @@ export const loginPreflightExecFileMock: Mock = vi.fn()
 export const spawnMock: Mock = vi.fn()
 export const openCodeBuildPtyEnvMock: Mock = vi.fn()
 export const openCode2BuildPtyEnvMock: Mock = vi.fn()
-export const mimoCodeBuildPtyEnvMock: Mock = vi.fn()
 export const isPwshAvailableMock: Mock = vi.fn()
 export const wslUncDirectoryExistsAsyncMock: Mock = vi.fn()
 export const openCodeClearPtyMock: Mock = vi.fn()
@@ -119,15 +118,6 @@ export const openCodeHookServiceModuleMock = () => ({
     buildPtyEnv: openCode2BuildPtyEnvMock,
     refreshLegacySharedPlugin: vi.fn<() => void>(),
     clearPty: openCodeClearPtyMock
-  }
-})
-
-export const mimoHookServiceModuleMock = (): {
-  mimoCodeHookService: { carryOverLegacyAuth: Mock; buildPtyEnv: Mock }
-} => ({
-  mimoCodeHookService: {
-    carryOverLegacyAuth: vi.fn(),
-    buildPtyEnv: mimoCodeBuildPtyEnvMock
   }
 })
 

@@ -42,9 +42,6 @@ const KNOWN_PREEXISTING_I2_FAILURES: Record<string, number> = {
   'opencode-cmd-2-0-21-timed-warm-server': 21,
   // Narrow captures also restore a cursor one column short and leak the pen’s bold attribute.
   'opencode-2-0-21-timed-narrow-pane': 8,
-  // Qoder also restores the cursor one column short after shrinking.
-  'qoder-no-account': 2,
-  'qoder-ready': 2,
   // Codex 0.157 header borders restore with an extra attribute bit.
   'codex-0157-config-override-embedded-warning': 22,
   'codex-0157-effort-override-embedded-warning': 4,
@@ -118,11 +115,6 @@ const KNOWN_PREEXISTING_I2_FAILURES: Record<string, number> = {
   // ConPTY’s wrap-pending cursor at column 120 restores at 119 without resizing.
   'pwsh-7-6-psreadline-history-prediction-conpty': 2
 }
-
-// Pin resize checkpoints and GridDiff hashes measured on baseline 6835b9b4e3ea.
-const FREEBUFF_BASELINE: Record<string, readonly string[]> = JSON.parse(
-  readFileSync(join(__dirname, '../../__fixtures__/freebuff-serialize-baseline.json'), 'utf8')
-)
 
 type Transcript = { name: string; data: string; cols: number; rows: number }
 type Schedule = 'none' | 'shrink' | 'shrink-grow' | 'jitter'
@@ -268,15 +260,7 @@ describe('serialize round trip over captured PTY transcripts', () => {
           'jitter/true/2/34:0db2561506ff28d2e83276b07bc8684541957f61e488b6f8081627e8cad80c63'
         ])
       }
-      // Pre-#22586 builds reproduce these row-1 bold-attribute diffs on the original capture.
-      if (SEEDS === 2 && transcript.name === 'dsb-6-9-0-folder') {
-        expect(failureSignatures).toEqual([
-          'jitter/false/2/19:2050835176269320209c56be5ae9e525424635dfca511d44d3911d3a22ba9d27',
-          'jitter/true/2/19:2050835176269320209c56be5ae9e525424635dfca511d44d3911d3a22ba9d27'
-        ])
-      } else if (SEEDS === 2 && transcript.name.startsWith('freebuff-')) {
-        expect(failureSignatures).toEqual(FREEBUFF_BASELINE[transcript.name] ?? [])
-      } else if (!OLD_ADDON_PATH && SEEDS === 2) {
+      if (!OLD_ADDON_PATH && SEEDS === 2) {
         expect(counts['new-fail'] ?? 0).toBe(KNOWN_PREEXISTING_I2_FAILURES[transcript.name] ?? 0)
       }
     },

@@ -71,11 +71,6 @@ export abstract class AgentHookServerTabCleanup extends AgentHookServerCleanup {
         paneKeysToClear.add(key.split('\0', 1)[0] ?? key)
       }
     }
-    for (const key of this.state.ampCompletedCacheKeys) {
-      if (paneCacheKeyMatchesTab(key, tabId)) {
-        paneKeysToClear.add(key.split('\0', 1)[0] ?? key)
-      }
-    }
     for (const paneKey of this.runtimeObservedStatusPaneKeys) {
       if (paneCacheKeyMatchesTab(paneKey, tabId)) {
         paneKeysToClear.add(paneKey)

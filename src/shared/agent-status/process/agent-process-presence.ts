@@ -82,7 +82,7 @@ export function readAgentProcessPresence(value: unknown): AgentProcessPresence |
   }
   const process = 'process' in value ? readAgentProcessIdentity(value.process) : undefined
   const session =
-    value.agent === 'hermes' || value.agent === 'antigravity'
+    value.agent === 'antigravity'
       ? extractAgentProviderSession(value.agent, {
           session_id: 'session' in value ? value.session : undefined,
           conversationId: 'session' in value ? value.session : undefined

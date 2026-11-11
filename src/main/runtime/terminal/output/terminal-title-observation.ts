@@ -6,8 +6,6 @@ import { detectAgentStatusFromTitle } from '../../../../shared/agent-status/titl
 import { terminalTitleBlocksExplicitAgentStatus } from '../../workspaces/process-listing/runtime-worktree-status-projection'
 import type { ClaudeTerminalEvidence } from '../../../../shared/claude-terminal-interrupt'
 import { agentStatusTakesTypedInput } from '../../orchestration/mailbox/routing/mailbox-owner'
-import { hermesNativeTitleStatus } from '../../../../shared/agent-status/title/providers/hermes-terminal-title'
-
 export abstract class OrcaRuntimeWithApplyTrackedPtyTitle extends OrcaRuntimeWithGetUnpersistedTrackedTitleForPty {
   protected abstract collectPaneKeysForPty(ptyId: string): Set<string>
   protected abstract recordAgentPromptLifecycleState(
@@ -55,7 +53,6 @@ export abstract class OrcaRuntimeWithApplyTrackedPtyTitle extends OrcaRuntimeWit
   protected classifyPtyTitleStatus(ptyId: string, rawTitle: string): AgentStatus | null {
     return (
       this.ptyTitleTrackersByPtyId.get(ptyId)?.programActivity ??
-      hermesNativeTitleStatus(rawTitle, this.getPaneTerminalAgent(ptyId)) ??
       detectAgentStatusFromTitle(rawTitle)
     )
   }
@@ -308,11 +305,8 @@ export abstract class OrcaRuntimeWithApplyTrackedPtyTitle extends OrcaRuntimeWit
       return
     }
     this.terminalSideEffectConsumerAvailable = nextAvailable
-    for (const [ptyId, entry] of this.ptyTitleTrackersByPtyId) {
+    for (const entry of this.ptyTitleTrackersByPtyId.values()) {
       entry.tracker.setTransientSideEffectScanningEnabled(nextAvailable)
-      entry.commandCodeDetector = nextAvailable
-        ? this.createTerminalSideEffectCommandCodeDetector(ptyId)
-        : null
     }
   }
 }

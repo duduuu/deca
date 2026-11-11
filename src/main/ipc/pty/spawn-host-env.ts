@@ -32,7 +32,6 @@ import type {
   PrepareCodexResumeHomeArgs,
   PreparedCodexResumeHome
 } from './host-env/codex-resume'
-import { inheritOmpLaunchEnvironment } from './host-env/omp-launch-environment'
 import { promoteAgentTeamsShimPath } from './host-env/path'
 import type { GetSelectedCodexHomePath } from './host-env/types'
 import { clearProviderPtyState } from './provider/state-cleanup'
@@ -222,11 +221,6 @@ async function resolvePtySpawnHostEnvForAct(args: PtySpawnHostEnvArgs): Promise<
   // Preserve caller environment for reused renderer/split requests.
   const env = { ...baseEnv }
   try {
-    await inheritOmpLaunchEnvironment(env, {
-      isWsl,
-      launchAgent: args.launchAgent,
-      launchCommand
-    })
     await awaitExplicitAgentPluginGuestReadiness({
       settings: ptySettings,
       isWsl,

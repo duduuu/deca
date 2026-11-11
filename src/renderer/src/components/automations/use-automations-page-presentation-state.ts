@@ -104,10 +104,10 @@ export function useAutomationsPagePresentationState({
     return labels
   }, [hostLabelOverrides, runtimeEnvironments, sshTargetLabels])
   useEffect(() => {
-    if ((!selected || list.selectedExternal) && activePaneTab === 'runs') {
+    if (!selected && activePaneTab === 'runs') {
       setActivePaneTab('overview')
     }
-  }, [activePaneTab, list.selectedExternal, selected, setActivePaneTab])
+  }, [activePaneTab, selected, setActivePaneTab])
 
   return {
     selectedRepo,

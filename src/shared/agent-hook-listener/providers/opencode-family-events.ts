@@ -9,7 +9,7 @@ import { resolvePrompt, resolveToolState } from '../prompt-fields'
 import { extractToolFields, isNewTurnEvent } from '../provider-event-routing'
 
 export function normalizeOpenCodeFamilyEvent(
-  source: 'opencode' | 'opencode2' | 'mimo-code',
+  source: 'opencode' | 'opencode2',
   state: HookListenerState,
   eventName: unknown,
   promptText: string,

@@ -12,10 +12,9 @@ export function structuredModelEfforts(
 
 function effortOption(
   model: AgentSessionOptionsResult['models'][number],
-  agent: AgentType
+  _agent: AgentType
 ): CatalogOption | null {
-  // Pi menus are exact; other agents (OMP's recorded menus) still offer unconfirmed choices.
-  if ((agent === 'pi' && model.effortsKnown === false) || model.efforts.length === 0) {
+  if (model.efforts.length === 0) {
     return null
   }
   return {

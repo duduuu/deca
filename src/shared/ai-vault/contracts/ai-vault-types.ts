@@ -5,29 +5,15 @@ import type { ExecutionHostId, ExecutionHostScope } from '../../execution-host'
 
 export const AI_VAULT_AGENTS = [
   'claude',
-  'codebuddy',
-  'qoder',
   'codex',
-  'hermes',
-  'pi',
-  'omp',
-  'prime-agent',
   'cursor',
   'gemini',
   'antigravity',
-  'rovo',
   'copilot',
   'opencode',
   'opencode2',
-  'zcode',
   'grok',
-  'openclaw',
   'devin',
-  'droid',
-  'cline',
-  'kimi',
-  'muse',
-  'jcode',
   'kiro'
 ] as const satisfies readonly TuiAgent[]
 
@@ -65,29 +51,15 @@ export type AiVaultGroup = 'project' | 'folder' | 'agent'
 
 export const AI_VAULT_AGENT_LABELS = {
   claude: 'Claude',
-  codebuddy: 'CodeBuddy',
-  qoder: 'Qoder',
   codex: 'Codex',
-  hermes: 'Hermes',
-  pi: 'Pi',
-  omp: 'OMP',
-  'prime-agent': 'Prime Agent',
   cursor: 'Cursor',
   gemini: 'Gemini',
   antigravity: 'Antigravity',
-  rovo: 'Rovo Dev',
   copilot: 'GitHub Copilot',
   opencode: 'OpenCode',
   opencode2: 'OpenCode 2',
-  zcode: 'ZCode',
   grok: 'Grok',
-  openclaw: 'OpenClaw',
   devin: 'Devin',
-  droid: 'Droid',
-  cline: 'Cline',
-  kimi: 'Kimi',
-  muse: 'Muse',
-  jcode: 'Jcode',
   kiro: 'Kiro'
 } as const satisfies Record<AiVaultAgent, string>
 

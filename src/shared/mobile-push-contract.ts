@@ -1,4 +1,4 @@
-// Keep strings aligned across desktop, gateway and phone: cloud/packages/push-contract/src.
+// Keep strings aligned across desktop, gateway and phone.
 
 export const MOBILE_PUSH_SOURCES = ['agent-task-complete', 'terminal-bell', 'plugin'] as const
 export type MobilePushSource = (typeof MOBILE_PUSH_SOURCES)[number]

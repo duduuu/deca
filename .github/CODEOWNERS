@@ -3,6 +3,4 @@
 /config/scripts/*locale*.mjs @brennanb2025
 /config/i18next.config.ts @brennanb2025
 
-/cloud/ @Jinwoo-H
 /.github/workflows/cloud-*.yml @Jinwoo-H
-/.github/actions/cloud-sql-rollout-lease/ @Jinwoo-H

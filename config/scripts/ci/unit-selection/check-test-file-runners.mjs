@@ -10,8 +10,6 @@ import ts from 'typescript-api'
 import { defaultExclude } from 'vitest/config'
 import { UNIT_EXCLUDE, UNIT_INCLUDE } from './dependency-graph/ci-unit-files.mjs'
 
-const VITEST_DEFAULT_INCLUDE = '**/*.{test,spec}.?(c|m)[jt]s?(x)'
-
 const TEST_FILE_NAME = /\.(?:test|spec|e2e|bench)\.[cm]?[jt]sx?$/
 
 // Mirror literals must appear in runner sources; list manual rows each run so their lack of CI remains visible.
@@ -41,43 +39,6 @@ const NON_UNIT_TEST_RUNNERS = [
     mirrors: [
       'root: import.meta.dirname',
       "'src/**/*.test.ts', 'src/**/*.test.tsx', 'scripts/**/*.test.ts'"
-    ]
-  },
-  ...['push', 'relay'].map((app) => ({
-    name: `cloud ${app}`,
-    include: [`cloud/apps/${app}/src/**/*.test.ts`],
-    sources: [`cloud/apps/${app}/vitest.config.ts`],
-    mirrors: ["include: ['src/**/*.test.ts']"]
-  })),
-  {
-    name: 'cloud relay-edge',
-    include: ['cloud/apps/relay-edge/test/**/*.test.ts'],
-    sources: ['cloud/apps/relay-edge/vitest.config.ts'],
-    mirrors: ["include: ['test/**/*.test.ts']"]
-  },
-  ...[
-    'cloud/apps/relay-fence-broker',
-    'cloud/packages/cloud-database',
-    'cloud/packages/connector-contract',
-    'cloud/packages/postgres-schema',
-    'cloud/packages/push-contract',
-    'cloud/packages/relay-contract'
-  ].map((dir) => ({
-    name: dir,
-    include: [`${dir}/${VITEST_DEFAULT_INCLUDE}`],
-    sources: [`${dir}/package.json`],
-    mirrors: ['vitest run']
-  })),
-  {
-    name: 'cloud node:test',
-    include: [
-      'cloud/dev/scripts/run-relay-tests.test.mjs',
-      '.github/actions/cloud-sql-rollout-lease/*.test.mjs'
-    ],
-    sources: ['cloud/package.json'],
-    mirrors: [
-      'dev/scripts/run-relay-tests.test.mjs',
-      '../.github/actions/cloud-sql-rollout-lease/*.test.mjs'
     ]
   },
   {

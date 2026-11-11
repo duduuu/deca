@@ -98,6 +98,8 @@ docs/**
 !docs/readme/**
 !docs/bug-reproductions/
 !docs/bug-reproductions/**
+!docs/deca/
+!docs/deca/**
 !docs/STYLEGUIDE.md
 !docs/development.md
 !docs/styleguide/

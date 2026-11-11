@@ -122,11 +122,8 @@ export type NativeChatSessionSkill = Pick<
   'name' | 'description' | 'path' | 'argumentHint'
 >
 
-function isSessionSkill(entry: AgentSessionSlashCommand, agent?: AgentType): boolean {
-  return (
-    entry.kind === 'skill' ||
-    (agent === 'omp' && entry.name.startsWith('skill:') && entry.name.length > 'skill:'.length)
-  )
+function isSessionSkill(entry: AgentSessionSlashCommand, _agent?: AgentType): boolean {
+  return entry.kind === 'skill'
 }
 
 export function sessionReportedSkills(

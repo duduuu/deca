@@ -84,18 +84,13 @@ export function isQuietReadyScreenBody(
     })
     return ruled !== null && isStrongIdle(ruled) && ruled.requiresQuiet
   }
-  return agent === null && isMuseReadyPromptPreview(waitText)
+  return false
 }
 
 function isStrongIdle(
   verdict: AgentStateVerdict
 ): verdict is Extract<AgentStateVerdict, { state: 'idle' }> {
   return verdict.state === 'idle' && verdict.strength === 'strong'
-}
-
-export function isMuseReadyPromptPreview(preview: string): boolean {
-  const normalized = preview.toLowerCase()
-  return isUnblockedAfter(normalized, findMuseReadyPromptIndex(normalized))
 }
 
 export function detectTerminalWaitBlockedReason(
@@ -119,23 +114,7 @@ export function findActionableTerminalWaitBlockedSignal(
     : blockedSignal
 }
 
-// Live idle/busy prompts supersede startup modals; Muse still needs anchors outside agent-state-rules.
+// Live idle/busy prompts supersede startup modals.
 function findDismissedStartupModalIndex(normalized: string): number | null {
-  const live = findPromptAnchorIndexes(normalized).live
-  const muse = findMuseReadyPromptIndex(normalized)
-  return live === null || muse === null ? (live ?? muse) : Math.max(live, muse)
-}
-
-// Muse keeps its bare-cwd OSC title; its composer (❯ under a rule, labeled "voice input" only where voice exists) proves readiness.
-const MUSE_COMPOSER_RE = /\u2500\u2500\s*\u276F/
-
-function findMuseReadyPromptIndex(normalized: string): number | null {
-  const headerIndex = normalized.lastIndexOf('muse code')
-  if (headerIndex === -1) {
-    return null
-  }
-  const segment = normalized.slice(headerIndex)
-  const voiceComposer =
-    segment.includes('voice') && segment.includes('input') && segment.includes('❯')
-  return voiceComposer || MUSE_COMPOSER_RE.test(segment) ? headerIndex : null
+  return findPromptAnchorIndexes(normalized).live
 }

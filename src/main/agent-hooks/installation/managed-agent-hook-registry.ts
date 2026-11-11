@@ -39,7 +39,7 @@ export const MANAGED_AGENT_HOOK_INSTALLERS: readonly ManagedAgentHookInstaller[]
   ['kiro', () => kiroHookService.install()]
 ]
 
-// Refresh shared launchers even after CLI removal; Amp/Hermes manage provider-native plugins separately.
+// Refresh shared launchers even after CLI removal.
 export const MANAGED_AGENT_HOOK_SCRIPT_REFRESHERS: readonly ManagedAgentHookScriptRefresher[] = [
   ['claude', () => claudeHookService.refreshManagedScripts()],
   ['codex', () => codexHookService.refreshManagedScripts()],

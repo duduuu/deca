@@ -169,7 +169,7 @@ export function lookupOpenCodePaneLaunchToken(
   return state.lastLaunchTokenByPaneKey.get(paneKey)
 }
 
-/** OpenCode1 compatibility: remove with OpenCode1 support. Major>=2 names its own pane; missing markers (OpenCode1/mimo-code/older plugins) may use shared servers. */
+/** OpenCode1 compatibility: remove with OpenCode1 support. Major>=2 names its own pane; missing markers (OpenCode1/older plugins) may use shared servers. */
 export function isOpenCodeSharedServerPost(source: AgentHookSource, body: unknown): boolean {
   if (source !== 'opencode' || typeof body !== 'object' || !body) {
     return false

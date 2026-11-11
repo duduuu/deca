@@ -56,8 +56,7 @@ function recordStatusBarToggleInteraction(
     id === 'opencode-go' ||
     id === 'antigravity' ||
     id === 'grok' ||
-    id === 'cursor' ||
-    id === 'muse'
+    id === 'cursor'
   ) {
     recordFeatureInteraction('usage-tracking')
   }

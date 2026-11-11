@@ -177,7 +177,6 @@ function buildAgentResumeInvocation(
       return `${baseCommand} resume ${sessionArg}`
     case 'opencode2':
     case 'opencode':
-      // Kimi --session/-S is workspace-scoped; retain the cwd prefix or resume fails.
       // falls through
       return `${baseCommand} --session ${sessionArg}`
     case 'copilot':

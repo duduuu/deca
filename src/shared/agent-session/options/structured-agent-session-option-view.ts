@@ -185,8 +185,7 @@ export function structuredAgentSessionMessageSelection(
       continue
     }
     const raw =
-      (id === 'effort' && view.acceptedInputSources !== undefined) ||
-      (view.record.agent === 'pi' && (id === 'model' || id === 'effort'))
+      id === 'effort' && view.acceptedInputSources !== undefined
         ? view.record.values[id]?.value
         : undefined
     const value =

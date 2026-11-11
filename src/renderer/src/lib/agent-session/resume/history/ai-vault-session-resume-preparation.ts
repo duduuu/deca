@@ -197,7 +197,7 @@ export function aiVaultSessionNeedsResumePreparation(
   )
 }
 
-// Kimi is folder-keyed: wrong cwd rejects resume or silently opens an empty same-ID session (1.52+).
+// Folder-keyed sessions: a wrong cwd rejects resume or silently opens an empty same-ID session.
 const RESUMES_ONLY_IN_RECORDED_CWD: ReadonlySet<AiVaultSession['agent']> = new Set([])
 
 /** After the session's remote host confirms missing cwd, drop it and its prebuilt cd command so resume starts at the workspace root (#17745, #26509). */

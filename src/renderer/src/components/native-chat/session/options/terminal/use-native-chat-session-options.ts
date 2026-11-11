@@ -174,13 +174,9 @@ export function useNativeChatSessionOptions(args: {
     const models =
       (discoveryContext ? readNativeChatEnrichedModels(agent, discoveryContext.hostKey) : null) ??
       catalog.models
-    // OMP reports exact selectors, including models absent from cached discovery.
-    const matched =
-      agent === 'omp'
-        ? reportedModel.trim()
-        : matchNativeChatCatalogModelId({ ...catalog, models }, reportedModel, {
-            allowUnlisted: agent === 'codex'
-          })
+    const matched = matchNativeChatCatalogModelId({ ...catalog, models }, reportedModel, {
+      allowUnlisted: agent === 'codex'
+    })
     if (!matched || appliedReportedModelRef.current === matched) {
       return
     }

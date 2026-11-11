@@ -1,4 +1,3 @@
-import { resolvePaneKey } from '../../../lib/agent-status/ownership/agent-status-pane-ownership'
 import type { AgentStatusSlice } from './agent-status-slice-contract'
 import type { AgentStatusRuntime } from './agent-status-runtime'
 import type {
@@ -80,17 +79,7 @@ export function createAgentStatusLiveActions(
         return state
       }
       if (retirement !== undefined) {
-        const owner = resolvePaneKey(state, paneKey)
-        if (
-          !owner.exists ||
-          payload.agentType !== 'omp' ||
-          (routing?.worktreeId !== undefined && routing.worktreeId !== owner.owningWorktreeId) ||
-          (routing?.connectionId !== undefined &&
-            routing.connectionId !== owner.repoConnectionId &&
-            (owner.repoConnectionResolved || routing.worktreeId !== owner.owningWorktreeId))
-        ) {
-          return state
-        }
+        return state
       }
       built = buildAgentStatusLiveEntry({
         state,

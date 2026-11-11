@@ -13,7 +13,7 @@ function agentAcceptsCtrlEnterCsiU(agent: PaneForegroundAgentEntry['agent']): bo
   return isTuiAgent(agent) && TUI_AGENT_CONFIG[agent].ctrlEnterEncoding === 'csi-u'
 }
 
-/** Resolves pane-scoped authority for query-only CSI-u consumers such as Droid and Grok. */
+/** Resolves pane-scoped authority for query-only CSI-u consumers such as Grok. */
 export function hasCtrlEnterCsiUAuthorityForPane(
   state: CtrlEnterPaneState,
   paneKey: string,

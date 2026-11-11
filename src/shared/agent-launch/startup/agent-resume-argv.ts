@@ -38,7 +38,6 @@ export function getAgentResumeArgv(
       return providerSession.key === 'session_id' ? ['devin', '--resume', id] : null
     case 'copilot':
       return providerSession.key === 'session_id' ? ['copilot', `--resume=${id}`] : null
-    // Why: Kimi resumes by id with --session; sessions are work-dir-scoped (enforced by callers).
     case 'kiro':
       return providerSession.key === 'session_id' ? ['kiro-cli', '--resume-id', id] : null
   }

@@ -61,11 +61,9 @@ function prepareShellConfigDirEnv(
   const configVar =
     agentId === 'opencode' || agentId === 'opencode2'
       ? 'OPENCODE_CONFIG_DIR'
-      : agentId === 'pi' || agentId === 'omp'
-        ? 'PI_CODING_AGENT_DIR'
-        : agentId === 'grok'
-          ? 'GROK_HOME'
-          : null
+      : agentId === 'grok'
+        ? 'GROK_HOME'
+        : null
   if (!configVar) {
     return null
   }
@@ -73,11 +71,7 @@ function prepareShellConfigDirEnv(
   const sourceVar =
     agentId === 'opencode' || agentId === 'opencode2'
       ? 'ORCA_OPENCODE_SOURCE_CONFIG_DIR'
-      : agentId === 'pi'
-        ? 'ORCA_PI_SOURCE_AGENT_DIR'
-        : agentId === 'omp'
-          ? 'ORCA_OMP_SOURCE_AGENT_DIR'
-          : undefined
+      : undefined
 
   const value = readInheritedOrShellEnvVar(configVar, sourceVar, base)
   if (!value) {

@@ -2,8 +2,6 @@ import {
   imagePasteWritesFollowedByText,
   separateImagePasteFromFollowingText
 } from './image-paste-following-text'
-import { isWindowsAbsolutePathLike } from './cross-platform-path'
-import { filesystemPathToFileUri } from './file-links/file-uri-path'
 
 // Whether raw-path paste is verified to create an attachment; others use file references.
 export type AgentImageHandling = 'attachment' | 'unsupported'
@@ -40,16 +38,6 @@ export function formatNativeChatFileReference(filePath: string): string {
 }
 
 export function formatAgentImagePath(agent: string | null | undefined, filePath: string): string {
-  if (
-    agent === 'omp' &&
-    /[\s@]/.test(filePath) &&
-    filePath.includes('"') &&
-    filePath.includes("'") &&
-    (filePath.startsWith('/') || isWindowsAbsolutePathLike(filePath))
-  ) {
-    // OMP's mention lexer cannot escape quotes, but its path resolver decodes file URLs.
-    return `@"${filesystemPathToFileUri(filePath)}"`
-  }
   return getAgentImageHandling(agent) === 'attachment'
     ? filePath
     : formatNativeChatFileReference(filePath)

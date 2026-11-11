@@ -120,7 +120,7 @@ function resolveWslHostStockProgram(
     return null
   }
   let windowsOnly: string | null = null
-  // A native alias (qoder for qodercli) beats a Windows-only primary name.
+  // A native alias beats a Windows-only primary name.
   for (const name of getTuiAgentDetectCommands(config)) {
     const candidate = resolveGuestNativeAgentCommand(name, options, probe.mounts)
     if (isWindowsOnlyAgentCommand(candidate)) {

@@ -1,4 +1,4 @@
-// OpenCode show-cursor follows composer mount ~2s after paste mode; mimo-code shares this signal.
+// OpenCode show-cursor follows composer mount ~2s after paste mode.
 import { CURSOR_SHOW_SEQUENCE as DECTCEM_SHOW_CURSOR } from './terminal/protocol/escape/terminal-cursor-restore'
 import type {
   DraftPasteReadySignal,
@@ -12,7 +12,6 @@ const DECSET_BRACKETED_PASTE = '\x1b[?2004h'
 const DECRST_BRACKETED_PASTE = '\x1b[?2004l'
 // Grok ❯ also appears in shell prompts: require alt screen. Legacy Windows > is too generic, so retain quiet/timeout fallback.
 const GROK_COMPOSER_PROMPT = '❯'
-// ZCode’s locale-independent round composer corner differs from square modal corners; anchor alt screen because powerline shell prompts also draw ╭.
 // Why: Claude Code's prompt-input mode indicator is `figures.pointer` + NBSP; its startup menus
 // (trust, theme) draw the same pointer followed by a cursor move, so the NBSP means the composer.
 const CLAUDE_COMPOSER_PROMPT = '❯\u00a0'

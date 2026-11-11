@@ -49,7 +49,7 @@ const providerErrorDataSchema = z.looseObject({
 const NON_RESET_QUOTA_FAILURES = [
   /\b(?:insufficient (?:balance|account funds)|credit limit exceeded|payment required|account invoice is overdue|billing_error)\b/i,
   /\bplease add or update your payment method to continue\b/i,
-  /\b(?:GLM Coding Plan|enterprise) package has expired\b/i,
+  /\b(?:enterprise) package has expired\b/i,
   /\byour current subscription plan does not yet include access to\b/i
 ]
 

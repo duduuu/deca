@@ -1,6 +1,5 @@
 import {
   AGENT_SESSION_COMMANDS_ON_REQUEST_CAPABILITY,
-  PI_STRUCTURED_DIALOGS_RUNTIME_CAPABILITY,
   STRUCTURED_AGENT_SESSION_REGISTERED_AGENTS_RUNTIME_CAPABILITY
 } from '../../../../../shared/agent-session/structured-agent-session-surface-capabilities'
 import {
@@ -45,9 +44,6 @@ export function clientRendersStructuredAgent(
   if (agent === 'codex') {
     return true
   }
-  if (agent === 'pi' && !clientCapabilities.includes(PI_STRUCTURED_DIALOGS_RUNTIME_CAPABILITY)) {
-    return false
-  }
   return clientCapabilities.includes(
     agent === 'claude'
       ? CLAUDE_STRUCTURED_AGENT_SESSION_RUNTIME_CAPABILITY
@@ -74,7 +70,6 @@ export function clientReadsStructuredSessionAgent(
   agent: string
 ): boolean {
   return (
-    agent !== 'pi' ||
     context.clientKind === undefined ||
     clientRendersStructuredAgent(context.clientCapabilities, agent)
   )

@@ -23,7 +23,7 @@ type TerminalCapabilityRepliesDeps = {
   da1Response?: string
   // Resolved per query so a live inline-images toggle changes what the next DA1 advertises.
   sixelSupported?: () => boolean
-  /** Resolve lazily because agent registration may follow handler installation; suppress jcode’s self-theming query burst before replies can land as composer text. */
+  /** Resolve lazily because agent registration may follow handler installation; suppress an agent’s self-theming query burst before replies can land as composer text. */
   skipOscColorQueryReplies?: () => boolean
   /** False while the pane's execution host cannot read OSC 7501 (see PROGRAM_STATUS_RUNTIME_CAPABILITY). */
   answerProgramStatusQueries?: () => boolean

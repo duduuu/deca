@@ -505,7 +505,7 @@ const ORCA_CLI_MARKDOWN = [
   "- An older host reports a legacy `old-host` fallback for an ordinary send and refuses `--wait-submit` or `--retry-request` before input, because it cannot provide durable replay.",
   "- For structured coordination, invoke the `orchestration` skill; it uses `deca orchestration ...` commands for messages, task DAGs, dispatches, inbox/reply flows, and coordinator loops. A receiving agent can run `deca orchestration check --peek --format --json` to render its unread mail in agent-readable form; this checks the caller's inbox and does not remotely deliver input to another terminal.",
   "- Start a fresh agent with `agent launch` in the current worktree, or `worktree create --agent` for a separate checkout (see Starting agents).",
-  "- Use `terminal wait --for tui-idle` for agent CLIs such as Claude Code, Gemini, Codex, OMP, Pi, and Grok; always pass `--timeout-ms`.",
+  "- Use `terminal wait --for tui-idle` for agent CLIs such as Claude Code, Gemini, Codex, and Grok; always pass `--timeout-ms`.",
   "- For long output, use cursor reads. After a limited tail preview, page from `oldestCursor`; after a cursor read, continue with `nextCursor` while `limited` is true and `nextCursor !== latestCursor`.",
   "- `--direction vertical` splits left/right. `--direction horizontal` splits top/bottom.",
   "",
@@ -687,7 +687,7 @@ const ORCA_CLI_AUTOMATIONS_REFERENCE_MARKDOWN = [
   "",
   "On a plain folder project, `new_per_run` creates separate Orca workspace entries pointing to the same folder. Removing the automation leaves these entries available. To remove one, copy its full `id` from `ORCA worktree list --json`, then run `ORCA worktree rm --worktree \"id:<full-instance-id>\"`. This removes that entry and stops its sessions without deleting the folder or touching Git. Select by instance ID rather than the shared path; the folder project root cannot be removed with this command.",
   "",
-  "Use `--extra-agent-args=\"--model opus --effort high --add-dir docs\"` to add arguments after the host's default agent Arguments on every fresh run (always pass it with `=`, since the value starts with `--`). Only model and effort options, plus Claude's `--add-dir`, are accepted, for `antigravity`, `claude`, `codex`, `codebuddy`, `cursor`, `grok`, `omp`, and `pi` (`--model`, `--thinking`). Model or effort in the extras replaces the default's; a default Pi `--provider` stays and scopes the model. Extras can't be combined with `--reuse-session`. `--extra-agent-args=` on edit clears them.",
+  "Use `--extra-agent-args=\"--model opus --effort high --add-dir docs\"` to add arguments after the host's default agent Arguments on every fresh run (always pass it with `=`, since the value starts with `--`). Only model and effort options, plus Claude's `--add-dir`, are accepted, for `antigravity`, `claude`, `codex`, `cursor`, and `grok`. Model or effort in the extras replaces the default's. Extras can't be combined with `--reuse-session`. `--extra-agent-args=` on edit clears them.",
   "",
 ].join('\n')
 

@@ -53,7 +53,7 @@ export type CommitMessagePlan = {
   label: string
   /** Leading command assignments, applied on the execution host. */
   env?: Record<string, string>
-  outputFormat?: 'opencode-json' | 'antigravity-stream-json' | 'kimi-stream-json'
+  outputFormat?: 'opencode-json' | 'antigravity-stream-json'
   /** Resolved native-task inputs; the receiving execution runtime owns the server. */
   openCodeTask?: { prefixArgs: string[]; runArgs: string[] }
 }

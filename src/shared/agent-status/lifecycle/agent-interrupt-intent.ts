@@ -24,10 +24,7 @@ export function shouldIgnoreInterruptIntent(
   agentType: AgentType | undefined,
   intent: AgentInterruptInputIntent
 ): boolean {
-  return (
-    agentType === 'grok' ||
-    (intent === 'ctrl-c' && (agentType === 'codex' || agentType === 'droid'))
-  )
+  return agentType === 'grok' || (intent === 'ctrl-c' && agentType === 'codex')
 }
 
 // Escape also closes views (including Codex search and /permissions); only provider evidence ends the turn.

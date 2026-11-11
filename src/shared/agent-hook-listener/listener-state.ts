@@ -85,16 +85,6 @@ export type HookListenerState = {
   opencodeSessionPaneBySessionId: Map<string, OpenCodeSessionBinding>
   /** Last launch token seen per pane; a rewritten shared-server post needs the bound pane's live token to pass its fence. */
   lastLaunchTokenByPaneKey: Map<string, string>
-  /** Hermes turn per pane, so tool hooks from its post-turn background review can be ignored. */
-  hermesTurnByPaneKey: Map<string, HermesPaneTurn>
-}
-
-export type HermesPaneTurn = {
-  ended: boolean
-  /** `delegate_task` children run their own turns, under their own session ids, inside the parent's. */
-  childSessionIds: Set<string>
-  /** The pane's own session, which its children's hooks must not replace. */
-  sessionId: string
 }
 
 export type GrokActiveTurn = {
@@ -145,8 +135,7 @@ export function createHookListenerState(
     grokMainAgentStatusByPaneKey: new Map(),
     grokBackgroundTasksByPaneKey: new Map(),
     opencodeSessionPaneBySessionId: new Map(),
-    lastLaunchTokenByPaneKey: new Map(),
-    hermesTurnByPaneKey: new Map()
+    lastLaunchTokenByPaneKey: new Map()
   }
   legacyStatusAdapterByState.set(state, adapter)
   return state
@@ -225,7 +214,6 @@ export function clearPaneCacheState(state: HookListenerState, paneKey: string): 
   state.grokBackgroundTasksByPaneKey.delete(paneKey)
   unbindOpenCodeSessionsOfPane(state, paneKey)
   deletePaneScopedCacheEntry(state.lastLaunchTokenByPaneKey, paneKey)
-  state.hermesTurnByPaneKey.delete(paneKey)
   // A disposed pane's unfinished evidence and exit intent die with it.
   deletePaneScopedCacheEntry(state.hookRootAttempts, paneKey)
 }
@@ -263,7 +251,6 @@ export function movePaneCacheState(
   movePaneScopedMapEntries(state.grokBackgroundTasksByPaneKey, fromPaneKey, toPaneKey)
   moveOpenCodeSessionBindings(state, fromPaneKey, toPaneKey)
   movePaneScopedMapEntries(state.lastLaunchTokenByPaneKey, fromPaneKey, toPaneKey)
-  movePaneScopedMapEntries(state.hermesTurnByPaneKey, fromPaneKey, toPaneKey)
 }
 
 export function clearPaneTurnCacheState(state: HookListenerState, paneKey: string): void {
@@ -304,6 +291,5 @@ export function clearAllListenerCaches(state: HookListenerState): void {
   state.grokBackgroundTasksByPaneKey.clear()
   state.opencodeSessionPaneBySessionId.clear()
   state.lastLaunchTokenByPaneKey.clear()
-  state.hermesTurnByPaneKey.clear()
   state.hookRootAttempts.clear()
 }

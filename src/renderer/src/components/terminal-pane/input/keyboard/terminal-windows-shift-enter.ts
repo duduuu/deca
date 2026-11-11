@@ -57,7 +57,7 @@ export function resolveWindowsShiftEnterEncodingForPane(
   ) {
     return encoding
   }
-  // Why: strict pane-local titles recover Pi/Droid through process-scan gaps without overriding process or shell proof.
+  // Why: strict pane-local titles recover agents through process-scan gaps without overriding process or shell proof.
   const titleAgent = resolveExplicitTerminalTitleAgentType(terminalTitle)
   // Why: pending confirmation retains the foreground identity; a stale title cannot switch agents.
   if (

@@ -54,7 +54,7 @@ export function extractPromptText(hookPayload: Record<string, unknown>): Extract
       // Why: trim so prompts match readStringField output — whitespace would otherwise leak into UI and caches.
       return { text: value.trim(), source: key as Exclude<ExtractedPromptText['source'], null> }
     }
-    // Kimi prompts may be content-block arrays; message remains ambiguous status text.
+    // Prompts may be content-block arrays; message remains ambiguous status text.
     if (key !== 'message' && Array.isArray(value)) {
       const text = contentBlockArrayText(value)
       if (text.length > 0) {

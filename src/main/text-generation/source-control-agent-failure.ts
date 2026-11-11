@@ -164,11 +164,7 @@ export function finalizeFromAgentOutput(args: {
   }
   return {
     success: false,
-    ...emptyResultFailure(
-      args.operation,
-      label,
-      args.outputFormat !== 'kimi-stream-json' ? detail : null
-    ),
+    ...emptyResultFailure(args.operation, label, detail),
     failureOutput: captureFailureOutput(label, code, stdout, stderr)
   }
 }

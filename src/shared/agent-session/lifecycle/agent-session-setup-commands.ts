@@ -30,8 +30,6 @@ export const AGENT_SESSION_SETUP_COMMANDS = [
     installCommand: 'curl -fsSL https://opencode.ai/install | bash'
   },
   { agent: 'opencode2', loginCommand: ['opencode2', 'auth', 'login'] },
-  { agent: 'pi', loginCommand: [], slashCommand: '/login' },
-  { agent: 'omp', loginCommand: [], slashCommand: '/login' },
   // An `agy` login does not sign its chats in: they keep their own sign-in.
   { agent: 'antigravity', loginCommand: [] }
 ] as const

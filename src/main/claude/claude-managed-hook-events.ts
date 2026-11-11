@@ -20,7 +20,6 @@ export const CLAUDE_EVENTS = [
     eventName: 'Stop',
     definition: { hooks: [{ type: 'command', command: '' }] }
   },
-  // OpenClaude emits StopFailure instead of Stop after API or model errors.
   {
     eventName: 'StopFailure',
     definition: { hooks: [{ type: 'command', command: '' }] }
@@ -127,7 +126,6 @@ export function getClaudeManagedHookPlan(
   }
 }
 
-// OpenClaude statusline data would be misattributed to Claude; leave its slot alone.
 export const OPENCLAUDE_MANAGED_HOOK_PLAN: ClaudeManagedHookPlan = {
   install: CLAUDE_EVENTS,
   retire: [CLAUDE_SESSION_END_EVENT, CLAUDE_POST_TOOL_BATCH_EVENT],

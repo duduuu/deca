@@ -183,21 +183,16 @@ export function normalizeAgentProviderSession(raw: unknown): AgentProviderSessio
   }
 }
 
-/** Compare the provider-owned values that identify the CLI resume target.
- *  Pi-family transcript resumes use file identity; other agents use provider ids. */
+/** Compare the provider-owned values that identify the CLI resume target. */
 export function agentProviderSessionsEqual(
-  agent: string | undefined,
+  _agent: string | undefined,
   left: AgentProviderSessionMetadata | undefined,
   right: AgentProviderSessionMetadata | undefined
 ): boolean {
   if (left === undefined || right === undefined) {
     return left === right
   }
-  return (
-    left.key === right.key &&
-    left.id === right.id &&
-    ((agent !== 'pi' && agent !== 'prime-agent') || left.transcriptPath === right.transcriptPath)
-  )
+  return left.key === right.key && left.id === right.id
 }
 
 export function extractAgentProviderSession(

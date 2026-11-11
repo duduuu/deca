@@ -1,6 +1,5 @@
 import { resolveAgentPaneAuthorityKey } from '@/store/slices/agent-status/agent-pane-authority'
 import type { AppState } from '../../store/types'
-import { titleHasAgentName } from '../../../../shared/agent-status/title/agent-name-token-match'
 import type {
   AgentStatusEntry,
   AgentType,
@@ -121,17 +120,9 @@ export function shouldApplyResolvedAgentTerminalTitleToTab(
 
 export function resolveHookPayloadAgentType(
   payload: ParsedAgentStatusPayload,
-  terminalTitle: string | undefined
+  _terminalTitle: string | undefined
 ): ParsedAgentStatusPayload {
-  if (
-    payload.agentType !== 'claude' ||
-    !terminalTitle ||
-    !titleHasAgentName(terminalTitle, 'openclaude')
-  ) {
-    return payload
-  }
-  // OpenClaude uses Claude-compatible hooks; title evidence keeps it out of Claude-only handling.
-  return { ...payload, agentType: 'openclaude' }
+  return payload
 }
 
 /** Nested CLIs inherit the pane key; drop their hooks unless the host names them the pane's owner. */

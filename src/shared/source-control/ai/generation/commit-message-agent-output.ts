@@ -1,32 +1,7 @@
-/** jcode's `run --json` envelope, narrowed to the field the answer lives in. */
-type JcodeJsonResult = { text?: unknown }
-
-function isJcodeJsonResult(value: unknown): value is JcodeJsonResult {
-  return typeof value === 'object' && value !== null && 'text' in value
-}
-
 /** Remove surrounding whitespace, one enclosing fence, CLI progress preambles and leading reasoning from generated answers. */
 export function cleanGeneratedCommitMessage(raw: string): string {
   // Scan boundaries instead of allocating newline arrays for large generated bodies.
   let text = normalizeGeneratedCommitMessageLineFeeds(raw).trim()
-
-  // Extract jcode --json text; plain mode mixes thinking and token-usage lines into stdout.
-  if (text.startsWith('{')) {
-    try {
-      const parsed: unknown = JSON.parse(text)
-      if (isJcodeJsonResult(parsed) && typeof parsed.text === 'string') {
-        text = parsed.text.trim()
-      }
-    } catch {
-      // not a JSON envelope; fall through to the plain-text cleanup
-    }
-  }
-
-  // Strip jcode’s trailing [Tokens] usage line before using the answer as a branch/commit name.
-  const tokensUsageIndex = text.search(/\n\[Tokens\]\s/)
-  if (tokensUsageIndex !== -1) {
-    text = text.slice(0, tokensUsageIndex).trimEnd()
-  }
 
   // Discard CLI progress preambles before the actual answer.
   const firstNewline = text.indexOf('\n')
@@ -50,7 +25,7 @@ export function cleanGeneratedCommitMessage(raw: string): string {
   return text
 }
 
-// DeepSeek-R1/Qwen3/Kimi K2 reasoning uses <think>; Kimi-VL-Thinking uses ◁think▷.
+// Reasoning models wrap thoughts in <think>; some vision variants use ◁think▷.
 const REASONING_TAGS = [
   { open: '<think>', close: '</think>' },
   { open: '◁think▷', close: '◁/think▷' }
@@ -67,7 +42,7 @@ function stripLeadingReasoningBlock(text: string): string {
   return text
 }
 
-/** Custom commands only: Qwen3-Thinking/DeepSeek-R1-0528/Kimi K2.5 may prefill the opening reasoning tag, emitting only its close. Other messages can legitimately mention closing tags. */
+/** Custom commands only: some reasoning models may prefill the opening reasoning tag, emitting only its close. Other messages can legitimately mention closing tags. */
 export function stripPrefilledReasoningPreamble(text: string): string {
   for (const { open, close } of REASONING_TAGS) {
     const closeIndex = text.indexOf(close)

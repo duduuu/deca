@@ -49,7 +49,7 @@ export function installPaneAgentIdentity(session: ConnectPanePtySession): void {
     const candidate = resolveLaunchAgentCandidate(useAppStore.getState())
     return isTuiAgent(candidate) ? candidate : null
   }
-  // jcode themes itself; early OSC color replies can appear as composer text, so both main and renderer skip them.
+  // Self-theming agents: early OSC color replies can appear as composer text, so both main and renderer skip them.
   session.shouldAnswerPaneOscColorQueries = (): boolean =>
     paneShouldAnswerOscColorQueries(useAppStore.getState(), panePane())
   // Confirm leaked nested-shell 133;D for launch/hook-known agents even before any command read found them.

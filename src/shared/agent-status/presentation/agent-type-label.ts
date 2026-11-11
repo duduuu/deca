@@ -4,7 +4,6 @@ import type { AgentType } from '../contracts/agent-status-types'
 const WELL_KNOWN_LABELS: Record<string, string> = {
   claude: 'Claude',
   codex: 'Codex',
-  qodercli: 'Qoder CLI',
   gemini: 'Gemini',
   antigravity: 'Antigravity',
   copilot: 'GitHub Copilot',

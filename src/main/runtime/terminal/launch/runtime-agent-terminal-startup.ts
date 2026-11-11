@@ -239,7 +239,7 @@ async function buildRuntimeAgentTerminalStartupOptions(
   }
 }
 
-/** Qoder ships under two command names; the launch runs whichever the machine that runs it has. */
+/** An agent may ship under two command names; the launch runs whichever the machine that runs it has. */
 export async function prepareHostAgentTerminalLaunch(
   workspace: TerminalWorkspaceLaunchScope,
   opts: TerminalCreateOptions,

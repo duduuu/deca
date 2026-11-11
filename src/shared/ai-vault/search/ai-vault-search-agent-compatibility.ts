@@ -17,18 +17,8 @@ const LEGACY_SEARCH_AGENTS: readonly AiVaultAgent[] = [
 
 export function compatibleSearchAgents(
   agents: readonly AiVaultAgent[],
-  status: Pick<
-    AiVaultSearchStatus,
-    'supportedAgents' | 'supportsQoderHistory' | 'supportsJcodeHistory'
-  >
+  status: Pick<AiVaultSearchStatus, 'supportedAgents'>
 ): AiVaultAgent[] {
-  // Qoder's shipped capability also proves the earlier CodeBuddy and ZCode enum additions.
-  const supported = new Set(
-    status.supportedAgents ?? [
-      ...LEGACY_SEARCH_AGENTS,
-      ...(status.supportsQoderHistory === true ? [] : []),
-      ...(status.supportsJcodeHistory === true ? [] : [])
-    ]
-  )
+  const supported = new Set(status.supportedAgents ?? LEGACY_SEARCH_AGENTS)
   return agents.filter((agent) => supported.has(agent))
 }

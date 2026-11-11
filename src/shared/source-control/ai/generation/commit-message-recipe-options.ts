@@ -2,9 +2,6 @@ import { findOptionOccurrence } from '../../../command-option-occurrence'
 import { compactRecipeOptions, findRecipeOption } from './commit-message-generation-options'
 
 export function taskPolicyRecipeArgs(agent: string, args: string[]): string[] {
-  if (agent === 'jcode') {
-    return compactRecipeOptions(args, ['--tool-profile', '--tools'])
-  }
   if (agent === 'codex') {
     const result = compactRecipeOptions(args, ['--sandbox', '-s']).filter(
       (token) =>

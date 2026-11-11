@@ -8,7 +8,7 @@ import {
 
 export type NativeChatAgentProfile = {
   skillPrefix: '$' | '/'
-  /** OpenClaude reads Claude-owned roots, so this can differ from the agent. */
+  /** An agent may read another agent’s roots, so this can differ from the agent. */
   skillSourceOwner: AgentType
   /** The agent reports and invokes each skill under this prefix, e.g. Pi's `skill:<name>`. */
   skillNamePrefix?: string

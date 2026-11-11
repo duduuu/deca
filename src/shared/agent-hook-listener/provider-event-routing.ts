@@ -126,13 +126,11 @@ export function extractToolFields(
   // Why: exhaustive switch so a new AgentHookSource fails typecheck here instead of silently routing through OpenCode's extractor.
   switch (source) {
     case 'claude':
-      // Why: Kimi Code uses Claude's tool_name/tool_input payload fields verbatim.
       // falls through
       // Muse uses Claude-compatible tool fields.
       // falls through
       // DSH's own Claude-Code hook bridge emits Claude's tool_name/tool_input verbatim.
       // falls through
-      // Why: ZCode's hook runner writes Claude's `tool_name`/`tool_input`/`tool_response` aliases.
       // falls through
       return extractClaudeToolFields(eventName, hookPayload)
     case 'codex':

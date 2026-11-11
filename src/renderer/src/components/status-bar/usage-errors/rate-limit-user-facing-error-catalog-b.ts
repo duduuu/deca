@@ -85,37 +85,6 @@ export const KNOWN_RATE_LIMIT_ERRORS_B: RateLimitKnownError[] = [
     fallback: 'Gemini project ID not found in API response'
   },
   {
-    test: /^MiniMax usage fetch failed \((\d+)\)$/i,
-    key: 'auto.lib.rateLimits.errors.minimaxUsageFetchFailed',
-    fallback: 'MiniMax usage fetch failed ({{status}})',
-    vars: (m) => ({ status: m[1] ?? '' })
-  },
-  {
-    test: 'MiniMax returned an error',
-    key: 'auto.lib.rateLimits.errors.minimaxReturnedError',
-    fallback: 'MiniMax returned an error'
-  },
-  {
-    test: 'Invalid MiniMax usage response',
-    key: 'auto.lib.rateLimits.errors.minimaxInvalidUsageResponse',
-    fallback: 'Invalid MiniMax usage response'
-  },
-  {
-    test: 'Unknown MiniMax usage error',
-    key: 'auto.lib.rateLimits.errors.minimaxUnknownUsageError',
-    fallback: 'Unknown MiniMax usage error'
-  },
-  {
-    test: 'Unable to read Kimi credentials',
-    key: 'auto.lib.rateLimits.errors.kimiCredentialsUnreadable',
-    fallback: 'Unable to read Kimi credentials'
-  },
-  {
-    test: 'Kimi usage request failed',
-    key: 'auto.lib.rateLimits.errors.kimiUsageRequestFailed',
-    fallback: 'Kimi usage request failed'
-  },
-  {
     test: 'Grok usage request failed',
     key: 'auto.lib.rateLimits.errors.grokUsageRequestFailed',
     fallback: 'Grok usage request failed'

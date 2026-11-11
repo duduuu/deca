@@ -14,7 +14,7 @@ export const AGENT_NAMES = [
   'devin'
 ]
 
-// Allow Windows launcher suffixes such as openclaude.exe while rejecting arbitrary dotted paths.
+// Allow Windows launcher suffixes such as codex.exe while rejecting arbitrary dotted paths.
 const WINDOWS_EXECUTABLE_SUFFIX_RE = String.raw`(?:\.(?:exe|cmd|bat|ps1))`
 
 export function buildAgentNameRe(name: string): RegExp {

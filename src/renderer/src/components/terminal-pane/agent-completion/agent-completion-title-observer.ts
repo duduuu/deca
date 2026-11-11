@@ -45,18 +45,6 @@ export function createAgentCompletionTitleObserver({
     if (/\bopencode\b/.test(normalized)) {
       return 'opencode'
     }
-    if (/\bdroid\b/.test(normalized)) {
-      return 'droid'
-    }
-    if (/\bhermes\b/.test(normalized)) {
-      return 'hermes'
-    }
-    if (/\baider\b/.test(normalized)) {
-      return 'aider'
-    }
-    if (/\bpi\b/.test(normalized) || normalized.includes('\u03c0')) {
-      return 'pi'
-    }
     return null
   }
 

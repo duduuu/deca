@@ -6,9 +6,9 @@ Host API 1.6 (`"pluginApi": 1`). Call `host.call(method, params, { signal })`; a
 
 ## Methods per surface
 
-- Worker (`trusted-worker`, `main`): `orca` passed to `activate(orca)`: `workspace.readContext`, `terminal.sendText`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `agents.list`, `statusBar.update`, `appearance.read`, `appearance.apply`, `workspace.list`, `workspace.open`, `workspace.rename`, `terminal.create`, `terminal.read`, `agent.launch`, `editor.open`, `commands.run`, `editor.readTypography`
-- Panel: global `orca` in an HTML panel; `host` imported from `orca` in a components panel: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
-- Custom editor: global `orca` in the editor frame: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
+- Worker (`trusted-worker`, `main`): `deca` passed to `activate(orca)`: `workspace.readContext`, `terminal.sendText`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `agents.list`, `statusBar.update`, `appearance.read`, `appearance.apply`, `workspace.list`, `workspace.open`, `workspace.rename`, `terminal.create`, `terminal.read`, `agent.launch`, `editor.open`, `commands.run`, `editor.readTypography`
+- Panel: global `deca` in an HTML panel; `host` imported from `deca` in a components panel: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
+- Custom editor: global `deca` in the editor frame: `workspace.readContext`, `notifications.show`, `storage.get`, `storage.set`, `storage.delete`, `storage.keys`, `secrets.get`, `secrets.set`, `secrets.delete`, `secrets.protection`, `settings.get`, `settings.set`, `shell.openExternal`, `files.saveAs`, `plugin.request`, `agents.list`, `events.subscribe`, `editor.readTypography`
 
 ## Worker API (`import type { OrcaWorkerApi } from 'orca/worker'`)
 
@@ -22,9 +22,9 @@ Host API 1.6 (`"pluginApi": 1`). Call `host.call(method, params, { signal })`; a
 - `settings: SettingsApi`: `settings:own`; `onDidChange` also hears the person changing them in Settings.
 - `secrets: SecretsApi`: `secrets:own`.
 - `grantedCapabilities: readonly string[]`: Consented capability kinds; informational, the host re-checks every call.
-- `log(message: string)`: Lands in `orca plugin logs`.
+- `log(message: string)`: Lands in `deca plugin logs`.
 
-## Frame API (global `orca`, also `window.orca`, in HTML panels and custom editors)
+## Frame API (global `deca`, also `window.orca`, in HTML panels and custom editors)
 
 - `api: HostApiVersion`
 - `host: HostApi<'panel' | 'editor'>`
@@ -142,7 +142,7 @@ List each in `contributes.hooks` (`{ "event", "onError"? }`; `main` and `trusted
   event `{ workspaceId: string; kind: "worktree" | "folder"; path: string; branch: string }`; `next` may change nothing; stop with nothing (observe only)
 - `agent.launch.before` (since 1.4.248): Orca is about to start an agent CLI in a terminal, from any launcher (new tab, workspace create, CLI, automation, orchestration). Change `command` or add `env` with `next`, or return `{ deny }` to refuse the launch. Restores of saved sessions are not hooked.
   event `{ agent: string; workspaceId: string | null; workspaceKind: "worktree" | "folder" | null; terminalId?: string; command: string; env: Record<string, string> }`; `next` may change `command`, `env`; stop with `{ deny: string }`
-- `agent.prompt.before` (since 1.4.248): Orca is about to submit a prompt to an agent in a terminal: a launch prompt, an orchestration dispatch, an issue or task prompt, or `orca terminal send` to an agent. A prompt a person submits is never hooked, and writes to one terminal stay in order while it decides. Rewrite `prompt` with `next`, or return `{ deny }` to refuse it.
+- `agent.prompt.before` (since 1.4.248): Orca is about to submit a prompt to an agent in a terminal: a launch prompt, an orchestration dispatch, an issue or task prompt, or `deca terminal send` to an agent. A prompt a person submits is never hooked, and writes to one terminal stay in order while it decides. Rewrite `prompt` with `next`, or return `{ deny }` to refuse it.
   event `{ agent: string | null; terminalId: string; prompt: string; inputKind: "driving" | "orchestration" | "launch" }`; `next` may change `prompt`; stop with `{ deny: string }`
 - `agent.tool.before` (since 1.4.248): An agent in an Orca terminal is about to run a tool. Claude Code waits for the answer: return `{ deny }` to refuse the call (the agent sees the reason) or change `input` with `next`; the person is still asked as usual. Other agents only report the call, so their results are ignored. Agents on SSH or WSL hosts are not hooked yet.
   event `{ agent: string; workspaceId: string | null; terminalId?: string; tool: string; input: JSON; callId?: string }`; `next` may change `input`; stop with `{ deny: string }`

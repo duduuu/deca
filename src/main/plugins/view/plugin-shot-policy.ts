@@ -61,7 +61,7 @@ export function pluginShotReplayRefusal(
         reason: 'window_shown',
         message: PLUGIN_SHOT_REPLAY_WINDOW_SHOWN_MESSAGE,
         nextSteps: [
-          'Minimize or hide Orca, then run this again; `orca plugin check` renders the same scenarios as text.'
+          'Minimize or hide Orca, then run this again; `deca plugin check` renders the same scenarios as text.'
         ]
       }
     : null

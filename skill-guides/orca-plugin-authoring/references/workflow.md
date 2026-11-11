@@ -17,7 +17,7 @@ loads the folder (refreshing `.orca/types`) and prints one JSON object per line:
 - `reloaded` (before that reload's logs) and `status` (`errored`/`invalid` with the error).
 - `approval`: an edit asked for new access; it carries the `dev reload … --approve` command to
   show the user. The watch keeps running and never approves.
-- `check` (with `--check`): `orca plugin check` after the load and each reload, with `panels`
+- `check` (with `--check`): `deca plugin check` after the load and each reload, with `panels`
   and `editors` (each custom editor checked without running it). `ok` is false
   unless Orca also runs the plugin; `checkOk` is the check alone, `pluginStatus`/`pluginError`
   what Orca reports.
@@ -225,7 +225,7 @@ test('adds a task', async () => {
 ### Workers with orca/testing
 
 `mountWorker(main, { host, events, commands })` calls the module's default-exported
-`activate(orca)` with Orca's worker `orca` backed by `mockHost`, loading `.ts` mains as Orca does.
+`activate(orca)` with Orca's worker `deca` backed by `mockHost`, loading `.ts` mains as Orca does.
 
 ```ts
 import { assert, mountWorker, test } from 'orca/testing'

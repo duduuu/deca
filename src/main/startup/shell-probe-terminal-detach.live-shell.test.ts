@@ -1,4 +1,4 @@
-/** A process started from an interactive terminal (`orca serve`) must keep running while it probes the login shell. */
+/** A process started from an interactive terminal (`deca serve`) must keep running while it probes the login shell. */
 import { build } from 'esbuild'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'

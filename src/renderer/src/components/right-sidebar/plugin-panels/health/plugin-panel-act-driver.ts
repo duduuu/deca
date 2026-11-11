@@ -4,7 +4,7 @@ import type { PluginDeclarativeEventArg } from '../../../../../../shared/plugins
 import { PLUGIN_DECLARATIVE_MESSAGES } from '../../../../../../shared/plugins/declarative/plugin-declarative-message-names'
 
 /**
- * What `orca plugin shot` drives and waits on in a mounted components panel: the tree on screen,
+ * What `deca plugin shot` drives and waits on in a mounted components panel: the tree on screen,
  * the guest callbacks Orca's own controls fire, and the host calls in flight. Sends carry no
  * press, so they never grant a gesture.
  */

@@ -83,7 +83,7 @@ const KNOWN_CLI_DETAILS: {
     key: 'auto.lib.cli.detail.readlinkPermissionDenied',
     fallback:
       'Orca does not have permission to inspect {{path}}. Check the path and its parent directory permissions, then try again.',
-    vars: (match) => ({ path: match?.[1] ?? 'orca' })
+    vars: (match) => ({ path: match?.[1] ?? 'deca' })
   },
   {
     test: /Registered at (.+)\.?$/,
@@ -128,7 +128,7 @@ const KNOWN_CLI_DETAILS: {
     test: /^(.+) cannot be read\. Register again to repair it\.?$/i,
     key: 'auto.lib.cli.detail.unreadableSymlink',
     fallback: '{{path}} cannot be read. Register again to repair it.',
-    vars: (match) => ({ path: match?.[1] ?? 'orca' })
+    vars: (match) => ({ path: match?.[1] ?? 'deca' })
   }
 ]
 
@@ -140,7 +140,7 @@ function stripElectronInvokePrefix(raw: string): string {
 /** Path may be blank when status is still resolving — keep a usable command token. */
 function registerPathToken(raw: string | undefined): string {
   const trimmed = raw?.trim() ?? ''
-  return trimmed.length > 0 ? trimmed : 'orca'
+  return trimmed.length > 0 ? trimmed : 'deca'
 }
 
 /** Map stable English "Register … to use Orca from …" status details. */

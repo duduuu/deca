@@ -59,7 +59,7 @@ export const EMULATOR_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['emulator', 'exec'],
     summary:
-      'Raw passthrough (e.g. orca emulator exec --command "tap 0.5 0.7" or "ca-debug blended on")',
+      'Raw passthrough (e.g. deca emulator exec --command "tap 0.5 0.7" or "ca-debug blended on")',
     usage: 'orca emulator exec --command <cmd> [--device <id>] [--worktree <selector>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'command', 'device', 'emulator', 'worktree']
   },
@@ -96,7 +96,7 @@ export const EMULATOR_COMMAND_SPECS: CommandSpec[] = [
     path: ['emulator', 'permissions'],
     summary: 'Grant/revoke an Android runtime permission, or reset all runtime grants',
     usage:
-      'orca emulator permissions <grant|revoke> <package> <permission> [--device <id>] [--json]\n       orca emulator permissions reset [--device <id>] [--json]',
+      'orca emulator permissions <grant|revoke> <package> <permission> [--device <id>] [--json]\n       deca emulator permissions reset [--device <id>] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'device',

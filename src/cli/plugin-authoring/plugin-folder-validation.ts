@@ -136,7 +136,7 @@ export async function validatePluginTarget(target: string): Promise<PluginValida
 }
 
 export type PluginInspection = PluginValidationReport & {
-  /** What `orca plugin install` of these exact files would record; absent when unhashable. */
+  /** What `deca plugin install` of these exact files would record; absent when unhashable. */
   contentHash?: string
   fileCount?: number
   totalBytes?: number

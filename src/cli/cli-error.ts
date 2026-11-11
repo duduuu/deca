@@ -25,7 +25,7 @@ export type CliErrorContext = {
 type ContextRecovery = { nextSteps: readonly string[] } & Record<string, unknown>
 
 const STALE_HANDLE_SERVER_HINT =
-  'Terminal handles belong to the Orca server that issued them. If this handle came from a paired server (for example `orca terminal list --environment <server>`), pass the same --environment <server> to this command.'
+  'Terminal handles belong to the Orca server that issued them. If this handle came from a paired server (for example `deca terminal list --environment <server>`), pass the same --environment <server> to this command.'
 
 function contextRecovery(error: unknown, context: CliErrorContext): ContextRecovery | undefined {
   const code = cliErrorCode(error)

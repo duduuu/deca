@@ -7,7 +7,7 @@ import { usePluginViewCaptureStore } from '@/store/plugins/capture/plugin-view-c
 export function useSettingsDarkTheme(): boolean {
   const theme = useAppStore((s) => s.settings?.theme ?? 'system')
   const systemPrefersDark = useSystemPrefersDark()
-  // `orca plugin shot --theme` paints the other mode for one capture, leaving the setting alone.
+  // `deca plugin shot --theme` paints the other mode for one capture, leaving the setting alone.
   const captureDark = usePluginViewCaptureStore((s) => s.dark)
   return captureDark ?? (theme === 'system' ? systemPrefersDark : theme === 'dark')
 }

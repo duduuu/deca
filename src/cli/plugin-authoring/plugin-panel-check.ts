@@ -26,7 +26,7 @@ export type PluginPanelCheck = {
   elements: number
   /** What a person notices first, one line each (headings, callouts, empty states, table sizes). */
   summary: string[]
-  /** The drawn tree as plain data (handlers as `[handler]`); `orca plugin check --json` only. */
+  /** The drawn tree as plain data (handlers as `[handler]`); `deca plugin check --json` only. */
   tree?: unknown
   /** With `drawnTree`: the validated tree exactly as Orca draws it, handlers as `{ $callback }`. */
   drawnTree?: PluginDeclarativeNode | null

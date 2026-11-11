@@ -121,7 +121,7 @@ export abstract class OrcaRuntimeWithAgentTransitions extends OrcaRuntimeWithWin
 
   private connectorCloud: ConnectorCloud | null = null
 
-  /** The desktop's link to the Orca Cloud connector; null in `orca serve` and in builds without cloud auth. */
+  /** The desktop's link to the Orca Cloud connector; null in `deca serve` and in builds without cloud auth. */
   getConnectorCloud(): ConnectorCloud | null {
     return this.connectorCloud
   }

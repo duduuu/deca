@@ -148,7 +148,7 @@ export async function resolveOrcadMachineHome(
     return {
       loginHome,
       orcadHome: loginHome,
-      userDataDir: joinRemotePath(host, loginHome, '.orca')
+      userDataDir: joinRemotePath(host, loginHome, '.deca')
     }
   }
   const probe = parseOrcadMachineHomeProbe(
@@ -182,7 +182,7 @@ export async function resolveOrcadMachineHome(
     return {
       loginHome,
       orcadHome: loginHome,
-      userDataDir: joinRemotePath(host, loginHome, '.orca')
+      userDataDir: joinRemotePath(host, loginHome, '.deca')
     }
   }
   const orcadHome = orcadMachineHomeDir(host, loginHome, decision.machineKey)

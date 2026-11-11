@@ -6,7 +6,7 @@ import type {
 
 const count = (n: number, noun: string, plural = `${noun}s`): string =>
   `${n} ${n === 1 ? noun : plural}`
-const listCommand = (runId: string): string => `orca orchestration run-show --id ${runId} --removed`
+const listCommand = (runId: string): string => `deca orchestration run-show --id ${runId} --removed`
 
 function partialNote(removed: RunRemovedWork): string {
   return removed.coverage === 'partial'
@@ -106,6 +106,6 @@ function listHint(runIds: readonly string[]): string {
     return ` List what was removed: ${listCommand(runIds[0])}`
   }
   return runIds.length > 1
-    ? ` Runs: ${runIds.join(', ')}. List what was removed in one: orca orchestration run-show --removed --id RUN_ID`
+    ? ` Runs: ${runIds.join(', ')}. List what was removed in one: deca orchestration run-show --removed --id RUN_ID`
     : ''
 }

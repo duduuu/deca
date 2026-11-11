@@ -151,7 +151,7 @@ export async function shootPluginEditor(
         throw new PluginCliError('invalid_argument', reply.message, {
           reason: reply.code,
           nextSteps: [
-            `\`orca plugin logs ${pluginKey}\` shows what the editor reported; fix it, then shoot again.`
+            `\`deca plugin logs ${pluginKey}\` shows what the editor reported; fix it, then shoot again.`
           ]
         })
       }

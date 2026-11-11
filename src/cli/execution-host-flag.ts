@@ -59,7 +59,7 @@ export function parseHostFlag(flags: Map<string, string | boolean>): HostFlagSel
   if (!alias || alias.startsWith('ssh:') || alias.startsWith('runtime:')) {
     throw new RuntimeClientError(
       'invalid_argument',
-      `Invalid --host value: ${raw}. Expected local, ssh:<target-id>, runtime:<environment-id>, or a host name from \`orca host list\`.`
+      `Invalid --host value: ${raw}. Expected local, ssh:<target-id>, runtime:<environment-id>, or a host name from \`deca host list\`.`
     )
   }
   return { kind: 'alias', alias }
@@ -108,7 +108,7 @@ export async function resolveHostFlagEnvironmentId(
         knownSshTargets: sshTargets,
         nextSteps: [
           ...crossKindNextSteps(wanted, { environments, sshTargets }, 'environment'),
-          'Run `orca environment list` to see paired Orca servers.',
+          'Run `deca environment list` to see paired Orca servers.',
           'Use --host local to target this machine.'
         ]
       }
@@ -318,7 +318,7 @@ export async function resolveEnvironmentSelectorForStore(
       knownSshTargets: sshTargets,
       nextSteps: [
         ...crossKindNextSteps(selector, { environments, sshTargets }, 'environment'),
-        'Run `orca host list` to see every machine you can target and the flag for each.'
+        'Run `deca host list` to see every machine you can target and the flag for each.'
       ]
     }
   )

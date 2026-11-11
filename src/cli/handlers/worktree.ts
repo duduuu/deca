@@ -250,7 +250,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
       parentSelector
         ? [
             `Orca could not find the worktree selector "${worktree}" or the parent selector "${parentSelector}". The server did not identify which selector failed.`,
-            'Check both selectors with orca worktree show --worktree <selector> --json.'
+            'Check both selectors with deca worktree show --worktree <selector> --json.'
           ]
         : []
     )

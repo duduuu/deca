@@ -16,11 +16,11 @@ export const SPEECH_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Reads the key from stdin so it never lands in shell history or a process list.',
-      'The host that runs dictation seals it, so a headless `orca serve` host can use it.'
+      'The host that runs dictation seals it, so a headless `deca serve` host can use it.'
     ],
     examples: [
-      'printf %s "$OPENAI_API_KEY" | orca speech openai-key set',
-      '$env:OPENAI_API_KEY | orca speech openai-key set'
+      'printf %s "$OPENAI_API_KEY" | deca speech openai-key set',
+      '$env:OPENAI_API_KEY | deca speech openai-key set'
     ]
   },
   {

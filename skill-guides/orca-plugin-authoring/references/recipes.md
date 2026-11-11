@@ -153,7 +153,7 @@ file, without changing it; read the image to check what you built.
 
 ## Driving workspaces, terminals and agents from a worker
 
-A `trusted-worker` can act as the `orca` CLI does, on whichever host owns the workspace:
+A `trusted-worker` can act as the `deca` CLI does, on whichever host owns the workspace:
 `host.call('workspace.list')` (`workspace:read`) for ids, kinds, paths and branches;
 `terminal.create({ workspaceId, command })` (`terminal:send`) then `terminal.read({ terminalId,
 maxLines })` (`terminal:read`) for its output; `agent.launch({ workspaceId, agent: 'claude', prompt })`

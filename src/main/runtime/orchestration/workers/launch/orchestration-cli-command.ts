@@ -6,7 +6,7 @@ import { isWslUncPath } from '../../../../../shared/wsl-paths'
 import { splitWorktreeIdForFilesystem } from '../../../../../shared/worktree/id'
 import { getAppEnvironment, hasAppEnvironment } from '../../../../../shared/app-environment'
 
-export type OrchestrationCliCommand = 'orca' | 'orca-dev' | 'orca-ide'
+export type OrchestrationCliCommand = 'deca' | 'orca-dev' | 'deca-ide'
 
 /** Dev builds run the CLI as `orca-dev`; a packaged app, or a process with no app, must not advertise it. */
 export function runtimeOrchestrationCliCommand(): OrchestrationCliCommand | undefined {
@@ -15,7 +15,7 @@ export function runtimeOrchestrationCliCommand(): OrchestrationCliCommand | unde
 
 /** What a local, non-WSL terminal is told to run; a structured session is always one. */
 export function localOrchestrationCliCommand(): OrchestrationCliCommand {
-  return runtimeOrchestrationCliCommand() ?? 'orca'
+  return runtimeOrchestrationCliCommand() ?? 'deca'
 }
 
 export function resolveTerminalOrchestrationCliCommand(args: {
@@ -26,20 +26,20 @@ export function resolveTerminalOrchestrationCliCommand(args: {
   runtimeCliCommand?: OrchestrationCliCommand
 }): OrchestrationCliCommand {
   if (args.connectionId) {
-    return 'orca'
+    return 'deca'
   }
   if (args.runtimeCliCommand) {
     return args.runtimeCliCommand
   }
   if (args.isWsl !== null && args.isWsl !== undefined) {
-    return args.isWsl ? 'orca-ide' : 'orca'
+    return args.isWsl ? 'deca-ide' : 'deca'
   }
   if (args.projectRuntime?.status === 'resolved' && args.projectRuntime.runtime.kind === 'wsl') {
-    return 'orca-ide'
+    return 'deca-ide'
   }
 
   const worktreePath = splitWorktreeIdForFilesystem(args.worktreeId)?.worktreePath
-  return worktreePath && isWslUncPath(worktreePath) ? 'orca-ide' : 'orca'
+  return worktreePath && isWslUncPath(worktreePath) ? 'deca-ide' : 'deca'
 }
 
 export function resolveRuntimeTerminalOrchestrationCliCommand(
@@ -61,10 +61,10 @@ export function resolveRuntimeTerminalOrchestrationCliCommand(
     const ptyId = source.resolvePtyId(handle)
     pty = ptyId ? (source.getPty(ptyId) ?? null) : null
   } catch {
-    return 'orca'
+    return 'deca'
   }
   if (!pty) {
-    return 'orca'
+    return 'deca'
   }
   return resolveTerminalOrchestrationCliCommand({
     connectionId: pty.connectionId,

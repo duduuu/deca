@@ -22,7 +22,7 @@ import { quotePosixShellDoubleQuotedApostrophe } from '../../shared/shell/launch
 const DISPATCHER_MARKER = '# orca-serve-bare-orca-dispatcher'
 
 export type LinuxBareOrcaDispatcherOptions = {
-  /** Packaged app resources root; the bundled `orca-ide` launcher lives under it. */
+  /** Packaged app resources root; the bundled `deca-ide` launcher lives under it. */
   resourcesPath: string
   homePath?: string
   /** Trusted caller override; production requires the complete AppImage runtime identity. */
@@ -46,12 +46,12 @@ export type LinuxBareOrcaDispatcherResult = {
   target: string | null
 }
 
-// Team launchers invoke bare `orca`, and a login shell can drop Orca's PATH entry ahead of it.
+// Team launchers invoke bare `deca`, and a login shell can drop Orca's PATH entry ahead of it.
 // A regular file avoids the installer's legacy-symlink cleanup.
 export async function installLinuxBareOrcaDispatcher(
   options: LinuxBareOrcaDispatcherOptions
 ): Promise<LinuxBareOrcaDispatcherResult> {
-  const dispatcherPath = join(options.homePath ?? homedir(), '.local', 'bin', 'orca')
+  const dispatcherPath = join(options.homePath ?? homedir(), '.local', 'bin', 'deca')
   if (existsSync(dispatcherPath) && !(await isOwnedDispatcher(dispatcherPath))) {
     return { state: 'skipped-foreign', dispatcherPath, target: null }
   }
@@ -75,8 +75,8 @@ export function buildBareOrcaCliScript(launcherPath: string): string {
 }
 
 /**
- * Orca's own children reach this app's CLI, or a clear error once it is gone, never another `orca`
- * (GNOME's screen reader shares the name). Anyone else gets the next real `orca` on PATH first.
+ * Orca's own children reach this app's CLI, or a clear error once it is gone, never another `deca`
+ * Anyone else gets the next real `deca` on PATH first.
  */
 export function buildBareOrcaDispatcherScript(launcherPath: string): string {
   return [
@@ -112,9 +112,9 @@ export function buildBareOrcaDispatcherScript(launcherPath: string): string {
   ].join('\n')
 }
 
-/** Removes only Orca's own dispatcher; a user's `orca` at that path is left alone. */
+/** Removes only Orca's own dispatcher; a user's `deca` at that path is left alone. */
 export async function removeLinuxBareOrcaDispatcher(homePath = homedir()): Promise<boolean> {
-  const dispatcherPath = join(homePath, '.local', 'bin', 'orca')
+  const dispatcherPath = join(homePath, '.local', 'bin', 'deca')
   if (!(await isOwnedDispatcher(dispatcherPath))) {
     return false
   }

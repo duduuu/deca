@@ -27,7 +27,7 @@ export function getCredentialError(siteId: string): string | undefined {
 }
 
 function getOrcaDir(): string {
-  return join(homedir(), '.orca')
+  return join(homedir(), '.deca')
 }
 
 function getSiteFilePath(): string {

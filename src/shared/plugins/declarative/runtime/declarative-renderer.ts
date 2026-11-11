@@ -87,7 +87,7 @@ export function createOrcaDeclarativeRuntime(options: OrcaRuntimeOptions): OrcaD
   }
 
   function report(error: unknown): void {
-    // Main routes guest console errors to `orca plugin logs`; this text is located like the banner.
+    // Main routes guest console errors to `deca plugin logs`; this text is located like the banner.
     console.error(describePluginErrorForLog(error))
     const stack = error instanceof Error && error.stack ? error.stack.slice(0, 8192) : undefined
     post(PLUGIN_DECLARATIVE_MESSAGES.error, {

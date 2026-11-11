@@ -1,5 +1,5 @@
 /**
- * Serves the `orca orchestration` commands a relay-era terminal still runs, on this desktop's
+ * Serves the `deca orchestration` commands a relay-era terminal still runs, on this desktop's
  * runtime, where that terminal's Dispatch and Run records live.
  * COMPAT(legacy-relay-bridge): revisit 2027-01-15.
  *
@@ -51,17 +51,17 @@ const COMMANDS: ReadonlySet<string> = new Set(
 )
 
 export const LEGACY_RELAY_CLI_CONTROL_OFF =
-  'This terminal was started by an older version of Orca. Its orca orchestration commands reach ' +
+  'This terminal was started by an older version of Orca. Its deca orchestration commands reach ' +
   `this desktop only when "${DESKTOP_BROWSER_BRIDGE_SETTING_LABEL}" is on for this host in ` +
   'Settings > SSH. Otherwise, run them in a new terminal on this host.'
 
 export const LEGACY_RELAY_CLI_UNSUPPORTED =
-  'This terminal was started by an older version of Orca, so only orca orchestration check, ' +
+  'This terminal was started by an older version of Orca, so only deca orchestration check, ' +
   'inbox, send, ask and reply work in it. Run other orca commands in a new terminal on this host.'
 
 const LEGACY_RELAY_CLI_HELP =
-  'This terminal was started by an older version of Orca. It runs orca orchestration check, ' +
-  'inbox, send, ask and reply; open a new terminal on this host for full orca help.'
+  'This terminal was started by an older version of Orca. It runs deca orchestration check, ' +
+  'inbox, send, ask and reply; open a new terminal on this host for full deca help.'
 
 type LegacyRelayCliServerDeps = {
   targetId: string

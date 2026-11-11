@@ -1,4 +1,4 @@
-/** An agent's own `orca agent launch` leaves one card in its chat; nothing else does, and the card never gates the launch. */
+/** An agent's own `deca agent launch` leaves one card in its chat; nothing else does, and the card never gates the launch. */
 
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import {
@@ -82,7 +82,7 @@ function launchRuntime(surface: 'chat' | 'terminal') {
   }
 }
 
-/** What `orca agent launch` sends: a replayable launch under a fresh operation id. */
+/** What `deca agent launch` sends: a replayable launch under a fresh operation id. */
 function launch(
   params: Record<string, unknown>,
   context: Partial<RpcContext> = AGENT_CLI,

@@ -12,16 +12,16 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['plugin', 'create'],
     summary: 'Scaffold a new Orca plugin from a template',
-    usage: `orca plugin create <dir> --template <${TEMPLATES}> [--publisher <name>] [--id <id>] [--name <display name>] [--json]`,
+    usage: `deca plugin create <dir> --template <${TEMPLATES}> [--publisher <name>] [--id <id>] [--name <display name>] [--json]`,
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'dir', 'template', 'publisher', 'id', 'name'],
     positionalArgs: ['dir'],
     notes: [
       'Writes into a new or empty folder (a .git folder is allowed) and never overwrites; it runs no Git, package install or plugin code.',
       'theme, terminal-theme, icon-theme, syntax and language-pack are content only: loading them never needs approval.',
       'editor and panel run code in a sandboxed frame: loading them prints the access they ask for and needs --approve.',
-      'components is a panel written in TSX with Orca components and no build step; it also writes the editor typings to .orca/types (see `orca plugin types`).',
-      'worker-panel is a components panel plus its own TypeScript worker (`main`): requests, posts and storage typed by one src/protocol.ts, with panel and worker tests for `orca plugin test`. It needs --approve to load.',
-      'hook is a worker-only guard on `terminal.send` that refuses dangerous commands and fails closed (`onError: "deny"`), with a test for `orca plugin test`. It needs --approve to load.',
+      'components is a panel written in TSX with Orca components and no build step; it also writes the editor typings to .orca/types (see `deca plugin types`).',
+      'worker-panel is a components panel plus its own TypeScript worker (`main`): requests, posts and storage typed by one src/protocol.ts, with panel and worker tests for `deca plugin test`. It needs --approve to load.',
+      'hook is a worker-only guard on `terminal.send` that refuses dangerous commands and fails closed (`onError: "deny"`), with a test for `deca plugin test`. It needs --approve to load.',
       'The id defaults to the folder name. Leave out --publisher: Orca names the publisher after the repository owner (or `local` for a folder). Pass it only to support Orca older than 1.4.246, and then it must be that owner.',
       'Runs on the machine that runs this command; it does not reach the Orca app.',
       EXIT_CODES_NOTE
@@ -42,7 +42,7 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
     positionalArgs: ['dir'],
     notes: [
       'Writes .orca/types/orca/index.d.ts and .orca/types/tsconfig.json; extend it from the plugin tsconfig (`"extends": "./.orca/types/tsconfig.json"`). `.orca/` ignores itself in Git, and Orca skips it when loading a development folder.',
-      'The typings match the Orca this CLI belongs to. `orca plugin dev load` rewrites them for folders that use TypeScript or components panels.',
+      'The typings match the Orca this CLI belongs to. `deca plugin dev load` rewrites them for folders that use TypeScript or components panels.',
       'Runs on the machine that runs this command; it does not reach the Orca app.',
       EXIT_CODES_NOTE
     ],
@@ -72,7 +72,7 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
     positionalArgs: ['dir'],
     notes: [
       "Not sandboxed: this runs the plugin's code on this machine with your user's full access, outside Orca's plugin sandbox. Check only code you trust.",
-      'Validates like `orca plugin validate`, then mounts each `ui: "components"` panel in Node against a stand-in host with the capabilities the manifest declares, and reports runtime errors (with file:line), layouts Orca would refuse, and props it would drop.',
+      'Validates like `deca plugin validate`, then mounts each `ui: "components"` panel in Node against a stand-in host with the capabilities the manifest declares, and reports runtime errors (with file:line), layouts Orca would refuse, and props it would drop.',
       'Runs on the `node` on PATH when it is 20.6 or newer, else on the Node built into Orca. It does not reach the Orca app.',
       'Exit codes: 0 ok, 1 a panel failed to render or an editor failed its static check (plugin_check_failed), 2 the plugin is invalid (plugin_invalid).'
     ],
@@ -98,7 +98,7 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'path'],
     positionalArgs: ['path'],
     notes: [
-      'Validates like `orca plugin validate`, then hashes the files the way install does.',
+      'Validates like `deca plugin validate`, then hashes the files the way install does.',
       'Use it to show your user exactly what a plugin would be allowed to do before loading it.',
       EXIT_CODES_NOTE
     ],
@@ -111,7 +111,7 @@ export const PLUGIN_AUTHORING_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'path'],
     positionalArgs: ['path'],
     notes: [
-      'Validates like `orca plugin validate`, then hashes the files of HEAD (not the working tree) the way install does, and prints the `releases` entry to paste into orca-catalog.json, plus the `source.path` when the plugin is a subdirectory of its repository.',
+      'Validates like `deca plugin validate`, then hashes the files of HEAD (not the working tree) the way install does, and prints the `releases` entry to paste into orca-catalog.json, plus the `source.path` when the plugin is a subdirectory of its repository.',
       'Offline; runs only local read-only Git and never runs plugin code. Uncommitted changes are left out, with a note.',
       'Fails with plugin_invalid when the folder is invalid, and with invalid_argument when it is not committed in a Git repository or HEAD has no installable release.',
       EXIT_CODES_NOTE
@@ -171,7 +171,7 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca plugin system on [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      'The same switch as "Turn on plugins" in Settings → Plugins, for a host with no window such as `orca serve`.',
+      'The same switch as "Turn on plugins" in Settings → Plugins, for a host with no window such as `deca serve`.',
       'Approves nothing: only plugins approved earlier start; anything else still needs its own --approve.'
     ],
     examples: ['orca plugin system on', 'orca plugin system on --environment build-box --json']
@@ -207,12 +207,12 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'dir', 'approve', 'check', 'shot', 'shot-panel'],
     positionalArgs: ['dir'],
     notes: [
-      'The inner loop: loads the folder like `orca plugin dev load` (refreshing its .orca/types), then prints each log line its panels, editors and worker write, every reload a save causes, and status changes such as errored or invalid with the error.',
-      'A first load that needs approval, run in a terminal without --json, shows the grants and asks `Approve and load? [y/N]`; yes loads it with that fingerprint and keeps watching. Anything else, --json or no terminal (agents, pipes) fails like `orca plugin dev load` (exit 3, with the re-run command).',
-      'When an edit asks for new access it prints the `orca plugin dev reload <dir> --approve <fingerprint>` command to run from another shell; this one keeps watching.',
+      'The inner loop: loads the folder like `deca plugin dev load` (refreshing its .orca/types), then prints each log line its panels, editors and worker write, every reload a save causes, and status changes such as errored or invalid with the error.',
+      'A first load that needs approval, run in a terminal without --json, shows the grants and asks `Approve and load? [y/N]`; yes loads it with that fingerprint and keeps watching. Anything else, --json or no terminal (agents, pipes) fails like `deca plugin dev load` (exit 3, with the re-run command).',
+      'When an edit asks for new access it prints the `deca plugin dev reload <dir> --approve <fingerprint>` command to run from another shell; this one keeps watching.',
       'Ctrl-C unloads the folder (unless it was loaded before this command) and exits 0; a second Ctrl-C exits at once. If the connection to Orca drops it says so and exits 1.',
-      "--check runs `orca plugin check` after the load and after each reload and prints the result inline (one `check` event with --json; it fails while Orca does not run the plugin, such as pending approval, even if the panels render). Like `orca plugin check` it runs the plugin's code on this machine, unsandboxed, so use it on code you trust; it needs a local folder.",
-      '--shot <out-dir> opens one panel in the right sidebar once (the first, or --shot-panel <id>; an unknown id fails at start), then after the load and each reload that leaves the plugin running saves a PNG of it, like `orca plugin shot`, to <out-dir>/<plugin-key>-<panel>.png (overwritten; a `shot` event). It never switches the sidebar again: while you show another tab or close the sidebar it skips, with one `shot_skipped` event per time away, and resumes when the panel is back. With --check, the check runs first. Needs the Orca desktop app.',
+      "--check runs `deca plugin check` after the load and after each reload and prints the result inline (one `check` event with --json; it fails while Orca does not run the plugin, such as pending approval, even if the panels render). Like `deca plugin check` it runs the plugin's code on this machine, unsandboxed, so use it on code you trust; it needs a local folder.",
+      '--shot <out-dir> opens one panel in the right sidebar once (the first, or --shot-panel <id>; an unknown id fails at start), then after the load and each reload that leaves the plugin running saves a PNG of it, like `deca plugin shot`, to <out-dir>/<plugin-key>-<panel>.png (overwritten; a `shot` event). It never switches the sidebar again: while you show another tab or close the sidebar it skips, with one `shot_skipped` event per time away, and resumes when the panel is back. With --check, the check runs first. Needs the Orca desktop app.',
       '--json prints one JSON object per line: `loaded`, `log`, `reloaded`, `status`, `approval`, `check`, `shot`, `shot_skipped`, `warning`, `disconnected`, `unloaded` (field `type`). A failed first load prints the usual error envelope instead, on one line.',
       APPROVE_NOTE,
       'With --environment the folder is a path on that Orca server; pass it absolute.',
@@ -234,7 +234,7 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       'Adds the folder to Settings → Plugins → Development folders on the Orca host; it overrides an installed plugin with the same key.',
       'Orca reloads the plugin when its files change. For an approved panel, editor or worker, later code edits run without asking again; new access does not.',
-      '.ts, .tsx, .mts and .jsx files load without a build step. When the folder uses them (or components panels) and is on this machine, this also refreshes its .orca/types typings, like `orca plugin types`.',
+      '.ts, .tsx, .mts and .jsx files load without a build step. When the folder uses them (or components panels) and is on this machine, this also refreshes its .orca/types typings, like `deca plugin types`.',
       APPROVE_NOTE,
       'Without approval the folder stays loaded but nothing in it runs.',
       'With --environment the folder is a path on that Orca server; pass it absolute.',
@@ -261,7 +261,7 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'plugin'],
     positionalArgs: ['plugin'],
     notes: [
-      'Desktop app only: opens one detached DevTools window per open frame. Console errors and uncaught exceptions also reach `orca plugin logs` without it.',
+      'Desktop app only: opens one detached DevTools window per open frame. Console errors and uncaught exceptions also reach `deca plugin logs` without it.',
       EXIT_CODES_NOTE
     ],
     examples: ['orca plugin dev inspect acme.notes']
@@ -275,8 +275,8 @@ export const PLUGIN_RUNTIME_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       "Runs the worker's `orca.events.on` handlers and the plugin's open panels' `orca.on` handlers without the real trigger, under the normal rules: the plugin must be an approved development plugin granted the event's capability. The worker hears it when it lists the event in contributes.events (it starts if it is not running); an open panel hears it once it has subscribed. It is refused when nothing listens.",
       "--data is the payload as JSON, checked against the event's schema (the host API reference lists them). An unknown event is refused with the list of events.",
-      'Prints `{ pluginKey, event, delivered: { worker, panels } }`: whether the worker got it and how many open panels did. Handler errors go to `orca plugin logs` and `orca plugin dev watch`.',
-      'Installed plugins are refused; load the folder with `orca plugin dev load` first.'
+      'Prints `{ pluginKey, event, delivered: { worker, panels } }`: whether the worker got it and how many open panels did. Handler errors go to `deca plugin logs` and `deca plugin dev watch`.',
+      'Installed plugins are refused; load the folder with `deca plugin dev load` first.'
     ],
     examples: [
       'orca plugin dev emit . workspace.created --data \'{"workspaceId":"wt-1","kind":"worktree","path":"/repo","branch":"main"}\'',

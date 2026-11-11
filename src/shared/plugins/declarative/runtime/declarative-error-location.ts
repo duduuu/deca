@@ -48,7 +48,7 @@ export function pluginErrorLocation(stack: string, base: string): string | null 
 
 /**
  * The error's message, prefixed with where in the plugin it was thrown, at the source position
- * (as `orca plugin check` reports it); a message that already names its file is kept.
+ * (as `deca plugin check` reports it); a message that already names its file is kept.
  */
 export function describePluginError(error: unknown, base = pageBase()): string {
   const message = error instanceof Error ? error.message : String(error)
@@ -62,7 +62,7 @@ export function describePluginError(error: unknown, base = pageBase()): string {
 }
 
 /**
- * What `orca plugin logs` shows: the located message, then the stack's frames at source positions
+ * What `deca plugin logs` shows: the located message, then the stack's frames at source positions
  * with Orca's runtime frames left out. A message that already names its location stands alone.
  */
 export function describePluginErrorForLog(error: unknown, base = pageBase()): string {

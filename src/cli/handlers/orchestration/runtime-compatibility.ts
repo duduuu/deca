@@ -1,19 +1,19 @@
 import { RuntimeClientError } from '../../runtime-client'
 
-export function resolveCompatibilityCliCommand(): 'orca' | 'orca-ide' | 'orca-dev' {
+export function resolveCompatibilityCliCommand(): 'deca' | 'deca-ide' | 'orca-dev' {
   const configured = process.env.ORCA_CLI_COMMAND
-  if (configured === 'orca' || configured === 'orca-ide' || configured === 'orca-dev') {
+  if (configured === 'deca' || configured === 'deca-ide' || configured === 'orca-dev') {
     return configured
   }
-  return process.platform === 'linux' ? 'orca-ide' : 'orca'
+  return process.platform === 'linux' ? 'deca-ide' : 'deca'
 }
 
-export function resolvePackagedWindowsCompatibilityCommand(): 'orca' | 'orca-ide' | undefined {
+export function resolvePackagedWindowsCompatibilityCommand(): 'deca' | 'deca-ide' | undefined {
   if (process.env.ORCA_WINDOWS_PACKAGED_CLI_LAUNCHER !== '1') {
     return undefined
   }
   const command = process.env.ORCA_CLI_COMMAND
-  if (command === 'orca' || command === 'orca-ide') {
+  if (command === 'deca' || command === 'deca-ide') {
     return command
   }
   throw new RuntimeClientError(

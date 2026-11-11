@@ -29,8 +29,8 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
   },
   'claude-agent-teams': {
     // This launch mode uses Orca’s CLI wrapper rather than a separate agent binary.
-    detectCmd: 'orca',
-    detectCmdAliases: ['orca-dev', 'orca-ide'],
+    detectCmd: 'deca',
+    detectCmdAliases: ['orca-dev', 'deca-ide'],
     // Orca’s always-present shim alone must not report installed Agent Teams without Claude.
     detectRequiredCommands: ['claude'],
     // Windows/WSL use Claude’s in-process fallback, not this native-pane/tmux wrapper.

@@ -165,7 +165,7 @@ const serverRepoIds = () =>
     .map((entry) => entry.id)
     .sort()
 
-// #29560: `orca environment stop` unlinks the server but leaves its profile on the host.
+// #29560: `deca environment stop` unlinks the server but leaves its profile on the host.
 describe('moving the host again after its server was stopped', () => {
   // The local half of stop (unlinkEnvironmentLocally); the server keeps its profile.
   function stopServer(): void {

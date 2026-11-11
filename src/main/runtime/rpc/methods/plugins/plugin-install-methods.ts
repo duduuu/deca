@@ -134,8 +134,8 @@ export const PLUGIN_INSTALL_METHODS = [
           {
             pluginKey: params.pluginKey,
             nextSteps: [
-              'Plugins bundled with Orca cannot be removed; disable them with `orca plugin disable`.',
-              'Remove a development folder with `orca plugin dev unload`.'
+              'Plugins bundled with Orca cannot be removed; disable them with `deca plugin disable`.',
+              'Remove a development folder with `deca plugin dev unload`.'
             ]
           }
         )

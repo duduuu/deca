@@ -24,7 +24,7 @@ const SECTION = '__ORCA_MACHINE_HOME_SECTION__'
 const CLAIM_ABSENT = 'ABSENT'
 const CLAIM_PRESENT = 'PRESENT'
 const RECORD_MAX_BYTES = 4096
-const ACCESS_ROOT = '.orca/.profile-state-access'
+const ACCESS_ROOT = '.deca/.profile-state-access'
 const INSTALLED = 'INSTALLED'
 // Unknown filesystem types may be shared; recognize only proven local disk types.
 const LOCAL_FILESYSTEM_TYPES = new Set([

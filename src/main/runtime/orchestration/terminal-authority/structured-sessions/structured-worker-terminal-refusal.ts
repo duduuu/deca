@@ -15,15 +15,15 @@ export function structuredWorkerTerminalRefusal(
   if (resolveStructuredWorkerAuthority(handle, db)) {
     return agentSessionRefusal(
       `${handle} is an agent session, not a terminal, so terminal commands cannot address it. ` +
-        'Read its output with `orca terminal read` or `orca orchestration worker-read --source transcript`, ' +
-        'send it work with `orca orchestration send`, and open it from its chat tab.'
+        'Read its output with `deca terminal read` or `deca orchestration worker-read --source transcript`, ' +
+        'send it work with `deca orchestration send`, and open it from its chat tab.'
     )
   }
   // A chat address never names a terminal, live or not.
   if (parseOrcaSessionAddress(handle)) {
     return agentSessionRefusal(
       `${handle} is a chat session, not a terminal, so terminal commands cannot address it. ` +
-        `Message it with \`orca orchestration send --to ${handle}\`.`
+        `Message it with \`deca orchestration send --to ${handle}\`.`
     )
   }
   return new Error(TERMINAL_HANDLE_STALE)

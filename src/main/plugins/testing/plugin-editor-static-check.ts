@@ -1,5 +1,5 @@
 /**
- * `orca plugin check` for custom editors, without a running Orca: every file an editor entry
+ * `deca plugin check` for custom editors, without a running Orca: every file an editor entry
  * loads (its local `<script src>`, inline module scripts, and their relative imports) is
  * transpiled and resolved exactly as the frame loader does. Shipped in orca-test-hooks.mjs.
  */

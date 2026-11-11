@@ -6,7 +6,7 @@ export const SEARCH_COMMAND_SPECS: CommandSpec[] = [
     path: ['search'],
     summary: 'Search the full text of agent sessions indexed on the selected Orca host',
     usage:
-      'orca search <query> [--scope conversation|all] [--fresh] [--limit <n>] [--cursor <c>] [--agent <id>] [--path <p>] [--since <iso>] [--sort relevance|newest] [--debug] [--json]\n  orca search --index-status [--json]',
+      'orca search <query> [--scope conversation|all] [--fresh] [--limit <n>] [--cursor <c>] [--agent <id>] [--path <p>] [--since <iso>] [--sort relevance|newest] [--debug] [--json]\n  deca search --index-status [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'query',

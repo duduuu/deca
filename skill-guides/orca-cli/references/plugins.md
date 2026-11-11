@@ -41,7 +41,7 @@ Exit codes: `0` ok, `1` error, `2` `plugin_invalid`, `3` `approval_required` or 
 
 1. `plugin create` into a new folder. Leave out `--publisher`: Orca names the publisher after the
    repository owner (`local` for a folder); an `orca-` id prefix is reserved. `components` is a TSX
-   panel with no build step; `.ts`/`.tsx` files load as written, importing only `orca` and
+   panel with no build step; `.ts`/`.tsx` files load as written, importing only `deca` and
    relative files. `plugin types <dir>` (also run by `plugin dev load`) writes the typings to
    `.orca/types/`, which the plugin's `tsconfig.json` extends.
 2. Edit the files. Field rules: `docs/reference/plugin-manifest.md`, `plugin-themes.md`,
@@ -93,11 +93,11 @@ Exit codes: `0` ok, `1` error, `2` `plugin_invalid`, `3` `approval_required` or 
 6. `plugin dev unload <dir>` when done.
 
 Paths are on the machine that runs Orca. With `--environment <server>`, pass an absolute path
-on that server. From an SSH or WSL shell that forwards `orca` to another machine, the authoring
+on that server. From an SSH or WSL shell that forwards `deca` to another machine, the authoring
 and dev commands refuse; work on the Orca host instead.
 
 `plugin_system_disabled` means plugins are off on that host. Ask the user to click "Turn on
-plugins" in Settings → Plugins, or on a host with no window (`orca serve`) to run
+plugins" in Settings → Plugins, or on a host with no window (`deca serve`) to run
 `plugin system on` with the same `--environment`. It approves nothing; only plugins approved
 earlier start.
 
@@ -138,7 +138,7 @@ returns `approval_required` with a `cat1-…` fingerprint for that exact URL and
 ## Private repositories
 
 Git runs on the Orca host (the `--environment` server when given) with that machine's own Git
-credentials and never prompts. Nothing to pass to `orca`; set up Git there once:
+credentials and never prompts. Nothing to pass to `deca`; set up Git there once:
 
 - HTTPS on GitHub: `gh auth login` then `gh auth setup-git`. GitLab: `glab auth login`. Elsewhere:
   any credential helper (Git Credential Manager, osxkeychain, libsecret).

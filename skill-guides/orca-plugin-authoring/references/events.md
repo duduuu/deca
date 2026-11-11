@@ -23,7 +23,7 @@ List each in `contributes.events` (`{ "on": "<event>" }`), with `main`, the `tru
 - `'editor.document': EditorDocument`: Custom editors: a new document; `orca.document.onDidChange` is the usual way to listen.
 - `'editor.flush': undefined`: Custom editors: post pending edits before a save; Orca waits for a returned promise.
 
-## Components panel events (`on(event, handler)` from `orca`)
+## Components panel events (`on(event, handler)` from `deca`)
 
 - `theme: { colorScheme: 'light' | 'dark' }`
 - Every worker event above, with the same payload and capability; a panel needs no `contributes.events` entry, it subscribes while it is open. HTML panels get them on `orca.on` too.

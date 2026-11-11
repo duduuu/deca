@@ -9,7 +9,7 @@ export function resolveOrchestrationCliExecutable(
   if (env.ORCA_DEV_REPO_ROOT) {
     return 'orca-dev'
   }
-  return platform === 'linux' ? 'orca-ide' : 'orca'
+  return platform === 'linux' ? 'deca-ide' : 'deca'
 }
 
 export function buildOrchestrationRecoveryCommand(

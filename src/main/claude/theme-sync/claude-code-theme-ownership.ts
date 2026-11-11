@@ -23,7 +23,7 @@ type OwnershipByConfigDir = Map<string, ClaudeThemeOwnership>
 
 // Why under ~/.orca, not userData: every Orca build on this machine must agree on what it replaced.
 function ownershipPath(): string {
-  return join(homedir(), '.orca', 'claude-theme-sync.json')
+  return join(homedir(), '.deca', 'claude-theme-sync.json')
 }
 
 /** Every config dir Orca took over, keyed by path; null when the record exists but cannot be read. */

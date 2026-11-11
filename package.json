@@ -1,11 +1,11 @@
 {
-  "name": "orca",
+  "name": "deca",
   "version": "1.4.214",
   "description": "Next-gen IDE for parallel agentic development",
   "homepage": "https://github.com/stablyai/orca",
   "author": "stablyai",
   "bin": {
-    "orca": "./out/cli/index.js",
+    "deca": "./out/cli/index.js",
     "orca-dev": "./config/scripts/development/launch/orca-dev.mjs"
   },
   "main": "./out/main/index.js",

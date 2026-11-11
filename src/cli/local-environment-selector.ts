@@ -21,7 +21,7 @@ export async function savedEnvironmentNamedLocal(): Promise<{ id: string } | und
   )
 }
 
-/** `orca environment …` takes --environment as a saved entry to act on; local is not one. */
+/** `deca environment …` takes --environment as a saved entry to act on; local is not one. */
 export async function refuseLocalManagementSelector(
   commandPath: readonly string[],
   flags: Map<string, string | boolean>
@@ -38,7 +38,7 @@ export async function refuseLocalManagementSelector(
         ...(named
           ? [`A saved environment named local is reached by its id: --environment ${named.id}.`]
           : []),
-        'Run `orca environment list` to see saved environments.'
+        'Run `deca environment list` to see saved environments.'
       ]
     }
   )
@@ -66,8 +66,8 @@ export function assertLocalCwdWorktreeSelector(selector: string, client: Runtime
     {
       nextSteps: [
         environment
-          ? `List that environment's workspaces: \`orca worktree ps --environment ${quoteCliCommandArgument(environment)} --json\`, then copy a row's address.`
-          : 'Save this connection with `orca environment add --name <name> --pairing-code <code>`, then list its workspaces with `orca worktree ps --environment <name> --json`.',
+          ? `List that environment's workspaces: \`deca worktree ps --environment ${quoteCliCommandArgument(environment)} --json\`, then copy a row's address.`
+          : 'Save this connection with `deca environment add --name <name> --pairing-code <code>`, then list its workspaces with `deca worktree ps --environment <name> --json`.',
         `For this machine's own workspace, rerun with --environment local.`
       ]
     }

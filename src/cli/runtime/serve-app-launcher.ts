@@ -12,13 +12,13 @@ export function canStartOrcaServer(env: NodeJS.ProcessEnv): boolean {
   )
 }
 
-/** Linux installs the app's CLI as `orca-ide`: a bare `orca` there is often the screen reader. */
+/** Linux installs the app's CLI as `deca-ide`, mirroring upstream's GNOME-safe `orca-ide` layout. */
 export function appCliName(platform: NodeJS.Platform): string {
-  return platform === 'linux' ? 'orca-ide' : 'orca'
+  return platform === 'linux' ? 'deca-ide' : 'deca'
 }
 
 const NOT_AN_APP_CLI =
-  "This `orca` command isn't running from an installed Orca app. On a host Orca reaches over SSH, it belongs to that connection's server and can't start one of its own."
+  "This `deca` command isn't running from an installed Orca app. On a host Orca reaches over SSH, it belongs to that connection's server and can't start one of its own."
 
 export function serverOnlyServeMessage(platform: NodeJS.Platform): string {
   return `${NOT_AN_APP_CLI} Install the Orca app on this machine and run \`${appCliName(platform)} serve\` from a plain login shell, or set ORCA_APP_EXECUTABLE to the Orca app executable.`

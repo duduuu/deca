@@ -173,10 +173,10 @@ export const JIRA_COMMAND_SPECS: CommandSpec[] = [
   ...(['add', 'rm'] as const).map((verb) => ({
     path: ['jira', 'label', verb],
     summary: verb === 'add' ? 'Add labels to a Jira issue' : 'Remove labels from a Jira issue',
-    usage: `orca jira label ${verb} <key> --label <name>... [--site <id>] [--json]`,
+    usage: `deca jira label ${verb} <key> --label <name>... [--site <id>] [--json]`,
     allowedFlags: [...SITE_FLAGS, 'key', 'label'],
     positionalArgs: ['key'],
     repeatableFlags: ['label'],
-    examples: [`orca jira label ${verb} ENG-123 --label backend --json`]
+    examples: [`deca jira label ${verb} ENG-123 --label backend --json`]
   }))
 ]

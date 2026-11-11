@@ -165,7 +165,7 @@ export abstract class OrcaRuntimeWithApplyLayout extends OrcaRuntimeWithPickMost
     return this.mobileDisplayModes.get(ptyId) ?? this.getDefaultMobileDisplayMode()
   }
 
-  // Why: a headless runtime (orca serve, orcad) serves several clients at once, so a phone that
+  // Why: a headless runtime (deca serve, orcad) serves several clients at once, so a phone that
   // only views a terminal must not shrink it for all of them. Phone input or an explicit
   // phone-mode request still claims the size. servesHeadlessGraph is fixed for the process, so
   // a desktop host keeps fitting phones on open and no PTY's mode flips mid-session.

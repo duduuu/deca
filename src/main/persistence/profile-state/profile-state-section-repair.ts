@@ -69,7 +69,7 @@ export function repairProfileStateSections(options: {
   if (plan === undefined) {
     throw new ProfileStateRecoveryCommandError(
       'runtime_error',
-      `Orca can't repair this profile one section at a time (${reason}). Nothing was changed. Run \`orca profile state exports\` and restore a whole backup with \`orca profile state rollback --backup <id>\`.`
+      `Orca can't repair this profile one section at a time (${reason}). Nothing was changed. Run \`deca profile state exports\` and restore a whole backup with \`deca profile state rollback --backup <id>\`.`
     )
   }
   if (options.approved !== undefined && !sameSections(options.approved, plan.sections)) {

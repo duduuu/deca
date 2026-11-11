@@ -14,7 +14,7 @@ import { quotePosixShellDoubleQuotedApostrophe } from '../../shared/shell/launch
 
 const MANAGED_MARKER = getWslLauncherMarker()
 const BRIDGE_MANAGED_MARKER = getWslBridgeMarker()
-const LEGACY_WSL_COMMAND_NAME = 'orca'
+const LEGACY_WSL_COMMAND_NAME = 'deca'
 
 export function buildWslCliInstallCommand(
   status: CliInstallStatus & { commandPath: string; launcherPath: string }

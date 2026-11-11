@@ -60,7 +60,7 @@ function selectSetupOnHost(
         ...candidates.map(
           (candidate) => `Use --host ${setupHostId(candidate)} for ${candidate.path}.`
         ),
-        'Run `orca host list` to see every machine you can target and the flag for each.'
+        'Run `deca host list` to see every machine you can target and the flag for each.'
       ]
     }
   )
@@ -125,7 +125,7 @@ export async function resolveProjectCreateTarget(
         `No ready setup found for --project ${projectId} on any host.`,
         {
           nextSteps: [
-            'Run `orca project list` for project ids and names, and `orca project setups` for where each is set up.'
+            'Run `deca project list` for project ids and names, and `deca project setups` for where each is set up.'
           ]
         }
       )

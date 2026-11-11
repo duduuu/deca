@@ -10,7 +10,7 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       'Lists discovery IDs and names without reading skill contents into the CLI.',
       'Package metadata is validated when the selected skills are shared.',
-      'Use an exact ID or an unambiguous name with `orca skills share --skill <selector>`.'
+      'Use an exact ID or an unambiguous name with `deca skills share --skill <selector>`.'
     ]
   },
   {
@@ -23,7 +23,7 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       'Requires the default-off permission in Settings → Share Skills.',
       'The bundle name may be human-readable; Orca converts it to a portable lowercase package name.',
-      'Selectors are exact discovery IDs or unambiguous names from `orca skills installed`.',
+      'Selectors are exact discovery IDs or unambiguous names from `deca skills installed`.',
       'Only discovered skill directories can be selected; arbitrary paths and --all are not supported.',
       'The resulting link is unlisted. Anyone with it can inspect and install the bundle.'
     ],
@@ -40,7 +40,7 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       'Reads bundled guide metadata locally without contacting the Orca runtime.',
       'With --json, prints a topics array of canonical names and one-line descriptions.',
-      'Use `orca skills get <name>` for the compact guide, `--full` for its full reference package, or `orca skills install` to install skills.'
+      'Use `deca skills get <name>` for the compact guide, `--full` for its full reference package, or `deca skills install` to install skills.'
     ]
   },
   {
@@ -104,10 +104,10 @@ export const SKILL_COMMAND_SPECS: CommandSpec[] = [
       '[--local] [--force] [--dry-run] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'skill', 'all', 'agent', 'local', 'force', 'dry-run'],
     notes: [
-      'Runs the same planner as `orca skills install`, but only at locations that already ' +
+      'Runs the same planner as `deca skills install`, but only at locations that already ' +
         'hold the skill; it never adds a skill, or an existing skill for another agent.',
       'Updates each untouched copy where it is; other copies are skipped unless you ' +
-        'pass --force. Use `orca skills install` to add a skill for a newly detected agent.',
+        'pass --force. Use `deca skills install` to add a skill for a newly detected agent.',
       'Updates the global install by default. Use --local to update the current project.',
       'Use --dry-run to print what would change and the plan digest without writing.',
       'With --json, both dry runs and real runs print the plan, and real runs the result.',

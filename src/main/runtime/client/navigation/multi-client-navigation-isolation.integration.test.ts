@@ -318,7 +318,7 @@ describe('paired runtime navigation isolation', () => {
     expect(eventB).toMatchObject({ result: { navigation: 'all' } })
   })
 
-  it('keeps create activation caller-scoped on a headless orca serve host', async () => {
+  it('keeps create activation caller-scoped on a headless deca serve host', async () => {
     const harness = await startHarness({ headless: true })
     await subscribeBothClientEventStreams(harness)
 

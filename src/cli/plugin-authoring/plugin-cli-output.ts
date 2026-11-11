@@ -26,11 +26,11 @@ export function resolveLocalPluginPath(
   value: string,
   command: string
 ): string {
-  rejectRemoteSelectionFlags(ctx.flags, `orca plugin ${command}; it works on local files`)
+  rejectRemoteSelectionFlags(ctx.flags, `deca plugin ${command}; it works on local files`)
   if (process.env.ORCA_CLI_CWD) {
     throw new RuntimeClientError(
       'invalid_environment',
-      `orca plugin ${command} works on the files of the machine that runs it, but this shell forwards orca to the Orca host. Write and check the plugin files on this machine directly, or run the command on the Orca host.`
+      `deca plugin ${command} works on the files of the machine that runs it, but this shell forwards orca to the Orca host. Write and check the plugin files on this machine directly, or run the command on the Orca host.`
     )
   }
   return isAbsolute(value) ? value : resolve(ctx.cwd, value)

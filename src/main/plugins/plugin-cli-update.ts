@@ -101,7 +101,7 @@ export async function updatePluginFromCli(
       {
         pluginKey,
         nextSteps: [
-          '`orca plugin list` shows installed plugins; development folders update when their files change.'
+          '`deca plugin list` shows installed plugins; development folders update when their files change.'
         ]
       }
     )
@@ -199,7 +199,7 @@ export function updateAllApprovalError(result: PluginCliUpdateAllResult): Plugin
       'Each update below grows access or comes from a different repository. Confirm with your user first.',
       ...result.approvals.map(
         (request) =>
-          `To approve ${request.pluginKey}, run: orca plugin update ${request.pluginKey} ${request.approveFlag}`
+          `To approve ${request.pluginKey}, run: deca plugin update ${request.pluginKey} ${request.approveFlag}`
       )
     ]
   })

@@ -12,7 +12,7 @@ import {
 } from '../workers/plugin-host-api'
 import { zodTypeText, type SchemaTypeTextOptions } from '../workers/plugin-schema-type-text'
 
-/** Checked-in output of `pnpm generate:plugin-author-typings`; `orca plugin types` copies it. */
+/** Checked-in output of `pnpm generate:plugin-author-typings`; `deca plugin types` copies it. */
 export const PLUGIN_HOST_TYPINGS_FILE = 'resources/plugins/types/orca-host.d.ts'
 
 /** Names the d.ts must declare beside the generated members, since JSON Schema cannot spell them. */

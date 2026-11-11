@@ -14,7 +14,7 @@ export const BROWSER_ADVANCED_COMMAND_SPECS: CommandSpec[] = withBrowserPageTarg
     path: ['extension', 'reload'],
     summary: 'Reload an installed unpacked browser extension',
     usage:
-      'orca extension reload <extension-id> [--json] | orca extension reload --path <folder> [--json]',
+      'orca extension reload <extension-id> [--json] | deca extension reload --path <folder> [--json]',
     positionalArgs: ['extension-id'],
     allowedFlags: [...GLOBAL_FLAGS, 'extension-id', 'path'],
     notes: [

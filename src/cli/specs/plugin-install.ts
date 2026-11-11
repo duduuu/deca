@@ -63,7 +63,7 @@ export const PLUGIN_INSTALL_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'plugin'],
     positionalArgs: ['plugin'],
     notes: [
-      'Never needs approval. Removes its files, approval and theme choices. Bundled plugins can only be disabled; development folders use `orca plugin dev unload`.'
+      'Never needs approval. Removes its files, approval and theme choices. Bundled plugins can only be disabled; development folders use `deca plugin dev unload`.'
     ],
     examples: ['orca plugin uninstall acme.notes-panel']
   },

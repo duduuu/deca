@@ -35,7 +35,7 @@ export async function shootPluginReplay(
       `The scenario's tree is invalid: ${parsed.error}`,
       {
         reason: 'invalid_tree',
-        nextSteps: ['`orca plugin check` shows what the panel draws and why Orca refuses it.']
+        nextSteps: ['`deca plugin check` shows what the panel draws and why Orca refuses it.']
       }
     )
   }

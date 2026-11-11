@@ -84,7 +84,7 @@ export function configureFederationWorkerRuntime(
     'tab_worker:bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
   )
   vi.spyOn(runtime, 'getTerminalProcessIncarnation').mockReturnValue('windows_runtime:pty:1')
-  vi.spyOn(runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('orca')
+  vi.spyOn(runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('deca')
   vi.spyOn(runtime, 'sendTerminalAgentPrompt').mockResolvedValue({
     handle,
     accepted: true,

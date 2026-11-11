@@ -8,7 +8,7 @@ export function orchestrationMailFixture({
   const text = `──── From: TERM_WORKER (term_worker) (question) ────
 Subject: Review complete
 ${body}
-[Reply: orca orchestration reply --id msg_review --body "..."]
+[Reply: deca orchestration reply --id msg_review --body "..."]
 ────────────────────────────────────────────────────────────`
   const content = { subject: [62, 77] as const, body: [78, 78 + body.length] as const }
   return {

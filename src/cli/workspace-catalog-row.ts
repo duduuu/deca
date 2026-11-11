@@ -30,7 +30,7 @@ export function refuseUnresolvedOwner(innermost: readonly CatalogRow[]): void {
         ...unresolved.map(
           (row) => `Pass --worktree ${row.id} to target the folder workspace itself.`
         ),
-        'Or pass an explicit worktree selector from `orca worktree ps --json`.'
+        'Or pass an explicit worktree selector from `deca worktree ps --json`.'
       ]
     }
   )

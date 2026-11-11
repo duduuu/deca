@@ -25,7 +25,7 @@ declare module 'orca' {
 }
 `
 
-const PANEL_CHECK_TS = `// \`orca plugin check\` renders the panel once per scenario, each with the worker on a fresh
+const PANEL_CHECK_TS = `// \`deca plugin check\` renders the panel once per scenario, each with the worker on a fresh
 // host. Seed what the worker reads so check shows more than the first state.
 import { defineCheck } from 'orca/testing'
 
@@ -116,7 +116,7 @@ export default function Panel() {
 }
 `
 
-const PANEL_TEST_TSX = `// \`orca plugin test .\` runs this in Node with the same runtime and checks Orca uses.
+const PANEL_TEST_TSX = `// \`deca plugin test .\` runs this in Node with the same runtime and checks Orca uses.
 import { assert, mockHost, mount, test } from 'orca/testing'
 import * as panel from './panel'
 
@@ -196,7 +196,7 @@ export function workerPanel(input: PluginTemplateInput): PluginTemplate {
       'tsconfig.json': json({ extends: `./${PLUGIN_TYPES_DIR}/tsconfig.json`, include: ['src'] }),
       'README.md': readme(
         input,
-        `A right-sidebar panel (\`src/panel.tsx\`) and the plugin's own worker (\`src/worker.ts\`). The panel asks with \`plugin.request\`, the worker answers with \`orca.panels.handle\`, keeps the total in \`orca.storage\` and tells every open panel with \`orca.panels.post\`; \`src/protocol.ts\` types both sides. Orca transpiles both files when they load, so there is no build step: save and the panel or worker reloads (a worker reload drops its in-memory state, so keep what must last in storage). \`orca plugin test .\` runs \`src/panel.test.tsx\` and \`src/worker.test.ts\` in Node with \`orca/testing\`, and \`orca plugin check .\` renders the panel with the worker in each \`src/panel.check.ts\` scenario; \`npx tsc -p .\` type-checks against the typings \`orca plugin types .\` writes to \`${PLUGIN_TYPES_DIR}/\`. With the folder loaded, \`orca plugin dev request . counter.add --data '{"by":1}'\` calls the worker as the panel does.`
+        `A right-sidebar panel (\`src/panel.tsx\`) and the plugin's own worker (\`src/worker.ts\`). The panel asks with \`plugin.request\`, the worker answers with \`orca.panels.handle\`, keeps the total in \`orca.storage\` and tells every open panel with \`orca.panels.post\`; \`src/protocol.ts\` types both sides. Orca transpiles both files when they load, so there is no build step: save and the panel or worker reloads (a worker reload drops its in-memory state, so keep what must last in storage). \`deca plugin test .\` runs \`src/panel.test.tsx\` and \`src/worker.test.ts\` in Node with \`orca/testing\`, and \`deca plugin check .\` renders the panel with the worker in each \`src/panel.check.ts\` scenario; \`npx tsc -p .\` type-checks against the typings \`deca plugin types .\` writes to \`${PLUGIN_TYPES_DIR}/\`. With the folder loaded, \`deca plugin dev request . counter.add --data '{"by":1}'\` calls the worker as the panel does.`
       ),
       ...COMMON_FILES
     }

@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { PLUGIN_SHOT_MAX_ACTS } from './plugin-shot-acts'
 
 /**
- * `orca plugin shot --editor --act`: real input sent to the editor's frame before the capture, in
+ * `deca plugin shot --editor --act`: real input sent to the editor's frame before the capture, in
  * the editor's CSS pixels from its top-left corner: `{"click":[x,y]}`, `{"drag":[[x1,y1],[x2,y2]]}`
  * and `{"key":"r"}` (a key name such as `Enter`, with optional `modifiers`).
  */

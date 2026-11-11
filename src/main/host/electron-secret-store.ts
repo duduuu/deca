@@ -34,7 +34,7 @@ export function assessSecretProtection(): SecretProtectionAssessment {
   if (withheld !== null) {
     return {
       level: 'unavailable',
-      gap: `The OS keychain is unavailable for this run (${withheld}), so secrets are stored unencrypted. Start orca serve from a logged-in desktop session, or unlock the login keychain, to seal them.`
+      gap: `The OS keychain is unavailable for this run (${withheld}), so secrets are stored unencrypted. Start deca serve from a logged-in desktop session, or unlock the login keychain, to seal them.`
     }
   }
   // Availability probes the keyring; backend reads below do not.

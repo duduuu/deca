@@ -17,7 +17,7 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       'A setup means a project is available on a host at a concrete filesystem path.',
       '--host runtime:<environment-id> runs the command on that paired Orca server instead of filtering this runtime; unknown environment ids are rejected rather than answered with an empty list.',
-      'Run `orca environment list` to see the environment ids that runtime:<environment-id> accepts. It matches ids only, never environment names.',
+      'Run `deca environment list` to see the environment ids that runtime:<environment-id> accepts. It matches ids only, never environment names.',
       "A routed --host runtime:<id> also lists that server's own local-stamped setups, because both spellings name the machine the command reached."
     ],
     examples: [
@@ -35,7 +35,7 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'project', 'host', 'path', 'kind', 'display-name'],
     notes: [
       'For remote runtimes, --path must be an absolute path on the remote server.',
-      '--host takes local, ssh:<target-id>, runtime:<environment-id>, or the bare host name `orca host list` prints for any of them.',
+      '--host takes local, ssh:<target-id>, runtime:<environment-id>, or the bare host name `deca host list` prints for any of them.',
       'SSH targets are set up through the desktop UI because the desktop client owns SSH connections.',
       "--project takes a project id or an existing project's name. A remote-backed Git folder's project id usually comes from its remote: github:owner/repo, github:<host>/owner/repo for GitHub Enterprise, or git:<host>/<path> for other remotes."
     ],
@@ -61,7 +61,7 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
     notes: [
       'For remote runtimes, --destination must be an absolute parent directory on the remote server.',
       '--folder-name sets the folder created inside --destination; it defaults to the repository name from the URL.',
-      '--host takes local, ssh:<target-id>, runtime:<environment-id>, or the bare host name `orca host list` prints for any of them.',
+      '--host takes local, ssh:<target-id>, runtime:<environment-id>, or the bare host name `deca host list` prints for any of them.',
       'SSH targets are cloned through the desktop UI because the desktop client owns SSH connections.'
     ],
     examples: [
@@ -89,7 +89,7 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
     ],
     notes: [
       'Creates setup metadata without registering a repo compatibility record.',
-      '--host takes local, ssh:<target-id>, runtime:<environment-id>, or the bare host name `orca host list` prints for any of them.',
+      '--host takes local, ssh:<target-id>, runtime:<environment-id>, or the bare host name `deca host list` prints for any of them.',
       'Use setup-existing-folder when Orca should import and manage an actual checkout path now.'
     ],
     examples: [

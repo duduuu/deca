@@ -17,7 +17,7 @@ export type OrcadOptions = {
   allowPublic?: boolean
   /** Refuse public addresses even when grandfathered or otherwise accepted. */
   refusePublic?: boolean
-  /** Slots have no browser client; orca serve supplies the installed app client. */
+  /** Slots have no browser client; deca serve supplies the installed app client. */
   webClientRoot?: string
 }
 

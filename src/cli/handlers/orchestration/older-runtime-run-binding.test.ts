@@ -43,7 +43,7 @@ describe('an older Orca server that binds one Run per coordinator', () => {
     ).rejects.toMatchObject({
       code: 'incompatible_runtime',
       message:
-        'This Orca server is an older version and needs a Run first. Run `orca orchestration run-create --objective "<goal>" --json`, then run this worker-start again.'
+        'This Orca server is an older version and needs a Run first. Run `deca orchestration run-create --objective "<goal>" --json`, then run this worker-start again.'
     })
     expect(methods).not.toContain('orchestration.runCreate')
   })

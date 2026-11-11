@@ -32,7 +32,7 @@ export const ACCOUNT_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca account list [--agent claude|codex|opencode|devin|antigravity] [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'agent'],
     notes: [
-      "Lists the accounts on this machine with the ids `orca account select` and `orca account rm` accept. `system` is the provider's own sign-in outside Orca.",
+      "Lists the accounts on this machine with the ids `deca account select` and `deca account rm` accept. `system` is the provider's own sign-in outside Orca.",
       '`--environment` / `--pairing-code` are rejected rather than ignored; run it on the host whose accounts you want to see.'
     ],
     examples: ['orca account list', 'orca account list --agent claude']
@@ -44,7 +44,7 @@ export const ACCOUNT_COMMAND_SPECS: CommandSpec[] = [
       'orca account select --agent claude|codex|opencode|devin|antigravity --account <id|email|label|system> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'agent', 'account'],
     notes: [
-      "--account takes an id, email or label from `orca account list`, or `system` for the provider's own sign-in. An email shared by several accounts is refused; pass the id.",
+      "--account takes an id, email or label from `deca account list`, or `system` for the provider's own sign-in. An email shared by several accounts is refused; pass the id.",
       'The selection applies to agents launched on this host after it, like the status-bar account switcher. Antigravity has no `system` default.'
     ],
     examples: [

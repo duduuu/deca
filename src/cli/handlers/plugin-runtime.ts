@@ -131,7 +131,7 @@ function formatDevLoad(result: DevLoadResult): string {
   return [
     `${result.added ? 'Loaded' : 'Reloaded'} ${result.pluginKey} from ${result.path} (${how}).`,
     result.plugin ? formatPluginRow(result.plugin) : '',
-    'Orca reloads it (and restarts its worker) when its files change; `orca plugin logs` shows what it printed.'
+    'Orca reloads it (and restarts its worker) when its files change; `deca plugin logs` shows what it printed.'
   ]
     .filter(Boolean)
     .join('\n')
@@ -171,7 +171,7 @@ export function requirePluginKey(ctx: HandlerContext): string {
   if (!key || !isQualifiedPluginKey(key)) {
     throw new RuntimeClientError(
       'invalid_argument',
-      'Pass a plugin key such as acme.dusk; `orca plugin list` shows them.'
+      'Pass a plugin key such as acme.dusk; `deca plugin list` shows them.'
     )
   }
   return key

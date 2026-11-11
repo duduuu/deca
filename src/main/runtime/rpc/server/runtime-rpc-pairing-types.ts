@@ -44,7 +44,7 @@ export type OrcaRuntimeRpcServerOptions = {
   exposeNetworkByDefault?: boolean
   /** Explicit address pins govern the whole process: override startup exposure and reconnect defaults, and refuse pairing-time widening. Loopback must survive pairing and restart. */
   pinnedBindHost?: string
-  // `orca serve` only: refuse public source addresses unless allowed (desktop listeners never filter).
+  // `deca serve` only: refuse public source addresses unless allowed (desktop listeners never filter).
   serveNetworkSources?: ServeNetworkSourceOptions
   webClientRoot?: string
   // Test-only timing overrides; production keeps design §3.1 defaults.

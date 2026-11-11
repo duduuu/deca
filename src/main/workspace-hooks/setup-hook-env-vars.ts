@@ -32,7 +32,7 @@ export function getSetupEnvVars(
     ORCA_ROOT_PATH: repo.path,
     ORCA_WORKTREE_PATH: worktreePath,
     ORCA_WORKSPACE_NAME: workspaceName,
-    // Same values a pane sets, so `orca worktree create` in the hook attaches to this workspace.
+    // Same values a pane sets, so `deca worktree create` in the hook attaches to this workspace.
     ...(identity
       ? { ORCA_WORKSPACE_ID: identity.worktreeId, ORCA_WORKTREE_ID: identity.worktreeId }
       : {}),

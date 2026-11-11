@@ -99,7 +99,7 @@ export function resolveClaudeAgentTeamsShimBin(
 }
 
 function defaultShimRoot(): string {
-  return join(homedir(), '.orca', 'claude-agent-teams-bin')
+  return join(homedir(), '.deca', 'claude-agent-teams-bin')
 }
 
 function findExecutableOnPath(command: string, pathValue: string | undefined): string | null {

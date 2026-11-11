@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-/** What `orca plugin shot` changes for one capture: never written to settings or the layout. */
+/** What `deca plugin shot` changes for one capture: never written to settings or the layout. */
 type PluginViewCaptureState = {
   /** Right-sidebar panel width in CSS pixels, or null for the user's own. */
   panelWidth: number | null

@@ -25,7 +25,7 @@ export const PLUGIN_DECLARATIVE_MESSAGES = {
   persist: 'ui.persist',
   /** guest → host, `{ document, entries: [{ key, version, value? }] }`: keyed memory atoms changed. */
   retain: 'ui.retain',
-  /** host → guest, `{ document }`: remember every atom's value before `orca plugin shot --act`. */
+  /** host → guest, `{ document }`: remember every atom's value before `deca plugin shot --act`. */
   snapshot: 'ui.snapshot',
   /** host → guest, `{ document }`: put the atoms back to the last `ui.snapshot`. */
   restore: 'ui.restore'

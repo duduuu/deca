@@ -281,7 +281,7 @@ export function applyStorageValue(key: string, value: unknown): void {
 }
 
 /**
- * `orca plugin shot --act`: remembers every plugin-written atom's value; the returned function
+ * `deca plugin shot --act`: remembers every plugin-written atom's value; the returned function
  * sets them back as plugin code would, so persisted atoms store their old values again.
  */
 export function captureAtomValues(): () => void {

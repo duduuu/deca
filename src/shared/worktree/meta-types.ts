@@ -98,7 +98,7 @@ export type WorktreeMeta = {
   mobileDiffReview?: MobileDiffReviewState
   /** System-owned provenance for workspaces created by automation new-per-run dispatches. */
   automationProvenance?: AutomationWorkspaceProvenance
-  /** System-owned provenance for workspaces created via `orca worktree create`. */
+  /** System-owned provenance for workspaces created via `deca worktree create`. */
   cliProvenance?: CliWorkspaceProvenance
   /** System-owned connector threads whose agents run here; never published on `Worktree`. */
   externalConversations?: ExternalConversationLink[]

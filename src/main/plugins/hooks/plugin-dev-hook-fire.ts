@@ -28,7 +28,7 @@ function refuse(message: string, nextSteps: string[]): PluginCliError {
   return new PluginCliError('invalid_argument', message, { nextSteps })
 }
 
-/** `orca plugin dev hook`: one hook through the real chain, with one development plugin in it. */
+/** `deca plugin dev hook`: one hook through the real chain, with one development plugin in it. */
 export async function firePluginDevHook(input: {
   service: PluginDevHookService
   target: PluginDevFolderTarget
@@ -49,7 +49,7 @@ export async function firePluginDevHook(input: {
   )
   if (isInvalidDiscoveredPlugin(plugin) || !service.eventDelivery.isRuntimeApproved(plugin)) {
     throw refuse(`${plugin.pluginKey} is not a valid, approved and enabled plugin.`, [
-      'Run `orca plugin dev load <dir>` and approve it with `--approve`.'
+      'Run `deca plugin dev load <dir>` and approve it with `--approve`.'
     ])
   }
   if (!plugin.manifest.main || !plugin.manifest.contributes.hooks.some((h) => h.event === event)) {

@@ -7,7 +7,7 @@ import { createSttGpuPolicy } from '../speech/stt-gpu-failure-marker'
 import { spawnSttWorkerWithCpuFallback } from '../speech/stt-worker-cpu-fallback'
 import { spawnSttForkedProcess } from '../speech/stt-worker-forked-process'
 
-// Local speech needs the installed app recognizer supplied by orca serve.
+// Local speech needs the installed app recognizer supplied by deca serve.
 export const orcadSpeechServiceFactories: SpeechServiceFactories = {
   createModelManager: (customModelsDir) =>
     // Headless key reads cannot open keychain prompts, so readiness may verify decryption.

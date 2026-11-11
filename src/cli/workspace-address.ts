@@ -208,7 +208,7 @@ export function annotateWorkspaces(
 
 const UNAVAILABLE_TEXT: Record<AddressUnavailableReason, string> = {
   'one-off-connection':
-    'unavailable (one-off pairing-code connection; save it with `orca environment add --name <name> --pairing-code <code>`)',
+    'unavailable (one-off pairing-code connection; save it with `deca environment add --name <name> --pairing-code <code>`)',
   'unverifiable-row': "unavailable (this row's host or identity can't be verified)",
   'duplicate-folder-id':
     'unavailable (several folder workspaces share this id; remove one in the Orca app and add its folder again)'

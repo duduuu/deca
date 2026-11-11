@@ -39,14 +39,14 @@ export function parseChatSessionSelector(value: string): string {
   if (session.length === 0) {
     throw new RuntimeClientError(
       'invalid_argument',
-      '--session needs a chat session id or handle; run `orca chat list` to find one.'
+      '--session needs a chat session id or handle; run `deca chat list` to find one.'
     )
   }
   return session
 }
 
 /** The top-level chats in a worktree summary. Terminal agents and subagents are left out:
- *  terminals are read with `orca terminal`, and a subagent is reached through its parent chat. */
+ *  terminals are read with `deca terminal`, and a subagent is reached through its parent chat. */
 export function listChatSessions(
   worktrees: readonly RuntimeWorktreePsSummary[]
 ): ChatSessionEntry[] {

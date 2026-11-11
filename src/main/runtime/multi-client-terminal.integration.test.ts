@@ -164,7 +164,7 @@ async function attach(
   }
 }
 
-// Desktop app, web client and phone attach to one `orca serve`-style runtime through the shared remote-runtime client.
+// Desktop app, web client and phone attach to one `deca serve`-style runtime through the shared remote-runtime client.
 describe('multiple clients on one headless runtime', () => {
   const cleanups: (() => unknown)[] = []
   afterEach(async () => {
@@ -180,7 +180,7 @@ describe('multiple clients on one headless runtime', () => {
     cleanups.push(() => rmSync(userDataPath, { recursive: true, force: true }))
     const writes: string[] = []
     const sizes: { cols: number; rows: number }[] = [SPAWN]
-    // Headless: no notifier/window, like `orca serve`.
+    // Headless: no notifier/window, like `deca serve`.
     const runtime = new OrcaRuntimeService(partialRuntimeStore(makeStore()))
     runtime.setPtyController({
       spawn: committingSpawn(runtime, vi.fn().mockResolvedValue({ id: PTY_ID })),

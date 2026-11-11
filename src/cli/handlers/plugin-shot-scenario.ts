@@ -63,7 +63,7 @@ async function readManifest(dir: string): Promise<PluginManifest> {
   const parsed = parsePluginManifest(raw)
   if (!parsed.ok) {
     throw refuse('plugin_invalid', `${dir}: ${parsed.error}`, [
-      `\`orca plugin validate ${dir}\` lists every problem.`
+      `\`deca plugin validate ${dir}\` lists every problem.`
     ])
   }
   return parsed.manifest
@@ -95,14 +95,14 @@ async function resolveFolder(
   const entry = plugins.find((plugin) => plugin.pluginKey === target)
   if (!entry) {
     throw refuse('plugin_not_found', `Orca has no plugin ${target}.`, [
-      'Pass the plugin folder instead: `orca plugin shot <dir> --scenario <name>`.'
+      'Pass the plugin folder instead: `deca plugin shot <dir> --scenario <name>`.'
     ])
   }
   if (!entry.isDev) {
     throw refuse(
       'invalid_argument',
       `${target} is installed, not a development folder; --scenario renders a plugin's own source folder.`,
-      ['Pass the plugin folder: `orca plugin shot <dir> --scenario <name>`.']
+      ['Pass the plugin folder: `deca plugin shot <dir> --scenario <name>`.']
     )
   }
   const enclosing = enclosingPluginFolder(ctx.cwd)
@@ -111,7 +111,7 @@ async function resolveFolder(
     throw refuse(
       'invalid_argument',
       `Run this inside ${target}'s folder, or pass the folder; Orca does not share where a development folder is.`,
-      [`orca plugin shot <dir> --scenario <name>`]
+      [`deca plugin shot <dir> --scenario <name>`]
     )
   }
   return { dir: enclosing, manifest, pluginKey: target }
@@ -150,8 +150,8 @@ export function pluginScenarioFileStem(scenario: string): string {
 }
 
 /**
- * `orca plugin shot --scenario`: renders the panel in the named `.check.ts` scenario on this
- * machine (as `orca plugin check` does, against a stand-in host and the plugin's worker mounted
+ * `deca plugin shot --scenario`: renders the panel in the named `.check.ts` scenario on this
+ * machine (as `deca plugin check` does, against a stand-in host and the plugin's worker mounted
  * here), then has Orca draw that tree apart from the plugin and capture it.
  */
 export async function takePluginScenarioShot(

@@ -1,4 +1,4 @@
-// `orca serve --supervise` runs orcad under a service manager, which restarts it routinely.
+// `deca serve --supervise` runs orcad under a service manager, which restarts it routinely.
 import process from 'node:process'
 import { ORCA_SERVE_SUPERVISED_ENV } from '../../shared/serve-supervised-terminal-durability'
 

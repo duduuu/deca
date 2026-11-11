@@ -37,7 +37,7 @@ export type DecodedClaudeTask = {
   description?: string
   toolUseId?: string
   parentTaskId?: string
-  /** Runs `orca orchestration check --wait`: waiting on worker agents, so agent work. */
+  /** Runs `deca orchestration check --wait`: waiting on worker agents, so agent work. */
   awaitsAgents?: true
 }
 

@@ -91,7 +91,7 @@ export const CORE_HANDLERS: Record<string, CommandHandler> = {
       if (flags.has('data-root') && (typeof dataRoot !== 'string' || !dataRoot.trim())) {
         throw new RuntimeClientError(
           'invalid_argument',
-          '--data-root expects a directory. Usage: orca serve --reclaim-stale-lock [--data-root <dir>] [--yes] [--json]'
+          '--data-root expects a directory. Usage: deca serve --reclaim-stale-lock [--data-root <dir>] [--yes] [--json]'
         )
       }
       // Why lazy: only this mode needs orcad's lock code, and every other command skips loading it.
@@ -99,7 +99,7 @@ export const CORE_HANDLERS: Record<string, CommandHandler> = {
         await import('../../main/orcad/orcad-stale-lock-reclaim.js')
       const result = await reclaimStaleOrcadInstanceLock(
         typeof dataRoot === 'string' ? resolve(dataRoot) : resolveLaunchUserDataPath(),
-        // This CLI's own binary is no command to give a user; `orca serve` is.
+        // This CLI's own binary is no command to give a user; `deca serve` is.
         { yes: flags.get('yes') === true, hintRuntime: null }
       )
       printOrcadStaleLockReclaimResult(result, json)

@@ -27,7 +27,7 @@ export const PLUGIN_APPROVAL_STALE_CODE = 'approval_stale'
 export const PLUGIN_NOT_FOUND_CODE = 'plugin_not_found'
 export const PLUGIN_INVALID_CODE = 'plugin_invalid'
 export const PLUGIN_SYSTEM_DISABLED_CODE = 'plugin_system_disabled'
-/** `orca plugin dev request`: the worker's own error code rides in `data.requestCode`. */
+/** `deca plugin dev request`: the worker's own error code rides in `data.requestCode`. */
 export const PLUGIN_REQUEST_FAILED_CODE = 'plugin_request_failed'
 export const PLUGIN_INSTALL_FAILED_CODE = 'plugin_install_failed'
 export const PLUGIN_BLOCKED_CODE = 'plugin_blocked'

@@ -2,9 +2,9 @@ import type { CommandSpec } from '../args'
 import { LOCAL_COMMAND_FLAGS } from '../args'
 
 const SELECTOR_NOTE =
-  '--environment names a managed Orca server this machine deployed over SSH (see `orca environment list`); it is a selector here, not a routing flag.'
+  '--environment names a managed Orca server this machine deployed over SSH (see `deca environment list`); it is a selector here, not a routing flag.'
 const DESKTOP_NOTE =
-  'Runs on this machine’s Orca desktop app, the same action as Settings > Orca on your SSH hosts. A runtime without the SSH registry (headless `orca serve`) refuses it.'
+  'Runs on this machine’s Orca desktop app, the same action as Settings > Orca on your SSH hosts. A runtime without the SSH registry (headless `deca serve`) refuses it.'
 
 export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
   {
@@ -59,8 +59,8 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'yes'],
     notes: [
       'Stops orcad on the SSH host and, once the host proves it exited, removes the server from this machine and disconnects the host. Its terminals end. Connecting the host again sets up a new server. Requires --yes.',
-      'If the host cannot prove orcad exited, the server stays linked and the refusal says why; nothing is removed on a guess. For a host that is gone for good, use `orca environment forget`.',
-      'If this server is the default host for new projects, choose another one first. `orca environment cancel-stop` withdraws a stop orcad has not acted on yet.',
+      'If the host cannot prove orcad exited, the server stays linked and the refusal says why; nothing is removed on a guess. For a host that is gone for good, use `deca environment forget`.',
+      'If this server is the default host for new projects, choose another one first. `deca environment cancel-stop` withdraws a stop orcad has not acted on yet.',
       SELECTOR_NOTE,
       DESKTOP_NOTE
     ],

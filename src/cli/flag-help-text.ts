@@ -132,7 +132,7 @@ export const FLAG_HELP_TEXT: Record<string, string> = {
   expression: '--expression <js>     JavaScript expression to evaluate',
   amount: '--amount <pixels>      Scroll distance in pixels',
   index: '--index <n>            Tab index to switch to',
-  page: '--page <id>            Stable browser page id from `orca tab list --json`',
+  page: '--page <id>            Stable browser page id from `deca tab list --json`',
   'expect-url':
     '--expect-url <url>     Fail before acting unless the page is at this exact absolute URL',
   profile: '--profile <id>        Browser profile id',

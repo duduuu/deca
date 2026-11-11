@@ -57,7 +57,7 @@ describe('browser route partition identity', () => {
     })
   })
 
-  it('scopes partition ownership to one orca profile and one environment', () => {
+  it('scopes partition ownership to one deca profile and one environment', () => {
     const scope = deriveBrowserRoutePartitionStorageScope({
       orcaProfileId: 'orca/profile:alpha',
       environmentId: 'environment-a'

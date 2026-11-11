@@ -25,7 +25,7 @@ function speechNodeModulesDirCandidates(): string[] {
     return [join(resourcesPath, 'node_modules')]
   }
   if (getAppEnvironment().isPackaged()) {
-    // orcad: only the installed app's copy, which `orca serve` names.
+    // orcad: only the installed app's copy, which `deca serve` names.
     const handed = process.env[SPEECH_RECOGNIZER_DIR_ENV]
     return handed ? [handed] : []
   }

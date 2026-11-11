@@ -42,7 +42,7 @@ export type PluginDevEmitResult = {
 }
 
 const LOGS_HINT =
-  'Handler errors appear in `orca plugin logs <plugin-key>` and `orca plugin dev watch`.'
+  'Handler errors appear in `deca plugin logs <plugin-key>` and `deca plugin dev watch`.'
 
 function parseEventName(event: string): PluginEventName {
   const known = PLUGIN_EVENT_NAMES.find((name) => name === event)
@@ -72,13 +72,13 @@ export async function resolveDevPlugin(
     throw new PluginCliError(
       'invalid_argument',
       `${key} is an installed plugin; ${installedRefusal}.`,
-      { nextSteps: ['Load the plugin folder with `orca plugin dev load <dir>`, then retry.'] }
+      { nextSteps: ['Load the plugin folder with `deca plugin dev load <dir>`, then retry.'] }
     )
   }
   throw new PluginCliError(PLUGIN_NOT_FOUND_CODE, 'That is not a loaded development plugin.', {
     loaded: [...service.options.getDevPluginPaths()],
     nextSteps: [
-      'Pass the folder or the plugin key of a development plugin (`orca plugin list --json` marks them dev), or load it first with `orca plugin dev load <dir>`.'
+      'Pass the folder or the plugin key of a development plugin (`deca plugin list --json` marks them dev), or load it first with `deca plugin dev load <dir>`.'
     ]
   })
 }
@@ -100,7 +100,7 @@ function skipError(
         PLUGIN_INVALID_CODE,
         `${key} is invalid, so it receives no events.`,
         {
-          nextSteps: ['Run `orca plugin validate <dir>` and fix the manifest.']
+          nextSteps: ['Run `deca plugin validate <dir>` and fix the manifest.']
         }
       )
     case 'no-worker':
@@ -114,13 +114,13 @@ function skipError(
       return new PluginCliError(
         'invalid_argument',
         `${key} is not approved and enabled, so it receives no events.`,
-        { nextSteps: ['Run `orca plugin dev load <dir>` and approve it with `--approve`.'] }
+        { nextSteps: ['Run `deca plugin dev load <dir>` and approve it with `--approve`.'] }
       )
     case 'not-granted':
       return new PluginCliError(
         'invalid_argument',
         `${key} was not granted ${PLUGIN_EVENT_CAPABILITY[event] ?? 'approval'}, which ${event} needs.`,
-        { nextSteps: ['Add the capability, then reload with `orca plugin dev reload <dir>`.'] }
+        { nextSteps: ['Add the capability, then reload with `deca plugin dev reload <dir>`.'] }
       )
   }
 }
@@ -133,13 +133,13 @@ export function assertPluginSystemEnabled(service: {
       PLUGIN_SYSTEM_DISABLED_CODE,
       'Plugins are turned off on this Orca host.',
       {
-        nextSteps: ['Turn plugins on (Settings → Plugins, or `orca plugin system on`).']
+        nextSteps: ['Turn plugins on (Settings → Plugins, or `deca plugin system on`).']
       }
     )
   }
 }
 
-/** `orca plugin dev emit`: one event through the real delivery rules, at one development plugin. */
+/** `deca plugin dev emit`: one event through the real delivery rules, at one development plugin. */
 export async function emitPluginDevEvent(input: {
   service: PluginDevEmitService
   target: PluginDevFolderTarget

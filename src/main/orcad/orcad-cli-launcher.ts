@@ -37,8 +37,8 @@ export async function prepareOrcadCliLauncher(): Promise<void> {
   }
   const script = buildUnixCliLauncher(process.execPath, entry, userDataPath, 'node')
   await mkdir(binDir, { recursive: true })
-  // Older clients type the Linux desktop `orca-ide claude-teams` into server terminals.
-  const names = process.platform === 'linux' ? ['orca', 'orca-ide'] : ['orca']
+  // Older clients type the Linux desktop `deca-ide claude-teams` into server terminals.
+  const names = process.platform === 'linux' ? ['deca', 'deca-ide'] : ['deca']
   for (const name of names) {
     const path = join(binDir, name)
     const current = await readFile(path, 'utf8').catch(() => null)
@@ -47,7 +47,7 @@ export async function prepareOrcadCliLauncher(): Promise<void> {
     }
     await chmod(path, 0o700)
   }
-  launcherPath = join(binDir, 'orca')
+  launcherPath = join(binDir, 'deca')
 }
 
 export function buildWindowsCliLauncherConfig(
@@ -69,7 +69,7 @@ async function prepareWindowsLauncher(
   if (!existsSync(source)) {
     return null
   }
-  const path = join(binDir, 'orca.exe')
+  const path = join(binDir, 'deca.exe')
   await mkdir(binDir, { recursive: true })
   await removeRetiredLaunchers(binDir)
   const binary = await readFile(source)

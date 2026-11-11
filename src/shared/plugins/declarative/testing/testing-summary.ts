@@ -50,7 +50,7 @@ function summaryLine(element: TestElement, tabs: ReadonlyMap<string, string>): s
 /**
  * What a person would notice first in a drawn panel, one short line each: headings, callouts,
  * empty states, tables and trees with their size, the selected tab, loading placeholders and
- * danger or warning text or boxes. For `orca plugin check` and quick test assertions.
+ * danger or warning text or boxes. For `deca plugin check` and quick test assertions.
  */
 export function summarizeElements(
   elements: readonly TestElement[],

@@ -51,7 +51,7 @@ describe('parkServeSupervisorsForInstall', () => {
         pid: process.pid,
         childPid,
         heartbeatAt,
-        label: 'com.stablyai.orca.serve.default'
+        label: 'com.deca.app.serve.default'
       })
     )
   }

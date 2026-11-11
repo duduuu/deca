@@ -16,8 +16,8 @@ export function quoteDialogMessage({ message }: BrowserJavaScriptDialog): string
 export function dialogAnswerHint(dialog: BrowserJavaScriptDialog, browserPageId: string): string {
   const page = `--page ${browserPageId}`
   return dialog.type === 'prompt'
-    ? `Answer it with \`orca dialog accept ${page} --text <answer>\` or \`orca dialog dismiss ${page}\``
-    : `Answer it with \`orca dialog accept ${page}\` or \`orca dialog dismiss ${page}\``
+    ? `Answer it with \`deca dialog accept ${page} --text <answer>\` or \`deca dialog dismiss ${page}\``
+    : `Answer it with \`deca dialog accept ${page}\` or \`deca dialog dismiss ${page}\``
 }
 
 // Commands block until the page's dialog closes, so agents must answer it first.

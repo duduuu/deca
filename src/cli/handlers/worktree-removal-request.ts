@@ -58,7 +58,7 @@ export async function requestWorktreeRemoval(
     if (dispatched && error instanceof RuntimeClientError && error.code === 'runtime_timeout') {
       throw new RuntimeClientError(
         'worktree_removal_in_progress',
-        `Stopped waiting, but Orca may still be deleting the checkout. Check \`orca worktree show --worktree ${request.worktree}\` before retrying.`
+        `Stopped waiting, but Orca may still be deleting the checkout. Check \`deca worktree show --worktree ${request.worktree}\` before retrying.`
       )
     }
     throw error

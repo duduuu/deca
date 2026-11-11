@@ -6,7 +6,7 @@ import {
   readClaudeMessageEnvelope
 } from './structured/journal/claude-structured-item-translation'
 
-/** Bash calls that block on `orca orchestration check --wait`, by tool_use_id, until their background task starts. */
+/** Bash calls that block on `deca orchestration check --wait`, by tool_use_id, until their background task starts. */
 export class ClaudeAgentWaitCalls {
   // A foreground wait never starts a task (or is moved to the background later), so bound what waits for one.
   private readonly pending = new BoundedMap<string, true>({ maxEntries: 256 })

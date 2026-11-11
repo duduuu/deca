@@ -41,7 +41,7 @@ function encFilesIn(dir: string): string[] {
 
 /** Keep credentials outside disposable ORCA_USER_DATA roots. */
 export function orcadCredentialRoot(): string {
-  return join(homedir(), '.orca')
+  return join(homedir(), '.deca')
 }
 
 function listPlaintextCredentialTargets(): PlaintextCredentialTarget[] {

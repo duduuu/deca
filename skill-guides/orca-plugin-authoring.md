@@ -55,7 +55,7 @@ with `terminal:send` can.
 
 - `.ts`, `.tsx`, `.mts` and `.jsx` load as written; transpiling never type-checks, so run
   `npx tsc -p .`.
-- Panels and frame scripts import only `orca`, `orca/*` and relative files (`./todos` finds
+- Panels and frame scripts import only `deca`, `orca/*` and relative files (`./todos` finds
   `todos.tsx`, `todos.ts`, then `todos/index.*`). A bare package such as `react` fails: copy its
   ESM files in, or bundle with `--external:orca --external:'orca/*'` (example `hello-components`).
 - A worker `main` is `.js`, `.mjs`, `.ts` or `.mts`. Bare imports resolve as Node does, but do not

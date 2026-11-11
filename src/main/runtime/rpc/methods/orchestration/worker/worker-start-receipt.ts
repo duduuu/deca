@@ -106,14 +106,14 @@ function failedWorkerStartReceipt(args: WorkerStartFailureArgs): unknown {
     residualResources: JSON.parse(worker.residual_resources) as unknown[],
     ...(releasable
       ? {
-          recovery: `This start left a worker session open. Close it with: orca orchestration worker-release --dispatch ${args.dispatchId}`
+          recovery: `This start left a worker session open. Close it with: deca orchestration worker-release --dispatch ${args.dispatchId}`
         }
       : {}),
     ...(unknown
       ? {
           nextCommands: [
-            `orca orchestration worker-show --dispatch ${args.dispatchId} --json`,
-            `orca orchestration worker-abandon --dispatch ${args.dispatchId} --json`
+            `deca orchestration worker-show --dispatch ${args.dispatchId} --json`,
+            `deca orchestration worker-abandon --dispatch ${args.dispatchId} --json`
           ]
         }
       : {})

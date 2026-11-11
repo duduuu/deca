@@ -24,7 +24,7 @@ export function hostTerminalPolicyPath(home: string, machine: string | null): st
     .update(`${process.platform}:${machine}`)
     .digest('hex')
     .slice(0, 16)
-  return join(home, '.orca', 'host-settings', key, 'terminals.json')
+  return join(home, '.deca', 'host-settings', key, 'terminals.json')
 }
 
 async function readSavedMaximum(path: string): Promise<number | null> {

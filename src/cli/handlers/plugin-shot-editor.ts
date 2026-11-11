@@ -94,7 +94,7 @@ export async function editorShotPluginKey(ctx: HandlerContext): Promise<string> 
   if (!isQualifiedPluginKey(target)) {
     throw new RuntimeClientError(
       'invalid_argument',
-      'Pass a plugin folder, or a plugin key such as acme.sketch; `orca plugin list` shows them.'
+      'Pass a plugin folder, or a plugin key such as acme.sketch; `deca plugin list` shows them.'
     )
   }
   return target

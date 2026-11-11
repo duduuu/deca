@@ -57,12 +57,12 @@ export abstract class UpdaterInstallSupport extends UpdaterCheckState {
         { phase, version: version || null },
         {
           level: 'warn',
-          message: 'Update install deferred while hosting orca serve'
+          message: 'Update install deferred while hosting deca serve'
         }
       )
     }
     this.sendErrorStatus(
-      'This orca serve process was not started by an update-capable supervisor. Keep it running and update Orca through its service manager.',
+      'This deca serve process was not started by an update-capable supervisor. Keep it running and update Orca through its service manager.',
       true
     )
     return true

@@ -8,7 +8,7 @@ import {
   PluginShotReplayParams
 } from '../../../../../shared/rpc-contract/plugins-params'
 
-// Desktop only: a headless `orca serve` has no window to show or capture a plugin in.
+// Desktop only: a headless `deca serve` has no window to show or capture a plugin in.
 let pluginViewForRpc: PluginViewDesktop | null = null
 
 export function setPluginViewForRpc(view: PluginViewDesktop | null): void {

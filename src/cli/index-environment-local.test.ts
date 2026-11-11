@@ -137,7 +137,7 @@ describe('--environment local and workspace addresses', () => {
     ])
     expect(exitCode).toBe(1)
     expect(JSON.parse(output).error.data.nextSteps[0]).toContain(
-      '`orca worktree ps --environment srv-b --json`'
+      '`deca worktree ps --environment srv-b --json`'
     )
     expect(callMock).not.toHaveBeenCalled()
   })
@@ -270,11 +270,11 @@ describe('worktree rm needs an explicit workspace', () => {
         const { error } = JSON.parse(output)
         expect(error.code).toBe('invalid_argument')
         expect(error.message).toContain(
-          `orca worktree rm needs an explicit workspace; --worktree ${value} is not accepted`
+          `deca worktree rm needs an explicit workspace; --worktree ${value} is not accepted`
         )
         expect(error.data.current).toEqual({ resolution, selectors: [...selectors] })
         expect(error.data.nextSteps.slice(0, selectors.length)).toEqual(
-          selectors.map((selector) => `orca worktree rm --worktree ${selector}`)
+          selectors.map((selector) => `deca worktree rm --worktree ${selector}`)
         )
         if (resolution === 'resolved') {
           expect(error.message).toContain(`Here, ${value} is --worktree id:repo::/tmp/rm-repo`)
@@ -332,7 +332,7 @@ describe('worktree rm needs an explicit workspace', () => {
     ])
     expect(exitCode).toBe(1)
     expect(JSON.parse(output).error.data.nextSteps[0]).toContain(
-      '`orca worktree ps --environment srv-b --json`'
+      '`deca worktree ps --environment srv-b --json`'
     )
     expect(callMock).not.toHaveBeenCalled()
   })

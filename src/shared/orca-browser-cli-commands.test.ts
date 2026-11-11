@@ -7,9 +7,9 @@ describe('parseOrcaBrowserCommand', () => {
     'orca terminal send --text "orca click"',
     'orcastra click',
     'orca',
-    'echo orca click',
-    'echo "docs; orca snapshot --page p1; text"',
-    "git commit -m 'run orca click | orca snapshot'",
+    'echo deca click',
+    'echo "docs; deca snapshot --page p1; text"',
+    "git commit -m 'run deca click | deca snapshot'",
     'git log --oneline'
   ])('does not match %s', (command) => {
     expect(parseOrcaBrowserCommand(command)).toBeNull()

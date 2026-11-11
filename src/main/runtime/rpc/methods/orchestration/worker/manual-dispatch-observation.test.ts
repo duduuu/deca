@@ -49,7 +49,7 @@ describe('manual Dispatch observation', () => {
       status: 'live',
       ptyIds: ['runtime_test:term_worker:1']
     })
-    vi.spyOn(runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('orca')
+    vi.spyOn(runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('deca')
     const run = db.createRun({
       objective: 'STA-3848 repro',
       coordinatorHandle: 'term_coord',

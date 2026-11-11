@@ -60,7 +60,7 @@ export function panel(input: PluginTemplateInput): PluginTemplate {
 `,
       'README.md': readme(
         input,
-        'A right-sidebar panel. It runs in a sandboxed frame and calls host methods its `capabilities` allow through `window.orca`. Loading it needs approval: `orca plugin dev watch .` prints the exact access and the `--approve` fingerprint.'
+        'A right-sidebar panel. It runs in a sandboxed frame and calls host methods its `capabilities` allow through `window.orca`. Loading it needs approval: `deca plugin dev watch .` prints the exact access and the `--approve` fingerprint.'
       ),
       ...COMMON_FILES
     }

@@ -54,8 +54,8 @@ export function sendFederatedControlMail(args: {
       refusal.code !== 'dispatch_inactive'
         ? refusal.message
         : state && ['succeeded', 'failed', 'stopped', 'abandoned'].includes(state)
-          ? `Dispatch ${dispatchId} finished on ${server}, which cannot take follow-ups for finished workers yet. Start a new worker there with \`orca orchestration worker-start --on ${server}\`.`
-          : `Dispatch ${dispatchId} on ${server} is not confirmed running (${state ?? 'unknown'}), so this message was not sent. Check it with \`orca orchestration worker-show --dispatch ${dispatchId}\` before starting another worker.`
+          ? `Dispatch ${dispatchId} finished on ${server}, which cannot take follow-ups for finished workers yet. Start a new worker there with \`deca orchestration worker-start --on ${server}\`.`
+          : `Dispatch ${dispatchId} on ${server} is not confirmed running (${state ?? 'unknown'}), so this message was not sent. Check it with \`deca orchestration worker-show --dispatch ${dispatchId}\` before starting another worker.`
     throw new OrchestrationError(refusal.code, message)
   }
   if (params.type === 'worker_done' || params.type === 'heartbeat') {

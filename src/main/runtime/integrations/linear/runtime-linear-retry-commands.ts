@@ -42,7 +42,7 @@ export class RuntimeLinearRetryCommands extends RuntimeLinearCommandBase {
             ).concat(this.linearCreateFieldRetryTokens(extra.createFields))
           ].join(' ')
         : [
-            `orca linear ${verb === 'attach' ? 'attach' : 'comment add'}`,
+            `deca linear ${verb === 'attach' ? 'attach' : 'comment add'}`,
             this.commandToken(target?.issue.identifier ?? '', 'ISSUE_ID'),
             `--workspace=${this.commandToken(workspaceId, 'WORKSPACE_ID')}`,
             `--write-id=${this.commandToken(writeId, 'WRITE_ID')}`,

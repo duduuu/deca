@@ -48,7 +48,7 @@ export const REFERENCE_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'query', 'worktree', 'repo', 'include-archived', 'limit'],
     positionalArgs: ['query'],
     notes: [
-      'Reads stored references only. Use orca search to search agent conversations.',
+      'Reads stored references only. Use deca search to search agent conversations.',
       'Issue keys search every matching source. Bare numbers and custom shorthand are unsupported.',
       'Returns up to 50 workspaces by default; truncated is true when more match.',
       'linked means recorded evidence associates that agent with the reference; workspace membership alone does not establish ownership.'

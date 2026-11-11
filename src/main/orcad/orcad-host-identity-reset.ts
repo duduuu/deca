@@ -1,4 +1,4 @@
-// CLI entry for `orca serve reset-identity`; plain Node, loaded from the packaged CLI.
+// CLI entry for `deca serve reset-identity`; plain Node, loaded from the packaged CLI.
 import { existsSync } from 'node:fs'
 import { acquireOrcadInstanceLock } from './orcad-instance-lock'
 import { OrcadInstanceLockError } from './orcad-data-root-privacy'

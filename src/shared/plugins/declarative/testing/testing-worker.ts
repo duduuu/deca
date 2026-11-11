@@ -170,7 +170,7 @@ export async function mountWorker(module: WorkerModule, options: MountWorkerOpti
           : { kind: 'continue', event: outcome.payload }
       }
     },
-    /** Runs a registered command, as the palette or `orca plugin` would. */
+    /** Runs a registered command, as the palette or `deca plugin` would. */
     async command(commandId: string, args?: unknown): Promise<unknown> {
       const handler = tables.commands.get(commandId)
       if (!handler) {

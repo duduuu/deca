@@ -14,7 +14,7 @@ type ClaudeLaunchedBackgroundTask = {
   settled?: true
   /** A delivered notification, distinct from a lease that merely gave up waiting. */
   notificationDelivered?: true
-  /** A shell blocked on worker agents (`orca orchestration check --wait`): agent work, not monitoring. */
+  /** A shell blocked on worker agents (`deca orchestration check --wait`): agent work, not monitoring. */
   awaitsAgents?: true
   /** Known only from the main agent's task list (e.g. after a listener restart): a subagent may own it, so it owes the main agent nothing. */
   listedOnly?: true

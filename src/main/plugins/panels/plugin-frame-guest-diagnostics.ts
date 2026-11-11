@@ -14,7 +14,7 @@ import {
 
 /**
  * Author diagnostics for plugin `<webview>` guests: console errors, warnings and uncaught
- * exceptions go to the plugin's log buffer (`orca plugin logs`), and `orca plugin dev inspect`
+ * exceptions go to the plugin's log buffer (`deca plugin logs`), and `deca plugin dev inspect`
  * opens DevTools for its live guests.
  */
 
@@ -226,7 +226,7 @@ export function openPluginFrameGuestDevTools(pluginKey: string): number {
   return opened
 }
 
-/** The plugin's live guests, for `orca plugin shot` to wait on the one it captures. */
+/** The plugin's live guests, for `deca plugin shot` to wait on the one it captures. */
 export function livePluginFrameGuests(pluginKey: string): WebContents[] {
   return [...(guestsByPlugin.get(pluginKey) ?? [])].filter((guest) => !guest.isDestroyed())
 }

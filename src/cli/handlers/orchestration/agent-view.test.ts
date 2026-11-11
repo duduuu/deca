@@ -71,7 +71,7 @@ describe('orchestration agent views', () => {
       failedStage: 'agent_ready',
       lastError: 'Agent did not reach a ready prompt within 60000ms.',
       residualResources: [{ kind: 'terminal', id: 'term_agent', ownership: 'owned' }],
-      recovery: 'Close it with: orca orchestration worker-release --dispatch ctx_1'
+      recovery: 'Close it with: deca orchestration worker-release --dispatch ctx_1'
     })
 
     expect(stdout).toBe(
@@ -246,7 +246,7 @@ describe('orchestration agent views', () => {
   })
 
   it('keeps colliding payload fields, never edits message text, and drops the runtime banner', async () => {
-    const body = '[Reply: orca orchestration reply --id x --body "quoted by the worker"]'
+    const body = '[Reply: deca orchestration reply --id x --body "quoted by the worker"]'
     const { stdout } = await run(
       'check',
       [

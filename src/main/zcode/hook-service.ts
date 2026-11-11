@@ -134,7 +134,7 @@ export class ZCodeHookService {
     const remoteConfigPath = getZCodeRemoteConfigPath(remoteHome)
     // Remote Windows is unsupported here; local process.platform cannot describe an SSH host.
     const remoteScriptFileName = getZCodePosixManagedScriptFileName()
-    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.orca/agent-hooks/${remoteScriptFileName}`
+    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.deca/agent-hooks/${remoteScriptFileName}`
     try {
       const body = await readTextFileRemote(sftp, remoteConfigPath)
       const config = body === null ? {} : parseZCodeConfigText(body, 'remote ZCode config.json')

@@ -17,7 +17,7 @@ export function resolveUserDataPath(): string {
     return explicit
   }
   const xdg = env('XDG_DATA_HOME')
-  return xdg ? join(xdg, 'Orca') : join(homedir(), '.orca')
+  return xdg ? join(xdg, 'Deca') : join(homedir(), '.deca')
 }
 
 function resolveAppDataPath(): string {

@@ -47,7 +47,7 @@ export function openAiCompatibleTranscriptionUrl(baseUrl: string): string {
 }
 
 export function readOpenAiCompatibleSpeechProvider(): OpenAiCompatibleSpeechProvider | null {
-  // The store caches what it read; another process (desktop vs orca serve) may have removed the file since.
+  // The store caches what it read; another process (desktop vs deca serve) may have removed the file since.
   const raw = store.has() ? store.read() : null
   if (raw === null) {
     return null

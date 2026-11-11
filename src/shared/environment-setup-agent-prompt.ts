@@ -24,14 +24,14 @@ export function buildEnvironmentSetupAgentPrompt(args: {
 }): string {
   const recipeDoctor =
     args.recipeId && SAFE_RECIPE_ID.test(args.recipeId)
-      ? `\`orca vm recipe doctor ${args.recipeId} --json\``
-      : '`orca vm recipe doctor <recipe-id> --json`'
+      ? `\`deca vm recipe doctor ${args.recipeId} --json\``
+      : '`deca vm recipe doctor <recipe-id> --json`'
   const lines = [
-    'Use the orca-per-workspace-env skill to make this repo run in a per-workspace environment. If the skill is not installed, load it with `orca skills get orca-per-workspace-env`.',
+    'Use the orca-per-workspace-env skill to make this repo run in a per-workspace environment. If the skill is not installed, load it with `deca skills get orca-per-workspace-env`.',
     '',
     'Goal: write or repair `environmentRecipes` and `scripts.setup` in orca.yaml, plus any scripts they call.',
     `- Run ${recipeDoctor} and fix every failing check.`,
-    '- Inside the environment, run `orca vm env doctor --run-setup --json` and fix what fails: missing CLIs, agent sign-in, Git access, the setup script, disk space.',
+    '- Inside the environment, run `deca vm env doctor --run-setup --json` and fix what fails: missing CLIs, agent sign-in, Git access, the setup script, disk space.',
     '- Re-run both doctors after each fix until no check fails, and resolve or explain every warning.',
     '- Follow the skill: ask before any paid or interactive step, and never write a secret into a file or commit.',
     '- Work on a new branch. Finish with a commit and open a pull request that explains what changed.'

@@ -135,7 +135,7 @@ async function startShooter(
 }
 
 /** Loads the folder, then streams its logs and reload status until interrupted. Returns the exit
- *  code. A failed first load throws (approval_required exits 3 like `orca plugin dev load`) unless
+ *  code. A failed first load throws (approval_required exits 3 like `deca plugin dev load`) unless
  *  the person approves it at the `confirm` prompt. */
 export async function runPluginDevWatch(deps: PluginDevWatchDeps): Promise<number> {
   const { host, emit } = deps

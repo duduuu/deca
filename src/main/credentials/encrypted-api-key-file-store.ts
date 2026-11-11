@@ -40,7 +40,7 @@ export function createEncryptedApiKeyFileStore({
   }
 
   function getOrcaDir(): string {
-    return join(homedir(), '.orca')
+    return join(homedir(), '.deca')
   }
 
   function getApiKeyPath(): string {

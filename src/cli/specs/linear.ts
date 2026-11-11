@@ -223,7 +223,7 @@ export const LINEAR_COMMAND_SPECS: CommandSpec[] = [
       'orca linear comment edit <commentId> --body-file - --json'
     ],
     notes: [
-      'Comment ids come from `comment add` output or `orca linear issue <id> --comments --json`.',
+      'Comment ids come from `comment add` output or `deca linear issue <id> --comments --json`.',
       'Linear only lets a comment be edited by its author.'
     ]
   },
@@ -237,7 +237,7 @@ export const LINEAR_COMMAND_SPECS: CommandSpec[] = [
     positionalArgs: ['id'],
     examples: ['orca linear comment delete <commentId> --json'],
     notes: [
-      'Comment ids come from `comment add` output or `orca linear issue <id> --comments --json`.'
+      'Comment ids come from `comment add` output or `deca linear issue <id> --comments --json`.'
     ]
   },
   {

@@ -11,7 +11,7 @@ describe('terminal commands addressed to a chat', () => {
     runtime.syncWindowGraph(1, { tabs: [], leaves: [] })
     const refusal = {
       code: 'terminal_unsupported_for_agent_session',
-      message: expect.stringContaining(`orca orchestration send --to ${CHAT}`)
+      message: expect.stringContaining(`deca orchestration send --to ${CHAT}`)
     }
 
     await expect(runtime.readTerminal(CHAT)).rejects.toMatchObject(refusal)

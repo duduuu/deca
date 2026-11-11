@@ -1,6 +1,6 @@
 /**
- * Main asks the desktop renderer to show a plugin panel or editor (`orca plugin open`) and, for
- * `orca plugin shot`, to report where the drawn panel sits so main can capture that rect. Only
+ * Main asks the desktop renderer to show a plugin panel or editor (`deca plugin open`) and, for
+ * `deca plugin shot`, to report where the drawn panel sits so main can capture that rect. Only
  * renderer state changes: nothing here shows, raises or focuses a window.
  */
 

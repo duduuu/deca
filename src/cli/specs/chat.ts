@@ -8,7 +8,7 @@ export const CHAT_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca chat rename [--session <id>] --name <text> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'session', 'name'],
     notes: [
-      '--session takes the chat session id `orca agent launch` prints. Run inside a chat, it defaults to that chat; with --environment it is required.',
+      '--session takes the chat session id `deca agent launch` prints. Run inside a chat, it defaults to that chat; with --environment it is required.',
       'The name shows in the tab, the sidebar, Session History and on paired phones, the same as renaming the tab by hand.'
     ],
     examples: [
@@ -22,7 +22,7 @@ export const CHAT_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca chat list [--worktree <selector>] [--state <state>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'state'],
     notes: [
-      'Lists the top-level chats Orca shows as agent tabs. Terminal agents are read with `orca terminal`.',
+      'Lists the top-level chats Orca shows as agent tabs. Terminal agents are read with `deca terminal`.',
       '--state keeps chats in one state: working, blocked, waiting or done.'
     ],
     examples: ['orca chat list --json', 'orca chat list --state working']
@@ -33,7 +33,7 @@ export const CHAT_COMMAND_SPECS: CommandSpec[] = [
     usage: 'orca chat read --session <id-or-handle> [--limit <n>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'session', 'limit'],
     notes: [
-      '--session takes the session id or handle from `orca chat list` or `orca agent launch`.',
+      '--session takes the session id or handle from `deca chat list` or `deca agent launch`.',
       '--limit is the number of entries shown (messages, tool calls, approvals and questions); the default is 20 and the maximum 100.',
       'Approvals and questions waiting for an answer are marked "waiting for you".'
     ],
@@ -54,7 +54,7 @@ export const CHAT_COMMAND_SPECS: CommandSpec[] = [
     examples: [
       'orca chat send --session codex_1234 --text "Run the tests, then summarize failures"',
       'orca chat send --session codex_1234 --text "Run the tests" --wait --timeout-ms 600000 --json',
-      'cat notes.md | orca chat send --session codex_1234 --text-file -'
+      'cat notes.md | deca chat send --session codex_1234 --text-file -'
     ]
   },
   {

@@ -228,7 +228,7 @@ export class KimiHookService {
     const remoteConfigPath = pathPosix.join(remoteHome, '.kimi-code', 'config.toml')
     const remoteScriptPath = pathPosix.join(
       remoteHome,
-      '.orca',
+      '.deca',
       'agent-hooks',
       POSIX_SCRIPT_FILE_NAME
     )

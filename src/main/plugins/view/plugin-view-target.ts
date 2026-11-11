@@ -46,8 +46,8 @@ async function liveEntry(
         : `is ${entry.status}${entry.error ? `: ${entry.error}` : ''}`
     throw refuse(`${pluginKey} ${why}, so Orca shows none of its panels or editors.`, [
       entry.status === 'pending'
-        ? `Approve it first: \`orca plugin enable ${pluginKey}\` prints what it would get.`
-        : `\`orca plugin logs ${pluginKey}\` shows why; fix it, then run this again.`
+        ? `Approve it first: \`deca plugin enable ${pluginKey}\` prints what it would get.`
+        : `\`deca plugin logs ${pluginKey}\` shows why; fix it, then run this again.`
     ])
   }
   return { entry, plugin }

@@ -47,7 +47,7 @@ export type PluginDevWatchEvent =
       error?: string
     }
   | ({ type: 'approval'; pluginKey: string } & PluginDevWatchApproval)
-  /** `--check`: `orca plugin check` after the load and after each reload. `ok` also needs Orca to
+  /** `--check`: `deca plugin check` after the load and after each reload. `ok` also needs Orca to
    *  run the plugin (`pluginStatus` running, idle or restarting); `checkOk` is the check alone. */
   | ({
       type: 'check'

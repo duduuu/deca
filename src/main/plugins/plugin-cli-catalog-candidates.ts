@@ -61,8 +61,8 @@ export function matchesCatalogSelector(
 
 function catalogNextSteps(): string[] {
   return [
-    '`orca plugin catalog list` shows the catalogs on this Orca host.',
-    'Install straight from the repository instead: `orca plugin install <owner>/<repo>`.'
+    '`deca plugin catalog list` shows the catalogs on this Orca host.',
+    'Install straight from the repository instead: `deca plugin install <owner>/<repo>`.'
   ]
 }
 
@@ -82,7 +82,7 @@ async function findListing(
       {
         catalog: selector,
         nextSteps: [
-          '`orca plugin catalog list` shows the catalogs; `orca plugin catalog add <url>` adds one.'
+          '`deca plugin catalog list` shows the catalogs; `deca plugin catalog add <url>` adds one.'
         ]
       }
     )

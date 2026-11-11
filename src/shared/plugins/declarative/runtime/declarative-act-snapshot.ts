@@ -4,7 +4,7 @@ import { readHostMessage } from './declarative-host-messages'
 import type { OrcaBridge, OrcaDisposable } from './declarative-runtime-types'
 
 /**
- * `orca plugin shot --act` changes the live panel; Orca asks this guest to remember its atoms
+ * `deca plugin shot --act` changes the live panel; Orca asks this guest to remember its atoms
  * before acting (`ui.snapshot`) and to put them back after the capture (`ui.restore`). Only this
  * guest's atoms: what handlers did elsewhere (worker requests, storage writes) stays.
  */

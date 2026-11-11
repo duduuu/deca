@@ -103,7 +103,7 @@ describe('adopted Run binding without --takeover-legacy', () => {
         code: 'consumer_fenced',
         data: {
           effectsApplied: false,
-          recoveryCommand: `orca orchestration run-use --id ${adoptedRunId} --takeover-legacy`
+          recoveryCommand: `deca orchestration run-use --id ${adoptedRunId} --takeover-legacy`
         }
       })
     )

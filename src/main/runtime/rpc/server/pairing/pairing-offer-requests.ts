@@ -1,4 +1,4 @@
-/** Pairing offers requested by this host's owner: the desktop's Settings and `orca pair` mint the same offers. */
+/** Pairing offers requested by this host's owner: the desktop's Settings and `deca pair` mint the same offers. */
 import type { MobilePairingConnectionMode } from '../../../../../shared/remote-runtime/pairing/mobile-pairing-connection-mode'
 import type {
   PairingCreateOfferParams,

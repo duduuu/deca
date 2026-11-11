@@ -13,7 +13,7 @@ const {
   trackMock: vi.fn(),
   getPathMock: vi.fn(() => '/Applications/Orca.app/Contents/MacOS/Orca'),
   opendirMock: vi.fn(),
-  readMacosBundleIdMock: vi.fn<() => Promise<string | null>>(async () => 'com.stablyai.orca'),
+  readMacosBundleIdMock: vi.fn<() => Promise<string | null>>(async () => 'com.deca.app'),
   resetMacosTccPermissionMock: vi.fn<() => Promise<{ ok: boolean; detail?: string }>>(async () => ({
     ok: true
   })),
@@ -56,7 +56,7 @@ beforeEach(() => {
   trackMock.mockReset()
   getPathMock.mockReset().mockReturnValue('/Applications/Orca.app/Contents/MacOS/Orca')
   opendirMock.mockReset().mockResolvedValue(fakeDir())
-  readMacosBundleIdMock.mockReset().mockResolvedValue('com.stablyai.orca')
+  readMacosBundleIdMock.mockReset().mockResolvedValue('com.deca.app')
   resetMacosTccPermissionMock.mockReset().mockResolvedValue({ ok: true })
   getTargetMock
     .mockReset()

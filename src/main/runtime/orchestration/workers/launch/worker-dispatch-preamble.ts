@@ -55,7 +55,7 @@ function dispatchIdentityLines(params: PreambleParams): string {
 // Place behavior rules beside CLI examples, where agent readers use them.
 export function buildDispatchPreamble(params: PreambleParams): string {
   // Dev agents must reach the dev socket through orca-dev.
-  const cli = params.devMode ? 'orca-dev' : (params.cliCommand ?? 'orca')
+  const cli = params.devMode ? 'orca-dev' : (params.cliCommand ?? 'deca')
   const chat = isSessionHandle(params.workerHandle)
   const surface = chat ? 'chat' : 'terminal'
   const postDoneInstructions = buildPostWorkerDoneInstructions({

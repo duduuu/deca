@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { runProcess } from '@orca/process-host'
 import { selectPluginTestNode, type PluginTestNode } from './plugin-test-node'
 
-/** Plugin test files `orca plugin test` runs. */
+/** Plugin test files `deca plugin test` runs. */
 export const PLUGIN_TEST_FILE = /\.test\.(?:tsx?|mts|jsx?|mjs)$/i
 // Not plugin sources: dependencies, Orca's own generated files, VCS and build output.
 const SKIPPED_DIRS = new Set(['node_modules', '.orca', '.git', 'dist', 'out', 'coverage'])
@@ -53,7 +53,7 @@ export function pluginTestRunner(dir: string): { runner: PluginTestRunner; entry
 export function pluginVitestConfig(files: ReturnType<typeof pluginTestingFiles>): string {
   const url = (path: string): string => JSON.stringify(pathToFileURL(path).href)
   const path = (value: string): string => JSON.stringify(value)
-  return `// Written by \`orca plugin test\`. Do not edit.
+  return `// Written by \`deca plugin test\`. Do not edit.
 import { transformPluginSourceForTest } from ${url(files.hooks)}
 
 const SOURCE = /\\.(?:tsx?|mts|jsx)$/

@@ -36,7 +36,7 @@ export type LinuxTerminalOrcaCliShimOptions = {
   appImageCacheRootPath?: string
 }
 
-// Prepend only in managed PTYs so agents' bare `orca` calls reach the CLI instead of GNOME Orca.
+// Prepend only in managed PTYs so agents' bare `deca` calls reach the CLI instead of GNOME Orca.
 export function ensureLinuxTerminalOrcaCliShimDir(
   options: LinuxTerminalOrcaCliShimOptions
 ): string | null {
@@ -177,7 +177,7 @@ function ensureShimForLauncher(userDataPath: string, launcherPath: string): stri
 
 function ensureShimForScript(userDataPath: string, script: string): string | null {
   const shimDir = join(userDataPath, SHIM_DIR_NAME)
-  const shimPath = join(shimDir, 'orca')
+  const shimPath = join(shimDir, 'deca')
   try {
     if (readShim(shimPath) !== script) {
       mkdirSync(shimDir, { recursive: true })

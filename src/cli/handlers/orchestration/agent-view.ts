@@ -49,7 +49,7 @@ function printOrchestrationFields<TFields extends AgentViewFields>(
   // A failed outcome reads ok:false even though its fields still describe what happened.
   ok = true
 ): void {
-  // Runtime next steps name `orca`; this is the one place they get the executable in use.
+  // Runtime next steps name `deca`; this is the one place they get the executable in use.
   const resolved: TFields =
     typeof fields.next === 'string'
       ? { ...fields, next: resolveOrcaCommandsInText(fields.next) }
@@ -135,7 +135,7 @@ function withNextLast(fields: AgentViewFields): AgentViewFields {
 
 function resolveOrcaCommandsInText(text: string): string {
   const executable = resolveOrchestrationCliExecutable()
-  if (executable === 'orca') {
+  if (executable === 'deca') {
     return text
   }
   const rendered = renderCommand([executable])
@@ -146,8 +146,8 @@ export function renderOrchestrationArgv(argv: readonly string[]): string | undef
   if (argv.length === 0) {
     return undefined
   }
-  // Fleet next actions are subcommand argv (`orchestration ...`); older hosts named `orca`.
-  const subcommand = argv[0] === 'orca' ? argv.slice(1) : argv
+  // Fleet next actions are subcommand argv (`orchestration ...`); older hosts named `deca`.
+  const subcommand = argv[0] === 'deca' ? argv.slice(1) : argv
   return renderCommand([resolveOrchestrationCliExecutable(), ...subcommand])
 }
 

@@ -29,7 +29,7 @@ export function buildWslDistroHolderScript(
 ): string {
   const ignored = WSL_DISTRO_HOLDER_IGNORED_PROCESS_NAMES.map((name) => `'${name}'`).join('|')
   return [
-    `f="$HOME/.orca/${ORCAD_WSL_HOLDER_RELEASE_FILENAME}"; b="$HOME/.orca/${ORCAD_WSL_HOLDER_BLOCKED_FILENAME}"; me=$(id -u)`,
+    `f="$HOME/.deca/${ORCAD_WSL_HOLDER_RELEASE_FILENAME}"; b="$HOME/.deca/${ORCAD_WSL_HOLDER_BLOCKED_FILENAME}"; me=$(id -u)`,
     // A new holder means a client wants the distro: an older orcad's request no longer stands.
     // Also any note half-written by a holder killed mid-write.
     'rm -f "$f" "$b" "$b".*',

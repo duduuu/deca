@@ -25,7 +25,7 @@ device with `emulator_unsupported`. `tap`, `type`, `gesture`, `button`, `rotate`
 `exec` work on both backends.
 
 Commands drive devices on the host that runs the Orca runtime. Simulators need that host to
-be a Mac, so a Linux `orca serve` or SSH host can drive only Android devices.
+be a Mac, so a Linux `deca serve` or SSH host can drive only Android devices.
 
 ## Prerequisites
 

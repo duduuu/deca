@@ -139,12 +139,12 @@ export async function deliverAndSettleWorkerStartReadiness(args: {
       ...(deliveredPrompt ? { prompt: deliveredPrompt } : {}),
       residualResources: JSON.parse(worker.residual_resources) as unknown[],
       nextCommands: [
-        `orca orchestration worker-show --dispatch ${args.dispatchId} --json`,
+        `deca orchestration worker-show --dispatch ${args.dispatchId} --json`,
         // A structured worker or a chat has no screen to read.
         ...(structuredSession || chatAssigneeSessionId(terminalHandle)
           ? []
-          : [`orca terminal read --terminal ${terminalHandle} --screen`]),
-        `orca orchestration worker-abandon --dispatch ${args.dispatchId} --json`
+          : [`deca terminal read --terminal ${terminalHandle} --screen`]),
+        `deca orchestration worker-abandon --dispatch ${args.dispatchId} --json`
       ],
       ...(args.terminalRevealWarning ? { warning: args.terminalRevealWarning } : {})
     }

@@ -1,5 +1,5 @@
 export const ROOT_HELP_TEXT_PRIMARY = [
-  'orca',
+  'deca',
   '',
   'Usage: orca <command> [options]',
   '',

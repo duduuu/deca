@@ -53,7 +53,7 @@ describe('runtime file authorization for the floating workspace', () => {
     )
   })
 
-  // #36950 as reported: `orca serve` with the floating cwd at a trusted project under home.
+  // #36950 as reported: `deca serve` with the floating cwd at a trusted project under home.
   it('authorizes a file in a trusted cwd spelled from home', async () => {
     const app = join(home, 'projects', 'my-app')
     await mkdir(app, { recursive: true })

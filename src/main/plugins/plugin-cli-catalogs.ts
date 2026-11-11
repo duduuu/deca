@@ -101,7 +101,7 @@ export async function removePluginCatalogFromCli(
       matches.length === 0
         ? `No catalog on this Orca host matches ${selector}.`
         : `${selector} matches more than one catalog; pass its id.`,
-      { nextSteps: ['`orca plugin catalog list` shows each catalog id.'] }
+      { nextSteps: ['`deca plugin catalog list` shows each catalog id.'] }
     )
   }
   const [state] = matches

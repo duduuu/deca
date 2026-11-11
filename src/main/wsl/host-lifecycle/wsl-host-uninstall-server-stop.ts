@@ -21,7 +21,7 @@ import type { WslOrcadHostTarget } from '../orcad/wsl-orcad-host-target'
 export const WSL_HOST_UNINSTALL_STOP_TIMEOUT_MS = 30_000
 
 /** orcad writes this launcher into its data root; older slots without a CLI have none. */
-const GUEST_CLI = '"$HOME/.orca/cli/bin/orca"'
+const GUEST_CLI = '"$HOME/.deca/cli/bin/deca"'
 
 const TerminalListSchema = z.object({
   result: z.object({

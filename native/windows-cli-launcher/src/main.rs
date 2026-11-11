@@ -40,21 +40,21 @@ fn main() {
 
     let Some(resources_directory) = launcher.parent().and_then(Path::parent) else {
         fail(&format!(
-            "Unable to locate Orca.exe next to \"{}\"",
+            "Unable to locate Deca.exe next to \"{}\"",
             launcher.display()
         ))
     };
     let Some(app_directory) = resources_directory.parent() else {
         fail(&format!(
-            "Unable to locate Orca.exe next to \"{}\"",
+            "Unable to locate Deca.exe next to \"{}\"",
             resources_directory.display()
         ))
     };
 
-    let electron_path = app_directory.join("Orca.exe");
+    let electron_path = app_directory.join("Deca.exe");
     if !electron_path.is_file() {
         fail(&format!(
-            "Unable to locate Orca.exe next to \"{}\"",
+            "Unable to locate Deca.exe next to \"{}\"",
             resources_directory.display()
         ));
     }
@@ -66,7 +66,7 @@ fn main() {
         .join("index.js");
     if !cli_path.is_file() {
         fail(&format!(
-            "Unable to locate the Orca CLI entrypoint at \"{}\"",
+            "Unable to locate the Deca CLI entrypoint at \"{}\"",
             cli_path.display()
         ));
     }
@@ -82,10 +82,10 @@ fn main() {
     let requested_command = env::var("ORCA_CLI_COMMAND").unwrap_or_default();
     env::set_var(
         "ORCA_CLI_COMMAND",
-        if requested_command == "orca-ide" {
-            "orca-ide"
+        if requested_command == "deca-ide" {
+            "deca-ide"
         } else {
-            "orca"
+            "deca"
         },
     );
 

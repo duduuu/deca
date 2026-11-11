@@ -53,13 +53,13 @@ export async function refuseCurrentForRemoval(
         : ''
   throw new RuntimeClientError(
     'invalid_argument',
-    `orca worktree rm needs an explicit workspace; --worktree ${value} is not accepted for removal.${named}`,
+    `deca worktree rm needs an explicit workspace; --worktree ${value} is not accepted for removal.${named}`,
     {
       current: { resolution, selectors },
       nextSteps: [
-        ...flagsFor.map((flag) => `orca worktree rm ${flag}`),
+        ...flagsFor.map((flag) => `deca worktree rm ${flag}`),
         ...(resolution === 'unresolved'
-          ? ['Find the workspace with `orca worktree ps --json` and pass its `address.worktree`.']
+          ? ['Find the workspace with `deca worktree ps --json` and pass its `address.worktree`.']
           : [])
       ]
     }

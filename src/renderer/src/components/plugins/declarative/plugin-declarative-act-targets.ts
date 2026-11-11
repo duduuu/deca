@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 
 /**
- * A mounted value control, as `orca plugin shot --act` drives it: through the control's own edit
+ * A mounted value control, as `deca plugin shot --act` drives it: through the control's own edit
  * path, so what Orca shows and the edit ids the guest sees match a person's input exactly.
  */
 export type PluginDeclarativeActTarget = {

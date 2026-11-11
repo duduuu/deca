@@ -197,7 +197,7 @@ export function renderResolvedOrchestrationCommand(
   env: NodeJS.ProcessEnv = process.env
 ): string {
   const parts = parseCommandLine(command)
-  if (parts?.[0] !== 'orca') {
+  if (parts?.[0] !== 'deca') {
     return command
   }
   return renderCommand([executable, ...parts.slice(1)], platform, env)

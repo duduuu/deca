@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 /**
- * `orca plugin shot --act`: input run against the live components panel before the capture, in
+ * `deca plugin shot --act`: input run against the live components panel before the capture, in
  * the test kit's vocabulary: `press(query)`, `type(query, text, { replace, submit })`,
  * `select(query, value)`, `toggle(query)`, `slide(query, value)`, and the Table and Tree verbs
  * (`sort`, `selectRows`, `activateRow`, `loadMore`, `expand`, `collapse`, `selectItem`,

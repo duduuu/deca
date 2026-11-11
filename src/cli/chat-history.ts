@@ -152,7 +152,7 @@ export function explainChatRefusal(
   if (isUnattachedAgentSessionReadRefusal(error)) {
     return new RuntimeClientError(
       AGENT_SESSION_UNATTACHED_REFUSAL_CODE,
-      `No open chat with session id ${sessionId} on this host. Find it with \`orca chat list\`.`
+      `No open chat with session id ${sessionId} on this host. Find it with \`deca chat list\`.`
     )
   }
   if (

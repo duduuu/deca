@@ -134,7 +134,7 @@ function formatAutomationRunFollowUp(
   automationId: string,
   target: AutomationRunFollowUpTarget
 ): string {
-  const command = ['orca', 'automations', 'runs', '--id', quoteCliCommandArgument(automationId)]
+  const command = ['deca', 'automations', 'runs', '--id', quoteCliCommandArgument(automationId)]
   // Windows shells can expand a label even inside double quotes.
   const safeEnvironment =
     target.environment &&

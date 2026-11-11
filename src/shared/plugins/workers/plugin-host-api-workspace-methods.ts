@@ -6,7 +6,7 @@ import { spec, WORKER_ONLY } from './plugin-host-method-spec'
 /**
  * Orca state and actions a full-access worker cannot reach from Node: its workspaces, terminals
  * and agents. Each runs the runtime method the `orca` CLI runs, on the host that owns the
- * workspace (local, WSL or SSH), so a mod acts exactly as `orca terminal create` would.
+ * workspace (local, WSL or SSH), so a mod acts exactly as `deca terminal create` would.
  */
 
 export const PLUGIN_WORKSPACE_LIST_LIMIT = 500

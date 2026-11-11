@@ -159,7 +159,7 @@ describe('mailbox delivery into a pane awaiting the user', () => {
     // Orca died between typing a pointer and its Enter: the new pointer follows it and both submit.
     [
       "Orca's own unsent pointer",
-      'You have 1 orchestration message. Run `orca orchestration check`.'
+      'You have 1 orchestration message. Run `deca orchestration check`.'
     ]
   ] as const)(
     'after an Orca restart reattaches the agent, holds mail behind %s until the cap',

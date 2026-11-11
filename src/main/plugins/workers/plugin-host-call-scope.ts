@@ -14,7 +14,7 @@ export type PluginHostCallScope = {
   pluginName?: string
   /** The open panel or editor that made the call; absent for workers. */
   panel?: PluginPanelCaller
-  /** Writes to the plugin's log (`orca plugin logs`). */
+  /** Writes to the plugin's log (`deca plugin logs`). */
   log?: (line: string) => void
   /** Aborts when the worker that made the call cancels it or exits. */
   signal?: AbortSignal

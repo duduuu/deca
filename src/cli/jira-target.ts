@@ -55,8 +55,8 @@ export async function resolveJiraTarget(
     throw new RuntimeClientError(
       'invalid_argument',
       candidates.length === 0
-        ? 'No matching connected Jira site. Check orca jira connection and Orca Jira settings.'
-        : `Multiple Jira sites match. Select one with --${siteFlag} using orca jira connection.`
+        ? 'No matching connected Jira site. Check deca jira connection and Orca Jira settings.'
+        : `Multiple Jira sites match. Select one with --${siteFlag} using deca jira connection.`
     )
   }
   const site = candidates[0]

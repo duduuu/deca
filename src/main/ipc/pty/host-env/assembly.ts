@@ -309,7 +309,7 @@ export function buildPtyHostEnv(
     baseEnv.BROWSER === undefined &&
     process.env.BROWSER === undefined
   ) {
-    const cliCommand = opts.isWsl ? getWslCliCommandName(opts.isPackaged) : 'orca'
+    const cliCommand = opts.isWsl ? getWslCliCommandName(opts.isPackaged) : 'deca'
     baseEnv.BROWSER = `${cliCommand} open-url --url %s`
   }
   // Browser-relayed and SSH-managed headless hosts both have viewers on another machine.

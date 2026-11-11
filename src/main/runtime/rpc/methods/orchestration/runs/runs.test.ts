@@ -95,7 +95,7 @@ describe('orchestration RPC methods', () => {
         run: { id: olderRun.id },
         next: expect.stringMatching(
           new RegExp(
-            `Dispatch ${dispatch.id} in Run ${currentRun.id}.*orca orchestration run-use --id ${olderRun.id}`
+            `Dispatch ${dispatch.id} in Run ${currentRun.id}.*deca orchestration run-use --id ${olderRun.id}`
           )
         )
       })

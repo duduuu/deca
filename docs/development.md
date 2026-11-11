@@ -20,8 +20,6 @@ The server, its workers, and its packaged dependencies target Node 24. The compa
   sudo apt-get update && sudo apt-get install -y build-essential python3 xvfb libgtk-3-0 libnss3 libgbm1 libasound2t64
   ```
 
-Re-run `pnpm -C mobile install --frozen-lockfile` whenever `mobile/pnpm-lock.yaml` changes.
-
 ## Dev Profiles and Parallel Instances
 
 `pnpm dev` in a linked Git worktree uses its own profile, renderer port (from 15200), and CDP port (from 9333), so worktrees run side by side. The main checkout uses the shared `orca-dev` profile. The chosen profile and ports are printed on an `ORCA_DEV_INSTANCE` line and written to `out/dev-instance.json`.

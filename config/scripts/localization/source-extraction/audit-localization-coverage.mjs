@@ -15,7 +15,6 @@ const CLASS_PROPERTY_NAMES = new Set(['className', 'classNames'])
 // Why: the children of these elements are CSS or code, never copy a translator should see.
 const NON_COPY_JSX_ELEMENTS = new Set(['style', 'script'])
 const USER_VISIBLE_JSX_ATTRIBUTES = new Set([
-  // React Native screen-reader copy (mobile/).
   'accessibilityHint',
   'accessibilityLabel',
   'ariaLabel',
@@ -534,7 +533,7 @@ function parseArgs(argv) {
       options.outputPath = argv[index + 1] ?? null
       index += 1
     } else if (arg === '--source-root') {
-      // Repeatable: mobile spans app/, src/ and web-entry/ under one allowlist.
+      // Repeatable: one allowlist may span several source roots.
       if (argv[index + 1]) {
         options.sourceRoots.push(argv[index + 1])
       }

@@ -19,7 +19,7 @@ const HEADER = [
   '# Prune after a fix: pnpm check:e2e-typecheck-ratchet --prune'
 ]
 
-// Count tests/ only; imported mobile/cloud errors vary with each CI job’s installed workspaces.
+// Count tests/ only.
 const TEST_ERROR_ROW = /^(tests\/[^(\s]+)\(\d+,\d+\): error TS\d+:/
 
 export function countTestTypeErrors(tscOutput) {

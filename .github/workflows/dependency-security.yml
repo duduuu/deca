@@ -65,7 +65,7 @@ jobs:
           RELEASE_REF: ${{ inputs.ref }}
         run: |
           if [ -n "$RELEASE_REF" ]; then
-            pnpm check:dependencies candidate . mobile
+            pnpm check:dependencies candidate .
           else
             pnpm check:dependencies
           fi

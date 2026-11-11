@@ -9,7 +9,7 @@ name: WSL orcad E2E
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
-    # This lane drives host RPC, not UI; pr.yml owns mobile bundle/render checks.
+    # This lane drives host RPC, not UI.
     paths:
       - 'src/main/wsl/**'
       - 'src/main/runtime/**'
@@ -102,7 +102,6 @@ jobs:
           git diff --name-only --no-renames --diff-filter=M -z HEAD^1 HEAD > "$RUNNER_TEMP/wsl-modified"
           node config/scripts/orcad-distribution/qualification/wsl-orcad-qualification.mjs "$RUNNER_TEMP/wsl-changed" "$RUNNER_TEMP/wsl-modified"
 
-      - uses: ./.github/actions/build-mobile-web-bundle
       - name: Build the template
         run: |
           pnpm build:orcad-prebuilds

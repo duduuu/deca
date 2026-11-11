@@ -27,15 +27,6 @@ afterEach(async () => {
 })
 
 describe('verifyPackagedOrcadTemplate', () => {
-  it('rejects a page asset changed after manifest generation', async () => {
-    const fixture = await createFixture()
-    await writeFile(join(fixture.templateDir, 'out/mobile-web/index.html'), 'mutated')
-
-    expect(() => verifyPackagedOrcadTemplate(fixture.root)).toThrow(
-      'out/mobile-web/index.html checksum mismatch'
-    )
-  })
-
   it('rejects a target whose runtime reference names another Node', async () => {
     const fixture = await createFixture()
     const markerPath = join(

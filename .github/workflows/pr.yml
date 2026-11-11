@@ -32,11 +32,8 @@ jobs:
       should_run: ${{ steps.filter.outputs.should_run }}
       reused_run_id: ${{ steps.readiness.outputs.run_id }}
       # A proven success masks required work only; advisory routing still uses the full diff.
-      mobile_dependencies: ${{ steps.filter.outputs.mobile_dependencies }}
-      mobile_web_app: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.mobile_web_app }}
       static_analysis: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.static_analysis }}
       typecheck: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.typecheck }}
-      mobile_ci_tools: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.mobile_ci_tools }}
       git_compatibility: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.git_compatibility }}
       codex_index_heal_contract: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.codex_index_heal_contract }}
       xterm_patch_sync: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.xterm_patch_sync }}
@@ -137,11 +134,11 @@ jobs:
           CHANGED="$(git diff --name-only --no-renames --diff-filter=ACDMR "$DIFF_BASE" HEAD)"
           echo "Changed paths:"
           printf '%s\n' "$CHANGED"
-          MOBILE_CI_ARGS=()
+          SCOPE_ARGS=()
           if git diff --quiet --no-renames --diff-filter=ACDRTUXB "$DIFF_BASE" HEAD; then
-            MOBILE_CI_ARGS=(--mobile-ci-tools --daemon-init-test-support)
+            SCOPE_ARGS=(--daemon-init-test-support)
           fi
-          printf '%s\n' "$CHANGED" | node config/scripts/workflow/source-routing/pr-code-change-scope.mjs "${MOBILE_CI_ARGS[@]}" | tee -a "$GITHUB_OUTPUT"
+          printf '%s\n' "$CHANGED" | node config/scripts/workflow/source-routing/pr-code-change-scope.mjs "${SCOPE_ARGS[@]}" | tee -a "$GITHUB_OUTPUT"
 
       # Reuse the path-detector checkout instead of queuing another runner.
       - name: Filter changed E2E specs
@@ -210,21 +207,10 @@ jobs:
         continue-on-error: true
         run: node -p '"executable=" + process.execPath' >> "$GITHUB_OUTPUT"
 
-      # Choose one root/mobile install: root-only store is 321MB/4.6s versus mixed 537MB/8.6s, saving unused mobile downloads on most PRs.
       - uses: ./.github/actions/install-node-dependencies
-        if: needs.code_paths.outputs.mobile_dependencies != 'true'
         with:
           native-runtime: node
           node-version: '24'
-
-      - uses: ./.github/actions/install-node-dependencies
-        if: needs.code_paths.outputs.mobile_dependencies == 'true'
-        with:
-          native-runtime: node
-          node-version: '24'
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            mobile/pnpm-lock.yaml
 
       # Bun 1.4.3 introduces the compiler used by this job.
       - name: Set up Bun for preflight checks
@@ -278,7 +264,7 @@ jobs:
           PREFLIGHT_PRIOR_SUCCESS: ${{ job.status == 'success' }}
         run: |
           if [ "$PREFLIGHT_PHASE_SELECTED" != true ] || [ "$PREFLIGHT_PRIOR_SUCCESS" != true ]; then exit 0; fi
-          node node_modules/oxlint/bin/oxlint --config config/oxlint-js-plugins.json --format github src config tests mobile native .github
+          node node_modules/oxlint/bin/oxlint --config config/oxlint-js-plugins.json --format github src config tests native .github
 
       # Its single JS-plugin thread ran alone for ~12s as a foreground tail; overlapping it fills idle cores.
       - name: Reject low-evidence patterns
@@ -291,7 +277,7 @@ jobs:
         run: |
           if [ "$PREFLIGHT_PHASE_SELECTED" != true ] || [ "$PREFLIGHT_PRIOR_SUCCESS" != true ]; then exit 0; fi
           node config/scripts/static-analysis/oxlint-contracts/sync-anti-slop-plugin.mjs
-          bun --smol node_modules/oxlint/bin/oxlint --config config/oxlint-anti-slop.json src config tests mobile --deny-warnings
+          bun --smol node_modules/oxlint/bin/oxlint --config config/oxlint-anti-slop.json src config tests --deny-warnings
 
       - name: Enforce ast-grep rules
         if: needs.code_paths.outputs.static_analysis == 'true'
@@ -318,18 +304,13 @@ jobs:
           PREFLIGHT_PRIOR_SUCCESS: ${{ job.status == 'success' }}
         run: |
           if [ "$PREFLIGHT_PHASE_SELECTED" != true ] || [ "$PREFLIGHT_PRIOR_SUCCESS" != true ]; then exit 0; fi
-          node node_modules/oxlint/bin/oxlint --config config/oxlint-code-quality-native-plugins.json src config tests mobile --deny-warnings
+          node node_modules/oxlint/bin/oxlint --config config/oxlint-code-quality-native-plugins.json src config tests --deny-warnings
 
       - name: Enforce type-aware code-quality baseline
         if: needs.code_paths.outputs.static_analysis == 'true'
         run: node node_modules/oxlint/bin/oxlint --type-aware --config config/oxlint-code-quality-type-aware.json src config tests --deny-warnings
 
-      # Mobile installation changes import resolution for the native cycle check.
       - wait: native-code-quality
-
-      # Install mobile before type-aware changed-code lint or unresolved mobile types become phantom error-type findings.
-      - uses: ./.github/actions/install-mobile-dependencies
-        if: needs.code_paths.outputs.static_analysis == 'true' && needs.code_paths.outputs.mobile_dependencies == 'true'
 
       - name: Enforce changed-code quality
         if: '!cancelled()'
@@ -450,10 +431,6 @@ jobs:
           if [ "$PREFLIGHT_PHASE_SELECTED" != true ] || [ "$PREFLIGHT_PRIOR_SUCCESS" != true ]; then exit 0; fi
           node config/scripts/ci/unit-selection/check-test-file-runners.mjs
 
-      - name: Check root and mobile lock the same shared dependencies
-        if: needs.code_paths.outputs.static_analysis == 'true'
-        run: node config/scripts/package-manager/lockfile-contracts/check-mobile-shared-dependency-versions.mjs
-
       - name: Decide whether the orcad terminal smoke runs
         id: orcad-smoke-scope
         if: needs.code_paths.outputs.static_analysis == 'true'
@@ -469,10 +446,6 @@ jobs:
           else
             echo 'run=true' >> "$GITHUB_OUTPUT"
           fi
-
-      # orcad refuses to build without the page phones load.
-      - uses: ./.github/actions/build-mobile-web-bundle
-        if: steps.orcad-smoke-scope.outputs.run == 'true'
 
       # Pair import-graph electron exclusion with built-Node boot/pair/worktree/PTY smoke; graph purity alone does not prove runtime operation.
       - name: Boot orcad and round-trip a terminal
@@ -516,14 +489,6 @@ jobs:
         if: needs.code_paths.outputs.static_analysis == 'true'
         run: bun run verify:startup-worktree-localization-coverage
 
-      - name: Verify mobile localization
-        if: needs.code_paths.outputs.static_analysis == 'true'
-        run: bun config/scripts/localization/catalog-validation/verify-mobile-localization.mjs
-
-      - name: Verify mobile localization coverage
-        if: needs.code_paths.outputs.static_analysis == 'true'
-        run: bun run verify:mobile-localization-coverage
-
       - wait: [localization-catalogs, localization-extraction]
 
       # Keep project declarations in .ts: skipLibCheck silently widened unresolved .d.ts names to any, hiding #1186 IPC breakage. See .github/CONTRIBUTING.md#type-declarations-prefer-ts-over-dts.
@@ -559,16 +524,6 @@ jobs:
       - wait: test-file-runners
 
       - wait: ratchets
-
-      - name: Test Mobile CI tools and runtime routing
-        if: needs.code_paths.outputs.mobile_ci_tools == 'true'
-        env:
-          ORCA_BACKGROUND_LAUNCH: '1'
-          ORCA_BALANCE_UNIT_SHARDS: '1'
-        run: >-
-          node config/scripts/test-runtime/execution-policy/run-vitest.mjs run --config config/vitest.config.ts
-          --maxWorkers=4 --isolate --retry=0 --bail=0
-          config/scripts/mobile-web/check-entry/mobile-release-check-scope.test.mjs
 
       # Report failure through the separate required check without blocking unrelated consumers.
       - name: Smoke process-host package on Node 18
@@ -896,7 +851,7 @@ jobs:
       module_cache: ${{ (vars.ORCA_UNIT_MODULE_CACHE == 'off' || contains(github.event.pull_request.labels.*.name, 'ci:cold-unit-cache')) && 'off' || 'warm' }}
       shards: ${{ needs.unit_plan.outputs.shards }}
       download_selection_plan: ${{ needs.unit_plan.outputs.selection_planned == 'true' }}
-      run_shards: ${{ needs.code_paths.outputs.mobile_ci_tools != 'true' }}
+      run_shards: true
       run_relay_integration: ${{ needs.code_paths.outputs.relay_integration != 'false' || needs.code_paths.outputs.orcad_browser == 'true' }}
 
   # Keep advisory evidence sibling to tests and outside verify.needs; reusable-workflow dependency otherwise added ~36s after last shard.
@@ -906,71 +861,6 @@ jobs:
     uses: ./.github/workflows/unit-selection-evidence.yml
     with:
       rebuild_plan: ${{ needs.unit_plan.outputs.selection_planned != 'true' }}
-
-  # Isolate two browser/mobile files to avoid every unit shard paying for their installs; test the same shipped bundle plus render/census.
-  mobile_web_app:
-    name: mobile web app bundle
-    needs: [code_paths]
-    if: needs.code_paths.outputs.mobile_web_app == 'true'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 180
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-
-      # Why no native-runtime: the builder is esbuild and the render check is a browser. Nothing
-      # in this job loads node-pty.
-      - uses: ./.github/actions/install-node-dependencies
-        with:
-          native-runtime: none
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            mobile/pnpm-lock.yaml
-
-      # Test drawer with WebKit as iOS WebView uses it; runner Chrome cannot substitute.
-      - name: Install WebKit for the drawer check
-        id: webkit
-        background: true
-        run: |
-          bash .github/scripts/prepare-ubuntu-apt.sh
-          pnpm exec playwright-core install --with-deps webkit
-
-      # The entry lives in mobile/ so one React resolves; without this every RN import is nothing.
-      - uses: ./.github/actions/install-mobile-dependencies
-
-      - name: Prepare mobile route snapshot
-        id: mobile-routes
-        background: true
-        run: node config/scripts/mobile-web/check-entry/run-mobile-web-app-checks.mjs --prepare-route-snapshot "$RUNNER_TEMP/mobile-routes.json"
-
-      # Require runner Google Chrome: Ubuntu’s AppArmor userns profile covers its .deb, unlike downloaded Chromium; missing render checks must fail.
-      - name: Resolve Chrome for the render check
-        run: |
-          set -euo pipefail
-          chrome="$(command -v google-chrome || command -v google-chrome-stable || true)"
-          if [ -z "$chrome" ]; then
-            echo "::error::No Google Chrome on the runner; the render check would silently skip."
-            exit 1
-          fi
-          "$chrome" --version
-          echo "ORCA_MOBILE_WEB_RENDER_BROWSER=$chrome" >> "$GITHUB_ENV"
-
-      - name: Build and verify the app bundle
-        run: pnpm run build:mobile-web
-
-      # Browser checks must observe both a finished install and the built bundle.
-      - wait: [webkit, mobile-routes]
-
-      # Require mobile install and select census family by quoted filename prefix, matching routing; stale file lists/env-gated skips previously hid missing coverage.
-      - name: Builder, override census and render checks
-        env:
-          ORCA_MOBILE_WEB_APP_DEPS_REQUIRED: '1'
-          ORCA_MOBILE_WEB_PREPARED_ROUTE_SNAPSHOT: ${{ runner.temp }}/mobile-routes.json
-        run: |
-          node config/scripts/mobile-web/check-entry/run-mobile-web-app-checks.mjs
 
   cross-version-wire:
     name: cross-version wire compatibility
@@ -1085,13 +975,7 @@ jobs:
       - uses: ./.github/actions/install-node-dependencies
         with:
           native-runtime: electron
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            mobile/pnpm-lock.yaml
-
-      # Why here: electron-builder's beforePack requires out/mobile-web, and the bundle
-      # build resolves React Native and Expo from mobile/node_modules.
-      - uses: ./.github/actions/install-mobile-dependencies
+          cache-dependency-path: pnpm-lock.yaml
 
       # The checkout must pass without depending on a historical baseline that leaks.
       - wait: daemon-fixture-cache
@@ -1203,10 +1087,6 @@ jobs:
         background: true
         run: pnpm run build:web-from-renderer
 
-      # Build the real ~8MB mobile page because stepwise package assembly bypasses build:release and beforePack refuses its absence.
-      - name: Build mobile web bundle
-        run: pnpm run build:mobile-web
-
       - wait: [linux-native, linux-package-tools, web-client]
 
       - name: Package unpacked app
@@ -1311,13 +1191,7 @@ jobs:
         with:
           native-runtime: node
           persist-native-cache: 'false'
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            mobile/pnpm-lock.yaml
-
-      # Why here: electron-builder's beforePack requires out/mobile-web, and the bundle
-      # build resolves React Native and Expo from mobile/node_modules.
-      - uses: ./.github/actions/install-mobile-dependencies
+          cache-dependency-path: pnpm-lock.yaml
 
       # vitest runs here directly rather than through `pnpm test`, so the addon
       # assertions only hold once install-node-dependencies has rebuilt natives.
@@ -1550,7 +1424,6 @@ jobs:
       - xterm_patch_sync
       - shell_contracts
       - test
-      - mobile_web_app
       - cross-version-wire
       - managed_hook_node18
       - package
@@ -1580,8 +1453,6 @@ jobs:
           SHELL_CONTRACTS_SHOULD_RUN: ${{ needs.code_paths.outputs.shell_contracts }}
           TEST: ${{ needs.test.result }}
           TEST_SHOULD_RUN: ${{ needs.code_paths.outputs.test }}
-          MOBILE_WEB_APP: ${{ needs.mobile_web_app.result }}
-          MOBILE_WEB_APP_SHOULD_RUN: ${{ needs.code_paths.outputs.mobile_web_app }}
           CROSS_VERSION_WIRE: ${{ needs.cross-version-wire.result }}
           CROSS_VERSION_WIRE_SHOULD_RUN: ${{ needs.code_paths.outputs.cross-version-wire }}
           MANAGED_HOOK_NODE18: ${{ needs.managed_hook_node18.result }}
@@ -1630,7 +1501,6 @@ jobs:
           check_job xterm_patch_sync "$XTERM_PATCH_SYNC" "$XTERM_PATCH_SYNC_SHOULD_RUN"
           check_job shell_contracts "$SHELL_CONTRACTS" "$SHELL_CONTRACTS_SHOULD_RUN"
           check_job test "$TEST" "$TEST_SHOULD_RUN"
-          check_job mobile_web_app "$MOBILE_WEB_APP" "$MOBILE_WEB_APP_SHOULD_RUN"
           check_job cross-version-wire "$CROSS_VERSION_WIRE" "$CROSS_VERSION_WIRE_SHOULD_RUN"
           check_job managed_hook_node18 "$MANAGED_HOOK_NODE18" "$MANAGED_HOOK_NODE18_SHOULD_RUN"
           check_job package "$PACKAGE" "$PACKAGE_SHOULD_RUN"

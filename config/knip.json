@@ -58,16 +58,14 @@
     "src/**/*.test-fixture.{ts,tsx}",
     "src/main/runtime/rpc/rpc-params-type-parity.ts",
     "src/main/runtime/rpc/methods/client-state/ui-state-schema-parity-checks.ts",
-    "src/renderer/src/components/editor/monaco-internal-test-module-types.ts",
-    "mobile/**/*.{ts,tsx}",
-    "cloud/**/*.{ts,tsx,mjs}"
+    "src/renderer/src/components/editor/monaco-internal-test-module-types.ts"
   ],
   "project": [
     "src/**/*.{ts,tsx}",
     "config/scripts/**/*.{mjs,cjs,js,ts}",
     "config/build-plugins/**/*.ts"
   ],
-  "ignore": ["mobile/**", "out/**", "dist/**", "node_modules/**", "resources/**"],
+  "ignore": ["out/**", "dist/**", "node_modules/**", "resources/**"],
   "ignoreDependencies": ["electron", "@types/*"],
   "ignoreExportsUsedInFile": true,
   "includeEntryExports": false

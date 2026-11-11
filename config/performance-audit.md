@@ -18,7 +18,7 @@ aliases/destructuring; it does not infer consumer lifetime or follow imported
 helpers. Legitimate fleet consumers also match, so behavior-level render-isolation
 assertions remain the safeguard against actual fanout regressions.
 
-Tests, generated files, `mobile/` and `cloud/` are outside this source audit.
+Tests and generated files are outside this source audit.
 
 The ast-grep rule `config/ast-grep/rules/no-repeated-collator.yml` (`pnpm lint:ast-grep`,
 an error everywhere) detects optioned `localeCompare` and `Intl.Collator` construction

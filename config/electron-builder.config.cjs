@@ -314,7 +314,7 @@ module.exports = {
   ],
   // Node-mode CLI/daemon/foreign SQLite reader/serve entries cannot read asar; unpack their shared/main dependencies too.
   // Keep out/package.json’s CommonJS boundary and remote CLI WebSocket/E2EE deps. Electron-only workers may stay packed.
-  // Renderer/mobile-web assets need real paths: swept temporary asar extracts are not recreated (#27976).
+  // Renderer assets need real paths: swept temporary asar extracts are not recreated (#27976).
   asarUnpack: [
     'out/package.json',
     'out/cli/**',
@@ -358,7 +358,6 @@ module.exports = {
     'out/main/orcad/orcad-host-identity-reset.js',
     'out/main/chunks/**',
     'out/renderer/**',
-    'out/mobile-web/**',
     'resources/**',
     'node_modules/ws/**',
     'node_modules/tweetnacl/**',

@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-// Desktop and mobile ship separate catalogs under one contract: same call shape, key rules and gates.
+// Each surface ships its own catalogs under one contract: same call shape, key rules and gates.
 export const LOCALIZATION_SURFACES = {
   desktop: {
     localesDir: path.join('src', 'renderer', 'src', 'i18n', 'locales'),
@@ -10,17 +10,6 @@ export const LOCALIZATION_SURFACES = {
     fillsPluralForms: true,
     syncCatalogCommand: 'pnpm run sync:localization-catalog',
     syncRuntimeCatalogCommand: 'pnpm run sync:localization-runtime-catalog'
-  },
-  mobile: {
-    localesDir: path.join('mobile', 'src', 'i18n', 'locales'),
-    sourceRoots: [
-      path.join('mobile', 'app'),
-      path.join('mobile', 'src'),
-      path.join('mobile', 'web-entry')
-    ],
-    runtimeRequiredPath: path.join('mobile', 'src', 'i18n', 'en-runtime-required.json'),
-    syncCatalogCommand: 'pnpm run sync:mobile-localization',
-    syncRuntimeCatalogCommand: 'pnpm run sync:mobile-localization'
   }
 }
 

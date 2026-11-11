@@ -23,12 +23,6 @@ export const TYPECHECK_PROJECTS = [
   { config: 'src/packages/process-host/tsconfig.test.json', heapGib: 1 }
 ]
 
-// Selected only by --project: mobile is a separate install that root checks cannot assume.
-export const MOBILE_TYPECHECK_PROJECTS = [
-  { config: 'mobile/tsconfig.json', heapGib: 2 },
-  { config: 'mobile/tsconfig.test.json', heapGib: 3 }
-]
-
 // The OS, node itself, and the runner agent need their share; the rest is what tsc may hold.
 export function admissibleHeapGib(totalBytes) {
   return Math.max(1, (totalBytes / BYTES_PER_GIB) * 0.75)
@@ -99,9 +93,7 @@ export function parseTypecheckOptions(args) {
       options.checkers = Number(argument.slice('--checkers='.length))
     } else if (argument.startsWith('--project=')) {
       const config = argument.slice('--project='.length)
-      const project = [...TYPECHECK_PROJECTS, ...MOBILE_TYPECHECK_PROJECTS].find(
-        (candidate) => candidate.config === config
-      )
+      const project = TYPECHECK_PROJECTS.find((candidate) => candidate.config === config)
       if (!project) {
         throw new Error(`Unknown typecheck project: ${config}`)
       }

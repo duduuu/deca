@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import process from 'node:process'
 
 export const AST_GREP_CONFIG = 'config/sgconfig.yml'
-export const AST_GREP_SCAN_PATHS = ['src', 'config', 'tests', 'mobile']
+export const AST_GREP_SCAN_PATHS = ['src', 'config', 'tests']
 
 // Resolve the platform binary here: Windows .cmd shims need a shell, and temporary scan roots lack dependencies.
 export function resolveAstGrepBinary() {

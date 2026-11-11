@@ -36,7 +36,6 @@ export const PR_CHECK_JOBS = [
   'shell_contracts',
   'test',
   'orcad_browser',
-  'mobile_web_app',
   'cross-version-wire',
   'managed_hook_node18',
   'package',
@@ -46,14 +45,6 @@ export const PR_CHECK_JOBS = [
 ]
 
 const ALWAYS_ON_CODE_JOBS = new Set(['static_analysis', 'typecheck', 'test'])
-
-const MOBILE_CI_TOOL_FILES = new Set([
-  '.github/workflows/mobile.yml',
-  'config/mobile-ci.vitest.config.mjs',
-  'config/scripts/mobile-web/check-entry/run-mobile-ci-tests.mjs',
-  'config/scripts/mobile-web/check-entry/mobile-release-check-scope.test.mjs',
-  'config/scripts/mobile-web/check-entry/mobile-test-change-scope.test.mjs'
-])
 
 const GLOBAL_FORCE_PREFIXES = [
   '.github/workflows/pr.yml',
@@ -136,8 +127,7 @@ const ORCAD_BROWSER_PREFIXES = [
   'src/main/orcad/electron-serve-browser-process'
 ]
 
-// Include page build/verification/manifest/packaging, entry/routes/imported mobile sources and render-check shell policy.
-// Dependency visibility also matters; package.json/lockfile already force all jobs.
+// Dependency visibility matters; package.json/lockfile already force all jobs.
 const DEPENDENCY_ISOLATION_PREFIXES = [
   'pnpm-workspace.yaml',
   'config/pnpmfile.cjs',
@@ -149,45 +139,6 @@ const DEPENDENCY_ISOLATION_PREFIXES = [
   'native/windows-registry/package.json',
   'native/windows-security/package.json'
 ]
-
-const MOBILE_WEB_APP_PREFIXES = [
-  '.github/scripts/prepare-ubuntu-apt.sh',
-  'config/scripts/build-mobile-web-app',
-  'config/scripts/build/mobile-web-app/build-mobile-web-app',
-  'config/scripts/run-mobile-web-app-checks',
-  'config/scripts/mobile-web/check-entry/run-mobile-web-app-checks',
-  'src/packages/process-host/',
-  'config/scripts/verify-mobile-web-app-bundle',
-  'config/scripts/build/mobile-web-app/verify-mobile-web-app-bundle',
-  'config/scripts/mobile-web-app-',
-  'config/scripts/mobile-web-app/',
-  'config/scripts/mobile-web-app/shell/',
-  'config/scripts/mobile-web-app/session/',
-  'config/scripts/mobile-web-app/routing/',
-  'config/scripts/mobile-web-app/terminal/',
-  'config/scripts/mobile-web-app/workspace/',
-  'config/scripts/mobile-web-bundle-',
-  'config/scripts/build/mobile-web-app/mobile-web-bundle-',
-  'config/scripts/verify-packaged-mobile-web-bundle',
-  'config/scripts/desktop-distribution/runtime-verification/verify-packaged-mobile-web-bundle',
-  'config/scripts/mobile-web-source-line-endings',
-  'config/scripts/build/mobile-web-app/mobile-web-source-line-endings',
-  'config/scripts/script-entry-detection',
-  'config/scripts/tool-invocation/script-entry-detection',
-  'mobile/web-entry/',
-  'mobile/app/',
-  'mobile/src/',
-  'mobile/packages/',
-  'mobile/package.json',
-  'mobile/pnpm-lock.yaml',
-  'mobile/modules/orca-mobile-web-shell/',
-  // Chat visuals on both mobile surfaces are built from it; their in-page links check runs here.
-  'src/shared/native-chat/native-chat-visual-shell'
-]
-
-function changesMobileWebApp(changedFiles) {
-  return changedFiles.some((file) => matchesPrefix(file, MOBILE_WEB_APP_PREFIXES))
-}
 
 const CROSS_VERSION_WIRE_PREFIXES = [
   'tests/e2e/cross-version-wire/',
@@ -353,15 +304,6 @@ const NATIVE_CACHE_PREFIXES = [
   'native/windows-security/'
 ]
 
-const DESKTOP_IRRELEVANT_PREFIXES = [
-  'mobile/',
-  'cloud/',
-  '.github/workflows/cloud-',
-  '.github/workflows/mobile.yml',
-  '.github/workflows/mobile-ios-release.yml',
-  '.github/workflows/mobile-android-release.yml'
-]
-
 const STATIC_ANALYSIS_AUDIT_SCRIPTS = [
   'lint:js-plugins',
   'audit:code-quality:native',
@@ -388,7 +330,7 @@ function oxlintScanRoots(command) {
   return roots
 }
 
-// Derive lint trees from command argv: mobile is otherwise desktop-irrelevant, and duplicate scope lists let #20702 bypass audits.
+// Derive lint trees from command argv; duplicate scope lists let #20702 bypass audits.
 function readStaticAnalysisScanRoots() {
   const manifest = join(import.meta.dirname, '../../../../package.json')
   const { scripts = {} } = JSON.parse(readFileSync(manifest, 'utf8'))
@@ -437,12 +379,7 @@ export function shouldRunPrChecks(changedFiles) {
   if (changedFiles.length === 0) {
     return true
   }
-  return changedFiles.some((file) => !isDocsOnlyPath(file) && !isDesktopIrrelevantPath(file))
-}
-
-export function needsMobileDependencies(changedFiles) {
-  // Changed-mobile type-aware lint needs mobile/node_modules: root-only install resolves mobile types as error and produces phantom findings.
-  return changedFiles.length === 0 || changedFiles.some((file) => file.startsWith('mobile/'))
+  return changedFiles.some((file) => !isDocsOnlyPath(file))
 }
 
 export const DAEMON_INIT_TEST_SUPPORT =
@@ -462,10 +399,7 @@ export function isDaemonInitTestSupportChange(files, modifiedOnly = false) {
   )
 }
 
-export function classifyPrJobs(
-  changedFiles,
-  { allowMobileCiTools = false, allowDaemonInitTestSupport = false } = {}
-) {
+export function classifyPrJobs(changedFiles, { allowDaemonInitTestSupport = false } = {}) {
   const emptyDiff = changedFiles.length === 0
   const shouldRun = shouldRunPrChecks(changedFiles)
   const forceAll = emptyDiff || changedFiles.some(isGlobalForcePath)
@@ -483,21 +417,12 @@ export function classifyPrJobs(
           ))
     ])
   )
-  // Keep repo-wide audits outside desktop should_run: mobile-only diffs still need lint; formatted/docs paths also require whole-tree formatting.
+  // Keep repo-wide audits outside desktop should_run: formatted/docs paths also require whole-tree formatting.
   jobs.static_analysis =
     jobs.static_analysis ||
     changedFiles.some((file) => isStaticAnalysisScannedPath(file) || isFormatCheckedPath(file))
-  // Page-bundle gate must bypass desktop should_run or mobile-only diffs skip the very build they change.
-  jobs.mobile_web_app = jobs.mobile_web_app || changesMobileWebApp(changedFiles)
-  const mobileCiTools =
-    allowMobileCiTools &&
-    !emptyDiff &&
-    jobs.test &&
-    (jobs.static_analysis || jobs.typecheck) &&
-    changedFiles.every((file) => MOBILE_CI_TOOL_FILES.has(file))
   return {
     should_run: shouldRun,
-    mobile_ci_tools: mobileCiTools,
     windows_process_probe: shouldRun && (forceAll || changedFiles.some(isWindowsProcessProbePath)),
     // Relay contracts exercise host/cloud code; any input outside the renderer keeps them.
     relay_integration:
@@ -505,8 +430,6 @@ export function classifyPrJobs(
       (forceAll ||
         changedFiles.some((file) => !file.startsWith('src/renderer/') && !isDocsOnlyPath(file))),
     native_cache_changed: shouldRun && (emptyDiff || changedFiles.some(isNativeCacheInputPath)),
-    mobile_dependencies:
-      (shouldRun || jobs.static_analysis) && needsMobileDependencies(changedFiles),
     ...jobs
   }
 }
@@ -529,9 +452,6 @@ function jobDetector(job) {
       return (files) => files.some((file) => matchesPrefix(file, SHELL_PREFIXES))
     case 'orcad_browser':
       return (files) => files.some((file) => matchesPrefix(file, ORCAD_BROWSER_PREFIXES))
-    // Handle inside map too: default detector otherwise runs this job on every desktop-relevant PR.
-    case 'mobile_web_app':
-      return changesMobileWebApp
     case 'cross-version-wire':
       return (files) => files.some((file) => matchesPrefix(file, CROSS_VERSION_WIRE_PREFIXES))
     case 'managed_hook_node18':
@@ -590,10 +510,6 @@ function isTestFile(file) {
   )
 }
 
-function isDesktopIrrelevantPath(file) {
-  return matchesPrefix(file, DESKTOP_IRRELEVANT_PREFIXES)
-}
-
 function isStaticAnalysisScannedPath(file) {
   // Fail closed: roots we failed to parse must keep the gate, not silently drop it.
   return (
@@ -631,7 +547,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     input += chunk
   }
   const classification = classifyPrJobs(input.split(/\r?\n/).filter(Boolean), {
-    allowMobileCiTools: process.argv.includes('--mobile-ci-tools'),
     allowDaemonInitTestSupport: process.argv.includes('--daemon-init-test-support')
   })
   for (const [name, value] of Object.entries(classification)) {

@@ -17,9 +17,7 @@ const WSL_EXE_PROGRAM = /['"`]wsl\.exe['"`]|resolveWslExecutablePath\(|buildWslE
 const WSL_ALLOWLIST_CHECK = 'assertWslDistroAllowed('
 const SOURCE_PATTERNS = [
   '*.{ts,tsx,mts,cts,js,mjs,cjs}',
-  ...['src', 'config', 'tests', 'mobile/src', 'mobile/app', 'mobile/scripts'].map(
-    (directory) => `${directory}/**/*.{ts,tsx,mts,cts,js,mjs,cjs}`
-  )
+  ...['src', 'config', 'tests'].map((directory) => `${directory}/**/*.{ts,tsx,mts,cts,js,mjs,cjs}`)
 ]
 
 function normalized(file) {

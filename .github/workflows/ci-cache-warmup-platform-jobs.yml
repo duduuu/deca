@@ -223,48 +223,6 @@ jobs:
           (async () => { await getIconsToolsetPath(); await linux.getFpmPath();
           await linux.getAppImageTools(toolsets.appimage, Arch.x64) })().catch((error) => { console.error(error); process.exit(1) })"
 
-  # Mobile verify restores this bundle on pull requests without saving.
-  warm-mobile-bundle:
-    if: github.event_name != 'pull_request'
-    concurrency:
-      group: ci-cache-warmup-mobile-bundle-${{ github.event.pull_request.number || github.ref }}
-      cancel-in-progress: ${{ github.event_name != 'schedule' }}
-    runs-on: ubuntu-24.04-arm
-    timeout-minutes: 15
-    env:
-      BUNDLE_FROZEN: 'true'
-    defaults:
-      run:
-        working-directory: mobile
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          working-directory: mobile
-      - name: Resolve fastlane bundle cache
-        id: ruby-bundle
-        env:
-          GEMFILE_HASH: ${{ hashFiles('mobile/Gemfile', 'mobile/Gemfile.lock') }}
-        run: |
-          . /etc/os-release
-          printf 'key=mobile-bundle-v1-%s-%s-%s-%s\n' "$ID-$VERSION_ID" "$(ruby -e 'print RUBY_PLATFORM')" "$(ruby -e 'print RbConfig::CONFIG["ruby_version"]')" "$GEMFILE_HASH" >> "$GITHUB_OUTPUT"
-      - name: Seed fastlane bundle
-        id: ruby-bundle-cache
-        uses: actions/cache@v5
-        with:
-          path: mobile/vendor/bundle
-          key: ${{ steps.ruby-bundle.outputs.key }}
-          lookup-only: true
-      - name: Install fastlane
-        if: steps.ruby-bundle-cache.outputs.cache-hit != 'true'
-        run: |
-          bundle config set --local path "$PWD/vendor/bundle"
-          bundle config set --local deployment true
-          bundle install --jobs 4
-
   warm-linux-package-fixtures:
     if: github.event_name != 'pull_request'
     concurrency:

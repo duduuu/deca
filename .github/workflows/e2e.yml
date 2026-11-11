@@ -200,10 +200,6 @@ jobs:
             echo 'available=false' >> "$GITHUB_OUTPUT"
           fi
 
-      # The orcad builds downstream refuse to run without the page; older refs predate the action.
-      - uses: ./.github/actions/build-mobile-web-bundle
-        if: hashFiles('.github/actions/build-mobile-web-bundle/action.yml') != ''
-
       # Foreground: a background JavaScript action reads the event payload while later steps rewrite it.
       - name: Upload E2E build output
         uses: actions/upload-artifact@v7
@@ -744,7 +740,6 @@ jobs:
       - uses: ./.github/actions/prepare-windows-cli-launcher
         with:
           arches: x64
-      - uses: ./.github/actions/build-mobile-web-bundle
       - name: Build the e2e app, CLI, orcad slot and template
         shell: bash
         env:

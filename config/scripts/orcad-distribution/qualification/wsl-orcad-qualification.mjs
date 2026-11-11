@@ -51,7 +51,6 @@ export function wslOrcadQualification(changed, modified, event = {}) {
     if (
       /\.test\.tsx?$/.test(file) ||
       file.startsWith('docs/') ||
-      file.startsWith('mobile/') ||
       file.startsWith('src/renderer/') ||
       ['README.md', 'AGENTS.md', 'CLAUDE.md'].includes(file)
     ) {

@@ -63,8 +63,6 @@ on:
       - 'config/scripts/native-build/windows/build-windows-agent-hook.mjs'
       - 'config/scripts/native-build/windows/windows-rust-executable-build.mjs'
       - 'resources/build/icon.ico'
-      - 'mobile/Gemfile'
-      - 'mobile/Gemfile.lock'
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
     paths:

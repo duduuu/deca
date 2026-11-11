@@ -29,7 +29,7 @@ const REACT_DOCTOR_DISABLE_PATTERN =
 const EXPLICIT_DISABLE_RULE_PATTERN = /(?:-disable(?:-next-line|-line)?\s+|^)[\w-]+(?:\/[\w-]+)?/
 export const OXLINT_SCANS = [
   {
-    // Leave config discovery enabled so mobile’s nested config can disable root rules.
+    // Leave config discovery enabled so nested configs can disable root rules.
     label: 'code quality',
     args: ['--report-unused-disable-directives-severity', 'warn']
   },
@@ -43,7 +43,7 @@ export const OXLINT_SCANS = [
     args: ['--config', 'config/oxlint-code-quality-casting.json']
   },
   {
-    // CI native audit runs before mobile install and cannot see its cycles; keep local changed gate aligned.
+    // Keep the local changed gate aligned with the CI native audit.
     label: 'focused plugins',
     args: [
       '--config',
@@ -86,12 +86,6 @@ const SUPPRESSED_REACT_DOCTOR_DIAGNOSTICS = new Map([
       // The open-cycle reset effect predates this entry; it surfaced when its body changed.
       'src/renderer/src/components/right-sidebar/source-control/ai/useSourceControlAgentActionDialog.ts'
     ])
-  ],
-  [
-    // Existing timer effects clean variable handle sets through addTimer; rule expects one named handle and falsely reports both.
-    // Exemption is per-file, covering those two effects; this file has no other timer effects.
-    'react-doctor(effect-needs-cleanup)',
-    new Set(['mobile/src/session/use-mobile-session-startup.ts'])
   ]
 ])
 

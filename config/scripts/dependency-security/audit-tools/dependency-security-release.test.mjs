@@ -14,22 +14,16 @@ it('extracts release data while excluding executable package and Cargo configura
   const data = [
     'pnpm-lock.yaml',
     'pnpm-workspace.yaml',
-    'mobile/pnpm-lock.yaml',
-    'mobile/pnpm-workspace.yaml',
     'native/example/Cargo.toml',
     'native/example/Cargo.lock',
-    'config/patches/example.patch',
-    'mobile/patches/example.patch'
+    'config/patches/example.patch'
   ]
   const configuration = [
     'package.json',
-    'mobile/package.json',
     '.gitattributes',
     '.npmrc',
     '.pnpmfile.cjs',
     'config/pnpmfile.cjs',
-    'mobile/.npmrc',
-    'mobile/.pnpmfile.cjs',
     '.cargo/config.toml',
     'native/.cargo/config.toml',
     'native/example/.cargo/config.toml',

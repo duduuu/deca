@@ -87,12 +87,7 @@ function stageSlot(templateDir, target, slotDir) {
   if (!targetManifest) {
     throw new Error(`${templateDir} has no ${target} slot`)
   }
-  const mobileWebAssets = Object.keys(manifest.commonSha256).filter((name) =>
-    name.startsWith('out/mobile-web/')
-  )
-  const common = orcadTemplateCommonFilenames([])
-  const commonFiles = [...new Set([...common, ...mobileWebAssets])]
-  for (const filename of commonFiles) {
+  for (const filename of orcadTemplateCommonFilenames()) {
     const expected = manifest.commonSha256[filename]
     if (!expected) {
       throw new Error(`Template manifest omits ${filename}`)

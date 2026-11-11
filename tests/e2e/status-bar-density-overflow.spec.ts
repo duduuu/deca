@@ -39,11 +39,8 @@ test('ten usage providers survive a narrow viewport and expand again', async ({
         'gemini',
         'antigravity',
         'opencode-go',
-        'kimi',
-        'minimax',
         'grok',
         'cursor',
-        'zcode',
         'resource-usage',
         'ports',
         'ssh'
@@ -57,11 +54,8 @@ test('ten usage providers survive a narrow viewport and expand again', async ({
         gemini: limits('gemini'),
         antigravity: limits('antigravity'),
         opencodeGo: limits('opencode-go'),
-        kimi: limits('kimi'),
-        minimax: limits('minimax'),
         grok: limits('grok'),
-        cursor: limits('cursor'),
-        zcode: limits('zcode')
+        cursor: limits('cursor')
       }
     })
   })

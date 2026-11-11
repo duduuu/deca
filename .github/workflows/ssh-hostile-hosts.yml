@@ -210,9 +210,6 @@ jobs:
         run: |
           node config/scripts/orcad-distribution/prebuilds/merge-orcad-prebuilds.mjs "$RUNNER_TEMP"/hostile-host-prebuild-lanes/*
           pnpm build:orcad-prebuilds --require-slots linux-x64-glibc,linux-x64-musl,linux-x64-glibc217
-      # Only the x64 Linux slots exist here, so the template is built for those two, and
-      # glibc217 is staged beside its base.
-      - uses: ./.github/actions/build-mobile-web-bundle
       - name: Build the orcad template
         run: node config/scripts/orcad-distribution/template/build-orcad-template.mjs --targets linux-x64-glibc,linux-x64-musl
       - name: Run the hostile-host matrix
@@ -247,7 +244,6 @@ jobs:
       - uses: ./.github/actions/install-node-dependencies
         with:
           native-runtime: node
-      - uses: ./.github/actions/build-mobile-web-bundle
       - name: Build and smoke this runner's slot and the orcad template
         run: |
           pnpm build:orcad-prebuilds

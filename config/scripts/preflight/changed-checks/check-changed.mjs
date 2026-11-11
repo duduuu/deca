@@ -23,7 +23,7 @@ const MAX_PATH_ARGUMENT_CHARS = 24_000
 // Concurrent agents each run this gate; automatic Vitest sizing per run overloaded shared hosts.
 const DEFAULT_VITEST_MAX_WORKERS = '2'
 const LINTABLE = /\.[cm]?[jt]sx?$/
-const ANTI_SLOP_ROOTS = ['src/', 'config/', 'tests/', 'mobile/']
+const ANTI_SLOP_ROOTS = ['src/', 'config/', 'tests/']
 
 function parseArgs(argv) {
   const options = {

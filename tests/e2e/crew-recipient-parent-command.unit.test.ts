@@ -106,7 +106,7 @@ it('executes the actual published Managed by address after its genuine foreign p
       status: 'running',
       exitCode: null
     }))
-    vi.spyOn(f.runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('orca')
+    vi.spyOn(f.runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('deca')
     const prompt = vi
       .spyOn(f.runtime, 'sendTerminalAgentPrompt')
       .mockImplementation(async (handle) => ({

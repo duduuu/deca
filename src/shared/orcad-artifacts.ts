@@ -174,47 +174,6 @@ export const ORCAD_NATIVE_CHAT_VISUALS_ARTIFACTS = [
   'native-chat-visuals/skills/orca-chat-visuals/SKILL.md'
 ] as const
 
-/** Phones load this page via mobileWeb.bundle.*; its content-addressed assets are listed only in the manifest. */
-export const ORCAD_MOBILE_WEB_DIR = 'out/mobile-web'
-export const ORCAD_MOBILE_WEB_MANIFEST = `${ORCAD_MOBILE_WEB_DIR}/manifest.json`
-
-// Mirrors manifest-contract ASSET_PATH_PATTERN; cannot import under type stripping.
-const MOBILE_WEB_ASSET_PATH = /^[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)*$/
-
-/** A bundle-relative asset path that stays inside the page directory. */
-export function isOrcadMobileWebAssetPath(path: string): boolean {
-  return (
-    MOBILE_WEB_ASSET_PATH.test(path) &&
-    !path.split('/').some((segment) => segment === '.' || segment === '..')
-  )
-}
-
-/** Slot paths of every asset `manifestText` lists, their brotli copies and the host-only catalogs, sorted; throws rather than ship a partial page. */
-export function orcadMobileWebAssetFilenames(manifestText: string): string[] {
-  const manifest: unknown = JSON.parse(manifestText)
-  const assets =
-    manifest && typeof manifest === 'object' && 'assets' in manifest ? manifest.assets : undefined
-  if (!Array.isArray(assets) || assets.length === 0) {
-    throw new Error(`${ORCAD_MOBILE_WEB_MANIFEST} lists no assets`)
-  }
-  const catalogs =
-    manifest && typeof manifest === 'object' && 'catalogs' in manifest ? manifest.catalogs : []
-  if (!Array.isArray(catalogs)) {
-    throw new Error(`${ORCAD_MOBILE_WEB_MANIFEST} catalogs is not a list`)
-  }
-  const filenames = [...assets, ...catalogs].flatMap((asset: unknown) => {
-    const entry = asset && typeof asset === 'object' ? asset : {}
-    const path = 'path' in entry ? entry.path : undefined
-    if (typeof path !== 'string' || !isOrcadMobileWebAssetPath(path)) {
-      throw new Error(`${ORCAD_MOBILE_WEB_MANIFEST} names an unsafe asset path: ${String(path)}`)
-    }
-    const slotPath = `${ORCAD_MOBILE_WEB_DIR}/${path}`
-    // The asset's brotli copy, served to phones that inflate it; mirrors mobileWebBundleBrotliPath.
-    return 'brotliByteLength' in entry ? [slotPath, `${slotPath}.br`] : [slotPath]
-  })
-  return filenames.sort(compareCodeUnits)
-}
-
 /** Code-unit order: page asset lists feed the install hash, so they must not depend on locale. */
 export function compareCodeUnits(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0
@@ -265,9 +224,7 @@ export const ORCAD_ARTIFACTS: readonly OrcadArtifact[] = [
   { filename: ORCAD_LINEAR_SDK_ENTRY },
   ...ORCAD_NODE_PTY_JS_ARTIFACTS.map((filename) => ({ filename })),
   ...ORCAD_RIPGREP_LICENSE_ARTIFACTS.map((filename) => ({ filename })),
-  ...ORCAD_NATIVE_CHAT_VISUALS_ARTIFACTS.map((filename) => ({ filename })),
-  // Missing page suppresses mobileWeb.bundle.v1, leaving paired phones without a page.
-  { filename: ORCAD_MOBILE_WEB_MANIFEST }
+  ...ORCAD_NATIVE_CHAT_VISUALS_ARTIFACTS.map((filename) => ({ filename }))
 ]
 
 /** Written after the artifacts, so it is never an input to its own hash. */
@@ -278,11 +235,8 @@ export const ORCAD_TEMPLATE_TARGETS_DIR = 'targets'
 /** Written last by the installer; its absence means a torn install. */
 export const ORCAD_INSTALL_COMPLETE_FILENAME = '.install-complete'
 
-/** Slot files in hash order for <os>-<arch>[-<libc>]; mobileWebAssets comes from the slot’s own page manifest. */
-export function orcadArtifactFilenames(
-  target: string,
-  mobileWebAssets: readonly string[]
-): string[] {
+/** Slot files in hash order for <os>-<arch>[-<libc>]. */
+export function orcadArtifactFilenames(target: string): string[] {
   const filenames = ORCAD_ARTIFACTS.filter((artifact) => !artifact.optional).map(
     (artifact) => artifact.filename
   )
@@ -294,25 +248,22 @@ export function orcadArtifactFilenames(
       ORCAD_WINDOWS_CLI_LAUNCHER_FILENAME
     )
   }
-  filenames.push(...mobileWebAssets)
   return filenames
 }
 
 /** Files shared by every template target; the rest live under `targets/<target>/`. */
-export function orcadTemplateCommonFilenames(mobileWebAssets: readonly string[]): string[] {
-  const filenames = ORCAD_ARTIFACTS.filter(
+export function orcadTemplateCommonFilenames(): string[] {
+  return ORCAD_ARTIFACTS.filter(
     (artifact) =>
       !artifact.optional &&
       artifact.filename !== ORCAD_SERVER_TARGET_FILENAME &&
       artifact.filename !== ORCAD_NODE_RUNTIME_MARKER_FILENAME &&
       artifact.filename !== ORCAD_PARCEL_WATCHER_NATIVE
   ).map((artifact) => artifact.filename)
-  filenames.push(...mobileWebAssets)
-  return filenames
 }
 
 /** Files stored under the template's `targets/<target>/`, at their slot-relative paths. */
 export function orcadTemplateTargetFilenames(target: string): string[] {
-  const common = new Set(orcadTemplateCommonFilenames([]))
-  return orcadArtifactFilenames(target, []).filter((filename) => !common.has(filename))
+  const common = new Set(orcadTemplateCommonFilenames())
+  return orcadArtifactFilenames(target).filter((filename) => !common.has(filename))
 }

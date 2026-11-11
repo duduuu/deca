@@ -49,8 +49,6 @@ jobs:
         with:
           native-runtime: node
 
-      - uses: ./.github/actions/install-mobile-dependencies
-
       - uses: ./.github/actions/prepare-windows-agent-hook
 
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
@@ -77,7 +75,6 @@ jobs:
       - uses: ./.github/actions/prepare-windows-cli-launcher
         with:
           arches: x64
-      - uses: ./.github/actions/build-mobile-web-bundle
       - name: Build the win32-x64 orcad template
         shell: bash
         env:
@@ -92,7 +89,7 @@ jobs:
         run: |
           mkdir -p artifacts
           node tests/tools/win-update-e2e/serve-switch.mjs \
-            --installer dist/orca-windows-setup.exe \
+            --installer dist/deca-windows-setup.exe \
             --template out/orcad-template 2>&1 | tee artifacts/serve-switch.log
           exit "${PIPESTATUS[0]}"
 

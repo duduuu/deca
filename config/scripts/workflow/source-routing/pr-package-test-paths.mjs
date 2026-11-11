@@ -43,7 +43,6 @@ const SHARED_PACKAGE_PREFIXES = [
   'config/scripts/native-build/macos/build-',
   'config/scripts/desktop-distribution/linux/build-',
   'config/scripts/desktop-distribution/macos/build-',
-  'config/scripts/build/mobile-web-app/build-',
   'config/scripts/native-build/composition/build-',
   'config/scripts/orcad-distribution/prebuilds/build-',
   'config/scripts/orcad-distribution/template/build-',

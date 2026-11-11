@@ -27,7 +27,7 @@ const NATIVE_IME_HARNESS =
   /^(?:config\/scripts\/(?:runtime-verification\/terminal-e2e\/)?(?:diagnostics\/wayland\/)?focus-nested-wayland-terminal\.sh$|config\/scripts\/(?:runtime-verification\/terminal-e2e\/)?(?:diagnostics\/wayland\/)?(?:run-terminal-ibus-hangul-e2e|terminal-ime-engagement-receipt)\.mjs$|tests\/e2e\/terminal-ime-(?:boundary-probe|byte-reader|engagement-receipt)\.ts$|tests\/e2e\/terminal-(?:ibus-hangul|hangul-terminating-digit|macos-2set-korean)-native\.spec\.ts$)/
 
 // This spec requires ORCA_SIDEBAR_INPUTS=main; ordinary PR builds can only skip it.
-export const MANUAL_ONLY_E2E_SPECS = ['tests/e2e/ssh-orcad-phone-feed-list.spec.ts']
+export const MANUAL_ONLY_E2E_SPECS = []
 
 // Shared fixtures and workflow changes must exercise every managed-SSH consumer.
 const MANAGED_SSH_HARNESS =
@@ -371,7 +371,6 @@ export const PR_E2E_SOURCE_ROUTES = [
     // Why: hand-kept routes missed #30130 and #30120; scoped to managed-host code to bound lane cost.
     id: 'ssh.orcad-remote-sources',
     specs: [
-      'tests/e2e/ssh-orcad-paired-phone-projects.spec.ts',
       'tests/e2e/ssh-orcad-pairing-repair.spec.ts',
       'tests/e2e/ssh-orcad-shared-home-machines.spec.ts',
       'tests/e2e/ssh-orcad-shared-login-migration.spec.ts',

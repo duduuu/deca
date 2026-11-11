@@ -10,7 +10,6 @@ Install Node 24, the pnpm version in `packageManager` in [`package.json`](../pac
 
 ```bash
 pnpm install
-pnpm -C mobile install --frozen-lockfile   # mobile/ has its own lockfile; build and lint need it
 pnpm dev
 ```
 
@@ -37,7 +36,7 @@ Put project-owned types in `.ts` files. `.d.ts` is reserved for ambient shims (e
 
 ## Checks Before Opening a PR
 
-Run the same checks CI runs, after the `mobile/` install above:
+Run the same checks CI runs:
 
 ```bash
 pnpm lint

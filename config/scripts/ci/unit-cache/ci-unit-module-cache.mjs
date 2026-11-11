@@ -55,7 +55,7 @@ export async function moduleCachePolicyHash(root = ROOT) {
     // tsconfig and package.json (type/imports) steer transforms but are not in Vitest's per-module key.
     ...globSync(['config/patches/**', '**/tsconfig*.json', '**/package.json'], {
       cwd: root,
-      exclude: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/out/**', 'mobile/vendor/**']
+      exclude: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/out/**']
     }).filter((file) => statSync(join(root, file)).isFile()),
     'package.json',
     'pnpm-lock.yaml',

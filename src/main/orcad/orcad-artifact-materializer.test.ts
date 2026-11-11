@@ -16,7 +16,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 import { pinnedNodeRuntimeAsset, type NodeRuntimeTarget } from '../../shared/node-runtime-pin'
 import {
-  ORCAD_MOBILE_WEB_MANIFEST,
   ORCAD_NODE_RUNTIME_MARKER_FILENAME,
   ORCAD_SERVER_TARGET_FILENAME,
   ORCAD_TEMPLATE_MANIFEST_FILENAME,
@@ -39,7 +38,6 @@ import {
 } from './orcad-artifact-materializer'
 
 const TARGET = 'linux-x64-glibc' as const
-const PAGE_ASSETS = ['out/mobile-web/index.html']
 const fileReads = vi.hoisted(() => ({ count: 0 }))
 
 vi.mock('node:fs', async (importOriginal) => {
@@ -92,9 +90,6 @@ function targetContents(target: NodeRuntimeTarget, filename: string): string {
 }
 
 function commonContents(filename: string): string {
-  if (filename === ORCAD_MOBILE_WEB_MANIFEST) {
-    return JSON.stringify({ assets: [{ path: 'index.html' }] })
-  }
   return filename === 'orcad.js' ? 'orcad-entry' : filename
 }
 
@@ -107,7 +102,7 @@ function createTemplate(target: NodeRuntimeTarget = TARGET): {
   const templateDir = join(root, 'template')
   const cacheRoot = join(root, 'cache')
   const commonSha256: Record<string, string> = {}
-  for (const filename of orcadTemplateCommonFilenames(PAGE_ASSETS)) {
+  for (const filename of orcadTemplateCommonFilenames()) {
     write(join(templateDir, filename), commonContents(filename))
     commonSha256[filename] = sha256(join(templateDir, filename))
   }
@@ -179,18 +174,6 @@ describe('assembleOrcadArtifact', () => {
 
     await expect(assembleOrcadArtifact({ ...fixture, target: TARGET })).rejects.toThrow(
       'node_modules/node-pty/build/Release/pty.node checksum mismatch'
-    )
-  })
-
-  it('refuses a template page asset name that escapes the slot', async () => {
-    const fixture = createTemplate()
-    rewriteManifest(fixture.templateDir, (manifest) => {
-      manifest.commonSha256['out/mobile-web/../../escape.js'] = sha256(
-        join(fixture.templateDir, 'out/mobile-web/index.html')
-      )
-    })
-    await expect(assembleOrcadArtifact({ ...fixture, target: TARGET })).rejects.toThrow(
-      'unsafe page asset: out/mobile-web/../../escape.js'
     )
   })
 

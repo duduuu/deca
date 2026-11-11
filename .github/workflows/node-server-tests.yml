@@ -137,7 +137,7 @@ jobs:
           fi
 
   persistence:
-    needs: [changes, mobile_web_bundle]
+    needs: changes
     permissions:
       contents: read
     concurrency:
@@ -147,7 +147,6 @@ jobs:
     # Drafts re-trigger at readiness; inherited caller events must not depend on PR fields.
     if: >-
       ${{ !cancelled() && needs.changes.outputs.should_run != 'false' &&
-      (needs.changes.outputs.qualification == 'false' || needs.mobile_web_bundle.result == 'success') &&
       (github.event_name != 'pull_request' || github.event.pull_request.draft != true) }}
     strategy:
       fail-fast: false
@@ -226,14 +225,6 @@ jobs:
         if: runner.os == 'Windows'
         with:
           arches: ${{ (inputs.build_template && matrix.os == 'windows-2022') && 'x64 arm64' || (runner.arch == 'ARM64' && 'arm64' || 'x64') }}
-      - uses: actions/download-artifact@v8
-        if: needs.changes.outputs.qualification != 'false'
-        with:
-          name: orcad-mobile-web-bundle
-          path: out/mobile-web
-      # Narrow test-only runs skip the shared producer but still need a page.
-      - uses: ./.github/actions/build-mobile-web-bundle
-        if: needs.changes.outputs.qualification == 'false'
       - run: pnpm build:orcad
         env:
           ORCA_REUSE_PREPARED_WINDOWS_SECURITY: ${{ runner.os == 'Windows' && steps.dependencies.outcome == 'success' }}
@@ -341,32 +332,8 @@ jobs:
           # A rerun attempt re-uploads under the same name, which v4 otherwise refuses.
           overwrite: true
 
-  # Every qualification lane tests the same platform-independent page.
-  mobile_web_bundle:
-    needs: changes
-    if: >-
-      ${{ !cancelled() && needs.changes.outputs.should_run != 'false' &&
-      needs.changes.outputs.qualification != 'false' &&
-      (github.event_name != 'pull_request' || github.event.pull_request.draft != true) }}
-    runs-on: ${{ inputs.fast_runners && 'blacksmith-8vcpu-ubuntu-2404' || 'ubuntu-latest' }}
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ inputs.ref }}
-          persist-credentials: false
-      - uses: ./.github/actions/install-node-dependencies
-      - uses: ./.github/actions/build-mobile-web-bundle
-      - uses: actions/upload-artifact@v7
-        with:
-          name: orcad-mobile-web-bundle
-          path: out/mobile-web/
-          if-no-files-found: error
-          retention-days: 1
-          overwrite: true
-
   linux_glibc_floor:
-    needs: [changes, mobile_web_bundle]
+    needs: changes
     permissions:
       contents: read
     concurrency:
@@ -377,7 +344,6 @@ jobs:
       ${{ !cancelled() &&
       needs.changes.outputs.should_run != 'false' &&
       needs.changes.outputs.qualification != 'false' &&
-      needs.mobile_web_bundle.result == 'success' &&
       (github.event_name != 'pull_request' || github.event.pull_request.draft != true) }}
     strategy:
       fail-fast: false
@@ -428,10 +394,6 @@ jobs:
           pnpm build:orcad-prebuilds
           pnpm build:orcad-prebuilds --require-slots "$(node "$(if [ -f config/scripts/orcad-distribution/prebuilds/build-orcad-prebuilds.mjs ]; then printf %s config/scripts/orcad-distribution/prebuilds/build-orcad-prebuilds.mjs; else printf %s config/scripts/build-orcad-prebuilds.mjs; fi)" --print-slot)"
           pnpm build:orcad-prebuilds --smoke
-      - uses: actions/download-artifact@v8
-        with:
-          name: orcad-mobile-web-bundle
-          path: out/mobile-web
       - run: pnpm build:orcad
       - run: pnpm test:node-server --artifact
       - name: Keep this runner's glibc 2.28 slot for the desktop template
@@ -502,7 +464,7 @@ jobs:
           overwrite: true
 
   linux_musl:
-    needs: [changes, mobile_web_bundle]
+    needs: changes
     permissions:
       contents: read
     concurrency:
@@ -512,7 +474,6 @@ jobs:
       ${{ !cancelled() &&
       needs.changes.outputs.should_run != 'false' &&
       needs.changes.outputs.qualification != 'false' &&
-      needs.mobile_web_bundle.result == 'success' &&
       (github.event_name != 'pull_request' || github.event.pull_request.draft != true) }}
     strategy:
       fail-fast: false
@@ -536,7 +497,6 @@ jobs:
           VERIFICATION_CACHE_PATH: ${{ steps.pnpm-verification.outputs.path }}
         run: |
           touch "$VERIFICATION_CACHE_PATH"
-          mkdir -p out/mobile-web
           # Multi-arch index digest of the tag; re-resolve it whenever NODE_RUNTIME_PIN moves.
           docker run --rm --init --detach --name orcad-alpine \
             -e ORCA_BACKGROUND_LAUNCH=1 \
@@ -553,10 +513,6 @@ jobs:
           pnpm build:orcad-prebuilds --require-slots "$(node "$(if [ -f config/scripts/orcad-distribution/prebuilds/build-orcad-prebuilds.mjs ]; then printf %s config/scripts/orcad-distribution/prebuilds/build-orcad-prebuilds.mjs; else printf %s config/scripts/build-orcad-prebuilds.mjs; fi)" --print-slot)"
           pnpm build:orcad-prebuilds --smoke
           NODE_SERVER_PREPARATION
-      - uses: actions/download-artifact@v8
-        with:
-          name: orcad-mobile-web-bundle
-          path: out/mobile-web
       - name: Verify native Alpine artifact and persistence
         run: |
           docker exec -i orcad-alpine sh -s <<'NODE_SERVER_QUALIFICATION'
@@ -599,7 +555,6 @@ jobs:
             const deadline = Date.now() + 25 * 60_000
             const expected = {
               persistence: 6,
-              mobile_web_bundle: 1,
               linux_glibc_floor: 2,
               linux_glibc217_compat: 1,
               linux_musl: 2
@@ -658,11 +613,6 @@ jobs:
           node "$(if [ -f config/scripts/orcad-distribution/prebuilds/merge-orcad-prebuilds.mjs ]; then printf %s config/scripts/orcad-distribution/prebuilds/merge-orcad-prebuilds.mjs; else printf %s config/scripts/merge-orcad-prebuilds.mjs; fi)" "$RUNNER_TEMP"/orcad-prebuild-lanes/*
           pnpm build:orcad-prebuilds --require-slots
           pnpm build:orcad-prebuilds --require-slots linux-x64-glibc217
-      # The page the qualification lanes tested, not a rebuild.
-      - uses: actions/download-artifact@v8
-        with:
-          name: orcad-mobile-web-bundle
-          path: out/mobile-web
       - run: pnpm build:orcad-template
       - name: Report the template size
         shell: bash

@@ -9,7 +9,6 @@ import type { AgentHookEventPayload } from '../../../shared/agent-hook-listener/
 import { createTestStore } from '../store/testing/app-store-test-fixture'
 import { makeTab } from '../store/terminals/terminal-tab.test-fixture'
 import { buildRunningAgentChildRowModels } from '../../../shared/running-agent-child-rows'
-import { worktreeAgentChildRows } from '../../../../mobile/src/worktree/worktree-agent-child-rows'
 import type { ParsedAgentStatusPayload } from '../../../shared/agent-status/contracts/agent-status-types'
 import { normalizeHookPayload } from '../../../shared/agent-hook-listener/normalization/normalize-hook-payload'
 import { makePaneKey } from '../../../shared/workspace-layout/stable-pane-id'
@@ -396,28 +395,6 @@ describe('Claude background-turn completion notifications', () => {
           parentObservedAt: after.updatedAt,
           hostClockOffsetMs: 0
         })
-      ).toEqual([])
-      expect(
-        worktreeAgentChildRows(
-          {
-            paneKey: PANE_KEY,
-            parentPaneKey: null,
-            state: after.state,
-            agentType: 'claude',
-            prompt: after.prompt,
-            taskTitle: null,
-            displayName: null,
-            lastAssistantMessage: after.lastAssistantMessage ?? null,
-            toolName: null,
-            toolInput: null,
-            interrupted: false,
-            stateStartedAt: after.stateStartedAt,
-            updatedAt: after.updatedAt,
-            subagents: after.subagents,
-            subagentObservation: 'live'
-          },
-          true
-        )
       ).toEqual([])
       store.getState().captureAllSleepingAgentSessions('quit')
       expect(store.getState().sleepingAgentSessionsByPaneKey[PANE_KEY]).toMatchObject({

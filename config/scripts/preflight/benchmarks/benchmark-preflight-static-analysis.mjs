@@ -132,7 +132,6 @@ const lintArgs = (arm) => [
   'src',
   'config',
   'tests',
-  'mobile',
   '--deny-warnings',
   '--format=json'
 ]

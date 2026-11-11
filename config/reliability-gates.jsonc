@@ -460,7 +460,6 @@
       "oracle": "Audit3425 composes root-adopted3420/independent3421: intentionally removes83 authored/112 potential expanded registrations across13 semantic sources, deleting7 whole conventional suites and1 registering helper;7 authored/10 potential expanded cases remain. No equivalent replacement or fresh execution is claimed. The stale-leaf-liveness suite and its exact command/testFiles selector are removed; its fake terminal refusal/liveness alarms are intentionally lost. Audit3403 composes root-adopted3393/3394,3400/3401 and3398/3399: intentionally retires167 authored registrations/196 potential expanded cases across93 whole suites without equivalent replacement or fresh execution. Retained65 registrations/79 potential cases include one conditional missing-input failure sentinel; potential counts are not executions. Historical notes and complete dated receipts retain their exact original scopes. The entire mocked mobile failure-banner suite and its sole send/previous-banner/new-notice ordering alarm are retired. Its filenames are removed from active selectors. Desktop prompt roots and the independent unchanged terminal wire-codec receipt remain at their stated scopes; no mobile send/recovery proof is claimed.  Audit2251 narrows agent-paste-draft.test.ts from 25 authored cases (26 literal cases) to four. Retained cases cover buffered readiness on PTY binding, separate spawn/composer lifetimes, real per-PTY paste/Enter serialization against a competing paste, and frame closure/no Enter after a rejected content chunk. Intentionally lost alarms include agent marker and fallback examples, direct-write failure/rejection, missing-PTY and Codex process-only timeout paths, exact nonprimary-PTY routing, full large-body chunk reconstruction, escaping/CRLF samples, internal laziness/yield work assertions, oversized preflight refusal, and exact configured delay/budget counts. No equivalent replacement, new execution, real PTY/provider delivery, rendered/native UI, deployment, measured performance or cross-platform result is claimed. Historical prior account (preserved verbatim): Mobile owner-layout policy retires whole tests and mixed registrations without equivalent replacement coverage. Retained callbacks and reduced selectors need fresh execution at their stated scope; prior measurements do not validate them. Historical oracle: Audit2003: Remove agent-prompt absence routing, throwing/live/missing-probe and cached-probe-count examples from the stale-leaf source. Controller-proven absence, unknown-liveness admission, obsolete-absence clearing and same-ID respawn fences remain at a supplied provider/row seam. Preserve the independent wire-codec receipt only in its original scope. Changed-source prior results do not validate reduced-source bytes. No fresh execution, equivalent replacement, red/green, measured budget, soak, physical provider/PTY, rendered, live remote/mobile or cross-platform result is claimed. Historical prior account (preserved verbatim): Audit1991: Remove partial-runtime terminal-send guard/status/floor/query projection and argument-inventory samples. Retained RPC viewport admission, authenticated-client spoof refusal, text admission and stale-binding fences remain bounded mock-boundary behavior. The unchanged wire-codec receipt remains valid only for its original command; it does not validate this reduced RPC selector. Changed-source prior results do not validate reduced-source bytes. No fresh execution, equivalent replacement, red/green, measured budget, soak, physical provider/PTY, rendered, live remote/mobile or cross-platform result is claimed. Historical prior account (preserved verbatim): Audit1908 removes the complete prompt-presentation hook and literal interactive-protocol mapping suites and narrows the interactive card and prompt-card input suites. Lost alarms include replacement approval A settling after answered B; collapse/expand composer ownership and partial-answer presentation; identical new waits after an unmounted view; collapsed transcript re-reads; answered/dismissed status-backed persistence and retirement; and literal answer-to-PTY byte arrays. The retained stale-PTY acknowledgment, cancellation/answer retry, and answered-approval remount/rebind assertions remain meaningful but are not equivalent replacement coverage. No fresh reduced-selector result, physical provider, rendered/native-focus, mixed-version deployment, soak, or measured-budget validation is claimed. The unchanged wire-codec receipt remains valid only for its exact command. Historical prior account (preserved verbatim): Retained exact unchanged-source receipts remain the only current execution evidence. Reduced selectors have no fresh execution result. Historical pre-audit oracle account for changed sources: Existing exact unchanged-selector receipts remain the only current execution evidence. Changed source selectors have no fresh execution result. Historical prior-source oracle account: Existing exact unchanged-selector receipts remain the only current execution evidence. Changed source selectors have no fresh execution result. Historical prior-source oracle account: Retained unchanged-selector receipts are the only current execution evidence. Reduced-source assertions await validation. Historical prior oracle: The retained unchanged-source receipts are the only current execution evidence; reduced-source assertions await validation. Historical oracle account (not a current claim for changed sources): The retained unchanged-source receipts are the only current execution evidence; reduced-source assertions await validation. Historical oracle account (not a current claim for changed sources): After acknowledged phone replies with stale host status, the exact card disappears and Send is enabled; unknown, refused or unverifiable-settlement replies retain enabled choices, while an older host's accepted reply dismisses like an acknowledged one; a same-occurrence view toggle retains pending acknowledgment and real replacements discard it. A slow 32 KiB SSH answer completes all chunks before Enter; cancellation preserves issued bytes but omits remaining groups. Paired settlement invokes the actual provider and lost callbacks remain unknown; older hosts deliver ordinary messages, launch and selector groups once and their accepted answers dismiss as before. An answered card stays hidden across a view remount; a collapsed card is a strip that frees the composer and expands back; an identical question in a new wait shows again; a composer send caught by a new card keeps its bubble without submitting or clearing the line under it. Audit2450 removes the MobileNativeChatView failure-banner callback-only example whose old banner is supplied unchanged by its props. Retain fatal-read gating and the ordering test that preserves a new delivery notice. The removed false-send/old-banner combination has no equivalent replacement; prior raw receipts and budgets retain their original source scope. No new soak, platform, performance or red/green claim.",
       "commands": [
         "ORCA_BACKGROUND_LAUNCH=1 pnpm test src/renderer/src/components/native-chat/prompts/NativeChatInteractiveCard.test.tsx src/renderer/src/components/native-chat/prompts/NativeChatResolvedView.prompt-card-input.test.tsx src/renderer/src/components/native-chat/surfaces/integration/NativeChatResolvedView.prompt-card-composer.test.tsx src/renderer/src/components/native-chat/conversation/turns/NativeChatResolvedView.turn-status.test.tsx src/renderer/src/runtime/hosted-terminals/inspection/runtime-terminal-inspection.test.ts src/renderer/src/lib/agent-session/messaging/paste/agent-paste-draft.test.ts src/renderer/src/lib/agent-session/messaging/paste/agent-paste-draft-submit-retry.test.ts src/main/ipc/pty/ipc/write-input-user-input.test.ts src/main/ipc/pty/pty-write-ipc-validation.test.ts src/main/runtime/terminal/input/runtime-terminal-writer.test.ts src/main/runtime/rpc/terminal-send.test.ts --maxWorkers=2",
-        "ORCA_BACKGROUND_LAUNCH=1 mobile/node_modules/.bin/vitest run --config mobile/vitest.config.ts mobile/src/session/native-chat/input/mobile-prompt-controller.test.ts --maxWorkers=2",
         "ORCA_BACKGROUND_LAUNCH=1 pnpm test tests/e2e/cross-version-wire/cross-version-terminal-wire.unit.test.ts --maxWorkers=1",
         "ORCA_BACKGROUND_LAUNCH=1 pnpm test src/renderer/src/components/native-chat/prompts/NativeChatInteractiveCard.test.tsx src/renderer/src/components/native-chat/prompts/NativeChatResolvedView.prompt-card-input.test.tsx src/renderer/src/components/native-chat/conversation/turns/NativeChatResolvedView.turn-status.test.tsx src/renderer/src/runtime/hosted-terminals/inspection/runtime-terminal-inspection.test.ts src/renderer/src/lib/agent-session/messaging/paste/agent-paste-draft.test.ts src/renderer/src/lib/agent-session/messaging/paste/agent-paste-draft-submit-retry.test.ts src/main/ipc/pty/ipc/write-input-user-input.test.ts src/main/ipc/pty/pty-write-ipc-validation.test.ts --maxWorkers=2",
         "ORCA_BACKGROUND_LAUNCH=1 mobile/node_modules/.bin/vitest run --config mobile/vitest.config.ts --maxWorkers=2"
@@ -477,7 +476,6 @@
         "src/main/ipc/pty/pty-write-ipc-validation.test.ts",
         "src/main/runtime/terminal/input/runtime-terminal-writer.test.ts",
         "src/main/runtime/rpc/terminal-send.test.ts",
-        "mobile/src/session/native-chat/input/mobile-prompt-controller.test.ts",
         "tests/e2e/cross-version-wire/cross-version-terminal-wire.unit.test.ts"
       ],
       "assertionRefs": [
@@ -489,16 +487,6 @@
           ]
         },
 
-        {
-          "file": "mobile/src/session/native-chat/input/mobile-prompt-controller.test.ts",
-          "assertions": [
-            "retains permission choices on %s",
-
-            "keeps an acknowledged Deny hidden after the chat screen remounts on a lingering status",
-            "settles the terminal answer for Q1 after Q2 arrives without hiding Q2",
-            "keeps structured answer controls after a thrown send"
-          ]
-        },
         {
           "file": "src/renderer/src/components/native-chat/surfaces/integration/NativeChatResolvedView.prompt-card-composer.test.tsx",
           "assertions": [
@@ -2488,7 +2476,7 @@
       "oracle": "Audit3413 composes root-adopted3405/independent3406 and3409/independent3410: intentionally removes337 authored registrations/363potential expanded cases from13sources, retaining31authored/32potential cases and deleting one whole clipboard suite, without equivalent replacement or fresh execution. The runtime-service source intentionally loses14of16cases: ordinary lifecycle/retry/configuration/cleanup projections, unreadable-companion refusal and successful post-create compensation examples are retired. Keep only non-JSON credential refusal before provider launch and failed compensation after post-create persistence failure, with old-readable recovery identity across two local injected faults. This does not prove a subsequent retry or actual remote provider cleanup. Existing unrelated rollback reproduction receipt remains exact; no fresh execution, protection change or equivalent replacement claimed.  Audit 3292 retires the direct-SSH failed-project retention, managed-server failed-project retention and ordinary confirmed managed-VM destruction/no-repo.rm examples from repos-ephemeral-vm-cleanup-retention.test.ts. Host-scoped same-workspace isolation and stale renderer catalog reconciliation remain byte-identical. These three supplied-result alarms are intentionally lost without equivalent replacement. Existing selectors/assertionRefs, unrelated cross-version rollback receipt and archived complete 122-case cleanup receipt remain exact; no fresh broad runtime, provider, platform or mixed-version result is claimed. Audit2056 (sources2054/2055): Intentionally retire these low-value alarms without replacement: src/renderer/src/lib/ephemeral-vm-failed-create-cleanup.test.ts: removes the imported project setup before destroying its VM; retains the VM when setup deletion throws; retains the VM when setup deletion reports no result. Existing unrelated evidenceRuns retain their original scope; unchanged dated receipt objects do not validate changed source bytes or reduced selectors. No fresh gate execution or historical import-closure equivalence is claimed. Exact retired assertionRefs, preserved as historical objects only: {\n          \"file\": \"src/renderer/src/lib/ephemeral-vm-failed-create-cleanup.test.ts\",\n          \"assertions\": [\"failed or unconfirmed project-host rollback prevents provider destroy\"]\n        } Historical prior account (preserved verbatim): Retained exact unchanged-source receipts remain the only current execution evidence. Reduced selectors have no fresh execution result. Historical pre-audit oracle account for changed sources: The retained unchanged-source receipts are the only current execution evidence; reduced-source assertions await validation. Historical oracle account (not a current claim for changed sources): Write one ordinary schema-v1 runtime and one provisioned-root runtime. Require the exact pre-#14352 reader to return both, run the old destroy lifecycle against the projected provisioned record, then require the candidate to retain the cleaned state while restoring schema-v2 and checkout-mode metadata. The same old reader must reject affected-main and fix-reverted bytes. Malformed, oversized, unknown-record, and future-version feature sidecars must leave rollback-compatible records accessible and must not be overwritten during compatible lifecycle mutations. Require destroy to have no implicit deadline, stop a hung destroy through the public desktop action, require cleanup_failed plus a fresh successful retry, prove provider or project-host rollback failure retains every ownership record required to retry, and prove missing recipe context cannot leave an unremovable hidden SSH registration. Supply the source ref's captured commit to create, reject a provisioned checkout on the wrong branch/ref, and reject a resume that changes connection mode or SSH ownership.",
       "commands": [
         "node config/scripts/runtime-verification/ephemeral-store/run-ephemeral-vm-runtime-store-rollback-repro.mjs config/scripts/runtime-verification/ephemeral-store/ephemeral-vm-runtime-store-cross-version.test.ts",
-        "pnpm exec vitest run --config config/vitest.config.ts src/shared/ephemeral-vm-runtime-store.test.ts src/shared/ephemeral-vm-runtime-store-rollback.test.ts src/shared/ephemeral-vm-recipe-process.test.ts src/main/ephemeral-vm/runtime-service.test.ts src/main/ephemeral-vm/recipe-runner.test.ts src/main/ephemeral-vm/runtime-ssh-cleanup.test.ts src/main/ipc/ephemeral-vm-runtime-handler-cleanup.test.ts src/main/ipc/ephemeral-vm-provision-cancel.test.ts src/main/ipc/ephemeral-vm-provisioned-root-ref.test.ts src/main/ipc/ephemeral-vm.test.ts src/renderer/src/store/repos/repos-ephemeral-vm-cleanup-retention.test.ts",
+        "pnpm exec vitest run --config config/vitest.config.ts src/shared/ephemeral-vm-runtime-store.test.ts src/shared/ephemeral-vm-runtime-store-rollback.test.ts src/shared/ephemeral-vm-recipe-process.test.ts src/main/ephemeral-vm/runtime-service.test.ts src/main/ephemeral-vm/recipe-runner.test.ts src/main/ephemeral-vm/runtime-ssh-cleanup.test.ts src/main/ipc/ephemeral-vm-runtime-handler-cleanup.test.ts src/renderer/src/store/repos/repos-ephemeral-vm-cleanup-retention.test.ts",
         "pnpm exec playwright test tests/e2e/ephemeral-vm-cleanup-retry.spec.ts --config tests/playwright.config.ts --project electron-headless --workers=1"
       ],
       "testFiles": [
@@ -2501,9 +2489,6 @@
         "src/main/ephemeral-vm/recipe-runner.test.ts",
         "src/main/ephemeral-vm/runtime-ssh-cleanup.test.ts",
         "src/main/ipc/ephemeral-vm-runtime-handler-cleanup.test.ts",
-        "src/main/ipc/ephemeral-vm-provision-cancel.test.ts",
-        "src/main/ipc/ephemeral-vm-provisioned-root-ref.test.ts",
-        "src/main/ipc/ephemeral-vm.test.ts",
         "src/renderer/src/store/repos/repos-ephemeral-vm-cleanup-retention.test.ts",
         "tests/e2e/ephemeral-vm-cleanup-retry.spec.ts"
       ],
@@ -2540,19 +2525,6 @@
           "assertions": [
             "unrecoverable recipe context releases the hidden SSH registration but preserves failed lifecycle state"
           ]
-        },
-        {
-          "file": "src/main/ipc/ephemeral-vm-provisioned-root-ref.test.ts",
-          "assertions": [
-            "selected source ref commit is captured before provider create",
-            "the create recipe receives both the symbolic ref and its pinned commit",
-            "multi-remote bases pair the selected remote URL with a fetchable branch ref",
-            "an unresolved source ref rejects before provider create"
-          ]
-        },
-        {
-          "file": "src/main/ipc/ephemeral-vm-provision-cancel.test.ts",
-          "assertions": ["cancellation during source-ref resolution aborts before provider create"]
         },
         {
           "file": "tests/e2e/ephemeral-vm-cleanup-retry.spec.ts",
@@ -2995,87 +2967,6 @@
         "The Docker oracle is opt-in because it requires a local image and a reachable non-loopback host address."
       ],
       "demotionRule": "Demote or quarantine if cancellation creates the shared install lock before transfer settlement, a split-SFTP transfer loses identity proof, recovery deletes a replacement/symlink/reparse/foreign stage, fixed-path work exceeds its eight-slot bound, cancellation leaks a local descriptor, or the focused gate flakes without a product or harness bug."
-    },
-    {
-      "id": "mobile-ui.drawer-close-continuity",
-      "title": "Mobile drawers finish closing despite parent rerenders",
-      "maturity": "experimental",
-      "protection": "partial",
-      "owner": "mobile-ui",
-      "layer": "react-native-modal-lifecycle",
-      "surfaces": [
-        "host action sheet",
-        "host rename navigation",
-        "host removal confirmation",
-        "shared mobile bottom drawers"
-      ],
-      "platforms": ["ios", "android", "macos"],
-      "providers": ["provider-independent"],
-      "coveredPlatforms": ["ios", "macos"],
-      "coveredProviders": ["provider-independent"],
-      "coverageNotes": "A deterministic React lifecycle test proves callback churn cannot restart an in-flight drawer close, and an iOS 26.5 simulator run covers Edit Host plus confirmed host removal. Android native-modal behavior remains a live-test gap.",
-      "motivatingLinks": ["https://github.com/stablyai/orca/issues/8791"],
-      "invariant": "Once a bottom drawer begins closing, unrelated parent rerenders must not replace its completion callback or restart the native hide animation. The drawer must unmount once and deliver the latest after-close action exactly once.",
-      "oracle": "Render one drawer, begin closing it, rerender with new parent callbacks before completion, and require every MountedBottomDrawer frame to retain one onHidden identity. Trigger that completion barrier repeatedly, then require the drawer's null render to commit before only the latest after-close callback runs exactly once.",
-      "commands": [
-        "pnpm --dir mobile exec vitest run --root .. mobile/src/components/bottom-drawer/bottom-drawer-close-lifecycle.test.ts",
-        "Manual iOS 26.5 simulator: long-press paired host; open Edit host; return; long-press host; Remove; confirm Remove; assert host disappears"
-      ],
-      "testFiles": ["mobile/src/components/bottom-drawer/bottom-drawer-close-lifecycle.test.ts"],
-      "assertionRefs": [
-        {
-          "file": "mobile/src/components/bottom-drawer/bottom-drawer-close-lifecycle.test.ts",
-          "assertions": ["keeps close stable and delivers the latest action once after unmount"]
-        }
-      ],
-      "evidenceRuns": [
-        {
-          "date": "2026-07-28",
-          "runner": "local",
-          "platform": "macos",
-          "command": "pnpm --dir mobile exec vitest run --root .. mobile/src/components/bottom-drawer-close-lifecycle.test.ts",
-          "currentCommand": "pnpm --dir mobile exec vitest run --root .. mobile/src/components/bottom-drawer/bottom-drawer-close-lifecycle.test.ts",
-          "result": "passed",
-          "durationSeconds": 0.18,
-          "summary": "The focused lifecycle harness passed with stable completion identity, latest-callback delivery, and drawer unmount assertions."
-        },
-        {
-          "date": "2026-07-28",
-          "runner": "manual",
-          "platform": "ios",
-          "command": "Manual iOS 26.5 simulator: long-press paired host; open Edit host; return; long-press host; Remove; confirm Remove; assert host disappears",
-          "result": "passed",
-          "durationSeconds": 37,
-          "summary": "Edit host opened responsively after the drawer closed; returning and confirming Remove deleted the host without freezing."
-        }
-      ],
-      "runtimeBudget": {
-        "p95Seconds": 5,
-        "scope": "focused React lifecycle contract test"
-      },
-      "flakeHistory": {
-        "status": "unknown",
-        "evidence": "One deterministic local contract run and one iOS simulator flow exist; CI and soak history are not yet available."
-      },
-      "redGreenEvidence": {
-        "status": "complete",
-        "evidence": "On current main, the harness failed because each parent render created a different onHidden callback. The stable completion callback fix passes the byte-identical oracle; restoring the inline callback reproduces the failure."
-      },
-      "performanceBudget": {
-        "required": true,
-        "evidence": "Any number of parent rerenders retains one close-completion identity, so they add zero hide-animation restarts, timers, listeners, or after-close deliveries."
-      },
-      "promotionCriteria": [
-        "Collect 100 consecutive CI passes or 14 days of soak history.",
-        "Run the host Edit and Remove flows on a physical iOS device and an Android emulator or device.",
-        "Keep the callback-identity and exactly-once delivery assertions intact for every shared drawer lifecycle change."
-      ],
-      "knownGaps": [
-        "Android native-modal behavior has no live evidence.",
-        "The simulator run used an unreachable stored host rather than a connected multi-worktree host.",
-        "The contract test injects the hide-completion barrier instead of running Reanimated."
-      ],
-      "demotionRule": "Keep experimental or demote if parent rerenders can restart drawer hiding, after-close delivery duplicates or goes stale, the focused contract flakes, or either mobile platform retains a touch-blocking modal."
     },
     {
       "id": "mobile-relay.endpoint-recovery",
@@ -6036,7 +5927,7 @@
       "commands": [
         "pnpm exec vitest run --config config/vitest.config.ts src/main/runtime/terminal/surface/orca-runtime-terminal-close-continuity.test.ts",
         "pnpm exec vitest run --config config/vitest.config.ts src/main/runtime/construction/orca-runtime.test.ts",
-        "pnpm dlx node@24 ./node_modules/vitest/vitest.mjs run --config config/vitest.config.ts src/main/agent-hooks/server/testing/authority/server-pane-authority.test.ts src/main/ipc/agent-hooks.test.ts src/main/ipc/agent-pane-authority-ownership.test.ts src/main/persistence/terminal-topology/persistence-pane-identity-migration.test.ts src/main/persistence/terminal-topology/persistence-pty-binding-reconciliation.test.ts src/renderer/src/store/slices/agent-status/agent-pane-authority.test.ts src/renderer/src/store/terminals/terminal-pane-detach-agent-identity.test.ts src/renderer/src/store/terminals/terminal-tab-retirement-store.test.ts tests/e2e/completed-worker-retirement-resume.unit.test.ts src/renderer/src/components/shared/kill-all-terminal-surfaces.test.ts",
+        "pnpm dlx node@24 ./node_modules/vitest/vitest.mjs run --config config/vitest.config.ts src/main/agent-hooks/server/testing/authority/server-pane-authority.test.ts src/main/ipc/agent-hooks.test.ts src/main/ipc/agent-pane-authority-ownership.test.ts src/main/persistence/terminal-topology/persistence-pane-identity-migration.test.ts src/main/persistence/terminal-topology/persistence-pty-binding-reconciliation.test.ts src/renderer/src/store/slices/agent-status/agent-pane-authority.test.ts src/renderer/src/store/terminals/terminal-tab-retirement-store.test.ts tests/e2e/completed-worker-retirement-resume.unit.test.ts src/renderer/src/components/shared/kill-all-terminal-surfaces.test.ts",
         "pnpm exec vitest run --config config/vitest.config.ts src/main/pty/process-retirement/pty-descendant-termination.test.ts src/main/daemon/sessions/testing/session.test.ts src/main/daemon/terminal-host/testing/terminal-host.test.ts src/main/providers/local-pty/local-pty-provider-shutdown.test.ts src/main/runtime/workspaces/removal/worktree-teardown.test.ts",
         "pnpm run test:e2e -- tests/e2e/terminal-tab-close-restart-persistence.spec.ts --workers=1",
         "pnpm run test:e2e -- tests/e2e/terminal-parked-close-retirement.spec.ts --workers=1",
@@ -6058,7 +5949,6 @@
         "src/main/providers/local-pty/local-pty-provider-shutdown.test.ts",
         "src/main/runtime/workspaces/removal/worktree-teardown.test.ts",
         "src/renderer/src/store/slices/agent-status/agent-pane-authority.test.ts",
-        "src/renderer/src/store/terminals/terminal-pane-detach-agent-identity.test.ts",
         "src/renderer/src/store/terminals/terminal-tab-retirement-store.test.ts",
         "tests/e2e/completed-worker-retirement-resume.unit.test.ts",
         "src/renderer/src/components/shared/kill-all-terminal-surfaces.test.ts",

@@ -108,9 +108,6 @@ vi.mock('../../src/main/opencode/hook-service', () =>
     m.openCodeHookServiceModuleMock()
   )
 )
-vi.mock('../../src/main/mimo/hook-service', () =>
-  import('../../src/main/ipc/pty/pty-ipc-mock-registry').then((m) => m.mimoHookServiceModuleMock())
-)
 vi.mock('../../src/main/agent-hooks/server/agent-hook-server', () =>
   import('../../src/main/ipc/pty/pty-ipc-mock-registry').then((m) => m.agentHookServerModuleMock())
 )

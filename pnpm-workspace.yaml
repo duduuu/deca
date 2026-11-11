@@ -1,4 +1,3 @@
-# Exclude mobile’s independent workspace/lockfile: recursive discovery causes ERR_PNPM_UNUSED_PATCH.
 # Explicit registry/security workspaces avoid file:-dependency relinks, whose virtual-store churn
 # raced Windows node-gyp and removed @vscode/windows-process-tree’s binding.gyp mid-rebuild.
 packages:

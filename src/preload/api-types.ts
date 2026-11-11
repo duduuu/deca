@@ -174,7 +174,7 @@ export type PreloadApi = {
 
 export type { ClaudeUsageApi, CodexUsageApi, OpenCodeUsageApi } from './api/agent-usage-api'
 export type { AiVaultApi } from './api/ai-vault-api'
-export type { AutomationsApi, ExternalAutomationManagerResult } from './api/automation-api'
+export type { AutomationsApi } from './api/automation-api'
 export type { AppApi } from './api/app-api'
 export type {
   BrowserApi,

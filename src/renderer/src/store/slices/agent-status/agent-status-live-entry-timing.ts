@@ -53,17 +53,12 @@ export function resolveAgentStatusLiveEntryTiming(
     routing?: AgentStatusRouting
     metadata?: AgentStatusMetadata
     updatedAt: number
-  },
-  commandCodeNewTurn: boolean
+  }
 ) {
   const previousTurn = previousLiveTurnContext(existing, agentType, routing, metadata)
   const stateStartedAt =
     timing?.stateStartedAt ??
-    (commandCodeNewTurn
-      ? updatedAt
-      : previousTurn && previousTurn.state === payload.state
-        ? previousTurn.stateStartedAt
-        : updatedAt)
+    (previousTurn && previousTurn.state === payload.state ? previousTurn.stateStartedAt : updatedAt)
   const turnStartedAt =
     timing?.turnStartedAt ??
     (previousTurn && previousTurn.state === payload.state ? previousTurn.turnStartedAt : undefined)

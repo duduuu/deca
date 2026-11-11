@@ -3,11 +3,6 @@ import type { RuntimeEnvironmentSshBucket } from '../../../store/slices/ssh/runt
 import React, { useRef } from 'react'
 import { cn } from '@/lib/class-names'
 import type { AutomationRun } from '../../../../../shared/automations/history/automation-run'
-import type {
-  ExternalAutomationAction,
-  ExternalAutomationJob,
-  ExternalAutomationManager
-} from '../../../../../shared/automations/external/external-automation'
 
 import type { SshConnectionState } from '../../../../../shared/ssh-types'
 import type { ProjectHostSetup } from '../../../../../shared/project-types'
@@ -36,10 +31,7 @@ import {
   automationHostFilterStableKey
 } from '../../../../../shared/automations/ownership/automation-host-filter'
 import type { AutomationTemplate } from '../authoring/automation-templates'
-import type { ExternalAutomationListEntry } from '../external/external-automation-list-entries'
-import type { ExternalAutomationScope } from '../external/external-automation-scope-client'
 import { AutomationListLocalRow } from './AutomationListLocalRow'
-import { AutomationListExternalRow } from './AutomationListExternalRow'
 import {
   AutomationHostFilterNotice,
   AutomationHostLoadSummary
@@ -70,19 +62,16 @@ export type AutomationsListPanelProps = {
   onListFilterChange: (filter: AutomationListFilter) => void
   searchCounts: AutomationListSearchCounts
   hostCatalog: AutomationHostCatalogView
-  externalManagersUncheckedNotice: string | null
   onSelectHost: (filter: AutomationHostFilter) => void
   onRecoverHost: (
     action: AutomationHostRecoveryAction,
     entry?: AutomationHostCatalogEntry | null
   ) => void
-  /** Both collections as one list in render order; the sort spans local and external rows. */
+  /** Rows in render order after filtering and sorting. */
   sortedListItems: readonly AutomationListViewItem[]
   listSort: AutomationListSort | null
   onListSortChange: (field: AutomationListSortField) => void
   selectedRowKey: string | null
-  selectedExternalKey: string | null
-  selectedExternal?: ExternalAutomationListEntry | null
   relativeNow: number
   repoMap: ReadonlyMap<string, Repo>
   worktreeMap: ReadonlyMap<string, Worktree>
@@ -96,21 +85,13 @@ export type AutomationsListPanelProps = {
   hostLabelById?: ReadonlyMap<string, string>
   isActionEnabled: (row: AutomationListRow, action: AutomationRowAction) => boolean
   needsMigration?: (row: AutomationListRow) => boolean
-  externalActionKey: string | null
   selectAutomationRow: (rowKey: string | null) => void
-  selectExternalKey: (externalKey: string | null) => void
   setActivePaneTab: (tab: AutomationPaneTab) => void
   runNow: (row: AutomationListRow) => void
   openEditDialog: (row: AutomationListRow) => void
   toggleAutomation: (row: AutomationListRow) => void
   reviewSkippedSetup?: (row: AutomationListRow, content: SetupTrustMismatch) => void
   requestDeleteAutomation: (row: AutomationListRow) => void
-  requestExternalAction: (
-    manager: ExternalAutomationManager,
-    job: ExternalAutomationJob,
-    action: ExternalAutomationAction,
-    scope: ExternalAutomationScope
-  ) => void
   openCreateDialog: (template?: AutomationTemplate) => void
   canCreateAutomation: boolean
   onOpenDetail: () => void
@@ -131,14 +112,12 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
     onListFilterChange,
     searchCounts,
     hostCatalog,
-    externalManagersUncheckedNotice,
     onSelectHost,
     onRecoverHost,
     sortedListItems,
     listSort,
     onListSortChange,
     selectedRowKey,
-    selectedExternalKey,
     relativeNow,
     repoMap,
     worktreeMap,
@@ -152,16 +131,12 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
     hostLabelById,
     isActionEnabled,
     needsMigration,
-    externalActionKey,
     selectAutomationRow,
-    selectExternalKey,
-    setActivePaneTab,
     runNow,
     openEditDialog,
     toggleAutomation,
     reviewSkippedSetup,
     requestDeleteAutomation,
-    requestExternalAction,
     openCreateDialog,
     canCreateAutomation,
     onOpenDetail,
@@ -192,48 +167,26 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
       const next = getAutomationListArrowNavigationTarget({
         items: visibleItems,
         selectedId: selectedRowKey,
-        selectedExternalKey,
         key
       })
       if (!next) {
         return
       }
-      const alreadySelected =
-        next.kind === 'local'
-          ? selectedExternalKey === null && selectedRowKey === next.id
-          : selectedExternalKey === next.id
-      if (alreadySelected) {
+      if (selectedRowKey === next.id) {
         listRef.current
           ?.querySelector('[data-current="true"]')
           ?.scrollIntoView({ block: 'nearest' })
         return
       }
       pendingKeyboardScrollRef.current = true
-      if (next.kind === 'local') {
-        selectExternalKey(null)
-        selectAutomationRow(next.id)
-      } else {
-        selectAutomationRow(null)
-        selectExternalKey(next.id)
-        setActivePaneTab('overview')
-      }
+      selectAutomationRow(next.id)
     },
-    [
-      selectAutomationRow,
-      selectExternalKey,
-      selectedExternalKey,
-      selectedRowKey,
-      setActivePaneTab,
-      visibleItems
-    ]
+    [selectAutomationRow, selectedRowKey, visibleItems]
   )
   const handleSearchEnter = createAutomationListEnterHandler({
     items: visibleItems,
     selectedId: selectedRowKey,
-    selectedExternalKey,
     selectAutomationRow,
-    selectExternalKey,
-    setActivePaneTab,
     onOpenDetail
   })
   React.useEffect(() => {
@@ -242,7 +195,7 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
     }
     pendingKeyboardScrollRef.current = false
     listRef.current?.querySelector('[data-current="true"]')?.scrollIntoView({ block: 'nearest' })
-  }, [selectedExternalKey, selectedRowKey])
+  }, [selectedRowKey])
   const listFilterActive = isAutomationListFilterActive(listFilter)
   // A leftover single-host query scope from before hosts moved into the Filters menu.
   const legacyScopeStableKey = automationHostFilterStableKey(hostCatalog.resolution.effective)
@@ -268,7 +221,7 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
   const rowProps = {
     capturedOwners: hostCatalog.rows.capturedOwners,
     selectedRowKey,
-    isSelectedLocal: selectedExternalKey === null,
+    isSelectedLocal: true,
     lastRunByAutomationId: EMPTY_AUTOMATION_RUNS,
     relativeNow,
     repoMap,
@@ -284,7 +237,6 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
     isActionEnabled,
     needsMigration,
     onSelect: (rowKey: string) => {
-      selectExternalKey(null)
       selectAutomationRow(rowKey)
       onOpenDetail()
     },
@@ -336,11 +288,6 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
         className="mb-2"
       />
       <AutomationHostLoadSummary {...hostCatalog.loadCounts} />
-      {externalManagersUncheckedNotice ? (
-        <p className="pb-2 text-[11px] text-muted-foreground" data-external-managers="unchecked">
-          {externalManagersUncheckedNotice}
-        </p>
-      ) : null}
 
       <div
         ref={listRef}
@@ -350,27 +297,9 @@ export function AutomationsListPanel(props: AutomationsListPanelProps): React.JS
           <div className="min-w-full w-fit">
             <AutomationListTableHeader sort={listSort} onSort={onListSortChange} />
             <div className="divide-y divide-border/50">
-              {sortedListItems.map((item) =>
-                item.kind === 'local' ? (
-                  <AutomationListLocalRow key={item.id} {...rowProps} row={item.row} />
-                ) : (
-                  <AutomationListExternalRow
-                    key={item.id}
-                    entry={item.entry}
-                    selectedExternalKey={selectedExternalKey}
-                    relativeNow={relativeNow}
-                    sshConnectionStates={sshConnectionStates}
-                    externalActionKey={externalActionKey}
-                    onSelect={(entryKey) => {
-                      selectAutomationRow(null)
-                      selectExternalKey(entryKey)
-                      setActivePaneTab('overview')
-                      onOpenDetail()
-                    }}
-                    onRequestAction={requestExternalAction}
-                  />
-                )
-              )}
+              {sortedListItems.map((item) => (
+                <AutomationListLocalRow key={item.id} {...rowProps} row={item.row} />
+              ))}
             </div>
           </div>
         ) : (

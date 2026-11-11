@@ -184,16 +184,12 @@ export const UI_STATE_GLOBAL_FIELDS = [
   '_inlineAgentsDefaultedForAllUsers',
   '_inlineAgentsDefaultedForExperiment',
   '_jiraIssueWorktreeCardPropertyDefaulted',
-  '_kimiStatusBarDefaultAdded',
-  '_minimaxStatusBarDefaultAdded',
-  '_museStatusBarDefaultAdded',
   '_portsStatusBarDefaultAdded',
   '_sortBySmartMigrated',
   '_workspaceStatusesDefaultOrderMigrated',
   '_workspaceStatusesDefaultVisualsMigrated',
   '_workspaceStatusesDefaultWorkflowMigrated',
-  '_workspaceStatusesReorderedDefaultRepaired',
-  '_zcodeStatusBarDefaultAdded'
+  '_workspaceStatusesReorderedDefaultRepaired'
 ] as const satisfies readonly (keyof PersistedUIState)[]
 
 // Exhaustiveness prevents moves stranding newly added workspace state.

@@ -16,7 +16,7 @@ export type NativeChatLocalCommandAnswer = (
   contextWindowTokens: NativeChatModelContextWindow
 ) => string | null
 
-/** OMP /context draws outside chat; answer composer-owned commands using the last response’s prompt size and serving model. */
+/** Answer composer-owned commands using the last response’s prompt size and serving model. */
 export function answerNativeChatLocalCommand(args: {
   agent: AgentType
   command: string
@@ -31,9 +31,7 @@ export function answerNativeChatLocalCommand(args: {
     return formatNativeChatContextUsageUnreported()
   }
   const usage = deriveNativeChatContextUsage(args.messages, (message) => {
-    // Providers may share bare model IDs; use the provider-qualified selector.
-    const selector = ompModelSelector(message.provider, message.model)
-    return selector ? args.contextWindowTokens(selector) : null
+    return message.model ? args.contextWindowTokens(message.model) : null
   })
   return formatNativeChatContextUsageAnswer(usage)
 }

@@ -136,11 +136,8 @@ export const getStatusBarToggles = createLocalizedCatalog(
         'Show OpenCode Go token and cost usage for the active workspace.'
       )
     },
-    getMiniMaxStatusBarToggleSearchEntry(),
     getGrokStatusBarToggleSearchEntry(),
     getCursorStatusBarToggleSearchEntry(),
-    getZcodeStatusBarToggleSearchEntry(),
-    getMuseStatusBarToggleSearchEntry(),
     {
       id: 'ssh',
       title: translate('auto.components.settings.appearance.search.20b33a61c8', 'Remote hosts'),

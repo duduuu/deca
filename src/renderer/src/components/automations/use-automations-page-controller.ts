@@ -15,7 +15,6 @@ import { useAutomationsPagePresentationState } from './use-automations-page-pres
 import { useAutomationsPageRefresh } from './use-automations-page-refresh'
 import { useAutomationsPageSetupState } from './authoring/use-automations-page-setup-state'
 import { useAutomationsPageStoreState } from './use-automations-page-store-state'
-import { useExternalAutomationActions } from './external/use-external-automation-actions'
 import { useAutomationRunsDashboard } from './runs/use-automation-runs-dashboard'
 
 export function useAutomationsPageController() {
@@ -85,7 +84,6 @@ export function useAutomationsPageController() {
   }
   const managementActions = createAutomationManagementActions(actionContext)
   const runActions = createAutomationRunActions(actionContext)
-  const externalActions = useExternalAutomationActions(actionContext)
   const openRunWorkspace = createAutomationRunWorkspaceAction(actionContext)
   useAutomationsPageEscape({ store, local })
 
@@ -106,7 +104,6 @@ export function useAutomationsPageController() {
     migrateAction,
     managementActions,
     runActions,
-    externalActions,
     openRunWorkspace
   }
 }

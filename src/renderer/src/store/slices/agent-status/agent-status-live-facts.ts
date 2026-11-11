@@ -32,7 +32,6 @@ export type AgentStatusLiveFactsArgs = {
   existing: AgentStatusEntry | undefined
   launchConfigSource: SleepingAgentLaunchConfig | undefined
   retainsResumableRecoveryIdentity: boolean
-  commandCodeNewTurn: boolean
   updatedAt: number
 }
 
@@ -44,7 +43,6 @@ export function deriveAgentStatusLiveFacts(args: AgentStatusLiveFactsArgs): Agen
     existing,
     launchConfigSource,
     retainsResumableRecoveryIdentity,
-    commandCodeNewTurn,
     updatedAt
   } = args
   const boundaryResolved =
@@ -63,7 +61,6 @@ export function deriveAgentStatusLiveFacts(args: AgentStatusLiveFactsArgs): Agen
     existing?.worktreeId !== entry.worktreeId || existing?.tabId !== entry.tabId
   const sortRelevantChange =
     isSmartSortRelevantAgentChange(existing, entry, updatedAt) ||
-    commandCodeNewTurn ||
     existing?.firstStateStartedAt !== entry.firstStateStartedAt
   const doneRetentionFieldsChanged =
     existing?.state === 'done' &&

@@ -67,8 +67,7 @@ const SHARED_SLASH_COMMAND_DESCRIPTIONS: SlashCommandDescriptionCopy = {
 
 const SLASH_COMMAND_DESCRIPTION_TABLES = [
   SHARED_SLASH_COMMAND_DESCRIPTIONS,
-  CODEX_SLASH_COMMAND_DESCRIPTIONS,
-  OMP_SLASH_COMMAND_DESCRIPTIONS
+  CODEX_SLASH_COMMAND_DESCRIPTIONS
 ]
 
 /** Localize curated descriptions by command name; agent-reported or older-host text passes through. */

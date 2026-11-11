@@ -211,7 +211,6 @@ export function connectPanePty(
   installSpawnDeferredSleep(session)
   installPaneTitleObservation(session)
   bindInitialAgentStatus(session)
-  bindCommandCodeOutputStatus(session)
 
   installActivePanePtyBinding(session)
   installTerminalBellCompletionArbitration(session)
@@ -284,7 +283,6 @@ export function connectPanePty(
   // Share the structural gate predicate with subscription recording; a fact can outrun the hidden mark set by data delivery.
   session.isHiddenDeliveryGateManagedPty = (ptyId: string | null): ptyId is string =>
     session.hiddenDeliveryGateActive && Boolean(ptyId) && !isRemoteRuntimePtyId(ptyId)
-  installCommandCodeOutputStatusDetector(session)
 
   session.shouldDeliverStartupViaTerminalPaste = session.paneStartup?.delivery === 'terminal-paste'
   session.hadExistingPaneTransportAtConnect = session.deps.paneTransportsRef.current.size > 0

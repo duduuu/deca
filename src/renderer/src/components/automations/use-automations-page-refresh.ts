@@ -42,53 +42,39 @@ export function useAutomationsPageRefresh({
     setRelativeNow,
     runHistoryReloadToken
   } = local
-  const { scopedExternal, selectedRow } = list
+  const { selectedRow } = list
   const { automationHostTargetFor } = destination
-  const reloadExternalManagers = scopedExternal.reload
 
-  const refresh = useCallback(
-    async (options?: { awaitExternalManagers?: boolean }): Promise<void> => {
-      setIsLoading(true)
-      const pendingNavigation = useAppStore.getState().pendingAutomationRunNavigation
-      // Until navigation names a host, only the desktop’s legacy unscoped arm can be addressed without guessing.
-      const target = pendingNavigation
-        ? getAutomationListedTargetFromHostId(pendingNavigation.hostId, useAppStore.getState())
-        : { kind: 'local' as const }
-      const authorityKey = automationAuthorityCatalogKey(
-        target.kind === 'environment'
-          ? { kind: 'runtime', environmentId: target.environmentId }
-          : { kind: 'desktop' }
-      )
-      const managersSettled = reloadExternalManagers().catch(() => undefined)
-      try {
-        const nextAutomations = await listAutomationsForTarget(target)
-        setAutomations(nextAutomations)
-        setAutomationHostTargetKey(getAutomationHostTargetKey(target))
-        setFailedAuthorityKeys((current) => {
-          if (!current.has(authorityKey)) {
-            return current
-          }
-          const next = new Set(current)
-          next.delete(authorityKey)
-          return next
-        })
-      } catch {
-        setFailedAuthorityKeys((current) => new Set(current).add(authorityKey))
-      } finally {
-        setIsLoading(false)
-      }
-      if (options?.awaitExternalManagers) {
-        await managersSettled
-      }
-    },
-    [
-      reloadExternalManagers,
-      setAutomations,
-      setAutomationHostTargetKey,
-      setFailedAuthorityKeys,
-      setIsLoading
-    ]
-  )
+  const refresh = useCallback(async (): Promise<void> => {
+    setIsLoading(true)
+    const pendingNavigation = useAppStore.getState().pendingAutomationRunNavigation
+    // Until navigation names a host, only the desktop’s legacy unscoped arm can be addressed without guessing.
+    const target = pendingNavigation
+      ? getAutomationListedTargetFromHostId(pendingNavigation.hostId, useAppStore.getState())
+      : { kind: 'local' as const }
+    const authorityKey = automationAuthorityCatalogKey(
+      target.kind === 'environment'
+        ? { kind: 'runtime', environmentId: target.environmentId }
+        : { kind: 'desktop' }
+    )
+    try {
+      const nextAutomations = await listAutomationsForTarget(target)
+      setAutomations(nextAutomations)
+      setAutomationHostTargetKey(getAutomationHostTargetKey(target))
+      setFailedAuthorityKeys((current) => {
+        if (!current.has(authorityKey)) {
+          return current
+        }
+        const next = new Set(current)
+        next.delete(authorityKey)
+        return next
+      })
+    } catch {
+      setFailedAuthorityKeys((current) => new Set(current).add(authorityKey))
+    } finally {
+      setIsLoading(false)
+    }
+  }, [setAutomations, setAutomationHostTargetKey, setFailedAuthorityKeys, setIsLoading])
 
   const hydratePersistedUIState = useCallback(async (): Promise<void> => {
     useAppStore.getState().hydratePersistedUI(await window.api.ui.get(), 'sync')

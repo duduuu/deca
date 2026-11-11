@@ -27,7 +27,7 @@ type TerminalAgentStatusTarget = Pick<
   'source' | 'paneKey' | 'tabId' | 'worktreeId' | 'connectionId' | 'terminalHandle'
 >
 
-export abstract class OrcaRuntimeWithCreateTerminalSideEffectCommandCodeDetector extends OrcaRuntimeWithApplyTrackedPtyTitle {
+export abstract class OrcaRuntimeWithTerminalDerivedAgentFacts extends OrcaRuntimeWithApplyTrackedPtyTitle {
   abstract getAgentStatusTerminalHandleForPaneKey(paneKey: string): string | undefined
 
   /** Each live OSC 7501 program's latest row payload; renewed while its PTY keeps a live facet. */

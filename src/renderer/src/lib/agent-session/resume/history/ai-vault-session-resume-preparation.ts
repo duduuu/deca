@@ -134,7 +134,7 @@ export async function prepareAiVaultSessionForFork(
     executionHostId: session.executionHostId,
     fork: true
   })
-  if (!result.forkedSession || (session.agent === 'omp' && !result.forkedSession.filePath)) {
+  if (!result.forkedSession) {
     // A host that predates chat copies makes none; resuming the chat's own would be a second writer.
     throw new Error(aiVaultCliForkHostTooOldMessage())
   }

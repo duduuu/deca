@@ -23,7 +23,7 @@ export const chatAgentsPage = defineFixture({
     <div className="flex h-[640px] flex-col">
       <AgentStep
         agentSurface="chat"
-        selectedAgent="aider"
+        selectedAgent="codex"
         onSelect={() => {}}
         detectedSet={detected}
         isDetecting={false}

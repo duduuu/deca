@@ -52,7 +52,6 @@ export type AgentStatusLiveEntryBuild = {
     next: Record<string, MigrationUnsupportedPtyEntry>
     changed: boolean
   }
-  commandCodeNewTurn: boolean
   sortRelevantChange: boolean
   retentionRelevantChange: boolean
   completionRefreshWorktreeId: string | null
@@ -105,25 +104,13 @@ export function buildAgentStatusLiveEntry(
     incomingSession: metadata?.providerSession?.id,
     now: updatedAt
   })
-  const commandCodeNewTurn =
-    existing !== undefined &&
-    isCommandCodeNewTurnWhileWorking({
-      agentType: identity.agentType,
-      previousState: existing.state,
-      incomingState: payload.state,
-      previousPrompt: existing.prompt,
-      incomingPrompt: payload.prompt,
-      previousPromptInteractionKey: existing.promptInteractionKey,
-      incomingPromptInteractionKey: payload.promptInteractionKey
-    })
   const promptInteractionKey =
     payload.promptInteractionKey ??
     (payload.prompt === existing?.prompt ? existing?.promptInteractionKey : undefined)
   const { stateStartedAt, turnStartedAt, turnEnd } = resolveAgentStatusLiveEntryTiming(
     existing,
     identity.agentType,
-    { payload, timing, routing, metadata, updatedAt },
-    commandCodeNewTurn
+    { payload, timing, routing, metadata, updatedAt }
   )
   if (
     existing &&
@@ -275,7 +262,6 @@ export function buildAgentStatusLiveEntry(
     existing,
     launchConfigSource,
     retainsResumableRecoveryIdentity,
-    commandCodeNewTurn,
     updatedAt
   })
   return {
@@ -287,7 +273,6 @@ export function buildAgentStatusLiveEntry(
     providerSessionChanged,
     registryEntry,
     registryMatched,
-    retainsResumableRecoveryIdentity,
-    commandCodeNewTurn
+    retainsResumableRecoveryIdentity
   }
 }

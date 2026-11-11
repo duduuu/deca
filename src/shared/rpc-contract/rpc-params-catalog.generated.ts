@@ -30,8 +30,6 @@ import {
   DesktopBrowserBridgeAttachParams,
   DesktopBrowserBridgeResultParams
 } from '../desktop-browser-bridge-protocol'
-import { MobileWebBundleChunkParamsSchema } from '../mobile-web-bundle/bundle-rpc-contract'
-import { MobileWebBundleLocaleCatalogParamsSchema } from '../mobile-web-bundle/locale-catalog-contract'
 import { OrcadMigrationBlobChunkRequestSchema } from '../orcad-migration/orcad-migration-blob-transfer'
 import { OrcadMigrationSnapshotChunkRequestSchema } from '../orcad-migration/orcad-migration-scrollback'
 import {
@@ -625,14 +623,7 @@ import {
   SpeechModelAction,
   SpeechSetupRead
 } from './speech-params'
-import {
-  RepoAddRemote,
-  SshBrowseDir,
-  SshConnect,
-  SshTarget,
-  SshTargetAdd,
-  SshTargetUpdate
-} from './ssh-params'
+import { RepoAddRemote } from './ssh-params'
 import { StatusGetParams } from './status-params'
 import { ContinueInterruptedParams } from './structured-agent-session-continue-params'
 import { ContinuationContextParams } from './structured-agent-session-identifiers'
@@ -718,10 +709,6 @@ import {
   TerminalUpdateViewport
 } from './terminal-viewport-schemas-params'
 import { UpdaterCheckParams } from './updater-params'
-import {
-  UsageCredentialApiKeyParams,
-  UsageCredentialSessionCookieParams
-} from './usage-credentials-params'
 import { CancelUsageLimitContinueParams } from './usage-limit-continue-params'
 import { LayoutReopenHeldPanesParams } from './workspace-layout-held-panes-params'
 import {
@@ -800,11 +787,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'accounts.hostSignInWait': HostAccountSignInWaitParams,
   'accounts.list': ListAccountsParams,
   'accounts.listData': null,
-  'accounts.minimaxClearApiKey': null,
-  'accounts.minimaxClearSessionCookie': null,
-  'accounts.minimaxCredentialsStatus': null,
-  'accounts.minimaxSaveApiKey': UsageCredentialApiKeyParams,
-  'accounts.minimaxSaveSessionCookie': UsageCredentialSessionCookieParams,
   'accounts.removeClaude': RemoveAccountParams,
   'accounts.removeCodex': RemoveAccountParams,
   'accounts.removeData': RemoveDataAccountParams,
@@ -815,9 +797,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'accounts.setHostLaunchEnv': HostAccountLaunchEnvParams,
   'accounts.subscribe': null,
   'accounts.unsubscribe': AccountsUnsubscribeParams,
-  'accounts.zcodePlanClearApiKey': null,
-  'accounts.zcodePlanCredentialsStatus': null,
-  'accounts.zcodePlanSaveApiKey': UsageCredentialApiKeyParams,
   'agent.launch': AgentLaunch,
   'agent.launchReplay': AgentLaunchReplay,
   'agentActivity.clear': AgentActivityClearParams,
@@ -1314,11 +1293,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'mobileRelay.hosts.list': null,
   'mobileRelay.hosts.worktrees': MobileRelayHostWorktreesParamsSchema,
   'mobileRelay.projectSections': null,
-  'mobileWeb.bundle.brotliRange': MobileWebBundleChunkParamsSchema,
-  'mobileWeb.bundle.chunk': MobileWebBundleChunkParamsSchema,
-  'mobileWeb.bundle.localeCatalog': MobileWebBundleLocaleCatalogParamsSchema,
-  'mobileWeb.bundle.manifest': null,
-  'mobileWeb.bundle.range': MobileWebBundleChunkParamsSchema,
   'nativeChat.readSession': NativeChatSession,
   'nativeChat.subscribe': NativeChatSession,
   'nativeChat.unsubscribe': NativeChatUnsubscribe,
@@ -1537,16 +1511,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'speech.openAiKey.clear': null,
   'speech.openAiKey.set': OpenAiSpeechKeySet,
   'speech.openAiKey.status': null,
-  'ssh.addTarget': SshTargetAdd,
-  'ssh.browseDir': SshBrowseDir,
-  'ssh.connect': SshConnect,
-  'ssh.getState': SshTarget,
-  'ssh.listEditableTargets': null,
-  'ssh.listRemovedTargetLabels': null,
-  'ssh.listTargetSummaries': null,
-  'ssh.listTargets': null,
-  'ssh.removeTarget': SshTarget,
-  'ssh.updateTarget': SshTargetUpdate,
   'stats.summary': null,
   'status.get': StatusGetParams,
   'terminal.ackOutput': TerminalAckOutput,

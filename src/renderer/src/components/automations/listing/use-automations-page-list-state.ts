@@ -102,9 +102,7 @@ export function useAutomationsPageListState({
     repoMap,
     worktreeMap,
     selectedRowKey: selectedRow?.key ?? null,
-    selectedExternalKey,
-    selectAutomationRow,
-    selectExternalKey
+    selectAutomationRow
   })
   const runTargetFor = useCallback(
     (run: AutomationRun) => {

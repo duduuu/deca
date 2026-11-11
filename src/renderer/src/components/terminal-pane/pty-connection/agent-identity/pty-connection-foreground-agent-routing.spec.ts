@@ -75,7 +75,7 @@ export function registerPtyConnectionForegroundAgentRoutingTests(): void {
       const pane = createPane(1)
       const ptyId = 'pty-manually-typed-droid'
       const tabId = 'tab-manually-typed-droid'
-      const foregroundResults = ['powershell.exe', 'droid']
+      const foregroundResults = ['powershell.exe']
       vi.mocked(window.api.pty.confirmForegroundProcess).mockImplementation(async (id: string) =>
         id === ptyId ? (foregroundResults.shift() ?? 'droid') : null
       )
@@ -166,7 +166,7 @@ export function registerPtyConnectionForegroundAgentRoutingTests(): void {
       const agentTitleMocks6 = await vi.importMock<PtyConnectionAgentTitleMocks>(
         '@/lib/agent-status/aggregation/worktree-agent-status'
       )
-      const foregroundResults = ['bash.exe', 'bash.exe', 'droid']
+      const foregroundResults = ['bash.exe', 'bash.exe']
       vi.mocked(window.api.pty.confirmForegroundProcess).mockImplementation(
         async () => foregroundResults.shift() ?? 'droid'
       )

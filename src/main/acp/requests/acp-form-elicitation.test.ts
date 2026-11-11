@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { acpFormElicitationPresentation } from './acp-form-elicitation'
-import { recordedOmpAskForm as ask } from './testing/acp-omp-ask-form.test-fixture'
-
 describe('OMP ask forms', () => {
   it('asks every question on one card and answers in the form OMP reads', () => {
     const presentation = acpFormElicitationPresentation(ask)

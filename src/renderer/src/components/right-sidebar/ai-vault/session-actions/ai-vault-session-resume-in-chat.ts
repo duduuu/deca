@@ -28,7 +28,6 @@ export function aiVaultSessionResumeInChatWorkspaceMatters(
   return (
     agent === 'claude' ||
     agent === 'grok' ||
-    agent === 'omp' ||
     agent === 'opencode' ||
     agent === 'opencode2' ||
     agent === 'pi'

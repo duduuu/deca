@@ -8,7 +8,6 @@ import { withCodexTerminalServerIsolationEnv } from '../../../shared/codex-termi
 import { getLegacyOpenCodeEnvKeysToDelete } from '../../opencode/legacy-shared-config-dir'
 import { prepareOpenCodePtyLaunch } from '../../opencode/opencode-pty-launch'
 import { LEGACY_TERMINAL_SHIM_REMOTE_ENV_KEYS } from '../../pty/shell-startup/legacy-terminal-shim-dir'
-import { PI_PROCESS_OWNER_ENV_KEYS } from '../../pty/shell-startup/pi-process-owner-env'
 import { planCodexNoDaemonLaunch } from '../../pty/shell-startup/codex-no-daemon-launch-command'
 import { applyAgentWorkspaceTrustToSpawn } from '../../agent-launch/trust/agent-workspace-trust-spawn'
 import type { PtySpawnOptions } from '../../providers/pty-provider-contract'
@@ -20,7 +19,7 @@ import {
   removeCodexHomeDeletionRequests,
   getInheritedAgentHookEnvKeysToDelete,
   getInheritedAgentSessionStampEnvKeysToDelete
-} from './host-env/pi-agent'
+} from './host-env/spawn-env-inheritance'
 import { promoteAgentTeamsShimPath, deleteRequestedEnvKeys } from './host-env/path'
 import { resolveConfiguredTerminalShellArgs } from './configured-terminal-shell-args'
 import { ptySizes } from './delivery/visibility-state'
@@ -56,8 +55,6 @@ export function assemblePtySpawnEnvDeletions(input: {
       input.callerEnvToDelete?.map((key) =>
         canonicalClaudeSessionStampEnvKey(key, process.platform)
       ) ?? [],
-      // Persistent daemons and older SSH hosts must not resurrect a parent Pi's ownership.
-      PI_PROCESS_OWNER_ENV_KEYS,
       input.agentTeamsEnvToDelete,
       // Disable legacy hooks on old hosts while preserving ORCA_REAL pointers needed by Windows shims.
       input.isDaemonHostSpawn || input.connectionId ? LEGACY_TERMINAL_SHIM_REMOTE_ENV_KEYS : [],

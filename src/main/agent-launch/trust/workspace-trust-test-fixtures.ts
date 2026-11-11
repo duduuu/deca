@@ -14,14 +14,8 @@ export function workspaceTrustWritten(home: string, preset: AgentTrustPreset): b
     }
     case 'copilot':
       return existsSync(join(home, '.copilot', 'config.json'))
-    case 'qoder-cn':
-      return existsSync(join(home, '.qoder-cn', 'settings.json'))
-    case 'qoder':
-      return existsSync(join(home, '.qoder', 'settings.json'))
     case 'antigravity':
       return existsSync(join(home, '.gemini', 'antigravity-cli', 'settings.json'))
-    case 'kimi':
-      return existsSync(join(home, '.kimi-code', 'workspace-trust'))
   }
 }
 

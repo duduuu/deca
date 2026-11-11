@@ -172,7 +172,7 @@ it('recovers mounted native consumers after availability changes alongside WSL l
       }))
     }
   })
-  let nativeAgents = ['pi', 'codex']
+  let nativeAgents = ['codex']
   detectAgents.mockImplementation((context) =>
     Promise.resolve(
       context?.projectRuntime?.runtime.kind === 'wsl'
@@ -193,11 +193,11 @@ it('recovers mounted native consumers after availability changes alongside WSL l
   })
   await act(async () => {})
   expect(result.current.native).toMatchObject({ status: 'ready', agent: 'pi' })
-  expect(readHostStructuredAgentsForRuntime('local', null)?.map((row) => row.agent)).toEqual(['pi'])
+  expect(readHostStructuredAgentsForRuntime('local', null)?.map((row) => row.agent)).toEqual([])
 
   nativeAgents = ['codex']
   await act(async () => {
-    useAppStore.setState({ settings: { ...settings, disabledTuiAgents: ['pi', 'kiro'] } })
+    useAppStore.setState({ settings: { ...settings, disabledTuiAgents: ['kiro'] } })
   })
   expect(readNativeDetectedAgents(useAppStore.getState())).toEqual(['codex'])
   expect(result.current.native).toMatchObject({ status: 'ready', agent: 'codex' })
@@ -208,15 +208,15 @@ it('recovers mounted native consumers after availability changes alongside WSL l
   })
   const probesAfterDisable = detectAgents.mock.calls.length
   await act(async () => {
-    useAppStore.setState({ settings: { ...settings, disabledTuiAgents: ['kiro', 'pi'] } })
+    useAppStore.setState({ settings: { ...settings, disabledTuiAgents: ['kiro'] } })
   })
   expect(detectAgents).toHaveBeenCalledTimes(probesAfterDisable)
 
-  nativeAgents = ['pi', 'codex']
+  nativeAgents = ['codex']
   await act(async () => {
     useAppStore.setState({ settings: { ...settings, disabledTuiAgents: ['kiro'] } })
   })
-  expect(readNativeDetectedAgents(useAppStore.getState())).toEqual(['pi', 'codex'])
+  expect(readNativeDetectedAgents(useAppStore.getState())).toEqual(['codex'])
   expect(result.current.native).toMatchObject({ status: 'ready', agent: 'pi' })
   expect(result.current.workspace).toMatchObject({ detectedIds: ['claude'], isLoading: false })
   expect(result.current.settings).toMatchObject({

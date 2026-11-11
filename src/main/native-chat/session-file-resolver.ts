@@ -11,7 +11,6 @@ import { forEachSessionFile } from '../ai-vault/session-scanner-discovery'
 import {
   claudeProjectsHostDirs,
   codexHomeSessionsDir,
-  ompSessionsRootDirs,
   uniqueDirs
 } from '../ai-vault/session-scanner-roots'
 import { resolveOrcaManagedCodexHomePath } from '../codex/configuration/homes/codex-home-paths'
@@ -64,7 +63,6 @@ export type ResolveSessionFileOptions = {
   /** Defaults to managed Codex then CODEX_HOME/~/.codex, in order. */
   codexSessionsDirs?: string[]
   grokSessionsDir?: string
-  ompSessionsDir?: string
   /** Hook paths are authoritative: Claude filenames may differ from its reported session ID. */
   transcriptPath?: string
   /** Restrict exact-path resolution to this attested guest. */
@@ -175,14 +173,6 @@ async function resolveSessionFileById(
     const override = options.grokSessionsDir
     return resolveTiered('grok', trimmedId, [override ?? grokSessionsDir()], {
       wslTier: wslTier && !override,
-      signal,
-      strictErrors: options.strictErrors
-    })
-  }
-  if (transcriptAgent === 'omp') {
-    const override = options.ompSessionsDir
-    return resolveTiered('omp', trimmedId, ompSessionsRootDirs({ ompSessionsDir: override }), {
-      wslTier: wslTier && override === undefined,
       signal,
       strictErrors: options.strictErrors
     })

@@ -10,11 +10,7 @@ import {
 } from '../../../shared/skill-install-providers'
 import type { SkillProviderRootOverrides } from '../providers/skill-provider-destinations'
 import { stablePathId } from './skill-discovery-classification'
-import {
-  resolveDefaultHermesSkillsRoot,
-  resolveEnvironmentHermesSkillsRoot,
-  resolveEnvironmentSkillProviderRoots
-} from '../providers/skill-provider-runtime-roots'
+import { resolveEnvironmentSkillProviderRoots } from '../providers/skill-provider-runtime-roots'
 
 export type SkillScanRoot = Omit<SkillDiscoverySource, 'exists' | 'skippedReason'>
 type SkillDiscoveryPathApi = Pick<typeof posix, 'basename' | 'join'>
@@ -95,10 +91,6 @@ export function buildSkillDiscoverySources(
   const cwd = args.cwd ?? process.cwd()
   const providerRootOverrides =
     args.providerRootOverrides ?? (args.pathApi ? {} : resolveEnvironmentSkillProviderRoots())
-  // Read HERMES_HOME only on this process's host; a custom path adapter describes another host with POSIX Hermes defaults.
-  const hermesSkillsRoot = args.pathApi
-    ? pathApi.join(home, '.hermes', 'skills')
-    : (resolveEnvironmentHermesSkillsRoot() ?? resolveDefaultHermesSkillsRoot({ homeDir: home }))
   const roots: SkillScanRoot[] = [
     // Why: Codex reads `.agents/skills` today; this legacy home still holds older installs.
     source(
@@ -135,48 +127,6 @@ export function buildSkillDiscoverySources(
       'home',
       ['agent-skills'],
       'opencode'
-    ),
-    source(
-      'home-pi',
-      'Pi home',
-      pathApi.join(home, '.pi', 'agent', 'skills'),
-      'home',
-      ['agent-skills'],
-      'pi'
-    ),
-    source(
-      'home-omp',
-      'OMP home',
-      pathApi.join(home, '.omp', 'agent', 'skills'),
-      'home',
-      ['agent-skills'],
-      'omp'
-    ),
-    source(
-      'home-qoder',
-      'Qoder home',
-      pathApi.join(home, '.qoder', 'skills'),
-      'home',
-      ['agent-skills'],
-      'qoder'
-    ),
-    source('home-hermes', 'Hermes home', hermesSkillsRoot, 'home', ['agent-skills'], 'hermes'),
-    source(
-      'home-prime-agent',
-      'Prime Agent home',
-      pathApi.join(home, '.prime', 'agent', 'skills'),
-      'home',
-      ['agent-skills'],
-      'prime-agent'
-    ),
-    // Why: Muse installs to `.agents/skills` but also reads XDG config home.
-    source(
-      'home-muse',
-      'Muse home',
-      pathApi.join(home, '.config', 'muse', 'skills'),
-      'home',
-      ['agent-skills'],
-      'muse'
     )
   ]
 
@@ -211,8 +161,7 @@ export function buildSkillDiscoverySources(
         `${label} .qoder`,
         pathApi.join(repoPath, '.qoder', 'skills'),
         'repo',
-        ['agent-skills'],
-        'qoder'
+        ['agent-skills']
       ),
       source(
         `repo-opencode-${stablePathId(repoPath)}`,

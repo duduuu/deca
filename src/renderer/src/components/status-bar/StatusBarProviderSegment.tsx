@@ -182,20 +182,12 @@ function getProviderLetter(provider: ProviderRateLimits['provider']): string {
       return 'G'
     case 'opencode-go':
       return 'O'
-    case 'kimi':
-      return 'K'
     case 'antigravity':
       return 'A'
-    case 'minimax':
-      return 'M'
     case 'grok':
       return 'R'
     case 'cursor':
       return 'U'
-    case 'zcode':
-      return 'Z'
-    case 'muse':
-      return 'S'
     case 'codex':
       return 'X'
   }

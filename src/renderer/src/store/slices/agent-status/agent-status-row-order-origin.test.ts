@@ -114,34 +114,31 @@ describe('observed agent session row origin', () => {
     expect(mirrored[1].entry).toMatchObject({ stateStartedAt: 1000, firstStateStartedAt: 6000 })
   })
 
-  it.each(['pi', 'claude', 'codex'])(
-    'keeps %s rows ordered after the recent-history cap',
-    (agent) => {
-      const { store, write, rows } = fixture(agent)
-      write(1000, 'working')
-      store
-        .getState()
-        .setAgentStatus(
-          quiet,
-          { state: 'working', prompt: '', agentType: agent },
-          undefined,
-          { updatedAt: 2000 },
-          { worktreeId: 'wt-order' }
-        )
-      const before = rows().map((row) => row.paneKey)
-      for (let i = 0; i < AGENT_STATE_HISTORY_MAX + 2; i++) {
-        write(3000 + i * 1000, i % 2 ? 'working' : 'done')
-      }
-      expect(store.getState().agentStatusByPaneKey[pane].stateHistory[0].startedAt).toBeGreaterThan(
-        2000
+  it.each(['claude', 'codex'])('keeps %s rows ordered after the recent-history cap', (agent) => {
+    const { store, write, rows } = fixture(agent)
+    write(1000, 'working')
+    store
+      .getState()
+      .setAgentStatus(
+        quiet,
+        { state: 'working', prompt: '', agentType: agent },
+        undefined,
+        { updatedAt: 2000 },
+        { worktreeId: 'wt-order' }
       )
-      expect(rows().map((row) => row.paneKey)).toEqual(before)
-      const entry = store.getState().agentStatusByPaneKey[pane]
-      expect(retainedAgentEntryFromLive(store.getState(), 'wt-order', entry, agent).startedAt).toBe(
-        1000
-      )
+    const before = rows().map((row) => row.paneKey)
+    for (let i = 0; i < AGENT_STATE_HISTORY_MAX + 2; i++) {
+      write(3000 + i * 1000, i % 2 ? 'working' : 'done')
     }
-  )
+    expect(store.getState().agentStatusByPaneKey[pane].stateHistory[0].startedAt).toBeGreaterThan(
+      2000
+    )
+    expect(rows().map((row) => row.paneKey)).toEqual(before)
+    const entry = store.getState().agentStatusByPaneKey[pane]
+    expect(retainedAgentEntryFromLive(store.getState(), 'wt-order', entry, agent).startedAt).toBe(
+      1000
+    )
+  })
 })
 
 it('preserves origin through routing enrichment, WSL equivalence and pane transfer', () => {

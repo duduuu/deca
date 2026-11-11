@@ -23,9 +23,6 @@ export abstract class OrcaRuntimeWithGetUnpersistedTrackedTitleForPty extends Or
   protected abstract confirmPtyAgentExit(ptyId: string, recoverCompletedHook?: boolean): void
   protected abstract classifyPtyTitleStatus(ptyId: string, rawTitle: string): AgentStatus | null
   protected abstract applyPtyProgramActivity(ptyId: string, activity: AgentStatus | null): void
-  protected abstract createTerminalSideEffectCommandCodeDetector(
-    ptyId: string
-  ): NonNullable<RuntimePtyTitleTrackerEntry['commandCodeDetector']>
 
   protected getUnpersistedTrackedTitleForPty(ptyId: string | null): string | null {
     if (!ptyId || this.getTrackedRawTitleForPty(ptyId) !== null) {
@@ -195,10 +192,6 @@ export abstract class OrcaRuntimeWithGetUnpersistedTrackedTitleForPty extends Or
       chunkTouchedSessionTabs: false,
       pendingFacts: [],
       afterFacts: [],
-      // Headless serve has no side-effect consumer, so skip Command Code scraping; otherwise arm from launch command or banner.
-      commandCodeDetector: this.terminalSideEffectConsumerAvailable
-        ? this.createTerminalSideEffectCommandCodeDetector(ptyId)
-        : null,
       programActivity: null,
       // The persisted title is already normalized, so it stands for both forms.
       lastTitle: initialTitle !== null ? { raw: initialTitle, normalized: initialTitle } : null

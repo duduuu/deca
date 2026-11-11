@@ -25,8 +25,6 @@ declare module 'orca' {
 
 const FRAME_SCRIPT = `
 import type { JsonValue } from 'orca/host'
-import type { Todo } from '../protocol'
-
 const context = await orca.host.call('workspace.readContext')
 const branch: string | undefined = context?.branch
 const shown: { delivered: boolean } = await window.orca.host.call('notifications.show', { title: 'Hi' })
@@ -59,7 +57,6 @@ export { branch, shown, saved, todos, loose }
 
 const WORKER_MAIN = `
 import type { Activate, OrcaWorkerApi } from 'orca/worker'
-import type { Todo } from './protocol'
 const activate: Activate = (orca: OrcaWorkerApi) => {
   const todos: Todo[] = []
   orca.panels.handle('todos.list', async ({ done }, { panel, signal }) => {
@@ -111,7 +108,6 @@ export default activate
 
 const COMPONENTS_PANEL = `
 import { atom, Button, read, Stack, update, host, plugin, settings, on } from 'orca'
-import type { Todo } from './protocol'
 const count = atom(0)
 const todos = atom<Todo[]>('todos', [], { persist: 'storage' })
 void plugin.request('todos.add', { title: 'x' }).then((todo) => todo.title satisfies string)
@@ -130,8 +126,6 @@ export default function Panel() {
 
 const PANEL_TEST = `
 import { mockHost, mount, assert } from 'orca/testing'
-import Panel from './panel'
-import type { Todo } from './protocol'
 const done: Todo = { id: '1', title: 'x', done: true }
 const host = mockHost({
   requests: { 'todos.list': () => [done], 'todos.add': ({ title }) => ({ ...done, title }) },

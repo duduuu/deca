@@ -7,7 +7,6 @@ import type {
   AgentCompletionIdentityScope,
   LastCompletionIdentity
 } from './agent-completion-identity-store'
-import { isPiCompatibleAgentType } from '../../../../../shared/pi-agent-kind'
 import { AGENT_DONE_QUIET_MS } from '../../../../../shared/agent-status/lifecycle/agent-transitions'
 
 type CompletionSource = 'hook' | 'title' | 'process-exit'

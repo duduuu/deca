@@ -25,7 +25,6 @@ import {
 import { callRuntimeResult } from './web-runtime-calls'
 import { followHostVoiceSettings } from './web-speech-api'
 import { requireActiveEnvironmentOrNull, webRuntimeState } from './web-runtime-session'
-import { zcodePlanSiteOwner, settingsForZcodePlanSiteOwner } from './web-zcode-plan-site'
 import { SETTINGS_STORAGE_KEY, UI_STORAGE_KEY, readJson, writeJson } from './web-storage'
 
 export type WebSettingsApi = NonNullable<PreloadApi['settings']>

@@ -31,10 +31,10 @@ describe('accepted spawn followed by failed startup readiness', () => {
   )(
     'keeps what a launch printed when its PTY dies mid-command ($context, exitBeforeWait=$exitBeforeWait)',
     async ({ context, exitBeforeWait }) => {
-      const { runtime, handle, terminal } = await createTranscriptPane({
+      const { runtime, handle } = await createTranscriptPane({
         paneTitle: 'shell',
         foregroundProcess: 'bash',
-        launchAgent: 'hermes',
+        launchAgent: 'claude',
         data: '\x1b]133;C\x07\x1b[31mTraceback: startup failed\x1b[0m\r\nImportError: broken client\r\n'
       })
       const exit = () => {
@@ -49,15 +49,7 @@ describe('accepted spawn followed by failed startup readiness', () => {
       if (exitBeforeWait) {
         exit()
       }
-      const result = waitForWorkerAgentReady(runtime, handle, {
-        agent: 'hermes',
-        reusesTerminal: false,
-        creation:
-          context === 'wrong-incarnation'
-            ? { ...terminal, incarnationId: 'replacement' }
-            : terminal,
-        timeoutMs: 50
-      }).catch((error: unknown) => error)
+      const result = waitForWorkerAgentReady(runtime, handle).catch((error: unknown) => error)
       if (!exitBeforeWait) {
         exit()
       }
@@ -70,7 +62,7 @@ describe('accepted spawn followed by failed startup readiness', () => {
   )
 
   it.each(
-    (['pi', 'codex', 'claude', 'opencode'] as const).flatMap((agent) =>
+    (['codex', 'claude', 'opencode'] as const).flatMap((agent) =>
       [true, false].map((exitBeforeWait) => ({ agent, exitBeforeWait }))
     )
   )(
@@ -141,20 +133,10 @@ describe('accepted spawn followed by failed startup readiness', () => {
         }
       })
       vi.useFakeTimers()
-      const worker = waitForWorkerAgentReady(runtime, handle, {
-        agent: 'pi',
-        reusesTerminal: false,
-        timeoutMs: 50,
-        creation
-      }).catch((error: unknown) => error)
-      const prompt = waitForLaunchedAgentComposer(
-        runtime,
-        handle,
-        'pi',
-        50,
-        undefined,
-        creation
-      ).catch((error: unknown) => error)
+      const worker = waitForWorkerAgentReady(runtime, handle).catch((error: unknown) => error)
+      const prompt = waitForLaunchedAgentComposer(runtime, handle, 50, undefined, creation).catch(
+        (error: unknown) => error
+      )
       await vi.advanceTimersByTimeAsync(100)
       for (const result of await Promise.all([worker, prompt])) {
         expect(formatTerminalStartFailure(result) !== undefined).toBe(context === 'fresh')

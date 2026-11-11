@@ -134,10 +134,6 @@ describe('generateCommitMessageFromContext', () => {
         stagedPatch: '+hello'
       },
       {
-        agentId: 'pi',
-        model: 'github-copilot/gpt-5.5'
-      },
-      {
         kind: 'remote',
         cwd: '/repo',
         missingBinaryLocation: 'remote PATH',
@@ -162,10 +158,6 @@ describe('generateCommitMessageFromContext', () => {
         branch: 'main',
         stagedSummary: 'M\tREADME.md',
         stagedPatch: '+hello'
-      },
-      {
-        agentId: 'pi',
-        model: 'github-copilot/gpt-5.5'
       },
       {
         kind: 'remote',
@@ -194,10 +186,6 @@ describe('generateCommitMessageFromContext', () => {
         stagedPatch: '+hello'
       },
       {
-        agentId: 'pi',
-        model: 'github-copilot/gpt-5.5'
-      },
-      {
         kind: 'remote',
         cwd: '/repo',
         missingBinaryLocation: 'remote PATH',
@@ -224,10 +212,6 @@ describe('generateCommitMessageFromContext', () => {
         branch: 'main',
         stagedSummary: 'M\tREADME.md',
         stagedPatch: '+hello'
-      },
-      {
-        agentId: 'pi',
-        model: 'github-copilot/gpt-5.5'
       },
       {
         kind: 'remote',
@@ -265,10 +249,6 @@ describe('generateCommitMessageFromContext', () => {
         branch: 'main',
         stagedSummary: 'M\tREADME.md',
         stagedPatch: '+hello'
-      },
-      {
-        agentId: 'pi',
-        model: 'github-copilot/gpt-5.5'
       },
       {
         kind: 'remote',

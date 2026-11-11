@@ -8,12 +8,7 @@ import { TUI_AGENT_CONFIG } from '../../agent-launch/catalog/tui-agent-config'
 export type TuiAgentRestSignal = 'hook-done' | 'synthetic-title' | 'title' | 'ready-body' | 'none'
 
 /** Lanes keyed on agent identity in tui-idle-evidence.ts, which no title table records. */
-const IDENTITY_REST_SIGNALS: Partial<Record<TuiAgent, TuiAgentRestSignal>> = {
-  dsh: 'hook-done',
-  muse: 'ready-body',
-  qoder: 'ready-body',
-  'qoder-cn': 'ready-body'
-}
+const IDENTITY_REST_SIGNALS: Partial<Record<TuiAgent, TuiAgentRestSignal>> = {}
 
 // Derive from title evidence instead of a duplicate agent table; unsupported identities fall to none.
 export function getTuiAgentRestSignal(agent: TuiAgent): TuiAgentRestSignal {

@@ -45,22 +45,11 @@ const NATIVE_CHAT_AGENT_PROFILES: Partial<Record<AgentType, NativeChatAgentProfi
     skillSourceOwner: 'claude',
     expandsSlashCommandsFromText: true
   },
-  openclaude: {
-    skillPrefix: '/',
-    skillSourceOwner: 'claude',
-    expandsSlashCommandsFromText: true
-  },
   opencode: OPENCODE_PROFILE,
   opencode2: OPENCODE_PROFILE,
   grok: {
     skillPrefix: '/',
     skillSourceOwner: 'grok'
-  },
-  // Pi expands only `/skill:<name>`; a bare `/<name>` reaches the model as text.
-  pi: {
-    skillPrefix: '/',
-    skillSourceOwner: 'pi',
-    skillNamePrefix: 'skill:'
   }
 }
 

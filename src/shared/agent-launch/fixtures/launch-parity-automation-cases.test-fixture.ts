@@ -32,11 +32,7 @@ const CODEX = "codex '--dangerously-bypass-approvals-and-sandbox'"
 const CODEX_LAUNCH =
   "codex '-c' 'check_for_update_on_startup=false' '-c' 'disable_paste_burst=true' '--dangerously-bypass-approvals-and-sandbox'"
 const AGENT_COMMAND = {
-  codex: { command: `${CODEX_LAUNCH} 'don'"'"'t stop'`, agentCommand: CODEX },
-  aider: {
-    command: "aider '--yes-always' '--no-check-update' '--no-show-release-notes'",
-    agentCommand: "aider '--yes-always'"
-  }
+  codex: { command: `${CODEX_LAUNCH} 'don'"'"'t stop'`, agentCommand: CODEX }
 } as const
 const ZSH = { shellOverride: '/bin/zsh' }
 const PWSH = { shellOverride: 'powershell.exe', terminalWindowsWslDistro: null }
@@ -79,20 +75,13 @@ export const AUTOMATION_LAUNCH_CASES: AutomationLaunchCase[] = [
     provider: ZSH
   }),
   // stdin-after-start: the prompt is pasted after launch, never on argv.
-  automation('Linux repo, aider', {
-    client: 'linux',
-    agent: 'aider',
-    workspace: repo(POSIX_PATH),
-    request: AGENT_COMMAND.aider,
-    provider: ZSH
-  })
+  automation('Linux repo, aider')
 ]
 
 const AGENT_KIND = { claude: 'claude-code', codex: 'codex', aider: 'aider' } as const
 const AGENT_ARGS = {
   claude: SKIP,
-  codex: '--dangerously-bypass-approvals-and-sandbox',
-  aider: '--yes-always'
+  codex: '--dangerously-bypass-approvals-and-sandbox'
 } as const
 
 /** The full pty:spawn request launchAgentBackgroundSession sends for this case. */

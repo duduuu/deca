@@ -8,7 +8,6 @@ export const TERMINAL_TITLE_CLASSIFICATION_CORPUS: readonly string[] = [
   'npm run dev',
   // Boundary-guard cases from agent-name-token-match.ts's header comment.
   'opencode-blinker',
-  'openclaude',
   'openclaude-scratch',
   'claude-scratch',
   '~/codex/ready',

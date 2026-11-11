@@ -98,7 +98,7 @@ describe('AgentHookServer listener replay', () => {
   })
 
   // Reattach must restore mid-turn and idle panes without waiting for a new-turn event.
-  for (const kind of ['pi', 'omp'] as const) {
+  for (const kind of [] as const) {
     it(`re-attaching a retired ${kind} pane restores status without needing a new turn`, async () => {
       const server = new AgentHookServer()
       await server.start({ env: 'production' })

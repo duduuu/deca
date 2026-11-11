@@ -290,8 +290,6 @@ export abstract class OrcaRuntimeWithOnPtyData extends OrcaRuntimeWithPreparePty
         titleScanData: titleInput,
         programActivity: agentStatusChunk.programActivity
       })
-      // Keep Command Code facts in this chunk's batch; exclude OSC 9999 payloads from its bounded text window.
-      titleTrackerEntry.commandCodeDetector?.observe(agentStatusChunk.cleanData)
     } finally {
       titleTrackerEntry.applyingChunk = false
       try {

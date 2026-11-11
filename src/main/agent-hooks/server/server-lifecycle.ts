@@ -2,7 +2,6 @@ import {
   AgentHookStartup,
   listenForAgentHooks
 } from '../../../shared/agent-hook-listener/transport/agent-hook-startup'
-import { parsePaneKey } from '../../../shared/workspace-layout/stable-pane-id'
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http'
 import { randomUUID } from 'node:crypto'
 
@@ -143,9 +142,6 @@ export abstract class AgentHookServerLifecycle extends AgentHookServerStatusHook
           return
         }
         const normalized = this.normalizeLocalHookPayload(source, aliasedBody)
-        if (source === 'muse' && !normalized.event) {
-          this.rearmIgnoredMuseHook(aliasedBody)
-        }
         const statusDisposition = normalized.event
           ? this.getAgentStatusDisposition(normalized.event.paneKey, {
               source,
@@ -157,21 +153,11 @@ export abstract class AgentHookServerLifecycle extends AgentHookServerStatusHook
           : 'suppress'
         let toolCallOwner: typeof normalized.event = null
         if (normalized.event && statusDisposition !== 'suppress') {
-          const restartedAuthority =
-            statusDisposition === 'restart' && source === 'omp'
-              ? this.restoreRetiredStatusRestart(normalized.event.paneKey)
-              : undefined
           const event =
             statusDisposition === 'restart'
               ? {
                   ...normalized.event,
-                  launchToken: undefined,
-                  ...(restartedAuthority
-                    ? {
-                        ...restartedAuthority,
-                        tabId: parsePaneKey(restartedAuthority.paneKey)?.tabId
-                      }
-                    : {})
+                  launchToken: undefined
                 }
               : normalized.event
           if (statusDisposition === 'restart') {

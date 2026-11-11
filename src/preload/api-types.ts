@@ -3,9 +3,7 @@ import type {
   CodexAccountsApi,
   CodexConfigSyncApi,
   CursorAccountsApi,
-  GrokAccountsApi,
-  MinimaxCredentialsApi,
-  ZcodePlanCredentialsApi
+  GrokAccountsApi
 } from './api/agent-account-api'
 import type { HooksApi } from './api/agent-hook-api'
 import type { SkillsApi } from './api/agent-skill-api'
@@ -13,7 +11,6 @@ import type { AgentAwakeApi, AgentStatusApi } from './api/agent-status-api'
 import type {
   ClaudeUsageApi,
   CodexUsageApi,
-  MuseUsageApi,
   OpenCodeUsageApi,
   RateLimitsApi
 } from './api/agent-usage-api'
@@ -142,7 +139,6 @@ export type PreloadApi = {
   claudeUsage: ClaudeUsageApi
   codexUsage: CodexUsageApi
   openCodeUsage: OpenCodeUsageApi
-  museUsage: MuseUsageApi
   aiVault: AiVaultApi
   nativeChat: NativeChatApi
   fs: FilesystemApi['fs']
@@ -156,8 +152,6 @@ export type PreloadApi = {
     saveApiKey: (key: string) => Promise<{ apiKeyConfigured: boolean }>
     clearApiKey: () => Promise<{ apiKeyConfigured: boolean }>
   }
-  minimaxCredentials: MinimaxCredentialsApi
-  zcodePlanCredentials: ZcodePlanCredentialsApi
   grokAccounts: GrokAccountsApi
   cursorAccounts: CursorAccountsApi
   ssh: SshApi
@@ -178,12 +172,7 @@ export type PreloadApi = {
   speech: SpeechApi
 }
 
-export type {
-  ClaudeUsageApi,
-  CodexUsageApi,
-  MuseUsageApi,
-  OpenCodeUsageApi
-} from './api/agent-usage-api'
+export type { ClaudeUsageApi, CodexUsageApi, OpenCodeUsageApi } from './api/agent-usage-api'
 export type { AiVaultApi } from './api/ai-vault-api'
 export type { AutomationsApi, ExternalAutomationManagerResult } from './api/automation-api'
 export type { AppApi } from './api/app-api'

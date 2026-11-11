@@ -4,8 +4,6 @@ import {
   resolveNativeChatInteractivePromptCard
 } from './native-chat-interactive-prompt'
 import type { NativeChatMessage } from '../native-chat-types'
-import { buildOmpPlanReviewAnswer } from '../../omp-plan-review-prompt'
-
 describe('parseApprovalFromStatus', () => {
   it('returns null for non-approval envelopes', () => {
     expect(parseApprovalFromStatus(null)).toBeNull()

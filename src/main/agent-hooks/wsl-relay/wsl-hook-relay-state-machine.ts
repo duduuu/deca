@@ -78,11 +78,7 @@ export async function resolveWslDefaultDistro(
   }
 }
 
-type WslRelayEnsure = (
-  distro: string,
-  codexHomePath?: string,
-  launchKind?: 'pi' | 'omp'
-) => Promise<void>
+type WslRelayEnsure = (distro: string, codexHomePath?: string) => Promise<void>
 
 export function captureWslRelaySetup(state: WslRelayDistroState): WslRelayRestartSetup {
   return {
@@ -90,10 +86,7 @@ export function captureWslRelaySetup(state: WslRelayDistroState): WslRelayRestar
     claudeAgentViewDir: state.claudeAgentViewDir,
     claudeConfigDir: state.claudeConfigDir,
     opencodeOverlayDir: state.opencodeOverlayDir,
-    opencode2OverlayDir: state.opencode2OverlayDir,
-    piAgentDir: state.piAgentDir,
-    ompStatusExtension: state.ompStatusExtension,
-    launchKinds: [...state.launchKinds]
+    opencode2OverlayDir: state.opencode2OverlayDir
   }
 }
 
@@ -105,7 +98,6 @@ export function seedWslRelayState(
   return {
     distro,
     ...setup,
-    launchKinds: new Set(setup.launchKinds),
     phase: 'failed',
     failures: 0,
     cooldownUntil: 0
@@ -126,11 +118,7 @@ export async function restartWslRelay(
     states.set(key, seed)
   }
   // No Codex home argument: ensure keeps the seed's, and never overwrites a newer relay's.
-  const ensures = [ensure(distro)]
-  for (const launchKind of setup.launchKinds) {
-    ensures.push(ensure(distro, undefined, launchKind))
-  }
-  await Promise.all(ensures)
+  await ensure(distro)
   // An ensure that bailed (gate closed, no bundle) must not leave the seed behind.
   if (seed && states.get(key) === seed) {
     states.delete(key)
@@ -155,7 +143,7 @@ export function createWslRelayRecoveryForManager(manager: {
     isCurrent: (state) => states.get(wslHookRelayStateKey(state.distro)) === state,
     captureSetup: (state) => {
       const current = states.get(wslHookRelayStateKey(state.distro))
-      return current ? captureWslRelaySetup(current) : { launchKinds: [] }
+      return current ? captureWslRelaySetup(current) : {}
     },
     restart: (distro, setup) => void restartWslRelay(states, manager.ensure, distro, setup),
     dropState: (state) => {

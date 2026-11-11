@@ -1,6 +1,5 @@
 import type { CodexUsageSummary } from '../../../../shared/codex-usage-types'
 import type { OpenCodeUsageSummary } from '../../../../shared/opencode-usage-types'
-import type { MuseUsageSummary } from '../../../../shared/muse-usage-types'
 import { countActiveDays, getClaudeDailyTotal } from './usage-overview-daily-series'
 import type { UsageOverviewInput, UsageProviderOverview } from './usage-overview-types'
 import { translate } from '@/i18n/i18n'
@@ -129,7 +128,7 @@ export function createOpenCodeProvider(
 }
 
 export function createMuseProvider(
-  input: UsageOverviewInput['muse'],
+  input: UsageOverviewInput[],
   t: Translate = translate
 ): UsageProviderOverview {
   const summary = input.summary

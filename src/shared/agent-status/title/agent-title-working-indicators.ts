@@ -5,8 +5,6 @@ import {
   QUARTER_CIRCLE_SPINNER_RE
 } from './agent-title-glyphs'
 import { containsAgentName, STRONG_WORKING_KEYWORDS_RE_GLOBAL } from './agent-title-core'
-import { clearPiStateWorkingMarker } from './providers/pi-state-title-marker'
-
 /**
  * Strip working-status indicators so stale exit titles stop reporting working.
  */

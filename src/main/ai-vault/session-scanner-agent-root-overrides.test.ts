@@ -63,20 +63,6 @@ const CASES = [
       )
   },
   {
-    agent: 'openclaw',
-    envVar: 'OPENCLAW_STATE_DIR',
-    absolute: '/srv/openclaw',
-    absoluteRoot: join('/srv/openclaw', 'agents'),
-    defaultRoot: () => join(homedir(), '.openclaw', 'agents')
-  },
-  {
-    agent: 'kimi',
-    envVar: 'KIMI_CODE_HOME',
-    absolute: '/srv/kimi',
-    absoluteRoot: join('/srv/kimi', 'sessions'),
-    defaultRoot: () => join(homedir(), '.kimi-code', 'sessions')
-  },
-  {
     agent: 'grok',
     envVar: 'GROK_HOME',
     absolute: '/srv/grok',

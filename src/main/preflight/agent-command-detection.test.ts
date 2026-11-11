@@ -66,10 +66,7 @@ describe('detectAgentCommandsOnHost install-dir fallback', () => {
     }
   )
 
-  it.skipIf(process.platform === 'win32').each([
-    ['AgEnT-PrObE', 'agent-probe'],
-    ['cruſh', 'crush']
-  ])(
+  it.skipIf(process.platform === 'win32').each([['AgEnT-PrObE', 'agent-probe'], ['cruſh']])(
     'preserves filesystem equivalence for %s when looking up %s with PATH fallback skipped',
     async (filename, command) => {
       const dir = await mkdtemp(path.join(tmpdir(), 'agent-detection-case-'))

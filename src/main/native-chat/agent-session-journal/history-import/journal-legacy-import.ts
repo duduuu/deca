@@ -1,4 +1,4 @@
-import { createImportedForkTip, observeOmpForkTip } from './imported-fork-tip'
+import { createImportedForkTip } from './imported-fork-tip'
 import { agentJournalItemKey } from '../../../../shared/agent-session/journal/agent-session-journal-item-key'
 import {
   adoptedTranscriptSourceObserver,
@@ -18,7 +18,6 @@ import { readLegacyImportTranscript, TRANSCRIPT_DECODERS } from './journal-legac
 import { readOpenCodeNativeChatTranscriptFull } from '../../transcript-opencode'
 import { mayBeClaudeConversationRecord } from '../../transcript-line-decoders-claude'
 import { createLegacyIdentityTracker } from './journal-legacy-identity'
-import { createPiTranscriptCollector } from './journal-pi-active-branch'
 import { createNewestItemWindow } from './journal-newest-item-window'
 import { createCodexHistoryCollector } from './journal-codex-history'
 import type { JournalReplacementItem } from '../context-epochs/journal-epoch-replacement'
@@ -92,9 +91,7 @@ export async function prepareLegacyTranscriptImport(input: {
 }): Promise<PreparedLegacyImport> {
   const options = input.options ?? {}
   const limits = options.limits ?? LEGACY_IMPORT_BLOCK_LIMITS
-  // OMP retained Pi's format, so its decoder also reads Pi sessions.
-  const transcriptAgent =
-    input.agent === 'pi' ? 'omp' : resolveNativeChatTranscriptAgent(input.agent)
+  const transcriptAgent = resolveNativeChatTranscriptAgent(input.agent)
   if (!transcriptAgent) {
     return { ok: false, error: `Unsupported agent for journal import: ${input.agent}` }
   }
@@ -236,71 +233,53 @@ async function decodeReplacementItems(input: {
       ? createCodexHistoryCollector(input.sessionId, input.limits, MAX_LEGACY_IMPORT_RETAINED_BYTES)
       : createNewestItemWindow(MAX_LEGACY_IMPORT_RETAINED_BYTES)
   let paginated = false
-  const pi =
-    input.agent === 'pi'
-      ? createPiTranscriptCollector(toItem, (line, lineIndex) => tracker.identify(line, lineIndex))
-      : null
   const forkTip = createImportedForkTip()
   let lineIndex = 0
   // A Claude file of metadata alone is one nothing was sent in; an undecodable turn still counts.
   let conversation = input.transcriptAgent !== 'claude'
-  try {
-    const { consumedBytes } = await readLegacyImportTranscript(
-      {
-        filePath: input.filePath,
-        codex: input.transcriptAgent === 'codex',
-        roots: input.codexSessionsDirs
-      },
-      (line, fallbackId, recordId, selected = true) => {
-        if (selected) {
-          source?.observe(line)
-        }
-        if (paginated) {
-          return null
-        }
-        const currentLineIndex = lineIndex++
-        if (pi) {
-          pi.record(line, fallbackId, currentLineIndex)
-          return null
-        }
-        const message = TRANSCRIPT_DECODERS[input.transcriptAgent](line, fallbackId)
-        conversation ||= !!message || mayBeClaudeConversationRecord(line)
-        if (message) {
-          const identity =
-            recordId || input.decodedMessageIdentities
-              ? {
-                  provider: 'legacy' as const,
-                  agent: input.agent,
-                  sessionId: input.sessionId,
-                  recordId: recordId ?? message.id
-                }
-              : tracker.identify(line, currentLineIndex)
-          retained.push(toItem(message, identity))
-        }
-        if (input.transcriptAgent === 'omp') {
-          observeOmpForkTip(forkTip, line, tracker.identify(line, currentLineIndex))
-        }
+  const { consumedBytes } = await readLegacyImportTranscript(
+    {
+      filePath: input.filePath,
+      codex: input.transcriptAgent === 'codex',
+      roots: input.codexSessionsDirs
+    },
+    (line, fallbackId, recordId, selected = true) => {
+      if (selected) {
+        source?.observe(line)
+      }
+      if (paginated) {
         return null
-      },
-      'record' in retained
-        ? (descriptor) => {
-            paginated = descriptor.paginated
-            retained.record(descriptor)
-          }
-        : undefined
-    )
-    // A file with no conversation adopts nothing, so it has no identity to prove.
-    if (consumedBytes > 0 && conversation) {
-      await source?.validate()
-    }
-    if (pi) {
-      await pi.project(retained.push)
-    }
-    const sourceEmpty = consumedBytes === 0 || !conversation
-    return { items: retained.items(), sourceEmpty, forkTipItemIds: forkTip.settledItems() }
-  } finally {
-    pi?.close()
+      }
+      const currentLineIndex = lineIndex++
+      const message = TRANSCRIPT_DECODERS[input.transcriptAgent](line, fallbackId)
+      conversation ||= !!message || mayBeClaudeConversationRecord(line)
+      if (message) {
+        const identity =
+          recordId || input.decodedMessageIdentities
+            ? {
+                provider: 'legacy' as const,
+                agent: input.agent,
+                sessionId: input.sessionId,
+                recordId: recordId ?? message.id
+              }
+            : tracker.identify(line, currentLineIndex)
+        retained.push(toItem(message, identity))
+      }
+      return null
+    },
+    'record' in retained
+      ? (descriptor) => {
+          paginated = descriptor.paginated
+          retained.record(descriptor)
+        }
+      : undefined
+  )
+  // A file with no conversation adopts nothing, so it has no identity to prove.
+  if (consumedBytes > 0 && conversation) {
+    await source?.validate()
   }
+  const sourceEmpty = consumedBytes === 0 || !conversation
+  return { items: retained.items(), sourceEmpty, forkTipItemIds: forkTip.settledItems() }
 }
 
 export function legacyItemBody(

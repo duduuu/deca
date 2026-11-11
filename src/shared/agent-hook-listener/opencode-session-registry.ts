@@ -171,7 +171,7 @@ export function lookupOpenCodePaneLaunchToken(
 
 /** OpenCode1 compatibility: remove with OpenCode1 support. Major>=2 names its own pane; missing markers (OpenCode1/mimo-code/older plugins) may use shared servers. */
 export function isOpenCodeSharedServerPost(source: AgentHookSource, body: unknown): boolean {
-  if ((source !== 'opencode' && source !== 'mimo-code') || typeof body !== 'object' || !body) {
+  if (source !== 'opencode' || typeof body !== 'object' || !body) {
     return false
   }
   const major = 'opencodeMajor' in body ? body.opencodeMajor : undefined

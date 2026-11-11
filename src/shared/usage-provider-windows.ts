@@ -23,13 +23,9 @@ const PROVIDER_DISPLAY_NAMES: Readonly<Record<string, string>> = {
   codex: 'Codex',
   gemini: 'Gemini',
   'opencode-go': 'OpenCode Go',
-  kimi: 'Kimi',
   antigravity: 'Antigravity',
-  minimax: 'MiniMax',
   grok: 'Grok',
-  zcode: 'ZCode',
-  cursor: 'Cursor',
-  muse: 'Muse'
+  cursor: 'Cursor'
 } satisfies Record<ProviderRateLimits['provider'], string>
 
 // A provider id from a newer host falls back to the id itself.

@@ -43,32 +43,6 @@ const AGENT_REQUIRED_VALUE_OPTIONS: Partial<Record<AgentType, readonly string[]>
     '--system-prompt-snapshot',
     '--tools'
   ],
-  // Pi 1.5.0 parseArgs (dist/cli/args.js); --mode, --use-theme, --tui-mode refuse dash-leading values.
-  pi: [
-    '--provider',
-    '--model',
-    '--api-key',
-    '--system-prompt',
-    '--append-system-prompt',
-    '--name',
-    '-n',
-    '--session',
-    '--session-id',
-    '--fork',
-    '--session-dir',
-    '--models',
-    '--tools',
-    '-t',
-    '--exclude-tools',
-    '-xt',
-    '--thinking',
-    '--export',
-    '--extension',
-    '-e',
-    '--skill',
-    '--prompt-template',
-    '--theme'
-  ],
   cursor: [
     '--api-key',
     '-H',

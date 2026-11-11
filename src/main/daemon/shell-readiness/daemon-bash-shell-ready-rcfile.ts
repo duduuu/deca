@@ -1,4 +1,3 @@
-import { getPosixOmpShellWrapper } from '../../pty/shell-startup/omp-shell-wrapper'
 import { ORCA_CLI_POSIX_PATH_RESTORE } from '../../../shared/orca-cli-shell-path'
 import { MANAGED_DATA_ACCOUNT_POSIX_RESTORE } from '../../../shared/managed-data-account-shell'
 import { getPosixCodexShellLaunchPreflight } from '../../../shared/codex-shell-function'
@@ -46,8 +45,6 @@ ${ORCA_CLI_POSIX_PATH_RESTORE}
 # Restore the managed OpenCode config after user profiles may have replaced it.
 [[ -n "\${ORCA_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${ORCA_OPENCODE_CONFIG_DIR}"
 ${MANAGED_DATA_ACCOUNT_POSIX_RESTORE}
-[[ -n "\${ORCA_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${ORCA_MIMOCODE_CONFIG_DIR}"
-${getPosixOmpShellWrapper()}
 # Preserve the managed CODEX_HOME after user profiles.
 [[ -n "\${ORCA_CODEX_HOME:-}" ]] && export CODEX_HOME="\${ORCA_CODEX_HOME}"
 ${getPosixCodexShellLaunchPreflight() + getPosixClaudeShellFunction()}

@@ -1,6 +1,4 @@
 import React from 'react'
-import minimaxIconUrl from '../../../../../resources/minimax-icon.svg?url'
-
 export function OpenAIIcon({
   size = 14,
   className

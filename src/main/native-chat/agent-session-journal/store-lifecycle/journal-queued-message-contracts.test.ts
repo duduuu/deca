@@ -1,5 +1,4 @@
 import { afterEach, describe, vi } from 'vitest'
-import { registerJournalPiContextImportTests } from '../history-import/journal-pi-context-import.spec'
 import { registerJournalProducerInheritanceTests } from '../projection/journal-producer-inheritance.spec'
 import { registerJournalUnsentSendHoldTests } from '../queued-messages/journal-unsent-send-hold.spec'
 import { registerQueuedMessagePauseTests } from '../queued-messages/queued-message-pause.spec'

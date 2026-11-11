@@ -1,4 +1,3 @@
-import { isQoderTerminalTitle } from '../../../../../shared/agent-status/title/providers/qoder-terminal-title'
 import { detectAgentStatusFromTitle } from '../../../../../shared/agent-status/title/agent-title-status'
 import {
   isGeminiTerminalTitle,

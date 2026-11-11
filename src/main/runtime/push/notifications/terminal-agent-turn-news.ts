@@ -4,8 +4,6 @@ import { mainAgentTurnInterrupted } from '../../../../shared/agent-status/lifecy
 import { agentTurnEndedOnPurpose } from '../../../../shared/agent-status/lifecycle/agent-main-agent-verdict'
 import type { AgentStatusIpcPayload } from '../../../../shared/agent-status/contracts/agent-status-ipc-payload'
 import { AGENT_DONE_QUIET_MS } from '../../../../shared/agent-status/lifecycle/agent-transitions'
-import { isPiCompatibleAgentType } from '../../../../shared/pi-agent-kind'
-
 export type TerminalAgentTurnNewsItem = {
   paneKey: string
   worktreeId: string
@@ -85,8 +83,8 @@ export class TerminalAgentTurnNews<Prepared> {
       this.announce(paneKey, change.workspace.worktreeId, row, false)
       return
     }
-    // Goal and Pi agents report a milestone done mid-run; work resuming within the window cancels it.
-    const waitOutQuiet = this.workingSeen.has(paneKey) || isPiCompatibleAgentType(row.agentType)
+    // Goal agents report a milestone done mid-run; work resuming within the window cancels it.
+    const waitOutQuiet = this.workingSeen.has(paneKey)
     this.workingSeen.delete(paneKey)
     this.announce(paneKey, change.workspace.worktreeId, row, waitOutQuiet)
   }

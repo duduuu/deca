@@ -5,8 +5,6 @@ import { AGENT_SESSION_USAGE_LIMIT_AUTO_CONTINUE_RUNTIME_CAPABILITY } from '../.
 import { runtimeChatPermissionSetting } from './web-preference-normalization'
 import { callEnvironmentEnvelope } from './web-runtime-calls'
 import { requireActiveEnvironmentOrNull } from './web-runtime-session'
-import { zcodePlanSiteOwner } from './web-zcode-plan-site'
-
 let consent: { owner: string | null; value: boolean | undefined } | undefined
 
 export const read = runtimeChatPermissionSetting

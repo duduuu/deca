@@ -12,13 +12,9 @@ import {
   type InactiveCodexAccountInfo,
   type InternalRateLimitState,
   type CodexHomePathResolver,
-  type KimiHomeResolver,
   type ClaudeAuthPreparationResolver,
   type OpenCodeGoRateLimitConfig,
-  type MiniMaxRateLimitConfig,
   type AntigravityUsageEnabledResolver,
-  type MuseUsageEnabledResolver,
-  type ZcodePlanRateLimitConfig,
   type GeminiCliOAuthEnabledResolver,
   DEFAULT_POLL_MS
 } from './service-types'
@@ -34,13 +30,9 @@ export abstract class RateLimitServiceState {
     codex: null,
     gemini: null,
     opencodeGo: null,
-    kimi: null,
     antigravity: null,
-    minimax: null,
     grok: null,
-    cursor: null,
-    zcode: null,
-    muse: null
+    cursor: null
   }
   protected grokAuthConfigured = readGrokAuthSession().status === 'ok'
   // Async Keychain/desktop DB probing belongs in fetch cycles, never synchronous construction.
@@ -55,13 +47,9 @@ export abstract class RateLimitServiceState {
     codex: 0,
     gemini: 0,
     'opencode-go': 0,
-    kimi: 0,
-    minimax: 0,
     grok: 0,
     antigravity: 0,
-    cursor: 0,
-    zcode: 0,
-    muse: 0
+    cursor: 0
   }
   // Failures increase activation backoff; success/unavailable resets it.
   protected activeFailureStreakByProvider: Record<ActiveRateLimitProvider, number> = {
@@ -69,13 +57,9 @@ export abstract class RateLimitServiceState {
     codex: 0,
     gemini: 0,
     'opencode-go': 0,
-    kimi: 0,
-    minimax: 0,
     grok: 0,
     antigravity: 0,
-    cursor: 0,
-    zcode: 0,
-    muse: 0
+    cursor: 0
   }
   protected mainWindow: BrowserWindow | null = null
   /** Paired clients streaming usage (accounts.subscribe); headless hosts have no window to watch. */
@@ -95,19 +79,13 @@ export abstract class RateLimitServiceState {
   // Capture account attribution once per cycle instead of rerunning auth preparation on every post.
   protected lastClaudeAuthSnapshot: { configDir: string | null; provenance: string } | null = null
   protected opencodeFetchGeneration = 0
-  protected minimaxFetchGeneration = 0
-  protected zcodeFetchGeneration = 0
   protected antigravityFetchGeneration = 0
   protected lastOpencodeConfigHash = ''
-  protected lastMiniMaxConfigHash = ''
-  protected lastZcodeConfigHash = ''
   protected codexHomePathResolver: CodexHomePathResolver | null = null
   protected codexFetchTarget: NormalizedCodexAccountSelectionTarget = {
     runtime: 'host',
     wslDistro: null
   }
-  // Runtime policy may change between cycles.
-  protected kimiHomeResolver: KimiHomeResolver | null = null
   protected claudeAuthPreparationResolver: ClaudeAuthPreparationResolver | null = null
   protected claudeFetchTarget: NormalizedClaudeAccountSelectionTarget = {
     runtime: 'host',
@@ -115,14 +93,11 @@ export abstract class RateLimitServiceState {
   }
   protected openCodeGoConfigResolver: (() => OpenCodeGoRateLimitConfig) | null = null
   protected openCodeGoApiKeyResolver: (() => string | null) | null = null
-  protected miniMaxConfigResolver: (() => MiniMaxRateLimitConfig) | null = null
-  protected zcodePlanConfigResolver: (() => ZcodePlanRateLimitConfig) | null = null
   protected geminiCliOAuthEnabledResolver: GeminiCliOAuthEnabledResolver | null = null
   protected antigravityUsageEnabledResolver: AntigravityUsageEnabledResolver | null = null
   protected antigravityFetchTarget: LocalAccountRuntimeTarget = { runtime: 'host', wslDistro: null }
   protected antigravityAccountUsageRecorder: AntigravityAccountUsageRecorder | null = null
   protected antigravityAccounts: AntigravityAccountUsage[] = []
-  protected museUsageEnabledResolver: MuseUsageEnabledResolver | null = null
   protected inactiveClaudeAccountsResolver: (() => InactiveClaudeAccount[]) | null = null
   protected inactiveCodexAccountsResolver: (() => InactiveCodexAccountInfo[]) | null = null
   protected networkProxySettingsResolver: (() => NetworkProxySettings) | null = null

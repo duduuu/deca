@@ -3,7 +3,6 @@ import { hostTestCatalogReadOperation } from './structured-agent-session-host-te
 import '../../../../../shared/agent-session/lifecycle/agent-session-conversation-view'
 import '../../../agent-model-catalog/agent-model-catalog-service'
 import '../../../agent-model-catalog/agent-model-catalog-store'
-import { PiRpcOptionObservations, type PiRpcOptionProof } from '../../../../pi/rpc-options'
 import { piOptionRefreshHost } from './structured-agent-session-option-refresh.test-fixture'
 
 it('pairs the latest saved input with its report only after the resting read completes', async () => {

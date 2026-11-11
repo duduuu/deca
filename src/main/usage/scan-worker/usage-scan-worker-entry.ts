@@ -2,8 +2,6 @@ import { parentPort } from 'node:worker_threads'
 import { scanClaudeUsageFiles } from '../../claude-usage/scanner'
 import { scanCodexUsageFiles } from '../../codex-usage/scanner'
 import { scanOpenCodeUsageDatabases } from '../../opencode-usage/scanner'
-import { scanMuseUsageFiles } from '../../muse-usage/scanner'
-import { normalizeMuseUsagePersistedFiles } from '../../muse-usage/persisted-file-normalization'
 import { normalizeOpenCodeUsagePersistedDatabases } from '../../opencode-usage/persisted-database-normalization'
 import {
   readClaudeUsageSourceCache,
@@ -12,7 +10,6 @@ import {
 } from '../../claude-usage/persisted-source-cache'
 import type { CodexUsagePersistedFile } from '../../codex-usage/types'
 import type { OpenCodeUsagePersistedDatabase } from '../../opencode-usage/types'
-import type { MuseUsagePersistedFile } from '../../muse-usage/types'
 import type {
   UsageScanWorkerProgress,
   UsageScanWorkerRequest,
@@ -121,22 +118,6 @@ async function runScan(
       return {
         operation: 'scan',
         providerId: 'opencode',
-        sessions: result.sessions,
-        dailyAggregates: result.dailyAggregates
-      }
-    }
-    case 'muse': {
-      const result = await scanMuseUsageFiles(
-        request.worktrees,
-        normalizeMuseUsagePersistedFiles(
-          await readUsageSourceCache<MuseUsagePersistedFile>(request.sourceCache)
-        ),
-        onFilesScanned
-      )
-      await persistSourceCache(request.sourceCache, result.processedFiles)
-      return {
-        operation: 'scan',
-        providerId: 'muse',
         sessions: result.sessions,
         dailyAggregates: result.dailyAggregates
       }

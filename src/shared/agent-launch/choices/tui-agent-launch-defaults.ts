@@ -25,8 +25,7 @@ import type { TuiAgent } from '../catalog/tui-agent'
 import { resolveLocalWindowsAgentStartupShell } from '../../windows-terminal-shell'
 
 const UNSUPPORTED_TUI_AGENT_ARGS: Partial<Record<TuiAgent, readonly string[]>> = {
-  opencode: ['--dangerously-skip-permissions'],
-  kilo: ['--dangerously-skip-permissions']
+  opencode: ['--dangerously-skip-permissions']
 }
 
 /** What a launch reads: the user's Arguments and env plus the stored permission choice. */

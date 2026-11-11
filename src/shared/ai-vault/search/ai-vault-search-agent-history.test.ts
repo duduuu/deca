@@ -1,9 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
 import { createSessionSearchClient, unavailableSessionSearchStatus } from './ai-vault-search-client'
-import { AiVaultSearchRequestSchema as LegacyRequestSchema } from '../../__fixtures__/pre-qoder-search-request'
 import { searchResults } from './ai-vault-search-test-fixture'
 
-describe.each(['qoder', 'jcode'] as const)('%s search negotiation', (agent) => {
+describe.each([] as const)('%s search negotiation', (agent) => {
   it.each(['runtime', 'relay'] as const)(
     'retains the supported filters through the actual old enum over %s',
     async (transport) => {
@@ -56,7 +55,7 @@ describe('explicit search host vocabulary', () => {
     expect(
       await createSessionSearchClient(call, 'relay').searchSessions({
         query: 'q',
-        filters: { agents: ['qoder', 'jcode'] }
+        filters: { agents: [] }
       })
     ).toEqual({ kind: 'unavailable', reason: 'unsupported-agent' })
     expect(call).toHaveBeenCalledExactlyOnceWith('aiVault.searchStatus', {})

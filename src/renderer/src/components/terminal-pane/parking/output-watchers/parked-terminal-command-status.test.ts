@@ -148,12 +148,6 @@ describe('createParkedTerminalCommandStatusPolicy', () => {
 
     expect(mockStoreState.setAgentStatus).toHaveBeenCalledWith(
       PANE_KEY,
-      {
-        state: 'done',
-        prompt: 'Fix the spinner',
-        agentType: 'command-code',
-        observation: expect.objectContaining({ origin: 'process', kind: 'transition' })
-      },
       '✳ Build feature',
       undefined,
       ROUTING

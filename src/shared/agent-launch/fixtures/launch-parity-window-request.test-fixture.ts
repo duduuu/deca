@@ -98,7 +98,6 @@ export type WindowLaunchCase = {
 const AGENT_ARGS = {
   claude: '--dangerously-skip-permissions',
   codex: '--dangerously-bypass-approvals-and-sandbox',
-  aider: '--yes-always',
   antigravity: '--dangerously-skip-permissions'
 } as const
 

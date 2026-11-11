@@ -13,12 +13,6 @@ import type {
   OpenCodeUsageScanState,
   OpenCodeUsageSummary
 } from '../../../../shared/opencode-usage-types'
-import type {
-  MuseUsageDailyPoint,
-  MuseUsageScanState,
-  MuseUsageSummary
-} from '../../../../shared/muse-usage-types'
-
 export type UsageProviderId = 'claude' | 'codex' | 'opencode' | 'muse'
 
 export type UsageProviderOverview = {

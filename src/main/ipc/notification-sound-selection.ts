@@ -1,4 +1,3 @@
-import { extname, isAbsolute, normalize } from 'node:path'
 import beepSoundPath from '../../../resources/notification-sounds/beep.mp3?asset'
 import blipSoundPath from '../../../resources/notification-sounds/blip.mp3?asset'
 import blopSoundPath from '../../../resources/notification-sounds/blop.mp3?asset'
@@ -8,6 +7,7 @@ import dingSoundPath from '../../../resources/notification-sounds/ding.mp3?asset
 import sonarSoundPath from '../../../resources/notification-sounds/sonar.mp3?asset'
 import thumpSoundPath from '../../../resources/notification-sounds/thump.mp3?asset'
 import twoToneSoundPath from '../../../resources/notification-sounds/two-tone.mp3?asset'
+import { extname, isAbsolute, normalize } from 'node:path'
 import type { NotificationSettings } from '../../shared/notification-settings-types'
 
 export const NOTIFICATION_SOUND_MIME_BY_EXTENSION: ReadonlyMap<string, string> = new Map([

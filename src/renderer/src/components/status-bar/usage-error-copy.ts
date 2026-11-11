@@ -50,7 +50,7 @@ function getDelegatedCliRefreshProvider(
     return null
   }
   // Only these providers require a CLI-run credential rotation; Claude reports the same kind in-app.
-  return p.provider === 'grok' || p.provider === 'kimi' ? p.provider : null
+  return p.provider === 'grok' ? p.provider : null
 }
 
 /** An idle login's access token lapsed, not the login: Claude refreshes it the next time it runs. */

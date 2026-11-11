@@ -10,7 +10,6 @@ import { readFirstString } from './interactive-tool'
 import type { HookListenerState } from './listener-state'
 import type { AgentHookEventPayload } from './listener-event'
 import { isGrokSubagentEvent } from './providers/grok-tool-fields'
-import { isHermesRootSessionEvent, withHermesPaneSessionId } from './providers/hermes-events'
 import { readString } from './tool-input-preview'
 import { readFirstTranscriptRecord } from './transcript-reader'
 
@@ -264,7 +263,7 @@ export function retainHookRootContext(
     previous.payload.agentType === incoming.payload.agentType &&
     ((incoming.payload.agentType === 'codex' && incoming.toolAgentId) ||
       (fromHook &&
-        ['copilot', 'hermes', 'antigravity', 'droid'].includes(incoming.payload.agentType ?? '') &&
+        ['copilot', 'antigravity'].includes(incoming.payload.agentType ?? '') &&
         sameTerminalOwner))
       ? previous
       : undefined

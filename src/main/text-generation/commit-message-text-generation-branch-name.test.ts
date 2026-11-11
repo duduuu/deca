@@ -1,12 +1,8 @@
-import {
-  sourceShapedKimiOutput,
-  realKimiOccupiedOutput
-} from '../../shared/__fixtures__/kimi-generation-source-shaped'
 import { describe, expect, it } from 'vitest'
 import { generateBranchNameFromContext } from './commit-message-text-generation'
 
 describe('generateBranchNameFromContext', () => {
-  it.each(['custom', 'kimi'] as const)('%s branch slug', async (agentId) => {
+  it.each(['custom'] as const)('%s branch slug', async (agentId) => {
     const result = await generateBranchNameFromContext(
       { firstPrompt: 'Fix login flow' },
       {
@@ -65,7 +61,7 @@ describe('generateBranchNameFromContext', () => {
     })
   })
 
-  it.each(['pi', 'kimi'] as const)('%s failure diagnostics', async (agentId) => {
+  it.each([] as const)('%s failure diagnostics', async (agentId) => {
     const result = await generateBranchNameFromContext(
       { firstPrompt: 'Fix login flow' },
       {
@@ -103,10 +99,6 @@ describe('generateBranchNameFromContext', () => {
   it('describes a signal-terminated generator without a null exit code', async () => {
     const result = await generateBranchNameFromContext(
       { firstPrompt: 'Fix login flow' },
-      {
-        agentId: 'pi',
-        model: 'github-copilot/gpt-5.5'
-      },
       {
         kind: 'remote',
         cwd: '/repo',

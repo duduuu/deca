@@ -2,11 +2,8 @@ import { mkdtemp, open, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
-import { parseHermesSessionFile } from './scanners/hermes/session-scanner-hermes-parser'
 import { parseDevinSessionFile } from './scanners/devin/session-scanner-devin-parser'
 import { parseGeminiSessionFile } from './scanners/gemini/session-scanner-gemini-parsers'
-import { parseClineSessionFile } from './scanners/cline/session-scanner-cline-parser'
-
 const providers = [
   { agent: 'hermes', parse: parseHermesSessionFile, array: 'messages' },
   { agent: 'devin', parse: parseDevinSessionFile, array: 'steps' },

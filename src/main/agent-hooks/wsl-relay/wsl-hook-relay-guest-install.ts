@@ -29,24 +29,12 @@ type GuestInstallState = {
   claudeConfigDir?: string
   opencodeOverlayDir?: string
   opencode2OverlayDir?: string
-  piAgentDir?: string
-  ompStatusExtension?: string
   lastInstallAt?: number
   lastOpenCodeSettings?: string
   // Failed attempts throttle retries without claiming the guest accepted those settings.
   lastAttemptOpenCodeSettings?: string
   lastInstallMux?: SshChannelMultiplexer
-  launchKinds?: Set<'pi' | 'omp'>
   installation?: Promise<void>
-}
-
-function* requestedKinds(state: GuestInstallState): Generator<'pi' | 'omp' | undefined> {
-  if (!state.launchKinds?.size) {
-    yield undefined
-  }
-  if (state.launchKinds) {
-    yield* state.launchKinds
-  }
 }
 
 export async function runWslRelayGuestInstall(
@@ -98,8 +86,7 @@ async function installGuestHooksAndPlugins(
     warn: deps.warn
   })
   // Record plugin overlays for PTY environments only while this relay still owns the state.
-  const kinds = requestedKinds(state)
-  for (const kind of kinds) {
+  {
     if (state.mux !== mux || mux.isDisposed()) {
       return
     }
@@ -113,8 +100,7 @@ async function installGuestHooksAndPlugins(
     const overlay = await requestGuestOpenCodeOverlayDir(
       mux,
       { ...deps, managedHookSettings: () => settings },
-      state.distro,
-      kind
+      state.distro
     )
     if (state.mux !== mux || mux.isDisposed()) {
       return
@@ -125,11 +111,6 @@ async function installGuestHooksAndPlugins(
       state.claudeConfigDir = overlay.kind === 'dir' ? overlay.claudeConfig : undefined
       state.opencodeOverlayDir = overlay.kind === 'dir' ? overlay.dir : undefined
       state.opencode2OverlayDir = overlay.kind === 'dir' ? overlay.dir2 : undefined
-      if (kind === 'pi') {
-        state.piAgentDir = overlay.kind === 'dir' ? overlay.piDir : undefined
-      } else if (kind === 'omp') {
-        state.ompStatusExtension = overlay.kind === 'dir' ? overlay.ompDir : undefined
-      }
     }
   }
 }

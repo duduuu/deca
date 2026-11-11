@@ -1,13 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import {
-  parseHermesSessionContent,
-  parseHermesSessionDocument
-} from '../scanners/hermes/session-scanner-hermes-parser'
-import {
-  parseClineSessionContent,
-  parseClineSessionDocuments
-} from '../scanners/cline/session-scanner-cline-parser'
-import {
   remoteSessionContentLines,
   streamedSessionContentLines
 } from './remote-session-content-lines'

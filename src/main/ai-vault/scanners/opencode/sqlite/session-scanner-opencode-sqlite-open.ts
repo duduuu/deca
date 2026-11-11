@@ -53,10 +53,10 @@ export function readOpenCodeDatabase<T>(args: {
 export function openCodeDatabaseScanIssue(
   dbPath: string,
   error: unknown,
-  agent: 'opencode' | 'zcode' = 'opencode'
+  agent: 'opencode' = 'opencode'
 ): AiVaultScanIssue {
   const name = basename(dbPath)
-  const label = agent === 'zcode' ? 'ZCode' : 'OpenCode'
+  const label = 'OpenCode'
   // Avoid an extra synchronous existence probe that could hang on a WSL share.
   const kind = classifySqliteReadFailure({ error, databaseFileExists: true })
   // WSL-share lock errors do not establish writer contention; idle databases exhibit the same failure.

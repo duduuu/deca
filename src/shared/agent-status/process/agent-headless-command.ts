@@ -1,11 +1,3 @@
-import { isCodebuddyNonInteractiveCommand } from './codebuddy-headless-command'
-import { isQoderHeadlessCommand } from './qoder-headless-command'
-import { isAnteHeadlessOneShotCommand } from './ante-headless-command'
-import { isDshNonInteractiveCommand } from './dsh-launch-command'
-import { isMuseHeadlessOneShotCommand } from './muse-headless-command'
-import { isDsbHeadlessOneShotCommand } from './dsb-headless-command'
-import { isZCodeHeadlessOneShotCommand } from './zcode-headless-command'
-import { isPrimeAgentHeadlessOneShotCommand } from './prime-agent-headless-command'
 import { isPrintModeHeadlessOneShotCommand } from './print-mode-headless-command'
 import type { TerminalAgent } from '../identity/terminal-agent'
 
@@ -13,17 +5,7 @@ import type { TerminalAgent } from '../identity/terminal-agent'
 const HEADLESS_ONE_SHOT_MATCHERS: Partial<
   Record<TerminalAgent, (tokens: readonly string[]) => boolean>
 > = {
-  qoder: isQoderHeadlessCommand,
-  'qoder-cn': isQoderHeadlessCommand,
-  claude: isPrintModeHeadlessOneShotCommand,
-  codebuddy: isCodebuddyNonInteractiveCommand,
-  trae: isPrintModeHeadlessOneShotCommand,
-  'prime-agent': isPrimeAgentHeadlessOneShotCommand,
-  ante: isAnteHeadlessOneShotCommand,
-  muse: isMuseHeadlessOneShotCommand,
-  zcode: isZCodeHeadlessOneShotCommand,
-  dsh: isDshNonInteractiveCommand,
-  dsb: isDsbHeadlessOneShotCommand
+  claude: isPrintModeHeadlessOneShotCommand
 }
 
 export function isHeadlessOneShotAgentCommand(

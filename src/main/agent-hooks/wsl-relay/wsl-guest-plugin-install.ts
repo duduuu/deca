@@ -17,8 +17,6 @@ export type GuestOverlayResult =
       kind: 'dir'
       dir?: string
       dir2?: string
-      piDir?: string
-      ompDir?: string
       claudeDir?: string
       claudeConfig?: string
     }
@@ -28,24 +26,19 @@ export type GuestOverlayResult =
 export async function requestGuestOpenCodeOverlayDir(
   mux: SshChannelMultiplexer,
   deps: GuestPluginInstallDeps,
-  distro: string,
-  launchKind?: 'pi' | 'omp'
+  distro: string
 ): Promise<GuestOverlayResult> {
   try {
-    const res = await mux.request(AGENT_HOOK_INSTALL_PLUGINS_METHOD, {
-      ...selectOpenCodePluginSources(deps.pluginSources(), deps.managedHookSettings?.() ?? null),
-      ...(launchKind ? { launchKind } : {})
-    })
+    const res = await mux.request(
+      AGENT_HOOK_INSTALL_PLUGINS_METHOD,
+      selectOpenCodePluginSources(deps.pluginSources(), deps.managedHookSettings?.() ?? null)
+    )
     const overlayDirs: Record<string, unknown> =
       isRecord(res) && isRecord(res.overlayDirs) ? res.overlayDirs : {}
     const dir = overlayDirs.opencode
     const dir2 = overlayDirs.opencode2
-    const piDir = overlayDirs.pi
-    const ompDir = overlayDirs.omp
     const opencodeDir = typeof dir === 'string' && dir.length > 0 ? dir : undefined
     const opencode2Dir = typeof dir2 === 'string' && dir2.length > 0 ? dir2 : undefined
-    const guestPiDir = typeof piDir === 'string' && piDir.length > 0 ? piDir : undefined
-    const guestOmpDir = typeof ompDir === 'string' && ompDir.length > 0 ? ompDir : undefined
     const claudeDir =
       typeof overlayDirs.claudeAgentView === 'string' && overlayDirs.claudeAgentView.startsWith('/')
         ? overlayDirs.claudeAgentView
@@ -54,14 +47,12 @@ export async function requestGuestOpenCodeOverlayDir(
       typeof overlayDirs.claudeConfig === 'string' && overlayDirs.claudeConfig.startsWith('/')
         ? overlayDirs.claudeConfig
         : undefined
-    return opencodeDir || opencode2Dir || guestPiDir || guestOmpDir || claudeDir
+    return opencodeDir || opencode2Dir || claudeDir
       ? {
           kind: 'dir',
           ...(claudeDir && claudeConfig ? { claudeDir, claudeConfig } : {}),
           ...(opencodeDir ? { dir: opencodeDir } : {}),
-          ...(opencode2Dir ? { dir2: opencode2Dir } : {}),
-          ...(guestPiDir ? { piDir: guestPiDir } : {}),
-          ...(guestOmpDir ? { ompDir: guestOmpDir } : {})
+          ...(opencode2Dir ? { dir2: opencode2Dir } : {})
         }
       : { kind: 'none' }
   } catch (err) {

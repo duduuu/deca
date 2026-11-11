@@ -30,7 +30,6 @@ import type { NotificationSettings } from './notification-settings-types'
 import type { CtrlTabOrderMode } from './tab-types'
 import type { TerminalQuickCommand } from './terminal/quick-commands/terminal-quick-command-types'
 import type { TuiAgent } from './agent-launch/catalog/tui-agent'
-import type { ZcodePlanSite } from './zcode-plan-sites'
 import type {
   AgentDashboardMode,
   BranchPrefixStrategy,

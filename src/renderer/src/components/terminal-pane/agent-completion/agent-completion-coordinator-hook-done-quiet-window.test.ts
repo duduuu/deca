@@ -97,9 +97,6 @@ describe('agent completion coordinator', () => {
 
     vi.advanceTimersByTime(HOOK_DONE_QUIET_MS)
     expect(dispatchCompletion).toHaveBeenCalledTimes(1)
-    expect(dispatchCompletion).toHaveBeenCalledWith(
-      'pi',
-      expect.objectContaining({ source: 'hook' })
-    )
+    expect(dispatchCompletion).toHaveBeenCalledWith(expect.objectContaining({ source: 'hook' }))
   })
 })

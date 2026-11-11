@@ -15,7 +15,7 @@ const options: ProjectHostSetupOption[] = [
     detail: 'desktop-app',
     path: '/private/tmp/orca-38669/desktop-app'
   },
-  ...['devbox', 'gpu-box', 'staging', 'bastion', 'build-01', 'build-02', 'pi'].map(
+  ...['devbox', 'gpu-box', 'staging', 'bastion', 'build-01', 'build-02'].map(
     (name): ProjectHostSetupOption => ({
       id: `needs-setup:ssh:${name}`,
       kind: 'needs-setup',

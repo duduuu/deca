@@ -1,7 +1,5 @@
 import { ipcRenderer } from 'electron'
 import type { PreflightRuntimeContext, PreloadApi, RefreshAgentsResult } from '../api-types'
-import type { ZCodeInteractiveCapability } from '../../shared/zcode-missing-tui'
-
 export const preflightApi = {
   check: (args?: {
     force?: boolean
@@ -35,8 +33,6 @@ export const preflightApi = {
     ipcRenderer.on('preflight:wslDistroRunning', listener)
     return () => ipcRenderer.removeListener('preflight:wslDistroRunning', listener)
   },
-  zcodeInteractiveCapability: (): Promise<ZCodeInteractiveCapability> =>
-    ipcRenderer.invoke('preflight:zcodeInteractiveCapability'),
   refreshAgents: (
     args?: PreflightRuntimeContext & { enabledOnly?: boolean; wakeWslDistro?: boolean }
   ): Promise<RefreshAgentsResult> => ipcRenderer.invoke('preflight:refreshAgents', args),

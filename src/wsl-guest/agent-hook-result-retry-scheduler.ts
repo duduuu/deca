@@ -128,7 +128,7 @@ export class AgentHookResultRetryScheduler {
       return
     }
     // Why: a nested CLI of another kind inherits ORCA_PANE_KEY, so clearing here would silently end a live poll.
-    if (source !== 'codex' && source !== 'muse') {
+    if (source !== 'codex') {
       return
     }
     if (!shouldPollHookTranscript(this.host.state, source, original)) {

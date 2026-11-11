@@ -45,29 +45,22 @@ export function UsageOverviewPane(): React.JSX.Element {
   const openCodeScanState = useAppStore((state) => state.openCodeUsageScanState)
   const openCodeSummary = useAppStore((state) => state.openCodeUsageSummary)
   const openCodeDaily = useAppStore((state) => state.openCodeUsageDaily)
-  const museScanState = useAppStore((state) => state.museUsageScanState)
-  const museSummary = useAppStore((state) => state.museUsageSummary)
-  const museDaily = useAppStore((state) => state.museUsageDaily)
   const fetchClaudeUsage = useAppStore((state) => state.fetchClaudeUsage)
   const fetchCodexUsage = useAppStore((state) => state.fetchCodexUsage)
   const fetchOpenCodeUsage = useAppStore((state) => state.fetchOpenCodeUsage)
-  const fetchMuseUsage = useAppStore((state) => state.fetchMuseUsage)
   const refreshClaudeUsage = useAppStore((state) => state.refreshClaudeUsage)
   const refreshCodexUsage = useAppStore((state) => state.refreshCodexUsage)
   const refreshOpenCodeUsage = useAppStore((state) => state.refreshOpenCodeUsage)
-  const refreshMuseUsage = useAppStore((state) => state.refreshMuseUsage)
   const enableClaudeUsage = useAppStore((state) => state.enableClaudeUsage)
   const enableCodexUsage = useAppStore((state) => state.enableCodexUsage)
   const enableOpenCodeUsage = useAppStore((state) => state.enableOpenCodeUsage)
-  const enableMuseUsage = useAppStore((state) => state.enableMuseUsage)
   const recordFeatureInteraction = useAppStore((state) => state.recordFeatureInteraction)
 
   useEffect(() => {
     void fetchClaudeUsage()
     void fetchCodexUsage()
     void fetchOpenCodeUsage()
-    void fetchMuseUsage()
-  }, [fetchClaudeUsage, fetchCodexUsage, fetchOpenCodeUsage, fetchMuseUsage])
+  }, [fetchClaudeUsage, fetchCodexUsage, fetchOpenCodeUsage])
 
   const overview = useMemo(
     () =>
@@ -86,11 +79,6 @@ export function UsageOverviewPane(): React.JSX.Element {
           scanState: openCodeScanState,
           summary: openCodeSummary,
           daily: openCodeDaily
-        },
-        muse: {
-          scanState: museScanState,
-          summary: museSummary,
-          daily: museDaily
         }
       }),
     [
@@ -100,9 +88,6 @@ export function UsageOverviewPane(): React.JSX.Element {
       codexDaily,
       codexScanState,
       codexSummary,
-      museDaily,
-      museScanState,
-      museSummary,
       openCodeDaily,
       openCodeScanState,
       openCodeSummary
@@ -118,8 +103,7 @@ export function UsageOverviewPane(): React.JSX.Element {
     void Promise.all([
       claudeScanState?.enabled ? refreshClaudeUsage() : Promise.resolve(),
       codexScanState?.enabled ? refreshCodexUsage() : Promise.resolve(),
-      openCodeScanState?.enabled ? refreshOpenCodeUsage() : Promise.resolve(),
-      museScanState?.enabled ? refreshMuseUsage() : Promise.resolve()
+      openCodeScanState?.enabled ? refreshOpenCodeUsage() : Promise.resolve()
     ])
   }
 
@@ -206,16 +190,6 @@ export function UsageOverviewPane(): React.JSX.Element {
                 >
                   {t('auto.components.stats.UsageOverviewPane.2d13e57f72', 'Enable OpenCode')}
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    recordFeatureInteraction('usage-tracking')
-                    void enableMuseUsage()
-                  }}
-                >
-                  {t('auto.components.stats.UsageOverviewPane.enableMuse', 'Enable Muse')}
-                </Button>
               </div>
             </div>
           </div>
@@ -296,10 +270,8 @@ export function UsageOverviewPane(): React.JSX.Element {
                   void enableClaudeUsage()
                 } else if (provider.id === 'codex') {
                   void enableCodexUsage()
-                } else if (provider.id === 'opencode') {
-                  void enableOpenCodeUsage()
                 } else {
-                  void enableMuseUsage()
+                  void enableOpenCodeUsage()
                 }
               }}
             />

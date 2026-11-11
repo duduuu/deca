@@ -1,7 +1,5 @@
 import type { AgentStatusState, AgentType } from '../contracts/agent-status-types'
 import type { TuiAgent } from '../../agent-launch/catalog/tui-agent'
-import { getPiCompatibleSyntheticAgentStatus } from './providers/pi-compatible-synthetic-title'
-
 export type SyntheticAgentTitleProfile = {
   workingLabel: string
   permissionLabel: string
@@ -15,12 +13,7 @@ export const SYNTHETIC_AGENT_TITLE_AGENTS = [
   'codex',
   'cursor',
   'opencode',
-  'pi',
-  'omp',
-  'droid',
-  'hermes',
-  'devin',
-  'zcode'
+  'devin'
 ] as const satisfies readonly TuiAgent[]
 
 export const SYNTHETIC_AGENT_TITLE_PROFILES: Record<string, SyntheticAgentTitleProfile> = {
@@ -45,44 +38,10 @@ export const SYNTHETIC_AGENT_TITLE_PROFILES: Record<string, SyntheticAgentTitleP
     // Preserve OpenCode’s own semantic session titles.
     synthesizeTerminalTitle: false
   },
-  pi: {
-    workingLabel: 'Pi',
-    permissionLabel: 'Pi - action required',
-    idleLabel: 'Pi ready',
-    titleIdentityGroup: 'pi-compatible',
-    // Pi and Orca's titlebar extension own session titles, including idle and permission states.
-    synthesizeTerminalTitle: false
-  },
-  omp: {
-    workingLabel: 'OMP',
-    permissionLabel: 'OMP - action required',
-    idleLabel: 'OMP ready',
-    titleIdentityGroup: 'pi-compatible',
-    // OMP and Orca’s titlebar extension (main/pi/titlebar-extension-source.ts) title the session; synthesis would erase its name.
-    synthesizeTerminalTitle: false
-  },
-  droid: {
-    workingLabel: 'Droid',
-    permissionLabel: 'Droid - action required',
-    idleLabel: 'Droid ready'
-  },
-  hermes: {
-    workingLabel: 'Hermes',
-    permissionLabel: 'Hermes - action required',
-    idleLabel: 'Hermes ready'
-  },
   devin: {
     workingLabel: 'Devin',
     permissionLabel: 'Devin - action required',
     idleLabel: 'Devin ready'
-  },
-  zcode: {
-    workingLabel: 'ZCode',
-    permissionLabel: 'ZCode - action required',
-    idleLabel: 'ZCode ready',
-    // Captured zcode-composer-ready.txt has no OSC 0/1/2; synthesize every state for tui-idle detection.
-    // Its endlessly repainting ASCII banner also prevents quiescence detection.
-    synthesizeWorkingTitle: true
   }
 }
 
@@ -93,11 +52,7 @@ const SYNTHETIC_PERMISSION_TITLES: ReadonlySet<string> = new Set(
 )
 
 export function isSyntheticAgentPermissionTitle(title: string): boolean {
-  // Older hosts still write `OMP - action required`, which OMP's own π titles never match.
-  return (
-    SYNTHETIC_PERMISSION_TITLES.has(title.trim().toLowerCase()) ||
-    getPiCompatibleSyntheticAgentStatus(title) === 'permission'
-  )
+  return SYNTHETIC_PERMISSION_TITLES.has(title.trim().toLowerCase())
 }
 
 export function getSyntheticAgentTitleProfile(

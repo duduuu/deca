@@ -8,13 +8,9 @@ import { ClaudeRuntimeAuthService } from '../../claude-accounts/runtime-auth-ser
 import { ClaudeAccountService } from '../../claude-accounts/service'
 import { getInitialCodexRateLimitTarget } from '../../rate-limits/providers/codex/codex-rate-limit-target'
 import { getInitialClaudeRateLimitTarget } from '../../rate-limits/providers/claude/claude-rate-limit-target'
-import { resolveKimiHome } from '../../kimi/kimi-runtime-home'
 import { resolveLocalAccountUsageTarget } from '../../../shared/local-account-runtime'
 import { resolveCodexRateLimitHomeUnlessStopped } from '../../rate-limits/providers/codex/codex-rate-limit-wsl-home-gate'
 import { inactiveCodexHomeUnlessStopped } from '../../rate-limits/inactive-codex-home'
-import { readMiniMaxSessionCookie } from '../../minimax/minimax-cookie-store'
-import { readMiniMaxApiKey } from '../../minimax/minimax-api-key-store'
-import { readZcodePlanApiKey } from '../../zcode/zcode-plan-api-key-store'
 import { readOpenCodeGoApiKey } from '../../opencode/opencode-go-api-key-store'
 import {
   getAntigravityAccountService,
@@ -57,10 +53,6 @@ export function createProviderAccountServices(
     resolveCodexRateLimitHomeUnlessStopped(codexRuntimeHome, target)
   )
   rateLimits.setCodexFetchTarget(getInitialCodexRateLimitTarget(store.getSettings()))
-  // Read credentials where Kimi’s CLI refreshes its token, including WSL (#12370).
-  rateLimits.setKimiHomeResolver(() =>
-    resolveKimiHome(resolveLocalAccountUsageTarget(store.getSettings()))
-  )
   rateLimits.setAntigravityFetchTarget(resolveLocalAccountUsageTarget(store.getSettings()))
   rateLimits.setClaudeFetchTarget(getInitialClaudeRateLimitTarget(store.getSettings()))
   const syncAccountRuntimeTargets = createAccountRuntimeTargetSettingsSync(
@@ -82,30 +74,6 @@ export function createProviderAccountServices(
         )
       })
     }
-    // Clear quota data from the old MiniMax endpoint/group before the next poll.
-    if (
-      'minimaxEndpoint' in updates ||
-      'minimaxGroupId' in updates ||
-      'minimaxUsageModels' in updates
-    ) {
-      rateLimits.invalidateMiniMaxCredentialState()
-      void rateLimits.refresh().catch((error: unknown) => {
-        console.warn(
-          '[rate-limits] Failed to refresh MiniMax usage after a settings change:',
-          error
-        )
-      })
-    }
-    // Clear quota data from the old GLM Coding Plan site before the next poll.
-    if ('zcodePlanSite' in updates) {
-      rateLimits.invalidateZcodeCredentialState()
-      void rateLimits.refresh().catch((error: unknown) => {
-        console.warn(
-          '[rate-limits] Failed to refresh GLM Coding Plan usage after a settings change:',
-          error
-        )
-      })
-    }
   })
   rateLimits.setClaudeAuthPreparationResolver((target) =>
     claudeRuntimeAuth.prepareForRateLimitFetch(target)
@@ -121,28 +89,11 @@ export function createProviderAccountServices(
       workspaceIdOverride: settings.opencodeWorkspaceId
     }
   }, readOpenCodeGoApiKey)
-  rateLimits.setMiniMaxConfigResolver(() => {
-    const settings = store.getSettings()
-    const apiKey = readMiniMaxApiKey() ?? ''
-    return {
-      sessionCookie: apiKey ? '' : (readMiniMaxSessionCookie() ?? ''),
-      groupId: settings.minimaxGroupId,
-      models: settings.minimaxUsageModels,
-      endpoint: settings.minimaxEndpoint,
-      apiKey
-    }
-  })
-  rateLimits.setZcodePlanConfigResolver(() => ({
-    site: store.getSettings().zcodePlanSite ?? 'zai',
-    apiKey: readZcodePlanApiKey() ?? ''
-  }))
   rateLimits.setGeminiCliOAuthEnabledResolver(() => store.getSettings().geminiCliOAuthEnabled)
   // Reuse the meter switch so hidden Antigravity usage does not spawn agy.
   rateLimits.setAntigravityUsageEnabledResolver(() =>
     store.getUI().statusBarItems.includes('antigravity')
   )
-  // Hidden Muse meters must not spawn the Muse CLI.
-  rateLimits.setMuseUsageEnabledResolver(() => store.getUI().statusBarItems.includes('muse'))
   setAntigravityNativeCredentialChangeListener(() =>
     rateLimits.invalidateAntigravityCredentialState()
   )

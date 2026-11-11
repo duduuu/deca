@@ -38,7 +38,6 @@ import {
   recognizeAgentProcessFromCommandLine,
   type RecognizedAgentProcess
 } from '../../../shared/agent-status/process/agent-process-recognition'
-import { ORCA_HERMES_STARTUP_QUERY_ENV } from '../../../shared/agent-launch/startup/hermes-startup-query'
 import {
   CLAUDE_INJECTED_CONFIG_DIR_ENV,
   CLAUDE_PROFILE_POINTER_ENV
@@ -180,9 +179,6 @@ export function createPtyShellLaunchPlan(
       }
       if (env[CLAUDE_PROFILE_POINTER_ENV]) {
         addWslEnvKeys(env, [CLAUDE_PROFILE_POINTER_ENV, CLAUDE_INJECTED_CONFIG_DIR_ENV])
-      }
-      if (env[ORCA_HERMES_STARTUP_QUERY_ENV] !== undefined) {
-        addWslEnvKeys(env, [ORCA_HERMES_STARTUP_QUERY_ENV])
       }
     } else if (codexHomeWslInfo || isWslCodexHomeForHost(env.CODEX_HOME)) {
       delete env.CODEX_HOME

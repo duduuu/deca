@@ -1,38 +1,24 @@
-import { normalizeCompatibleLifecycleEvent } from './providers/compatible-lifecycle-events'
-import { normalizeQoderEvent } from './providers/qoder-events'
 import type { AgentMainAgentStatus } from '../agent-status/lifecycle/main-agent-status'
 import type { ParsedAgentStatusPayload } from '../agent-status/contracts/agent-status-types'
 import type { AgentHookSource } from './transport/agent-hook-relay'
 import { readHostTurnSignals } from './state/agent-hook-turn-end-timing'
 import type { AgentHookEventPayload } from './listener-event'
-import { readLastCommandCodeUserPromptEntryFromTranscript } from './command-code-transcript'
 import { readGrokHomeEnvelope } from './grok-result-discovery'
 import { readFirstString } from './interactive-tool'
 import type { HookListenerState } from './listener-state'
 import type { ExtractedPromptText } from './prompt-fields'
 import { isNewTurnEvent } from './provider-event-routing'
 import { readLastUserPromptFromTranscript } from './transcript-lines'
-import { readJcodeTurnPrompt } from './providers/jcode-turn-prompt'
 import { normalizeAntigravityEvent } from './providers/antigravity-events'
-import { normalizeAmpEvent } from './providers/amp-events'
 import { normalizeClaudeEvent } from './providers/claude-events'
 import { codexHookEventForEndedTurn, normalizeCodexEvent } from './providers/codex-events'
 import { codexHookEventForEphemeralThread } from './providers/codex-ephemeral-threads'
 import { normalizeGeminiEvent } from './providers/gemini-events'
 import { normalizeOpenCodeFamilyEvent } from './providers/opencode-family-events'
 import { normalizeCursorEvent } from './providers/cursor-events'
-import { normalizePiCompatibleEvent } from './providers/pi-family-events'
-import { normalizeDroidEvent } from './providers/droid-events'
-import { normalizeCommandCodeEvent } from './providers/command-code-events'
 import { normalizeGrokEvent } from './providers/grok-events'
 import { normalizeCopilotEvent } from './providers/copilot-events'
-import { normalizeHermesEvent } from './providers/hermes-events'
 import { normalizeDevinEvent } from './providers/devin-events'
-import { normalizeKimiEvent } from './providers/kimi-events'
-import { normalizeMuseEvent } from './providers/muse-events'
-import { normalizeDshEvent } from './providers/dsh-events'
-import { normalizeZCodeEvent } from './providers/zcode-events'
-import { normalizeJcodeEvent } from './providers/jcode-events'
 import { normalizeKiroEvent } from './providers/kiro-events'
 
 export type ProviderDispatchResult = {
@@ -78,16 +64,6 @@ export function normalizeProviderEvent(input: {
   state.eventReplyCandidate = undefined
 
   switch (source) {
-    case 'codebuddy':
-      payload = normalizeCompatibleLifecycleEvent(
-        source,
-        state,
-        eventName,
-        promptText,
-        paneKey,
-        hookPayload
-      )
-      break
     case 'claude':
       payload = normalizeClaudeEvent(state, eventName, promptText, paneKey, hookPayload)
       break
@@ -115,9 +91,6 @@ export function normalizeProviderEvent(input: {
       }
       payload = normalizeAntigravityEvent(state, eventName, promptText, paneKey, hookPayload)
       break
-    case 'amp':
-      payload = normalizeAmpEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
     case 'opencode':
     case 'opencode2':
     case 'mimo-code': {
@@ -140,40 +113,6 @@ export function normalizeProviderEvent(input: {
     case 'cursor':
       payload = normalizeCursorEvent(state, eventName, promptText, paneKey, hookPayload)
       break
-    case 'pi':
-    case 'omp':
-    case 'prime-agent':
-      payload = normalizePiCompatibleEvent(
-        state,
-        source,
-        eventName,
-        promptText,
-        paneKey,
-        hookPayload
-      )
-      break
-    case 'droid':
-      payload = normalizeDroidEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
-    case 'command-code': {
-      const transcriptPrompt = readLastCommandCodeUserPromptEntryFromTranscript(
-        hookPayload.transcript_path ?? hookPayload.transcriptPath
-      )
-      hasTranscriptPromptEvidence = transcriptPrompt !== undefined
-      promptInteractionKey = transcriptPrompt?.interactionKey
-      resolvedPromptText = transcriptPrompt?.text ?? ''
-      if (promptText && extractedPrompt.source !== 'message') {
-        resolvedPromptText = promptText
-      }
-      payload = normalizeCommandCodeEvent(
-        state,
-        eventName,
-        resolvedPromptText,
-        paneKey,
-        hookPayload
-      )
-      break
-    }
     case 'grok':
       payload = normalizeGrokEvent(
         state,
@@ -187,55 +126,9 @@ export function normalizeProviderEvent(input: {
     case 'copilot':
       payload = normalizeCopilotEvent(state, eventName, promptText, paneKey, hookPayload)
       break
-    case 'hermes':
-      payload = normalizeHermesEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
     case 'devin':
       payload = normalizeDevinEvent(state, eventName, promptText, paneKey, hookPayload)
       break
-    case 'qoder-cn':
-      payload = normalizeCompatibleLifecycleEvent(
-        source,
-        state,
-        eventName,
-        promptText,
-        paneKey,
-        hookPayload
-      )
-      break
-    case 'qwen-code': {
-      const normalized = normalizeClaudeEvent(state, eventName, promptText, paneKey, hookPayload)
-      payload = normalized ? { ...normalized, agentType: 'qwen-code' } : null
-      break
-    }
-    case 'qoder':
-      payload = normalizeQoderEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
-    case 'kimi':
-      payload = normalizeKimiEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
-    case 'muse':
-      payload = normalizeMuseEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
-    case 'dsh':
-      payload = normalizeDshEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
-    case 'zcode':
-      payload = normalizeZCodeEvent(state, eventName, promptText, paneKey, hookPayload)
-      break
-    case 'jcode': {
-      const transcriptPrompt = readJcodeTurnPrompt(state, eventName, paneKey, hookPayload)
-      // Why: the reader returns null (not undefined) when no journal prompt is
-      // recoverable; only a real transcript hit counts as prompt evidence.
-      hasTranscriptPromptEvidence = transcriptPrompt !== null
-      promptInteractionKey = transcriptPrompt?.interactionKey
-      resolvedPromptText = transcriptPrompt?.text ?? ''
-      if (promptText && extractedPrompt.source !== 'message') {
-        resolvedPromptText = promptText
-      }
-      payload = normalizeJcodeEvent(state, eventName, resolvedPromptText, paneKey, hookPayload)
-      break
-    }
     case 'kiro':
       payload = normalizeKiroEvent(state, eventName, promptText, paneKey, hookPayload)
   }

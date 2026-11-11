@@ -16,8 +16,6 @@ import {
   PYTHON_PROCESS_RE,
   tokenizeCommandLine
 } from './agent-command-line-entrypoint'
-import { isFreshOmpLaunchCommand } from '../../agent-launch/startup/omp-fresh-launch'
-
 export type RecognizedAgentProcess = { agent: TerminalAgent; processName: string }
 
 const PROCESS_EXTENSION_RE = /\.(?:exe|cmd|bat|ps1)$/i
@@ -44,11 +42,11 @@ const FOREGROUND_AGENT_WRAPPER_PROCESS_NAMES = new Set(['node', 'python', 'pytho
 const PYTHON_SCRIPT_ENTRYPOINT_DIRECTORIES = ['/bin/', '/scripts/', '/site-packages/']
 
 const PROCESS_TO_AGENT = new Map<string, TerminalAgent>([
-  ['dsb', 'dsb'],
-  ['deepseek-build', 'dsb'],
-  ['deepseek-build-agent', 'dsb']
+  [],
+  ['deepseek-build'],
+  ['deepseek-build-agent']
 ])
-const AGENT_TYPE_IDS = new Set<string>(['dsb'])
+const AGENT_TYPE_IDS = new Set<string>([])
 
 for (const [agent, config] of Object.entries(TUI_AGENT_CONFIG)) {
   if (!isTuiAgent(agent)) {
@@ -187,7 +185,7 @@ export function isExpectedAgentProcess(
     normalizedProcess.startsWith(`${normalizedExpected}.`) ||
     (['qoderclicn', 'qodercn'].includes(normalizedExpected) &&
       /^(?:qoderclicn|qodercn)(?:-\d.*)?$/.test(normalizedProcess)) ||
-    (['qoder', 'qodercli'].includes(normalizedExpected) &&
+    (['qodercli'].includes(normalizedExpected) &&
       /^(?:qoder|qodercli(?:-\d.*)?)$/.test(normalizedProcess)) ||
     (normalizedExpected === 'muse' && normalizedProcess.startsWith('muse-bin-'))
   )
@@ -195,10 +193,7 @@ export function isExpectedAgentProcess(
 
 /** Agents whose process names (orca, acli, cn, vibe) also belong to ordinary tools. */
 export const GENERIC_PROCESS_NAME_AGENTS: ReadonlySet<TerminalAgent> = new Set([
-  'claude-agent-teams',
-  'rovo',
-  'continue',
-  'mistral-vibe'
+  'claude-agent-teams'
 ])
 
 /** Before writing to `agent`: its expectedProcess, or a name it is recognized by (dsh-TUI 0.19 runs as `dsh-tui`, not `dsh`); generic names such as Agent Teams' `orca` launcher prove nothing. */

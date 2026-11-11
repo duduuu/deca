@@ -20,11 +20,6 @@ import { resolvePtySpawnStartupTarget } from '../spawn-startup-target'
 import { resolvePtySpawnHostEnv } from '../spawn-host-env'
 import { ptySpawnPaneFromIds, stampPtySpawnPaneEnv } from '../spawn-pane-env'
 import { getConnectionExecutionHostId } from '../../../../shared/execution-host'
-import {
-  ensureJcodeRuntimeDir,
-  JCODE_RUNTIME_DIR_ENV_KEY
-} from '../../../../shared/jcode-runtime-dir'
-
 export async function prepareRuntimePtySpawn(
   ctx: RuntimePtySpawnState
 ): Promise<PtySpawnResult | null> {
@@ -138,11 +133,7 @@ export async function prepareRuntimePtySpawn(
     // Clone caller environment before injection; another split may reuse it.
     ctx.env = { ...ctx.env }
     const pane = ptySpawnPaneFromIds(args)
-    const jcodeEnv = pane ? await ensureJcodeRuntimeDir(pane.paneKey) : undefined
-    stampPtySpawnPaneEnv(ctx.env, {
-      pane,
-      jcodeRuntimeDir: jcodeEnv?.[JCODE_RUNTIME_DIR_ENV_KEY]
-    })
+    stampPtySpawnPaneEnv(ctx.env, { pane })
   }
   const hostEnv = await resolvePtySpawnHostEnv({
     launchAgent: args.launchAgent,

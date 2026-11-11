@@ -88,8 +88,7 @@ describe('plugin overlay env source resolution', () => {
     expect(
       resolvePiSourceAgentDir(
         { HOME: homeDir, PRIME_AGENT_CODING_AGENT_DIR: '/tmp/inherited-prime' },
-        '/bin/zsh',
-        'prime-agent'
+        '/bin/zsh'
       )
     ).toBe(join(homeDir, 'company-prime'))
     expect(
@@ -99,8 +98,7 @@ describe('plugin overlay env source resolution', () => {
           ORCA_PRIME_AGENT_SOURCE_AGENT_DIR: '/remote/original-prime',
           PRIME_AGENT_CODING_AGENT_DIR: '/tmp/inherited-prime'
         },
-        '/bin/zsh',
-        'prime-agent'
+        '/bin/zsh'
       )
     ).toBe('/remote/original-prime')
   })

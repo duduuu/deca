@@ -17,7 +17,6 @@ import {
   resolveAgentStatusIdentity,
   shouldSuppressInheritedTerminalStatus
 } from '../../../../../shared/agent-status/identity/agent-status-identity'
-import { isCommandCodeNewTurnWhileWorking } from '../../../../../shared/command-code-turn-boundary'
 import type {
   AgentStatusMetadata,
   AgentStatusPayload,

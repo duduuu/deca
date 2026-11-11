@@ -15,7 +15,6 @@ import type { ClaudeToolRequest } from './claude-tool-request-identity'
 import type { CodexSubagentRoster } from '../codex-subagent-roster'
 import type { CodexSubagentTranscriptState } from '../codex-subagent-transcript'
 import type { CodexAsyncQuestions } from './providers/codex-async-questions'
-import type { MuseSessionLogState } from '../muse-session-log'
 import type { AgentHookEventPayload, ToolSnapshot } from './listener-event'
 import {
   deletePaneScopedCacheEntry,
@@ -23,7 +22,6 @@ import {
   movePaneScopedMapEntries,
   movePaneScopedSetEntries
 } from './pane-scoped-cache-entries'
-import type { JcodeUserPromptEvidence } from '../jcode-session-files'
 import type { HookRootAttempt } from './presence/hook-process-root-evidence'
 import {
   moveOpenCodeSessionBindings,

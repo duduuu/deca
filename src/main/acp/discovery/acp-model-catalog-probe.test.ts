@@ -11,8 +11,6 @@ import { openCodeAcpAccountBinding } from '../../opencode/opencode-structured-ac
 import { AcpAgentExitedError } from '../transport/acp-errors'
 // Real `omp acp` 18.17.0 session/new replies: started on its default fake/wide, with
 // `--model fake/narrow`, and with `--model fake/gone`, which it cannot resolve.
-import recorded from '../fixtures/omp-v18.17.0-model-efforts.json'
-
 // Bypass the app's managed-account service for this fixture.
 const OPENCODE: AcpLaunchSpec = {
   ...acpLaunchSpecFor('opencode')!,

@@ -6,15 +6,8 @@ import { isShellProcess } from '../../../../../../shared/agent-status/process/sh
 import { dispatchTerminalCommandFinishedEvent } from '@/hooks/terminal-command-finished-event'
 import { resolveLiveAgentStatusConnectionRouting } from '@/lib/agent-status/ownership/agent-status-connection-ownership'
 import { getConnectionIdFromState } from '@/lib/workspace/ownership/connection-owner-resolution'
-import { rendererAgentStatusObservations } from '@/lib/agent-status/evidence/renderer-agent-status-observations'
 import { isRetainedProgramResult } from '@/lib/program-status/row'
 import { useAppStore } from '@/store/index'
-import {
-  cancelCommandCodeDoneSettle,
-  openCommandCodeDoneSettle,
-  setCommandCodeDoneSettleExecutor
-} from '../../agent-completion/command-code/command-code-done-settle'
-import { canCommandCodeOutputOwnPane } from '../../agent-completion/command-code/command-code-output-ownership'
 import { isRemoteExecutionHostPtyId } from '../../../../../../shared/execution-host/remote-execution-host-pty-id'
 
 export type ParkedTerminalCommandStatusPolicy = {
@@ -118,22 +111,7 @@ export function createParkedTerminalCommandStatusPolicy(options: {
       return
     }
     const currentTitle = currentState.runtimePaneTitlesByTabId?.[tabId]?.[paneId]
-    currentState.setAgentStatus(
-      paneKey,
-      {
-        state: 'done',
-        prompt: currentPrompt || normalizedPrompt,
-        agentType: 'command-code',
-        observation: rendererAgentStatusObservations.observe(paneKey, {
-          origin: 'process',
-          observedAt: Date.now(),
-          kind: 'transition'
-        })
-      },
-      currentTitle,
-      undefined,
-      routing
-    )
+    currentState.setAgentStatus(paneKey, currentTitle, undefined, routing)
   }
 
   // Reveal inherits the turn’s settle deadline: cancelling strands working state; flushing makes genuine working repaints irrecoverably late.
@@ -203,23 +181,7 @@ export function createParkedTerminalCommandStatusPolicy(options: {
       ) {
         return
       }
-      currentState.setAgentStatus(
-        paneKey,
-        {
-          state: 'working',
-          prompt:
-            normalizedPrompt || (currentEntry?.state === 'working' ? currentEntry.prompt : ''),
-          agentType: 'command-code',
-          observation: rendererAgentStatusObservations.observe(paneKey, {
-            origin: 'process',
-            observedAt: Date.now(),
-            kind: 'transition'
-          })
-        },
-        currentTitle,
-        undefined,
-        routing
-      )
+      currentState.setAgentStatus(paneKey, currentTitle, undefined, routing)
     },
 
     // Command Code renders its composer during tool work; require no active repaint before completing.

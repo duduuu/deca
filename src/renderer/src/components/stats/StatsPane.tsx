@@ -86,12 +86,6 @@ const USAGE_ANALYTICS_OPTIONS = [
     }
   },
   {
-    id: 'muse',
-    get label() {
-      return translate('auto.lib.agent.catalog.muse_label', 'Muse')
-    }
-  },
-  {
     id: 'grok',
     get label() {
       return translate('auto.components.stats.StatsPane.grokUsageTab', 'Grok')

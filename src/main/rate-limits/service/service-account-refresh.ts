@@ -55,24 +55,6 @@ export abstract class RateLimitServiceAccountRefresh extends RateLimitServiceIna
     })
   }
 
-  invalidateMiniMaxCredentialState(): void {
-    this.minimaxFetchGeneration += 1
-    // Clear before an old-cookie fetch can return.
-    this.updateState({
-      ...this.state,
-      minimax: this.withFetchingStatus(null, 'minimax')
-    })
-  }
-
-  invalidateZcodeCredentialState(): void {
-    this.zcodeFetchGeneration += 1
-    // Clear before an old-key fetch can return.
-    this.updateState({
-      ...this.state,
-      zcode: this.withFetchingStatus(null, 'zcode')
-    })
-  }
-
   async refreshForCodexAccountChange(
     outgoingAccountId?: string | null,
     target?: CodexAccountSelectionTarget

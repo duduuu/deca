@@ -3,9 +3,7 @@ import type {
   RuntimePtyWorktreeRecord
 } from '../records/runtime-terminal-state-records'
 import type { AgentStatusIpcPayload } from '../../../../shared/agent-status/contracts/agent-status-ipc-payload'
-import { splitFreebuffScreenUpdates } from '../../../../shared/freebuff-screen-status'
 import { OrcaRuntimeWithSerializeMainTerminalBuffer } from './terminal-buffer-operations'
-import { observeFreebuffTerminalStatus } from './freebuff-terminal-status'
 import {
   observeCodexCapacityTerminalStatus,
   observeCodexReconnectFailure
@@ -237,7 +235,7 @@ export abstract class OrcaRuntimeWithMaybeHydrateHeadlessFromRenderer extends Or
           await state.emulator.write(escapeTail)
         }
       }
-      for (const chunk of splitFreebuffScreenUpdates(data, state.emulator.partialEscapeTailAnsi)) {
+      for (const chunk of [data]) {
         await state.emulator.write(chunk, { forwardQueryReplies })
         const pty = this.ptysById.get(ptyId)
         if (!pty || this.headlessTerminals.get(ptyId) !== state) {
@@ -253,15 +251,14 @@ export abstract class OrcaRuntimeWithMaybeHydrateHeadlessFromRenderer extends Or
         }
         if (!pty.connectionId) {
           this.trustDialogStatus.observe(ptyId, state.emulator, chunk)
-          const payload =
-            observeCodexCapacityTerminalStatus(
-              state.emulator,
-              chunk,
-              command,
-              pty.launchAgent,
-              readStatus,
-              outputObservedAt
-            ) ?? observeFreebuffTerminalStatus(state.emulator, chunk, command, pty.launchAgent)
+          const payload = observeCodexCapacityTerminalStatus(
+            state.emulator,
+            chunk,
+            command,
+            pty.launchAgent,
+            readStatus,
+            outputObservedAt
+          )
           if (payload) {
             pty.lastExplicitAgentStatus = {
               state: payload.state,

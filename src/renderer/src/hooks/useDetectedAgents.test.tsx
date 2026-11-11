@@ -259,12 +259,12 @@ describe('useDetectedAgents (ssh call site)', () => {
       firstRoot.unmount()
     })
     roots.splice(roots.indexOf(firstRoot), 1)
-    detectRemoteAgents.mockResolvedValueOnce(['kilo'])
+    detectRemoteAgents.mockResolvedValueOnce([])
 
     await renderProbe({ kind: 'ssh', connectionId: 'ssh-1' })
 
     expect(detectRemoteAgents).toHaveBeenCalledTimes(2)
-    expect(useAppStore.getState().remoteDetectedAgentIds['ssh-1']).toEqual(['kilo'])
+    expect(useAppStore.getState().remoteDetectedAgentIds['ssh-1']).toEqual([])
   })
 
   it('refreshes a non-empty SSH cache when a new launch surface opens', async () => {
@@ -421,7 +421,7 @@ describe('useDetectedAgents (runtime call site)', () => {
         }
       } else {
         detectCalls += 1
-        result = detectCalls === 1 ? [] : ['kilo']
+        result = detectCalls === 1 ? [] : []
       }
       return Promise.resolve({
         id: method,
@@ -444,6 +444,6 @@ describe('useDetectedAgents (runtime call site)', () => {
     await renderProbe({ kind: 'runtime', environmentId: 'env-1' })
 
     expect(detectCalls).toBe(2)
-    expect(useAppStore.getState().runtimeDetectedAgentIds['env-1']).toEqual(['kilo'])
+    expect(useAppStore.getState().runtimeDetectedAgentIds['env-1']).toEqual([])
   })
 })

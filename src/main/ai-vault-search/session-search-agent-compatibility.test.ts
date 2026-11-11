@@ -41,7 +41,7 @@ test.each(['relay'] as const)(
     const request = {
       query: 'proof',
       supportedAgents: ['codex'],
-      filters: { agents: ['jcode'] as const },
+      filters: { agents: [] as const },
       freshness: 'wait-until-current' as const
     }
     expect(
@@ -62,7 +62,7 @@ test.each(['relay'] as const)(
       {
         query: 'proof',
         limit: 20,
-        filters: { agents: ['jcode'] },
+        filters: { agents: [] },
         freshness: 'wait-until-current'
       },
       { kind: 'resolved', paths: [''] }
@@ -73,7 +73,7 @@ test.each(['relay'] as const)(
       service.search.mockResolvedValue({ kind: 'unavailable', reason })
       expect(
         await searchSessionService(
-          { query: 'proof', supportedAgents: [], filters: { agents: ['jcode'] } },
+          { query: 'proof', supportedAgents: [], filters: { agents: [] } },
           transport
         )
       ).toEqual({ kind: 'unavailable', reason })
@@ -90,12 +90,12 @@ test('keeps current Jcode hits and removes unrequested agents before publication
   setSessionSearchService(service)
   expect(
     await searchSessionService(
-      { query: 'proof', supportedAgents: [...AI_VAULT_AGENTS], filters: { agents: ['jcode'] } },
+      { query: 'proof', supportedAgents: [...AI_VAULT_AGENTS], filters: { agents: [] } },
       'relay'
     )
   ).toMatchObject({ hits: [{ agent: 'jcode' }] })
   expect(service.search).toHaveBeenCalledExactlyOnceWith(
-    { query: 'proof', limit: 20, filters: { agents: ['jcode'] } },
+    { query: 'proof', limit: 20, filters: { agents: [] } },
     undefined
   )
 })

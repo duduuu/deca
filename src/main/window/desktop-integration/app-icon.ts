@@ -1,3 +1,9 @@
+import classicIcon from '../../../../resources/icon.png?asset'
+import classicDevIcon from '../../../../resources/icon-dev.png?asset'
+import watercolorIcon from '../../../../resources/app-icons/orca-watercolor.png?asset'
+import watercolorMacDockIcon from '../../../../resources/app-icons/orca-watercolor.png?asset&asarUnpack'
+import blueIcon from '../../../../resources/app-icons/orca-blue.png?asset'
+import blueMacDockIcon from '../../../../resources/app-icons/orca-blue.png?asset&asarUnpack'
 import {
   execFile as execFileChildProcess,
   type ChildProcess,
@@ -5,12 +11,6 @@ import {
 } from 'node:child_process'
 import { dirname, resolve } from 'node:path'
 import { app, BrowserWindow, nativeImage } from 'electron'
-import classicIcon from '../../../../resources/icon.png?asset'
-import classicDevIcon from '../../../../resources/icon-dev.png?asset'
-import watercolorIcon from '../../../../resources/app-icons/orca-watercolor.png?asset'
-import watercolorMacDockIcon from '../../../../resources/app-icons/orca-watercolor.png?asset&asarUnpack'
-import blueIcon from '../../../../resources/app-icons/orca-blue.png?asset'
-import blueMacDockIcon from '../../../../resources/app-icons/orca-blue.png?asset&asarUnpack'
 import {
   CUSTOM_APP_ICON_ID,
   normalizeAppIconId,

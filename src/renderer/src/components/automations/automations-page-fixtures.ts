@@ -127,27 +127,7 @@ export function makeExternalManager(
     status: 'available',
     error: null,
     canManage: true,
-    jobs: [
-      {
-        id: 'job-1',
-        managerId: 'openclaw:local',
-        provider: 'openclaw',
-        name: 'OpenClaw job',
-        schedule: 'Daily at 09:00',
-        rawSchedule: '0 9 * * *',
-        enabled: true,
-        state: 'active',
-        prompt: null,
-        promptPreview: 'Sweep',
-        nextRunAt: null,
-        lastRunAt: null,
-        lastStatus: null,
-        lastError: null,
-        workdir: null,
-        runCount: 0,
-        runs: []
-      }
-    ],
+    jobs: [],
     ...overrides
   }
 }

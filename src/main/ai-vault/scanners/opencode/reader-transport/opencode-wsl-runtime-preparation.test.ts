@@ -106,7 +106,7 @@ describe('WSL SQLite runtime preparation', () => {
     }
   })
 
-  it.skipIf(process.platform === 'win32').each(['opencode', 'zcode'] as const)(
+  it.skipIf(process.platform === 'win32').each(['opencode'] as const)(
     'presence script finds %s-only data despite unrelated OpenCode overrides',
     async (agent) => {
       await prepared()

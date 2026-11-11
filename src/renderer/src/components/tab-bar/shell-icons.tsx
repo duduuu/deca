@@ -1,8 +1,7 @@
+import gitForWindowsLogoUrl from '../../../../../resources/gwindows_logo.svg?url'
 import React from 'react'
 import { WINDOWS_GIT_BASH_SHELL } from '../../../../shared/windows-terminal-shell'
 import { useTranslate } from '@/i18n/use-translate'
-import gitForWindowsLogoUrl from '../../../../../resources/gwindows_logo.svg?url'
-
 // Use distinct shell tiles in the strip and create menu so PowerShell, CMD, Git Bash and WSL remain recognizable.
 
 function PowerShellIcon({ size = 14 }: { size?: number }): React.JSX.Element {

@@ -169,8 +169,6 @@ describe('WslHookRelayManager', () => {
         overlayDirs: {
           opencode: opencodeOverlayDir,
           opencode2: opencode2OverlayDir,
-          pi: `${home}/.pi/agent`,
-          omp: `${home}/.omp/agent/extensions/orca-agent-status.ts`,
           ...(options.claudePluginDir && params?.claudeAgentViewSource
             ? { claudeAgentView: options.claudePluginDir, claudeConfig: `${home}/.claude` }
             : {})

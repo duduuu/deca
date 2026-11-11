@@ -5,15 +5,11 @@ import {
   generateCommitMessageFromContext,
   generatePullRequestFieldsFromContext
 } from './commit-message-text-generation'
-import {
-  realKimiPrOutput,
-  sourceShapedKimiOutput
-} from '../../shared/__fixtures__/kimi-generation-source-shaped'
 import '../../shared/source-control/ai/generation/commit-message-agent-output'
 import './source-control-agent-failure'
 
 describe('generateCommitMessageFromContext', () => {
-  it.each(['custom', 'kimi', 'kimi-literal'] as const)('%s subject and body', async (source) => {
+  it.each(['custom', 'kimi-literal'] as const)('%s subject and body', async (source) => {
     const agentId = source === 'custom' ? 'custom' : 'kimi'
     const answer =
       source === 'kimi-literal'
@@ -82,7 +78,7 @@ describe('generateCommitMessageFromContext', () => {
     })
   })
 
-  it.each(['custom', 'kimi'] as const)('%s PR JSON', async (agentId) => {
+  it.each(['custom'] as const)('%s PR JSON', async (agentId) => {
     const generate = (stdout: string) =>
       generatePullRequestFieldsFromContext(
         {

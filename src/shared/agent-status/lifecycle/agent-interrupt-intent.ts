@@ -31,13 +31,7 @@ export function shouldIgnoreInterruptIntent(
 }
 
 // Escape also closes views (including Codex search and /permissions); only provider evidence ends the turn.
-const ESCAPE_ALSO_NAVIGATES_AGENT_TYPES: ReadonlySet<AgentType> = new Set([
-  'claude',
-  'codex',
-  'omp',
-  'pi',
-  'prime-agent'
-])
+const ESCAPE_ALSO_NAVIGATES_AGENT_TYPES: ReadonlySet<AgentType> = new Set(['claude', 'codex'])
 
 export function isNavigationEscapeIntent(
   agentType: AgentType | undefined,

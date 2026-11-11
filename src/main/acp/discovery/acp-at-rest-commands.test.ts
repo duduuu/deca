@@ -3,7 +3,6 @@ import { statSync } from 'node:fs'
 import type * as fs from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, expect, it, vi } from 'vitest'
-import capture from '../../../shared/__fixtures__/omp-native-commands.json'
 import '../../../shared/priority-semaphore'
 import {
   commandDiscoveryRig,
@@ -68,7 +67,6 @@ it('observes pre-initialize reports, validates session identity and keeps the la
     args: [
       'run',
       '--',
-      'omp',
       'acp',
       '--plugin-dir',
       '/installed/plugin',

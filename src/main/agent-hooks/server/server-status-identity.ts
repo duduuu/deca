@@ -1,6 +1,4 @@
 import type { AgentKind } from '../../../shared/telemetry-events'
-import { getAgentResumeArgv } from '../../../shared/agent-launch/startup/agent-resume-argv'
-import type { AgentProviderSessionMetadata } from '../../../shared/agent-session/lifecycle/agent-session-resume'
 import {
   parseLegacyNumericPaneKey,
   parsePaneKey
@@ -41,14 +39,6 @@ export function isValidPaneKey(value: unknown): value is string {
   return (
     typeof value === 'string' && value.length <= MAX_PANE_KEY_LEN && parsePaneKey(value) !== null
   )
-}
-
-// Remote identity-only rows are a Pi contract; dismissed rows use a separate retained marker.
-export function isValidPiProviderSessionOnly(
-  providerSession: AgentProviderSessionMetadata | undefined,
-  agentType: AgentType | undefined
-): boolean {
-  return Boolean(providerSession && agentType === 'pi' && getAgentResumeArgv('pi', providerSession))
 }
 
 export function toAgentStatusIpcPayload(

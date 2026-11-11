@@ -9,12 +9,7 @@ import {
   readZstdTranscriptSlice,
   zstdTranscriptStream
 } from '../native-chat/transcript-zstd-decompression'
-import {
-  CLAUDE_CWD_BUCKET_LAYOUT,
-  CODEBUDDY_CWD_BUCKET_LAYOUT,
-  PI_CWD_BUCKET_LAYOUT,
-  type CwdBucketLayout
-} from './session-cwd-bucket-layouts'
+import { CLAUDE_CWD_BUCKET_LAYOUT, type CwdBucketLayout } from './session-cwd-bucket-layouts'
 import type {
   AiVaultScanOptions,
   FileWithMtime,
@@ -22,12 +17,10 @@ import type {
 } from './session-scanner-types'
 import { asRecord } from './session-scanner-record-value'
 import { extractString, parseJsonObject } from './session-scanner-values'
-import { clineManifestCwd } from './scanners/cline/session-scanner-cline-parser'
 import {
   cursorChatMetaUnavailable,
   readCursorChatMeta
 } from './scanners/cursor/session-scanner-cursor-chat-meta'
-import { rovoSessionCwd } from './scanners/session-scanner-graph-parsers'
 import { grokSessionCwd } from './scanners/grok/session-scanner-grok-parser'
 import { listedKiroMetadata } from './scanners/kiro/session-scanner-kiro-parser'
 import { openCodeSessionCwd } from './scanners/opencode/session-scanner-opencode-parser'
@@ -90,8 +83,6 @@ function jsonRecord(content: string): Record<string, unknown> | null {
   return asRecord(JSON.parse(content) as unknown)
 }
 
-const SESSION_HEADER = head((record) => (record.type === 'session' ? record.cwd : undefined))
-
 const CURSOR: SessionScopeCwdSource = {
   kind: 'read',
   readCwd: async ({ file }, signal) => {
@@ -105,28 +96,16 @@ const CURSOR: SessionScopeCwdSource = {
 
 export const AI_VAULT_SCOPE_CWD_SOURCES: Record<AiVaultAgent, SessionScopeCwdSource> = {
   claude: { kind: 'bucket', layout: CLAUDE_CWD_BUCKET_LAYOUT },
-  pi: { kind: 'bucket', layout: PI_CWD_BUCKET_LAYOUT },
-  codebuddy: { kind: 'bucket', layout: CODEBUDDY_CWD_BUCKET_LAYOUT },
   // Codex base instructions can enlarge the first record beyond the default read chunk.
   codex: head(
     (record) => (record.type === 'session_meta' ? asRecord(record.payload)?.cwd : undefined),
     64 * 1024
   ),
-  qoder: head((record) => record.cwd),
-  omp: SESSION_HEADER,
-  'prime-agent': SESSION_HEADER,
-  openclaw: SESSION_HEADER,
-  droid: head((record) => (record.type === 'session_start' ? record.cwd : undefined)),
   gemini: { kind: 'none' },
   grok: document((content) => {
     const summary = jsonRecord(content)
     return summary ? grokSessionCwd(summary) : null
   }),
-  rovo: document((content) => {
-    const metadata = jsonRecord(content)
-    return metadata ? rovoSessionCwd(metadata) : null
-  }),
-  cline: document(clineManifestCwd),
   kiro: document((content) => {
     const metadata = listedKiroMetadata(content)
     return metadata ? extractString(metadata.cwd) : null
@@ -147,16 +126,10 @@ export const AI_VAULT_SCOPE_CWD_SOURCES: Record<AiVaultAgent, SessionScopeCwdSou
             signal
           )
   },
-  // A cwd recorded mid-file, a sidecar join, a shared index, or a database row.
-  hermes: PARSE,
   antigravity: PARSE,
   copilot: PARSE,
   opencode2: PARSE,
-  zcode: PARSE,
-  devin: PARSE,
-  kimi: PARSE,
-  muse: PARSE,
-  jcode: PARSE
+  devin: PARSE
 }
 
 /** Answer from scope sources alone, without the global recency pass (Workspace and Project). */

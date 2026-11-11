@@ -6,7 +6,6 @@ import type { AgentSessionSubscribeEvent } from '../../../../../shared/agent-ses
 
 it.each([
   ['claude', false],
-  ['omp', false],
   ['claude', true]
 ] as const)(
   'uses the phone CI host fixture with actual %s dispatch, pending preparation=%s and retirement',

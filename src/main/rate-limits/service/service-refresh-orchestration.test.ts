@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { RateLimitService } from './rate-limit-service'
 import { fetchActiveClaudeRateLimits } from '../providers/claude/claude-active-usage-fetch'
 import { fetchCodexRateLimits } from '../providers/codex/codex-fetcher'
-import { fetchZcodeRateLimits } from '../providers/zcode/zcode-usage-fetcher'
 import { fetchOpenCodeGoUsage } from '../providers/opencode-go/opencode-go-usage-source-selection'
 import {
   errorProvider,

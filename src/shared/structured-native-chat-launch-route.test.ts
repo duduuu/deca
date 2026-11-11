@@ -24,7 +24,6 @@ describe('per-launch structured feasibility', () => {
   const blockerCases: [string, Partial<StructuredNativeChatSupportInput>, string][] = [
     ['a reused PTY agent', { reusesTerminal: true }, 'reused-terminal'],
     ['grok', { agent: 'grok' }, 'agent-without-structured-session'],
-    ['openclaude', { agent: 'openclaude' }, 'agent-without-structured-session'],
     ['a custom start directory', { startsOutsideWorkspaceRoot: true }, 'custom-start-directory'],
     ['a host-nested SSH project', { projectExecutionKind: 'ssh' }, 'remote-execution-host'],
     ['an SSH host', { executionHostId: 'ssh:host-a' }, 'remote-execution-host'],
@@ -75,7 +74,7 @@ describe('agents beyond Claude and Codex', () => {
     STRUCTURED_AGENT_SESSION_REGISTERED_AGENTS_RUNTIME_CAPABILITY
   ]
 
-  it.each(['grok', 'pi'] as const)(
+  it.each(['grok'] as const)(
     '%s is offered only by a host that advertises and lists it',
     (agent) => {
       expect(

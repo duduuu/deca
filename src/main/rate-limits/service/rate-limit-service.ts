@@ -3,9 +3,6 @@ import {
   type LocalAccountRuntimeTarget
 } from '../../../shared/local-account-runtime'
 import type { BrowserWindow } from 'electron'
-import { hasMiniMaxSessionCookie } from '../../minimax/minimax-cookie-store'
-import { hasMiniMaxApiKey } from '../../minimax/minimax-api-key-store'
-import { hasZcodePlanApiKey } from '../../zcode/zcode-plan-api-key-store'
 import { RateLimitServiceAccountRefresh } from './service-account-refresh'
 import type { AntigravityAccountUsageRecorder } from '../providers/antigravity/antigravity-account-usage'
 import {
@@ -14,13 +11,9 @@ import {
 } from '../../../shared/codex-selection-lane'
 import type {
   CodexHomePathResolver,
-  KimiHomeResolver,
   ClaudeAuthPreparationResolver,
   OpenCodeGoRateLimitConfig,
-  MiniMaxRateLimitConfig,
   AntigravityUsageEnabledResolver,
-  MuseUsageEnabledResolver,
-  ZcodePlanRateLimitConfig,
   GeminiCliOAuthEnabledResolver,
   InactiveCodexAccountInfo
 } from './service-types'
@@ -41,10 +34,6 @@ export class RateLimitService extends RateLimitServiceAccountRefresh {
     this.codexFetchTarget = normalizeCodexAccountSelectionTarget(target)
   }
 
-  setKimiHomeResolver(resolver: KimiHomeResolver): void {
-    this.kimiHomeResolver = resolver
-  }
-
   setClaudeAuthPreparationResolver(resolver: ClaudeAuthPreparationResolver): void {
     this.claudeAuthPreparationResolver = resolver
   }
@@ -59,14 +48,6 @@ export class RateLimitService extends RateLimitServiceAccountRefresh {
   ): void {
     this.openCodeGoConfigResolver = resolver
     this.openCodeGoApiKeyResolver = apiKeyResolver ?? null
-  }
-
-  setMiniMaxConfigResolver(resolver: () => MiniMaxRateLimitConfig): void {
-    this.miniMaxConfigResolver = resolver
-  }
-
-  setZcodePlanConfigResolver(resolver: () => ZcodePlanRateLimitConfig): void {
-    this.zcodePlanConfigResolver = resolver
   }
 
   setGeminiCliOAuthEnabledResolver(resolver: GeminiCliOAuthEnabledResolver): void {
@@ -93,10 +74,6 @@ export class RateLimitService extends RateLimitServiceAccountRefresh {
 
   setAntigravityAccountUsageRecorder(recorder: AntigravityAccountUsageRecorder): void {
     this.antigravityAccountUsageRecorder = recorder
-  }
-
-  setMuseUsageEnabledResolver(resolver: MuseUsageEnabledResolver): void {
-    this.museUsageEnabledResolver = resolver
   }
 
   setNetworkProxySettingsResolver(resolver: () => NetworkProxySettings): void {
@@ -184,10 +161,6 @@ export class RateLimitService extends RateLimitServiceAccountRefresh {
     this.pruneInactiveCodexState()
     return {
       ...this.state,
-      // Filesystem-stored cookie presence keeps MiniMax visible across renderer reloads.
-      minimaxCookieConfigured: hasMiniMaxSessionCookie(),
-      minimaxApiKeyConfigured: hasMiniMaxApiKey(),
-      zcodePlanApiKeyConfigured: hasZcodePlanApiKey(),
       opencodeGoApiKeyConfigured: this.openCodeGoApiKeyConfigured,
       grokAuthConfigured: this.grokAuthConfigured,
       cursorAuthConfigured: this.cursorAuthConfigured,

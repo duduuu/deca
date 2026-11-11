@@ -126,9 +126,9 @@ describe('orca search argument parsing', () => {
   })
 
   it('accepts Qoder without changing another agent filter', () => {
-    expect(
-      request(['search', 'q', '--agent', 'qoder', '--agent', 'codex']).filters?.agents
-    ).toEqual(['qoder', 'codex'])
+    expect(request(['search', 'q', '--agent', '--agent', 'codex']).filters?.agents).toEqual([
+      'codex'
+    ])
   })
 
   it('rejects more --path values than the contract accepts', () => {

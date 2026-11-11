@@ -1,7 +1,3 @@
-import {
-  sourceShapedKimiOutput,
-  realKimiOccupiedOutput
-} from '../../shared/__fixtures__/kimi-generation-source-shaped'
 import { describe, expect, it, vi } from 'vitest'
 import { createMockDiscoveryChild } from './commit-message-text-generation-test-harness'
 import { generateConversationNameFromContext } from './commit-message-text-generation'
@@ -109,7 +105,7 @@ describe('generateConversationName', () => {
     expect(await pending).toMatchObject({ success: false, canceled: true })
   })
 
-  it.each(['custom', 'kimi'] as const)('%s local title', async (agentId) => {
+  it.each(['custom'] as const)('%s local title', async (agentId) => {
     const child = createMockDiscoveryChild()
     const spawnAgent = vi.fn(() => {
       // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: The test child implements every process member the generation lane reads.

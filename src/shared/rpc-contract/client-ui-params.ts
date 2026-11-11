@@ -66,12 +66,8 @@ export const StatusBarItem = z.enum([
   'gemini',
   'antigravity',
   'opencode-go',
-  'kimi',
-  'minimax',
   'grok',
   'cursor',
-  'zcode',
-  'muse',
   'ssh',
   'resource-usage',
   'ports'
@@ -211,13 +207,9 @@ export const UiUpdateFields = z
             codex: z.string().optional(),
             gemini: z.string().optional(),
             'opencode-go': z.string().optional(),
-            kimi: z.string().optional(),
-            minimax: z.string().optional(),
             grok: z.string().optional(),
             antigravity: z.string().optional(),
-            cursor: z.string().optional(),
-            zcode: z.string().optional(),
-            muse: z.string().optional()
+            cursor: z.string().optional()
           })
           .optional()
       })

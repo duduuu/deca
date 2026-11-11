@@ -14,9 +14,6 @@ import {
 import { getTokenDir as getJiraTokenDir } from '../jira/site-credential-store'
 import { getSecretPath as getBitbucketSecretPath } from '../bitbucket/credential-store'
 import { getOpenAiKeyPath } from '../speech/openai-api-key-store'
-import { API_KEY_ENVELOPE_PREFIX, getZcodePlanApiKeyPath } from '../zcode/zcode-plan-api-key-store'
-import { COOKIE_ENVELOPE_PREFIX, getMiniMaxCookiePath } from '../minimax/minimax-cookie-store'
-import { miniMaxApiKeyEnvelopeFile } from '../minimax/minimax-api-key-store'
 import { openCodeGoApiKeyEnvelopeFile } from '../opencode/opencode-go-api-key-store'
 import { openAiCompatibleSpeechProviderEnvelopeFile } from '../speech/openai-compatible-speech-provider-store'
 
@@ -51,9 +48,6 @@ function listPlaintextCredentialTargets(): PlaintextCredentialTarget[] {
     ...encFilesIn(getJiraTokenDir()).map((path) => ({ path, raw: true })),
     { path: getBitbucketSecretPath(), raw: true },
     { path: getOpenAiKeyPath(), raw: true },
-    { path: getMiniMaxCookiePath(), envelopePrefix: COOKIE_ENVELOPE_PREFIX, raw: true },
-    { path: getZcodePlanApiKeyPath(), envelopePrefix: API_KEY_ENVELOPE_PREFIX },
-    miniMaxApiKeyEnvelopeFile(),
     openCodeGoApiKeyEnvelopeFile(),
     openAiCompatibleSpeechProviderEnvelopeFile()
   ]

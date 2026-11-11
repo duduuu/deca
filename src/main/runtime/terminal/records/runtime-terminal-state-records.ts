@@ -160,7 +160,6 @@ export type RuntimePtyTitleTrackerEntry = {
   pendingFacts: TerminalSideEffectFact[]
   /** Run once this chunk's facts are emitted: status that readers must see after them. */
   afterFacts: (() => void)[]
-  commandCodeDetector: { observe: (data: string) => boolean } | null
   /** The program's OSC 7501 activity; while set it, not the title glyph, is the PTY's status. */
   programActivity: AgentStatus | null
   /** The last observed title, so a program's activity change can re-classify it. */

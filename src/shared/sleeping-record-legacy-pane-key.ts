@@ -6,9 +6,7 @@ import { parseLegacyNumericPaneKey } from './workspace-layout/stable-pane-id'
 /** One provider conversation in a workspace; aliases of one conversation share it. */
 export function getProviderSessionClaimKey(record: SleepingAgentSessionRecord): string {
   const base = `${record.worktreeId}\0${record.agent}\0${record.providerSession.key}\0${record.providerSession.id}`
-  return record.agent === 'pi' || record.agent === 'prime-agent'
-    ? `${base}\0${record.providerSession.transcriptPath ?? ''}`
-    : base
+  return record.agent === 'pi' ? `${base}\0${record.providerSession.transcriptPath ?? ''}` : base
 }
 
 /** Prefer the pane’s numbered record, otherwise the oldest if all numbered records name one conversation.

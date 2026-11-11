@@ -40,12 +40,7 @@ export async function readNativeChatTranscript(
   options: ReadTranscriptOptions = {}
 ): Promise<ReadTranscriptResult> {
   if (resolveNativeChatTranscriptAgent(agent) === 'opencode') {
-    return readOpenCodeNativeChatTranscriptFull(
-      sessionId,
-      {},
-      undefined,
-      agent === 'zcode' ? 'zcode' : undefined
-    )
+    return readOpenCodeNativeChatTranscriptFull(sessionId, {}, undefined)
   }
   let filePath: string | null
   try {

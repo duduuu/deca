@@ -71,18 +71,6 @@ export abstract class AgentHookServerStatusDisposition extends AgentHookServerCo
     ) {
       return 'suppress'
     }
-    const retirementFence = this.retiredPaneFencesByKey.get(ownerPaneKey)
-    if (
-      paneRetired &&
-      event?.source === 'omp' &&
-      retirementFence?.aliases.some(
-        ({ physicalPaneKey, entry }) =>
-          this.retiredPaneFencesByKey.get(physicalPaneKey) !== retirementFence ||
-          this.retiredPaneFencesByKey.get(entry.stablePaneKey) !== retirementFence
-      )
-    ) {
-      return 'suppress'
-    }
     if (!paneRetired) {
       const tokenFence = this.restartedStatusLaunchTokenHashByPaneKey.get(ownerPaneKey)
       // Only tokened SessionStart re-fences a deferred retirement; recurring prompts could revive a stale owner.
@@ -121,9 +109,9 @@ export abstract class AgentHookServerStatusDisposition extends AgentHookServerCo
             ? // Older relays omit source; retain their literal boundary fallback.
               event?.hookEventName === 'UserPromptSubmit' || event?.hookEventName === 'SessionStart'
             : false
-    // OpenCode MessagePart carries mid-session prompts; mimo-code has no SessionStart.
+    // OpenCode MessagePart carries mid-session prompts.
     const freshOpenCodeFamilyPrompt =
-      (event?.source === 'opencode' || event?.source === 'mimo-code') &&
+      event?.source === 'opencode' &&
       event.hookEventName === 'MessagePart' &&
       event.hasExplicitPrompt === true
     // Fence the revived status by launch token without restoring retired orchestration authority.

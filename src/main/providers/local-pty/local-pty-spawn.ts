@@ -1,7 +1,5 @@
 import { randomUUID } from 'node:crypto'
 import { win32 as pathWin32 } from 'node:path'
-import { mkdir } from 'node:fs/promises'
-import { JCODE_RUNTIME_DIR_ENV_KEY } from '../../../shared/jcode-runtime-dir'
 import { SessionNotFoundError } from '../../daemon/protocol/daemon-errors'
 import { prepareMacosTccLoginShell } from '../macos-tcc-login-shell'
 import { finalizeLocalPtySpawnEnvironment } from './local-pty-finalize-environment'
@@ -47,15 +45,6 @@ export async function spawnLocalPty(
   }
   if (args.attachOnly) {
     throw new SessionNotFoundError(args.sessionId ?? '')
-  }
-  const jcodeRuntimeDir = args.env?.[JCODE_RUNTIME_DIR_ENV_KEY]
-  if (jcodeRuntimeDir) {
-    try {
-      await mkdir(jcodeRuntimeDir, { recursive: true })
-    } catch {
-      // Runtime-dir failure must not block ordinary shells; let jcode choose its own default.
-      delete args.env?.[JCODE_RUNTIME_DIR_ENV_KEY]
-    }
   }
   const id = allocatePtyId(reattachId ?? undefined)
   return runCancelableLocalPtySpawn(id, async (throwIfCanceled, cancellation) => {

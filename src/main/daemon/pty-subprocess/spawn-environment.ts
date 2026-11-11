@@ -6,7 +6,6 @@ import { dropInheritedOrcaFishHistory } from '../../pty/history/fish-history-ses
 import { removeAppImageRuntimeEnv } from '../../pty/shell-startup/appimage-terminal-env'
 import { removeChromiumDisabledSessionBus } from '../../pty/shell-startup/chromium-session-bus-env'
 import { stripInheritedBuildModeEnv } from '../../pty/shell-startup/build-mode-env'
-import { stripPiProcessOwnerEnv } from '../../pty/shell-startup/pi-process-owner-env'
 import { dropIncoherentCondaActivationEnv } from '../../pty/shell-startup/conda-activation-env'
 import { stripLegacyTerminalShimEnv } from '../../pty/shell-startup/legacy-terminal-shim-dir'
 import { removeInheritedNoColor } from '../../pty/shell-startup/terminal-color-env'
@@ -194,7 +193,6 @@ export function createDaemonPtyEnvironment(opts: PtySubprocessOptions): Record<s
     env.TERM = opts.env.TERM
   }
   removeUnspecifiedPaneIdentityEnv(env, opts.env)
-  stripPiProcessOwnerEnv(env)
   if (opts.env?.fish_history === undefined) {
     dropInheritedOrcaFishHistory(env)
   }
@@ -241,7 +239,6 @@ export function finalizeDaemonPtyEnvironment(
   promoteAgentTeamsShimPath(env, requestedPath)
   stripLegacyTerminalShimEnv(env, process.platform)
   dropIncoherentCondaActivationEnv(env, process.platform)
-  stripPiProcessOwnerEnv(env)
   // A live daemon pins this runtime across app updates; callers cannot name the host executable.
   for (const key of Object.keys(env)) {
     if (key.toUpperCase() === 'ORCA_AGENT_HOOK_NODE') {

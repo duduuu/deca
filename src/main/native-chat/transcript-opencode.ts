@@ -21,16 +21,11 @@ import { DESKTOP_READ_WINDOW } from './transcript-watch-contract'
 import { openCodeTranscriptPageLimit } from '../../shared/opencode-transcript-page-limit'
 
 export type OpenCodeTranscriptDeps = {
-  resolveDbPath?: (
-    sessionId?: string,
-    signal?: AbortSignal,
-    agent?: 'zcode'
-  ) => Promise<string | null>
+  resolveDbPath?: (sessionId?: string, signal?: AbortSignal) => Promise<string | null>
   readSignal?: (
     dbPath: string,
     sessionId: string,
-    signal?: AbortSignal,
-    agent?: 'zcode'
+    signal?: AbortSignal
   ) => Promise<OpenCodeTranscriptSignal | null>
   readPage?: (
     args: {
@@ -38,7 +33,6 @@ export type OpenCodeTranscriptDeps = {
       sessionId: string
       limit: number
       beforeMessageRowId?: number
-      agent?: 'zcode'
     },
     signal?: AbortSignal
   ) => Promise<OpenCodeTranscriptPage | null>
@@ -50,8 +44,8 @@ export function resolveOpenCodeTranscriptDbPath(sessionId?: string): Promise<str
 
 export const openCodeTranscriptDefaultDeps: Required<OpenCodeTranscriptDeps> = {
   resolveDbPath: discoverOpenCodeTranscriptDatabase,
-  readSignal: (dbPath, sessionId, signal, agent) =>
-    readOpenCodeTranscriptSignalViaWorker({ dbPath, sessionId, agent }, signal),
+  readSignal: (dbPath, sessionId, signal) =>
+    readOpenCodeTranscriptSignalViaWorker({ dbPath, sessionId }, signal),
   readPage: (args, signal) => readOpenCodeTranscriptPageViaWorker(args, signal)
 }
 
@@ -60,7 +54,7 @@ export type OpenCodeTailResult =
   | { error: string; notFound?: true }
 
 export async function readOpenCodeNativeChatTranscriptTail(
-  args: { sessionId: string; limit: number; beforeOffset?: number; agent?: 'zcode' },
+  args: { sessionId: string; limit: number; beforeOffset?: number },
   deps: OpenCodeTranscriptDeps = {},
   signal?: AbortSignal
 ): Promise<OpenCodeTailResult> {
@@ -68,8 +62,7 @@ export async function readOpenCodeNativeChatTranscriptTail(
   try {
     const dbPath = await (deps.resolveDbPath ?? openCodeTranscriptDefaultDeps.resolveDbPath)(
       args.sessionId,
-      signal,
-      args.agent
+      signal
     )
     if (!dbPath) {
       return { error: 'Transcript unavailable', notFound: true }
@@ -79,8 +72,7 @@ export async function readOpenCodeNativeChatTranscriptTail(
         dbPath,
         sessionId: args.sessionId,
         limit,
-        ...(args.beforeOffset !== undefined ? { beforeMessageRowId: args.beforeOffset } : {}),
-        ...(args.agent ? { agent: args.agent } : {})
+        ...(args.beforeOffset !== undefined ? { beforeMessageRowId: args.beforeOffset } : {})
       },
       signal
     )
@@ -100,8 +92,7 @@ export async function readOpenCodeNativeChatTranscriptTail(
 export async function readOpenCodeNativeChatTranscriptFull(
   sessionId: string,
   deps: OpenCodeTranscriptDeps = {},
-  signal?: AbortSignal,
-  agent?: 'zcode'
+  signal?: AbortSignal
 ): Promise<ReadTranscriptResult> {
   // Reverse newest-first windows while preserving order inside each page.
   const pages: OpenCodeTranscriptItem[][] = []
@@ -113,8 +104,7 @@ export async function readOpenCodeNativeChatTranscriptFull(
   try {
     const dbPath = await (deps.resolveDbPath ?? openCodeTranscriptDefaultDeps.resolveDbPath)(
       sessionId,
-      signal,
-      agent
+      signal
     )
     if (!dbPath) {
       return { error: 'Transcript unavailable', notFound: true }
@@ -126,8 +116,7 @@ export async function readOpenCodeNativeChatTranscriptFull(
           dbPath,
           sessionId,
           limit: 500,
-          ...(cursor !== undefined ? { beforeMessageRowId: cursor } : {}),
-          ...(agent ? { agent } : {})
+          ...(cursor !== undefined ? { beforeMessageRowId: cursor } : {})
         },
         signal
       )

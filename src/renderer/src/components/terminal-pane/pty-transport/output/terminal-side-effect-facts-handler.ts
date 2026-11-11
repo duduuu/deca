@@ -110,12 +110,6 @@ function applyLiveFact(entry: ConsumerEntry, fact: TerminalSideEffectFact, seq: 
     case 'pr-link':
       entry.callbacks.onPrLink?.(fact.link)
       return
-    case 'command-code-working':
-      entry.callbacks.onCommandCodeWorking?.(fact.prompt)
-      return
-    case 'command-code-done':
-      entry.callbacks.onCommandCodeDone?.(fact.prompt)
-      return
     case '2031-subscribe':
       entry.callbacks.onMode2031Subscribe?.()
       return

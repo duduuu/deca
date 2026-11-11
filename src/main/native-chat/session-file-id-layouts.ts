@@ -1,9 +1,7 @@
 import { win32 } from 'node:path'
 import { GROK_CHAT_HISTORY_FILE } from '../../shared/grok-session-paths'
 import { isClaudeProjectBucketDirectory } from '../ai-vault/scanners/claude/claude-project-dir-encoding'
-import { isOmpConversationDirectory } from '../ai-vault/scanners/omp/session-scanner-omp-subagent-transcripts'
-
-export type SessionIdLookupAgent = 'claude' | 'codex' | 'grok' | 'omp'
+export type SessionIdLookupAgent = 'claude' | 'codex' | 'grok'
 
 export type SessionFileIdLayout = {
   fileMatchesId: (path: string, sessionId: string) => boolean
@@ -31,13 +29,5 @@ export const SESSION_FILE_ID_LAYOUTS: Record<SessionIdLookupAgent, SessionFileId
     fileMatchesId: (path, id) =>
       win32.basename(path) === GROK_CHAT_HISTORY_FILE && win32.basename(win32.dirname(path)) === id,
     directoryPredicate: (name, depth, wanted) => depth === 0 || (depth === 1 && wanted(name))
-  },
-  omp: {
-    fileMatchesId: (path, id) => {
-      const name = stem(path)
-      return name === id || name.endsWith(`_${id}`)
-    },
-    // Prune subagent artifact directories: their suffix can match the parent ID and steal its transcript.
-    directoryPredicate: isOmpConversationDirectory
   }
 }

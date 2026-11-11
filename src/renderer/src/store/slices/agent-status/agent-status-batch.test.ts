@@ -59,18 +59,7 @@ describe('setAgentStatuses', () => {
     const entries = Object.fromEntries(
       Array.from({ length: MAX_LIVE_AGENT_STATUSES }, (_, index) => {
         const paneKey = `orphan-tab:orphan-${index}`
-        return [
-          paneKey,
-          {
-            paneKey,
-            state: 'working',
-            prompt: 'old turn',
-            agentType: 'pi',
-            updatedAt: BASE_TIME,
-            stateStartedAt: BASE_TIME,
-            stateHistory: []
-          } satisfies AgentStatusEntry
-        ]
+        return [paneKey satisfies AgentStatusEntry]
       })
     )
     store.setState({ agentStatusByPaneKey: entries } as Partial<AppState>)

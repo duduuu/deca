@@ -77,10 +77,7 @@ describe('startup follow-up prompt', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const f = fixture('pwsh', false)
 
-    const delivered = deliverStartupFollowupPrompt(f.runtime, f.host, 'term-1', {
-      agent: 'kimi',
-      prompt: 'fix the flaky test'
-    })
+    const delivered = deliverStartupFollowupPrompt(f.runtime, f.host, 'term-1')
     await vi.advanceTimersByTimeAsync(30 * 150)
 
     await expect(delivered).resolves.toBe(false)

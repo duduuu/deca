@@ -2,13 +2,7 @@ import type { UsageSourceCacheRef } from '../cache/usage-source-cache-file'
 
 /** Provider-specific records preserve per-turn/per-event billing and different cache-input semantics; only the scan envelope is shared, including plugins. */
 
-export type UsageProviderId =
-  | 'claude'
-  | 'codex'
-  | 'devin'
-  | 'opencode'
-  | 'muse'
-  | `plugin:${string}`
+export type UsageProviderId = 'claude' | 'codex' | 'devin' | 'opencode' | `plugin:${string}`
 
 /** Unlike UsageWorktreeRef, scan attribution also needs repoId. */
 export type UsageScanWorktreeRef = {

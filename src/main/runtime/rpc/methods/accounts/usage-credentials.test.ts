@@ -8,8 +8,6 @@ import { setSecretStore } from '../../../../../shared/secret-store'
 import type { RpcRequest } from '../../core'
 import { RpcDispatcher } from '../../dispatcher'
 import { USAGE_CREDENTIAL_METHODS } from './usage-credentials'
-import { API_KEY_ENVELOPE_PREFIX } from '../../../../zcode/zcode-plan-api-key-store'
-
 const home = vi.hoisted(() => ({ dir: '' }))
 vi.mock('node:os', async (importOriginal) => {
   const actual = await importOriginal<typeof NodeOs>()
@@ -90,7 +88,7 @@ describe('usage credential RPC methods', () => {
   }
 
   const providers = [
-    ['MiniMax', 'minimax-api-key.enc', 'orca-minimax-api-key:v1:', 'minimax'],
+    ['MiniMax', 'minimax-api-key.enc', 'orca-minimax-api-key:v1:'],
     ['GLM', 'zcode-plan-api-key.enc', API_KEY_ENVELOPE_PREFIX, 'zcodePlan']
   ] as const
 

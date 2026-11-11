@@ -31,11 +31,7 @@ describe('syncPaneDetachPtyOwnership agent identity', () => {
         [targetTabId]: []
       }
     })
-    store.getState().setPaneForegroundAgent(sourcePaneKey, {
-      agent: 'droid',
-      routingTrusted: true,
-      shellForeground: false
-    })
+    store.getState().setPaneForegroundAgent(sourcePaneKey)
     store
       .getState()
       .setPaneForegroundAgent(siblingPaneKey, { agent: 'antigravity', shellForeground: false })
@@ -46,11 +42,7 @@ describe('syncPaneDetachPtyOwnership agent identity', () => {
         { agentArgs: '', agentEnv: {} },
         { agentType: 'droid', tabId: sourceTabId, leafId: detachedLeafId }
       )
-    store.getState().setAgentStatus(sourcePaneKey, {
-      state: 'working',
-      prompt: '',
-      agentType: 'droid'
-    })
+    store.getState().setAgentStatus(sourcePaneKey)
     store.setState({
       sleepingAgentSessionsByPaneKey: {
         [sourcePaneKey]: {

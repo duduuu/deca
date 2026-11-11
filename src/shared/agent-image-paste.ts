@@ -10,12 +10,10 @@ export type AgentImageHandling = 'attachment' | 'unsupported'
 
 const IMAGE_ATTACHMENT_AGENTS: ReadonlySet<string> = new Set<string>([
   'claude',
-  'openclaude',
   'codex',
   'gemini',
   'cursor',
   'copilot',
-  'droid',
   // Grok supports bracketed path/image chips (xAI terminal docs and pager paste.rs).
   'grok'
 ])

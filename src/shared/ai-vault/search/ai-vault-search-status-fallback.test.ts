@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
 import { createSessionSearchClient } from './ai-vault-search-client'
-import { AiVaultSearchRequestSchema as LegacyRequestSchema } from '../../__fixtures__/pre-qoder-search-request'
 import { searchResults } from './ai-vault-search-test-fixture'
 
 const query = {
@@ -26,7 +25,7 @@ describe.each(['runtime', 'relay'] as const)('missing search status over %s', (t
     expect(
       await createSessionSearchClient(call, transport).searchSessions({
         ...query,
-        filters: { ...query.filters, agents: ['jcode', 'qoder', 'codebuddy', 'zcode', 'claude'] }
+        filters: { ...query.filters, agents: ['claude'] }
       })
     ).toMatchObject({ kind: 'results' })
     expect(call).toHaveBeenCalledTimes(2)
@@ -39,7 +38,7 @@ describe.each(['runtime', 'relay'] as const)('missing search status over %s', (t
     expect(
       await createSessionSearchClient(call, transport).searchSessions({
         query: 'needle',
-        filters: { agents: ['jcode'] }
+        filters: { agents: [] }
       })
     ).toEqual({ kind: 'unavailable', reason: 'unsupported-agent' })
     expect(call).toHaveBeenCalledExactlyOnceWith('aiVault.searchStatus', {})

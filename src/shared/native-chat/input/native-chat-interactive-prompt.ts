@@ -11,8 +11,6 @@ import type {
 import { parseAskFromStatus, resolveNativeChatAsk } from './native-chat-ask'
 import type { AskPrompt } from './native-chat-ask-types'
 import type { NativeChatMessage } from '../native-chat-types'
-import { parseOmpPlanReviewPrompt } from '../../omp-plan-review-prompt'
-
 export type ChatApproval = {
   title: string
   displayName?: string

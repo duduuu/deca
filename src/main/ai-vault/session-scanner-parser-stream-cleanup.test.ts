@@ -25,12 +25,8 @@ vi.mock('node:readline', async (importOriginal) => ({
 }))
 
 import { parseAntigravitySessionFile } from './scanners/antigravity/session-scanner-antigravity-parser'
-import { parseDroidSessionFile } from './scanners/droid/session-scanner-droid-parser'
 import { parseMessageGraphSessionFile } from './scanners/session-scanner-graph-parsers'
 import { parseGrokSessionFile } from './scanners/grok/session-scanner-grok-parser'
-import { parseKimiSessionFile } from './scanners/kimi/session-scanner-kimi-parser'
-import { clearKimiSessionIndexCache } from './scanners/kimi/session-scanner-kimi-paths'
-
 const PARSE_FAILURE = 'parser failed mid-transcript'
 
 const opened: { path: string; stream: Readable }[] = []
@@ -100,7 +96,6 @@ describe('session parsers that stop consuming a gated transcript early', () => {
   })
 
   it.each([
-    ['droid', () => parseDroidSessionFile(file('/w/session.jsonl'), 'linux')],
     ['message graph', () => parseMessageGraphSessionFile('pi', file('/w/session.jsonl'), 'linux')]
   ])('destroys the stream when the %s parse throws', async (_agent, parse) => {
     await expect(parse()).rejects.toThrow(PARSE_FAILURE)

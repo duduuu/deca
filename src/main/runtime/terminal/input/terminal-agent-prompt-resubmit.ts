@@ -30,9 +30,7 @@ export abstract class OrcaRuntimeWithResubmitHeldAgentPrompt extends OrcaRuntime
     const retryDelayMs = agent ? TUI_AGENT_CONFIG[agent]?.submitRetryDelayMs : undefined
     const prompt = held.prompt
     const gated = held.heldBudgetMs > 0 && prompt !== undefined
-    // Why: the draft reader knows dsh's launchpad, which its first-run guide covers once ready.
-    const readsLaunchDraft = agent === 'dsh'
-    let blind = options.composerReady === true && !readsLaunchDraft
+    let blind = options.composerReady === true
     if (retryDelayMs === undefined || (!blind && !gated)) {
       return 0
     }

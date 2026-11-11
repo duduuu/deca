@@ -21,7 +21,6 @@ describe('unattended agent startup updates', () => {
         throw new Error(parsed.error)
       }
       expect(parsed.tokens).toEqual([
-        'aider',
         '--check-update',
         '--show-release-notes',
         '--no-check-update',

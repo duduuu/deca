@@ -17,17 +17,12 @@ const SHELL_PROCESS_NAMES = new Set([
   'zsh'
 ])
 const AGENT_PROCESS_NAMES = new Set([
-  'aider',
-  'amp',
   'agy',
   'claude',
   'claude-code',
   'codex',
-  'crush',
-  'droid',
   'gemini',
   'gemini-cli',
-  'goose',
   'opencode'
 ])
 

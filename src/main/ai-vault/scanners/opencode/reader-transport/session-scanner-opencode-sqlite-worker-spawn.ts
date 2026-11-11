@@ -60,10 +60,6 @@ export const listOpenCode2SqliteSessionsViaWorker = (
   args: SqliteListArgs
 ): Promise<SessionFileCandidate[]> => listForHost({ ...args, agent: 'opencode2' })
 
-export const listZcodeSqliteSessionsViaWorker = (
-  args: SqliteListArgs
-): Promise<SessionFileCandidate[]> => listForHost({ ...args, agent: 'zcode' })
-
 export const parseOpenCodeSqliteSessionViaWorker = (
   args: SqliteParseArgs
 ): Promise<AiVault.AiVaultSession | null> => parseForHost(args)
@@ -72,10 +68,6 @@ export const parseOpenCode2SqliteSessionViaWorker = (
   args: SqliteParseArgs
 ): Promise<AiVault.AiVaultSession | null> => parseForHost({ ...args, agent: 'opencode2' })
 
-export const parseZcodeSqliteSessionViaWorker = (
-  args: SqliteParseArgs
-): Promise<AiVault.AiVaultSession | null> => parseForHost({ ...args, agent: 'zcode' })
-
 export const captureOpenCodeSqliteSessionViaWorker = (
   args: SqliteCaptureArgs
 ): Promise<OpenCodeSqliteCaptureValue> => captureForHost(args)
@@ -83,10 +75,6 @@ export const captureOpenCodeSqliteSessionViaWorker = (
 export const captureOpenCode2SqliteSessionViaWorker = (
   args: SqliteCaptureArgs
 ): Promise<OpenCodeSqliteCaptureValue> => captureForHost({ ...args, agent: 'opencode2' })
-
-export const captureZcodeSqliteSessionViaWorker = (
-  args: SqliteCaptureArgs
-): Promise<OpenCodeSqliteCaptureValue> => captureForHost({ ...args, agent: 'zcode' })
 
 async function listForHost(
   args: Parameters<OpenCodeSqliteWorkerClient['list']>[0]
@@ -262,7 +250,6 @@ export async function readOpenCodeTranscriptPageViaWorker(
     sessionId: string
     limit: number
     beforeMessageRowId?: number
-    agent?: 'zcode'
   },
   signal?: AbortSignal
 ) {
@@ -287,7 +274,6 @@ export async function readOpenCodeTranscriptSignalViaWorker(
   args: {
     dbPath: string
     sessionId: string
-    agent?: 'zcode'
   },
   signal?: AbortSignal
 ) {

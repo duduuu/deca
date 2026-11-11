@@ -5,24 +5,14 @@ import type { AiVaultSearchStatus } from './ai-vault-search-types'
 const LEGACY_SEARCH_AGENTS: readonly AiVaultAgent[] = [
   'claude',
   'codex',
-  'hermes',
-  'pi',
-  'omp',
-  'prime-agent',
   'cursor',
   'gemini',
   'antigravity',
-  'rovo',
   'copilot',
   'opencode',
   'opencode2',
   'grok',
-  'openclaw',
-  'devin',
-  'droid',
-  'cline',
-  'kimi',
-  'muse'
+  'devin'
 ]
 
 export function compatibleSearchAgents(
@@ -36,8 +26,8 @@ export function compatibleSearchAgents(
   const supported = new Set(
     status.supportedAgents ?? [
       ...LEGACY_SEARCH_AGENTS,
-      ...(status.supportsQoderHistory === true ? ['codebuddy', 'zcode', 'qoder'] : []),
-      ...(status.supportsJcodeHistory === true ? ['jcode'] : [])
+      ...(status.supportsQoderHistory === true ? [] : []),
+      ...(status.supportsJcodeHistory === true ? [] : [])
     ]
   )
   return agents.filter((agent) => supported.has(agent))

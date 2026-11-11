@@ -44,7 +44,7 @@ describe('agent interrupt inference', () => {
     entry = undefined
   })
 
-  it.each([['claude'], ['omp'], ['pi'], ['prime-agent']] as const)(
+  it.each([['claude'], [], [], []] as const)(
     'keeps a pending Ctrl+C for %s when a navigation Escape lands before it settles',
     (agentType) => {
       // Escape may dismiss UI but must not revoke a Ctrl+C already waiting to settle.

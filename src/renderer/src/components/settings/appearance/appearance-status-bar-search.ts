@@ -3,12 +3,8 @@ import { createLocalizedCatalog } from '@/i18n/localized-catalog'
 import { translate } from '@/i18n/i18n'
 import { translateSearchKeyword } from '../search/settings-search-keywords'
 import { getAntigravityStatusBarToggleSearchEntry } from './appearance-status-bar-antigravity-toggle-search'
-import { getMiniMaxStatusBarToggleSearchEntry } from './appearance-status-bar-minimax-toggle-search'
 import { getGrokStatusBarToggleSearchEntry } from './appearance-status-bar-grok-toggle-search'
 import { getCursorStatusBarToggleSearchEntry } from './appearance-status-bar-cursor-toggle-search'
-import { getZcodeStatusBarToggleSearchEntry } from './appearance-status-bar-zcode-toggle-search'
-import { getMuseStatusBarToggleSearchEntry } from './appearance-status-bar-muse-toggle-search'
-
 export const getStatusBarToggles = createLocalizedCatalog(
   (): readonly {
     id: StatusBarItem
@@ -138,34 +134,6 @@ export const getStatusBarToggles = createLocalizedCatalog(
       toggleDescription: translate(
         'settings.appearance.statusBar.opencodeGoToggleDescription',
         'Show OpenCode Go token and cost usage for the active workspace.'
-      )
-    },
-    {
-      id: 'kimi',
-      title: translate('auto.components.settings.appearance.search.c29089716e', 'Kimi usage'),
-      description: translate(
-        'auto.components.settings.appearance.search.c927a155d5',
-        'Show Kimi subscription usage in the status bar.'
-      ),
-      keywords: [
-        ...translateSearchKeyword(
-          'auto.components.settings.appearance.search.896eb53fd4',
-          'status bar'
-        ),
-        ...translateSearchKeyword('auto.components.settings.appearance.search.40e5c3c285', 'kimi'),
-        ...translateSearchKeyword('auto.components.settings.appearance.search.00a028f25f', 'usage'),
-        ...translateSearchKeyword(
-          'auto.components.settings.appearance.search.de586def95',
-          'subscription'
-        ),
-        ...translateSearchKeyword(
-          'auto.components.settings.appearance.search.35565867cb',
-          'moonshot'
-        )
-      ],
-      toggleDescription: translate(
-        'settings.appearance.statusBar.kimiToggleDescription',
-        'Show Kimi subscription usage for the active workspace.'
       )
     },
     getMiniMaxStatusBarToggleSearchEntry(),

@@ -14,11 +14,6 @@ import type {
   OpenCodeUsageScope,
   OpenCodeUsageSnapshot
 } from '../../../../../shared/opencode-usage-types'
-import type {
-  MuseUsageRange,
-  MuseUsageScope,
-  MuseUsageSnapshot
-} from '../../../../../shared/muse-usage-types'
 import type { AppState } from '../../types'
 
 type UsageSnapshot = {

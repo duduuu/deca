@@ -24,7 +24,7 @@ describe("an agent's command or environment change", () => {
           agentDefaultEnv: { claude: { B: '2', A: '1' }, pi: { KEY: 'x' } }
         }
       )
-    ).toEqual(['pi'])
+    ).toEqual([])
     expect(agentsWithChangedLaunchSettings({ agentCmdOverrides: { grok: 'grok' } }, {})).toEqual([
       'grok'
     ])

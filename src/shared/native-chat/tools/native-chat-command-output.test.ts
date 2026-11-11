@@ -36,10 +36,7 @@ const MODEL_STDOUT = '<local-command-stdout>Set model to gpt-4o</local-command-s
 
 describe('surfaceNativeChatCommandOutputs', () => {
   it("shows OpenClaude's /context report as plain command output", () => {
-    const [shown] = surfaceNativeChatCommandOutputs(
-      [reply('out', 'env'), envelope('context')],
-      'openclaude'
-    )
+    const [shown] = surfaceNativeChatCommandOutputs([reply('out', 'env'), envelope('context')])
     expect(shown).toMatchObject({ id: 'out', role: 'system' })
     const block = shown?.blocks[0]
     expect(block).toMatchObject({ type: 'text', presentation: 'command-output' })

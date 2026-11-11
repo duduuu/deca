@@ -609,12 +609,7 @@ export function registerPtyConnectionForegroundAgentSamplingTests(): void {
           agent: null,
           shellForeground: true
         })
-        expect(mockStoreState.setPaneForegroundAgent).toHaveBeenCalledWith(cacheKey, {
-          agent: 'droid',
-          agentEvidence: 'process-read',
-          routingTrusted: true,
-          shellForeground: false
-        })
+        expect(mockStoreState.setPaneForegroundAgent).toHaveBeenCalledWith(cacheKey)
       })
     })
   })

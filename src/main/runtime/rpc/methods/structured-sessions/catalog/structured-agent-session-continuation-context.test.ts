@@ -2,7 +2,6 @@ import * as fileOperations from 'node:fs/promises'
 import { readFile, rm } from 'node:fs/promises'
 import * as contextSnapshots from '../../../../../native-chat/agent-session-context-snapshots'
 import { journalPayload } from '../../../../../native-chat/agent-session-journal/item-lifecycle/journal-payload-bounds'
-import { piRpcDialogPresentation } from '../../../../../pi/rpc-extension-dialogs'
 import { legacyAgentSessionSelectedOptionId } from '../../../../../../shared/agent-session/agent-session-question-answer'
 import {
   type AgentJournalItemBody,

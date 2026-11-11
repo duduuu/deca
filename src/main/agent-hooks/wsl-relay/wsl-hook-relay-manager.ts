@@ -54,15 +54,11 @@ export class WslHookRelayManager {
   setManagedHookSettingsResolver(resolve: WslHookRelayManagerDeps['managedHookSettings']): void {
     this.deps.managedHookSettings = resolve
   }
-  async ensureForDistro(
-    distro: string | null,
-    codexHomePath?: string | null,
-    launchKind?: 'pi' | 'omp'
-  ): Promise<void> {
+  async ensureForDistro(distro: string | null, codexHomePath?: string | null): Promise<void> {
     if (this.disposed || !isWslHookRelayAllowed(this.deps)) {
       return
     }
-    await this.ensureInternal(distro, codexHomePath ?? undefined, launchKind).catch((err) => {
+    await this.ensureInternal(distro, codexHomePath ?? undefined).catch((err) => {
       const detail = err instanceof Error ? err.message : String(err)
       this.deps.warn(`[agent-hooks] WSL hook relay ensure failed: ${detail}`)
     })
@@ -90,10 +86,6 @@ export class WslHookRelayManager {
       ? (state?.opencode2OverlayDir ?? null)
       : (state?.opencodeOverlayDir ?? null)
   }
-  getGuestAgentPath(distro: string | null, kind: 'pi' | 'omp'): string | null {
-    const state = this.stateFor(distro)
-    return kind === 'pi' ? (state?.piAgentDir ?? null) : (state?.ompStatusExtension ?? null)
-  }
   /** Nonpermanent disposal allows relays to restart when hooks are re-enabled. */
   disposeAll({ permanent = true }: { permanent?: boolean } = {}): void {
     this.disposed ||= permanent
@@ -116,8 +108,7 @@ export class WslHookRelayManager {
   }
   private async ensureInternal(
     requestedDistro: string | null,
-    requestedCodexHomePath?: string,
-    launchKind?: 'pi' | 'omp'
+    requestedCodexHomePath?: string
   ): Promise<void> {
     const distro = requestedDistro ?? (await this.resolveDefaultDistro())
     if (!distro || this.disposed) {
@@ -135,10 +126,6 @@ export class WslHookRelayManager {
       recordManagedWslCodexHome(distro, requestedCodexHomePath)
     }
     if (existing) {
-      if (launchKind && !existing.launchKinds.has(launchKind)) {
-        existing.launchKinds.add(launchKind)
-        existing.lastInstallAt = 0
-      }
       if (
         requestedCodexHomePath &&
         !wslRuntimeHomePathsEqual(existing.codexHomePath, requestedCodexHomePath)
@@ -181,9 +168,6 @@ export class WslHookRelayManager {
       claudeConfigDir: existing?.claudeConfigDir,
       opencodeOverlayDir: existing?.opencodeOverlayDir,
       opencode2OverlayDir: existing?.opencode2OverlayDir,
-      piAgentDir: existing?.piAgentDir,
-      ompStatusExtension: existing?.ompStatusExtension,
-      launchKinds: new Set(existing?.launchKinds ?? (launchKind ? [launchKind] : [])),
       codexHomePath: requestedCodexHomePath ?? existing?.codexHomePath,
       cooldownUntil: 0
     }

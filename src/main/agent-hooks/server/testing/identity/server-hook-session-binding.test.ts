@@ -329,7 +329,6 @@ it('forwards a cold host comparison to the retained canonical binding without cr
     const canonical = createHookListenerState()
     const event = new RelayProviderHookNormalization().normalize(
       canonical,
-      'hermes',
       buildBody({ hook_event_name: 'post_tool_call', session_id: id, tool_name: 'delegate_task' }),
       'production'
     )
@@ -393,7 +392,6 @@ it.each([
   await nested()
   const event = normalizeHookPayload(
     createHookListenerState(),
-    'hermes',
     buildBody({ hook_event_name: 'post_tool_call', session_id: ROOT, tool_name: 'delegate_task' }),
     'production'
   )

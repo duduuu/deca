@@ -1,7 +1,6 @@
 import { ORCA_CLI_POSIX_PATH_RESTORE } from '../../../shared/orca-cli-shell-path'
 import { MANAGED_DATA_ACCOUNT_POSIX_RESTORE } from '../../../shared/managed-data-account-shell'
 /** Restore ZDOTDIR before user startup; define functions first so .zshenv emulation cannot change their parsing. */
-import { getPosixOmpShellWrapper } from './omp-shell-wrapper'
 import { WSL_MANAGED_CLI_PATH_RESTORE } from '../../wsl/execution/wsl-managed-cli-path-restore'
 import { getPosixCodexShellLaunchPreflight } from '../../../shared/codex-shell-function'
 import { getPosixClaudeShellFunction } from '../../../shared/claude-shell-function'
@@ -52,7 +51,6 @@ const AGENT_TEAMS_PATH_RESTORE_BLOCK = `__orca_restore_agent_teams_path() {
 __orca_restore_agent_teams_path`
 
 const OPENCODE_CONFIG_DIR_RESTORE = `[[ -n "\${ORCA_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${ORCA_OPENCODE_CONFIG_DIR}"`
-const MIMOCODE_CONFIG_DIR_RESTORE = `[[ -n "\${ORCA_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${ORCA_MIMOCODE_CONFIG_DIR}"`
 const REMOTE_CLI_BIN_DIR_RESTORE = `[[ -n "\${ORCA_REMOTE_CLI_BIN_DIR:-}" ]] && case ":$PATH:" in *:"\${ORCA_REMOTE_CLI_BIN_DIR}":*) ;; *) export PATH="\${ORCA_REMOTE_CLI_BIN_DIR}:$PATH" ;; esac`
 const CODEX_HOME_RESTORE = `# Restore the runtime CODEX_HOME after user rc files.
 [[ -n "\${ORCA_CODEX_HOME:-}" ]] && export CODEX_HOME="\${ORCA_CODEX_HOME}"`
@@ -96,9 +94,7 @@ function getOverlayRestoreBlocks(spec: ZshStartupHookSpec): (string | null)[] {
     spec.restores.agentTeamsPath ? AGENT_TEAMS_PATH_RESTORE_BLOCK : null,
     OPENCODE_CONFIG_DIR_RESTORE,
     MANAGED_DATA_ACCOUNT_POSIX_RESTORE,
-    MIMOCODE_CONFIG_DIR_RESTORE,
     spec.restores.remoteCliBinDir ? REMOTE_CLI_BIN_DIR_RESTORE : null,
-    getPosixOmpShellWrapper(),
     spec.restores.codexHome ? CODEX_HOME_RESTORE : null
   ]
 }

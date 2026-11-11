@@ -11,43 +11,18 @@ export const AUTO_TUI_AGENT_ARGS: Partial<Record<TuiAgent, string>> = {
 
 export const YOLO_TUI_AGENT_ARGS: Partial<Record<TuiAgent, string>> = {
   claude: '--dangerously-skip-permissions',
-  codebuddy: '--dangerously-skip-permissions',
   'claude-agent-teams': '--dangerously-skip-permissions',
-  openclaude: '--dangerously-skip-permissions',
   codex: '--dangerously-bypass-approvals-and-sandbox',
-  qoder: '--dangerously-skip-permissions',
-  'qoder-cn': '--dangerously-skip-permissions',
   gemini: '--yolo',
   antigravity: '--dangerously-skip-permissions',
-  aider: '--yes-always',
-  amp: '--dangerously-allow-all',
   kiro: '--trust-all-tools',
-  crush: '--yolo',
-  autohand: '--unrestricted',
-  cline: '--auto-approve true',
-  'command-code': '--yolo',
-  continue: '--allow "*"',
   cursor: '--yolo',
-  // Why: Kimi Code's --yolo is Ask When Needed; --auto is its Never Ask mode.
-  kimi: '--auto',
-  muse: '--yolo',
-  // Why: ZCode gates tools by collaboration mode; `yolo` is its bypass-everything mode.
-  zcode: '--mode yolo',
-  'mistral-vibe': '--agent auto-approve',
-  'qwen-code': '--approval-mode yolo',
-  rovo: '--yolo',
-  hermes: '--yolo',
   copilot: '--yolo',
   grok: '--permission-mode bypassPermissions',
-  devin: '--permission-mode bypass --respect-workspace-trust false',
-  ante: '--yolo',
-  trae: '--yolo',
-  droid: '--auto high'
+  devin: '--permission-mode bypass --respect-workspace-trust false'
 }
 
-export const YOLO_TUI_AGENT_ENV: Partial<Record<TuiAgent, Record<string, string>>> = {
-  goose: { GOOSE_MODE: 'auto' }
-}
+export const YOLO_TUI_AGENT_ENV: Partial<Record<TuiAgent, Record<string, string>>> = {}
 
 const PERMISSION_AGENT_IDS = Object.keys(TUI_AGENT_CONFIG).filter(
   (agent): agent is TuiAgent => agent in YOLO_TUI_AGENT_ARGS || agent in YOLO_TUI_AGENT_ENV

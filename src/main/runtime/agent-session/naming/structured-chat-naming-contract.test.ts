@@ -113,9 +113,7 @@ it.each(recordings.filter((capture) => capture.provider === 'pi' || capture.prov
     source.agentId = 'codex'
     if (provider === 'pi') {
       source.selectedModelByAgent.pi = 'openai/gpt-6.1-sol'
-      source.discoveredModelsByAgent = {
-        pi: [{ id: 'openai/gpt-6.1-sol', label: 'Recorded model' }]
-      }
+      source.discoveredModelsByAgent = {}
     }
     const record = agentSessionRecordFixture()
     record.provider = provider

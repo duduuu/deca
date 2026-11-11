@@ -15,25 +15,22 @@ const persistedGrok = (
 })
 
 describe('older clients clearing a missing model', () => {
-  it.each(['grok', 'omp'] as const)(
-    'keeps the remembered %s model and its launch options',
-    (agent) => {
-      const persisted = {
-        [agent]: { model: 'retired', valuesByModel: { retired: { effort: 'low' } } }
-      }
-      expect(
-        applyNativeChatSessionOptionSettingsMutation(persisted, {
-          type: 'clear-model-if-missing',
-          agent,
-          availableModelIds: ['current']
-        })
-      ).toBeNull()
-      expect(resolveNativeChatSessionOptionDefaults(persisted, agent)).toEqual({
-        model: 'retired',
-        effort: 'low'
-      })
+  it.each(['grok'] as const)('keeps the remembered %s model and its launch options', (agent) => {
+    const persisted = {
+      [agent]: { model: 'retired', valuesByModel: { retired: { effort: 'low' } } }
     }
-  )
+    expect(
+      applyNativeChatSessionOptionSettingsMutation(persisted, {
+        type: 'clear-model-if-missing',
+        agent,
+        availableModelIds: ['current']
+      })
+    ).toBeNull()
+    expect(resolveNativeChatSessionOptionDefaults(persisted, agent)).toEqual({
+      model: 'retired',
+      effort: 'low'
+    })
+  })
 })
 
 describe('resolveNativeChatSessionOptionDefaults', () => {

@@ -1,6 +1,5 @@
 import { join } from 'node:path'
 import { GROK_ACP_DIALECT } from '../acp-dialects/grok-dialect'
-import { OMP_ACP_DIALECT } from '../acp-dialects/omp-dialect'
 import { OPENCODE_ACP_DIALECT } from '../acp-dialects/opencode-dialect'
 import { directoryAccountBinding } from './acp-account-binding'
 import { openCodeAcpAccountBinding } from '../../opencode/opencode-structured-account-home'
@@ -13,19 +12,13 @@ import {
 } from '../../opencode/opencode-model-catalog-listing'
 
 import { agentSessionSetupFor } from '../../../shared/agent-session/lifecycle/agent-session-setup-commands'
-import {
-  loadGrokVisualsSkill,
-  loadOmpVisualsSkill,
-  loadOpenCodeVisualsSkill
-} from './acp-visuals-skill'
+import { loadGrokVisualsSkill, loadOpenCodeVisualsSkill } from './acp-visuals-skill'
 
 import { GROK_SESSION_HISTORY } from '../../grok/grok-session-history'
 import { GROK_TRANSCRIPT_IMPORT } from '../../grok/grok-transcript-import'
 import { OPENCODE_SESSION_HISTORY } from '../../opencode/opencode-session-history'
 import { OPENCODE_TRANSCRIPT_IMPORT } from '../../opencode/opencode-transcript-import'
 import { assertOpenCodeCopyUsesLocalStore } from '../../../shared/opencode-launch-command'
-import { OMP_SESSION_HISTORY } from '../../omp/omp-session-history'
-import { OMP_TRANSCRIPT_IMPORT } from '../../omp/omp-transcript-import'
 import { ANTIGRAVITY_LAUNCH_SPEC } from '../../antigravity/antigravity-acp-launch-spec'
 import type { AcpLaunchSpec } from './acp-launch-contract'
 
@@ -114,46 +107,10 @@ const OPENCODE2_LAUNCH_SPEC = openCodeLaunchSpec({
   modelDiscovery: { kind: 'session', listingNamesConfiguredModel: false }
 })
 
-const OMP_LAUNCH_SPEC: AcpLaunchSpec = {
-  agent: 'omp',
-  command: 'omp',
-  // Full access approves permission requests individually.
-  args: ({ pluginDir, model }) => [
-    'acp',
-    ...(pluginDir ? ['--plugin-dir', pluginDir] : []),
-    ...(model ? ['--model', model] : [])
-  ],
-  // ACP takes listed provider/id values only; the CLI also resolves roles, fallbacks and :level.
-  launchesWithModel: true,
-  // Answering forms marks the session as having a UI, so `pty: true` bash would open a TUI
-  // overlay ACP cannot draw and fail; OMP's own headless modes set this too.
-  env: { PI_NO_PTY: '1' },
-  dialect: OMP_ACP_DIALECT,
-  loginCommand: agentSessionSetupFor('omp')?.loginCommand ?? [],
-  account: directoryAccountBinding('PI_CODING_AGENT_DIR', (homePath) =>
-    join(homePath, '.omp', 'agent')
-  ),
-  installDirectories: () => [],
-  // First release verified to serve ACP.
-  minimumVersions: ['17.0.5'],
-  // CLI listings include disabled models; use a disposable session (OMP cannot delete sessions).
-  modelDiscovery: {
-    kind: 'session',
-    listingNamesConfiguredModel: false,
-    sessionFolderArgs: (folder) => ['--session-dir', folder]
-  },
-  visualsSkill: loadOmpVisualsSkill,
-  compaction: true,
-  compactionInstructions: true,
-  transcriptImport: OMP_TRANSCRIPT_IMPORT,
-  sessionHistory: OMP_SESSION_HISTORY
-}
-
 export const ACP_LAUNCH_SPECS: readonly AcpLaunchSpec[] = [
   GROK_LAUNCH_SPEC,
   OPENCODE_LAUNCH_SPEC,
   OPENCODE2_LAUNCH_SPEC,
-  OMP_LAUNCH_SPEC,
   ANTIGRAVITY_LAUNCH_SPEC
 ]
 

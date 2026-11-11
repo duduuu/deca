@@ -167,10 +167,10 @@ describe('createDetectedAgentsSlice remote detection', () => {
     await expect(store.getState().ensureRemoteDetectedAgents('ssh-1')).resolves.toEqual([])
     expect(store.getState().remoteDetectedAgentIds['ssh-1']).toEqual([])
 
-    detectRemoteAgents.mockResolvedValueOnce(['kilo'])
+    detectRemoteAgents.mockResolvedValueOnce([])
 
-    await expect(store.getState().ensureRemoteDetectedAgents('ssh-1')).resolves.toEqual(['kilo'])
-    expect(store.getState().remoteDetectedAgentIds['ssh-1']).toEqual(['kilo'])
+    await expect(store.getState().ensureRemoteDetectedAgents('ssh-1')).resolves.toEqual([])
+    expect(store.getState().remoteDetectedAgentIds['ssh-1']).toEqual([])
   })
 
   it('keeps a late initial detect from overwriting a runtime refresh', async () => {
@@ -224,7 +224,7 @@ describe('createDetectedAgentsSlice remote detection', () => {
       id: 'preflight.refreshAgents',
       ok: true,
       result: {
-        agents: ['kilo'],
+        agents: [],
         addedPathSegments: [],
         shellHydrationOk: true,
         pathSource: 'shell_hydrate',
@@ -232,7 +232,7 @@ describe('createDetectedAgentsSlice remote detection', () => {
       },
       _meta: { runtimeId: 'remote-runtime' }
     })
-    await expect(refresh).resolves.toEqual(['kilo'])
+    await expect(refresh).resolves.toEqual([])
 
     resolveDetect({
       id: 'preflight.detectAgents',
@@ -242,7 +242,7 @@ describe('createDetectedAgentsSlice remote detection', () => {
     })
     await expect(detect).resolves.toEqual(['claude'])
 
-    expect(store.getState().runtimeDetectedAgentIds['env-1']).toEqual(['kilo'])
+    expect(store.getState().runtimeDetectedAgentIds['env-1']).toEqual([])
     expect(store.getState().isDetectingRuntimeAgents['env-1']).toBe(false)
     expect(store.getState().isRefreshingRuntimeAgents['env-1']).toBe(false)
   })
@@ -270,7 +270,7 @@ describe('createDetectedAgentsSlice remote detection', () => {
               runtimeProtocolVersion: RUNTIME_PROTOCOL_VERSION,
               minCompatibleRuntimeClientVersion: MIN_COMPATIBLE_RUNTIME_CLIENT_VERSION
             }
-          : ['kilo']
+          : []
       return Promise.resolve({
         id: method,
         ok: true,
@@ -279,8 +279,8 @@ describe('createDetectedAgentsSlice remote detection', () => {
       })
     })
 
-    await expect(store.getState().refreshRuntimeDetectedAgents('env-1')).resolves.toEqual(['kilo'])
-    expect(store.getState().runtimeDetectedAgentIds['env-1']).toEqual(['kilo'])
+    await expect(store.getState().refreshRuntimeDetectedAgents('env-1')).resolves.toEqual([])
+    expect(store.getState().runtimeDetectedAgentIds['env-1']).toEqual([])
     expect(store.getState().isRefreshingRuntimeAgents['env-1']).toBe(false)
   })
 

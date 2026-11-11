@@ -39,8 +39,7 @@ describe('usage overview model', () => {
         summary: null,
         daily: codexDaily
       },
-      opencode: { scanState: null, summary: null, daily: [] },
-      muse: { scanState: null, summary: null, daily: [] }
+      opencode: { scanState: null, summary: null, daily: [] }
     })
 
     expect(overview.daily).toHaveLength(130_000)

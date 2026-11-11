@@ -4,18 +4,12 @@ import type { ProviderRateLimits } from '../../../shared/rate-limit-types'
 import type { RateLimitService } from './rate-limit-service'
 import { fetchCodexRateLimits } from '../providers/codex/codex-fetcher'
 import { fetchGeminiRateLimits } from '../providers/gemini/gemini-usage-fetcher'
-import { fetchKimiRateLimits } from '../providers/kimi/kimi-fetcher'
-import { fetchMiniMaxRateLimits } from '../providers/minimax/minimax-fetcher'
 import { fetchGrokRateLimits } from '../providers/grok/grok-fetcher'
 import { readGrokAuthSession } from '../providers/grok/grok-auth'
 import { fetchCursorRateLimits } from '../providers/cursor/cursor-fetcher'
 import { readCursorAuthSession } from '../providers/cursor/cursor-auth'
 import { fetchOpenCodeGoUsage } from '../providers/opencode-go/opencode-go-usage-source-selection'
-import { fetchZcodeRateLimits } from '../providers/zcode/zcode-usage-fetcher'
 import { fetchAntigravityRateLimits } from '../providers/antigravity/antigravity-usage-fetcher'
-import { fetchMuseRateLimits } from '../providers/muse/muse-usage-fetcher'
-import { hasMiniMaxSessionCookie } from '../../minimax/minimax-cookie-store'
-
 export type Deferred<T> = {
   promise: Promise<T>
   resolve: (value: T) => void

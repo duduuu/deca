@@ -149,7 +149,7 @@ export const ExplicitEnsure = z
   })
   .strict()
   .superRefine((value, context) => {
-    if (value.ompResumeFilePath !== undefined && value.agent !== 'omp') {
+    if (value.ompResumeFilePath !== undefined) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         path: ['ompResumeFilePath'],

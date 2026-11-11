@@ -1,10 +1,10 @@
+import classicIconUrl from '../../../../../../resources/icon.png?url'
+import watercolorIconUrl from '../../../../../../resources/app-icons/orca-watercolor.png?url'
+import blueIconUrl from '../../../../../../resources/app-icons/orca-blue.png?url'
 import { useEffect, useState } from 'react'
 import type React from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { toast } from 'sonner'
-import classicIconUrl from '../../../../../../resources/icon.png?url'
-import watercolorIconUrl from '../../../../../../resources/app-icons/orca-watercolor.png?url'
-import blueIconUrl from '../../../../../../resources/app-icons/orca-blue.png?url'
 import {
   APP_ICON_OPTIONS,
   CUSTOM_APP_ICON_ID,

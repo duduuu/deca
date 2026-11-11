@@ -3,7 +3,6 @@ import {
   CLAUDE_INJECTED_CONFIG_DIR_ENV,
   CLAUDE_PROFILE_POINTER_ENV
 } from '../../../shared/claude-profile-routing'
-import { ORCA_HERMES_STARTUP_QUERY_ENV } from '../../../shared/agent-launch/startup/hermes-startup-query'
 import {
   isHostCodexHomeForWsl,
   isWslCodexHomeForHost
@@ -64,10 +63,6 @@ export function finalizeWindowsLocalPtySpawnEnvironment(args: {
     }
     if (env[CLAUDE_PROFILE_POINTER_ENV]) {
       addWslEnvKeys(env, [CLAUDE_PROFILE_POINTER_ENV, CLAUDE_INJECTED_CONFIG_DIR_ENV])
-    }
-    if (env[ORCA_HERMES_STARTUP_QUERY_ENV] !== undefined) {
-      // Import the custom query variable so the WSL startup wrapper can consume it.
-      addWslEnvKeys(env, [ORCA_HERMES_STARTUP_QUERY_ENV])
     }
   } else if (codexHomeWslInfo || isWslCodexHomeForHost(env.CODEX_HOME)) {
     // Windows cannot use guest Codex paths; clear the alias too or shell-ready would restore it.

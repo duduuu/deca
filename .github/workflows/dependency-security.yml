@@ -17,7 +17,6 @@ on:
       - 'config/pnpmfile.cjs'
       - '**/patches/**'
       - '.github/workflows/dependency-security.yml'
-      - '.github/workflows/release-cut.yml'
       - '.github/actions/install-node-dependencies/**'
       - '.github/actions/prepare-dependency-audit/**'
       - 'src/packages/process-host/**'

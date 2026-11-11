@@ -18,11 +18,9 @@ const AGENT_CLI_NAMES = [
   'gemini',
   'goose',
   'grok',
-  'kimi',
   'omp',
   'opencode',
-  'pi',
-  'qwen'
+  'pi'
 ]
 // Real-agent opt-in suites intentionally run the installed CLIs.
 const REAL_AGENT_CLI_SWITCHES = [

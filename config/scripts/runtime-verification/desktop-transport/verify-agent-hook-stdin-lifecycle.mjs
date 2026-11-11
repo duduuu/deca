@@ -25,11 +25,8 @@ const MANAGED_SCRIPTS = [
   ['copilot-hook.sh', 'copilot'],
   ['cursor-hook.sh', 'cursor'],
   ['devin-hook.sh', 'devin'],
-  ['droid-hook.sh', 'droid'],
   ['gemini-hook.sh', 'gemini'],
-  ['grok-hook.sh', 'grok'],
-  ['kimi-hook.sh', 'kimi'],
-  ['openclaude-hook.sh', 'claude']
+  ['grok-hook.sh', 'grok']
 ]
 
 const REQUIRED_JSON_STDOUT = new Set(['antigravity-hook.sh', 'copilot-hook.sh', 'gemini-hook.sh'])

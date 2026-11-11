@@ -29,8 +29,13 @@ export function resolveOrcadBindHost(raw?: string): string {
   if (isIP(value) === 0) {
     throw new OrcadBindAddressError(
       `--bind expects a literal IP address (got '${value}'). Hostnames are refused because ` +
-        'DNS decides which interface would be bound. Use 127.0.0.1 for loopback, or ' +
-        '0.0.0.0 to expose every interface.'
+        'DNS decides which interface would be bound. Use 127.0.0.1 for loopback.'
+    )
+  }
+  // Deca's orcad serves only this computer's WSL bridge, never the network.
+  if (bindHostIsNetworkExposed(value)) {
+    throw new OrcadBindAddressError(
+      `--bind ${value} would expose orcad to the network; Deca binds loopback only.`
     )
   }
   return value

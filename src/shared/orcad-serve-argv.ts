@@ -39,7 +39,7 @@ export function serveOptionArgs(args: ServeOrcaAppArgs, prefix: '--' | '--serve-
 export function orcadServeArgs(
   args: ServeOrcaAppArgs,
   webClientRoot?: string,
-  bindHost = '0.0.0.0'
+  bindHost = '127.0.0.1'
 ): string[] {
   const { bind, ...options } = args
   return [

@@ -15,7 +15,6 @@ test.each(['relay'] as const)(
         {
           query: 'proof',
           supportedAgents: [],
-          supportsQoderHistory: true,
           supportsJcodeHistory: true,
           freshness: 'wait-until-current'
         },

@@ -9,7 +9,7 @@ const NO_OPTIONS: AiVaultScanOptions = {}
 const NO_WSL: readonly string[] = []
 
 async function rootDirsFor(
-  agent: 'codex' | 'copilot' | 'devin' | 'openclaw' | 'kimi' | 'grok',
+  agent: 'codex' | 'copilot' | 'devin' | 'grok',
   env: Record<string, string>
 ): Promise<string[]> {
   vi.resetModules()

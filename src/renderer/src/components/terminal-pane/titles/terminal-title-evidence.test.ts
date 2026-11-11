@@ -11,10 +11,6 @@ describe('resolvePaneTitleDecision', () => {
       '⠋ Codex: fix Gemini terminal behavior'
     ],
     ['✦ Gemini CLI', '✦ Analyze Codex', '✦ Gemini CLI'],
-    ['✦ Qoder CLI', '✦ session | Thinking - grok', '✦ session | Thinking - grok'],
-    ['▲ Qoder CLI', '▲ session | Action Required - grok', '▲ session | Action Required - grok'],
-    ['◇ Qoder CLI CN', '◇ Qoder CLI CN | Idle - grok', '◇ Qoder CLI CN | Idle - grok'],
-    ['✦ Qoder CLI CN', '✦ Qoder CLI CN (Codex | Claude Code)', '✦ Qoder CLI CN'],
     ['⠋ Grok', '* | Grok', '* | Grok'],
     ['⠋ Grok', '⠋ Codex: fix parser - grok', '⠋ Codex: fix parser - grok'],
     ['⠋ Grok', '⠋ - Codex: fix parser - grok', '⠋ Grok'],

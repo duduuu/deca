@@ -56,6 +56,15 @@
   },
   "auto": {
     "components": {
+      "FirstLaunchBanner": {
+        "94cc673726": "Got it",
+        "958d2cc31b": "Anonymous counts of which features you use help us prioritize what to build. No file contents, prompts, terminal output, or anything that identifies you. Change anytime in Settings -> Privacy & Telemetry.",
+        "9784b4d7bc": "Help us decide what to build next",
+        "b9e1b966c7": "Dismiss notice",
+        "d1deebb050": "Privacy policy",
+        "fc5cc29955": "Opt out",
+        "fcbee32f08": "Telemetry notice"
+      },
       "GitHubItemDialog": {
         "filesViewed_one": "{{viewed}} / {{count}} file viewed",
         "filesViewed_other": "{{viewed}} / {{count}} files viewed",
@@ -92,6 +101,14 @@
         "resumingCount_one": "Resuming {{count}} chat",
         "resumingCount_other": "Resuming {{count}} chats"
       },
+      "OrcaSignInProgress": {
+        "cancel": "Cancel",
+        "copied": "Sign-in link copied",
+        "copyFailed": "Could not copy the link.",
+        "copyLink": "Copy sign-in link",
+        "signingIn": "Signing in…",
+        "waiting": "Waiting for sign-in in your browser"
+      },
       "PullRequestPage": {
         "filesViewed_one": "{{viewed}} / {{count}} file viewed",
         "filesViewed_other": "{{viewed}} / {{count}} files viewed"
@@ -111,6 +128,23 @@
         "projectsFailedToLoad_other": "{{failed}} of {{count}} projects failed to load",
         "shownCount_one": "{{count}} shown",
         "shownCount_other": "{{count}} shown"
+      },
+      "UnexpectedSignoutCard": {
+        "1f6b2c9d4e": "What you get back",
+        "2c9a5b6e8d": "Publish HTML and Markdown files and manage every shared link from Orca.",
+        "3d8e5f1b9c": "Share skills behind an unlisted link and install them on any machine you use.",
+        "3e8f5c2a91": "Dismiss",
+        "4b7d2e8f1a": "Connect Orca Mobile to this desktop across cellular or any Wi-Fi.",
+        "5a1c8d3e6f": "Sign in again to restore Artifact sharing, Orca Relay, and skill sharing.",
+        "6e3f1a9c5b": "Orca Relay",
+        "7b4d9e1f2a": "Sign in again as {{value0}} to restore Artifact sharing, Orca Relay, and skill sharing.",
+        "8d2e4f7a1b": "Artifact sharing",
+        "9a4c6b2d7e": "Skill sharing",
+        "9f2c1a4b7d": "You've been signed out",
+        "c5b3e8a17d": "Sign in to Orca"
+      },
+      "UpdateCard": {
+        "b3b02a9d84": "Try again"
       },
       "WorktreeJumpPalette": {
         "itemsAvailable_one": "{{count}} item available.",
@@ -145,6 +179,119 @@
           "cleared_other": "Cleared {{count}} completed agents"
         }
       },
+      "artifacts": {
+        "ArtifactActions": {
+          "more": "More artifact actions"
+        },
+        "ArtifactCollection": {
+          "loadMore": "Load more",
+          "noMatches": "No matches"
+        },
+        "ArtifactDetailDrawer": {
+          "description": "Preview and manage this shared artifact."
+        },
+        "ArtifactDetailHeader": {
+          "close": "Close",
+          "publicLink": "Anyone with this link can view it"
+        },
+        "ArtifactListSearchField": {
+          "clear": "Clear search",
+          "label": "Search artifacts",
+          "placeholder": "Search..."
+        },
+        "ArtifactListTableHeader": {
+          "actions": "Actions",
+          "expires": "Expires",
+          "name": "Name",
+          "size": "Size",
+          "type": "Type",
+          "updated": "Updated"
+        },
+        "ArtifactPublishButton": {
+          "a4a49da6af": "Share as artifact",
+          "accountDescription": "Sign in to create and manage this link.",
+          "accountTitle": "Orca account",
+          "checkFailed": "Could not check for an existing link.",
+          "checkingLink": "Checking for an existing link…",
+          "confirmDescription": "This publishes the current file at a link anyone with the URL can view.",
+          "confirmTitle": "Share as artifact",
+          "openSettings": "Open Artifacts settings",
+          "publishedDescription": "Anyone with this link can view the shared file.",
+          "publishingOffDescription": "Learn about public links and enable sharing in Settings.",
+          "publishingOffTitle": "Artifact sharing is off",
+          "sharePublicLink": "Generate link",
+          "sharing": "Sharing…",
+          "signIn": "Sign in",
+          "signInAgain": "Sign in again",
+          "tryAgain": "Try again"
+        },
+        "ArtifactPublishedLinkPanel": {
+          "copyLink": "Copy link",
+          "openLink": "Open link",
+          "update": "Update shared content",
+          "updating": "Updating…"
+        },
+        "ArtifactsPage": {
+          "delete": "Delete",
+          "deleteArtifact": "Delete artifact",
+          "deleteDescription": "“{{name}}” will no longer be available at its public link.",
+          "deleteFailed": "Could not delete the artifact.",
+          "deleteTitle": "Delete artifact?",
+          "empty": "No shared artifacts",
+          "emptyCopy": "Open an HTML or Markdown file and select Share as artifact, or ask your agent to share it.",
+          "loadFailed": "Could not load artifacts.",
+          "loadMoreFailed": "Could not load more artifacts.",
+          "moreAvailable": "More artifacts are available",
+          "moreAvailableCopy": "Load the next page to continue.",
+          "openAccountSettings": "Open account settings",
+          "openArtifactsSettings": "Open Settings → Artifacts",
+          "publishingOff": "Publishing is turned off",
+          "publishingOffCopy": "Nothing on this device can create a public artifact link yet. Allow publishing in Settings → Artifacts, then share from an open HTML or Markdown file or ask your agent.",
+          "reconnectCopy": "Sign in again to view and manage the artifacts shared through your account.",
+          "reconnectHeading": "Sign in to Orca again",
+          "refresh": "Refresh",
+          "retry": "Retry",
+          "shareSignInCopy": "Use your Orca account to upload artifacts and manage their public links.",
+          "shareSignInHeading": "Sign in to share artifacts",
+          "signIn": "Sign in to Orca",
+          "signInAgain": "Sign in to Orca again to load artifacts.",
+          "signInAgainAction": "Sign in again",
+          "title": "Artifacts",
+          "unconfiguredCopy": "Orca account sign-in is not configured on this machine yet."
+        },
+        "ArtifactsPageSkeleton": {
+          "loading": "Loading artifacts"
+        },
+        "actions": "Artifact actions",
+        "artifact-publish-flow": {
+          "29a406be09": "Artifacts must contain text.",
+          "2fc727c831": "Artifact updated",
+          "430019efd0": "Artifact shared",
+          "54b1805328": "Could not share artifact",
+          "6112db5a1c": "This artifact is too large to share.",
+          "6d475e9b25": "Only local HTML and Markdown files can be shared as artifacts.",
+          "9a078a0c65": "Artifact sharing is unavailable",
+          "bba20daa6d": "Sign in to Orca and try again.",
+          "e2ed5acd8c": "Orca couldn't read this file. Open it from a workspace and try again.",
+          "fbb5018602": "This file is empty.",
+          "visualUnreadable": "Couldn't read this visual to share it."
+        },
+        "copyFailed": "Could not copy artifact link",
+        "copyLink": "Copy link",
+        "copySuccess": "Artifact link copied",
+        "expired": "Link expired",
+        "expiredCompact": "Expired",
+        "expires": "Link expires {{when}}",
+        "expiryUnknown": "Expiry unknown",
+        "openInBrowser": "Open in browser",
+        "preview": "Artifact preview",
+        "previewUnavailable": "Preview unavailable",
+        "previewUnavailableDescription": "Open this artifact in your browser to view it.",
+        "typeHtml": "HTML",
+        "typeMarkdown": "Markdown",
+        "updatedAt": "Updated {{when}}",
+        "updatedRecently": "recently"
+      },
       "automations": {
         "AutomationDetail": {
           "graceHours_one": "{{count}} hour",
@@ -166,8 +313,17 @@
           "f0202f3a89": "Daily"
         },
         "AutomationsPage": {
+          "126d726546": "External automation action failed.",
+          "37288942f0": "External automation resumed.",
+          "4c22bc9913": "External automation deleted.",
+          "4d7878402c": "External automation queued.",
+          "77c518a34b": "External automation paused.",
+          "8500baacb4": "external source",
+          "9adfab2596": "Delete External Automation",
+          "deleteExternalAutomationDescription": "Delete <name/> from <provider/> on <host/>.",
           "moveOriginalKept": "Created on {host}, but the original could not be deleted. Remove it on the old host.",
           "moveOriginalUnverified": "Created on {host}, but the original deletion could not be verified. Check the old host before retrying.",
+          "rowActions": "Automation actions",
           "runUsageSummaryTokens_one": "{{cost}} est. · {{tokens}} token",
           "runUsageSummaryTokens_other": "{{cost}} est. · {{tokens}} tokens",
           "tableLastRun": "Last run",
@@ -175,13 +331,60 @@
           "tableProject": "Project"
         },
         "ExternalAutomationManagers": {
+          "0a2d4359a8": "Manageable",
+          "0def1693bb": "Pause external automation",
+          "1c3bfd38fe": "Resume external automation",
+          "20fd7a3a15": "next",
+          "2b0adbce21": "Paused",
+          "3d58d5b67d": "No",
+          "5524365227": "OpenClaw",
+          "5820648765": "Last",
+          "6da3bfba4b": "automations found.",
+          "92405f1431": "Unavailable",
+          "a42bf2b27e": "Delete external automation",
           "automationCount_one": "{{count}} automation",
-          "automationCount_other": "{{count}} automations"
+          "automationCount_other": "{{count}} automations",
+          "b3feba84c7": "Active",
+          "c6695e6fbd": "External automations",
+          "cc77ba88ff": "Run external automation",
+          "dbdcec22bd": "Read-only",
+          "e02f970595": "No external automation managers found."
+        },
+        "automation": {
+          "list": {
+            "last": {
+              "run": {
+                "done": "Done",
+                "failed": "Failed"
+              }
+            }
+          }
         },
         "capturedOwner": {
           "hostReselection": "Edit the automation and reselect its host before running it."
         },
+        "external": {
+          "automation": {
+            "schedule": {
+              "display": {
+                "a8e92b815a": "Schedule unavailable"
+              }
+            }
+          }
+        },
+        "externalActionDisabled": {
+          "actionInProgress": "Another automation action is still running.",
+          "cannotManageLocally": "{{provider}} cannot manage automations on this machine.",
+          "cannotManageOnSshHost": "{{provider}} cannot manage automations on this SSH host.",
+          "connectSshHost": "Connect this SSH host before managing {{provider}} automations.",
+          "sshConnecting": "Wait for this SSH host to finish connecting."
+        },
+        "externalDisplay": {
+          "local": "Local",
+          "sshHost": "SSH host"
+        },
         "externalScope": {
+          "uncheckedHost": "External automation managers on {{hostLabel}} could not be checked.",
           "uncheckedHostCount_one": "External automation managers on {{count}} host could not be checked.",
           "uncheckedHostCount_other": "External automation managers on {{count}} hosts could not be checked."
         },
@@ -210,6 +413,35 @@
           "errorAttach": "Could not attach the markup screenshot.",
           "errorCapture": "Could not capture the page to draw on.",
           "errorUnavailable": "Screenshot markup is not available on this page."
+        }
+      },
+      "crash": {
+        "report": {
+          "CrashReportDialog": {
+            "88fea8e84e": "Don't Send",
+            "8e24fe4f75": "Crash report sent.",
+            "b082f27490": "Attach recent diagnostic logs",
+            "b4951cd27c": "Send Report",
+            "e59f0b9427": "Sends a capped redacted log bundle with the report.",
+            "ead6fc0510": "No automatic crash report was captured. You can still send details and include recent diagnostic logs when available."
+          },
+          "CrashReportDialogSurface": {
+            "closedDescription": "Send a privacy-safe diagnostic report to help us understand what happened.",
+            "reportDescription": "Send a privacy-safe crash report. Recent redacted diagnostic logs are included when available.",
+            "uiErrorDescription": "Send a privacy-safe diagnostic report to help us understand the failed UI surface."
+          },
+          "submit": {
+            "notice": {
+              "checkConnection": "Check your connection and try again, or copy the details.",
+              "copyDetails": "Copy Details",
+              "diagnosticsReason": "Diagnostic logs were not attached: {{value0}}",
+              "notSent": "Crash report wasn't sent",
+              "sentWithoutDiagnostics": "Crash report sent without diagnostic logs",
+              "ticketUploaded": "Diagnostic ticket {{value0}} was uploaded but not linked.",
+              "uncheckDiagnostics": "Uncheck \"Attach recent diagnostic logs\" and try again, or copy the details.",
+              "unknownError": "The crash report request failed before it returned a reason."
+            }
+          }
         }
       },
       "dashboard": {
@@ -311,6 +543,13 @@
             "markdown": {
               "eda2cea3ad": "Failed to export PDF"
             }
+          }
+        }
+      },
+      "emulator": {
+        "pane": {
+          "MobileEmulatorAgentSetupGuideSteps": {
+            "64fb057667": "Teaches agents the orca emulator commands for this worktree."
           }
         }
       },
@@ -637,15 +876,126 @@
         }
       },
       "settings": {
+        "AccountsPane": {
+          "0747d6391a": "Use group ID from cookie",
+          "0b3a9f6c2e": "Pick the host that matches your account. Both overseas (platform.minimax.io) and China (platform.minimaxi.com) accept either a session cookie or an API key.",
+          "0b8c1c7e02": "Stored locally",
+          "0d8e77bc40": "Open console",
+          "174fb408f9": "Leave these defaults alone unless MiniMax usage refresh points at the wrong workspace or model.",
+          "24560fe830": "Open DevTools.",
+          "2f24f244a4": "MiniMax cookie is required.",
+          "316ca4e610": "Forget cookie",
+          "31d24a4e87": "Cookie expires when you sign out in the browser.",
+          "33bba5ad83": "Paste your MiniMax session cookie for local rate-limit fetching.",
+          "3a30aaf526": "just now",
+          "3c92b0d31c": "general",
+          "435df0ee51": "Under Request Headers, copy the Cookie value.",
+          "43d7a45b97": "How to copy",
+          "4cab0fa42d": "Go to the Network tab and enable Preserve log.",
+          "4d2c7b9e83": "MiniMax API key saved.",
+          "4d41177f74": "MiniMax session cookie",
+          "4f2c8a7e1b": "Paste your MiniMax API key",
+          "4ff2af7524": "Usage model names",
+          "53f7b8c7a2": "Last refresh: {{value0}}",
+          "5cf4b0f85f": "Optional comma-separated model names. Leave as general unless MiniMax returns a model-specific error.",
+          "5d63bbfbec": "MiniMax",
+          "7492fb3bba": "Paste it here and click Save.",
+          "7c5d8a4e1b": "MiniMax API key was not saved.",
+          "83b6a1f7c4": "MiniMax API key",
+          "87f814af6f": "Filter for remains and select the coding_plan/remains request.",
+          "8d61637a77": "MiniMax cookie saved.",
+          "8e6f0cb1d8": "MiniMax cookie was not saved.",
+          "9dd50d3f75": "Advanced",
+          "9fec52de4b": "How to copy the cookie",
+          "a7b1e3c5d2": "Forget key",
+          "apiKeyInstructions": "Copy the API key from your MiniMax console → API keys. A saved API key takes priority over the cookie; use Forget key to switch back to the cookie.",
+          "apiKeySelectedEndpoint": "Paste the API key from your MiniMax console → API keys. Stored locally and sent to the selected MiniMax endpoint for usage refreshes. The API key takes priority over the cookie.",
+          "apiKeyUpdateFailed": "MiniMax API key update failed.",
+          "b1e2743313": "Optional. Leave blank to use minimax_group_id_v2 from the cookie.",
+          "b43e761fe5": "MiniMax cookie update failed.",
+          "b8a4f21c3e": "Paste the Cookie header from DevTools",
+          "bee4e63e1c": "Reload the page.",
+          "bf160bb6c0": "Group ID override",
+          "cookieSelectedEndpoint": "Stored locally and sent to the selected MiniMax endpoint for usage refreshes.",
+          "copySelectedConsoleCookie": "Open the selected console, sign in, then copy the Cookie request header from DevTools (Network → any remains request → Cookie).",
+          "credentialsNotSet": "Credentials not set",
+          "d6f1b9b6a2": "MiniMax API key is required.",
+          "endpointChina": "China (platform.minimaxi.com)",
+          "endpointOverseas": "Overseas (platform.minimax.io)",
+          "f8a4b9d210": "MiniMax endpoint",
+          "openSelectedConsole": "Open {{url}} in your browser and sign in.",
+          "selectedEndpointStorage": "Stored locally and sent to the selected MiniMax endpoint for usage refreshes.",
+          "usageTracking": "Configure MiniMax usage tracking for your account."
+        },
         "ComputerUsePane": {
           "07bbe4c4cb": "Screenshots",
           "0c9a33f468": "Capture app windows so agents can inspect visual state.",
           "4d03dec2d0": "Read app interface trees and perform requested actions.",
           "6b5a2cd3a5": "Accessibility"
         },
+        "DevToolsPane": {
+          "orcaCloud": "Orca Cloud",
+          "orcaCloudConnect": "Connect profile",
+          "orcaCloudDescription": "Dev-only preview of first-party cloud sign-in. Hidden in production; in dev it also appears in the sidebar account switcher once ORCA_CLOUD_API_URL and ORCA_CLOUD_CLIENT_ID are set.",
+          "orcaCloudNotConfigured": "Set ORCA_CLOUD_API_URL and ORCA_CLOUD_CLIENT_ID to preview Orca Cloud sign-in in this dev build.",
+          "orcaCloudRefresh": "Refresh status",
+          "orcaCloudSignOut": "Sign out",
+          "orcaCloudStatus": "Status"
+        },
+        "EphemeralVmRecipeRow": {
+          "envExposedAll": "Scripts run on this computer with your full environment, including {{names}}. Set passEnv on the recipe to pass only what it needs.",
+          "envExposedAllowlist": "Scripts run on this computer and receive these credentials from passEnv: {{names}}.",
+          "envLimited": "Scripts only receive the variables listed in passEnv, plus PATH, HOME and similar basics.",
+          "envNamesMore": "{{names}} +{{count}} more",
+          "useInWorkspace": "Use in workspace"
+        },
+        "EphemeralVmsPane": {
+          "checking": "Checking recipes...",
+          "cloudVmRefresh": "Refresh Cloud VM recipes",
+          "cloudVmSkillTitle": "Cloud VM setup skill",
+          "copied": "Copied",
+          "copy": "Copy",
+          "copyError": "Could not copy the prompt.",
+          "loadError": "Could not load recipes.",
+          "none": "No recipes found yet.",
+          "promptHint": "In any workspace, ask your agent:",
+          "recipes": "Recipes",
+          "recipesHelp": "Recipes from orca.yaml and enabled plugins show up here, ready to launch a workspace on.",
+          "setUpWithAgent": "Set up with an agent",
+          "setUpWithAgentHint": "Starts your default agent in {{repo}}. It edits orca.yaml, runs the doctors until they pass, and opens a PR.",
+          "setUpWithAgentNoRepo": "Add a project first.",
+          "skillDescription": "Sets up, builds, authenticates, and validates repo-owned environment recipes.",
+          "whatBuild": "Builds a reusable base image and signs your agent in.",
+          "whatScaffold": "Writes the recipe & scripts for your provider — connected over an Orca server or SSH.",
+          "whatTitle": "What the skill does, with you",
+          "whatValidate": "Validates it so you can create a workspace on it."
+        },
+        "GeneralUpdateSettingsSection": {
+          "02dc082e70": "Could not start the update download.",
+          "2a48034c4c": "Downloading v{{value0}}... {{value1}}%",
+          "31fd7150cf": "Checking for updates...",
+          "6d27bd46e3": "Check for updates",
+          "8311da27ba": "is available. Click \"Download Update\" to download it.",
+          "857ca887da": "Download update (",
+          "8a52ca1d02": "Release notes",
+          "a6b37929dc": "Version",
+          "b9ad70c30d": "Update error. {{value0}}",
+          "bd79d412f0": "Update check failed. {{value0}}",
+          "c0a8f827c7": "Restart to update (",
+          "ceb579abaf": "Check for app updates and install a newer Orca version.",
+          "d69a09b672": "Updates are checked automatically on launch.",
+          "d89806cc89": "is ready to install.",
+          "e3b9d21c07": "is available. Update Orca through your system package manager — Orca cannot install this release itself.",
+          "f40d88390d": "You’re on the latest version."
+        },
         "McpConfigSection": {
           "detectedServers_one": "{{detected}} detected · {{count}} server",
           "detectedServers_other": "{{detected}} detected · {{count}} servers"
+        },
+        "MobilePairingConnectionOptions": {
+          "relaySignInDetail": "Signs this desktop in to Orca and routes the phone through Orca’s servers. LAN does not need an account.",
+          "signIn": "Sign in for Relay",
+          "signInAgain": "Sign in again for Relay"
         },
         "OrchestrationPane": {
           "workerAutoReleaseKeywordClose": "close",
@@ -686,6 +1036,32 @@
           "noInstalledResultsTitle": "No matching plugins",
           "systemLabel": "Plugin system"
         },
+        "PrivacyDiagnosticBundleControls": {
+          "19ec5e29b3": "Collects recent app activity and errors into a redacted file you can review before sending. Nothing is uploaded until you choose to send it.",
+          "2801d4ce22": "Copy reference ID",
+          "2ae9a6b63e": "Done",
+          "61676df223": "Diagnostics sent. Share this reference ID with support: {{value0}}.",
+          "62340d4439": "Your review file is ready ({{value0}}). Open it to see what would be sent, then choose whether to send it to support.",
+          "7f14a1733c": "Delete sent file",
+          "aca2c8a367": "Send to support",
+          "d8be621237": "Open the review file first.",
+          "fd7b3891af": "You opened the review file ({{value0}}). Send that file to support, or discard it."
+        },
+        "PrivacyDiagnosticsSection": {
+          "13eb2c65a1": "Reference ID copied",
+          "49fc6c80e8": "Diagnostics sent",
+          "7a4944595b": "Could not copy reference ID",
+          "af2fc82cde": "Send app diagnostics to support",
+          "c18cbe45df": "Sent diagnostics deleted"
+        },
+        "PrivacyPane": {
+          "36e0e2e63b": "environment variable. Unset it and restart to re-enable.",
+          "77410e0566": "Privacy policy",
+          "79a0f3c16c": "Telemetry is disabled by the",
+          "8bfdd23a88": "Help us figure out what to build next. Orca sends anonymous counts of which features you use and where things break.",
+          "e3970bbbf5": "Telemetry is disabled because a CI environment variable is set. Unset it and restart.",
+          "fe904ac984": "Share anonymous usage data"
+        },
         "ProjectWindowsRuntimeSetting": {
           "activeTaskPlural": "{{count}} active tasks",
           "activeTaskSingular": "{{count}} active task",
@@ -695,22 +1071,57 @@
           "liveTerminalSingular": "{{count}} live terminal",
           "wslUnavailable": "WSL is not available. Switch this project to Windows or repair WSL."
         },
+        "ReleaseBuildPicker": {
+          "build": "Build",
+          "noMatches": "No matching builds.",
+          "searchLabel": "Search builds",
+          "searchPlaceholder": "Search builds…"
+        },
         "ReleaseChannelSection": {
           "adhocWarning": "Adhoc builds come from a branch that has not landed, and the Windows ones are unsigned. Whoever cut one may abandon it — keep a stable build handy.",
+          "alreadyRunning": "This is the build you are running.",
+          "cacheHint": "Build lists are cached for 5 minutes. Refresh to check for new builds.",
+          "channelAriaLabel": "Update channel",
           "dailyWarning": "Daily builds ship straight from main with no test gate, and the Windows ones are unsigned. Keep a stable build handy.",
-          "hourlyWarning": "Hourly builds ship straight from main with no test gate, and the Windows ones are unsigned. Keep a stable build handy."
+          "description": "Switch update channels or jump to any published build, including older ones. Downgrades are allowed and unvetted builds can be broken.",
+          "devChannelUnsupported": "{{value0}} builds are produced only for {{value1}}. Linux stays on Stable or RC.",
+          "devChannelUnsupportedAria": "{{value0}} ({{value1}} only)",
+          "devOnly": "Dev only",
+          "downloadInstaller": "Download installer",
+          "hourlyWarning": "Hourly builds ship straight from main with no test gate, and the Windows ones are unsigned. Keep a stable build handy.",
+          "loadingBuilds": "Loading builds…",
+          "manualInstallHint": "{{value0}} builds are unsigned on Windows, so the in-app updater cannot install one over a signed build. Run the downloaded installer once — Windows will warn about an unknown publisher — and every later switch, including back to Stable, works from here.",
+          "noBuilds": "No builds found",
+          "refresh": "Refresh build list",
+          "switchFailed": "Could not switch to that build.",
+          "switchTo": "Switch to build",
+          "title": "Release channel",
+          "willSwitch": "{{value0}} → {{value1}}"
         },
         "Settings": {
+          "022effa46f": "Remote Orca servers",
+          "045db77e21": "SSH hosts",
           "084d8fac5b": "Privacy & Security",
           "23931df7e8": "Remote Hosts",
           "23c6874fdf": "AI Capabilities",
+          "7686cb5c36": "Connect this browser to a saved Orca server.",
           "8bd117d669": "Interface",
           "9abb9be3bc": "Set Up",
-          "e1578cd4bc": "Workflows"
+          "c2ee313198": "Use existing machines over SSH for files, terminals, Git, and workspaces.",
+          "c40dadaac8": "Mobile",
+          "c6c01ac209": "Control terminals and agents from your phone.",
+          "e1578cd4bc": "Workflows",
+          "remoteServersDescription": "Run Orca on another machine and work on it from here."
+        },
+        "ShortcutsPane": {
+          "d8c988dab4": "~/.orca/keybindings.json"
         },
         "SshPane": {
           "syncedServerPlural": "Synced {{count}} servers",
           "syncedServerSingular": "Synced {{count}} server"
+        },
+        "SshTargetForm": {
+          "allowRemoteCliControlHelp": "On by default for new hosts. Agents and orca commands on this host can open, read and use Orca browser tabs on this desktop, only in this host's workspaces and only while it is connected. Tabs it controls show its name. Terminals started on this host by an older Orca also need this on to run orca orchestration commands. It cannot read your files, clipboard or cookies."
         },
         "WarpThemeImportModal": {
           "found_theme": "Found {{value0}} themes",
@@ -719,6 +1130,91 @@
           "import_theme": "Import {{value0}} Themes",
           "import_theme_one": "Import {{value0}} Theme",
           "import_theme_other": "Import {{value0}} Themes"
+        },
+        "WslCliRegistration": {
+          "7aa456a460": "Register `orca-ide` in ~/.local/bin inside WSL."
+        },
+        "ZcodeCliSetupSection": {
+          "apiKey": "ZCode API-key setup",
+          "apiKeyInstructions": "Press Enter to start ZCode, then enter /login and choose the API-key option for your plan site. Enter the key in ZCode’s masked prompt.",
+          "bigmodel": "BigModel browser sign-in",
+          "close": "Close setup terminal",
+          "description": "Sign in to use GLM as a coding agent. The quota API key above only monitors usage; ZCode owns its own sign-in and model selection.",
+          "help": "Choose browser sign-in for your plan site, or use ZCode’s masked API-key setup. After signing in, start ZCode and use /model to choose a GLM model.",
+          "loading": "Loading sign-in terminal…",
+          "oauthInstructions": "Press Enter to run the sign-in command, then open the authorization URL printed by ZCode. Sign-in is saved on this terminal’s execution host.",
+          "terminalLabel": "ZCode sign-in terminal",
+          "terminalTitle": "ZCode sign-in",
+          "title": "Use GLM with ZCode",
+          "zai": "Z.AI browser sign-in"
+        },
+        "ZcodePlanAccountsSection": {
+          "consoleLink": "Get API key",
+          "detailsUnavailable": "Plan credential details are only readable on the computer running Orca.",
+          "forgetKey": "Forget key",
+          "hostOnly": "Change the plan site and API key in the desktop app on the computer running Orca.",
+          "keyDescription": "Paste the API key from the selected console’s API Keys page. Stored locally, encrypted when the OS supports it, and sent only to that site for usage refreshes.",
+          "keyHelp": "The same key your coding tools use for the plan (for example Claude Code with ANTHROPIC_BASE_URL pointed at the site). Switching the site above changes which host receives it.",
+          "keyOnHostDescription": "Paste the API key from the selected console’s API Keys page. Stored on {{host}} and sent from there only to that site for usage refreshes.",
+          "keyPlaceholder": "Paste your GLM Coding Plan API key",
+          "keySaveFailed": "GLM Coding Plan credential update failed.",
+          "keySaved": "GLM Coding Plan API key saved.",
+          "keyStored": "API key saved · {{value0}}",
+          "keyStoredHelp": "Stored locally and sent only to the selected site for usage refreshes. It takes priority over the ZCode CLI sign-in.",
+          "keyStoredOnHostHelp": "Stored on {{host}} and sent from there only to the selected site for usage refreshes. It takes priority over the ZCode CLI sign-in.",
+          "keyTitle": "API key",
+          "notConfigured": "No GLM Coding Plan linked",
+          "notConfiguredHelp": "Save the plan API key below, or sign in with the ZCode CLI on this computer.",
+          "notConfiguredOnHostHelp": "Save the plan API key below, or sign in with the ZCode CLI on {{host}}.",
+          "notSaved": "Not saved",
+          "planLevel": "Plan: {{value0}}",
+          "refreshUsage": "Refresh usage",
+          "replace": "Replace",
+          "resetIn": " — resets in {{value0}}",
+          "save": "Save",
+          "saved": "Saved",
+          "site": {
+            "bigmodel": "Zhipu · BigModel (open.bigmodel.cn)",
+            "zai": "Z.AI (z.ai)"
+          },
+          "siteDescription": "Pick the console your Coding Plan belongs to: Z.AI for the international site, Zhipu BigModel for the mainland site.",
+          "siteTitle": "Plan site",
+          "siteUnavailable": "Host plan site unavailable",
+          "subtitle": "Track Z.AI or Zhipu (BigModel) GLM Coding Plan usage in the status bar. Save the plan API key here — no ZCode CLI setup needed.",
+          "title": "GLM Coding Plan",
+          "usageDescription": "Live quota windows for the linked Coding Plan, refreshed with the status bar usage cycle.",
+          "usageTitle": "Plan usage",
+          "usingCli": "Using the ZCode CLI sign-in",
+          "usingCliHelp": "Orca reads the selected Coding Plan from the ZCode CLI credential store on this computer. Save an API key below to link the plan here instead.",
+          "usingCliOnHostHelp": "Orca reads the selected Coding Plan from the ZCode CLI credential store on {{host}}. Save an API key below to link the plan there instead.",
+          "window": {
+            "mcp": "MCP monthly",
+            "session": "5 hours",
+            "weekly": "Weekly"
+          }
+        },
+        "accounts": {
+          "search": {
+            "3a9b6d2c4e": "api key",
+            "5d8f1a3b7c": "china",
+            "7e2a4b8c1d": "overseas",
+            "9b6ce52c36": "MiniMax usage",
+            "b2c4e7f1a8": "endpoint",
+            "d16378a88f": "minimax",
+            "f8374c3151": "Configure MiniMax usage tracking. Pick the overseas or China endpoint, then paste a session cookie or save an API key that works on either host.",
+            "zcodePlan": {
+              "0db9d0465f": "GLM coding plan",
+              "description": "Track Z.AI or Zhipu (BigModel) GLM Coding Plan usage. Pick the site and save the plan API key.",
+              "kw": {
+                "bigmodel": "bigmodel",
+                "codingPlan": "coding plan",
+                "glm": "glm",
+                "rateLimit": "rate limit",
+                "zai": "zai",
+                "zhipu": "zhipu"
+              }
+            }
+          }
         },
         "agent-awake-copy": {
           "modeDescriptionDefault": "Choose On, Agent, or Off. Agent mode stays awake while agents are working. Orca also asks this device to stay awake when the lid is closed, subject to its power policy.",
@@ -784,6 +1280,64 @@
             "ff8de8a2ad": "display"
           }
         },
+        "appearance": {
+          "search": {
+            "183e6b8ef9": "ZCode usage",
+            "25e51b62ee": "rate limit",
+            "35565867cb": "moonshot",
+            "40e5c3c285": "kimi",
+            "96e32c1118": "MiniMax usage",
+            "c29089716e": "Kimi usage",
+            "c927a155d5": "Show Kimi subscription usage in the status bar.",
+            "d16378a88f": "minimax",
+            "d9e7cef86f": "cookie",
+            "e46178eb1b": "Show MiniMax subscription usage in the status bar.",
+            "e8d2710689": "Muse usage",
+            "glm": "glm",
+            "meta": "meta",
+            "muse": "muse",
+            "museUsageDescription": "Show Muse subscription quota in the status bar.",
+            "zai": "zai",
+            "zcode": "zcode",
+            "zcodeUsageDescription": "Show ZCode Coding Plan quota usage in the status bar."
+          }
+        },
+        "artifacts": {
+          "09f41ce46c": "Show artifacts button",
+          "7b2b114099": "Open artifacts",
+          "allowPublishing": "Allow publishing public artifact links",
+          "allowPublishingDescription": "Publish HTML and Markdown files as links anyone with the URL can open. Existing links remain until you delete them from Artifacts.",
+          "allowPublishingSearchDescription": "Allow Orca to publish HTML and Markdown files as public links.",
+          "allowPublishingWebDescription": "Desktop only. Open Settings → Artifacts on the host device to change this setting.",
+          "description": "Share HTML and Markdown files with your team and manage their public links.",
+          "enableStepDescription": "Turn on “Allow publishing public artifact links” above.",
+          "enableStepTitle": "Enable artifact sharing",
+          "enableStepWebDescription": "Open Settings → Artifacts in the Orca desktop app on the host device and enable publishing.",
+          "howToDescription": "Publish HTML or Markdown files as public links, then share them with your team.",
+          "howToDescriptionDisabled": "Enable artifact sharing above to publish HTML or Markdown files as public links.",
+          "howToTitle": "How to use Artifacts",
+          "keywordArtifacts": "artifacts",
+          "keywordHtml": "HTML",
+          "keywordMarkdown": "Markdown",
+          "keywordPermission": "permission",
+          "keywordPublic": "public",
+          "keywordPublish": "publish",
+          "keywordShare": "share",
+          "keywordUpload": "upload",
+          "linkStepDescription": "After publishing, copy the link and send it to your team.",
+          "linkStepTitle": "Copy the public link",
+          "manageStepDescription": "Open Artifacts from the sidebar to preview or remove links.",
+          "manageStepTitle": "Manage it in Orca",
+          "openArtifactsDescriptionV2": "Preview, copy, and manage links shared through your account.",
+          "shareStepDescription": "Open an HTML or Markdown file and select Share as artifact, or ask an agent to share it.",
+          "shareStepTitle": "Choose a file to share",
+          "showButtonDescription": "Show the Artifacts shortcut in the sidebar.",
+          "signIn": "Sign in to Orca",
+          "signInAgain": "Sign in again",
+          "signInDescription": "Use your Orca account to upload artifacts and manage their public links.",
+          "signInTitle": "Sign in to share artifacts",
+          "title": "Artifacts"
+        },
         "claudeSubagentNavigation": {
           "search": {
             "mod": "mod",
@@ -797,10 +1351,127 @@
           "permissionsRequired_one": "{{value0}} permission required before agents can operate app windows.",
           "permissionsRequired_other": "{{value0}} permissions required before agents can operate app windows."
         },
+        "ephemeralVms": {
+          "search": {
+            "cloudVmTitle": "Cloud VM",
+            "description": "Learn how repo-owned recipes give each workspace its own on-demand, disposable environment.",
+            "keywordCloud": "cloud",
+            "keywordEphemeral": "ephemeral",
+            "keywordRecipe": "recipe",
+            "keywordSandbox": "sandbox",
+            "keywordVm": "vm"
+          }
+        },
+        "ephemeralVmsExperimentalSetting": {
+          "cloudVmToggleLabel": "Toggle Cloud VM",
+          "description": "Shows setup controls and workspace run targets for repo-owned, on-demand environments."
+        },
+        "general": {
+          "search": {
+            "0504f69ba0": "Check for updates",
+            "79ff46776e": "Check for app updates and install a newer Orca version.",
+            "c9d8c1ce66": "release notes",
+            "e49e739a59": "download",
+            "f89a94773c": "update"
+          }
+        },
+        "orcaAccount": {
+          "account": "Orca account",
+          "artifactsDescription": "Publish HTML and Markdown files, then manage every shared link from Orca.",
+          "artifactsTitle": "Artifact sharing",
+          "benefitsTitle": "Included with your account",
+          "checking": "Checking account status…",
+          "connected": "Connected",
+          "description": "Share work instantly and reach your desktop from Orca Mobile wherever you are.",
+          "keywordAccount": "account",
+          "keywordCloud": "cloud",
+          "keywordLogin": "login",
+          "keywordLogout": "logout",
+          "keywordRelay": "relay",
+          "keywordSignIn": "sign in",
+          "keywordSignOut": "sign out",
+          "reconnectRequired": "Your session expired. Sign in again to use cloud features.",
+          "relayDescription": "Connect Orca Mobile to this desktop across cellular or any Wi-Fi.",
+          "relayTitle": "Orca Relay",
+          "searchDescription": "Sign in or out of the account used by Artifacts and Orca Relay.",
+          "signIn": "Sign in to Orca",
+          "signInAgain": "Sign in again",
+          "signOut": "Sign out",
+          "signedOut": "Sign in to extend Orca with cloud features, including Artifacts and Orca Relay.",
+          "skillsDescription": "Share one skill or a whole set behind an unlisted link, and install them on any machine you use.",
+          "skillsTitle": "Skill sharing",
+          "title": "Orca Account",
+          "unavailable": "Orca sign-in is unavailable in this build."
+        },
+        "privacy": {
+          "search": {
+            "058550f6bc": "do_not_track",
+            "2b5a5c312f": "posthog",
+            "5854a5c752": "ci",
+            "664f1a8984": "continuous integration",
+            "6776226be7": "Share anonymous usage data",
+            "69637f4dc4": "orca_telemetry_disabled",
+            "83a6cd79b3": "do not track",
+            "94e04427f6": "env",
+            "b707cc3981": "Help improve Orca by sending anonymous feature-usage events.",
+            "d8191ae5ca": "environment variable",
+            "e058a3c98d": "Telemetry environment variables",
+            "e8bc614a18": "disable",
+            "ead1deded2": "share",
+            "f7a2d9f137": "Environment variables that disable telemetry transmission."
+          }
+        },
         "repository": {
           "search": {
             "keepForkUpToDate": "Keep Fork Up to Date"
           }
+        },
+        "shareSkills": {
+          "57e360b791": "Manage in skills",
+          "activeLinks": "Active shared links",
+          "activeLinksDescription": "Only people with a link can open it. Unshare a link to block future inspection and installs.",
+          "allowAgentPublishing": "Allow agents and the Orca CLI to publish skill links",
+          "allowAgentPublishingDescription": "Let commands publish explicitly named installed skills. Skill folders can contain scripts, configuration, or secrets, so this is off by default.",
+          "allowAgentPublishingWebDescription": "Desktop only. Open Settings → Share Skills on the host device to change this setting.",
+          "c07ba8ab0b": "Open skills",
+          "ca754fefa1": "Share skills",
+          "confirmUnshare": "Confirm unshare",
+          "copyDescription": "Anyone with the link can inspect and install all or selected skills without signing in.",
+          "copyLink": "Copy link",
+          "copyTitle": "Copy the unlisted link",
+          "description": "Share your skills with an unlisted link. Anyone who has it can install them.",
+          "howToDescription": "Publish one skill or a bundle such as a collection of 30 skills behind one link.",
+          "howToTitle": "How to share skills",
+          "keywordBundle": "bundle",
+          "keywordLink": "link",
+          "keywordRevoke": "revoke",
+          "keywordShare": "share",
+          "keywordSkills": "skills",
+          "keywordUnlisted": "unlisted",
+          "linkCopied": "Share link copied",
+          "linkDescription": "Shared bundles are not searchable or listed in Orca. The link is the credential, so send it only to people you trust.",
+          "linkRevoked": "Link revoked",
+          "linkTitle": "Unlisted skill links",
+          "linksReconnect": "Sign in again to manage shared links.",
+          "linksUnavailable": "Shared links are unavailable right now.",
+          "manageDescription": "Revoking blocks future access. Skills already installed on another machine remain there.",
+          "manageTitle": "Manage or revoke links",
+          "noActiveLinks": "No active links. Publish a skill bundle from Skills to create one.",
+          "openSkillsDescription": "Publish a bundle, install from a link, or manage installed and shared skills.",
+          "reviewDescription": "Review included files, scripts, and executables before uploading the immutable bundle.",
+          "reviewTitle": "Review and publish",
+          "revokeFailed": "Orca could not revoke this link.",
+          "searchDescription": "Share your skills with an unlisted link. Anyone who has it can install them.",
+          "selectDescription": "Open Skills, choose Share skills, and select the skills to bundle behind one link.",
+          "selectTitle": "Select one or more skills",
+          "showButton": "Show Skills button",
+          "showButtonDescription": "Show the Skills shortcut in the sidebar.",
+          "signIn": "Sign in to Orca",
+          "signInAgain": "Sign in again",
+          "signInDescription": "Use your Orca account to publish bundles and manage their links. Recipients do not need an account.",
+          "signInTitle": "Sign in to share skills",
+          "signInWebDescription": "Publishing and link management are available in the Orca desktop app.",
+          "unshare": "Unshare"
         },
         "sshHostServer": {
           "automationsLeftDisabled_one": "This host’s Orca server took over {{count}} automation but couldn’t turn it back on. Turn it on in Automations.",
@@ -839,6 +1510,20 @@
               }
             }
           }
+        },
+        "usageCredentialHost": {
+          "checking": "Checking {{host}}…",
+          "cookieNeedsDesktop": "{{host}} has no Orca desktop app to send a session cookie from. Save an API key instead.",
+          "miniMaxApiKeyDescription": "Paste the API key from your MiniMax console → API keys. Stored on {{host}} and sent from there to the selected MiniMax endpoint for usage refreshes. The API key takes priority over the cookie.",
+          "miniMaxStorage": "Stored on {{host}} and sent from there to the selected MiniMax endpoint for usage refreshes.",
+          "outdated": "Update Orca on {{host}} to save this key there.",
+          "sealedElsewhereForgettable": "Saved by another Orca app on {{host}}, which this one cannot read. Change it in that app, or forget it here.",
+          "storedOnHost": "Stored on {{host}}",
+          "unreachable": "Could not reach {{host}}, so whether a key is saved there is unknown.",
+          "unreadableKey": "Orca on {{host}} cannot read the saved key. Replace it or forget it."
+        },
+        "useUsageHostSettings": {
+          "updateFailed": "Could not update the setting on {{host}}."
         },
         "useWarpThemeImport": {
           "imported_one": "Imported {{value0}} theme",
@@ -931,9 +1616,47 @@
           "showMore_one": "Show {{count}} more line",
           "showMore_other": "Show {{count}} more lines"
         },
+        "SidebarFeedbackDialog": {
+          "0eb643f07f": "Send Feedback",
+          "26108d3699": "Join Discord",
+          "3460258a54": "Follow on X",
+          "5b120b9634": "Submit anonymously",
+          "60b721e857": "Failed to submit feedback. Please try again.",
+          "69969ba364": "Sending…",
+          "7a46c228b8": "Thanks for the feedback.",
+          "8bf619e4cf": "Cancel",
+          "8de03e23c5": "Submit with your typed feedback only, or connect `gh` to include GitHub identity.",
+          "9b33530b3d": "Other ways to reach us",
+          "a2fd890d9e": "Please enter feedback before submitting.",
+          "a828fa4aee": "Share what's working, what's broken, or what Orca should do next.",
+          "attachWhileSending": "Wait for the current feedback to finish sending before attaching more images.",
+          "c9e5ea0791": "GitHub:",
+          "d20439c560": "Checking GitHub identity…",
+          "d245c4ef6c": "GitHub issues",
+          "d46ddd66fc": "What could we improve?",
+          "f2e42e1307": "Send",
+          "imageReadFailed": "Could not read the attached images. Try attaching them again.",
+          "imagesNotDelivered": "Feedback sent, but image delivery could not be confirmed.",
+          "imagesNotIncluded": "Feedback sent. Your screenshots could not be uploaded and were not included.",
+          "imagesRejected": "Feedback sent. Your screenshots were too large to upload and were not included."
+        },
+        "SidebarFeedbackImageAttachments": {
+          "attachImages": "Attach",
+          "preparing": "Preparing attachments…",
+          "removeImage": "Remove {{fileName}}",
+          "screenshotsHint": "Attach up to {{count}} screenshots, {{maxSize}} total"
+        },
+        "SidebarNav": {
+          "artifacts": "Artifacts"
+        },
         "SidebarRepositoryFilterSection": {
           "selectedProjects_one": "{{count}} project",
           "selectedProjects_other": "{{count}} projects"
+        },
+        "SidebarSettingsHelpMenu": {
+          "29c56f30ee": "Check for Updates",
+          "4cf5b868d7": "Send Feedback",
+          "5f83d86d92": "Changelog"
         },
         "SidebarWorkspaceOptionsMenu": {
           "optionsActiveFilters_one": "Workspace options ({{count}} filter active)",
@@ -948,6 +1671,10 @@
         "WorkspaceKanbanSearchField": {
           "workspacesMatch_one": "{{matchCount}} of {{count}} workspace matches",
           "workspacesMatch_other": "{{matchCount}} of {{count}} workspaces match"
+        },
+        "WorktreeCardMeta": {
+          "cliCreatedFromAgent": "Created by an agent via `orca worktree create`",
+          "cliCreatedFromShell": "Created via `orca worktree create`"
         },
         "WorktreeCardPorts": {
           "livePorts_one": "{{count}} live port",
@@ -1020,9 +1747,31 @@
         }
       },
       "skills": {
+        "SkillBundleInstallFlow": {
+          "01c5a13e01": "Close",
+          "01c5a13e02": "Cancel installation",
+          "01c5a13e03": "Installing…"
+        },
         "SkillBundleInstallOutcome": {
+          "01c5a12e01": "Installed",
+          "01c5a12e02": "Updated",
+          "01c5a12e03": "Unchanged",
+          "01c5a12e04": "Kept local",
+          "01c5a12e07": "Bundle installation needs attention.",
+          "01c5a12e08": "Skills installed and verified.",
+          "01c5a12e10": "Needs retry",
           "selectedChecked_one": "{{count}} selected skill checked.",
           "selectedChecked_other": "{{count}} selected skills checked."
+        },
+        "SkillBundleInstallReview": {
+          "01c5a11e09": "Release notes:",
+          "01c5a11e0d": "Select all",
+          "01c5a11e11": "Local copies need a decision",
+          "01c5a11e12": "Orca will keep these local copies by default. Select only the copies you want to discard and replace.",
+          "01c5a11e13": "Replace {{value0}} ({{value1}})"
+        },
+        "SkillCard": {
+          "d25a1b8ae6": "Share skill"
         },
         "SkillDelete": {
           "nothing_one": "The {{count}} selected skill cannot be deleted from here.",
@@ -1044,9 +1793,123 @@
           "updated_one": "Updated {{count}} skill",
           "updated_other": "Updated {{count}} skills"
         },
+        "SkillInstallDialog": {
+          "01c5a14e01": "Install shared skills",
+          "05588076a9": "Cancel installation",
+          "241e72f9d6": "Installing…",
+          "59c3b76cdd": "Retry install",
+          "d198ec91e5": "Close",
+          "fcbec627cc": "Install shared skill",
+          "opening": "Opening this link…"
+        },
+        "SkillInstallManagementDialog": {
+          "0900db719a": "— disconnected",
+          "176fef9516": "· SSH",
+          "3677ae58e7": "Skills Orca installed from a link. Reinstall, go back to an earlier version, or remove them.",
+          "44d118a8f7": "Installed by Orca",
+          "64c71cf7b9": "Orca has not installed any skills on this machine yet.",
+          "6cb1fbe039": "This computer",
+          "8095927ff3": "Close",
+          "dab29e4b54": "{{installed}} installed · {{updated}} updated · {{keptLocal}} kept local"
+        },
         "SkillInstallReviewContent": {
+          "157de228b4": "Inspect skill",
+          "2a31912f14": "Orca found",
+          "37d990b94c": "changed",
+          "651b7d8a57": "Local copy needs a decision",
+          "66270286ac": "· You can retry safely.",
+          "66cff7a804": "https://app.orca.dev/skills/share/…",
+          "69236de8d6": "Checking…",
+          "89e2601162": "Discard and replace",
+          "93eb0fe8c7": "Orca skill link",
+          "a5675fb371": "content and left it untouched. Keep it, or explicitly discard and replace it with this version.",
           "placementsChecked_one": "{{count}} placement checked.",
-          "placementsChecked_other": "{{count}} placements checked."
+          "placementsChecked_other": "{{count}} placements checked.",
+          "releaseNotes": "Release notes:",
+          "targetHeader": "Installation Target"
+        },
+        "SkillInstallTargetFields": {
+          "0785d0a503": "— update required",
+          "0c10a406fb": "WSL ·",
+          "0e5b43a9e3": "Workspace",
+          "5845cfe543": "Choose a worktree or folder",
+          "63cc9e31fe": "Destination",
+          "71eefd7660": "— disconnected",
+          "7a366323e7": "Folder",
+          "8562dd1e6e": "This computer",
+          "85d85880df": "· SSH",
+          "8e6a972229": "No workspaces are known on this machine.",
+          "a4dfd33095": "One workspace",
+          "b8a0b706ad": "Machine",
+          "c779621aa0": "Global skills",
+          "cb47652227": "Execution environment",
+          "d628c416a2": "Git worktree",
+          "e5b0d15e64": "Host operating system"
+        },
+        "SkillInstallWorkspaceCombobox": {
+          "empty": "No workspaces found.",
+          "search": "Search workspaces..."
+        },
+        "SkillShareDialog": {
+          "0f07fa2a79": "Publish skill",
+          "30985d4fc0": "Cancel",
+          "3a51d0f34f": "Cancel upload",
+          "3af85f6add": "Done",
+          "7aa4ba0dba": "Publish new version",
+          "cancelRequestFailed": "Orca could not send the cancellation request. The upload may still finish.",
+          "copied": "Share link copied",
+          "e9d652ae3d": "Cancelling…",
+          "nameTaken": "The skill name “{{name}}” is already in use. Rename your skill to share it.",
+          "prepareFailed": "Could not prepare this skill for sharing.",
+          "preparing": "Preparing preview…",
+          "publishBundle": "Publish bundle",
+          "publishCancelled": "Upload cancelled. The prepared copy is still available to retry.",
+          "publishFailed": "Could not publish this skill. The prepared copy is still available to retry.",
+          "ready": "Skill link ready",
+          "reconnect": "Reconnect your Orca account before sharing.",
+          "title": "Share skill",
+          "unconfigured": "Connect an Orca Cloud account before sharing."
+        },
+        "SkillShareReviewContent": {
+          "0142581727": "Uploading…",
+          "2dca0b720b": "Publish new skill version",
+          "6d6233a3a4": "Copy link",
+          "b3b1d4b911": "SHA-256",
+          "bf02d6ed9e": "What changed in this version?",
+          "bundleReady": "Skill bundle link ready",
+          "c15d90c10b": "A connected Orca Cloud account is required.",
+          "f0c0411549": "Release notes",
+          "publishBundleVersion": "Publish new skill bundle version",
+          "publishingLink": "Publishing link…",
+          "shareBundle": "Share skill bundle",
+          "verifyingPackage": "Verifying package…"
+        },
+        "SkillShareSelectionControls": {
+          "01c5a15e02": "Share skills"
+        },
+        "SkillSharedLinkRow": {
+          "confirmDelete": "Confirm delete",
+          "contentsUnavailable": "Could not load what this link contains.",
+          "deleteFailed": "Orca could not delete this from the Cloud.",
+          "deletePackage": "Delete from the Cloud",
+          "deleted": "Deleted from the Cloud",
+          "loading": "Loading contents…",
+          "moreActions": "More actions for {{name}}"
+        },
+        "SkillSharedLinksView": {
+          "loading": "Loading shared links…",
+          "noMatches": "No links match this search."
+        },
+        "SkillsPage": {
+          "aee7b99cc6": "Install from link",
+          "c13b82793c": "Manage installs",
+          "emptyCopy": "The scanned skill folders are empty. Install a shared bundle, or refresh after adding a skill.",
+          "searchLinks": "Search links",
+          "sharedLinks": "Shared links",
+          "viewSwitch": "Show"
+        },
+        "SkillsSelectionHeader": {
+          "title": "Select skills to share"
         },
         "count": {
           "deleteFolder_one": "{{count}} folder",
@@ -1074,27 +1937,144 @@
           "source_one": "{{count}} source",
           "source_other": "{{count}} sources"
         },
+        "description": {
+          "showLess": "Show less",
+          "showMore": "Show more"
+        },
         "install": {
+          "additionalAgentsHeader": "Additional Agent Directories",
+          "agentAccessWarning": "Skills contain instructions your agent may follow. Continue only if you trust the source of this share link.",
           "agentCount_one": "{{count}} agent",
           "agentCount_other": "{{count}} agents",
+          "agentNotInstalled": "Not installed",
+          "agentsCountBadge": "{{count}} selected",
+          "agentsLabel": "Agents",
+          "agentsNone": "No agents selected",
+          "agentsSelected": "Installing for: {{value0}}",
+          "authorizing": "Authorizing package access…",
+          "bundleSkillsMissing": "This version does not contain any of the installed bundle skills.",
+          "bundleVerificationFailed": "Installation failed before Orca could verify the requested bundle.",
+          "canonicalExplanation": "These agents natively read {{root}}, which Orca installs to by default:",
+          "canonicalHeader": "Standard Agents (Always Included)",
+          "chooseSkills": "Choose what to install from this link.",
+          "chooseWorkspace": "Choose a workspace.",
+          "deselectAll": "Deselect all",
+          "destinationAlreadyFinished": "The destination had already finished this installation.",
+          "enterShareLink": "Enter an Orca skill share link.",
+          "fileBinary": "binary",
+          "fileRunnable": "runnable",
+          "inspectManagedFailed": "Orca could not inspect managed installs on this machine.",
+          "installing": "Downloading, verifying, and installing…",
+          "linkHint": "Opening a link never installs anything — you review it first.",
+          "namesAndMore": "{{names}} +{{count}} more",
+          "reconnectBeforeInstalling": "Reconnect your Orca account before installing.",
+          "reconnectBeforeVersionChange": "Reconnect your Orca account before changing versions.",
+          "reconnectForVersionHistory": "Reconnect your Orca account to load version history.",
+          "removeFailed": "Orca could not safely remove this skill.",
+          "requestedVersionVerificationFailed": "Installation failed before Orca could verify the requested version.",
+          "reviewInstructions": "About this skill",
+          "reviewRunnableFiles": "Includes scripts or binary files",
+          "reviewSupportingFiles": "Review the supporting files",
+          "rowInstalled": "Already installed",
+          "rowNeedsDecision": "Needs a decision",
+          "rowNew": "New",
+          "rowUpdate": "Update",
           "runnableWarningOfSelected_one": "{{affectedCount}} of {{count}} selected skill include scripts or binary files: {{affected}}.",
-          "runnableWarningOfSelected_other": "{{affectedCount}} of {{count}} selected skills include scripts or binary files: {{affected}}."
+          "runnableWarningOfSelected_other": "{{affectedCount}} of {{count}} selected skills include scripts or binary files: {{affected}}.",
+          "selectAll": "Select all",
+          "selectSkill": "Select at least one skill.",
+          "shareUnavailable": "This share is unavailable. The link may be invalid, expired, or revoked.",
+          "singleRunnableWarning": "This skill includes scripts or binary files.",
+          "supportingFileWarning": "The selected skills include {{fileCount}} beyond SKILL.md.",
+          "targetAgentsHeader": "Target Agents",
+          "versionHistoryUnavailable": "Version history is unavailable for this skill.",
+          "versionVerificationFailed": "Orca could not verify the requested version."
+        },
+        "installResult": {
+          "cancelled": "Installation cancelled.",
+          "incomplete": "Installation did not complete.",
+          "installed": "Installed and verified.",
+          "partial": "Installed, but one or more agent placements need attention.",
+          "removed": "Removed.",
+          "unchanged": "This exact version is already installed.",
+          "updated": "Updated and verified."
+        },
+        "managedInstall": {
+          "cancel": "Cancel",
+          "confirmRemove": "Confirm remove",
+          "discardEdits": "Discard my edits and reinstall",
+          "discardEditsRemove": "Discard my edits and remove",
+          "editedWarning": "Your edits are kept unless you choose to discard them.",
+          "finishInstall": "Finish installing",
+          "installElsewhere": "Install elsewhere…",
+          "installedOn": "Installed {{date}}",
+          "reinstall": "Reinstall",
+          "remove": "Remove",
+          "scopeGlobal": "Everywhere",
+          "scopeWorkspace": "This workspace",
+          "skillEdited": "Edited",
+          "skillMissing": "Missing",
+          "stateEdited": "Edited after installing",
+          "stateMissing": "Files are missing",
+          "titleMore": "{{name}} +{{count}}",
+          "useVersion": "Use this version",
+          "versionCurrent": "{{date}} (installed)",
+          "versionLabel": "Version"
         },
         "managedRemoval": {
+          "removed": "{{removed}} removed.",
           "removedPreserved_one": "{{removed}} removed · {{count}} modified skill preserved.",
           "removedPreserved_other": "{{removed}} removed · {{count}} modified skills preserved."
         },
         "share": {
+          "accessSummaryPlain": "Unlisted link — anyone with it can install this.",
           "executable_one": "{{count}} executable",
           "executable_other": "{{count}} executables",
+          "fileExecutable": "executable",
+          "fileScript": "script",
+          "manageLinks": "Manage or revoke this link in Settings",
+          "newVersionDescriptionPlain": "Adds a new version to the existing link.",
+          "noExecutableContent": "No scripts or executables",
+          "releaseNotesFirst": "Describe this release",
+          "releaseNotesOptional": "Add release notes (optional)",
+          "releaseNotesVersion": "Release notes",
+          "reviewFiles": "Review files that can run",
+          "reviewSkills": "Review included skills",
           "script_one": "{{count}} script",
           "script_other": "{{count}} scripts"
+        },
+        "skill-install-progress-state": {
+          "currentSkill": "Installing {{value0}} of {{value1}}: {{value2}}…"
+        },
+        "skillWarningPreview": {
+          "binaryFilesDescription": "Includes opaque assets and an executable binary.",
+          "bundleDescription": "A preview bundle covering every warning level.",
+          "instructionsOnlyDescription": "Instructions contained entirely in SKILL.md.",
+          "runnableFilesDescription": "Includes scripts that an agent may run with your access.",
+          "supportingFilesDescription": "Includes readable reference files beyond the main instructions."
         }
       },
       "stats": {
+        "MuseUsagePane": {
+          "disabledDescription": "Reads local Muse session logs to show token, model, and session stats.",
+          "emptyMessage": "No local Muse usage found yet for this scope.",
+          "enableLabel": "Enable Muse usage analytics",
+          "noCostNote": "Muse session logs record tokens but not cost, so no cost estimate is shown.",
+          "optionsLabel": "Muse usage options",
+          "recentSessionsDescription": "Most recent local Muse sessions in this scope.",
+          "refreshAriaLabel": "Refresh Muse usage",
+          "scopeAll": "All local Muse usage",
+          "title": "Muse Usage Tracking"
+        },
         "UsageOverviewPane": {
+          "enableMuse": "Enable Muse",
           "sessionCount_one": "{{formatted}} session",
           "sessionCount_other": "{{formatted}} sessions"
+        },
+        "stats": {
+          "search": {
+            "museKeyword": "muse"
+          }
         },
         "usage": {
           "overview": {
@@ -1162,11 +2142,15 @@
             "moreSshHosts_other": "Find among {{count}} more SSH hosts…"
           },
           "StatusBar": {
+            "3bbf140864": "MiniMax Usage",
+            "5e59007df4": "Kimi Usage",
             "codexSignInError": "Codex sign-in failed. Please try again.",
+            "museUsageMenu": "Muse Usage",
             "rateLimitResetsAvailable_one": "{{count}} rate-limit reset available",
             "rateLimitResetsAvailable_other": "{{count}} rate-limit resets available",
             "staleCodexSessions_one": "{{count}} Codex session is still on the old account.",
-            "staleCodexSessions_other": "{{count}} Codex sessions are still on the old account."
+            "staleCodexSessions_other": "{{count}} Codex sessions are still on the old account.",
+            "zcodeUsageMenu": "ZCode Usage"
           },
           "WorkspaceSpaceManagerPanel": {
             "removedFromSpace_one": "{{count}} workspace removed from Space.",
@@ -1187,8 +2171,20 @@
             }
           },
           "tooltip": {
+            "a37e8c15d4": "Run kimi in a terminal on the computer running Orca and wait for it to start, then retry usage.",
+            "f90b3d7a16": "Run Kimi to refresh",
+            "minimax": {
+              "expired": {
+                "apiKey": "MiniMax API key expired. Replace it in Settings.",
+                "cookie": "MiniMax session cookie expired. Replace it in Settings.",
+                "label": "Sign-in expired"
+              }
+            },
             "rateLimitResetsAvailable_one": "{{count}} rate-limit reset available",
-            "rateLimitResetsAvailable_other": "{{count}} rate-limit resets available"
+            "rateLimitResetsAvailable_other": "{{count}} rate-limit resets available",
+            "zcode": {
+              "mcp": "MCP"
+            }
           },
           "workspaceSpaceDecision": {
             "activeAgents_one": "{{count}} active agent",
@@ -1259,6 +2255,14 @@
                 "uploadingFiles_other": "Uploading {{count}} files to runtime…"
               }
             }
+          },
+          "zcode": {
+            "missing": {
+              "tui": {
+                "description": "Orca's hooks installed correctly — the zcode on your PATH just cannot open a session. The ZCode desktop app bundles the agent runtime without its terminal UI. Install a zcode that ships the TUI, then run zcode outside Orca to confirm.",
+                "title": "This ZCode build has no terminal UI"
+              }
+            }
           }
         }
       }
@@ -1273,9 +2277,59 @@
         "nativeDropTempCopyFailed": "Orca couldn't copy {{count}} dropped files.",
         "nativeDropTempCopyFailed_one": "Orca couldn't copy {{count}} dropped file.",
         "nativeDropTempCopyFailed_other": "Orca couldn't copy {{count}} dropped files."
+      },
+      "useSettingsNavigationMetadata": {
+        "1cd25673df": "Mobile",
+        "31e57d1c70": "Use existing machines over SSH for files, terminals, Git, and workspaces.",
+        "40d80bad8a": "Beta",
+        "94a5afe910": "SSH Hosts",
+        "95a1886d94": "Control terminals and agents from your phone.",
+        "artifactsDescription": "Share HTML and Markdown files with your team and manage their public links.",
+        "artifactsTitle": "Artifacts",
+        "b1c2f8b0ac": "Optional account switching and usage setup for Claude, Codex, Gemini, OpenCode Go, MiniMax, and Grok.",
+        "de0c2907a1": "Remote Orca Servers",
+        "shareSkillsDescription": "Share your skills with an unlisted link. Anyone who has it can install them.",
+        "shareSkillsTitle": "Share Skills"
       }
     },
     "lib": {
+      "agent": {
+        "catalog": {
+          "060d152fb5": "Trae",
+          "09973b4d84": "OMP",
+          "1f8a19e9ad": "Autohand Code",
+          "28810273af": "Kimi",
+          "302934c5d9": "Pi",
+          "4238b771b5": "Codebuff",
+          "4e63c7b956": "Rovo Dev",
+          "5dff448636": "OpenClaw",
+          "5e8eff11b3": "Auggie",
+          "6f8056a565": "Command Code",
+          "739a930554": "Droid",
+          "8a9ba743cc": "Hermes",
+          "8da11d876c": "Goose",
+          "918ba4ffed": "Kilocode",
+          "9477377a2a": "Charm",
+          "9e2a9bb87b": "Continue",
+          "a5fc0cb622": "OpenClaude",
+          "b32627f09b": "Aider",
+          "bee242fe3d": "Qwen Code",
+          "c73c573939": "Amp",
+          "ca73055bd0": "Mistral Vibe",
+          "cbaf0c2e0b": "Cline",
+          "codebuddy_label": "CodeBuddy",
+          "d443a47995": "Prime Agent",
+          "da41abbdd4": "Ante",
+          "dsh_label": "DeepSeek Harness",
+          "freebuff_label": "Freebuff",
+          "jcode_label": "Jcode",
+          "mimo_code_label": "MiMo Code",
+          "muse_label": "Muse",
+          "qoder_cn_label": "Qoder CLI China",
+          "qoder_label": "Qoder CLI",
+          "zcode_label": "ZCode"
+        }
+      },
       "cli": {
         "detail": {
           "devLauncherOnly": "Development mode uses a generated launcher for validation only.",
@@ -1318,6 +2372,22 @@
       "emulator": {
         "androidSdkNotFound": "Android SDK not found. Install Android Studio and set ANDROID_HOME.",
         "xcodeSimulatorToolsUnavailable": "Xcode Simulator tools are unavailable. Install full Xcode, open it once, then select it with `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`."
+      },
+      "feedback": {
+        "image": {
+          "attachments": {
+            "additionalErrors": "{{count}} additional images could not be attached.",
+            "compressed": "{{fileName}} was compressed from {{originalSize}} to {{size}} to fit the attachment limit.",
+            "dimensionsTooLarge": "{{fileName}} has dimensions that are too large to preview safely.",
+            "empty": "{{fileName}} is empty.",
+            "fallbackName": "Image attachment",
+            "invalidImage": "{{fileName}} is not a valid supported image.",
+            "tooLarge": "{{fileName}} is larger than {{maxSize}}.",
+            "tooMany": "You can attach up to {{maxCount}} images.",
+            "totalTooLarge": "{{fileName}} would bring the attachments over {{maxSize}} in total.",
+            "unsupportedType": "{{fileName}} is not a supported image type."
+          }
+        }
       },
       "rateLimits": {
         "errors": {
@@ -1401,9 +2471,41 @@
         }
       }
     },
+    "main": {
+      "ipc": {
+        "diagnostics": {
+          "uploadConfirm": {
+            "cancel": "Cancel",
+            "detail": "Diagnostic ID: {{id}}\nDiagnostic records: {{records}}\nSize: {{sizeKb}} KB",
+            "message": "This uploads the redacted app diagnostics file you reviewed.",
+            "send": "Send",
+            "title": "Send this file to support?"
+          }
+        }
+      }
+    },
     "runtime": {
       "githubCheckDetailsTimeout": {
         "timedOut": "Timed out loading check details."
+      }
+    },
+    "store": {
+      "slices": {
+        "orca": {
+          "profiles": {
+            "2f6c78a039": "Failed to refresh profile auth",
+            "319d7cf39b": "Cloud profile created",
+            "33290e88ed": "Failed to connect profile",
+            "76deec8f58": "Failed to switch organization",
+            "83600521e7": "Failed to sign out",
+            "8b8fa73174": "Orca Cloud sign-in is not configured",
+            "9fcb07a796": "Profile connected",
+            "a37b5e6d37": "Signed out of profile",
+            "d6e764e7db": "Reconnect this profile",
+            "f0c9e11a6d": "Failed to create cloud profile",
+            "signInTimedOut": "Sign-in timed out"
+          }
+        }
       }
     }
   },
@@ -1887,6 +2989,29 @@
         "unknownOption": "Unknown session option: {{id}}",
         "valueRequired": "This option requires a value."
       },
+      "slashCommandDescriptions": {
+        "branch": "Rewind to a previous message in Terminal",
+        "clearKeepSession": "Clear context while keeping the session",
+        "contextEstimated": "Show estimated context usage",
+        "export": "Export the session to HTML",
+        "extensions": "Open the extension dashboard in Terminal",
+        "fast": "Toggle priority service tier",
+        "forkMessage": "Fork from a previous message in Terminal",
+        "git": "Open the Git viewer in Terminal",
+        "hotkeys": "Show keyboard shortcuts in Terminal",
+        "jobs": "Show background jobs",
+        "modelTerminal": "Open the model selector in Terminal",
+        "newSession": "Start a new session",
+        "planToggle": "Toggle plan mode",
+        "renameSession": "Rename the session",
+        "resumeSession": "Resume a session; without arguments, choose in Terminal",
+        "session": "Show session information and controls",
+        "settings": "Open settings in Terminal",
+        "switch": "Open the temporary model selector in Terminal",
+        "tools": "Show tools visible to the agent",
+        "tree": "Browse the session tree in Terminal",
+        "usageProvider": "Show provider usage and limits"
+      },
       "state": {
         "empty": {
           "subtitle": "Ask {{value0}} to inspect code, explain output, or make a change.",
@@ -2249,6 +3374,7 @@
   },
   "menu": {
     "about": "About Orca",
+    "checkForUpdates": "Check for Updates...",
     "hide": "Hide Orca",
     "hideOthers": "Hide Others",
     "minimize": "Minimize",
@@ -2257,6 +3383,16 @@
     "toggleFullScreen": "Toggle Full Screen",
     "unhide": "Show All",
     "zoom": "Zoom"
+  },
+  "onboarding": {
+    "language": {
+      "back": "Languages",
+      "other": "Other language…",
+      "requestAction": "Request language",
+      "requestError": "Could not record your request. Try again.",
+      "requestPrompt": "Which language would you like Orca to support?",
+      "requestSuccess": "Language request recorded. You can continue onboarding."
+    }
   },
   "pet": {
     "defaultLabels": {
@@ -2309,7 +3445,7 @@
       "alreadyPairedAddAgain": "This server is already paired as \"{{name}}\". To update its connection, add it again under Settings > Remote Orca Servers.",
       "alreadyPairedCloudIdentity": "This server is already paired as \"{{name}}\". The cloud workspace's server reuses that server's identity, so it was not saved.",
       "alreadyPairedCloudWorkspace": "This server is already paired as \"{{name}}\". It belongs to a cloud workspace, which pairs it again when it resumes.",
-      "alreadyPairedManagedDeployment": "This server is already paired as \"{{name}}\". Orca runs this server on an SSH host for you; its pairing cannot be replaced or removed here. To decommission it, run `deca environment stop --environment <name> --yes` or use Settings > Orca on your SSH hosts; for a host that is gone, run `deca environment forget --environment <name> --yes`.",
+      "alreadyPairedManagedDeployment": "This server is already paired as \"{{name}}\". Orca runs this server on an SSH host for you; its pairing cannot be replaced or removed here. To decommission it, run `orca environment stop --environment <name> --yes` or use Settings > Orca on your SSH hosts; for a host that is gone, run `orca environment forget --environment <name> --yes`.",
       "alreadyPairedSshAccessChangePending": "This server is already paired as \"{{name}}\". This server's SSH access change didn't finish. Retry or cancel it under Settings > Remote Orca Servers > SSH access for paired servers before replacing its pairing or removing it.",
       "alreadyPairedSshAccessLinked": "This server is already paired as \"{{name}}\". Unlink this server's SSH access under Settings > Remote Orca Servers > SSH access for paired servers before replacing its pairing or removing it.",
       "alreadyPairedUnreadable": "This server is already paired as \"{{name}}\", whose saved settings this version of Orca cannot read.",
@@ -2317,7 +3453,7 @@
       "hostSaveFailed": "Orca verified the host but could not save it. Check local settings storage and try again.",
       "idNeedsNewerOrca": "A server with this id already exists in a format that needs a newer version of Orca.",
       "invalidPairingCode": "Invalid pairing code. Expected an orca://pair?... URL or bare pairing payload.",
-      "managedDeployment": "Orca runs this server on an SSH host for you; its pairing cannot be replaced or removed here. To decommission it, run `deca environment stop --environment <name> --yes` or use Settings > Orca on your SSH hosts; for a host that is gone, run `deca environment forget --environment <name> --yes`.",
+      "managedDeployment": "Orca runs this server on an SSH host for you; its pairing cannot be replaced or removed here. To decommission it, run `orca environment stop --environment <name> --yes` or use Settings > Orca on your SSH hosts; for a host that is gone, run `orca environment forget --environment <name> --yes`.",
       "nameTaken": "A server named \"{{name}}\" already exists.",
       "repairCloudWorkspace": "This server belongs to a cloud workspace, which pairs it again when it resumes.",
       "repairSaveFailed": "Orca verified the server but could not save the new pairing. Check local settings storage and try again.",
@@ -2328,6 +3464,7 @@
   },
   "runtimeRpc": {
     "startupFailure": {
+      "detail": "Orca will continue to work, but commands such as orca status, orca terminal, and orchestration are unavailable for this session.\n\n{{guidance}}\n\nCause: {{cause}}",
       "guidance": {
         "addressInUse": "Another process may be holding the port. Restart Orca to try again.",
         "invalidPath": "Orca's data folder may be missing, moved, or at a path that is too long. Restore it or use a shorter path, then restart Orca.",
@@ -2360,14 +3497,29 @@
       "permissionOverridesKept_one": "{{count}} agent still uses their own permission setting:",
       "permissionOverridesKept_other": "{{count}} agents still use their own permission setting:"
     },
+    "appearance": {
+      "statusBar": {
+        "kimiToggleDescription": "Show Kimi subscription usage for the active workspace.",
+        "minimaxToggleDescription": "Show MiniMax subscription usage for the active workspace.",
+        "museToggleDescription": "Show Muse subscription quota from the Muse CLI.",
+        "zcodeToggleDescription": "Show ZCode Coding Plan quota usage."
+      }
+    },
+    "browser": {
+      "userAgent": {
+        "resetRequiredCommand": "Reset it from the command line: orca browser identity set --mode <mode> --reset"
+      }
+    },
     "diagnostics": {
       "errors": {
         "creatingDisabled": "creating review files is disabled",
+        "deleteFailed": "Could not delete sent diagnostics",
         "deleteNotConfigured": "diagnostic upload endpoint is not configured for this build",
         "expiredBeforeOpening": "review file has expired; create a new one before opening",
         "expiredBeforeSending": "review file has expired; create a new one before sending",
         "previewNotOpened": "open the review file before sending",
         "previewOpenFailed": "could not open review file",
+        "sendFailed": "Could not send diagnostics",
         "sendingDisabled": "sending diagnostics is disabled",
         "sendingNotConfigured": "sending diagnostics is not configured for this build"
       }
@@ -2448,6 +3600,25 @@
         "permissionDenied": "Permission denied",
         "permissionDeniedPublickey": "Permission denied (publickey)"
       }
+    },
+    "updateDelay": {
+      "1b4d825e0e": "Update delay",
+      "ab7e864374": "About update delay",
+      "availableOn": "Available to you {{date}} ({{relative}})",
+      "availableSoon": "Available to you {{relative}}",
+      "clearedTitle": "Orca {{version}} is ready",
+      "description": "Wait this many days after a release is published before Orca offers it.",
+      "ee1d96f74a": "Skip delay once",
+      "heldReleaseReady": "A newer release is ready. Check for updates to get it.",
+      "heldTitle": "Orca {{version}} is on hold",
+      "keywordCooldown": "cooldown",
+      "keywordDelay": "delay",
+      "keywordSecurity": "security",
+      "none": "None",
+      "progress": "Time until Orca {{version}} is available",
+      "released": "Released {{released}}",
+      "skipDelayOnceHint": "Check for this release now. Your delay setting stays the same.",
+      "upToDateWithHeld": "You’re up to date. A newer release is on hold until {{date}}."
     }
   },
   "sidebar": {

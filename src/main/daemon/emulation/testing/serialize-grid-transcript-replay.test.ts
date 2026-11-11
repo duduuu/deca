@@ -42,9 +42,6 @@ const KNOWN_PREEXISTING_I2_FAILURES: Record<string, number> = {
   'opencode-cmd-2-0-21-timed-warm-server': 21,
   // Narrow captures also restore a cursor one column short and leak the pen’s bold attribute.
   'opencode-2-0-21-timed-narrow-pane': 8,
-  // Qoder also restores the cursor one column short after shrinking.
-  'qoder-no-account': 2,
-  'qoder-ready': 2,
   // Codex 0.157 header borders restore with an extra attribute bit.
   'codex-0157-config-override-embedded-warning': 22,
   'codex-0157-effort-override-embedded-warning': 4,

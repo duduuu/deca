@@ -154,8 +154,6 @@ afterEach(async () => {
   vi.useRealTimers()
 })
 
-describe('Kimi session parse against a stalled WSL transcript', () => {})
-
 describe('Grok session parse against a stalled WSL transcript', () => {
   it('refuses a stalled chat_history read instead of reporting a summary-only session', async () => {
     const file = uncPath('GrokHistory', ...GROK_DIR, 'session.json')

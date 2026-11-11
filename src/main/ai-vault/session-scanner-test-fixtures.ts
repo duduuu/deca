@@ -52,8 +52,6 @@ export async function writeOpenCode2SqliteFixture(root: string): Promise<string>
 export function isolatedScanRoots(root: string) {
   return {
     claudeProjectsDir: join(root, 'claude-projects'),
-    codebuddyProjectsDir: join(root, 'codebuddy-projects'),
-    qoderProjectsDir: join(root, 'qoder-projects'),
     codexSessionsDir: join(root, 'codex-sessions'),
     geminiSessionsDir: join(root, 'gemini-sessions'),
     antigravityBrainDir: join(root, 'antigravity-brain'),
@@ -62,7 +60,6 @@ export function isolatedScanRoots(root: string) {
     opencodeStorageDir: join(root, 'opencode-storage'),
     // Avoid discovering the user’s real OpenCode database.
     opencodeDbPaths: [] as readonly string[],
-    zcodeDbPath: join(root, 'zcode', 'db.sqlite'),
     grokSessionsDir: join(root, 'grok-sessions'),
     devinTranscriptsDir: join(root, 'devin-transcripts'),
     hermesSessionsDir: join(root, 'hermes-sessions'),
@@ -75,7 +72,6 @@ export function isolatedScanRoots(root: string) {
     droidSessionsDir: join(root, 'droid-sessions'),
     droidProjectsDir: join(root, 'droid-projects'),
     clineSessionsDir: join(root, 'cline-sessions'),
-    kimiSessionsDir: join(root, 'kimi-sessions'),
     museSessionsDir: join(root, 'muse-sessions'),
     jcodeSessionsDir: join(root, 'jcode-sessions'),
     kiroSessionsDir: join(root, 'kiro-sessions')

@@ -21,28 +21,12 @@ vi.mock('../providers/gemini/gemini-usage-fetcher', () => ({
   fetchGeminiRateLimits: vi.fn()
 }))
 
-vi.mock('../providers/kimi/kimi-fetcher', () => ({
-  fetchKimiRateLimits: vi.fn()
-}))
-
 vi.mock('../providers/opencode-go/opencode-go-usage-source-selection', () => ({
   fetchOpenCodeGoUsage: vi.fn()
 }))
 
-vi.mock('../providers/zcode/zcode-usage-fetcher', () => ({
-  fetchZcodeRateLimits: vi.fn()
-}))
-
-vi.mock('../providers/muse/muse-usage-fetcher', () => ({
-  fetchMuseRateLimits: vi.fn()
-}))
-
 vi.mock('../providers/antigravity/antigravity-usage-fetcher', () => ({
   fetchAntigravityRateLimits: vi.fn()
-}))
-
-vi.mock('../providers/minimax/minimax-fetcher', () => ({
-  fetchMiniMaxRateLimits: vi.fn()
 }))
 
 vi.mock('../providers/grok/grok-fetcher', () => ({
@@ -59,10 +43,6 @@ vi.mock('../providers/cursor/cursor-auth', () => ({
 
 vi.mock('../providers/grok/grok-auth', () => ({
   readGrokAuthSession: vi.fn(() => ({ status: 'missing' }))
-}))
-
-vi.mock('../../minimax/minimax-cookie-store', () => ({
-  hasMiniMaxSessionCookie: vi.fn(() => false)
 }))
 
 describe('RateLimitService', () => {

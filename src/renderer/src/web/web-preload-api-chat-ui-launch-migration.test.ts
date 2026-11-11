@@ -94,8 +94,7 @@ vi.mock('./web-runtime-client', () => ({
             openAgentTabsInChatByDefault: false,
             agentDefaultSurface: oldHost.on ? 'chat' : 'terminal',
             nativeChatProviders: { claude: oldHost.on, codex: oldHost.on },
-            compactWorktreeCards: true,
-            minimaxGroupId: 'live-host-group'
+            compactWorktreeCards: true
           }
         }
       }

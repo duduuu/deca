@@ -112,7 +112,7 @@ it('preserves the caller cancellation reason and disposes its timer', async () =
   expect(vi.getTimerCount()).toBe(0)
 })
 
-it('leaves unrelated native-chat and Zcode calls unscoped and retires the scan signal', async () => {
+it('leaves unrelated native-chat calls unscoped and retires the scan signal', async () => {
   vi.useFakeTimers()
   let scopedSignal: AbortSignal | undefined
   const caller = new AbortController()

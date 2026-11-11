@@ -14,7 +14,6 @@ let previousUserDataPath: string | undefined
 
 beforeEach(() => {
   vi.stubEnv('GROK_HOME', undefined)
-  vi.stubEnv('KIMI_CODE_HOME', undefined)
   vi.stubEnv('COPILOT_HOME', undefined)
   vi.stubEnv('KIRO_HOME', undefined)
   vi.stubEnv('XDG_CONFIG_HOME', undefined)

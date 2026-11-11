@@ -21,9 +21,6 @@ vi.mock('../../../agent-hooks/wsl-relay/wsl-hook-relay-manager', () => ({
     getGuestAgentPath: () => null
   }
 }))
-vi.mock('../../../pi/titlebar-extension-service', () => ({
-  piTitlebarExtensionService: { buildPtyEnv: () => ({}), buildFreshOmpEnv: () => ({}) }
-}))
 vi.mock('../../../cli/orca-cli-child-path', () => ({ prependOrcaCliDirToChildPath: () => {} }))
 vi.mock('../../../cli/wsl-managed-cli', () => ({
   getManagedWslCliDir: () => undefined,

@@ -52,7 +52,6 @@ function isolatedScanRoots(root: string) {
     piSessionsDir: join(root, 'pi-sessions'),
     droidSessionsDir: join(root, 'droid-sessions'),
     droidProjectsDir: join(root, 'droid-projects'),
-    kimiSessionsDir: join(root, 'kimi-sessions'),
     museSessionsDir: join(root, 'muse-sessions'),
     ompSessionsDir: join(root, 'omp-sessions'),
     jcodeSessionsDir: join(root, 'jcode-sessions'),

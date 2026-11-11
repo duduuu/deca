@@ -72,7 +72,7 @@ describe('parseOpenCodeUsageRow', () => {
       worktree: null,
       session_model: null,
       data: JSON.stringify({
-        modelID: 'deepseek-v4.1-flash',
+        modelID: 'acme-v4.1-flash',
         providerID: 'opencode-go',
         tokens: {
           input: 100,

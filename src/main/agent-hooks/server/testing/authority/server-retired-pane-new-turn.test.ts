@@ -68,8 +68,6 @@ describe("retired pane un-retires on each provider's own new-turn event", () => 
   )
 
   it('leaves the pane retired for a source with no turn boundary', () => {
-    // These providers lack classifier boundaries; mimo-code explicit prompts are covered by lifecycle tests.
-    expect(reviveRetiredPane('mimo-code', 'SessionStart')).toBe(false)
     expect(reviveRetiredPane('command-code', 'SessionStart')).toBe(false)
   })
 

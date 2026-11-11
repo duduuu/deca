@@ -23,7 +23,6 @@ describe('managed hook script refresh and owned profile cleanup', () => {
     installFakeAppEnvironment({ getPath: () => join(state.home, 'user-data') })
     vi.stubEnv('ORCA_USER_DATA_PATH', join(state.home, 'user-data'))
     vi.stubEnv('GROK_HOME', undefined)
-    vi.stubEnv('KIMI_CODE_HOME', undefined)
     vi.stubEnv('XDG_CONFIG_HOME', undefined)
   })
 

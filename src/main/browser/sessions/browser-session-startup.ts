@@ -41,8 +41,6 @@ export function initializeBrowserSessionsForApp(
     )
   }
 
-  // Replay cookies before Chromium opens the live DB via session.fromPartition.
-  browserSessionRegistry.applyPendingCookieImport()
   browserSessionRegistry.initializeBrowserSessionsFromPersistedState()
   initialized = true
 }

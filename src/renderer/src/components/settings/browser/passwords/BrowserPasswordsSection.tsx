@@ -8,7 +8,6 @@ import { useConfirmationDialog } from '@/components/confirmation-dialog-context'
 import { useTranslate } from '@/i18n/use-translate'
 import type {
   BrowserPasswordEntrySummary,
-  BrowserPasswordImportResult,
   BrowserPasswordsStatus
 } from '../../../../../../shared/browser-passwords-types'
 import type { GlobalSettings } from '../../../../../../shared/global-settings-types'
@@ -19,13 +18,8 @@ import {
   BrowserPasswordEntryDialog,
   type BrowserPasswordEntryFormStart
 } from './BrowserPasswordEntryDialog'
-import {
-  BrowserPasswordImportMenu,
-  type BrowserPasswordImportSource
-} from './BrowserPasswordImportMenu'
 import { BrowserPasswordList } from './BrowserPasswordList'
 import { BrowserPasswordNeverList } from './BrowserPasswordNeverList'
-import { toastBrowserPasswordImportResult } from './browser-password-import-toast'
 import { browserPasswordHostOf, getBrowserPasswordsSearchEntry } from './browser-passwords-copy'
 
 type VaultView = {
@@ -112,14 +106,6 @@ function BrowserPasswordsProfile({
         )
       : view.entries
   }, [view.entries, query])
-
-  const runImport = async (run: () => Promise<BrowserPasswordImportResult>): Promise<void> => {
-    toastBrowserPasswordImportResult(await run())
-    await refresh()
-  }
-  const importCsv = (): void => void runImport(() => api.importCsv({ browserProfileId }))
-  const importBrowser = (source: BrowserPasswordImportSource): void =>
-    void runImport(() => api.importFromBrowser({ browserProfileId, ...source }))
 
   const authFailed = (): void => {
     toast.error(t('settings.browser.passwords.authFailed', 'Could not confirm it was you'))
@@ -231,11 +217,6 @@ function BrowserPasswordsProfile({
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <BrowserPasswordImportMenu
-            disabled={actionsDisabled}
-            onImportCsv={importCsv}
-            onImportBrowser={importBrowser}
-          />
           <Button
             type="button"
             variant="outline"

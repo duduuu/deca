@@ -1,7 +1,4 @@
-import {
-  BROWSER_EXPECT_URL_RUNTIME_CAPABILITY,
-  BROWSER_GOOGLE_COOKIE_CLEAR_CAPABILITY
-} from '../../shared/browser/runtime/browser-runtime-capabilities'
+import { BROWSER_EXPECT_URL_RUNTIME_CAPABILITY } from '../../shared/browser/runtime/browser-runtime-capabilities'
 import {
   BROWSER_EXPECT_URL_UNSUPPORTED_CODE,
   BrowserExpectedUrlMismatch
@@ -141,13 +138,6 @@ export class ElectronServeBrowserProcess {
       }
     })
   }
-  supportsGoogleCookieClear(): boolean {
-    return (
-      this.isAvailable() &&
-      this.sidecarCapabilities.includes(BROWSER_GOOGLE_COOKIE_CLEAR_CAPABILITY)
-    )
-  }
-
   isAvailable(): boolean {
     return this.metadata !== null && isProcessAlive(this.metadata.pid)
   }

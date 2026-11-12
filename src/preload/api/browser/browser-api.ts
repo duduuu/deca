@@ -63,7 +63,6 @@ import type {
 import type {
   BrowserCertificateFailure,
   BrowserCertificateProceedResult,
-  BrowserCookieImportResult,
   BrowserLoadError,
   BrowserSessionProfile,
   BrowserSessionProfileScope,
@@ -232,28 +231,6 @@ export type BrowserApi = {
   identityGet: () => Promise<BrowserIdentityModeStatus | null>
   identitySet: (mode: BrowserUserAgentMode) => Promise<BrowserIdentityModeSetResult | null>
   sessionDeleteProfile: (args: { profileId: string }) => Promise<boolean>
-  sessionImportCookies: (args: { profileId: string }) => Promise<BrowserCookieImportResult>
-  sessionDetectBrowsers: () => Promise<DetectedBrowserInfo[]>
-  /** Null when the environment's pages are not client-hosted on this desktop. */
-  sessionDetectBrowsersForClientHost: (args: {
-    environmentId: string
-  }) => Promise<DetectedBrowserInfo[] | null>
-  sessionImportFromBrowser: (args: {
-    profileId: string
-    browserFamily: string
-    browserProfile?: string
-  }) => Promise<BrowserCookieImportResult>
-  /** Null when the environment's pages are not client-hosted on this desktop. */
-  sessionImportFromBrowserForClientHost: (args: {
-    environmentId: string
-    profileId: string
-    browserFamily: string
-    browserProfile?: string
-  }) => Promise<BrowserCookieImportResult | null>
-  /** Import sources keyed by browser profile ID. */
-  sessionClientRouteImportSources: (args: {
-    environmentId: string
-  }) => Promise<Record<string, BrowserSessionProfileSource>>
   /** Site permissions are local to this computer and browser profile. */
   sitePermissionsList: (args: { profileId: string }) => Promise<BrowserSitePermissionEntry[]>
   /** Null forgets the answer so the site is asked again. */

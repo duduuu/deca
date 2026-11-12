@@ -84,32 +84,7 @@ export function createBrowserApi(): NonNullable<Partial<PreloadApi>['browser']> 
       Promise.reject(new Error('browser_local_route_unavailable')),
     sessionCreateProfile: () => Promise.resolve(null),
     sessionDeleteProfile: () => Promise.resolve(false),
-    sessionImportCookies: () =>
-      Promise.resolve({
-        ok: false,
-        summary: null,
-        error: translate(
-          'auto.web.web.preload.api.67ec964791',
-          'Cookie import is unavailable in the web client.'
-        )
-      }),
-    sessionImportCookiesForClientHost: () => Promise.resolve(null),
     sessionResolvePartition: () => Promise.resolve(null),
-    sessionDetectBrowsers: () => Promise.resolve([]),
-    sessionDetectBrowsersForClientHost: () => Promise.resolve(null),
-    sessionImportFromBrowserForClientHost: () => Promise.resolve(null),
-    sessionClientRouteImportSources: () => Promise.resolve({}),
-    sessionImportFromBrowser: () =>
-      Promise.resolve({
-        ok: false,
-        summary: null,
-        error: translate(
-          'auto.web.web.preload.api.67ec964791',
-          'Cookie import is unavailable in the web client.'
-        )
-      }),
-    sessionGoogleCookieClearTarget: () => Promise.resolve(null),
-    sessionClearGoogleCookies: () => Promise.resolve('unverified' as const),
     sessionClearDefaultCookies: () => Promise.resolve(false),
     sitePermissionsList: () => Promise.resolve([]),
     sitePermissionsSet: () => Promise.resolve([]),

@@ -46,13 +46,9 @@ export function createBrowserHostActions(
       const nextHostId = parsed.id
       set((s) => ({
         browserSessionHostIdOverride: nextHostId,
-        browserSessionProfiles: s.browserSessionProfilesByHostId[nextHostId] ?? [],
-        browserSessionImportState: null,
-        detectedBrowsers: [],
-        detectedBrowsersLoaded: false,
-        detectedBrowsersHost: null
+        browserSessionProfiles: s.browserSessionProfilesByHostId[nextHostId] ?? []
       }))
-      await Promise.all([get().fetchBrowserSessionProfiles(), get().fetchDetectedBrowsers()])
+      await get().fetchBrowserSessionProfiles()
     },
 
     setDefaultBrowserSessionProfileId: (profileId) =>

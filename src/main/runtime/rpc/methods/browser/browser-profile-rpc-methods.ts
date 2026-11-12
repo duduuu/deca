@@ -2,8 +2,6 @@ import { defineMethod } from '../../core'
 import { ProfileCreate } from '../../../../../shared/rpc-contract/browser-identity-params'
 import {
   ProfileDelete,
-  ProfileClearGoogleCookies,
-  ProfileImportFromBrowser,
   TabProfileClone,
   TabSetProfile,
   TabShow
@@ -45,24 +43,6 @@ export const BROWSER_PROFILE_METHODS = [
     permission: 'workspace',
     params: ProfileDelete,
     handler: async (params, { runtime }) => runtime.browserProfileDelete(params)
-  }),
-  defineMethod({
-    name: 'browser.profileDetectBrowsers',
-    permission: 'workspace',
-    params: null,
-    handler: async (_params, { runtime }) => runtime.browserProfileDetectBrowsers()
-  }),
-  defineMethod({
-    name: 'browser.profileImportFromBrowser',
-    permission: 'workspace',
-    params: ProfileImportFromBrowser,
-    handler: async (params, { runtime }) => runtime.browserProfileImportFromBrowser(params)
-  }),
-  defineMethod({
-    name: 'browser.profileClearGoogleCookies',
-    permission: 'workspace',
-    params: ProfileClearGoogleCookies,
-    handler: async (params, { runtime }) => runtime.browserProfileClearGoogleCookies(params)
   }),
   defineMethod({
     name: 'browser.profileClearDefaultCookies',

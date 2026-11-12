@@ -1,5 +1,3 @@
-import type { BrowserCookieImportFailure } from './browser-cookie-import-failure-copy'
-import type { GoogleCookieClearLocalReceipt } from './browser/cookies/browser-google-cookie-clear'
 import type { ManagedBrowserProfileOwner } from './browser/profiles/browser-profile-scope'
 export type BrowserHistoryEntry = {
   url: string
@@ -160,37 +158,3 @@ export type BrowserSessionProfile = {
   /** Set when Orca manages this profile for one repo or workspace; it goes when its owner is removed. */
   owner?: ManagedBrowserProfileOwner
 }
-
-export type LinuxCookieKeyFailure = 'secret-tool-missing' | 'keyring-locked' | 'key-unavailable'
-
-export type BrowserCookieImportSummary = {
-  totalCookies: number
-  importedCookies: number
-  skippedCookies: number
-  googleCookiesSkipped?: number
-  // Includes readable cookies withheld to preserve a site with an unreadable partition.
-  partitionSkippedCookies?: number
-  // Older peers retain the combined count; no cookie details cross this boundary.
-  partitionSkipBreakdown?: {
-    unreadableCookies: number
-    preservedRelatedCookies: number
-  }
-  domains: string[]
-  warning?: {
-    // Capture decrypt failure cause before null merges unreadable and corrupt rows, preventing false successful-empty imports.
-    code: 'cookies-undecryptable'
-    failedCookies: number
-    otherFailedCookies?: number
-    reason: 'app-bound-encryption' | 'linux-keyring-unavailable' | 'unknown'
-    keyringFailure?: { cause: LinuxCookieKeyFailure; browser: string }
-  }
-}
-
-export type BrowserCookieImportResult =
-  | {
-      ok: true
-      profileId: string
-      summary: BrowserCookieImportSummary
-      googleCookieClearTarget?: GoogleCookieClearLocalReceipt
-    }
-  | BrowserCookieImportFailure

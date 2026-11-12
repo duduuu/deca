@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ORCA_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
 import { BROWSER_USE_ENABLED_STORAGE_KEY } from '@/lib/browser/browser-use-setup-state'
 import {
@@ -9,7 +9,6 @@ import { useActiveProjectSkillRuntime } from '@/hooks/skills/runtime/useActivePr
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '../../../../store/index'
 import '../../../../../../shared/constants'
-import { BROWSER_FAMILY_LABELS } from '../../../../../../shared/browser/browser-family-labels'
 import { SearchableSetting } from '../../section-layout/SearchableSetting'
 import { matchesSettingsSearch } from '../../search/settings-search'
 import { getBrowserUsePaneSearchEntries } from './browser-use-search'
@@ -17,23 +16,17 @@ import { BrowserUseExamples } from './BrowserUseExamples'
 import { BrowserUseComputerUseNotice } from './BrowserUseComputerUseNotice'
 import { BrowserUseEnableSwitch } from './BrowserUseEnableSwitch'
 import { BrowserUseSkillStep } from './BrowserUseSkillStep'
-import { BrowserUseCookieImportStep } from './BrowserUseCookieImportStep'
 import { useTranslate } from '@/i18n/use-translate'
 
 type BrowserUseSetupProps = {
-  onConfigureMoreBrowsers?: () => void
   onOpenComputerUse?: () => void
 }
 
 export function BrowserUseSetup({
-  onConfigureMoreBrowsers,
   onOpenComputerUse
 }: BrowserUseSetupProps = {}): React.JSX.Element {
   const t = useTranslate()
   const searchQuery = useAppStore((s) => s.settingsSearchQuery)
-  const browserSessionProfiles = useAppStore((s) => s.browserSessionProfiles)
-  const fetchBrowserSessionProfiles = useAppStore((s) => s.fetchBrowserSessionProfiles)
-  const browserSessionImportState = useAppStore((s) => s.browserSessionImportState)
 
   const activeSkillRuntime = useActiveProjectSkillRuntime()
 
@@ -49,16 +42,6 @@ export function BrowserUseSetup({
     }
   }
 
-  useEffect(() => {
-    if (!browserUseEnabled) {
-      return
-    }
-    void fetchBrowserSessionProfiles()
-  }, [browserUseEnabled, fetchBrowserSessionProfiles])
-
-  const defaultProfile = browserSessionProfiles.find((p) => p.id === 'default')
-  const cookiesImported = !!defaultProfile?.source
-
   const {
     installed: skillDetected,
     loading: skillLoading,
@@ -70,21 +53,10 @@ export function BrowserUseSetup({
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
   })
 
-  const isImportingDefault =
-    browserSessionImportState?.profileId === 'default' &&
-    browserSessionImportState.status === 'importing'
-
   const showSkillStep = matchesSettingsSearch(searchQuery, [getBrowserUsePaneSearchEntries()[0]])
-  const showCookieImportStep = matchesSettingsSearch(searchQuery, [
-    getBrowserUsePaneSearchEntries()[1]
-  ])
-  const steps = [skillDetected, cookiesImported]
+  const steps = [skillDetected]
   const completedCount = steps.filter(Boolean).length
   const skillDisabled = Boolean(activeSkillRuntime.installDisabledReason)
-
-  const sourceLabel = defaultProfile?.source
-    ? `${BROWSER_FAMILY_LABELS[defaultProfile.source.browserFamily] ?? defaultProfile.source.browserFamily}${defaultProfile.source.profileName ? ` (${defaultProfile.source.profileName})` : ''}`
-    : null
 
   if (!browserUseEnabled) {
     return (
@@ -170,15 +142,6 @@ export function BrowserUseSetup({
             onRecheck={refreshSkill}
           />
         </SearchableSetting>
-      ) : null}
-
-      {showCookieImportStep ? (
-        <BrowserUseCookieImportStep
-          cookiesImported={cookiesImported}
-          isImportingDefault={isImportingDefault}
-          sourceLabel={sourceLabel}
-          onConfigureMoreBrowsers={onConfigureMoreBrowsers}
-        />
       ) : null}
 
       <BrowserUseExamples />

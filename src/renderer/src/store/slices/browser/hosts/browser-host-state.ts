@@ -1,6 +1,5 @@
 import type { AppState } from '../../../types'
 import type {
-  BrowserCookieImportResult,
   BrowserPage,
   BrowserSessionProfile
 } from '../../../../../../shared/browser-workspace-types'
@@ -11,11 +10,7 @@ import {
   toRuntimeExecutionHostId,
   type ExecutionHostId
 } from '../../../../../../shared/execution-host'
-import type {
-  BrowserSlice,
-  BrowserCookieImportExecutionResult,
-  RemoteBrowserPageHandle
-} from '../browser-slice-contract'
+import type { BrowserSlice, RemoteBrowserPageHandle } from '../browser-slice-contract'
 import { getExecutionHostIdForWorktree } from '@/lib/workspace/ownership/worktree-runtime-owner'
 
 /** Seed restored handles only for client-hosted pages, without dead lease placement generations. Server-hosted pages may vanish during runtime restart; leaving their handle absent recreates the saved URL instead of adopting a missing page and deleting the row. First snapshot supplies live placement. */
@@ -50,21 +45,6 @@ export function isClientHostedBrowserPageHandle(handle: RemoteBrowserPageHandle)
     (handle.staged === true && handle.stagedClientHosted === true) ||
     handle.restoredClientHosted === true
   )
-}
-
-export function retainCookieImportExecutionHost(
-  result: BrowserCookieImportResult,
-  executionHostId: ExecutionHostId,
-  executionHostLabel: string,
-  executionMachine: 'client' | 'remote'
-): BrowserCookieImportExecutionResult {
-  return {
-    ...result,
-    executionHostId,
-    executionHostLabel,
-    executionMachine,
-    executionRemoteEnvironment: parseExecutionHostId(executionHostId)?.kind === 'runtime'
-  }
 }
 
 export function getBrowserSettingsHostId(
@@ -172,14 +152,6 @@ export function updateDefaultBrowserProfileForHost(
     })
   })
   return defaultProfileWrites
-}
-
-export function browserImportStateForHostUpdate(
-  state: AppState,
-  hostId: ExecutionHostId,
-  browserSessionImportState: BrowserSlice['browserSessionImportState']
-): Partial<BrowserSlice> {
-  return getBrowserSettingsHostId(state) === hostId ? { browserSessionImportState } : state
 }
 
 export function getFallbackTabTypeForWorktree(

@@ -18,7 +18,6 @@ import { BrowserNewTabTile } from './browser-new-tab-tile'
 import { useBrowserNewTabLinkedItems } from './use-browser-new-tab-linked-items'
 import { useBrowserNewTabServers, type BrowserNewTabServers } from './use-browser-new-tab-servers'
 import { BrowserNewTabWorkspaceCard } from './browser-new-tab-workspace-card'
-import { BrowserImportHintButton } from '../assemble-chrome/BrowserImportHintButton'
 import { resolveWorktreeDisplayName } from '@/lib/workspace/display/worktree-default-display-name'
 import { useWorktreeRuntimeTarget } from '@/runtime/rpc/targets/use-worktree-runtime-target'
 import type { RuntimeClientTarget } from '../../../../../shared/runtime-client-target'
@@ -36,15 +35,12 @@ type BrowserNewTabServerContext = {
 export function BrowserNewTabPage({
   worktreeId,
   onOpenUrl,
-  serversElsewhere = false,
-  importProfileId
+  serversElsewhere = false
 }: {
   worktreeId: string
   onOpenUrl: (url: string) => void
   /** This tab's page runs on another machine than the workspace's ports, so they open on theirs. */
   serversElsewhere?: boolean
-  /** Local session profile to import logins into; omitted where the session isn't local. */
-  importProfileId?: string | null
 }): React.JSX.Element {
   const worktree = useWorktreeById(worktreeId)
   const repo = useRepoById(worktree?.repoId ?? null) ?? undefined
@@ -60,14 +56,12 @@ export function BrowserNewTabPage({
       repo={repo}
       servers={servers}
       onOpenUrl={onOpenUrl}
-      importProfileId={importProfileId}
     />
   ) : (
     <BrowserNewTabPageLayout
       linkedItems={NO_LINKED_ITEMS}
       servers={servers}
       onOpenUrl={onOpenUrl}
-      importProfileId={importProfileId}
     />
   )
 }
@@ -76,14 +70,12 @@ function BrowserNewTabWorktreePage({
   worktree,
   repo,
   servers,
-  onOpenUrl,
-  importProfileId
+  onOpenUrl
 }: {
   worktree: Worktree
   repo: Repo | undefined
   servers: BrowserNewTabServerContext
   onOpenUrl: (url: string) => void
-  importProfileId?: string | null
 }): React.JSX.Element {
   const linkedItems = useBrowserNewTabLinkedItems(worktree, repo)
   return (
@@ -92,7 +84,6 @@ function BrowserNewTabWorktreePage({
       linkedItems={linkedItems}
       servers={servers}
       onOpenUrl={onOpenUrl}
-      importProfileId={importProfileId}
     />
   )
 }
@@ -101,14 +92,12 @@ function BrowserNewTabPageLayout({
   workspaceName,
   linkedItems,
   servers: { servers, runtimeTarget, openInPlace },
-  onOpenUrl,
-  importProfileId
+  onOpenUrl
 }: {
   workspaceName?: string
   linkedItems: WorkspaceLinkedItemRow[]
   servers: BrowserNewTabServerContext
   onOpenUrl: (url: string) => void
-  importProfileId?: string | null
 }): React.JSX.Element {
   const t = useTranslate()
   const browserUrlHistory = useAppStore((s) => s.browserUrlHistory)
@@ -146,14 +135,6 @@ function BrowserNewTabPageLayout({
     )
   }
 
-  // empty:hidden drops the row (and its flex gap) once the hint is hidden.
-  const importRow =
-    importProfileId === undefined ? null : (
-      <div className="flex justify-center empty:hidden">
-        <BrowserImportHintButton profileId={importProfileId} />
-      </div>
-    )
-
   if (!hasWorkspaceRows && suggested.length === 0) {
     return (
       <BrowserNewTabScroller>
@@ -171,7 +152,6 @@ function BrowserNewTabPageLayout({
             )}
           </p>
         </div>
-        {importRow}
       </BrowserNewTabScroller>
     )
   }
@@ -215,7 +195,6 @@ function BrowserNewTabPageLayout({
           </BrowserNewTabTileGrid>
         </BrowserNewTabSection>
       ) : null}
-      {importRow}
     </BrowserNewTabScroller>
   )
 }

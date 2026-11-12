@@ -110,9 +110,6 @@ const BROWSER_COMMAND_NAMES = [
   'browserProfileList',
   'browserProfileCreate',
   'browserProfileDelete',
-  'browserProfileDetectBrowsers',
-  'browserProfileImportFromBrowser',
-  'browserProfileClearGoogleCookies',
   'browserProfileClearDefaultCookies',
   'browserTabClose'
 ] as const satisfies readonly (keyof RuntimeBrowserCommands)[]

@@ -77,15 +77,7 @@ export function createBrowserProfileListActions(
             undefined,
             { timeoutMs: 15_000, expectedEnvironmentPairingRevision: pairingRevision }
           )
-          // Server never observes client imports; overlay desktop-tracked import badges onto each environment’s jar.
-          const clientImportSources = await window.api.browser
-            .sessionClientRouteImportSources?.({ environmentId: runtimeEnvironmentId })
-            .catch(() => ({}))
-          const profiles = result.profiles.map((profile) =>
-            !profile.source && clientImportSources?.[profile.id]
-              ? { ...profile, source: clientImportSources[profile.id] }
-              : profile
-          )
+          const profiles = result.profiles
           if (isLatest()) {
             await landListing(hostId, profiles)
           }

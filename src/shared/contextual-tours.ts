@@ -136,15 +136,6 @@ export const CONTEXTUAL_TOURS = [
         targetSelector: '[data-contextual-tour-target="browser-annotation-control"]',
         requiredForStart: true,
         preferredPlacement: 'bottom'
-      },
-      {
-        id: 'browser-logins',
-        title: 'Stay logged in',
-        body: 'Bring your existing logins into Deca to stay signed in immediately.',
-        // Prefer visible Import; use overflow after the hint is dismissed.
-        targetSelector:
-          '[data-contextual-tour-target="browser-import-hint"], [data-contextual-tour-target="browser-import-cookies-control"]',
-        preferredPlacement: 'bottom'
       }
     ]
   },

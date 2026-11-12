@@ -240,8 +240,6 @@ export function BrowserPageToolbar({
           browserPageId={browserPageId}
           viewportPresetId={viewportPresetId}
           onDestroyWebview={() => destroyPersistentWebview(browserPageId)}
-          isActive={isActive}
-          isBlankTab={isBlankTab}
           pageActions={{
             onFind: onOpenFind,
             onHardReload: () => runReloadTrigger('hard-reload'),

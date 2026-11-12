@@ -12,7 +12,7 @@ import type {
   CookieJarCdpReadStore
 } from './storage/cookie-store-contracts'
 import { restoreEveryCookieIdentity } from './browser-cookie-identity-restore'
-import { normalizeCookiePartitionSite } from './sources/browser-cookie-source-partition'
+import { normalizeCookiePartitionSite } from './policy/cookie-partition-site'
 import type { CdpCookie } from './browser-cdp-cookie'
 
 function cdpSameSite(sameSite: Cookie['sameSite']): 'Strict' | 'Lax' | 'None' | undefined {

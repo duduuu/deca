@@ -182,53 +182,6 @@ export const SPEECH_MODEL_CATALOG: SpeechModelManifest[] = [
     sampleRate: 16000,
     // Decoded per chunk for now; live text arrives with the streaming engine path.
     streaming: false
-  },
-  {
-    id: 'openai-gpt-transcribe',
-    label: 'GPT Transcribe',
-    type: 'openai',
-    provider: 'openai',
-    language: 'multilingual',
-    dictationLanguages: DICTATION_LANGUAGES,
-    languages: DICTATION_LANGUAGES,
-    sampleRate: 16000,
-    streaming: false
-  },
-  {
-    id: 'openai-compatible',
-    label: 'OpenAI-compatible',
-    type: 'openai',
-    provider: 'openai-compatible',
-    language: 'multilingual',
-    dictationLanguages: DICTATION_LANGUAGES,
-    languages: DICTATION_LANGUAGES,
-    sampleRate: 16000,
-    streaming: false
-  },
-  {
-    id: 'openai-gpt-4o-mini-transcribe',
-    label: 'GPT-4o mini Transcribe',
-    type: 'openai',
-    provider: 'openai',
-    language: 'multilingual',
-    dictationLanguages: DICTATION_LANGUAGES,
-    languages: DICTATION_LANGUAGES,
-    sampleRate: 16000,
-    streaming: false,
-    // OpenAI shuts the gpt-4o transcribe models down on 2027-02-26.
-    replacedBy: 'openai-gpt-transcribe'
-  },
-  {
-    id: 'openai-gpt-4o-transcribe',
-    label: 'GPT-4o Transcribe',
-    type: 'openai',
-    provider: 'openai',
-    language: 'multilingual',
-    dictationLanguages: DICTATION_LANGUAGES,
-    languages: DICTATION_LANGUAGES,
-    sampleRate: 16000,
-    streaming: false,
-    replacedBy: 'openai-gpt-transcribe'
   }
 ]
 
@@ -240,6 +193,17 @@ export function isLocalSpeechModel(manifest: SpeechModelManifest): boolean {
   return manifest.provider === 'local'
 }
 
+// Cloud models earlier builds offered; a saved selection drops to no model.
+const REMOVED_CLOUD_SPEECH_MODEL_IDS: ReadonlySet<string> = new Set([
+  'openai-gpt-transcribe',
+  'openai-compatible',
+  'openai-gpt-4o-mini-transcribe',
+  'openai-gpt-4o-transcribe'
+])
+
 export function replaceRetiredSpeechModelId(id: string): string {
+  if (REMOVED_CLOUD_SPEECH_MODEL_IDS.has(id)) {
+    return ''
+  }
   return getCatalogModel(id)?.replacedBy ?? id
 }

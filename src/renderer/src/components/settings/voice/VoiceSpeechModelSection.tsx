@@ -7,13 +7,8 @@ import type {
 } from '../../../../../shared/speech-types'
 import { useTranslate } from '@/i18n/use-translate'
 import { cn } from '@/lib/class-names'
-import { SettingsSegmentedControl } from '../form-controls/SettingsFormControls'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
-import {
-  speechModelTab,
-  voiceSpeechModelRows,
-  type VoiceSpeechModelTab
-} from './voice-speech-model-rows'
+import { voiceSpeechModelRows } from './voice-speech-model-rows'
 import {
   SPEECH_MODEL_GRID_COLUMNS,
   SPEECH_MODEL_WIDE_ONLY,
@@ -33,10 +28,7 @@ type VoiceSpeechModelSectionProps = {
   setUpPending: boolean
   onSetUp: () => void
   onUpdateVoiceSettings: (updates: Partial<VoiceSettings>) => void
-  onOpenCloudSetup: (modelId: string) => void
   onRefreshModelStates: () => void
-  /** Provider rows (API keys, base URL) shown under the cloud models. */
-  cloudSettings: React.ReactNode
 }
 
 export function VoiceSpeechModelSection({
@@ -48,20 +40,14 @@ export function VoiceSpeechModelSection({
   setUpPending,
   onSetUp,
   onUpdateVoiceSettings,
-  onOpenCloudSetup,
-  onRefreshModelStates,
-  cloudSettings
+  onRefreshModelStates
 }: VoiceSpeechModelSectionProps): React.JSX.Element {
   const t = useTranslate()
   const selectedModel = catalog.find((m) => m.id === voiceSettings.sttModel)
-  const [chosenTab, setTab] = useState<VoiceSpeechModelTab | null>(null)
-  // While a model is recommended, open on the tab that shows it.
-  const tab =
-    chosenTab ?? (selectedModel && !setUpModelId ? speechModelTab(selectedModel) : 'local')
   const [pendingDeleteModelIds, setPendingDeleteModelIds] = useState<ReadonlySet<string>>(
     () => new Set()
   )
-  const rows = voiceSpeechModelRows(catalog, modelStates, tab, ratingLanguage)
+  const rows = voiceSpeechModelRows(catalog, modelStates, ratingLanguage)
 
   const setDeletePending = (modelId: string, pending: boolean): void =>
     setPendingDeleteModelIds((prev) => {
@@ -90,25 +76,7 @@ export function VoiceSpeechModelSection({
 
   const title = t('auto.components.settings.VoicePane.c5ea32143e', 'Speech model')
   return (
-    <SettingsGroup
-      title={title}
-      bodyClassName="px-0"
-      action={
-        <SettingsSegmentedControl
-          size="sm"
-          value={tab}
-          onChange={setTab}
-          ariaLabel={t('components.settings.voice.models.where', 'Where models run')}
-          options={[
-            {
-              value: 'local',
-              label: t('components.settings.voice.models.local', 'On this computer')
-            },
-            { value: 'cloud', label: t('components.settings.voice.models.cloud', 'Cloud') }
-          ]}
-        />
-      }
-    >
+    <SettingsGroup title={title} bodyClassName="px-0">
       <div className="@container">
         <div role="list" aria-label={title} className={SPEECH_MODEL_GRID_COLUMNS}>
           <div
@@ -121,7 +89,7 @@ export function VoiceSpeechModelSection({
               {t('components.settings.voice.models.columnQuality', 'Quality')}
             </span>
             <span className={cn('text-right', SPEECH_MODEL_WIDE_ONLY)}>
-              {tab === 'local' ? t('components.settings.voice.models.columnSize', 'Size') : null}
+              {t('components.settings.voice.models.columnSize', 'Size')}
             </span>
           </div>
           {rows.map((row) => (
@@ -138,13 +106,11 @@ export function VoiceSpeechModelSection({
                 cancelSpeechModelDownload(modelId, onRefreshModelStates)
               }
               onDelete={deleteModel}
-              onSetUpCloud={onOpenCloudSetup}
               onSetUp={onSetUp}
             />
           ))}
         </div>
       </div>
-      {tab === 'cloud' ? cloudSettings : null}
       <VoiceDictationLanguageSetting
         className="px-5"
         voiceSettings={voiceSettings}

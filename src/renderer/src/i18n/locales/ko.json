@@ -7293,25 +7293,6 @@
           "b3c7207c8f": "알림음",
           "38e3bbeb25": "사용자 정의 파일 선택"
         },
-        "OpenAiTranscriptionKeyDialog": {
-          "d246b2bdb3": "로컬 런타임 키는 가능한 경우 Electron 암호화 저장소를 사용하여 ~/.orca에 저장됩니다.",
-          "c3380e4ca5": "sk-...",
-          "2f797018f0": "API 키가 구성됨",
-          "07ed3e512e": "OpenAI 음성 모델이 선택된 경우에만 오디오가 OpenAI로 전송됩니다.",
-          "bce1b6d18a": "키 저장",
-          "be6c3f2eba": "키 지우기",
-          "bf1ff9c891": "OpenAI 전사",
-          "c3dfb3840e": "API 키"
-        },
-        "OpenAiTranscriptionSettingsRow": {
-          "85c589cd61": "API 키 추가",
-          "ae2df8f511": "OpenAI API 키 연결 해제",
-          "a622bc3b37": "키 교체",
-          "3b0ab3fc0b": "연결됨",
-          "893790e13b": "클라우드 음성-텍스트 모델을 선택하기 전에 OpenAI API 키를 추가하세요.",
-          "b59b9b2b51": "클라우드 음성-텍스트 모델용으로 구성된 API 키입니다.",
-          "ff28e99b54": "OpenAI 전사"
-        },
         "OpenInMenuSetting": {
           "03b00b1f64": "맞춤형 앱",
           "c1d817e027": "추가됨",
@@ -8291,10 +8272,6 @@
         "VoicePane": {
           "68de13f72c": "모델을 삭제하지 못했습니다.",
           "cfde55c7b0": "모델을 다운로드하지 못했습니다.",
-          "62d2a84d31": "OpenAI API 키를 지우지 못했습니다.",
-          "37aba8bb63": "OpenAI API 키가 삭제되었습니다.",
-          "8572bbb537": "OpenAI API 키를 저장하지 못했습니다.",
-          "506df81ba6": "OpenAI API 키가 저장되었습니다.",
           "91980ce124": "{{value0}}MB",
           "61a16c8141": "추출 중...",
           "174da92062": "길게 누르기",
@@ -8304,7 +8281,6 @@
           "1eac933202": "macOS 개인 정보 보호 및 보안을 열었습니다. 액세스 권한을 부여한 후 받아쓰기를 다시 활성화하세요.",
           "cd9fe37556": "마이크 권한이 부여되었습니다.",
           "6fa734ed95": "{{value0}} 삭제",
-          "openAiKeyName": "OpenAI 트랜스크립션 키",
           "dictationModeAuto": "자동",
           "speechGpuLabel": "GPU 사용",
           "c5ea32143e": "음성 모델",
@@ -10037,15 +10013,12 @@
         "voice": {
           "pane": {
             "search": {
-              "f6e0dfa61c": "클라우드",
-              "2d206de105": "API 키",
-              "04c25a6fb0": "openai",
               "b9dee49cd7": "다운로드",
               "10d45a9fce": "stt",
               "3d8b853963": "음성",
               "080202facb": "모델",
               "7640ed9848": "음성",
-              "56defcd6c3": "받아쓰기에 사용할 로컬 또는 클라우드 음성-텍스트 모델을 선택하세요.",
+              "56defcd6c3": "받아쓰기에 사용할 기기 내 음성 인식 모델을 선택합니다.",
               "931b1a9e53": "누르고 말하기",
               "064a9bd94a": "길게 누르기",
               "6fa48bcd41": "토글",
@@ -10054,8 +10027,6 @@
               "748b33e531": "받아쓰기를 켜고 끄거나, 키를 누르는 동안 받아쓰는 방식입니다.",
               "e360027a65": "마이크",
               "698376a38d": "음성 받아쓰기 기능을 위한 마스터 토글입니다.",
-              "322d457a0d": "전사",
-              "dcc7846641": "클라우드 음성-텍스트 모델에 사용되는 OpenAI API 키를 구성합니다.",
               "microphoneTitle": "마이크로폰",
               "microphoneDescription": "음성 받아쓰기에서 사용할 입력 장치를 선택하세요.",
               "micInput": "입력",
@@ -10074,7 +10045,6 @@
               "vocabularyKeyword": "사전",
               "7f5a2416a6": "음성 모델",
               "9d83747eae": "받아쓰기 언어",
-              "ffaa3efe7c": "OpenAI 전사",
               "c7a7eaa0da": "군말 제거",
               "d0c230c061": "받아쓰기 모드",
               "silenceStopTitle": "무음 시 중지",
@@ -15541,7 +15511,6 @@
           "listening": "듣는 중…",
           "cancel": "취소",
           "finish": "완료",
-          "oneMinuteLeft": "1분 남았습니다.",
           "sendsWhenLanded": "텍스트가 입력되면 전송합니다",
           "entersWhenLanded": "텍스트가 입력되면 Enter를 누릅니다"
         },
@@ -18976,9 +18945,6 @@
           "alwaysUses": "말하는 언어입니다. {{model}}은(는) 항상 {{language}}를 사용합니다.",
           "detectsItself": "말하는 언어입니다. {{model}}은(는) 언어를 스스로 감지합니다."
         },
-        "modelUnload": {
-          "cloud": "클라우드 모델은 제공업체 서버에서 실행되므로 여기에는 아무것도 로드되지 않습니다."
-        },
         "fillerWords": {
           "0134406785": "군말 제거",
           "short": "“음”, “어”를 지웁니다."
@@ -19010,16 +18976,10 @@
         },
         "models": {
           "retired": "더 이상 제공되지 않습니다. 삭제하면 공간을 확보할 수 있습니다.",
-          "sendsToOpenAi": "오디오를 OpenAI로 보냅니다.",
           "delete": "삭제",
           "inUse": "사용 중",
           "use": "사용",
-          "setUpCloud": "설정",
           "download": "다운로드",
-          "cloud": "클라우드",
-          "where": "모델 실행 위치",
-          "local": "이 컴퓨터",
-          "sendsToCompatible": "오디오를 설정한 서비스로 보냅니다.",
           "downloadingProgress": "다운로드 중, {{done}} / {{total}} MB({{percent}}%)",
           "needsUpdate": "더 빠른 엔진을 위해 한 번 다운로드해야 합니다.",
           "recommended": "추천",

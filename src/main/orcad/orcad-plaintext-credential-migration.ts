@@ -13,9 +13,7 @@ import {
 } from '../linear/linear-credential-paths'
 import { getTokenDir as getJiraTokenDir } from '../jira/site-credential-store'
 import { getSecretPath as getBitbucketSecretPath } from '../bitbucket/credential-store'
-import { getOpenAiKeyPath } from '../speech/openai-api-key-store'
 import { openCodeGoApiKeyEnvelopeFile } from '../opencode/opencode-go-api-key-store'
-import { openAiCompatibleSpeechProviderEnvelopeFile } from '../speech/openai-compatible-speech-provider-store'
 
 type PlaintextCredentialTarget = {
   path: string
@@ -47,9 +45,7 @@ function listPlaintextCredentialTargets(): PlaintextCredentialTarget[] {
     ...encFilesIn(getWorkspaceTokenDir()).map((path) => ({ path, raw: true })),
     ...encFilesIn(getJiraTokenDir()).map((path) => ({ path, raw: true })),
     { path: getBitbucketSecretPath(), raw: true },
-    { path: getOpenAiKeyPath(), raw: true },
-    openCodeGoApiKeyEnvelopeFile(),
-    openAiCompatibleSpeechProviderEnvelopeFile()
+    openCodeGoApiKeyEnvelopeFile()
   ]
 }
 
@@ -75,12 +71,10 @@ function sealTarget(store: SecretStore, target: PlaintextCredentialTarget): bool
     const envelope = `${target.envelopePrefix}encrypted:${sealed.toString('base64')}`
     return writeSecureFile(target.path, envelope, { durable: true, shouldPublish: unchanged })
   }
-  // Old speech JSON may already wrap a sealed key.
   if (
     !target.raw ||
     original.length === 0 ||
-    classifyUnenvelopedCredential(original) !== 'plaintext' ||
-    (target.path === getOpenAiKeyPath() && text.trimStart().startsWith('{'))
+    classifyUnenvelopedCredential(original) !== 'plaintext'
   ) {
     return false
   }

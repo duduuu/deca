@@ -5,8 +5,6 @@ import {
   type SpeechModelQuality
 } from '../../../../../shared/speech-model-quality'
 
-export type VoiceSpeechModelTab = 'local' | 'cloud'
-
 export type VoiceSpeechModelRowData = {
   manifest: SpeechModelManifest
   state: SpeechModelState | undefined
@@ -19,28 +17,20 @@ export function isSpeechModelDownloading(state: SpeechModelState | undefined): b
   return state?.status === 'downloading' || state?.status === 'extracting'
 }
 
-export function speechModelTab(manifest: SpeechModelManifest): VoiceSpeechModelTab {
-  return manifest.provider === 'local' ? 'local' : 'cloud'
-}
-
-/** A tab's rows: models for the language first, then ones that can't handle it, then retired downloads. */
+/** Rows: models for the language first, then ones that can't handle it, then retired downloads. */
 export function voiceSpeechModelRows(
   catalog: readonly SpeechModelManifest[],
   modelStates: readonly SpeechModelState[],
-  tab: VoiceSpeechModelTab,
   language: string
 ): VoiceSpeechModelRowData[] {
   const supported: VoiceSpeechModelRowData[] = []
   const unsupported: VoiceSpeechModelRowData[] = []
   const retired: VoiceSpeechModelRowData[] = []
   for (const manifest of catalog) {
-    if (speechModelTab(manifest) !== tab) {
-      continue
-    }
     const state = modelStates.find((s) => s.id === manifest.id)
     if (!isOfferedSpeechModel(manifest)) {
       // Retired models stay listed only while their files are on disk.
-      if (manifest.provider === 'local' && (state?.status === 'ready' || state?.needsUpdate)) {
+      if (state?.status === 'ready' || state?.needsUpdate) {
         retired.push({ manifest, state, quality: null })
       }
       continue

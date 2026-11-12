@@ -75,17 +75,7 @@ const catalog: SpeechModelManifest[] = [
     [...NEMOTRON_DICTATION_LANGUAGES],
     rates({ en: 5.3, ko: 11.8 })
   ),
-  local('whisper-tiny', 'Whisper Tiny', 45_981_088, ['en', 'ko'], rates({ en: 13, ko: 24.9 })),
-  {
-    id: 'openai-gpt-transcribe',
-    label: 'GPT Transcribe',
-    type: 'openai',
-    provider: 'openai',
-    language: 'multilingual',
-    languages: ['en', 'ko'],
-    sampleRate: 16000,
-    streaming: false
-  }
+  local('whisper-tiny', 'Whisper Tiny', 45_981_088, ['en', 'ko'], rates({ en: 13, ko: 24.9 }))
 ]
 
 function render(
@@ -105,9 +95,7 @@ function render(
       setUpPending={false}
       onSetUp={() => {}}
       onUpdateVoiceSettings={() => {}}
-      onOpenCloudSetup={() => {}}
       onRefreshModelStates={() => {}}
-      cloudSettings={null}
     />
   )
 }

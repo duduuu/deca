@@ -4,7 +4,6 @@ import {
   DictationHandle,
   DictationSetup,
   DictationStart,
-  OpenAiSpeechKeySet,
   SpeechModelAction,
   SpeechSetupRead
 } from '../../../../../shared/rpc-contract/speech-params'
@@ -68,23 +67,5 @@ export const SPEECH_METHODS = [
     params: DictationHandle,
     handler: async (params, { runtime, clientId }) =>
       runtime.cancelMobileDictation({ ...params, clientId })
-  }),
-  defineMethod({
-    name: 'speech.openAiKey.status',
-    permission: 'workspace',
-    params: null,
-    handler: async (_params, { runtime }) => runtime.getOpenAiSpeechKeyStatus()
-  }),
-  defineMethod({
-    name: 'speech.openAiKey.set',
-    permission: 'settings-write',
-    params: OpenAiSpeechKeySet,
-    handler: async (params, { runtime }) => runtime.setOpenAiSpeechKey(params.apiKey)
-  }),
-  defineMethod({
-    name: 'speech.openAiKey.clear',
-    permission: 'settings-write',
-    params: null,
-    handler: async (_params, { runtime }) => runtime.clearOpenAiSpeechKey()
   })
 ]

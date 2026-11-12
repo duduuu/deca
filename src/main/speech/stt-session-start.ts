@@ -2,8 +2,6 @@ import { SPEECH_MODEL_NEEDS_UPDATE_ERROR } from '../../shared/speech-model-retir
 import { engineDictationLanguage } from '../../shared/dictation-language'
 import type { SpeechModelManifest } from '../../shared/speech-types'
 import { getCatalogModel } from './model-catalog'
-import { OpenAiTranscriptionSession } from './openai-transcription-client'
-import { resolveCloudTranscriptionTarget } from './cloud-transcription-target'
 import type { SttEventSink } from './stt-service'
 import {
   MAX_STT_SESSIONS,
@@ -56,14 +54,14 @@ export async function startSttDictation(
   if (!manifest) {
     throw new Error(`Unknown model: ${modelId}`)
   }
-  const config: SttRecognizerConfig | null =
-    manifest.provider !== 'local'
-      ? null
-      : { modelId, language: engineDictationLanguage(manifest, language) }
+  const config: SttRecognizerConfig = {
+    modelId,
+    language: engineDictationLanguage(manifest, language)
+  }
   if (state.sessions.size >= MAX_STT_SESSIONS) {
     throw new Error('dictation_session_limit')
   }
-  if (config && conflictingSessions(state, config).some((other) => other.phase !== 'stopping')) {
+  if (conflictingSessions(state, config).some((other) => other.phase !== 'stopping')) {
     throw new Error('dictation_model_busy')
   }
 
@@ -75,34 +73,22 @@ export async function startSttDictation(
     modelId,
     vocabulary,
     engine: null,
-    cloud: null,
     phase: 'starting',
     stopPromise: null
   }
   state.sessions.set(owner, session)
   try {
-    if (config) {
-      // Audio fed while the model loads queues in the process behind init.
-      const engine = await acquireSttEngine(state, session, config, manifest)
-      await engine.ready
-      if (state.engine !== engine) {
-        throw new Error(STT_WORKER_EXITED_ERROR)
-      }
-    } else {
-      await requireModelReady(state, modelId)
-      // A cloud dictation needs no recognizer; free one nobody else uses.
-      await teardownIdleSttEngine(state)
-      session.cloud = new OpenAiTranscriptionSession(
-        () => resolveCloudTranscriptionTarget(modelId),
-        engineDictationLanguage(manifest, language)
-      )
+    // Audio fed while the model loads queues in the process behind init.
+    const engine = await acquireSttEngine(state, session, config, manifest)
+    await engine.ready
+    if (state.engine !== engine) {
+      throw new Error(STT_WORKER_EXITED_ERROR)
     }
     throwIfCanceled(state, session)
     session.phase = 'active'
     state.prewarmFailedModelId = null
     sink({ type: 'ready' })
   } catch (error) {
-    session.cloud?.cancel()
     releaseSttSession(state, session)
     throw error
   }

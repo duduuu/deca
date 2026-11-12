@@ -18,7 +18,7 @@ export function findSpeechModelUpdateTarget(
   states: readonly SpeechModelState[]
 ): SpeechModelUpdateTarget | null {
   const model = catalog.find((m) => m.id === voice.sttModel)
-  if (!voice.enabled || !model || model.provider !== 'local') {
+  if (!voice.enabled || !model) {
     return null
   }
   const stateOf = (id: string): SpeechModelState | undefined => states.find((s) => s.id === id)

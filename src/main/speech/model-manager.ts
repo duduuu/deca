@@ -5,7 +5,6 @@ import type { SpeechModelState, SpeechModelStatus } from '../../shared/speech-ty
 import { SPEECH_MODEL_CATALOG, getCatalogModel, isLocalSpeechModel } from './model-catalog'
 import type { SpeechModelDownload } from './model-download-catalog'
 import { downloadSileroVadInBackground, speechModelDownload } from './speech-vad-model'
-import { hasCloudSpeechCredentials } from './cloud-transcription-target'
 import {
   getSpeechModelCacheDirCandidates,
   migrateSpeechModelCacheIfNeeded,
@@ -33,11 +32,7 @@ export class ModelManager extends SpeechModelDownloadTransport {
   private modelStates = new Map<string, SpeechModelState>()
   private progressCallbacks = new Set<ProgressCallback>()
 
-  constructor(
-    customModelsDir: string | undefined,
-    openRequest: OpenSpeechDownloadRequest,
-    private readonly hasCloudCredentials = hasCloudSpeechCredentials
-  ) {
+  constructor(customModelsDir: string | undefined, openRequest: OpenSpeechDownloadRequest) {
     super(openRequest)
     const requestedModelsDir =
       customModelsDir || join(getAppEnvironment().getPath('userData'), 'speech-models')
@@ -101,11 +96,6 @@ export class ModelManager extends SpeechModelDownloadTransport {
       return { id: modelId, status: 'error', error: 'Unknown model' }
     }
 
-    if (manifest.provider !== 'local') {
-      const ready = this.hasCloudCredentials(manifest.provider)
-      return { id: modelId, status: ready ? 'ready' : 'not-downloaded' }
-    }
-
     const modelDir = this.getModelDir(modelId)
     if (existsSync(modelDir) && hasSpeechModelFiles(manifest.downloadFiles, modelDir)) {
       const state: SpeechModelState = { id: modelId, status: 'ready' }
@@ -146,9 +136,6 @@ export class ModelManager extends SpeechModelDownloadTransport {
     const manifest = speechModelDownload(modelId)
     if (!manifest) {
       throw new Error(`Unknown model: ${modelId}`)
-    }
-    if (manifest.provider !== 'local') {
-      throw new Error(`Model does not support downloads: ${modelId}`)
     }
     if (!manifest.downloadFiles?.length || !manifest.sizeBytes) {
       throw new Error(`Model download metadata missing: ${modelId}`)

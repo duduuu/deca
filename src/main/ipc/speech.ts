@@ -10,20 +10,7 @@ import { dictationTermsFor } from '../../shared/dictation-dictionary'
 import { SPEECH_MODEL_CATALOG } from '../speech/model-catalog'
 import { deleteLocalSpeechModel } from '../speech/speech-model-deletion'
 import { getSpeechModelManager, getSpeechSttService } from '../speech/speech-runtime-service'
-import {
-  clearOpenAiSpeechApiKey,
-  getOpenAiSpeechApiKeyProtection,
-  hasOpenAiSpeechApiKey
-} from '../speech/openai-api-key-store'
-import {
-  saveVerifiedOpenAiCompatibleSpeechProvider,
-  saveVerifiedOpenAiSpeechApiKey
-} from '../speech/openai-api-key-verification'
-import {
-  clearOpenAiCompatibleSpeechProvider,
-  summarizeOpenAiCompatibleSpeechProvider
-} from '../speech/openai-compatible-speech-provider-store'
-import type { DictationContext, OpenAiCompatibleSpeechProvider } from '../../shared/speech-types'
+import type { DictationContext } from '../../shared/speech-types'
 import type { Store } from '../persistence/loading-store/store'
 
 export function registerSpeechHandlers(store: Store): void {
@@ -33,39 +20,6 @@ export function registerSpeechHandlers(store: Store): void {
 
   ipcMain.handle('speech:getModelStates', async () => {
     return getSpeechModelManager(store).getModelStates()
-  })
-
-  ipcMain.handle('speech:getOpenAiApiKeyStatus', async () => {
-    return { configured: hasOpenAiSpeechApiKey(), protection: getOpenAiSpeechApiKeyProtection() }
-  })
-
-  ipcMain.handle('speech:saveOpenAiApiKey', async (_event, apiKey: string) => {
-    await saveVerifiedOpenAiSpeechApiKey(apiKey)
-    return { configured: true, protection: getOpenAiSpeechApiKeyProtection() }
-  })
-
-  ipcMain.handle('speech:clearOpenAiApiKey', async () => {
-    clearOpenAiSpeechApiKey()
-    return { configured: false, protection: null }
-  })
-
-  ipcMain.handle('speech:getOpenAiCompatibleProvider', () => {
-    try {
-      return summarizeOpenAiCompatibleSpeechProvider()
-    } catch {
-      return null
-    }
-  })
-
-  ipcMain.handle(
-    'speech:saveOpenAiCompatibleProvider',
-    async (_event, input: OpenAiCompatibleSpeechProvider) => {
-      await saveVerifiedOpenAiCompatibleSpeechProvider(input)
-    }
-  )
-
-  ipcMain.handle('speech:clearOpenAiCompatibleProvider', () => {
-    clearOpenAiCompatibleSpeechProvider()
   })
 
   ipcMain.handle('speech:downloadModel', async (event, modelId: string) => {

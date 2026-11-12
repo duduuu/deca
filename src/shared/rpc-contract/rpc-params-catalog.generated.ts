@@ -619,7 +619,6 @@ import {
   DictationHandle,
   DictationSetup,
   DictationStart,
-  OpenAiSpeechKeySet,
   SpeechModelAction,
   SpeechSetupRead
 } from './speech-params'
@@ -1508,9 +1507,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'speech.models.delete': SpeechModelAction,
   'speech.models.download': SpeechModelAction,
   'speech.models.list': SpeechSetupRead,
-  'speech.openAiKey.clear': null,
-  'speech.openAiKey.set': OpenAiSpeechKeySet,
-  'speech.openAiKey.status': null,
   'stats.summary': null,
   'status.get': StatusGetParams,
   'terminal.ackOutput': TerminalAckOutput,

@@ -10,7 +10,6 @@ import { useAppStore } from '@/store/index'
 import { ArrowUp, Check, CornerDownLeft, Loader2 } from 'lucide-react'
 import { isDictationPillShown } from '../../../../shared/dictation-session-machine'
 import { dictationSeparators } from '../../../../shared/dictation-transcript-spacing'
-import { CLOUD_DICTATION_MAX_SECONDS } from '../../../../shared/rpc-contract/speech-params'
 import { dispatchDictationControl } from './dictation-control-events'
 import { DictationGrapes } from './DictationGrapes'
 import { useDictationMeter } from './dictation-meter-store'
@@ -18,15 +17,12 @@ import type { DictationPillAnchor } from './dictation-pill-anchor'
 import { DictationPillCloseButton, DictationPillFailure } from './DictationPillFailure'
 import { DictationPillShell } from './DictationPillShell'
 import { DictationSetupPill } from './DictationSetupPill'
-import { loadSpeechCatalog } from './speech-model-update-check'
 import type { SpeechModelUpdateTarget } from './speech-model-update-target'
 import type { DictationFailureKind } from './dictation-toasts'
 import type { DictationQueuedSendKind } from './use-dictation-queued-send'
 
 // The finish button turns into a spinner only when finishing is slow enough to notice.
 const FINISH_SPINNER_DELAY_MS = 200
-// The timer warns a minute before cloud dictation stops.
-const CLOUD_LIMIT_WARNING_SECONDS = CLOUD_DICTATION_MAX_SECONDS - 60
 
 type DictationIndicatorProps = {
   /** The mic is recording (and buffering) while the speech engine is still starting. */
@@ -81,24 +77,6 @@ function useElapsedSeconds(running: boolean): number {
     })
   }, [running])
   return seconds
-}
-
-// The paired web client has no catalog; its host caps itself.
-function useIsCloudModel(): boolean {
-  const modelId = useAppStore((state) => state.settings?.voice?.sttModel)
-  const [cloud, setCloud] = useState(false)
-  useEffect(() => {
-    let current = true
-    void loadSpeechCatalog().then((catalog) => {
-      if (current) {
-        setCloud(catalog.some((model) => model.id === modelId && model.provider !== 'local'))
-      }
-    })
-    return () => {
-      current = false
-    }
-  }, [modelId])
-  return cloud
 }
 
 function useDelayedFlag(on: boolean, delayMs: number): boolean {
@@ -156,14 +134,12 @@ function DictationPill({ captureLive, anchor, failure, queued }: DictationIndica
   const liveText = useAppStore((state) => state.liveText)
   const isHoldMode = useAppStore((state) => state.settings?.voice?.dictationMode === 'hold')
   const shortcut = useShortcutKeyDetails('voice.dictation')
-  const cloudModel = useIsCloudModel()
 
   const finishing = dictationState === 'stopping'
   const recording = dictationState === 'listening' || (dictationState === 'starting' && captureLive)
   // Counts recorded time, so it waits for the mic to open.
   const seconds = useElapsedSeconds(recording)
   const showSpinner = useDelayedFlag(finishing, FINISH_SPINNER_DELAY_MS)
-  const nearCloudLimit = cloudModel && seconds >= CLOUD_LIMIT_WARNING_SECONDS
   const failedKind = dictationState === 'error' ? failure : null
   const { committed, speechPending } = liveText
   const tentative = liveText.tentative.trim()
@@ -182,9 +158,7 @@ function DictationPill({ captureLive, anchor, failure, queued }: DictationIndica
   const status = finishing
     ? t('auto.components.dictation.DictationIndicator.finishing', 'Finishing…')
     : t('auto.components.dictation.DictationIndicator.listening', 'Listening…')
-  const announced = nearCloudLimit
-    ? `${status} ${t('auto.components.dictation.DictationIndicator.oneMinuteLeft', 'One minute left.')}`
-    : (queuedStatus ?? status)
+  const announced = queuedStatus ?? status
   const cancelLabel = t('auto.components.dictation.DictationIndicator.cancel', 'Cancel')
   const finishLabel = t('auto.components.dictation.DictationIndicator.finish', 'Finish')
 
@@ -232,10 +206,7 @@ function DictationPill({ captureLive, anchor, failure, queued }: DictationIndica
           )}
           <span
             aria-hidden
-            className={cn(
-              'w-9 shrink-0 text-right text-xs tabular-nums text-muted-foreground',
-              nearCloudLimit && 'text-status-warning'
-            )}
+            className="w-9 shrink-0 text-right text-xs tabular-nums text-muted-foreground"
           >
             {formatElapsed(seconds)}
           </span>

@@ -467,7 +467,6 @@
 1 src/main/server/serve-pairing-output.ts
 2 src/main/speech/model-cache-path.ts
 7 src/main/speech/model-manager.ts
-10 src/main/speech/openai-api-key-store.ts
 1 src/main/speech/speech-model-download-cleanup.ts
 1 src/main/speech/speech-model-download-transport.ts
 1 src/main/speech/speech-model-files.ts

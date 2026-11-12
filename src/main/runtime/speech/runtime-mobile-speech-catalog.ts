@@ -20,18 +20,6 @@ import {
 } from '../../speech/speech-model-deletion'
 import type { RuntimeStore } from '../construction/runtime-store-contract'
 import { hostDictationTerms } from './runtime-dictation-terms'
-import {
-  clearOpenAiSpeechApiKey,
-  getOpenAiSpeechApiKeyProtection,
-  hasOpenAiSpeechApiKey
-} from '../../speech/openai-api-key-store'
-import { saveVerifiedOpenAiSpeechApiKey } from '../../speech/openai-api-key-verification'
-import type { SecretAtRestProtection } from '../../../shared/secret-at-rest-protection'
-
-export type OpenAiSpeechKeyStatus = {
-  configured: boolean
-  protection: SecretAtRestProtection | null
-}
 
 export class RuntimeMobileSpeechCatalog {
   constructor(private readonly getStore: () => RuntimeStore | null) {}
@@ -44,20 +32,14 @@ export class RuntimeMobileSpeechCatalog {
     const stateById = new Map(states.map((state) => [state.id, state]))
     // Omit unsupported status variants; older phones could treat them as pickable models.
     const runnable = SPEECH_MODEL_CATALOG.filter(
-      (manifest) =>
-        isOfferedSpeechModel(manifest) &&
-        (!isLocalSpeechModel(manifest) || hasLocalSpeechRecognizer()) &&
-        // Phones offer an unready cloud row as "add an OpenAI key", which can't set this one up.
-        (manifest.provider !== 'openai-compatible' ||
-          stateById.get(manifest.id)?.status === 'ready')
+      (manifest) => isOfferedSpeechModel(manifest) && hasLocalSpeechRecognizer()
     )
     const models: RuntimeSpeechModelSummary[] = runnable.map((manifest) => {
       const state = stateById.get(manifest.id)
       return {
         id: manifest.id,
         label: manifest.label,
-        // Older phones know only these two; both cloud providers transcribe on this host.
-        provider: isLocalSpeechModel(manifest) ? 'local' : 'openai',
+        provider: 'local',
         sizeBytes: manifest.sizeBytes ?? null,
         recommended: manifest.recommended === true,
         status: state?.status ?? 'not-downloaded',
@@ -141,20 +123,6 @@ export class RuntimeMobileSpeechCatalog {
   }
 
   /** Set cloud dictation keys over RPC for headless hosts without Settings; seal with the transcribing host's secret store. */
-  openAiKeyStatus(): OpenAiSpeechKeyStatus {
-    return { configured: hasOpenAiSpeechApiKey(), protection: getOpenAiSpeechApiKeyProtection() }
-  }
-
-  async setOpenAiKey(apiKey: string): Promise<OpenAiSpeechKeyStatus> {
-    await saveVerifiedOpenAiSpeechApiKey(apiKey)
-    return this.openAiKeyStatus()
-  }
-
-  clearOpenAiKey(): OpenAiSpeechKeyStatus {
-    clearOpenAiSpeechApiKey()
-    return this.openAiKeyStatus()
-  }
-
   private requireStore(): RuntimeStore {
     const store = this.getStore()
     if (!store) {

@@ -106,7 +106,6 @@ export function getDefaultVoiceSettings(): VoiceSettings {
     dictationHoldToRecord: true,
     removeFillerWords: true,
     terminalConfirmBeforeInsert: false,
-    openAiApiKeyConfigured: false,
     microphoneDeviceId: null,
     microphoneDeviceLabel: null,
     unloadModelAfterMinutes: DEFAULT_UNLOAD_MODEL_AFTER_MINUTES

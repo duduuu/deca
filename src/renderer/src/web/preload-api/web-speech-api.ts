@@ -16,7 +16,7 @@ import { createNonSecureContextUuid } from '../../../../shared/non-secure-contex
 import { errorMessage } from '../../../../shared/error-message'
 import { callRuntimeResult } from './web-runtime-calls'
 import { withTimeout } from '../../../../shared/promise-timeout-fallback'
-import { pairedDictationFinishTimeoutMs } from '../../../../shared/dictation-finish-deadlines'
+import { PAIRED_DICTATION_FINISH_TIMEOUT_MS } from '../../../../shared/dictation-finish-deadlines'
 
 const MAX_CHUNK_SAMPLES = MAX_DICTATION_AUDIO_CHUNK_BYTES / PCM_BYTES_PER_SAMPLE
 // A slow link can leave a backlog of chunks behind Stop; past this, keep the text so far instead.
@@ -27,7 +27,6 @@ type HostDictation = {
   dictationId: string
   seq: number
   sampleRate: number
-  sentAudioSeconds: number
   pending: Float32Array[]
   sending: Promise<void> | null
   failed: boolean
@@ -118,7 +117,6 @@ export function createWebSpeechApi(): Pick<
     while (dictation.pending.length > 0 && !dictation.failed) {
       try {
         const audio = takePendingAudio(dictation)
-        dictation.sentAudioSeconds += audio.length / dictation.sampleRate
         const reply = await callRuntimeResult<{
           text?: string
           audioLimitReached?: boolean
@@ -156,7 +154,6 @@ export function createWebSpeechApi(): Pick<
         dictationId: `web-${createNonSecureContextUuid()}`,
         seq: 0,
         sampleRate: 0,
-        sentAudioSeconds: 0,
         pending: [],
         sending: null,
         failed: false,
@@ -223,7 +220,7 @@ export function createWebSpeechApi(): Pick<
         const { text } = await callRuntimeResult<{ text: string }>(
           'speech.dictation.finish',
           { dictationId: dictation.dictationId },
-          pairedDictationFinishTimeoutMs(dictation.sentAudioSeconds)
+          PAIRED_DICTATION_FINISH_TIMEOUT_MS
         )
         if (text) {
           emit(finalListeners, { sessionId, text })

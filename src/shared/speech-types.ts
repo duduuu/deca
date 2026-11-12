@@ -1,12 +1,7 @@
 import type { DictationTerm } from './dictation-dictionary'
-export type SpeechModelType =
-  | 'transducer'
-  | 'paraformer'
-  | 'whisper'
-  | 'senseVoice'
-  | 'nemo-ctc'
-  | 'openai'
-export type SpeechModelProvider = 'local' | 'openai' | 'openai-compatible'
+export type SpeechModelType = 'transducer' | 'paraformer' | 'whisper' | 'senseVoice' | 'nemo-ctc'
+// Deca transcribes on-device only; audio never leaves the computer.
+export type SpeechModelProvider = 'local'
 
 export type SpeechModelDownloadFile = {
   name: string
@@ -37,7 +32,7 @@ export type SpeechModelManifest = {
   languages: readonly string[]
   /** Measured error rates; a supported language missing here has not been measured. */
   errorRates?: readonly SpeechModelErrorRate[]
-  /** Licence of the downloaded weights; absent for cloud models. */
+  /** Licence of the downloaded weights. */
   licence?: string
   sizeBytes?: number
   downloadFiles?: SpeechModelDownloadFile[]
@@ -53,20 +48,6 @@ export type SpeechModelManifest = {
   replacedBy?: string
   /** Codes the engine accepts (others crash or fail to load it); absent when it ignores the setting. */
   dictationLanguages?: readonly string[]
-}
-
-export type OpenAiCompatibleSpeechProvider = {
-  baseUrl: string
-  model: string
-  /** Empty for servers that take no key. */
-  apiKey: string
-}
-
-export type OpenAiCompatibleSpeechProviderSummary = Omit<
-  OpenAiCompatibleSpeechProvider,
-  'apiKey'
-> & {
-  hasApiKey: boolean
 }
 
 export type SpeechModelStatus = 'not-downloaded' | 'downloading' | 'extracting' | 'ready' | 'error'
@@ -123,7 +104,6 @@ export type VoiceSettings = {
   /** Drops "um", "uh" and their equivalents in the dictation language before text is inserted. */
   removeFillerWords: boolean
   terminalConfirmBeforeInsert: boolean
-  openAiApiKeyConfigured: boolean
   /** null = system default input device */
   microphoneDeviceId: string | null
   /** Cached label for display when the preferred device is unplugged */

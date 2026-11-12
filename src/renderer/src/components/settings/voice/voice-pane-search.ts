@@ -1,32 +1,6 @@
-import type { SettingsSearchEntry } from '../search/settings-search'
 import { translate } from '@/i18n/i18n'
 import { translateSearchKeyword } from '../search/settings-search-keywords'
 import { createLocalizedCatalog } from '@/i18n/localized-catalog'
-
-export const getOpenaiTranscriptionSearchEntry = createLocalizedCatalog(
-  (): SettingsSearchEntry => ({
-    title: translate(
-      'auto.components.settings.voice.pane.search.ffaa3efe7c',
-      'OpenAI transcription'
-    ),
-    description: translate(
-      'auto.components.settings.voice.pane.search.dcc7846641',
-      'Configure the OpenAI API key used for cloud speech-to-text models.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.7640ed9848', 'voice'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.3d8b853963', 'speech'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.10d45a9fce', 'stt'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.04c25a6fb0', 'openai'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.2d206de105', 'api key'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.f6e0dfa61c', 'cloud'),
-      ...translateSearchKeyword(
-        'auto.components.settings.voice.pane.search.322d457a0d',
-        'transcription'
-      )
-    ]
-  })
-)
 
 export const getVoicePaneSearchEntries = createLocalizedCatalog(() => [
   {
@@ -232,25 +206,18 @@ export const getVoicePaneSearchEntries = createLocalizedCatalog(() => [
       )
     ]
   },
-  getOpenaiTranscriptionSearchEntry(),
   {
     title: translate('auto.components.settings.voice.pane.search.7f5a2416a6', 'Speech model'),
     description: translate(
       'auto.components.settings.voice.pane.search.56defcd6c3',
-      'Select a local or cloud speech-to-text model to use for dictation.'
+      'Select an on-device speech-to-text model to use for dictation.'
     ),
     keywords: [
       ...translateSearchKeyword('auto.components.settings.voice.pane.search.7640ed9848', 'voice'),
       ...translateSearchKeyword('auto.components.settings.voice.pane.search.080202facb', 'model'),
       ...translateSearchKeyword('auto.components.settings.voice.pane.search.3d8b853963', 'speech'),
       ...translateSearchKeyword('auto.components.settings.voice.pane.search.10d45a9fce', 'stt'),
-      ...translateSearchKeyword(
-        'auto.components.settings.voice.pane.search.b9dee49cd7',
-        'download'
-      ),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.04c25a6fb0', 'openai'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.2d206de105', 'api key'),
-      ...translateSearchKeyword('auto.components.settings.voice.pane.search.f6e0dfa61c', 'cloud')
+      ...translateSearchKeyword('auto.components.settings.voice.pane.search.b9dee49cd7', 'download')
     ]
   }
 ])

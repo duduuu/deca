@@ -169,17 +169,6 @@ vi.mock('./model-catalog', () => ({
           }
 }))
 
-vi.mock('./cloud-transcription-target', () => ({
-  resolveCloudTranscriptionTarget: (modelId: string) => ({
-    model: modelId,
-    apiKey: 'test-openai-key'
-  })
-}))
-
-vi.mock('./openai-transcription-client', () => ({
-  OpenAiTranscriptionSession: class {}
-}))
-
 import { SttService, type SttEventSink } from './stt-service'
 
 describe('SttService', () => {

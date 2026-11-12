@@ -12,7 +12,6 @@ export type VoiceSpeechModelRowActions = {
   onDownload: (modelId: string) => void
   onCancelDownload: (modelId: string) => void
   onDelete: (modelId: string) => void
-  onSetUpCloud: (modelId: string) => void
   /** Selects, downloads and turns on the recommended model. */
   onSetUp: () => void
 }
@@ -40,11 +39,9 @@ export function VoiceSpeechModelRow({
   onDownload,
   onCancelDownload,
   onDelete,
-  onSetUpCloud,
   onSetUp
 }: VoiceSpeechModelRowProps): React.JSX.Element {
   const t = useTranslate()
-  const isCloud = manifest.provider !== 'local'
   const retired = quality === null
   const ready = state?.status === 'ready'
   const downloading = isSpeechModelDownloading(state)
@@ -115,13 +112,6 @@ export function VoiceSpeechModelRow({
     )
   } else if (ready) {
     action = button(t('components.settings.voice.models.use', 'Use'), () => onUse(manifest.id))
-  } else if (isCloud) {
-    action = button(
-      manifest.provider === 'openai'
-        ? t('auto.components.settings.OpenAiTranscriptionSettingsRow.85c589cd61', 'Add API key')
-        : t('components.settings.voice.models.setUpCloud', 'Set up'),
-      () => onSetUpCloud(manifest.id)
-    )
   } else if (recommended) {
     action = button(t('components.settings.voice.models.download', 'Download'), onSetUp, {
       primary: true,
@@ -134,7 +124,7 @@ export function VoiceSpeechModelRow({
   }
 
   // Deletable files: always offered on the model in use, on hover for the rest.
-  const deletable = !isCloud && !retired && !downloading && (ready || needsUpdate)
+  const deletable = !retired && !downloading && (ready || needsUpdate)
 
   return (
     <div
@@ -167,7 +157,7 @@ export function VoiceSpeechModelRow({
           SPEECH_MODEL_WIDE_ONLY
         )}
       >
-        {isCloud || retired
+        {retired
           ? null
           : t('auto.components.settings.VoicePane.91980ce124', '{{value0}} MB', {
               value0: totalMb

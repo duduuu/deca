@@ -1,5 +1,5 @@
 import { useId } from 'react'
-import type { SpeechModelManifest, VoiceSettings } from '../../../../../shared/speech-types'
+import type { VoiceSettings } from '../../../../../shared/speech-types'
 import {
   UNLOAD_MODEL_AFTER_MINUTES_CHOICES,
   unloadModelAfterMinutes,
@@ -34,41 +34,29 @@ function choiceLabel(
 
 type VoiceModelUnloadSettingProps = {
   voiceSettings: VoiceSettings
-  selectedModel: SpeechModelManifest | undefined
   onUpdateVoiceSettings: (updates: Partial<VoiceSettings>) => void
 }
 
 export function VoiceModelUnloadSetting({
   voiceSettings,
-  selectedModel,
   onUpdateVoiceSettings
 }: VoiceModelUnloadSettingProps): React.JSX.Element {
   const t = useTranslate()
   const intlLocale = useIntlLocale()
   const labelId = useId()
-  const isCloudModel = selectedModel !== undefined && selectedModel.provider !== 'local'
   const current = unloadModelAfterMinutes(voiceSettings)
 
   return (
     <SettingsRow
       label={t('components.settings.voice.keepLoaded.label', 'Keep model loaded')}
-      description={
-        isCloudModel
-          ? t(
-              'components.settings.voice.modelUnload.cloud',
-              'Cloud models run on the provider’s servers, so nothing stays loaded here.'
-            )
-          : t(
-              'components.settings.voice.keepLoaded.description',
-              'Dictation starts at once while it’s loaded.'
-            )
-      }
+      description={t(
+        'components.settings.voice.keepLoaded.description',
+        'Dictation starts at once while it’s loaded.'
+      )}
       labelId={labelId}
       control={
         <Select
           value={choiceValue(current)}
-          // Choosing before turning voice on lets Immediately avoid the first load.
-          disabled={isCloudModel}
           onValueChange={(value) =>
             onUpdateVoiceSettings({
               unloadModelAfterMinutes: value === NEVER_VALUE ? null : Number(value)

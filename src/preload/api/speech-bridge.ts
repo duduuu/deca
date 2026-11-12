@@ -1,9 +1,6 @@
-import type { SecretAtRestProtection } from '../../shared/secret-at-rest-protection'
 import { ipcRenderer } from 'electron'
 import type {
   DictationContext,
-  OpenAiCompatibleSpeechProvider,
-  OpenAiCompatibleSpeechProviderSummary,
   SpeechAudioPortMessage,
   SpeechErrorEvent,
   SpeechLifecycleEvent,
@@ -20,20 +17,6 @@ const audioPorts = new Map<string, MessagePort>()
 export const speechApi = {
   getCatalog: (): Promise<SpeechModelManifest[]> => ipcRenderer.invoke('speech:getCatalog'),
   getModelStates: (): Promise<SpeechModelState[]> => ipcRenderer.invoke('speech:getModelStates'),
-  getOpenAiApiKeyStatus: (): Promise<{
-    configured: boolean
-    protection: SecretAtRestProtection | null
-  }> => ipcRenderer.invoke('speech:getOpenAiApiKeyStatus'),
-  saveOpenAiApiKey: (apiKey: string): Promise<{ configured: boolean }> =>
-    ipcRenderer.invoke('speech:saveOpenAiApiKey', apiKey),
-  clearOpenAiApiKey: (): Promise<{ configured: boolean }> =>
-    ipcRenderer.invoke('speech:clearOpenAiApiKey'),
-  getOpenAiCompatibleProvider: (): Promise<OpenAiCompatibleSpeechProviderSummary | null> =>
-    ipcRenderer.invoke('speech:getOpenAiCompatibleProvider'),
-  saveOpenAiCompatibleProvider: (provider: OpenAiCompatibleSpeechProvider): Promise<void> =>
-    ipcRenderer.invoke('speech:saveOpenAiCompatibleProvider', provider),
-  clearOpenAiCompatibleProvider: (): Promise<void> =>
-    ipcRenderer.invoke('speech:clearOpenAiCompatibleProvider'),
   downloadModel: (modelId: string): Promise<void> =>
     ipcRenderer.invoke('speech:downloadModel', modelId),
   cancelDownload: (modelId: string): Promise<void> =>

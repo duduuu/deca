@@ -1,4 +1,3 @@
-import { errorMessage } from '../../shared/error-message'
 import {
   sttEngineUsers,
   type SttEngine,
@@ -29,7 +28,6 @@ export function stopSttDictation(
   if (session.phase === 'stopping') {
     // A cancel after Finish still drops the work whose text it would throw away.
     if (options.discard) {
-      session.cloud?.cancel()
       if (session.engine) {
         discardLocalStream(state, session.engine, session.streamId)
       }
@@ -37,34 +35,8 @@ export function stopSttDictation(
     return session.stopPromise ?? Promise.resolve()
   }
   session.phase = 'stopping'
-  session.stopPromise = session.cloud
-    ? stopCloudSession(state, session, options.discard === true)
-    : stopLocalSession(state, session, options.discard === true)
+  session.stopPromise = stopLocalSession(state, session, options.discard === true)
   return session.stopPromise
-}
-
-async function stopCloudSession(
-  state: SttSessionState,
-  session: SttSession,
-  discard: boolean
-): Promise<void> {
-  const cloud = session.cloud!
-  if (discard) {
-    cloud.cancel()
-    releaseSttSession(state, session)
-    return
-  }
-  try {
-    const text = await cloud.finish()
-    if (text) {
-      session.sink({ type: 'final', text })
-    }
-  } catch (error) {
-    session.sink({ type: 'error', error: errorMessage(error) })
-  } finally {
-    releaseSttSession(state, session)
-    session.sink({ type: 'stopped' })
-  }
 }
 
 function stopLocalSession(

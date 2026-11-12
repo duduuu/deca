@@ -6,15 +6,6 @@ export function speechModelDescription(
   manifest: SpeechModelManifest,
   t: Translate
 ): string | undefined {
-  if (manifest.provider === 'openai') {
-    return t('components.settings.voice.models.sendsToOpenAi', 'Sends your audio to OpenAI.')
-  }
-  if (manifest.provider === 'openai-compatible') {
-    return t(
-      'components.settings.voice.models.sendsToCompatible',
-      'Sends your audio to the service you set up.'
-    )
-  }
   const languages = manifest.languages.length
   switch (manifest.id) {
     case 'parakeet-tdt-0.6b-v3-int8':

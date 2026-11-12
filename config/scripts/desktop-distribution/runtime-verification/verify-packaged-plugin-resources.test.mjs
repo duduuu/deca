@@ -10,7 +10,7 @@ const {
   verifyPackagedPluginResources
 } = require('./verify-packaged-plugin-resources.cjs')
 
-const FIXTURE_KEY = 'stablyai.orca-multipass-recipes'
+const FIXTURE_KEY = 'stablyai.orca-material-icons'
 
 /** Copies the launch tree and indexes one shipped pack so byte checks have something to verify. */
 async function copyIndexedLaunchTree(resourcesDir) {

@@ -7,33 +7,21 @@ import {
   printResult,
   type HostNameResult
 } from '../format'
-import { parseHostFlag } from '../execution-host-flag'
-import {
-  fetchSshTargetSummaries,
-  listSshTargets,
-  LOCAL_HOST_LIST_NAME,
-  normalizeTypedName,
-  type SshTargetSummary
-} from '../host-selector-alternatives'
+import { listSshTargets, LOCAL_HOST_LIST_NAME } from '../host-selector-alternatives'
 import {
   getDefaultUserDataPath,
   RuntimeClientError,
   type RuntimeClient,
   type RuntimeRpcSuccess
 } from '../runtime-client'
-
 import { rejectRemoteSelectionFlags } from '../remote-selection-flag-rejection'
 import { redactRuntimeEnvironment } from '../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { RuntimeStatus } from '../../shared/runtime-session-contracts'
 import {
-  addEnvironmentFromPairingCode,
   removeEnvironment,
   resolveEnvironment,
-  type EnvironmentAddResult,
   type EnvironmentRemoveResult
 } from '../runtime/environments'
-import { exchangeCliPairingCode } from '../runtime/environment-pairing-exchange'
-import { refuseReservedEnvironmentName } from '../local-environment-selector'
 import { listEnvironments } from '../../shared/remote-runtime/host-store/runtime-environment-store'
 
 export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
@@ -56,23 +44,6 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
     // A blank override restores the detected name; read it from the runtime after writing.
     const status = await client.call<RuntimeStatus>('status.get')
     printResult({ ...status, result: describeRuntimeHost(status.result) }, json, formatHostName)
-  },
-  'environment add': async ({ flags, json }) => {
-    const name = getRequiredStringFlag(flags, 'name')
-    refuseReservedEnvironmentName(name)
-    const pairingCode = await exchangeCliPairingCode(getRequiredStringFlag(flags, 'pairing-code'))
-    const environment = redactRuntimeEnvironment(
-      addEnvironmentFromPairingCode(getDefaultUserDataPath(), {
-        name,
-        pairingCode
-      })
-    )
-    printResult(
-      localSuccess({ environment }),
-      json,
-      (result: EnvironmentAddResult) =>
-        `Saved environment ${result.environment.name} (${result.environment.id}).`
-    )
   },
   'host list': async ({ client, flags, json }) => {
     rejectLocalPairingStoreRetargeting(
@@ -110,36 +81,6 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
       ...environments
     ]
     printResult(localSuccess({ hosts }), json, formatHostList)
-  },
-  'host rm': async ({ client, flags, json }) => {
-    rejectLocalPairingStoreRetargeting(
-      flags,
-      '`deca host rm`. It removes an SSH target from this machine\u2019s own Deca runtime, the same one `deca host list` reads.',
-      'Run `deca host rm` on that machine to remove an SSH target registered there.'
-    )
-    const targetId = requireSshHostFlag(flags)
-    // Unlike listSshTargets, this keeps runtime_unavailable instead of reporting an unknown target.
-    const { targets } = await fetchSshTargetSummaries<SshTargetSummary>(client)
-    const target = targets.find((candidate) => candidate.id === targetId)
-    if (!target) {
-      throw new RuntimeClientError(
-        'invalid_argument',
-        `Unknown SSH target in --host ssh:${targetId}: this Deca host has no SSH target with that id.`,
-        {
-          knownSshTargets: targets,
-          nextSteps: ['Run `deca host list` to see each SSH target and its --host ssh:<id> flag.']
-        }
-      )
-    }
-    // Same RPC as the UI: the runtime tombstones the alias so the ~/.ssh/config import skips it.
-    const response = await client.call('ssh.removeTarget', { targetId })
-    const removed = { kind: 'ssh' as const, name: target.label, id: target.id }
-    printResult(
-      { ...response, result: { removed } },
-      json,
-      (result: { removed: typeof removed }) =>
-        `Removed SSH target ${result.removed.name} (${result.removed.id}).`
-    )
   },
   'environment list': async ({ flags, json }) => {
     rejectLocalPairingStoreRetargeting(
@@ -196,28 +137,6 @@ function rejectLocalPairingStoreRetargeting(
   rejectRemoteSelectionFlags(flags, suffix, {
     nextSteps: [crossHostNextStep, 'Drop the flag to answer for this machine.']
   })
-}
-
-function requireSshHostFlag(flags: Map<string, string | boolean>): string {
-  const host = parseHostFlag(flags)
-  if (host?.kind === 'ssh') {
-    return host.targetId
-  }
-  if (!host) {
-    throw new RuntimeClientError('invalid_argument', 'Missing required --host ssh:<target-id>')
-  }
-  const named = host.kind === 'alias' ? host.alias : host.id
-  const nextStep =
-    host.kind === 'runtime'
-      ? 'A paired Deca server is removed with `deca environment rm --environment <name>`.'
-      : host.kind === 'local' || normalizeTypedName(named) === LOCAL_HOST_LIST_NAME
-        ? 'This machine is always listed and cannot be removed.'
-        : 'Pass the SSH target id as --host ssh:<target-id>; `deca host list` prints it.'
-  throw new RuntimeClientError(
-    'invalid_argument',
-    `\`deca host rm\` removes saved SSH targets only, and --host ${named} is not one.`,
-    { nextSteps: [nextStep, 'Run `deca host list` to see each SSH target and its --host flag.'] }
-  )
 }
 
 function getRequiredStringFlag(flags: Map<string, string | boolean>, name: string): string {

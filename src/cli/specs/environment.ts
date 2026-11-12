@@ -31,29 +31,6 @@ export const ENVIRONMENT_COMMAND_SPECS: CommandSpec[] = [
     examples: ['deca host list', 'deca host list --json']
   },
   {
-    path: ['host', 'rm'],
-    destructive: true,
-    summary: 'Remove one saved SSH target from this Deca host',
-    usage: 'deca host rm --host ssh:<target-id> [--json]',
-    allowedFlags: [...LOCAL_COMMAND_FLAGS, 'host'],
-    notes: [
-      'Removes the target the same way Settings does: its connection closes, and the passive ~/.ssh/config import does not add the alias back. Restore removed hosts in Settings brings it back.',
-      'Takes only the --host ssh:<target-id> form that `deca host list` prints. This machine and paired Deca servers are refused; remove a paired server with `deca environment rm`.',
-      '--environment and --pairing-code are rejected rather than ignored: SSH targets are removed from this machine\u2019s own Deca runtime.'
-    ],
-    examples: [
-      'deca host rm --host ssh:ssh-1783599077486-fyasux',
-      'deca host rm --host ssh:ssh-1783599077486-fyasux --json'
-    ]
-  },
-  {
-    path: ['environment', 'add'],
-    summary: 'Save a remote Deca runtime environment from a pairing code',
-    usage: 'deca environment add --name <name> --pairing-code <code> [--json]',
-    allowedFlags: [...LOCAL_COMMAND_FLAGS, 'pairing-code', 'name'],
-    examples: ['deca environment add --name work-laptop --pairing-code orca://pair?code=...']
-  },
-  {
     path: ['environment', 'list'],
     summary: 'List saved Deca runtime environments',
     usage: 'deca environment list [--json]',

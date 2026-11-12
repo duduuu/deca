@@ -134,30 +134,6 @@ describe('deca linear CLI handlers', () => {
     expect(vi.mocked(console.error)).not.toHaveBeenCalled()
   })
 
-  it('passes verified current-context hints without resolving cwd for remote runtimes', async () => {
-    process.env.ORCA_TERMINAL_HANDLE = 'term_123'
-    process.env.ORCA_WORKTREE_ID = 'repo::/srv/app'
-    process.env.ORCA_PAIRING_CODE = 'orca://pair?payload=bad'
-    queueFixtures(callMock, okFixture('req_linear', issueResult()))
-
-    await main(['linear', 'issue', '--current', '--comments', '--json'], '/client/repo')
-
-    expect(callMock).toHaveBeenCalledWith(
-      'linear.issueContext',
-      expect.objectContaining({
-        input: undefined,
-        current: true,
-        include: expect.objectContaining({ comments: true }),
-        context: {
-          remote: true,
-          worktreeId: 'repo::/srv/app',
-          terminalHandle: 'term_123'
-        }
-      }),
-      { timeoutMs: undefined }
-    )
-  })
-
   it('rejects --depth unless children are requested', async () => {
     await main(['linear', 'issue', 'ENG-123', '--depth', '3'], '/tmp/repo')
 

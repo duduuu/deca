@@ -33,26 +33,8 @@ const ROUTES = buildRoutes(HANDLER_GROUPS)
 
 export const HANDLER_COMMAND_KEYS: ReadonlySet<string> = new Set(ROUTES.keys())
 
-// Deca serves no remote clients and pairs no servers; WSL hosts launch orcad without these commands.
-const DECA_REFUSED_COMMANDS: ReadonlySet<string> = new Set([
-  'serve',
-  'serve service install',
-  'serve service status',
-  'serve service uninstall',
-  'serve reset-identity',
-  'serve restore resume',
-  'pair',
-  'environment add'
-])
-
 export async function dispatch(commandPath: string[], ctx: HandlerContext): Promise<void> {
   const key = commandPath.join(' ')
-  if (DECA_REFUSED_COMMANDS.has(key)) {
-    throw new RuntimeClientError(
-      'invalid_argument',
-      `\`${key}\` is not available in Deca: it serves no remote clients and pairs no servers.`
-    )
-  }
   const group = ROUTES.get(key)
   if (!group) {
     throw new RuntimeClientError('invalid_argument', `Unknown command: ${key}`)

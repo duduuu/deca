@@ -64,15 +64,12 @@ export function clientOpensStructuredChatFromHistory(
   )
 }
 
-/** Preserve the existing session audience for every agent except Pi. */
+/** Every kept agent keeps its existing session audience; only the removed Pi agent was gated. */
 export function clientReadsStructuredSessionAgent(
-  context: Pick<RpcContext, 'clientCapabilities' | 'clientKind'>,
-  agent: string
+  _context: Pick<RpcContext, 'clientCapabilities' | 'clientKind'>,
+  _agent: string
 ): boolean {
-  return (
-    context.clientKind === undefined ||
-    clientRendersStructuredAgent(context.clientCapabilities, agent)
-  )
+  return true
 }
 
 /** Scope offers to readable registered/saved agents; undefined means all are readable and one unscoped fence applies. */

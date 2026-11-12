@@ -518,7 +518,8 @@
     "general": {
       "about": {
         "versionTitle": "버전",
-        "internalUpdates": "업데이트는 사내 소프트웨어 배포를 통해 설치됩니다."
+        "internalUpdates": "업데이트는 사내 소프트웨어 배포를 통해 설치됩니다.",
+        "baseVersion": "Orca {{version}} 기반"
       }
     }
   },

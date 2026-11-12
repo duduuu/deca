@@ -4,6 +4,7 @@ import { SearchableSetting } from '../section-layout/SearchableSetting'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { useTranslate } from '@/i18n/use-translate'
 import { GeneralRemoteServerUpdates } from './GeneralRemoteServerUpdates'
+import { DECA_VERSION } from '../../../../../shared/deca-version'
 
 // Deca is updated through the internal package channel; About only reports the installed version.
 export function GeneralUpdateSettingsSection({
@@ -35,11 +36,16 @@ export function GeneralUpdateSettingsSection({
         keywords={['about', 'version']}
         className="space-y-3 py-3"
       >
-        <span className="text-sm">
-          {t('settings.general.about.version', 'Deca {{version}}', {
-            version: appVersion ?? '…'
-          })}
-        </span>
+        <div className="space-y-0.5">
+          <p className="text-sm">
+            {t('settings.general.about.version', 'Deca {{version}}', { version: DECA_VERSION })}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t('settings.general.about.baseVersion', 'Based on Orca {{version}}', {
+              version: appVersion ?? '…'
+            })}
+          </p>
+        </div>
       </SearchableSetting>
       <GeneralRemoteServerUpdates />
       {children}

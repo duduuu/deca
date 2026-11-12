@@ -18,11 +18,6 @@ const COMMAND_SCOPED_FLAG_HELP: Record<string, Record<string, string>> = {
     wait: '--wait                 Wait until the chat finishes or needs your answer'
   },
   'chat wait': { session: CHAT_SESSION_HELP },
-  'extension reload': {
-    'extension-id':
-      '--extension-id <id>   Installed unpacked extension ID; also accepted positionally',
-    path: '--path <folder>        Source folder of exactly one installed unpacked extension'
-  },
   'reference add': {
     url: '--url <url-or-jira-key> Full review/issue URL or Jira key; use positionals or repeated --url',
     'reference-site': '--reference-site <id> Jira site for bare keys; see deca jira connection'

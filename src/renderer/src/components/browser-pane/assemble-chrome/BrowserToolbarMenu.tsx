@@ -28,8 +28,6 @@ type BrowserToolbarMenuProps = {
   viewportPresetId: BrowserViewportPresetId | null
   onDestroyWebview: () => void
   pageActions: BrowserToolbarPageActions
-  /** The Extensions › submenu, built by the toolbar that owns the pinned buttons. */
-  extensionsSub: React.ReactNode
   overflow: BrowserChromeOverflowMenuProps
 }
 
@@ -40,7 +38,6 @@ export function BrowserToolbarMenu({
   viewportPresetId,
   onDestroyWebview,
   pageActions,
-  extensionsSub,
   overflow
 }: BrowserToolbarMenuProps): React.JSX.Element {
   const t = useTranslate()
@@ -191,7 +188,6 @@ export function BrowserToolbarMenu({
           onNewProfile: () => setNewProfileDialogOpen(true)
         }}
         pageActions={pageActions}
-        extensionsSub={extensionsSub}
         viewportPresetId={viewportPresetId}
         onApplyViewportPreset={(nextId) => applyBrowserViewportPreset(browserPageId, nextId)}
         siteDisplay={siteDisplay}

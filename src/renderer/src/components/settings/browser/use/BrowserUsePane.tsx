@@ -68,7 +68,7 @@ export function BrowserUseSetup({
           <p className="text-xs text-muted-foreground">
             {t(
               'auto.components.settings.BrowserUsePane.96b91c6349',
-              'Let coding agents drive this browser with your logins.'
+              'Let coding agents drive this browser.'
             )}
           </p>
         </div>
@@ -90,7 +90,7 @@ export function BrowserUseSetup({
           <p className="text-xs text-muted-foreground">
             {t(
               'auto.components.settings.BrowserUsePane.finishSteps',
-              'Let coding agents drive this browser with your logins. Finish the steps below.'
+              'Let coding agents drive this browser. Finish the steps below.'
             )}
           </p>
         </div>

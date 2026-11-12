@@ -22,8 +22,6 @@ import { BrowserSitePermissionsSetting } from './BrowserSitePermissionsSetting'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { BrowserSessionCookiesSection } from './profiles/BrowserSessionCookiesSection'
 import { BrowserNewProfileDialog } from './profiles/BrowserNewProfileDialog'
-import { BrowserExtensionsSection } from './extensions/BrowserExtensionsSection'
-import { getBrowserExtensionsSearchEntry } from './extensions/browser-extensions-search'
 import { BrowserPasswordsSection } from './passwords/BrowserPasswordsSection'
 import { getBrowserPasswordsSearchEntry } from './passwords/browser-passwords-copy'
 import {
@@ -195,9 +193,6 @@ export function BrowserPane({
     showPasswords &&
     !isWebClientLocation() &&
     selectedBrowserSessionHostId === LOCAL_EXECUTION_HOST_ID
-  const showExtensions =
-    matchesSettingsSearch(searchQuery, [getBrowserExtensionsSearchEntry()]) &&
-    selectedBrowserSessionHostId === LOCAL_EXECUTION_HOST_ID
 
   return (
     <div className="space-y-8">
@@ -317,7 +312,7 @@ export function BrowserPane({
         </SettingsGroup>
       ) : null}
 
-      {showCookies || showPasswordsSection || showExtensions ? (
+      {showCookies || showPasswordsSection ? (
         <SettingsGroup>
           {showCookies ? (
             <BrowserSessionCookiesSection
@@ -337,16 +332,6 @@ export function BrowserPane({
           {showPasswordsSection ? (
             <BrowserPasswordsSection
               browserProfileId={activeBrowserSessionProfileId}
-              profileLabel={activeBrowserSessionProfileLabel}
-              settings={settings}
-              updateSettings={updateSettings}
-            />
-          ) : null}
-
-          {/* Why local only: release 1 runs extensions in this computer's browser profiles. */}
-          {showExtensions ? (
-            <BrowserExtensionsSection
-              profileId={activeBrowserSessionProfileId}
               profileLabel={activeBrowserSessionProfileLabel}
               settings={settings}
               updateSettings={updateSettings}

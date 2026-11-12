@@ -13,7 +13,6 @@ import {
   type SearchEngine
 } from '../../../../../shared/browser-url'
 import type { BrowserPageContextMenuState } from '../describe-page/browser-page-types'
-import { BrowserPageExtensionMenuItems } from './browser-page-extension-menu-items'
 
 // Programmatic menu focus represents keyboard navigation, so use focus rather than focus-visible.
 const MENU_ITEM_CLASS =
@@ -258,25 +257,11 @@ export function BrowserPageContextMenuItems(
   const t = useTranslate()
   const searchEngine = useAppStore((s) => s.browserDefaultSearchEngine) ?? DEFAULT_SEARCH_ENGINE
   const sections = buildMenuSections({ ...props, searchEngine }, t)
-  const { extensionMenu } = props.menu
   return (
     <>
       {sections.map((section, sectionIndex) => (
         <Fragment key={sectionIndex}>
           {sectionIndex > 0 ? <hr className="my-1 h-px border-0 bg-border/70" /> : null}
-          {/* Why here: Chrome lists extension items last, just above Inspect. */}
-          {extensionMenu && sectionIndex === sections.length - 1 ? (
-            <>
-              <BrowserPageExtensionMenuItems
-                // Why keyed: each right-click starts with every submenu closed.
-                key={extensionMenu.token}
-                menu={extensionMenu}
-                itemClassName={MENU_ITEM_CLASS}
-                onDone={props.onClose}
-              />
-              <hr className="my-1 h-px border-0 bg-border/70" />
-            </>
-          ) : null}
           {section.map((menuItem, itemIndex) => (
             <button
               key={itemIndex}

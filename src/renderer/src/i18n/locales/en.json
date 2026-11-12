@@ -244,19 +244,7 @@
   },
   "browser": {
     "googleCookieClear": {
-      "signInKeyword": "sign-in",
-      "unavailable": "Unavailable for this profile on the selected host.",
-      "explanation": "Google ties its sign-ins to the browser they were made in, so Deca doesn't import Google cookies from other browsers. If Google is stuck on the wrong account or keeps signing you out, clear Google cookies from the active profile, then sign in to Google again in Deca. Other sites stay signed in.",
-      "action": "Clear Google cookies…",
-      "confirmTitle": "Clear Google cookies from {{profile}}?",
-      "confirmDescription": "You'll be signed out of Google in Deca's browser for this profile. Other sites stay signed in.",
-      "clear": "Clear",
-      "cancel": "Cancel",
-      "cleared": "Google cookies cleared from {{profile}}.",
-      "empty": "No Google cookies to clear in {{profile}}.",
-      "remaining": "Some Google cookies couldn't be removed from {{profile}}. Try again.",
-      "unverified": "Couldn't check {{profile}}'s Google cookies. Try again.",
-      "fe3f6e1721": "Google cookies"
+      "signInKeyword": "sign-in"
     },
     "loadFailure": {
       "connectionNotSecure": "Connection isn't secure",
@@ -397,16 +385,6 @@
     "managedProfile": {
       "createFailed": "Couldn't create this workspace's browser profile. Close this tab and open a new one to try again."
     },
-    "extensions": {
-      "menu": "Extensions",
-      "open": "Open",
-      "pin": "Pin to toolbar",
-      "unpin": "Unpin from toolbar",
-      "remove": "Remove…",
-      "empty": "No extensions are on for this profile",
-      "visitWebStore": "Visit Chrome Web Store",
-      "manage": "Manage extensions"
-    },
     "history": {
       "clear": "Clear browsing history",
       "clearAllTime": "All time",
@@ -437,42 +415,6 @@
       "laptop": "Laptop — 1024 × 768",
       "laptop-l": "Laptop L — 1440 × 900",
       "desktop": "Desktop — 1920 × 1080"
-    },
-    "cookieImport": {
-      "errors": {
-        "notAuthorized": "Not authorized",
-        "profileNotFound": "Session profile not found.",
-        "invalidBrowserProfile": "Invalid browser profile name.",
-        "browserNotFound": "Browser not found on this system.",
-        "browserProfileDatabaseMissing": "No cookies database found for profile \"{{profile}}\".",
-        "fileUnreadable": "Could not read the selected file.",
-        "fileInvalidJson": "File is not valid JSON.",
-        "fileNotArray": "Expected a JSON array of cookie objects.",
-        "fileEmpty": "Cookie file is empty.",
-        "fileNoValidCookies_one": "No valid cookies found. {{count}} entry was skipped due to missing or invalid fields.",
-        "fileNoValidCookies_other": "No valid cookies found. {{count}} entries were skipped due to missing or invalid fields.",
-        "databaseNotFound": "{{browser}} cookies database not found.",
-        "databaseCopyFailed": "Could not copy {{browser}} cookies database. Try closing {{browser}} first.",
-        "noCookies": "No cookies found in {{browser}}.",
-        "noValidCookies": "No valid cookies found in {{browser}}.",
-        "allCookiesExpired": "All {{browser}} cookies are expired.",
-        "encryptionKeyDenied": "Could not access {{browser}} encryption key. The OS may have denied access.",
-        "readFailed": "Could not read {{browser}} cookies.",
-        "importFailed": "Could not import cookies from {{browser}}.",
-        "importFailedTryClosing": "Could not import cookies from {{browser}}. Try closing {{browser}} first.",
-        "importFailedWithLog": "Could not import cookies from {{browser}}: {{detail}}. Details were written to {{logPath}}.",
-        "safariFullDiskAccess": "macOS denied access to Safari cookies. Grant Full Disk Access to Deca in System Settings → Privacy & Security → Full Disk Access.",
-        "macFullDiskAccess": "macOS denied access to {{browser}} cookies. Grant Full Disk Access to Deca in System Settings → Privacy & Security → Full Disk Access, then restart Deca.",
-        "connectionEnded": "The connection to this server ended during the import. Reconnect and try again.",
-        "serverRepaired": "This server was re-paired during the import. Try again."
-      },
-      "notice": {
-        "importedMore_one": "Imported {{count}} cookie for {{domains}} +{{more}} more. Reload the page to use them.",
-        "importedMore_other": "Imported {{count}} cookies for {{domains}} +{{more}} more. Reload the page to use them.",
-        "imported_one": "Imported {{count}} cookie for {{domains}}. Reload the page to use them.",
-        "imported_other": "Imported {{count}} cookies for {{domains}}. Reload the page to use them.",
-        "failed": "Cookie import failed: {{reason}}"
-      }
     },
     "passwords": {
       "savePrompt": {
@@ -827,40 +769,6 @@
         "repoProfileLabel": "Repo: {{name}}",
         "worktreeProfileLabel": "Workspace: {{name}}"
       },
-      "extensions": {
-        "sourceUnpacked": "Unpacked",
-        "sourceWebStore": "Chrome Web Store",
-        "options": "Options",
-        "toggleLabel": "Turn {{name}} on or off",
-        "remove": "Remove",
-        "reload": "Reload from folder",
-        "removeTitle": "Remove {{name}}?",
-        "removeUnpackedDescription": "It is removed from every Deca browser profile, with its saved data. The folder on disk stays where it is.",
-        "removeDescription": "It is removed from every Deca browser profile, with its saved data.",
-        "heldUpdate": "Version {{version}} is waiting for more access.",
-        "reviewAccess": "Review access",
-        "loadError": "Could not start: {{error}}",
-        "profileDescription": "Extensions turned on here run in tabs that use the {{profile}} profile.",
-        "loadUnpacked": "Load unpacked…",
-        "empty": "No extensions installed. Add one from the Chrome Web Store above.",
-        "title": "Extensions",
-        "description": "Chrome extensions for the selected local browser profile.",
-        "keywordExtension": "extension",
-        "keywordChrome": "chrome",
-        "keywordUnpacked": "unpacked",
-        "keywordPassword": "password manager",
-        "desktopOnly": "Browser extensions run only in the Deca desktop app.",
-        "webStore": {
-          "placeholder": "Chrome Web Store link or extension ID",
-          "inputLabel": "Add from Chrome Web Store",
-          "add": "Add",
-          "adding": "Adding…",
-          "added": "Added {{name}}",
-          "browse": "Browse the Chrome Web Store",
-          "openFailed": "Open a workspace to browse the Chrome Web Store."
-        },
-        "enabledToggleLabel": "Turn browser extensions on or off"
-      },
       "passwords": {
         "searchKeywords": {
           "passwords": "passwords",
@@ -882,12 +790,6 @@
         "delete": "Delete…",
         "neverHeading": "Never saved for {{count}} sites",
         "removeNever": "Remove",
-        "importFailed": "Could not import passwords",
-        "importDuplicates": "{{count}} already saved",
-        "importConflicts": "{{count}} kept because a different password is saved",
-        "importInvalid": "{{count}} unreadable rows",
-        "importUndecryptable": "{{count}} protected by the browser; export a CSV from it instead",
-        "imported": "Imported {{count}} passwords",
         "deleteAllConfirmTitle": "Delete all password data?",
         "deleteAllConfirmDescription": "Every saved password in the {{profile}} profile is permanently deleted. This can’t be undone.",
         "deleteAll": "Delete data",
@@ -919,8 +821,6 @@
         "fillReauthDescription": "For a shared computer. Showing or copying a password already asks.",
         "noReauth": "This computer can’t confirm it’s you with Touch ID, so passwords show and fill without a check.",
         "reauthUnavailable": "Touch ID can’t be used right now, so Deca won’t show, copy or fill a password that needs it.",
-        "import": "Import",
-        "importCsv": "From a CSV file…",
         "deleteAllTitle": "Delete all password data",
         "deleteAllDescription": "Every saved password, note and never-save site in the {{profile}} profile.",
         "empty": "Deca offers to save a login after you sign in. You can also bring them from another browser or a CSV file.",
@@ -1538,7 +1438,6 @@
         "preload": {
           "api": {
             "31bfe8ae1a": "Unavailable in the web client.",
-            "67ec964791": "Cookie import is unavailable in the web client.",
             "275a776357": "Hover extraction is unavailable in the web client.",
             "8dfcb7a351": "Selection screenshots are unavailable in the web client.",
             "31bea294d5": "Grab mode is unavailable in the web client.",
@@ -1570,8 +1469,7 @@
       "slices": {
         "browser": {
           "d175274b6d": "New Browser Tab",
-          "08fc23631d": "Browser",
-          "remoteCookieImportUnavailable": "Manual cookie file import is unavailable while a remote runtime is active."
+          "08fc23631d": "Browser"
         },
         "editor": {
           "dcb521ed29": "This file is in a conflict state, but no working-tree file is available to edit.",
@@ -2089,33 +1987,6 @@
           }
         }
       },
-      "browser": {
-        "cookie": {
-          "import": {
-            "toast": {
-              "undecryptableAppBound": "Deca cannot decrypt {{value0}} of this browser's cookies because they use app-bound encryption. You can import cookies from a file using “From File…”.",
-              "undecryptableAppBoundMixed": "Deca cannot decrypt {{value0}} of this browser's cookies because they use app-bound encryption; {{value1}} more could not be decrypted for another reason. You can import cookies from a file using “From File…”.",
-              "undecryptableKeyring": "{{value0}} cookies could not be decrypted because the system keyring was unavailable. Unlock your login keyring (or install a Secret Service provider such as gnome-keyring) and import again.",
-              "undecryptableKeyringMixed": "{{value0}} cookies could not be decrypted because the system keyring was unavailable; {{value1}} more could not be decrypted for another reason. Unlock your login keyring (or install a Secret Service provider such as gnome-keyring) and import again.",
-              "secretToolMissing": "Deca couldn't read {{count}} of {{browser}}'s encrypted cookies because secret-tool isn't installed. Install libsecret-tools (or your distribution's equivalent) and import again.",
-              "cookieKeyLocked": "Deca couldn't read {{count}} of {{browser}}'s encrypted cookies because access to the system keyring was locked or denied. Unlock your login keyring, allow access if prompted, and import again.",
-              "cookieKeyUnavailable": "Deca couldn't read {{count}} of {{browser}}'s encrypted cookies because the cookie encryption key couldn't be read. Try importing again, import cookies using “From File…”, or sign in directly in Deca.",
-              "otherUndecryptableCookies": "{{count}} more cookies could not be decrypted for another reason.",
-              "undecryptableUnknown": "{{value0}} cookies could not be decrypted and were skipped. Close the source browser completely and try the import again.",
-              "unrecognizedWarning": "The cookie import finished with a warning this version of Deca does not recognize. Update Deca to see the details, then check this profile before relying on its cookies.",
-              "undecryptableUnrecognizedReason": "{{value0}} cookies could not be decrypted and were skipped for a reason this version of Deca does not recognize. Update Deca to see the details, then try the import again.",
-              "cookiesSkipped": "{{value0}} cookies skipped.",
-              "partitionSkippedCounts": "Cookies with unreadable site partitions: {{value0}}. Related cookies also skipped: {{value1}}. Check these sites in this profile before signing in again.",
-              "partitionSkipped": "{{value0}} cookies were not imported because their site-partition could not be read. Sign in to those sites again in Deca.",
-              "locationClientHosted": "Read from this device and stored here for the {{value0}} workspace.",
-              "locationRemoteHost": "Read from browsers on {{value0}} and stored there.",
-              "googleCookiesSkippedLocal": "Google cookies were not imported. Open a browser in Deca with this profile, then sign into Google.",
-              "googleCookiesSkippedClientHosted": "Google cookies were not imported. Open a browser tab in the {{value0}} workspace with this profile — it opens on this device — then sign into Google.",
-              "googleCookiesSkippedRemoteWorkspace": "Google cookies were not imported. Open a browser tab in the {{value0}} workspace with this profile, then sign into Google."
-            }
-          }
-        }
-      },
       "pluginCommandKeybindings": {
         "group": "Plugins"
       },
@@ -2527,10 +2398,6 @@
         "noHostsMatch": "No hosts match.",
         "moreHosts_one": "{{count}} more host. Search by name to find it.",
         "moreHosts_other": "{{count}} more hosts. Search by name to find one."
-      },
-      "BrowserCookieImportDisclosure": {
-        "title": "Google logins aren't imported",
-        "description": "Sign in to Google directly in Deca."
       },
       "CodexRestartChip": {
         "a4c8e1b2f7": "Codex is still signed in as {{value0}}",
@@ -7907,8 +7774,8 @@
           "6480776a03": "Browser profiles for the selected host.",
           "5e19a692f7": "Host",
           "e4aaf8051b": "toolbar menu.",
-          "cd47bc9622": "Select a default profile for new browser tabs. Import cookies and switch profiles per-tab via the",
-          "aa1074bfe9": "Manage browser profiles and import cookies from Chrome, Edge, Comet, or other browsers.",
+          "cd47bc9622": "Select a default profile for new browser tabs. Switch profiles per-tab via the",
+          "aa1074bfe9": "Manage browser profiles for browser tabs.",
           "3e46903ad4": "Used when typing non-URL text in the address bar.",
           "7b225c78f5": "Search engine used when typing non-URL text in the address bar.",
           "64898ecdab": "Create",
@@ -7924,14 +7791,7 @@
         "BrowserProfileRow": {
           "8e636cae25": "Profile \"{{value0}}\" removed.",
           "2d4bea7f35": "Default cookies cleared.",
-          "796d846483": "No cookies imported",
-          "c29648fe5b": "Active",
-          "b4c167764d": "Imported {{value0}} cookies from file into {{value1}}.",
-          "a3f8c2d1e0b4": "Imported {{value0}} cookies from {{value1}} ({{value2}}) into {{value3}}.",
-          "b4e9d3f2a1c5": "Imported {{value0}} cookies from {{value1}} into {{value2}}.",
-          "c5a273a809": "From {{value0}}",
-          "80bffd32bf": "Import cookies",
-          "bd7d68f138": "From file…"
+          "c29648fe5b": "Active"
         },
         "BrowserUseComputerUseNotice": {
           "79209b37b9": "If cookie import is not the right fit, Computer Use can control local apps and may use existing logged-in browser sessions where applicable. Install the Orca Computer Use skill; macOS also requires privacy permissions.",
@@ -7952,21 +7812,10 @@
           "a602d43069": "Copied {{value0}}."
         },
         "BrowserUsePane": {
-          "67d9a53f47": "Manage profiles for separate logins",
-          "112f70adc4": "Last imported from {{value0}}",
-          "72d4815523": "Bring your existing logins into Deca so agents can reach authenticated pages. Imports into the default profile.",
-          "af8c83ed61": "Import cookies from Chrome, Edge, or other browsers so agents can reuse your logins.",
           "68ea76eb71": "Install the Browser Use skill so agents can operate Deca's browser.",
-          "96b91c6349": "Let coding agents drive this browser with your logins.",
-          "2ea4617e3a": "Imported {{value0}} cookies from {{value1}}{{value2}}.",
-          "2ccfc9cff8": "Import",
-          "0462565413": "Re-import",
-          "8f2675c2f3": "Imported {{value0}} cookies from file.",
-          "5301857d88": "From {{value0}}",
-          "finishSteps": "Let coding agents drive this browser with your logins. Finish the steps below.",
-          "b3e79d1c51": "Import browser cookies",
+          "96b91c6349": "Let coding agents drive this browser.",
+          "finishSteps": "Let coding agents drive this browser. Finish the steps below.",
           "507fdae102": "Agent browser use",
-          "4ab048c0b8": "From file…",
           "4451b3c0a6": "Install browser use skill"
         },
         "BrowserUseSkillStep": {
@@ -10092,23 +9941,7 @@
           },
           "use": {
             "search": {
-              "3f4c559deb": "arc profile",
-              "d5afa54d21": "edge profile",
-              "22fb801af8": "chrome profile",
-              "59968bb9b4": "authenticated browser",
-              "62e2a790c0": "existing session",
-              "63a66da648": "system browser",
-              "20c1323d1e": "computer use",
-              "ab349a2dd0": "arc",
-              "2e1b09897b": "edge",
-              "088e7a9012": "chrome",
-              "96ce3d2de2": "auth",
-              "48557f639c": "login",
-              "d5ad1f7aad": "import",
-              "02837ee497": "session",
-              "fb8178824f": "cookies",
               "ba4eb53b72": "browser use",
-              "2fb24d17db": "Import cookies from Chrome, Edge, or other browsers so agents can reuse your logins.",
               "cee44fb442": "automation",
               "a57c2172dc": "agent-browser",
               "f5b8fdddf5": "orca-cli",
@@ -10116,7 +9949,6 @@
               "9d97446873": "agent",
               "a2d489263e": "skill",
               "a7e82445fa": "Install the Browser Use skill so agents can operate Deca's browser.",
-              "9e2bfa1405": "Import browser cookies",
               "e72d500ca5": "Install browser use skill"
             }
           }
@@ -17165,10 +16997,6 @@
                     "annotate": {
                       "title": "Mark design feedback in place",
                       "body": "Annotate elements and send those notes to an agent."
-                    },
-                    "logins": {
-                      "title": "Stay logged in",
-                      "body": "Bring your existing logins into Deca to stay signed in immediately."
                     }
                   },
                   "tasks": {
@@ -17291,17 +17119,6 @@
             "7baca7b1b8": "No matches",
             "fc63f336aa": "{{value0}} of {{value1}}"
           },
-          "BrowserImportHintButton": {
-            "05e675fe96": "Hide Hint",
-            "77351d22f5": "Browser Settings",
-            "e0e125e074": "From File…",
-            "0c6d254eca": "From {{value0}}",
-            "244266c122": "Import…",
-            "e52a955e6f": "You can always find this in Settings > Browser.",
-            "4f5ffaa6a1": "Import browser data",
-            "02e89014c5": "Imported {{value0}} cookies from {{value1}}{{value2}}.",
-            "d40d584769": "Imported {{value0}} cookies from file."
-          },
           "BrowserMobileDriverOverlay": {
             "a6914ee43f": "Take back",
             "f4ecd61552": "This tab is being controlled from your phone. Take back to use it on desktop.",
@@ -17408,9 +17225,6 @@
             "a771c2b6c8": "Browser Settings…",
             "ed8f54509d": "Default",
             "e5d31de1a9": "Viewport Size",
-            "56f94f4ffa": "From File…",
-            "eb280bfb11": "From {{value0}}",
-            "2293adf620": "Import Cookies",
             "cf7cdc67ef": "New Profile…",
             "7b838540c7": "Browser menu",
             "a7a86702b3": "Created and switched to {{value0}} profile",
@@ -17418,9 +17232,6 @@
             "3ccd29d771": "Switched to {{value0}} profile",
             "569bce8eb1": "Create",
             "bf648471c5": "Creating…",
-            "53bbe3dab4": "Imported {{value0}} cookies from file.",
-            "c5f0e4d3b2a1": "Imported {{value0}} cookies from {{value1}} ({{value2}}).",
-            "d6a1f5e4c3b2": "Imported {{value0}} cookies from {{value1}}.",
             "zoom": "Zoom",
             "zoomOut": "Zoom out",
             "zoomIn": "Zoom in",
@@ -18566,12 +18377,6 @@
         "streamBrowserUnavailable": "The remote browser is unavailable. Check its setup on the server.",
         "streamRestartFailed": "Failed to restart remote browser stream.",
         "streamCapabilityUnsupported": "The selected runtime does not support remote browser streaming."
-      },
-      "BrowserCookieImportMachineNotice": {
-        "clientLabel": "Browsers on this device",
-        "remoteLabel": "Browsers on {{value0}}",
-        "clientNoteLocalStorage": "Imports read this device’s browsers. Cookies are stored locally.",
-        "remoteNoteRemoteStorage": "Imports read browsers on {{value0}}. Cookies are stored on that machine, and a permission prompt may appear on its screen."
       },
       "native": {
         "chat": {
@@ -22961,55 +22766,6 @@
     "killFailed": "The terminal could not be ended. Last-observed sessions are retained.",
     "metricDetails": "Metric details"
   },
-  "browserExtensions": {
-    "permission": {
-      "history": "Read your browsing history",
-      "historyWrite": "Read and change your browsing history",
-      "bookmarks": "Read and change your bookmarks",
-      "clipboardRead": "Read data you copy and paste",
-      "clipboardWrite": "Modify data you copy and paste",
-      "downloads": "Manage your downloads",
-      "nativeMessaging": "Communicate with cooperating native applications",
-      "notifications": "Display notifications",
-      "privacy": "Change your privacy-related settings",
-      "management": "Manage your other extensions",
-      "proxy": "Change your proxy settings",
-      "contentSettings": "Change which sites can use cookies, JavaScript, your camera, microphone and location",
-      "geolocation": "Detect your physical location",
-      "topSites": "Read a list of your most frequently visited websites",
-      "blockContent": "Block content on any page",
-      "debugger": "Access the page debugger backend",
-      "screenCapture": "Capture content of your screen",
-      "email": "Know your email address",
-      "allSites": "Read and change all your data on all websites",
-      "someSites": "Read and change your data on {{hosts}}",
-      "manyOtherSites_one": "Read and change your data on {{hosts}} and {{count}} other site",
-      "manyOtherSites_other": "Read and change your data on {{hosts}} and {{count}} other sites"
-    },
-    "install": {
-      "title": "Add {{name}}?",
-      "profileDescription": "It runs in tabs that use the {{profile}} profile.",
-      "description": "It runs in Deca browser tabs.",
-      "noAccess": "It does not ask to read or change data on websites.",
-      "canHeading": "It can:",
-      "cancel": "Cancel",
-      "confirm": "Add extension"
-    },
-    "uninstall": {
-      "title": "Remove {{name}}?",
-      "confirm": "Remove"
-    },
-    "unsupported": {
-      "identity": "extension sign-in",
-      "line": "Not available in Deca yet: {{features}}."
-    },
-    "permissions": {
-      "title": "Allow {{name}} more access?",
-      "description": "It is asking for access it did not have when you added it.",
-      "deny": "Deny",
-      "confirm": "Allow"
-    }
-  },
   "browserTab": {
     "agentDriving": "An agent is using this page",
     "controlledByHost": "Controlled by {{host}}"
@@ -23370,9 +23126,6 @@
     "dialog": {
       "spaceTitle": "Deca Space Beta",
       "dashboardTitle": "Deca Agent Dashboard",
-      "importCookies": "Import Cookies",
-      "cookieFiles": "Cookie Files",
-      "allFiles": "All Files",
       "importPetBundle": "Pick a .codex-pet bundle",
       "pickPet": "Pick pet",
       "petImage": "Pet image",

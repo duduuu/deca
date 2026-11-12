@@ -26,7 +26,6 @@
 2 src/main/antigravity/native-credential-backend.ts
 7 src/main/antigravity/native-file-credentials.ts
 7 src/main/bitbucket/credential-store.ts
-1 src/main/browser-passwords/browser-password-chromium-import.ts
 2 src/main/browser-passwords/browser-password-vault-file.ts
 2 src/main/browser/agent-browser/helper-process/agent-browser-binary.ts
 2 src/main/browser/agent-browser/helper-process/agent-browser-dependency-binary.ts
@@ -35,17 +34,6 @@
 2 src/main/browser/client-hosts/file-transfers/browser-client-download-relay.ts
 1 src/main/browser/client-hosts/file-transfers/browser-client-upload-staging.ts
 2 src/main/browser/client-hosts/leases/browser-host-client-identity.ts
-1 src/main/browser/cookies/browser-cookie-import-diagnostics.ts
-2 src/main/browser/cookies/chromium/chromium-cookie-path.ts
-4 src/main/browser/cookies/chromium/chromium-cookie-snapshot.ts
-1 src/main/browser/cookies/chromium/import-cookies.ts
-3 src/main/browser/cookies/client-route/client-route-cookie-import-source-store.ts
-2 src/main/browser/cookies/sources/browser-cookie-detection.ts
-8 src/main/browser/cookies/sources/browser-cookie-firefox-import.ts
-2 src/main/browser/cookies/sources/browser-cookie-key.ts
-1 src/main/browser/cookies/sources/browser-cookie-safari-import.ts
-5 src/main/browser/cookies/sources/browser-cookie-source-profiles.ts
-11 src/main/browser/cookies/staging/browser-session-cookie-staging.ts
 1 src/main/browser/downloads/browser-download-destination.ts
 2 src/main/browser/electron-fixtures/popup-identity-electron-probe.ts
 2 src/main/browser/extensions/api-runtime/browser-extension-worker-shim-source.ts
@@ -466,7 +454,7 @@
 1 src/main/runtime/workspaces/persisted-surfaces/crew-operations.ts
 1 src/main/server/serve-pairing-output.ts
 2 src/main/speech/model-cache-path.ts
-7 src/main/speech/model-manager.ts
+6 src/main/speech/model-manager.ts
 1 src/main/speech/speech-model-download-cleanup.ts
 1 src/main/speech/speech-model-download-transport.ts
 1 src/main/speech/speech-model-files.ts

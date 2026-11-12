@@ -1,4 +1,3 @@
-import { desktopBrowserExtensions } from '../browser/extensions/browser-extension-commands'
 import { RuntimeBrowserCommands } from '../runtime/browser/commands/browser-commands'
 import { setRuntimeBrowserCommandsFactory } from '../runtime/browser/installation/runtime-browser-commands-factory'
 import { setBrowserHostClientProfileResolver } from '../runtime/browser-host/profiles/browser-host-client-profile-metadata'
@@ -9,8 +8,7 @@ import { deleteManagedBrowserProfile } from '../browser/sessions/profiles/browse
 /** Importing this desktop factory loads the Chromium browser cluster. */
 export function installElectronBrowserCommands(): void {
   setRuntimeBrowserCommandsFactory((host) => new RuntimeBrowserCommands(host), {
-    clientHosting: true,
-    extensions: desktopBrowserExtensions
+    clientHosting: true
   })
   setBrowserHostClientProfileResolver((browserProfileId) => {
     const profile = browserSessionRegistry.getProfile(browserProfileId)

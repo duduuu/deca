@@ -7,9 +7,7 @@ import { BrowserChromeToolbar } from './browser-chrome-toolbar'
 import { BrowserPasswordSaveButton } from '../passwords/BrowserPasswordSaveButton'
 import { BrowserReloadControl } from './browser-reload-control'
 import { BrowserToolbarMenu } from './BrowserToolbarMenu'
-import { BrowserExtensionToolbar, BrowserExtensionsMenuSub } from './browser-extension-toolbar'
 import { BrowserOpenSourceFileButton, BrowserPageStateChips } from './browser-address-chips'
-import { useBrowserExtensionToolbar } from './use-browser-extension-toolbar'
 import { SshEgressIndicator } from './browser-egress-indicator'
 import { destroyPersistentWebview } from '../host-guest/webview-registry'
 import { getShareableBrowserArtifactFile } from '../describe-page/browser-artifact-upload'
@@ -128,12 +126,6 @@ export function BrowserPageToolbar({
     canOpenSourceFile && localHtmlFilePath !== null
       ? () => openBrowserFileSource(worktreeId, localHtmlFilePath)
       : null
-  const extensionToolbar = useBrowserExtensionToolbar(
-    browserPageId,
-    isActive,
-    `${currentBrowserUrl}\n${loading}`
-  )
-
   return (
     <BrowserChromeToolbar
       closeTabOwner={{ worktreeId, browserPageId }}
@@ -207,17 +199,6 @@ export function BrowserPageToolbar({
           onHardReload={() => runReloadTrigger('hard-reload')}
         />
       }
-      extensionActions={
-        extensionToolbar &&
-        ((compact, menuTriggerRef) => (
-          <BrowserExtensionToolbar
-            browserPageId={browserPageId}
-            state={extensionToolbar}
-            compact={compact}
-            fallbackAnchorRef={menuTriggerRef}
-          />
-        ))
-      }
       elementTools={{
         activeIntent: grab.state !== 'idle' ? grabIntent : null,
         onStartIntent: startGrabIntent,
@@ -246,16 +227,6 @@ export function BrowserPageToolbar({
             onOpenDevTools: () => void window.api.browser.openDevTools({ browserPageId }),
             onOpenExternal: externalUrl ? () => void window.api.shell.openUrl(externalUrl) : null
           }}
-          extensionsSub={
-            extensionToolbar ? (
-              <BrowserExtensionsMenuSub
-                browserPageId={browserPageId}
-                state={extensionToolbar}
-                anchorRef={overflow.triggerRef}
-                deferUntilClose={overflow.deferUntilClose}
-              />
-            ) : null
-          }
           overflow={overflow}
         />
       )}

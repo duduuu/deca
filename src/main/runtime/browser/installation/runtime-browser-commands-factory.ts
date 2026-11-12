@@ -1,9 +1,3 @@
-import type {
-  BrowserExtensionListParams,
-  BrowserExtensionReloadParams,
-  BrowserExtensionReloadResult,
-  BrowserExtensionSummaryListResult
-} from '../../../../shared/browser/extensions/browser-extension-types'
 import { BrowserError } from '../../../browser/browser-error'
 import '../../../../shared/runtime-types'
 import { BROWSER_UNAVAILABLE_ERROR_CODE } from '../../../../shared/runtime-session-contracts'
@@ -22,11 +16,6 @@ export type RuntimeBrowserCommandsFactory = (
 export type RuntimeBrowserCommandsFactoryOptions = {
   /** The provider creates pages against this runtime's client-host lease registry. */
   clientHosting?: boolean
-  /** Only the desktop installs access to its local extension manager. */
-  extensions?: {
-    list(params: BrowserExtensionListParams): Promise<BrowserExtensionSummaryListResult>
-    reload(params: BrowserExtensionReloadParams): Promise<BrowserExtensionReloadResult>
-  }
   /** Client pages live in this runtime's own registries, so they need no healthy engine. */
   clientHostingWithoutEngine?: boolean
   /** The provider owns browser pages without a renderer window. */
@@ -119,21 +108,4 @@ export function browserUnavailableError(): BrowserError {
     BROWSER_UNAVAILABLE_ERROR_CODE,
     'Browser automation is unavailable on this host.'
   )
-}
-
-/** Requires an available desktop extension provider; headless and remote browser providers are unsupported. */
-export function getRuntimeBrowserExtensions(): NonNullable<
-  RuntimeBrowserCommandsFactoryOptions['extensions']
-> {
-  if (
-    !runtimeBrowserCommandsFactoryIsAvailable() ||
-    currentOptions.headless ||
-    !currentOptions.extensions
-  ) {
-    throw new BrowserError(
-      'browser_unavailable',
-      'Browser extension management requires the Deca desktop on this host; it is unavailable in headless or remote browser providers.'
-    )
-  }
-  return currentOptions.extensions
 }

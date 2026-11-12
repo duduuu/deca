@@ -56,10 +56,6 @@ vi.mock('electron', async () => {
     webContents: { getAllWebContents: () => state.guests }
   }
 })
-vi.mock('../../cookies/staging/browser-session-cookie-staging', () => ({
-  applyPendingBrowserCookieImports() {},
-  clearPendingBrowserCookieImport() {}
-}))
 vi.mock('../../sessions/partition-policies/browser-session-partition-policies', () => ({
   installBrowserSessionPartitionPolicies: state.policy,
   clearBrowserSessionPartitionPolicies: state.clearPolicy,

@@ -1,4 +1,5 @@
 import { ipcMain } from 'electron'
+import { LEGACY_RELAY_BRIDGE_CHANNELS } from '../../../shared/legacy-relay-bridge-contract'
 
 const SSH_UNAVAILABLE_MESSAGE = 'SSH hosts are not available in Deca.'
 
@@ -10,14 +11,17 @@ const EMPTY_SSH_READS: Record<string, () => unknown> = {
   'ssh:needsPassphrasePrompt': () => false,
   'ssh:listPortForwards': () => [],
   'ssh:listUnrestoredPortForwards': () => [],
-  'ssh:listDetectedPorts': () => []
+  'ssh:listDetectedPorts': () => [],
+  // Settings may still run a passive ~/.ssh/config sync; it adopts nothing in Deca.
+  'ssh:importConfig': () => ({ targets: [], repoReadoptions: [] }),
+  // Terminal panes ask once at startup for relay-era SSH panes; there are none.
+  [LEGACY_RELAY_BRIDGE_CHANNELS.listPanes]: () => []
 }
 
 const REFUSED_SSH_CHANNELS = [
   'ssh:addTarget',
   'ssh:updateTarget',
   'ssh:removeTarget',
-  'ssh:importConfig',
   'ssh:listConfigHosts',
   'ssh:resolveConfigHost',
   'ssh:connect',

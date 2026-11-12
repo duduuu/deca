@@ -1,5 +1,5 @@
 import type { DictationTerm } from './dictation-dictionary'
-export type SpeechModelType = 'transducer' | 'paraformer' | 'whisper' | 'senseVoice' | 'nemo-ctc'
+export type SpeechModelType = 'transducer' | 'whisper'
 // Deca transcribes on-device only; audio never leaves the computer.
 export type SpeechModelProvider = 'local'
 
@@ -37,8 +37,6 @@ export type SpeechModelManifest = {
   sizeBytes?: number
   downloadFiles?: SpeechModelDownloadFile[]
   files?: string[]
-  /** The sherpa-onnx files an earlier Orca downloaded for this model; they no longer run. */
-  legacyDownloadFiles?: SpeechModelDownloadFile[]
   sampleRate: number
   streaming: boolean
   recommended?: boolean
@@ -57,7 +55,7 @@ export type SpeechModelState = {
   status: SpeechModelStatus
   progress?: number
   error?: string
-  /** Only the legacy sherpa-onnx files are on disk: downloading replaces them with the current ones. */
+  /** Only an older file format is on disk: downloading replaces it with the current one. */
   needsUpdate?: true
 }
 

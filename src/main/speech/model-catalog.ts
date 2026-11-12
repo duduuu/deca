@@ -3,16 +3,10 @@ import {
   DICTATION_LANGUAGES,
   NEMOTRON_DICTATION_LANGUAGES,
   PARAKEET_V3_LANGUAGES,
-  SENSE_VOICE_DICTATION_LANGUAGES,
   WHISPER_LANGUAGES
 } from '../../shared/dictation-language'
-import { getSpeechModelDownloadMetadata } from './model-download-catalog'
 import { getGgufSpeechModelDownload } from './speech-model-gguf-downloads'
 import { getSpeechModelErrorRates } from './speech-model-error-rates'
-
-const legacy = (id: Parameters<typeof getSpeechModelDownloadMetadata>[0]) => ({
-  legacyDownloadFiles: getSpeechModelDownloadMetadata(id).downloadFiles
-})
 
 export const SPEECH_MODEL_CATALOG: SpeechModelManifest[] = [
   {
@@ -22,7 +16,6 @@ export const SPEECH_MODEL_CATALOG: SpeechModelManifest[] = [
     provider: 'local',
     language: 'multilingual',
     ...getGgufSpeechModelDownload('parakeet-tdt-0.6b-v3-int8'),
-    ...legacy('parakeet-tdt-0.6b-v3-int8'),
     languages: PARAKEET_V3_LANGUAGES,
     ...getSpeechModelErrorRates('parakeet-tdt-0.6b-v3-int8'),
     licence: 'CC-BY-4.0',
@@ -37,90 +30,11 @@ export const SPEECH_MODEL_CATALOG: SpeechModelManifest[] = [
     provider: 'local',
     language: 'en',
     ...getGgufSpeechModelDownload('parakeet-tdt-0.6b-v2-int8'),
-    ...legacy('parakeet-tdt-0.6b-v2-int8'),
     languages: ['en'],
     ...getSpeechModelErrorRates('parakeet-tdt-0.6b-v2-int8'),
     licence: 'CC-BY-4.0',
     sampleRate: 16000,
     streaming: false
-  },
-  {
-    id: 'zipformer-bilingual-zh-en',
-    label: 'Zipformer Bilingual',
-    type: 'transducer',
-    provider: 'local',
-    language: 'zh-en',
-    ...getSpeechModelDownloadMetadata('zipformer-bilingual-zh-en'),
-    languages: ['zh', 'en'],
-    sampleRate: 16000,
-    streaming: true,
-    // transcribe-cpp has no zipformer; SenseVoice covers Chinese and English.
-    replacedBy: 'sense-voice-zh-en-ja-ko-yue'
-  },
-  {
-    id: 'paraformer-bilingual-zh-en',
-    label: 'Paraformer Bilingual',
-    type: 'paraformer',
-    provider: 'local',
-    language: 'zh-en',
-    ...getSpeechModelDownloadMetadata('paraformer-bilingual-zh-en'),
-    languages: ['zh', 'en'],
-    sampleRate: 16000,
-    streaming: true,
-    // transcribe-cpp has no paraformer; SenseVoice covers Chinese and English.
-    replacedBy: 'sense-voice-zh-en-ja-ko-yue'
-  },
-  {
-    id: 'zipformer-streaming-en-20m',
-    label: 'Zipformer Streaming EN',
-    type: 'transducer',
-    provider: 'local',
-    language: 'en',
-    ...getSpeechModelDownloadMetadata('zipformer-streaming-en-20m'),
-    languages: ['en'],
-    sampleRate: 16000,
-    streaming: true,
-    // The model itself loses the first words of every utterance.
-    replacedBy: 'parakeet-tdt-0.6b-v2-int8'
-  },
-  {
-    id: 'zipformer-streaming-zh-14m',
-    label: 'Zipformer Streaming ZH',
-    type: 'transducer',
-    provider: 'local',
-    language: 'zh',
-    ...getSpeechModelDownloadMetadata('zipformer-streaming-zh-14m'),
-    languages: ['zh'],
-    sampleRate: 16000,
-    streaming: true,
-    // transcribe-cpp has no zipformer; SenseVoice beat Nemotron 3.5 on Korean and Chinese.
-    replacedBy: 'sense-voice-zh-en-ja-ko-yue'
-  },
-  {
-    id: 'zipformer-streaming-korean',
-    label: 'Zipformer Streaming KO',
-    type: 'transducer',
-    provider: 'local',
-    language: 'ko',
-    ...getSpeechModelDownloadMetadata('zipformer-streaming-korean'),
-    languages: ['ko'],
-    sampleRate: 16000,
-    streaming: true,
-    // transcribe-cpp has no zipformer; SenseVoice beat Nemotron 3.5 on Korean and Chinese.
-    replacedBy: 'sense-voice-zh-en-ja-ko-yue'
-  },
-  {
-    id: 'parakeet-tdt-ctc-0.6b-ja-int8',
-    label: 'Parakeet TDT-CTC JA',
-    type: 'nemo-ctc',
-    provider: 'local',
-    language: 'ja',
-    ...getSpeechModelDownloadMetadata('parakeet-tdt-ctc-0.6b-ja-int8'),
-    languages: ['ja'],
-    sampleRate: 16000,
-    streaming: false,
-    // No GGUF conversion exists; SenseVoice covers Japanese.
-    replacedBy: 'sense-voice-zh-en-ja-ko-yue'
   },
   {
     id: 'whisper-tiny',
@@ -129,7 +43,6 @@ export const SPEECH_MODEL_CATALOG: SpeechModelManifest[] = [
     provider: 'local',
     language: 'multilingual',
     ...getGgufSpeechModelDownload('whisper-tiny'),
-    ...legacy('whisper-tiny'),
     dictationLanguages: DICTATION_LANGUAGES,
     languages: WHISPER_LANGUAGES,
     ...getSpeechModelErrorRates('whisper-tiny'),
@@ -148,22 +61,6 @@ export const SPEECH_MODEL_CATALOG: SpeechModelManifest[] = [
     languages: [...WHISPER_LANGUAGES, 'yue'],
     ...getSpeechModelErrorRates('whisper-large-v3-turbo'),
     licence: 'MIT',
-    sampleRate: 16000,
-    streaming: false
-  },
-  {
-    id: 'sense-voice-zh-en-ja-ko-yue',
-    label: 'SenseVoice',
-    type: 'senseVoice',
-    provider: 'local',
-    language: 'multilingual',
-    ...getGgufSpeechModelDownload('sense-voice-zh-en-ja-ko-yue'),
-    ...legacy('sense-voice-zh-en-ja-ko-yue'),
-    dictationLanguages: SENSE_VOICE_DICTATION_LANGUAGES,
-    languages: SENSE_VOICE_DICTATION_LANGUAGES,
-    ...getSpeechModelErrorRates('sense-voice-zh-en-ja-ko-yue'),
-    licence: 'FunASR Model License',
-    // Turbo scores better here but is 3.5x the download and takes seconds per phrase on a CPU.
     suggestedFor: ['zh', 'ja', 'ko', 'yue'],
     sampleRate: 16000,
     streaming: false
@@ -193,17 +90,11 @@ export function isLocalSpeechModel(manifest: SpeechModelManifest): boolean {
   return manifest.provider === 'local'
 }
 
-// Cloud models earlier builds offered; a saved selection drops to no model.
-const REMOVED_CLOUD_SPEECH_MODEL_IDS: ReadonlySet<string> = new Set([
-  'openai-gpt-transcribe',
-  'openai-compatible',
-  'openai-gpt-4o-mini-transcribe',
-  'openai-gpt-4o-transcribe'
-])
-
+/** A saved model this build doesn't ship (earlier cloud or non-approved local ones) drops to no model. */
 export function replaceRetiredSpeechModelId(id: string): string {
-  if (REMOVED_CLOUD_SPEECH_MODEL_IDS.has(id)) {
-    return ''
+  if (!id) {
+    return id
   }
-  return getCatalogModel(id)?.replacedBy ?? id
+  const model = getCatalogModel(id)
+  return model ? (model.replacedBy ?? id) : ''
 }

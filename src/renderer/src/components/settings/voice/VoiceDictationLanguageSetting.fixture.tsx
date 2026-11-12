@@ -1,9 +1,6 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { getDefaultVoiceSettings } from '../../../../../shared/constants'
-import {
-  DICTATION_LANGUAGES,
-  SENSE_VOICE_DICTATION_LANGUAGES
-} from '../../../../../shared/dictation-language'
+import { DICTATION_LANGUAGES } from '../../../../../shared/dictation-language'
 import type { SpeechModelManifest, SpeechModelType } from '../../../../../shared/speech-types'
 import { VoiceDictationLanguageSetting } from './VoiceDictationLanguageSetting'
 
@@ -48,11 +45,6 @@ export const whisperMenu = defineFixture({
   interact: (frame) => {
     frame.querySelector<HTMLButtonElement>('button[role="combobox"]')?.click()
   }
-})
-
-export const senseVoiceFrench = defineFixture({
-  width: 640,
-  render: render('fr', model('SenseVoice', 'senseVoice', SENSE_VOICE_DICTATION_LANGUAGES))
 })
 
 export const parakeetIgnores = defineFixture({

@@ -102,9 +102,6 @@ export class ModelManager extends SpeechModelDownloadTransport {
       this.modelStates.set(modelId, state)
       return state
     }
-    if (existsSync(modelDir) && hasSpeechModelFiles(manifest.legacyDownloadFiles, modelDir)) {
-      return { id: modelId, status: 'not-downloaded', needsUpdate: true }
-    }
 
     return { id: modelId, status: 'not-downloaded' }
   }

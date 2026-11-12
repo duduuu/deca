@@ -101,7 +101,6 @@ import {
   AutomationUpdate
 } from './automation-params'
 import { CertificateProceed } from './browser-core-params'
-import { ExtensionList, ExtensionReload } from './browser-extension-params'
 import { MouseClick } from './browser-extras-params'
 import { BrowserIdentitySet, ProfileCreate } from './browser-identity-params'
 import { Screenshot, Snapshot } from './browser-observation-params'
@@ -131,9 +130,7 @@ import {
   MouseButton,
   MouseWheel,
   MouseXY,
-  ProfileClearGoogleCookies,
   ProfileDelete,
-  ProfileImportFromBrowser,
   Screencast,
   Scroll,
   Select,
@@ -883,8 +880,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'browser.drag': Drag,
   'browser.eval': Eval,
   'browser.exec': Exec,
-  'browser.extensionList': ExtensionList,
-  'browser.extensionReload': ExtensionReload,
   'browser.fill': Fill,
   'browser.find': Find,
   'browser.focus': Element,
@@ -912,11 +907,8 @@ export const RPC_PARAMS_BY_METHOD = {
   'browser.openUrl': BrowserOpenUrlParams,
   'browser.pdf': BrowserTarget,
   'browser.profileClearDefaultCookies': null,
-  'browser.profileClearGoogleCookies': ProfileClearGoogleCookies,
   'browser.profileCreate': ProfileCreate,
   'browser.profileDelete': ProfileDelete,
-  'browser.profileDetectBrowsers': null,
-  'browser.profileImportFromBrowser': ProfileImportFromBrowser,
   'browser.profileList': null,
   'browser.reload': ExpectUrlBrowserTarget,
   'browser.screencast': Screencast,

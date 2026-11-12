@@ -18,8 +18,6 @@ export const browserPasswordsApi: BrowserPasswordsApi = {
   deleteEntry: (args) => ipcRenderer.invoke('browserPasswords:deleteEntry', args),
   listNever: (args) => ipcRenderer.invoke('browserPasswords:listNever', args),
   removeNever: (args) => ipcRenderer.invoke('browserPasswords:removeNever', args),
-  importCsv: (args) => ipcRenderer.invoke('browserPasswords:importCsv', args),
-  importFromBrowser: (args) => ipcRenderer.invoke('browserPasswords:importFromBrowser', args),
   respondSavePrompt: (response) =>
     ipcRenderer.invoke('browserPasswords:respondSavePrompt', response),
   fillLogin: (args) => ipcRenderer.invoke('browserPasswords:fill', args),

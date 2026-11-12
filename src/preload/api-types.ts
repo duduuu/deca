@@ -174,11 +174,7 @@ export type { ClaudeUsageApi, CodexUsageApi, OpenCodeUsageApi } from './api/agen
 export type { AiVaultApi } from './api/ai-vault-api'
 export type { AutomationsApi } from './api/automation-api'
 export type { AppApi } from './api/app-api'
-export type {
-  BrowserApi,
-  DetectedBrowserInfo,
-  DetectedBrowserProfileInfo
-} from './api/browser/browser-api'
+export type { BrowserApi } from './api/browser/browser-api'
 export type { EmulatorApi } from './api/emulator-api'
 export type { ExportApi } from './api/filesystem-api'
 export type {

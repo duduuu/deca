@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { GlobalSettings } from '../../../../../shared/global-settings-types'
 import { useAppStore } from '../../../store/index'
 import { matchesSettingsSearch } from '../search/settings-search'
@@ -22,8 +22,6 @@ import { BrowserSitePermissionsSetting } from './BrowserSitePermissionsSetting'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { BrowserSessionCookiesSection } from './profiles/BrowserSessionCookiesSection'
 import { BrowserNewProfileDialog } from './profiles/BrowserNewProfileDialog'
-import { BrowserExtensionsSection } from './extensions/BrowserExtensionsSection'
-import { getBrowserExtensionsSearchEntry } from './extensions/browser-extensions-search'
 import { BrowserPasswordsSection } from './passwords/BrowserPasswordsSection'
 import { getBrowserPasswordsSearchEntry } from './passwords/browser-passwords-copy'
 import {
@@ -45,18 +43,10 @@ import { translateBrowserSessionProfileLabel } from '@/lib/browser/profiles/brow
 import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
 import { resolveAvailableBrowserSessionHostId } from './profiles/browser-session-host-selection'
 import { getDefaultBrowserProfileForHost } from '@/store/slices/browser/hosts/browser-host-state'
-import { motionSafeScrollBehavior } from '@/hooks/usePrefersReducedMotion'
 
 type BrowserPaneProps = {
   settings: GlobalSettings
   updateSettings: (updates: Partial<GlobalSettings>) => void
-}
-
-function cancelBrowserSessionCookieScrollFrames(frameIds: MutableRefObject<number[]>): void {
-  for (const frameId of frameIds.current) {
-    cancelAnimationFrame(frameId)
-  }
-  frameIds.current = []
 }
 
 export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): React.JSX.Element {
@@ -77,8 +67,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
   const runtimeStatusByEnvironmentId = useAppStore((s) => s.runtimeStatusByEnvironmentId)
   const browserSessionHostIdOverride = useAppStore((s) => s.browserSessionHostIdOverride)
   const setBrowserSessionHostId = useAppStore((s) => s.setBrowserSessionHostId)
-  const detectedBrowsers = useAppStore((s) => s.detectedBrowsers)
-  const browserSessionImportState = useAppStore((s) => s.browserSessionImportState)
   const setDefaultBrowserSessionProfileId = useAppStore((s) => s.setDefaultBrowserSessionProfileId)
   const defaultProfile = browserSessionProfiles.find((p) => p.id === 'default')
   const nonDefaultProfiles = browserSessionProfiles.filter((p) => p.scope !== 'default')
@@ -87,7 +75,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
     createBrowserHomePageDraftState(persistedHomePageDraft)
   )
   const [newProfileDialogOpen, setNewProfileDialogOpen] = useState(false)
-  const sessionCookieScrollFrameIdsRef = useRef<number[]>([])
   const resolvedHomePageDraftState = resolveBrowserHomePageDraftState(
     homePageDraftState,
     persistedHomePageDraft
@@ -100,13 +87,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
   const setHomePageDraft = (value: string): void => {
     setHomePageDraftState((current) => ({ ...current, value }))
   }
-
-  const setBrowserPaneRootNode = useCallback((node: HTMLDivElement | null) => {
-    if (node !== null) {
-      return
-    }
-    cancelBrowserSessionCookieScrollFrames(sessionCookieScrollFrameIdsRef)
-  }, [])
 
   const selectedSearchEngine = browserDefaultSearchEngine ?? 'google'
 
@@ -204,50 +184,16 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
     [setBrowserSessionHostId]
   )
 
-  const requestSessionCookieScrollFrame = (callback: FrameRequestCallback): void => {
-    let completed = false
-    let frameId: number | undefined
-    frameId = requestAnimationFrame((timestamp) => {
-      completed = true
-      if (frameId !== undefined) {
-        sessionCookieScrollFrameIdsRef.current = sessionCookieScrollFrameIdsRef.current.filter(
-          (pendingFrameId) => pendingFrameId !== frameId
-        )
-      }
-      callback(timestamp)
-    })
-    if (!completed) {
-      sessionCookieScrollFrameIdsRef.current.push(frameId)
-    }
-  }
-
-  const scrollToSessionCookies = (): void => {
-    cancelBrowserSessionCookieScrollFrames(sessionCookieScrollFrameIdsRef)
-    useAppStore.getState().setSettingsSearchQuery('')
-    requestSessionCookieScrollFrame(() => {
-      requestSessionCookieScrollFrame(() => {
-        const el = document.getElementById('browser-session-cookies')
-        if (!el) {
-          return
-        }
-        el.scrollIntoView({ behavior: motionSafeScrollBehavior(), block: 'start' })
-      })
-    })
-  }
-
   const showPasswordsSection =
     showPasswords &&
     !isWebClientLocation() &&
     selectedBrowserSessionHostId === LOCAL_EXECUTION_HOST_ID
-  const showExtensions =
-    matchesSettingsSearch(searchQuery, [getBrowserExtensionsSearchEntry()]) &&
-    selectedBrowserSessionHostId === LOCAL_EXECUTION_HOST_ID
 
   return (
-    <div ref={setBrowserPaneRootNode} className="space-y-8">
+    <div className="space-y-8">
       {showBrowserUse ? (
         <SettingsGroup>
-          <BrowserUseSetup onConfigureMoreBrowsers={scrollToSessionCookies} />
+          <BrowserUseSetup />
         </SettingsGroup>
       ) : null}
 
@@ -361,14 +307,12 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
         </SettingsGroup>
       ) : null}
 
-      {showCookies || showPasswordsSection || showExtensions ? (
+      {showCookies || showPasswordsSection ? (
         <SettingsGroup>
           {showCookies ? (
             <BrowserSessionCookiesSection
               defaultProfile={defaultProfile}
               nonDefaultProfiles={nonDefaultProfiles}
-              detectedBrowsers={detectedBrowsers}
-              importState={browserSessionImportState}
               hostOptions={browserSessionHostOptions}
               selectedHostId={selectedBrowserSessionHostId}
               activeProfileId={activeBrowserSessionProfileId}
@@ -383,16 +327,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
           {showPasswordsSection ? (
             <BrowserPasswordsSection
               browserProfileId={activeBrowserSessionProfileId}
-              profileLabel={activeBrowserSessionProfileLabel}
-              settings={settings}
-              updateSettings={updateSettings}
-            />
-          ) : null}
-
-          {/* Why local only: release 1 runs extensions in this computer's browser profiles. */}
-          {showExtensions ? (
-            <BrowserExtensionsSection
-              profileId={activeBrowserSessionProfileId}
               profileLabel={activeBrowserSessionProfileLabel}
               settings={settings}
               updateSettings={updateSettings}

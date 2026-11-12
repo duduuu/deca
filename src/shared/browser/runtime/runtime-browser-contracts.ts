@@ -1,10 +1,8 @@
 import type { BrowserPageAnnotation } from '../element-grab/browser-grab-types'
 import type {
   BrowserCertificateFailure,
-  BrowserCookieImportResult,
   BrowserLoadError,
-  BrowserSessionProfile,
-  BrowserSessionProfileSource
+  BrowserSessionProfile
 } from '../../browser-workspace-types'
 import type { BROWSER_UNAVAILABLE_ERROR_CODE } from '../../runtime-session-contracts'
 
@@ -150,19 +148,6 @@ export type BrowserProfileListResult = {
 }
 export type BrowserProfileCreateResult = { profile: BrowserSessionProfile | null }
 export type BrowserProfileDeleteResult = { deleted: boolean; profileId: string }
-export type BrowserDetectedProfileInfo = { name: string; directory: string }
-
-export type BrowserDetectedInfo = {
-  family: BrowserSessionProfileSource['browserFamily']
-  label: string
-  profiles: BrowserDetectedProfileInfo[]
-  selectedProfile: string
-}
-
-export type BrowserDetectProfilesResult = { browsers: BrowserDetectedInfo[] }
-export type BrowserProfileImportFromBrowserResult = BrowserCookieImportResult & {
-  executorRuntimeId?: string
-}
 export type BrowserProfileClearDefaultCookiesResult = { cleared: boolean }
 export type BrowserHoverResult = { hovered: string }
 export type BrowserDragResult = { dragged: { from: string; to: string } }

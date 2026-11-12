@@ -15,7 +15,6 @@ vi.mock('@/components/confirmation-dialog-context', () => ({
 vi.mock('../../section-layout/SearchableSetting', () => ({
   SearchableSetting: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
 }))
-vi.mock('./BrowserPasswordImportMenu', () => ({ BrowserPasswordImportMenu: () => null }))
 
 const api = {
   getStatus: vi.fn(async () => ({ availability: { available: true }, reauthMethod: 'none' })),

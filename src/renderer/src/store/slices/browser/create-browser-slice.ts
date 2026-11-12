@@ -17,8 +17,7 @@ import { createBrowserAudioActions } from './audio/browser-audio-actions'
 import { createBrowserHydrationActions } from './hydration/browser-hydration-actions'
 import { createBrowserProfileListActions } from './profiles/browser-profile-list-actions'
 import { createBrowserManagedProfileActions } from './profiles/browser-managed-profile-actions'
-import { createBrowserProfileImportActions } from './profiles/browser-profile-import-actions'
-import { createBrowserCookieImportActions } from './profiles/browser-cookie-import-actions'
+import { createBrowserSessionCookieClearActions } from './profiles/browser-session-cookie-clear-actions'
 import { createBrowserHistoryActions } from './history/browser-history-actions'
 
 export const createBrowserSlice: StateCreator<AppState, [], [], BrowserSlice> = (set, get) => ({
@@ -41,13 +40,9 @@ export const createBrowserSlice: StateCreator<AppState, [], [], BrowserSlice> = 
   browserSessionProfilesByHostId: {},
   managedBrowserProfileStatusById: {},
   browserSessionHostIdOverride: null,
-  browserSessionImportState: null,
   browserUrlHistory: [],
   workspaceDocHistory: [],
   browserHistoryPageId: null,
-  detectedBrowsers: [],
-  detectedBrowsersLoaded: false,
-  detectedBrowsersHost: null,
   ...createBrowserHostActions(set, get),
   ...createBrowserTabActions(set, get),
   ...createBrowserCloseActions(set, get),
@@ -64,7 +59,6 @@ export const createBrowserSlice: StateCreator<AppState, [], [], BrowserSlice> = 
   ...createBrowserProfileSwitchActions(set, get),
   ...createBrowserProfileListActions(set, get),
   ...createBrowserManagedProfileActions(set, get),
-  ...createBrowserProfileImportActions(set, get),
-  ...createBrowserCookieImportActions(set, get),
+  ...createBrowserSessionCookieClearActions(get),
   ...createBrowserHistoryActions(set, get)
 })

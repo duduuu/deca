@@ -6,8 +6,6 @@ export type NewBrowserTabProfile = { sessionProfileId: string | null; sessionPar
 import type { AppState } from '../../types'
 import type {
   BrowserCertificateFailure,
-  BrowserCookieImportResult,
-  BrowserCookieImportSummary,
   BrowserHistoryEntry,
   BrowserLoadError,
   BrowserPage,
@@ -104,14 +102,6 @@ export type RemoteBrowserPageHandle = {
 export type RemovedBrowserHistory = {
   browserUrlHistory: BrowserHistoryEntry[]
   workspaceDocHistory: WorkspaceDocHistoryEntry[]
-}
-
-export type BrowserCookieImportExecutionResult = BrowserCookieImportResult & {
-  executionHostId: ExecutionHostId
-  executionHostLabel: string
-  // Why: for a remote environment the import silently runs on either machine; toasts must say which.
-  executionMachine: 'client' | 'remote'
-  executionRemoteEnvironment: boolean
 }
 
 export type BrowserSlice = {
@@ -232,12 +222,6 @@ export type BrowserSlice = {
   browserSessionProfilesByHostId: Partial<Record<ExecutionHostId, BrowserSessionProfile[]>>
   browserSessionHostIdOverride: ExecutionHostId | null
   setBrowserSessionHostId: (hostId: ExecutionHostId) => Promise<void>
-  browserSessionImportState: {
-    profileId: string
-    status: 'idle' | 'importing' | 'success' | 'error'
-    summary: BrowserCookieImportSummary | null
-    error: string | null
-  } | null
   /** Loads one host's profiles; defaults to the host Browser settings is showing. */
   fetchBrowserSessionProfiles: (hostId?: ExecutionHostId) => Promise<void | {
     hostId: ExecutionHostId
@@ -260,23 +244,6 @@ export type BrowserSlice = {
   deleteManagedBrowserSessionProfile: (owner: ManagedBrowserProfileOwner) => Promise<void>
   /** Managed profiles main has not finished creating; their pages must not mount on any other partition. */
   managedBrowserProfileStatusById: Record<string, 'pending' | 'failed'>
-  importCookiesToProfile: (profileId: string) => Promise<BrowserCookieImportExecutionResult>
-  clearBrowserSessionImportState: () => void
-  detectedBrowsers: {
-    family: string
-    label: string
-    profiles: { name: string; directory: string }[]
-    selectedProfile: string
-  }[]
-  detectedBrowsersLoaded: boolean
-  // Record detector machine for import menus; null while settings target local host.
-  detectedBrowsersHost: { machine: 'client' | 'remote'; hostLabel: string } | null
-  fetchDetectedBrowsers: () => Promise<void>
-  importCookiesFromBrowser: (
-    profileId: string,
-    browserFamily: string,
-    browserProfile?: string
-  ) => Promise<BrowserCookieImportExecutionResult>
   clearDefaultSessionCookies: () => Promise<boolean>
   browserUrlHistory: BrowserHistoryEntry[]
   addBrowserHistoryEntry: (url: string, title: string, faviconUrl?: string | null) => void

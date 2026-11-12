@@ -1671,7 +1671,7 @@
     "ko": "이 Orca 서버의 브라우저 프로필입니다."
   },
   "auto.components.settings.BrowserPane.cd47bc9622": {
-    "ko": "새 브라우저 탭의 기본 프로필을 선택합니다. 쿠키를 가져오고 탭별로 프로필을 전환하려면 다음을 이용하세요:"
+    "ko": "새 브라우저 탭의 기본 프로필을 선택합니다. 탭별로 프로필을 전환하려면 다음을 이용하세요:"
   },
   "auto.components.settings.CommitMessageAiPane.15b60d54b2": {
     "ko": "예: ollama run llama3.1 {prompt}"
@@ -2432,23 +2432,11 @@
   "auto.components.settings.browser.search.c3d89ed4d0": {
     "ko": "새로 열린 브라우저 탭에 적용되는 확대/축소 수준입니다."
   },
-  "auto.components.settings.browser.use.search.2e1b09897b": {
-    "ko": "Edge"
-  },
-  "auto.components.settings.browser.use.search.3f4c559deb": {
-    "ko": "Arc 프로필"
-  },
   "auto.components.settings.browser.use.search.7e0dcb257a": {
     "ko": "셸"
   },
   "auto.components.settings.browser.use.search.a57c2172dc": {
     "ko": "agent-browser"
-  },
-  "auto.components.settings.browser.use.search.ab349a2dd0": {
-    "ko": "Arc"
-  },
-  "auto.components.settings.browser.use.search.d5afa54d21": {
-    "ko": "Edge 프로필"
   },
   "auto.components.settings.cli.source.control.integration.cards.2e44dda68a": {
     "ko": "GitHub CLI가 설치되어 있지만 인증되지 않았습니다. terminal에서 다음 명령을 실행하세요."

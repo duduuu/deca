@@ -13,10 +13,6 @@ import type {
   BrowserSessionProfileScope
 } from '../../../../shared/browser-workspace-types'
 import {
-  applyPendingBrowserCookieImports,
-  clearPendingBrowserCookieImport
-} from '../../cookies/staging/browser-session-cookie-staging'
-import {
   BROWSER_SESSION_META_FILE_NAME,
   forgetBrowserSessionProfileMeta,
   loadBrowserSessionMeta,
@@ -95,10 +91,6 @@ class BrowserSessionRegistry {
     persistBrowserSessionMeta(() => this.metadataPath, this.defaultPartition, updates)
   }
 
-  private persistSource(source: BrowserSessionProfile['source']): void {
-    this.persistMeta({ defaultSource: source })
-  }
-
   private persistProfiles(): void {
     const nonDefault = [...this.profiles.values()].filter((p) => p.id !== 'default')
     this.persistMeta({ profiles: nonDefault })
@@ -167,22 +159,6 @@ class BrowserSessionRegistry {
 
   private updateExtensionIdList(key: ExtensionIdListKey, update: ExtensionIdListUpdate): void {
     this.persistMeta({ [key]: update(this.loadPersistedMeta()[key]) })
-  }
-
-  applyPendingCookieImport(): void {
-    applyPendingBrowserCookieImports({
-      resolveMetadataPath: () => this.metadataPath,
-      defaultPartition: this.defaultPartition,
-      activeOrcaProfileId: this.activeOrcaProfileId
-    })
-  }
-
-  clearPendingCookieImport(partition: string): void {
-    clearPendingBrowserCookieImport({
-      resolveMetadataPath: () => this.metadataPath,
-      defaultPartition: this.defaultPartition,
-      partition
-    })
   }
 
   getDefaultProfile(): BrowserSessionProfile {
@@ -263,25 +239,6 @@ class BrowserSessionRegistry {
     this.attachExtensions(profile)
     this.onProfilesChanged?.()
     return profile
-  }
-
-  updateProfileSource(
-    profileId: string,
-    source: BrowserSessionProfile['source']
-  ): BrowserSessionProfile | null {
-    const profile = this.profiles.get(profileId)
-    if (!profile) {
-      return null
-    }
-    const updated = { ...profile, source }
-    this.profiles.set(profileId, updated)
-    if (profileId === 'default') {
-      this.persistSource(source)
-    } else {
-      this.persistProfiles()
-    }
-    this.onProfilesChanged?.()
-    return updated
   }
 
   async deleteProfile(profileId: string): Promise<boolean> {

@@ -124,17 +124,6 @@ export const TabProfileClone = BrowserTarget.extend({
 
 export const ProfileDelete = z.object({ profileId: requiredString('Missing required --profile') })
 
-export const ProfileClearGoogleCookies = ProfileDelete.extend({
-  executorRuntimeId: z.string().min(1)
-})
-
-export const ProfileImportFromBrowser = z.object({
-  profileId: requiredString('Missing required --profile'),
-  browserFamily: requiredString('Missing required --browser-family'),
-  browserProfile: OptionalString,
-  supportsPartitionSkippedCookies: z.literal(true).optional()
-})
-
 export const Drag = ExpectUrlBrowserTarget.extend({
   from: requiredString('Missing required --from and --to element refs'),
   to: requiredString('Missing required --from and --to element refs')

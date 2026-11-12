@@ -59,8 +59,6 @@ type BrowserToolbarMenuDropdownProps = {
   onMenuOpenChange: (open: boolean) => void
   profile: BrowserToolbarProfileSubProps
   pageActions: BrowserToolbarPageActions
-  /** The Extensions › submenu; null where the page's session runs no extensions. */
-  extensionsSub: React.ReactNode
   viewportPresetId: BrowserViewportPresetId | null
   onApplyViewportPreset: (nextId: BrowserViewportPresetId | null) => void
   siteDisplay: BrowserPageSiteDisplay | null
@@ -75,7 +73,6 @@ export function BrowserToolbarMenuDropdown({
   onMenuOpenChange,
   profile,
   pageActions,
-  extensionsSub,
   viewportPresetId,
   onApplyViewportPreset,
   siteDisplay,
@@ -174,7 +171,6 @@ export function BrowserToolbarMenuDropdown({
 
         <DropdownMenuSeparator />
 
-        {extensionsSub}
         <BrowserToolbarProfileSub {...profile} />
 
         <DropdownMenuSeparator />

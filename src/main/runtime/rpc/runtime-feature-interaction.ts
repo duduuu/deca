@@ -7,9 +7,6 @@ export function getRuntimeFeatureInteractionId(
   result: unknown,
   rawParams?: unknown
 ): FeatureInteractionId | null {
-  if (method === 'browser.profileImportFromBrowser') {
-    return hasBooleanResult(result, 'ok') ? 'cookie-import' : null
-  }
   if (method === 'browser.profileClearDefaultCookies') {
     return hasBooleanResult(result, 'cleared') ? 'cookie-import' : null
   }

@@ -1,5 +1,4 @@
 import {
-  BROWSER_GOOGLE_COOKIE_CLEAR_CAPABILITY,
   BROWSER_CERTIFICATE_TRUST_RUNTIME_CAPABILITY,
   BROWSER_CLIENT_HOST_RUNTIME_CAPABILITY,
   BROWSER_HEADLESS_RUNTIME_CAPABILITY,
@@ -8,7 +7,6 @@ import {
 } from '../../../shared/browser/runtime/browser-runtime-capabilities'
 import {
   runtimeBrowserCommandsFactoryIsHeadless,
-  runtimeBrowserCommandsFactorySupportsGoogleCookieClear,
   runtimeBrowserCommandsFactorySupportsClientHosting,
   runtimeBrowserUnavailableCause
 } from '../browser/installation/runtime-browser-commands-factory'
@@ -72,8 +70,6 @@ export abstract class OrcaRuntimeWithGetStatus extends RuntimeWorkspaceChangeEve
       process.platform === 'win32' && isWindowsProcessStartTimeAvailable()
     const capabilities: NonNullable<RuntimeStatus['capabilities']> = RUNTIME_CAPABILITIES.filter(
       (capability) =>
-        (capability !== BROWSER_GOOGLE_COOKIE_CLEAR_CAPABILITY ||
-          runtimeBrowserCommandsFactorySupportsGoogleCookieClear()) &&
         (capability !== 'browser.screencast.v1' || canBrowse) &&
         (capability !== BROWSER_CLIENT_HOST_RUNTIME_CAPABILITY || canHostClientPages) &&
         (capability !== BROWSER_TAB_CREATE_KNOWN_ID_RUNTIME_CAPABILITY ||

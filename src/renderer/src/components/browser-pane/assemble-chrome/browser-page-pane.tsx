@@ -380,7 +380,6 @@ export function BrowserPagePane({
               }
               browserOverlayViewport={browserOverlayViewport}
               worktreeId={worktreeId}
-              importProfileId={sessionProfileId}
               grab={grab}
               annotationSend={annotationSend}
               grabAnnotations={grabAnnotations}

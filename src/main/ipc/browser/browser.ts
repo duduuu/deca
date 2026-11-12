@@ -31,8 +31,6 @@ import type {
 import { respondToBrowserPagePrompt } from '../../browser/guest-lifecycle/prompts/browser-page-prompts'
 import { recordActiveBrowserPage } from '../../browser/extensions/tabs-and-windows/browser-extension-tab-model'
 import { announceRegisteredBrowserExtensionTab } from '../../browser/extensions/tabs-and-windows/browser-extension-tab-lifecycle'
-import { registerBrowserExtensionHandlers } from './browser-extensions'
-import { registerBrowserExtensionContextMenuHandlers } from './browser-extension-context-menu'
 import {
   registerBrowserPasswordsHandlers,
   type BrowserPasswordsSettingsSource
@@ -257,7 +255,5 @@ export function registerBrowserHandlers(store: BrowserPasswordsSettingsSource): 
 
   registerBrowserSessionProfileHandlers()
 
-  registerBrowserExtensionHandlers()
-  registerBrowserExtensionContextMenuHandlers()
   registerBrowserPasswordsHandlers(store)
 }

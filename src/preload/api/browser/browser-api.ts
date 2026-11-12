@@ -3,13 +3,6 @@ import type { BrowserDevToolsDockBounds } from '../../../shared/browser/devtools
 import type { BrowserSetAnnotationViewportBridgeArgs } from '../../../shared/browser/annotations/browser-annotation-viewport-bridge'
 import type { BrowserAgentPresenceApi } from './browser-agent-presence-api'
 import type { ManagedBrowserProfileOwner } from '../../../shared/browser/profiles/browser-profile-scope'
-import type { BrowserExtensionToolbarApi } from './browser-extension-toolbar-api'
-import type { BrowserExtensionContextMenuApi } from './browser-extension-context-menu-api'
-import type { BrowserExtensionWebStoreApi } from './browser-extension-webstore-api'
-import type {
-  BrowserExtensionActionResult,
-  BrowserExtensionListResult
-} from '../../../shared/browser/extensions/browser-extension-types'
 import type {
   BrowserPageSiteDisplay,
   BrowserSiteColorScheme
@@ -63,11 +56,9 @@ import type {
 import type {
   BrowserCertificateFailure,
   BrowserCertificateProceedResult,
-  BrowserCookieImportResult,
   BrowserLoadError,
   BrowserSessionProfile,
   BrowserSessionProfileScope,
-  BrowserSessionProfileSource,
   BrowserViewportOverride,
   BrowserViewportScrollState
 } from '../../../shared/browser-workspace-types'
@@ -232,28 +223,6 @@ export type BrowserApi = {
   identityGet: () => Promise<BrowserIdentityModeStatus | null>
   identitySet: (mode: BrowserUserAgentMode) => Promise<BrowserIdentityModeSetResult | null>
   sessionDeleteProfile: (args: { profileId: string }) => Promise<boolean>
-  sessionImportCookies: (args: { profileId: string }) => Promise<BrowserCookieImportResult>
-  sessionDetectBrowsers: () => Promise<DetectedBrowserInfo[]>
-  /** Null when the environment's pages are not client-hosted on this desktop. */
-  sessionDetectBrowsersForClientHost: (args: {
-    environmentId: string
-  }) => Promise<DetectedBrowserInfo[] | null>
-  sessionImportFromBrowser: (args: {
-    profileId: string
-    browserFamily: string
-    browserProfile?: string
-  }) => Promise<BrowserCookieImportResult>
-  /** Null when the environment's pages are not client-hosted on this desktop. */
-  sessionImportFromBrowserForClientHost: (args: {
-    environmentId: string
-    profileId: string
-    browserFamily: string
-    browserProfile?: string
-  }) => Promise<BrowserCookieImportResult | null>
-  /** Import sources keyed by browser profile ID. */
-  sessionClientRouteImportSources: (args: {
-    environmentId: string
-  }) => Promise<Record<string, BrowserSessionProfileSource>>
   /** Site permissions are local to this computer and browser profile. */
   sitePermissionsList: (args: { profileId: string }) => Promise<BrowserSitePermissionEntry[]>
   /** Null forgets the answer so the site is asked again. */
@@ -264,50 +233,5 @@ export type BrowserApi = {
     decision: BrowserSitePermissionDecision | null
   }) => Promise<BrowserSitePermissionEntry[]>
   notifyActiveTabChanged: (args: { browserPageId: string }) => Promise<boolean>
-  extensionsList: (args: { profileId: string }) => Promise<BrowserExtensionListResult>
-  extensionsSetEnabled: (args: {
-    profileId: string
-    extensionId: string
-    enabled: boolean
-  }) => Promise<BrowserExtensionActionResult>
-  extensionsRemove: (args: {
-    profileId: string
-    extensionId: string
-  }) => Promise<BrowserExtensionActionResult>
-  extensionsLoadUnpacked: (args: {
-    profileId: string
-    directory: string
-  }) => Promise<BrowserExtensionActionResult>
-  /** Re-copies an unpacked extension's folder and restarts it in every profile. */
-  extensionsReload: (args: {
-    profileId: string
-    extensionId: string
-  }) => Promise<BrowserExtensionActionResult>
-  extensionsOpenOptions: (args: {
-    profileId: string
-    extensionId: string
-  }) => Promise<BrowserExtensionActionResult>
-  /** Asks about a held store update's new access, then installs it. */
-  extensionsReviewUpdate: (args: {
-    profileId: string
-    extensionId: string
-  }) => Promise<BrowserExtensionActionResult>
-  /** Installs, updates, removals, load errors or held updates changed; refetch the list. */
-  onExtensionsChanged: (callback: () => void) => () => void
-} & BrowserExtensionToolbarApi &
-  BrowserExtensionWebStoreApi &
-  BrowserExtensionContextMenuApi &
-  BrowserSessionCookieApi &
+} & BrowserSessionCookieApi &
   BrowserAgentPresenceApi
-
-export type DetectedBrowserProfileInfo = {
-  name: string
-  directory: string
-}
-
-export type DetectedBrowserInfo = {
-  family: BrowserSessionProfileSource['browserFamily']
-  label: string
-  profiles: DetectedBrowserProfileInfo[]
-  selectedProfile: string
-}

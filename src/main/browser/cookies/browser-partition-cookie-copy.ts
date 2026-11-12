@@ -12,7 +12,7 @@ import type { CdpCookie } from './browser-cdp-cookie'
 import { identityFromCdpCookie, openCookieClearStore } from './browser-cookie-clear-store'
 import { withCookieMutationLock } from './mutation/cookie-mutation-lock'
 import type { CookieClearIdentity } from './storage/cookie-store-contracts'
-import { isNonTransplantableCookieDomain } from './policy/cookie-import-exclusions'
+import { isNonTransplantableCookieDomain } from './policy/cookie-transplant-exclusions'
 import { normalizeCookieDomain } from './policy/cookie-domain'
 
 export type BrowserPartitionCookieCopyPlan = {

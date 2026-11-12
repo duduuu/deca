@@ -13,7 +13,6 @@ import {
   registerBrowserRequestIpcBridge,
   signalBrowserTabRequestsReadyAfterRestore
 } from './browser-request-ipc-bridge'
-import { registerBrowserTabActivateIpcBridge } from './browser-tab-activate-ipc-bridge'
 import { registerBrowserStateIpcBridge } from './browser-state-ipc-bridge'
 import { registerContentCreationIpcBridge } from './content-creation-ipc-bridge'
 import { registerDirectSshStateIpcBridge } from './direct-ssh-state-ipc-bridge'
@@ -137,7 +136,6 @@ export function installAppLifetimeIpcEvents(): () => void {
   registerContentCreationIpcBridge(unsubs, isRuntimeEnvironmentActive)
   registerBrowserRequestIpcBridge(unsubs)
   signalBrowserTabRequestsReadyAfterRestore(unsubs)
-  registerBrowserTabActivateIpcBridge(unsubs)
   registerTabLifecycleIpcBridge(unsubs)
   registerRateLimitIpcBridge(unsubs)
   registerPluginViewIpcBridge(unsubs)

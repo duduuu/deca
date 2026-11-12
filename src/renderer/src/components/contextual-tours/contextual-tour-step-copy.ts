@@ -104,16 +104,6 @@ const LOCALIZED_STEP_COPY: Partial<Record<string, StepCopyThunk>> = {
       'Annotate elements and send those notes to an agent.'
     )
   }),
-  'browser-logins': () => ({
-    title: translate(
-      'auto.components.contextual.tours.contextual.tour.step.copy.browser.logins.title',
-      'Stay logged in'
-    ),
-    body: translate(
-      'auto.components.contextual.tours.contextual.tour.step.copy.browser.logins.body',
-      'Bring your existing logins into Deca to stay signed in immediately.'
-    )
-  }),
   'client-hosted-browser-intro': () => ({
     title: translate(
       'auto.components.contextual.tours.contextual.tour.overlay.measurement.client.hosted.browser.intro.title',

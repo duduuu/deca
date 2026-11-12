@@ -101,13 +101,6 @@ const NODE_RUNTIME_INCLUDE = [
   'src/main/foreign-sqlite-readers/**/*.test.ts',
   'src/main/browser/*cookie*.test.ts',
   'src/main/browser/cookies/*cookie*.test.ts',
-  'src/main/browser/cookies/client-route/*cookie*.test.ts',
-  'src/main/browser/cookies/staging/browser-session-cookie-staging.scoped.test.ts',
-  'src/main/browser/cookies/staging/browser-session-cookie-staging.test.ts',
-  'src/main/browser/cookies/chromium/chromium-cookie-snapshot.test.ts',
-  'src/main/browser/cookies/sources/browser-cookie-decryption.test.ts',
-  'src/main/browser/cookies/sources/browser-cookie-import-undecryptable.test.ts',
-  'src/main/browser/cookies/sources/browser-cookie-source-partition.test.ts',
   // Playwright's CDP transport needs Node's WebSocket implementation.
   'src/main/browser/guest-lifecycle/popups/presentation/popup-origin-chrome.electron.test.ts',
   'src/main/browser/guest-lifecycle/navigation/browser-link-materialization.electron.test.ts',

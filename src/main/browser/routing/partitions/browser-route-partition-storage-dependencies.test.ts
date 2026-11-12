@@ -23,10 +23,6 @@ vi.mock('../../sessions/profiles/browser-session-profile-retirement', () => ({
   retireDeletedBrowserSessionProfile: vi.fn(async () => {}),
   retireFailedBrowserSessionProfile: vi.fn(async () => {})
 }))
-vi.mock('../../cookies/staging/browser-session-cookie-staging', () => ({
-  applyPendingBrowserCookieImports: vi.fn(),
-  clearPendingBrowserCookieImport: vi.fn()
-}))
 vi.mock('../../extensions/profile-sessions/browser-extension-session-loader', () => ({
   attachBrowserExtensionsToProfileSession: vi.fn()
 }))

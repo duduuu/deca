@@ -97,7 +97,7 @@ describe('Windows static-name agent selection', () => {
   }
 
   it('does not re-admit a detached agent through owned job membership', async () => {
-    installRows(['droid.exe'])
+    installRows(['grok.exe'])
     const consoleMembers = vi.fn(async () => new Set([100, 999]))
     expect(
       await resolveSpawnFileForegroundProcess(proc, 'powershell.exe', {
@@ -116,12 +116,12 @@ describe('Windows static-name agent selection', () => {
   })
 
   it('retains a positively authorized agent', async () => {
-    installRows(['droid.exe'])
+    installRows(['grok.exe'])
     expect(
       await resolveSpawnFileForegroundProcess(proc, 'powershell.exe', {
         fresh: true,
         readWindowsConsoleAttachedProcessIds: async () => new Set([100, 101])
       })
-    ).toEqual({ available: true, processName: 'droid', processId: 101 })
+    ).toEqual({ available: true, processName: 'grok', processId: 101 })
   })
 })

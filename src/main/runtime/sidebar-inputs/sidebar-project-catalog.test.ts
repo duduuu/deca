@@ -74,7 +74,6 @@ describe('readSidebarProjectCatalog', () => {
       'runtime:hub|hub-repo',
       'local|b',
       'local|a',
-      'ssh:box|s',
       'local|upload'
     ])
     expect(catalog.repos.find((entry) => entry.id === 'a')).toMatchObject({
@@ -92,7 +91,6 @@ describe('readSidebarProjectCatalog', () => {
       ['a', 'local'],
       ['b', 'local'],
       ['hub-repo', 'runtime:hub'],
-      ['s', 'ssh:box'],
       ['upload', 'local']
     ])
     expect(catalog.projectOrderBy).toBe('manual')

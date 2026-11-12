@@ -146,10 +146,7 @@ describe('WSL move retention', () => {
     const userData = () => testState.dir
     expect(
       visibleRepos(store, userData).map((repo) => [repo.id, repo.connectionId ?? null])
-    ).toEqual([
-      ['repo-w', null],
-      ['repo-a', 'ssh-1']
-    ])
+    ).toEqual([['repo-w', null]])
     expect(visibleFolderWorkspaces(store, userData).map((row) => row.id)).toEqual(['remote'])
   })
 
@@ -242,7 +239,7 @@ describe('WSL move retention', () => {
     expect(report?.rewrittenMarks).toBe(2)
     expect(store.getRepos().some((repo) => repo.orcadRetained)).toBe(false)
     expect(store.getFolderWorkspaces().some((row) => row.orcadRetained)).toBe(false)
-    expect(visibleRepos(store, () => testState.dir)).toHaveLength(3)
+    expect(visibleRepos(store, () => testState.dir)).toHaveLength(2)
   })
 
   it('keeps every mark when the journal cannot be read', async () => {

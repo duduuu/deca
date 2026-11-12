@@ -65,12 +65,12 @@ describe('skill discovery', () => {
     const root = await mkdtemp(join(tmpdir(), 'orca-skills-'))
     const home = join(root, 'home')
     const healthySkill = join(home, '.codex', 'skills', 'review')
-    const stalledSkill = join(home, '.omp', 'agent', 'skills', 'planning')
+    const stalledSkill = join(home, '.agents', 'skills', 'planning')
     await mkdir(healthySkill, { recursive: true })
     await mkdir(stalledSkill, { recursive: true })
     await writeFile(join(healthySkill, 'SKILL.md'), '# Review\n\nReview code.')
     await writeFile(join(stalledSkill, 'SKILL.md'), '# Planning\n\nPlan work.')
-    unavailableRootPath = join(home, '.omp', 'agent', 'skills')
+    unavailableRootPath = join(home, '.agents', 'skills')
 
     const result = await discoverSkills({ homeDir: home, cwd: join(root, 'missing-cwd') })
 
@@ -84,7 +84,7 @@ describe('skill discovery', () => {
     const root = await mkdtemp(join(tmpdir(), 'orca-skills-'))
     const home = join(root, 'home')
     const absentRoot = join(home, '.codex', 'skills')
-    const stalledRoot = join(home, '.omp', 'agent', 'skills')
+    const stalledRoot = join(home, '.agents', 'skills')
     await mkdir(stalledRoot, { recursive: true })
     unavailableRootPath = stalledRoot
 
@@ -104,7 +104,7 @@ describe('skill discovery', () => {
   it('serves the last answered skills for a root whose rescan did not answer', async () => {
     const root = await mkdtemp(join(tmpdir(), 'orca-skills-'))
     const home = join(root, 'home')
-    const stalledRoot = join(home, '.omp', 'agent', 'skills')
+    const stalledRoot = join(home, '.agents', 'skills')
     await mkdir(join(stalledRoot, 'planning'), { recursive: true })
     await writeFile(join(stalledRoot, 'planning', 'SKILL.md'), '# Planning\n\nPlan work.')
 
@@ -127,7 +127,7 @@ describe('skill discovery', () => {
   it('drops the retained copy once a root answers as absent', async () => {
     const root = await mkdtemp(join(tmpdir(), 'orca-skills-'))
     const home = join(root, 'home')
-    const stalledRoot = join(home, '.omp', 'agent', 'skills')
+    const stalledRoot = join(home, '.agents', 'skills')
     await mkdir(join(stalledRoot, 'planning'), { recursive: true })
     await writeFile(join(stalledRoot, 'planning', 'SKILL.md'), '# Planning\n\nPlan work.')
     await discoverSkills({ homeDir: home, cwd: join(root, 'missing-cwd') })
@@ -147,7 +147,7 @@ describe('skill discovery', () => {
   it('stops serving a retained copy once it is older than the retention window', async () => {
     const root = await mkdtemp(join(tmpdir(), 'orca-skills-'))
     const home = join(root, 'home')
-    const stalledRoot = join(home, '.omp', 'agent', 'skills')
+    const stalledRoot = join(home, '.agents', 'skills')
     await mkdir(join(stalledRoot, 'planning'), { recursive: true })
     await writeFile(join(stalledRoot, 'planning', 'SKILL.md'), '# Planning\n\nPlan work.')
     await discoverSkills({ homeDir: home, cwd: join(root, 'missing-cwd') })
@@ -172,17 +172,17 @@ describe('skill discovery', () => {
     const home = join(root, 'home')
     const repo = join(root, 'repo')
     const codexSkill = join(home, '.codex', 'skills', 'review')
-    const ompSkill = join(home, '.omp', 'agent', 'skills', 'planning')
+    const agentsSkill = join(home, '.agents', 'skills', 'planning')
     const repoSkill = join(repo, '.claude', 'skills', 'docs')
     await mkdir(codexSkill, { recursive: true })
-    await mkdir(ompSkill, { recursive: true })
+    await mkdir(agentsSkill, { recursive: true })
     await mkdir(repoSkill, { recursive: true })
     await writeFile(
       join(codexSkill, 'SKILL.md'),
       ['---', 'name: code-review', 'description: Review code changes.', '---', ''].join('\n')
     )
     await writeFile(join(repoSkill, 'SKILL.md'), '# Docs\n\nWrite project docs.')
-    await writeFile(join(ompSkill, 'SKILL.md'), '# Planning\n\nPlan OMP work.')
+    await writeFile(join(agentsSkill, 'SKILL.md'), '# Planning\n\nPlan work.')
 
     const result = await discoverSkills({
       homeDir: home,
@@ -429,38 +429,6 @@ describe('skill discovery', () => {
     const skill = result.skills.find((entry) => entry.name === 'Orca CLI')
     expect(skill?.sourceKind).toBe('home')
     expect(skill?.directoryPath).toBe(linkedSkill)
-  })
-
-  it('discovers Hermes Skills under a relocated HERMES_HOME profile', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'orca-skills-'))
-    const home = join(root, 'home')
-    const hermesHome = join(root, 'profiles', 'coder')
-    const skillDir = join(hermesHome, 'skills', 'research')
-    await mkdir(skillDir, { recursive: true })
-    await writeFile(
-      join(skillDir, 'SKILL.md'),
-      ['---', 'name: profile-research', 'description: Research sources.', '---', ''].join('\n')
-    )
-    vi.stubEnv('HERMES_HOME', hermesHome)
-
-    const result = await discoverSkills({
-      homeDir: home,
-      cwd: join(root, 'missing-cwd')
-    })
-
-    expect(result.skills).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          name: 'profile-research',
-          sourceLabel: 'Hermes home',
-          directoryPath: skillDir
-        })
-      ])
-    )
-    expect(result.sources.find((source) => source.id === 'home-hermes')).toMatchObject({
-      path: join(hermesHome, 'skills'),
-      exists: true
-    })
   })
 
   it('keeps home classification when cwd points at the same directory as home', async () => {

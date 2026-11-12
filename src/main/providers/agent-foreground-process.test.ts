@@ -169,8 +169,8 @@ describe('resolveAgentForegroundProcess', () => {
       {
         pid: 101,
         ppid: 100,
-        name: 'droid.exe',
-        commandLine: 'droid'
+        name: 'grok.exe',
+        commandLine: 'grok'
       },
       {
         pid: 102,
@@ -187,7 +187,7 @@ describe('resolveAgentForegroundProcess', () => {
       })
     ).resolves.toEqual({
       available: true,
-      processName: 'droid',
+      processName: 'grok',
       processId: 101
     })
   })
@@ -197,7 +197,7 @@ describe('resolveAgentForegroundProcess', () => {
     Object.defineProperty(process, 'platform', { value: 'win32' })
     mockWindowsRows([
       { pid: 200, ppid: 199, name: 'powershell.exe', commandLine: 'powershell.exe' },
-      { pid: 201, ppid: 200, name: 'droid.exe', commandLine: 'droid' },
+      { pid: 201, ppid: 200, name: 'grok.exe', commandLine: 'grok' },
       { pid: 202, ppid: 200, name: 'agy.exe', commandLine: 'agy' }
     ])
 
@@ -214,7 +214,7 @@ describe('resolveAgentForegroundProcess', () => {
     expect(resolution.processName).toBe('powershell.exe')
   })
 
-  it('excludes a detached Windows Droid descendant from byte authority', async () => {
+  it('excludes a detached Windows Grok descendant from byte authority', async () => {
     Object.defineProperty(process, 'platform', { value: 'win32' })
     mockWindowsRows([
       {
@@ -226,8 +226,8 @@ describe('resolveAgentForegroundProcess', () => {
       {
         pid: 101,
         ppid: 100,
-        name: 'droid.exe',
-        commandLine: 'droid'
+        name: 'grok.exe',
+        commandLine: 'grok'
       }
     ])
 

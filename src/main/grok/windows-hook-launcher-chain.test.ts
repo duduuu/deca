@@ -60,7 +60,7 @@ function readInstalledConfig(home: string): InstalledConfig {
 describe('Windows Grok managed hook launch shape', () => {
   // POSIX path.join cannot produce a real cmd-safe install path; synthetic Windows paths cover that branch everywhere.
   describe('registered command, from a synthetic Windows path', () => {
-    const scriptPath = 'C:\\Users\\dev\\.orca\\agent-hooks\\grok-hook.cmd'
+    const scriptPath = 'C:\\Users\\dev\\.deca\\agent-hooks\\grok-hook.cmd'
 
     // Stub Windows so legacy hook cleanup also runs on POSIX CI.
     it('replaces a legacy backslash entry and keeps user hooks', () => {
@@ -81,7 +81,7 @@ describe('Windows Grok managed hook launch shape', () => {
       )
       expect(stop).toEqual([
         'C:\\tools\\user-hook.cmd',
-        'C:/Users/dev/.orca/agent-hooks/grok-hook.cmd'
+        'C:/Users/dev/.deca/agent-hooks/grok-hook.cmd'
       ])
     })
   })
@@ -103,7 +103,7 @@ describe('Windows Grok managed hook launch shape', () => {
     it.skipIf(process.platform !== 'win32')(
       'replaces a previously installed encoded-PowerShell entry on reinstall',
       () => {
-        const scriptPath = join(home, '.orca', 'agent-hooks', 'grok-hook.cmd')
+        const scriptPath = join(home, '.deca', 'agent-hooks', 'grok-hook.cmd')
         const staleCommand = wrapWindowsHookCommand(scriptPath)
         const configPath = join(home, '.grok', 'hooks', 'orca-status.json')
         mkdirSync(dirname(configPath), { recursive: true })

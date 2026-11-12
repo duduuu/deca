@@ -31,11 +31,11 @@ function mkdtempLike(prefix: string): string {
 }
 
 function tokenPathForSite(siteId: string): string {
-  return join(tempHome, '.orca', 'jira-tokens', `${Buffer.from(siteId).toString('base64url')}.enc`)
+  return join(tempHome, '.deca', 'jira-tokens', `${Buffer.from(siteId).toString('base64url')}.enc`)
 }
 
 function writeJiraFiles(siteId: string, token: string | Buffer): void {
-  const orcaDir = join(tempHome, '.orca')
+  const orcaDir = join(tempHome, '.deca')
   mkdirSync(join(orcaDir, 'jira-tokens'), { recursive: true })
   writeFileSync(
     join(orcaDir, 'jira-sites.json'),
@@ -66,7 +66,7 @@ function writeMultiSiteFiles(
   sites: { id: string; token: string | Buffer }[],
   selectedSiteId: string
 ): void {
-  const orcaDir = join(tempHome, '.orca')
+  const orcaDir = join(tempHome, '.deca')
   mkdirSync(join(orcaDir, 'jira-tokens'), { recursive: true })
   writeFileSync(
     join(orcaDir, 'jira-sites.json'),
@@ -401,7 +401,7 @@ describe('Jira client credential storage', () => {
 
     // Same-host PAT accounts need verified viewer identity to avoid overwriting each other.
     const stored = JSON.parse(
-      readFileSync(join(tempHome, '.orca', 'jira-sites.json'), 'utf-8')
+      readFileSync(join(tempHome, '.deca', 'jira-sites.json'), 'utf-8')
     ) as {
       sites: { accountId: string }[]
     }
@@ -521,7 +521,7 @@ describe('Jira site file cross-process visibility', () => {
     expect(jira.getStatus()).toMatchObject({ connected: true })
 
     writeFileSync(
-      join(tempHome, '.orca', 'jira-sites.json'),
+      join(tempHome, '.deca', 'jira-sites.json'),
       JSON.stringify({ version: 1, activeSiteId: null, selectedSiteId: null, sites: [] }, null, 2),
       { encoding: 'utf-8' }
     )

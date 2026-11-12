@@ -56,6 +56,8 @@ export function start() {
 `
 
 const SYNC_TEST_TS = `import { assert, mockEditorHost, test } from 'orca/testing'
+import { start } from './sync'
+
 test('merges an outside write that lands while an edit waits', async () => {
   const host = mockEditorHost({ text: 'first' })
   const doc = await start()

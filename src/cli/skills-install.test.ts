@@ -191,7 +191,7 @@ describe('deca skills install/update', () => {
     await mkdir(join(project, '.claude', 'skills'), { recursive: true })
     vi.spyOn(process, 'cwd').mockReturnValue(project)
 
-    await run(['install', '--skill', NAME, '--agent', 'claude,droid', '--local'])
+    await run(['install', '--skill', NAME, '--agent', 'claude,gemini', '--local'])
 
     const projectShared = join(project, '.agents', 'skills', NAME)
     expect(await skillText(projectShared)).toBe(NEW_TEXT)

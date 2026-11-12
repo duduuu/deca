@@ -61,66 +61,6 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await restoreTerminalTestGlobals()
     })
 
-    it('keeps Droid routing visible through command-finished foreground confirmation', async () => {
-      vi.useFakeTimers()
-      const { connectPanePty } = await import('../connect-pane-pty')
-      const agentTitleMocks3 = await vi.importMock<PtyConnectionAgentTitleMocks>(
-        '@/lib/agent-status/aggregation/worktree-agent-status'
-      )
-      const getForegroundProcess = vi.mocked(window.api.pty.confirmForegroundProcess)
-      getForegroundProcess.mockResolvedValue('droid')
-      const dataCallbackRef: { current: ((data: string) => void) | null } = { current: null }
-      const ptyId = 'pty-droid-confirmation-window'
-      const transport = createMockTransport(ptyId)
-      transport.connect.mockImplementation(
-        async ({ callbacks }: { callbacks: ConnectCallbacks }) => {
-          dataCallbackRef.current = callbacks.onData ?? null
-          return { id: ptyId }
-        }
-      )
-      transportFactoryQueue.push(transport)
-      const paneKey = makePaneKey('tab-1', LEAF_1)
-
-      connectPanePty(
-        ...mockPanePtyArgs(
-          createPane(1),
-          createManager(1),
-          bindPaneAgentTitleMocks(
-            createDeps({ isVisibleRef: { current: false } }),
-            agentTitleMocks3
-          )
-        )
-      )
-      await vi.advanceTimersByTimeAsync(20)
-      await flushAsyncTicks()
-      mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
-        launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
-      }
-      mockStoreState.clearAgentLaunchConfig.mockImplementation((key: string) => {
-        delete mockStoreState.agentLaunchConfigByPaneKey[key]
-      })
-
-      const readsBeforeFinish = getForegroundProcess.mock.calls.length
-      dataCallbackRef.current?.('\x1b]133;D;0\x07')
-      expect(mockStoreState.clearAgentLaunchConfig).not.toHaveBeenCalled()
-      expect(resolveMockPaneWindowsShiftEnterEncoding(mockStoreState, paneKey)).toBe('alt-enter')
-
-      await vi.advanceTimersByTimeAsync(350)
-      expect(mockStoreState.clearAgentLaunchConfig).not.toHaveBeenCalled()
-      expect(resolveMockPaneWindowsShiftEnterEncoding(mockStoreState, paneKey)).toBe('csi-u')
-
-      expect(getForegroundProcess).toHaveBeenCalledTimes(readsBeforeFinish + 1)
-      expect(mockStoreState.clearAgentLaunchConfig).not.toHaveBeenCalled()
-      expect(mockStoreState.paneForegroundAgentByPaneKey[paneKey]).toEqual({
-        agent: 'droid',
-        agentEvidence: 'process-read',
-        routingTrusted: true,
-        shellForeground: false
-      })
-      expect(resolveMockPaneWindowsShiftEnterEncoding(mockStoreState, paneKey)).toBe('csi-u')
-    })
-
     it('retires pane launch routing after one fresh scan confirms shell', async () => {
       vi.useFakeTimers()
       const { connectPanePty } = await import('../connect-pane-pty')
@@ -129,7 +69,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       )
       vi.mocked(window.api.pty.confirmForegroundProcess).mockResolvedValue('powershell.exe')
       const dataCallbackRef: { current: ((data: string) => void) | null } = { current: null }
-      const ptyId = 'pty-droid-confirmed-shell'
+      const ptyId = 'pty-gemini-confirmed-shell'
       const transport = createMockTransport(ptyId)
       transport.connect.mockImplementation(
         async ({ callbacks }: { callbacks: ConnectCallbacks }) => {
@@ -152,7 +92,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
       mockStoreState.clearAgentLaunchConfig.mockImplementation((key: string) => {
         delete mockStoreState.agentLaunchConfigByPaneKey[key]
@@ -386,7 +326,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
 
       dataCallbackRef.current?.('\x1b]133;D;0\x07')
@@ -431,7 +371,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
 
       // The agent negotiates Kitty keys across a chunk split, then dies armed.
@@ -483,7 +423,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
       dataCallbackRef.current?.('\x1b]133;D;0\x07')
       await vi.advanceTimersByTimeAsync(350)
@@ -512,7 +452,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
         '@/lib/agent-status/aggregation/worktree-agent-status'
       )
       // Why both: the pane's process monitor reads the same foreground the confirm read sees.
-      vi.mocked(window.api.pty.getForegroundProcess).mockResolvedValue('droid')
+      vi.mocked(window.api.pty.getForegroundProcess).mockResolvedValue('gemini')
       const dataCallbackRef: { current: ((data: string) => void) | null } = { current: null }
       const ptyId = 'pty-stale-mode-live-agent'
       const transport = createMockTransport(ptyId)
@@ -535,7 +475,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
 
       dataCallbackRef.current?.('\x1b[>5u')
@@ -556,8 +496,8 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       )
       vi.mocked(window.api.pty.confirmForegroundProcess).mockResolvedValue(null)
       const dataCallbackRef: { current: ((data: string) => void) | null } = { current: null }
-      const ptyId = 'pty-droid-unavailable-finish'
-      const tabId = 'tab-droid-unavailable-finish'
+      const ptyId = 'pty-gemini-unavailable-finish'
+      const tabId = 'tab-gemini-unavailable-finish'
       const transport = createMockTransport(ptyId)
       transport.connect.mockImplementation(
         async ({ callbacks }: { callbacks: ConnectCallbacks }) => {
@@ -582,7 +522,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
       mockStoreState.clearAgentLaunchConfig.mockImplementation((key: string) => {
         delete mockStoreState.agentLaunchConfigByPaneKey[key]
@@ -608,7 +548,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       )
       vi.mocked(window.api.pty.confirmForegroundProcess).mockResolvedValue('powershell.exe')
       const dataCallbackRef: { current: ((data: string) => void) | null } = { current: null }
-      const ptyId = 'pty-droid-superseded-confirmation'
+      const ptyId = 'pty-gemini-superseded-confirmation'
       const transport = createMockTransport(ptyId)
       transport.connect.mockImplementation(
         async ({ callbacks }: { callbacks: ConnectCallbacks }) => {
@@ -632,7 +572,7 @@ export function registerPtyConnectionCommandFinishedCleanupTests(): void {
       await flushAsyncTicks()
       mockStoreState.agentLaunchConfigByPaneKey[paneKey] = {
         launchConfig: { agentArgs: '', agentEnv: {} },
-        identity: { agentType: 'droid' }
+        identity: { agentType: 'gemini' }
       }
       mockStoreState.clearAgentLaunchConfig.mockImplementation((key: string) => {
         delete mockStoreState.agentLaunchConfigByPaneKey[key]

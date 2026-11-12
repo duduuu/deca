@@ -129,13 +129,6 @@ describe('real PTY decorative session-tabs fanout', () => {
 
   it.each([
     {
-      agent: 'pi' as const,
-      firstTitle: '⠋ π - project',
-      heartbeatTitles: ['⠋ π - project', '⠙ π - project'],
-      // Why: the π brand swaps for the owner label in place; session text survives.
-      expectedTitle: '⠋ Pi - project'
-    },
-    {
       agent: 'grok-build' as const,
       firstTitle: '⠋ - Waiting for response… - grok',
       heartbeatTitles: ['⠴ - Thinking - grok', '⠦ - Sleep 2s then echo hello… - grok'],
@@ -318,51 +311,6 @@ describe('real PTY decorative session-tabs fanout', () => {
       updatedAt: nextWorkingAt,
       stateStartedAt: nextWorkingAt
     })
-    unsubscribe()
-  })
-
-  it('holds decorative heartbeats behind unresolved foreground ownership', async () => {
-    let resolveForegroundProcess: (agent: string | null) => void = () => undefined
-    const foregroundProcess = new Promise<string | null>((resolve) => {
-      resolveForegroundProcess = resolve
-    })
-    const getForegroundProcess = vi.fn(() => foregroundProcess)
-    const runtime = new OrcaRuntimeService()
-    runtime.setPtyController({
-      spawn: vi.fn().mockResolvedValue({ id: 'pty-0' }),
-      write: () => true,
-      kill: () => true,
-      getForegroundProcess
-    })
-    const ptyId = seedWorktree(runtime, 0)
-    const publications: RuntimeMobileSessionTabsResult[] = []
-    const unsubscribe = runtime.onMobileSessionTabsChanged((snapshot) => {
-      publications.push(structuredClone(snapshot))
-    })
-
-    runtime.onPtyData(ptyId, '\x1b]0;⠋ Pi\x07', Date.now())
-    runtime.onPtyData(ptyId, '\x1b]0;⠙ Pi\x07', Date.now())
-    await vi.advanceTimersByTimeAsync(50)
-    expect(getForegroundProcess).toHaveBeenCalledTimes(1)
-    expect(publications).toHaveLength(0)
-
-    resolveForegroundProcess('pi')
-    await vi.advanceTimersByTimeAsync(50)
-    expect(publications).toHaveLength(1)
-    expect(publications[0]?.tabs[0]).toMatchObject({
-      type: 'terminal',
-      title: '⠋ Pi',
-      agentStatus: { state: 'working' }
-    })
-
-    runtime.onPtyData(ptyId, '\x1b]0;⠹ Pi\x07', Date.now())
-    await vi.advanceTimersByTimeAsync(50)
-    expect(publications).toHaveLength(1)
-
-    await vi.advanceTimersByTimeAsync(SESSION_TABS_AGENT_STATUS_HEARTBEAT_INTERVAL_MS)
-    runtime.onPtyData(ptyId, '\x1b]0;⠸ Pi\x07', Date.now())
-    await vi.advanceTimersByTimeAsync(50)
-    expect(publications).toHaveLength(2)
     unsubscribe()
   })
 

@@ -7,7 +7,7 @@ import type { ReviewStep } from '../../../../shared/review-steps'
 import type { GlobalSettings } from '../../../../shared/global-settings-types'
 import type { InstalledAgentSkillState } from '@/hooks/skills/discovery/useInstalledAgentSkills'
 import { cn } from '@/lib/class-names'
-import { PreviewMedia, RelatedFeatures } from './FeatureWallPreview'
+import { PreviewMedia } from './FeatureWallPreview'
 import { getLocalizedFeatureWallWorkflowCopy } from './feature-wall-tour-localized-copy'
 import { TasksAnimatedVisual } from './TasksAnimatedVisual'
 import { WorkspacesAnimatedVisual } from './WorkspacesAnimatedVisual'
@@ -240,15 +240,7 @@ export function FeatureWallBody(props: {
           />
         ) : null}
 
-        {hasAnimatedVisual ? (
-          previewVisualNode
-        ) : (
-          <aside className="flex flex-col gap-5">
-            {selected.relatedTileIds.length > 0 ? (
-              <RelatedFeatures workflow={selected} source={source} />
-            ) : null}
-          </aside>
-        )}
+        {hasAnimatedVisual ? previewVisualNode : null}
       </div>
       {settingContent && shouldStickSetupToBottom ? (
         <div className="sticky bottom-0 z-10 -mx-8 mt-auto border-t border-border bg-card/95 px-8 py-3 backdrop-blur supports-[backdrop-filter]:bg-card/85">

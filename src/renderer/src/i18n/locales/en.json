@@ -1076,11 +1076,9 @@
         }
       },
       "confirmations": {
-        "artifactHelp": "Anyone with its public link loses access.",
         "pinned": "Closing a pinned tab",
         "workspace": "Deleting a workspace",
         "runningHelp": "Ask before stopping an agent or command that’s still running.",
-        "artifact": "Deleting an artifact",
         "automationHelp": "Its run history is deleted too.",
         "automation": "Deleting an automation",
         "title": "Confirmations",
@@ -1101,8 +1099,6 @@
           "claude": "Claude",
           "auto_save": "auto save",
           "source": "source",
-          "share": "share",
-          "star": "star",
           "gsd": "GSD",
           "update": "update",
           "markdown": "markdown",
@@ -1111,10 +1107,8 @@
           "ask_before": "ask before",
           "confirmations": "confirmations",
           "command_line": "command line",
-          "artifact": "artifact",
           "version": "version",
           "spaces": "spaces",
-          "link": "link",
           "tabs": "tabs",
           "trim": "trim",
           "root": "root",
@@ -1265,7 +1259,6 @@
     "settings": "Settings",
     "exploreOrca": "Explore Deca",
     "gettingStarted": "Getting Started with Deca",
-    "reportCrash": "Report Crash...",
     "file": "File",
     "exit": "Exit",
     "quitApp": "Quit {{appName}}",
@@ -2197,11 +2190,8 @@
           "failedToLoadUsage": "Failed to load usage data",
           "failedToParseCliOutput": "Failed to parse CLI output",
           "fetchAborted": "Rate-limit fetch aborted",
-          "geminiCredentialsNotFound": "Gemini CLI credentials not found",
-          "geminiOauthDisabled": "Gemini CLI OAuth is disabled in settings",
           "geminiProjectIdLoadFailed": "Failed to load Gemini project ID (HTTP {{status}})",
           "geminiProjectIdMissingInResponse": "Gemini project ID not found in API response",
-          "geminiProjectIdNotFound": "Gemini project ID not found",
           "grokAuthInvalid": "Grok auth file is invalid",
           "grokAuthUnreadable": "Unable to read Grok auth file",
           "grokBillingConfigMissing": "Grok billing response did not include config",
@@ -2702,7 +2692,6 @@
         "f9eaa9e12d": "Add project",
         "6ca6ff404e": "ORCA",
         "520304a067": "Deca logo",
-        "c1cf168479": "Hide",
         "00cee697c1": "Run \"gh auth login\" in a terminal to connect your GitHub account.",
         "9f96d018b7": "GitHub CLI is not authenticated",
         "73e1ad4282": "Deca uses the GitHub CLI (gh) to show pull requests, issues, and checks.",
@@ -2711,9 +2700,6 @@
         "e5b7296d9d": "Git is not installed",
         "cd21242762": "Add a project to get started.",
         "9c00bd4adf": "Select a workspace from the sidebar to begin.",
-        "0d0ace8861": "Star on GitHub",
-        "ec43b38ba7": "Starred on GitHub",
-        "157bb5ecbb": "Open GitHub",
         "preflightDismiss": "Dismiss",
         "moveUpWorkspace": "Move up workspace",
         "moveDownWorkspace": "Move down workspace",
@@ -3144,16 +3130,6 @@
         "activityMonitorCount_other": "Monitoring {{count}} background tasks",
         "activityMonitorCount_one": "Monitoring {{count}} background task",
         "activitySubagentCount_one": "{{count}} subagent running"
-      },
-      "StarNagCard": {
-        "30c36231c1": "Deca is open source. If it helped today, a GitHub star helps other developers find it.",
-        "b5e685e4d9": "Dismiss",
-        "5f6df21046": "Enjoying Deca?",
-        "2d67b6c849": "Star on GitHub",
-        "af3c9bbb37": "Starring…",
-        "d32015fec7": "Opening...",
-        "157bb5ecbb": "Open GitHub",
-        "8c967b4d15": "Later"
       },
       "TaskPage": {
         "gitlabLoadFailed": "Could not load GitLab work items. Refresh to try again.",
@@ -5544,24 +5520,6 @@
           "rangeLast90Days": "Last 90 days",
           "rangeAllTime": "All time"
         },
-        "ShareUsageButton": {
-          "7d6b25323d": "Share on X",
-          "b295c1c75d": "Copy image",
-          "bd82c76a70": "Copied",
-          "bce08eccb9": "Share usage",
-          "cecefa7c32": "Share"
-        },
-        "ShareUsageCard": {
-          "4a4c6c79a3": "sessions ·",
-          "66c83284cf": "Daily tokens",
-          "b760c0b622": "Top model",
-          "2d9eb39264": "Total tokens",
-          "beb6f24f37": "Est. cost",
-          "da62578d9d": "Usage",
-          "0eb31e79ee": "Deca IDE",
-          "960324e9b8": "events",
-          "6adac63cfe": "turns"
-        },
         "StatsPane": {
           "42d3e0bdf7": "Usage analytics provider: {{value0}}",
           "c79f073d4c": "Usage Analytics",
@@ -5595,21 +5553,6 @@
           "providersEnabledWithData": "{{enabled}} enabled - {{withData}} with data",
           "sessionCount_one": "{{formatted}} session",
           "sessionCount_other": "{{formatted}} sessions"
-        },
-        "share": {
-          "card": {
-            "utils": {
-              "19f4b4dc75": "github.com/stablyai/orca",
-              "d864fc5f98": "output",
-              "5d66fdd7c2": "input",
-              "7080aeaebb": "Reasoning",
-              "4ee864629a": "Cached input",
-              "33d38e2177": "Output",
-              "c2d7b23d57": "Input",
-              "9d166247ee": "Cache write",
-              "cc28cb965e": "Cache read"
-            }
-          }
         },
         "stats": {
           "search": {
@@ -6363,17 +6306,13 @@
         },
         "SidebarSettingsHelpMenu": {
           "ad3d3ed7f1": "Restart Deca",
-          "eb9884e55b": "Discord",
-          "5687ab246a": "GitHub",
-          "cdc87f897e": "Docs",
           "e565171a7c": "Keyboard Shortcuts",
           "a428c25998": "Settings",
           "2991a0106c": "Help",
           "4e8f5710d3": "Couldn't restart Deca.",
           "5161eef55d": "Restarting Deca…",
           "f8a2c91d4e": "Milestones",
-          "b7e4d2a19c": "Onboarding",
-          "c4f8e1b72a": "X"
+          "b7e4d2a19c": "Onboarding"
         },
         "SidebarToolbar": {
           "87d0064026": "Workspace board moved to the bottom bar",
@@ -7520,12 +7459,6 @@
           "0335bd31d5": "Paste the full opencode.ai Cookie header, including __Host-console_session, for rate limit fetching.",
           "ea631977b5": "Configure OpenCode Go provider settings.",
           "4ac10b4d08": "OpenCode Go",
-          "c2aee76420": "Extracts OAuth credentials from your local Gemini CLI installation to authenticate with Google for {{value0}}. This uses credentials issued to the Gemini CLI app, not Deca. May break if Google updates the CLI. Use at your own risk.",
-          "96f3649526": "Use Gemini CLI credentials (experimental)",
-          "d676c41fc6": "Extracts OAuth credentials from your local Gemini CLI installation to authenticate with Google. This uses credentials issued to the Gemini CLI app, not Deca. May break if Google updates the CLI. Use at your own risk.",
-          "0c7f915b01": "Use Gemini CLI credentials",
-          "973741a871": "Keep existing Gemini CLI sessions available. Gemini credentials do not sign you into Antigravity.",
-          "0c64dc2a64": "Gemini CLI (legacy)",
           "db209ee572": "Remove",
           "8a0f870153": "Re-authenticate",
           "3d245ef7d9": "Codex reported this sign-in is out of date",
@@ -8083,16 +8016,6 @@
           "confirm_running_work_close": "Confirm before closing active chats or terminals",
           "5cb5475664": "Confirm before closing pinned tabs"
         },
-        "GeneralSupportSection": {
-          "af7d9f4396": "Thanks for the support!",
-          "6922c1fa2b": "Star Deca on GitHub",
-          "511782265b": "Support the project with a GitHub star.",
-          "55a87e5fd1": "Support Deca",
-          "964acc6bb4": "Star",
-          "397719bee5": "Starring...",
-          "cb65c75b11": "Opening...",
-          "f2d4f877b2": "Open GitHub"
-        },
         "GeneralWorkspaceSettingsSection": {
           "3d538a98f7": "Choose apps available from a workspace's Open in menu.",
           "4fbf910ded": "Create workspaces inside a repo-named subfolder.",
@@ -8101,7 +8024,6 @@
           "externalWorktrees": "External worktrees",
           "externalWorktreesDescription": "Choose which worktrees created outside Deca appear by default on this host.",
           "ad65d146f6": "Open in apps",
-          "2ffd7c4fc8": "Ask before deleting artifacts",
           "a8ce626e4b": "Nest workspaces",
           "c2d4beaf3a": "Ask before deleting workspaces",
           "9d0ef6a2a6": "Workspace directory",
@@ -9463,13 +9385,6 @@
             "61f7d1fcbe": "cookie",
             "37020a02c2": "console",
             "25591bf95b": "Paste the full opencode.ai Cookie header, including __Host-console_session, for rate limit fetching.",
-            "b7c2cee442": "experimental",
-            "7118d2f908": "credentials",
-            "933deaf732": "oauth",
-            "8630464352": "cli",
-            "e8e1ff3887": "gemini",
-            "bada4a3218": "Extracts OAuth credentials from your local Gemini CLI installation to authenticate with Google.",
-            "d819755b02": "Use Gemini CLI credentials",
             "35b461d817": "sign in",
             "f2d666a886": "optional",
             "8b06729e0f": "active",
@@ -10085,13 +10000,6 @@
         },
         "general": {
           "search": {
-            "bdfb6dc21b": "like",
-            "e6b01c8e30": "feedback",
-            "b65665703a": "support",
-            "06ea5a69a6": "github",
-            "e4fb4516d0": "star",
-            "e0b8c8bc25": "Support the project with a GitHub star via the gh CLI.",
-            "36a72f0d9e": "Star Deca on GitHub",
             "95b63edde7": "claude",
             "3462308bd3": "tokens",
             "660528b048": "cost",
@@ -10219,7 +10127,6 @@
             "command": "command",
             "confirm": "confirm",
             "close": "close",
-            "omp": "OMP",
             "markdownDefaultViewDesc": "The view Markdown files open in. Right-click the view switcher in a Markdown tab to change it there.",
             "markdownSourceKw": "source",
             "markdownRichKw": "rich",
@@ -15380,9 +15287,6 @@
             "33dca8bbbe": "A short, workflow-by-workflow tour of Deca.",
             "3567e147c8": "Get to know Deca"
           },
-          "FeatureWallPreview": {
-            "a666384798": "Also in this workflow"
-          },
           "FeatureWallRail": {
             "69ea857689": "Completed",
             "7593d15f94": "Workflows"
@@ -18155,22 +18059,6 @@
       },
       "ShortcutKeyCombo": {
         "07eb4985a1": "Double-tap {{value0}}"
-      },
-      "star": {
-        "nag": {
-          "StarNagToastHost": {
-            "starredThanks": "Starred — thank you!",
-            "githubOpened": "GitHub opened",
-            "opening": "Opening…",
-            "starring": "Starring…",
-            "openGithub": "Open GitHub",
-            "starOnGithub": "Star on GitHub",
-            "onboardingCompleted": "Onboarding completed!",
-            "body": "If you’re enjoying Deca so far, a GitHub star helps other developers discover it.",
-            "dismiss": "Dismiss",
-            "later": "Later"
-          }
-        }
       },
       "nativeChat": {
         "contextMenu": {

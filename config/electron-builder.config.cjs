@@ -522,12 +522,9 @@ module.exports = {
   },
   win: {
     executableName: 'Deca',
-    // SignPath signs Windows installers after packaging, so set release publisherName explicitly.
-    // Unsigned dev channels omit it or updater signature checks reject dev updates and return to stable.
     // Sign hook signs nothing: it relays transient NSIS uninstaller files to CI SignPath; unset relay env leaves local/dev builds inert.
     signtoolOptions: {
-      sign: signWindowsUninstallerViaSignPath,
-      ...(isWinDevChannel ? {} : { publisherName: 'SignPath Foundation' })
+      sign: signWindowsUninstallerViaSignPath
     },
     ...(isWinDevChannel ? { verifyUpdateCodeSignature: false } : {}),
     extraResources: [
@@ -684,7 +681,7 @@ module.exports = {
     ],
     // Keep local artifacts aligned with the release pipeline.
     target: ['AppImage', 'deb', 'rpm'],
-    maintainer: 'stablyai',
+    maintainer: 'Deca contributors',
     category: 'Utility'
   },
   appImage: {

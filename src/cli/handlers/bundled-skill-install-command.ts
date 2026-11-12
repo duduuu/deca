@@ -179,7 +179,7 @@ export function createSkillMutationHandler(verb: SkillMutationVerb): CommandHand
       throw new RuntimeClientError(
         'invalid_environment',
         `deca skills ${verb} writes to the machine that runs it, but this shell forwards ` +
-          `orca to the Deca host. Run the same deca skills ${verb} command on the machine ` +
+          `deca to the Deca host. Run the same deca skills ${verb} command on the machine ` +
           "you want it on, where it can detect that host's agents."
       )
     }

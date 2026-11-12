@@ -1,7 +1,7 @@
 export const ROOT_HELP_TEXT_PRIMARY = [
   'deca',
   '',
-  'Usage: orca <command> [options]',
+  'Usage: deca <command> [options]',
   '',
   'Startup:',
   '  open                      Launch Deca and wait for the runtime to be reachable',

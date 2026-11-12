@@ -263,7 +263,7 @@ Terminal rules:
 - A chat tab has no terminal handle, so `terminal rename` cannot rename it. Use `ORCA chat rename --session <sessionId> --name "New Name" --json` with the `sessionId` `agent launch` printed; inside a chat, omit `--session` to rename that chat.
 - `terminal create --title` and `terminal rename` set the tab title, which `terminal list` reports under `visualLayouts`. `terminal set-pane-title` sets one pane's title, reported as `terminals[].paneTitle`. `terminals[].title` may be the tab title or the running program's own title, which agents repaint constantly, so never match on it to re-find a terminal.
 - `terminals[].agentIdentity`, when present, is only the agent type (e.g. `codex`), not a session identity, so two Codex panes share it. To find a specific agent's terminal, join `worktree ps --json` `agents[].paneKey` (`<tabId>:<leafId>`) to the `tabId` and `leafId` of a `terminal list` row to get its handle.
-- A paired server has no window. `terminal switch --environment <name>` moves the desktop app on this machine to that server's terminal, and reports `navigated: false` when no desktop here shows that server.
+- A WSL host has no window. `terminal switch --environment <name>` moves the desktop app on this machine to that host's terminal, and reports `navigated: false` when no desktop here shows that server.
 - Use `terminal read` before `terminal send` unless the next input is obvious.
 - `terminal read` returns accumulated output with escape sequences stripped, not the rendered screen, so anything that repaints (shells, progress bars, TUIs) reads as stacked fragments. Use `--screen` whenever the answer depends on what the terminal actually shows.
 - `--screen` and `--cursor` are mutually exclusive: a screen read is the current frame and has no history to page.
@@ -298,42 +298,6 @@ ORCA chat send --session <session> --text "<message>" --json
 - Paired hosts can `chat list` only; read, send and wait run on the host machine.
 - When relaying for a user from outside Deca (for example a voice or messaging assistant on the same machine), report from `chat list` and `chat read`, repeat an instruction back and get the user's confirmation before `chat send`, and send the user's words without adding instructions.
 
-<!-- host-capability: artifact-publishing -->
-
-## Artifacts
-
-Artifacts publish HTML or Markdown files as public links through the signed-in Deca account.
-Use them only when the user explicitly asks to publish through Deca. A generic request for a
-public link, page, or URL does not select Deca, and a provider the user names always wins.
-
-**Only a human can turn publishing on or off.** `share` and `update` need the device-wide
-setting under Settings → Artifacts ("Allow publishing public artifact links"), which is on
-for new profiles; there is no CLI or RPC way to grant it. `list`, `unshare`, and `delete` are never gated, so old links
-stay auditable and revocable.
-
-A denied share fails with `artifact_sharing_disabled` before any upload. Do not retry. Tell
-the user publishing is off; mention the setting only if they asked for Deca by name, and
-otherwise deliver the file locally or through the provider they chose.
-
-On a headless Deca server, artifact commands fail with `sharing_unavailable_on_host`: no
-Deca cloud sign-in exists there. Do not retry or ask the user to change settings; tell them
-to share from the Deca desktop app instead.
-
-The `artifacts` commands are in `references/artifacts.md`. Load it before publishing.
-
-<!-- /host-capability -->
-
-<!-- host-capability: skill-publishing -->
-
-## Skill Sharing
-
-Publish installed skills only when the user explicitly asks to share skills through Deca,
-and only the skills they named: a skill folder can hold scripts, configuration, or
-credentials. The commands and their permission are in `references/skill-sharing.md`. Load
-it before publishing.
-
-<!-- /host-capability -->
-
 ## Built-In Browser
 
 The built-in browser is the tab surface embedded in Deca and scoped to a worktree. It is not Chrome, Edge, Safari, or Deca's own app UI. Use it for web pages, local and external alike, unless the user or project names another browser tool (for example in `CLAUDE.md`, `AGENTS.md` or an installed browser skill); then use that tool. It cannot control an existing Chrome, Edge, or Safari window or Deca's own app chrome and settings; use a desktop-control tool the user has set up for that, never a browser command.
@@ -347,12 +311,12 @@ The commands, snapshot and ref rules, page affinity, and `browser_*` recoveries 
 Make, validate, load, install, update and manage Deca plugins with `ORCA plugin ...`. Themes,
 icons, syntaxes and translations install without approval; anything that runs code returns
 `approval_required` with exactly what it would get and an `--approve <fingerprint>` re-run
-command. Load `references/plugins.md` before creating, loading, installing, enabling or publishing
+command. Load `references/plugins.md` before creating, loading, installing or enabling
 a plugin. To design, write and debug a plugin end to end, invoke the `orca-plugin-authoring` skill.
 
 ## Agent Session Search
 
-`ORCA search` runs a full-text search over the agent sessions indexed on one Deca host: this machine, or the paired server named by `--environment` or `--pairing-code`. There is no all-computers search.
+`ORCA search` runs a full-text search over the agent sessions indexed on one Deca host: this machine, or the WSL host named by `--environment`. There is no all-computers search.
 
 Common commands:
 
@@ -386,5 +350,5 @@ This guide covers worktrees, terminals, and handoffs on its own. At a gate below
 | --------------------------------------------------------------------------------------------------------------- | -------------------------------- |
 | Driving Deca's embedded browser: navigation, snapshots, refs, tabs, concurrent pages, or `browser_*` recoveries | `references/browser.md`          |
 | Creating, editing, running, or inspecting scheduled automations                                                 | `references/automations.md`      |
-| Creating, loading, installing, updating, approving, or publishing a Deca plugin, or adding a plugin catalog     | `references/plugins.md`          |
+| Creating, loading, installing, updating, or approving a local Deca plugin                                       | `references/plugins.md`          |
 | Mobile emulator taps, gestures, typing, buttons, camera, or permissions                                         | invoke the `orca-emulator` skill |

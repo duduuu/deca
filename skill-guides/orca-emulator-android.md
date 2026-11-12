@@ -30,8 +30,7 @@ device with `emulator_unsupported`. `tap`, `type`, `gesture`, `button`, `rotate`
 tree on Android, a serve-sim node tree on iOS.
 
 Camera and sensor injection are not wrapped; Android virtual-scene is out of scope. Commands
-drive the SDK and devices on the host that runs the Deca runtime, including a headless
-`deca serve` or SSH host.
+drive the SDK and devices on the host that runs the Deca runtime, including a WSL host.
 
 ## Prerequisites
 

@@ -97,7 +97,7 @@ on that server. From an SSH or WSL shell that forwards `deca` to another machine
 and dev commands refuse; work on the Deca host instead.
 
 `plugin_system_disabled` means plugins are off on that host. Ask the user to click "Turn on
-plugins" in Settings → Plugins, or on a host with no window (`deca serve`) to run
+plugins" in Settings → Plugins, or on a host with no window (a WSL host) to run
 `plugin system on` with the same `--environment`. It approves nothing; only plugins approved
 earlier start.
 

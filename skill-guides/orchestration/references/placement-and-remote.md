@@ -54,5 +54,5 @@ side. Mail from another server names its sender as `<sender> on <server name>`.
 to you, so an agent never mails with it. Your mailbox stays on your own Deca:
 `check` takes no `--environment`. Read-only commands such as `inbox` or
 `worker-list` with `--environment` show that server's records. A server whose Deca
-is too old answers `server_mail_unsupported` and nothing is sent. Pair servers
-with `deca pair` or in Settings.
+is too old answers `server_mail_unsupported` and nothing is sent. Add WSL hosts
+in Settings → WSL hosts.

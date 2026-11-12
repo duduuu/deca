@@ -176,7 +176,7 @@ export function buildDefaultSettings(args: {
     showAutomationsButton: true,
     artifactsEnabled: true,
     // New profiles only; stored profiles without the key load as false (normalizeLoadedGlobalSettings).
-    artifactSharingEnabled: true,
+    artifactSharingEnabled: false,
     agentSkillSharingEnabled: false,
     nestedWorkerMaxDepth: NESTED_WORKER_MAX_DEPTH_DEFAULT,
     nestedWorkerMaxDepthDefaultedToFour: true,

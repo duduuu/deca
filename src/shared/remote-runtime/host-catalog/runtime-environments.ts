@@ -272,6 +272,8 @@ export function isListedRemoteServer(
   return false
 }
 
+export const REMOTE_SERVERS_UNAVAILABLE_MESSAGE = 'Remote Deca servers are not available in Deca.'
+
 /** Deca reaches only this computer's WSL hosts; paired servers, SSH hosts and recipe VMs stay unreachable. */
 export function isDecaReachableRuntimeEnvironment(
   environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>

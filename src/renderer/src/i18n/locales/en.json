@@ -20818,7 +20818,6 @@
             "parakeetV2": "Fast. English only, and the most accurate at it.",
             "whisperTiny": "Smallest download. Good for trying dictation out.",
             "whisperTurbo": "Most languages, about 100. Slow without a GPU.",
-            "senseVoice": "Fast. For Chinese, Japanese and Korean.",
             "nemotron": "{{languages}} languages, including Arabic, Hindi and Japanese."
           }
         },

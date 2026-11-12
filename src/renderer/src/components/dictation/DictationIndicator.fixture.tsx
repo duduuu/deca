@@ -163,7 +163,7 @@ const parakeet = speechModel('parakeet', 'Parakeet')
 const updateTarget: SpeechModelUpdateTarget = { model: parakeet }
 const retiredTarget: SpeechModelUpdateTarget = {
   model: parakeet,
-  retired: speechModel('zipformer', 'Zipformer')
+  retired: speechModel('retired-model', 'Retired model')
 }
 
 function mockSpeechDownloads(downloadModel: () => Promise<void> = () => new Promise(() => {})) {

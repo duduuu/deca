@@ -53,20 +53,13 @@ const catalog: SpeechModelManifest[] = [
     rates({ en: 3.7, de: 2.2 })
   ),
   local('parakeet-tdt-0.6b-v2-int8', 'Parakeet TDT v2', 729_574_912, ['en'], rates({ en: 2.8 })),
-  local('zko', 'Zipformer Streaming KO', 0, ['ko'], [], 'sense-voice-zh-en-ja-ko-yue'),
+  local('retired-ko', 'Retired KO model', 0, ['ko'], [], 'whisper-large-v3-turbo'),
   local(
     'whisper-large-v3-turbo',
     'Whisper Large v3 Turbo',
     886_381_760,
     ['en', 'ko'],
     rates({ en: 4.5, ko: 2.6 })
-  ),
-  local(
-    'sense-voice-zh-en-ja-ko-yue',
-    'SenseVoice',
-    252_684_608,
-    ['en', 'ko'],
-    rates({ en: 6.9, ko: 10 })
   ),
   local(
     'nemotron-3.5-asr-streaming-0.6b',
@@ -108,7 +101,7 @@ export const english = defineFixture({
       [
         { id: 'parakeet-tdt-0.6b-v3-int8', status: 'ready' },
         { id: 'whisper-tiny', status: 'ready' },
-        { id: 'sense-voice-zh-en-ja-ko-yue', status: 'downloading', progress: 0.42 }
+        { id: 'nemotron-3.5-asr-streaming-0.6b', status: 'downloading', progress: 0.42 }
       ],
       'en'
     )
@@ -131,7 +124,7 @@ export const narrow = defineFixture({
 
 export const korean = defineFixture({
   width: 760,
-  render: () => render('', [], 'ko', 'sense-voice-zh-en-ja-ko-yue')
+  render: () => render('', [], 'ko', 'whisper-large-v3-turbo')
 })
 
 export const updateAndRetired = defineFixture({
@@ -141,7 +134,7 @@ export const updateAndRetired = defineFixture({
       'parakeet-tdt-0.6b-v2-int8',
       [
         { id: 'parakeet-tdt-0.6b-v2-int8', status: 'not-downloaded', needsUpdate: true },
-        { id: 'zko', status: 'ready' }
+        { id: 'retired-ko', status: 'ready' }
       ],
       'en'
     )

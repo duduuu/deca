@@ -38,13 +38,6 @@ const GGUF_DOWNLOADS = {
     886_381_760,
     'b2e30cc286bc9f3aba4db9099fc7403543497c05ce7100d0d83091ddfd25a183'
   ],
-  'sense-voice-zh-en-ja-ko-yue': [
-    'handy-computer/SenseVoiceSmall-gguf',
-    '4a08b8e900b38a977e32eb08d5d0697d6e72ba04',
-    'SenseVoiceSmall-Q8_0.gguf',
-    252_684_608,
-    '6c759ee4c9748c9b3f7a5a60ca74f0f7e685fb9d45d1378fce7cfd62f59adf29'
-  ],
   'nemotron-3.5-asr-streaming-0.6b': [
     'handy-computer/nemotron-3.5-asr-streaming-0.6b-gguf',
     '6d44e540bc31b0de1dbe174a3cea87f53a7f22fb',

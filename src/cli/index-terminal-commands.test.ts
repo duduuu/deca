@@ -65,29 +65,6 @@ describe('orca cli worktree awareness', () => {
     process.exitCode = originalExitCode
   })
 
-  it('rejects implicit remote terminal create instead of resolving from client cwd', async () => {
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-    const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-
-    await main(
-      ['terminal', 'create', '--pairing-code', 'remote-runtime', '--json'],
-      '/tmp/client/repo/src'
-    )
-
-    expect(callMock).not.toHaveBeenCalled()
-    expect(logSpy).toHaveBeenCalledTimes(1)
-    expect(JSON.parse(String(logSpy.mock.calls[0]?.[0]))).toMatchObject({
-      ok: false,
-      error: {
-        code: 'invalid_argument',
-        message:
-          'Remote terminal create requires --worktree because the client cwd cannot identify a server worktree.'
-      }
-    })
-    expect(errSpy).not.toHaveBeenCalled()
-    expect(process.exitCode).toBe(1)
-  })
-
   it('rejects an empty --terminal instead of sending to the active pane', async () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
 

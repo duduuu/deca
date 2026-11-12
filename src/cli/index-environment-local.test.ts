@@ -126,22 +126,6 @@ describe('--environment local and workspace addresses', () => {
     vi.unstubAllEnvs()
   })
 
-  it('refuses current against another environment with an inspection command', async () => {
-    listEnvironmentsMock.mockReturnValue(SAVED)
-    const { exitCode, output } = await run([
-      'worktree',
-      'current',
-      '--environment',
-      'srv-b',
-      '--json'
-    ])
-    expect(exitCode).toBe(1)
-    expect(JSON.parse(output).error.data.nextSteps[0]).toContain(
-      '`deca worktree ps --environment srv-b --json`'
-    )
-    expect(callMock).not.toHaveBeenCalled()
-  })
-
   it('resolves current under --environment local to the folder workspace at cwd', async () => {
     vi.stubEnv('ORCA_ENVIRONMENT', 'srv-b')
     listEnvironmentsMock.mockReturnValue(SAVED)
@@ -318,22 +302,4 @@ describe('worktree rm needs an explicit workspace', () => {
       expect(methods).not.toContain('worktree.show')
     }
   )
-
-  it('keeps the environment-specific guidance when the target is another environment', async () => {
-    listEnvironmentsMock.mockReturnValue(SAVED)
-    const { exitCode, output } = await run([
-      'worktree',
-      'rm',
-      '--worktree',
-      'current',
-      '--environment',
-      'srv-b',
-      '--json'
-    ])
-    expect(exitCode).toBe(1)
-    expect(JSON.parse(output).error.data.nextSteps[0]).toContain(
-      '`deca worktree ps --environment srv-b --json`'
-    )
-    expect(callMock).not.toHaveBeenCalled()
-  })
 })

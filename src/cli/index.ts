@@ -25,6 +25,7 @@ import { COMMAND_SPECS } from './specs'
 import { resolveOrchestrationCliExecutable } from './runtime/orchestration-recovery-command'
 import { refuseConflictingSessionCallerFlags } from './session-caller-flags'
 import { ignoresRemoteSelection } from './remote-selection-scope'
+import { refuseUnreachableRemoteRuntime } from './deca-remote-runtime-refusal'
 import {
   isLocalEnvironmentSelector,
   refuseLocalManagementSelector
@@ -167,6 +168,11 @@ export async function main(
     const remotePairingCode =
       hostEnvironmentId !== null ? null : typeof pairingCode === 'string' ? pairingCode : suppressed
     const remoteEnvironment = hostEnvironmentId ?? storeEnvironmentSelector ?? suppressed
+    await refuseUnreachableRemoteRuntime({
+      pairingCode: remotePairingCode,
+      environment:
+        remoteEnvironment === undefined ? process.env.ORCA_ENVIRONMENT : remoteEnvironment
+    })
     let client: RuntimeClient | undefined
     await dispatch(parsed.commandPath, {
       flags: parsed.flags,

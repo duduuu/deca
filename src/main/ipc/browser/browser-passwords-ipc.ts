@@ -13,7 +13,6 @@ import {
 import { respondToBrowserPasswordSavePrompt } from '../../browser-passwords/browser-password-save-prompts'
 import { browserPasswordReauthMethod } from '../../browser-passwords/browser-password-reauth'
 import { registerBrowserPasswordsEntryHandlers } from './browser-passwords-entry-ipc'
-import { registerBrowserPasswordsImportHandlers } from './browser-passwords-import-ipc'
 import {
   handleBrowserPasswordsChannel,
   readBrowserPasswordsArgs,
@@ -36,7 +35,6 @@ export function registerBrowserPasswordsHandlers(store: BrowserPasswordsSettings
     }
   })
   registerBrowserPasswordsEntryHandlers()
-  registerBrowserPasswordsImportHandlers()
 
   handleBrowserPasswordsChannel(
     'browserPasswords:getStatus',

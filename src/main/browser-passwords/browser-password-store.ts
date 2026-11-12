@@ -1,13 +1,8 @@
 import { randomUUID } from 'node:crypto'
 import type {
   BrowserPasswordEntrySummary,
-  BrowserPasswordImportSummary,
   BrowserPasswordsAvailability
 } from '../../shared/browser-passwords-types'
-import {
-  mergeBrowserPasswordImportRows,
-  type BrowserPasswordImportRow
-} from './browser-password-import-merge'
 import {
   matchBrowserPasswordEntries,
   toBrowserPasswordOrigin,
@@ -294,22 +289,6 @@ export class BrowserPasswordStore {
   listNever(): BrowserPasswordStoreResult<string[]> {
     const loaded = this.load()
     return loaded.ok ? { ok: true, value: [...loaded.value.index.neverOrigins] } : loaded
-  }
-
-  importRows(
-    rows: readonly BrowserPasswordImportRow[]
-  ): BrowserPasswordStoreResult<BrowserPasswordImportSummary> {
-    const loaded = this.load()
-    if (!loaded.ok) {
-      return loaded
-    }
-    const merged = mergeBrowserPasswordImportRows(loaded.value, rows, this.now())
-    if (!merged.ok) {
-      return merged
-    }
-    const { state, summary } = merged.value
-    const saved = summary.imported > 0 ? this.save(state) : null
-    return saved && !saved.ok ? saved : { ok: true, value: summary }
   }
 
   /** For profile deletion: removes the vault whatever state it is in. */

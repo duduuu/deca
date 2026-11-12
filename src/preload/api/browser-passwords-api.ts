@@ -4,7 +4,6 @@ import type {
   BrowserPasswordFieldBlurEvent,
   BrowserPasswordFieldFocusEvent,
   BrowserPasswordFillOutcome,
-  BrowserPasswordImportResult,
   BrowserPasswordEntryDetailsResult,
   BrowserPasswordEntryEditResult,
   BrowserPasswordEntryInput,
@@ -31,10 +30,6 @@ export type BrowserPasswordsApi = {
   deleteEntry: (args: EntryArgs) => Promise<boolean>
   listNever: (args: ProfileArgs) => Promise<string[] | null>
   removeNever: (args: ProfileArgs & { origin: string }) => Promise<boolean>
-  importCsv: (args: ProfileArgs) => Promise<BrowserPasswordImportResult>
-  importFromBrowser: (
-    args: ProfileArgs & { browserFamily: string; profileDirectory: string }
-  ) => Promise<BrowserPasswordImportResult>
   respondSavePrompt: (response: BrowserPasswordSavePromptResponse) => Promise<boolean>
   fillLogin: (args: {
     browserPageId: string

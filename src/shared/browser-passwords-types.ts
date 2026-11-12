@@ -167,22 +167,6 @@ export type BrowserPasswordsAvailability =
   | { available: true }
   | { available: false; reason: string }
 
-export type BrowserPasswordImportSummary = {
-  imported: number
-  /** Already saved with the same password. */
-  duplicates: number
-  /** Same origin and username already saved with a different password; kept as saved. */
-  conflicts: number
-  /** Rows without a usable http(s) URL or password. */
-  invalid: number
-  /** Chromium rows Orca cannot decrypt (Windows app-bound encryption); export a CSV instead. */
-  undecryptable: number
-}
-
-export type BrowserPasswordImportResult =
-  | { ok: true; summary: BrowserPasswordImportSummary }
-  | { ok: false; reason: 'canceled' | 'unavailable' | 'failed'; message?: string }
-
 /** What Settings shows for one login after the OS confirmed the user. */
 export type BrowserPasswordEntryDetailsResult =
   | { ok: true; password: string; note: string }

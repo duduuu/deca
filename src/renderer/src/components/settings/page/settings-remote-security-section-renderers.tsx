@@ -73,10 +73,10 @@ export function renderPrivacySettingsSection(
   return (
     <SettingsSection
       id="privacy"
-      title={t('auto.components.settings.Settings.742ca66ea6', 'Privacy & telemetry')}
+      title={t('auto.components.settings.Settings.742ca66ea6', 'Privacy')}
       description={t(
         'auto.components.settings.Settings.c1b43dc4e2',
-        'Anonymous usage data and telemetry controls.'
+        'Local diagnostics. Deca sends no usage data.'
       )}
       searchEntries={navigation.getSectionSearchEntries('privacy')}
     >

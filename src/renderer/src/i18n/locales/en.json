@@ -2278,8 +2278,8 @@
         "225071c560": "Experimental",
         "e338c507c1": "Low-level compatibility settings for troubleshooting.",
         "580a04cd81": "Advanced",
-        "8400cfe1c1": "Anonymous usage data and telemetry controls.",
-        "3618579df6": "Privacy & Telemetry",
+        "8400cfe1c1": "Local diagnostics. Deca sends no usage data.",
+        "3618579df6": "Privacy",
         "65ec7d1968": "macOS privacy access for terminal-launched developer tools.",
         "d91ae31fbd": "macOS Permissions",
         "b351014180": "Deca stats plus Claude, Codex, OpenCode, Muse token analytics and Grok subscription usage.",
@@ -8766,7 +8766,7 @@
           "8b017f2506": "Experimental",
           "499c1cd7f9": "Low-level compatibility settings for troubleshooting.",
           "1c87f8d024": "Advanced",
-          "c1b43dc4e2": "Anonymous usage data and telemetry controls.",
+          "c1b43dc4e2": "Local diagnostics. Deca sends no usage data.",
           "9b83cc62c2": "macOS privacy access for terminal-launched developer tools.",
           "65660d4548": "macOS Permissions",
           "8acf3f22e0": "Deca stats plus Claude, Codex, OpenCode, Muse token analytics and Grok subscription usage.",
@@ -8819,7 +8819,7 @@
           "3eac6fb97f": "Dev tools",
           "4198aae333": "AI provider accounts",
           "084f34826d": "Stats & usage",
-          "742ca66ea6": "Privacy & telemetry",
+          "742ca66ea6": "Privacy",
           "c2bb9fc528": "Floating workspace",
           "f1fddf7764": "Input & editing",
           "d60b7f0e58": "Quick commands",
@@ -10492,8 +10492,8 @@
             "77d3180def": "telemetry",
             "4104f6f0f3": "analytics",
             "10124159f1": "privacy",
-            "aa3b794c17": "Anonymous product usage data, diagnostics, and telemetry controls.",
-            "a966af0840": "Privacy & telemetry"
+            "aa3b794c17": "Local diagnostics. Deca sends no usage data or telemetry.",
+            "a966af0840": "Privacy"
           }
         },
         "quick": {
@@ -10676,11 +10676,11 @@
               "defaultHostKeyword": "default host",
               "newProjectsKeyword": "new projects",
               "activeServerKeyword": "active server",
-              "addShareDefault": "Add a remote Deca server, share this computer, or choose where new projects open.",
+              "addShareDefault": "Add a WSL host or choose where new projects open.",
               "shareComputerKeyword": "share this computer",
               "accessLinkKeyword": "access link",
               "installKeyword": "install server",
-              "24cc0a2244": "Remote Deca servers"
+              "24cc0a2244": "WSL hosts"
             }
           }
         },
@@ -12363,7 +12363,7 @@
           "submit": "Re-pair",
           "success": "Re-paired with {{name}}",
           "failed": "Re-pair failed",
-          "descriptionShareComputer": "{{name}} no longer accepts this computer. On {{name}}, open Settings → Remote Deca Servers → Share this computer, create a link for another Deca, then paste it here."
+          "descriptionShareComputer": "{{name}} no longer accepts this computer. Remove it and add it again in Settings → WSL hosts."
         },
         "nodeDistMirrorDialog": {
           "action": "Use a Node.js mirror…",
@@ -17775,7 +17775,7 @@
           "resetScope": "Show all hosts and projects",
           "hideAutomationCreated": "Hide automation-created",
           "hideCliCreated": "Hide CLI-created",
-          "hideOtherClientsAria": "Hide agents in workspaces created from other Deca clients on shared remote servers",
+          "hideOtherClientsAria": "Hide agents in workspaces created from other Deca clients",
           "hideOtherClients": "Hide other-client agents"
         },
         "ActivityThreadHoverCard": {
@@ -21404,7 +21404,7 @@
       "clearError": "Could not clear search data. Try again.",
       "webUnsupported": "Turn on session search from the Deca desktop app on that computer.",
       "title": "Agent Session Search",
-      "description": "Search everything your agents have said and done, on this computer and on any paired Deca server.",
+      "description": "Search everything your agents have said and done on this computer and its WSL hosts.",
       "searchDescription": "Turn on session search for this computer and paired servers, or clear search data.",
       "indexComputers": "Search inside sessions",
       "computersConsent": "Each computer keeps its own searchable index of agent conversations. Authenticated paired clients can receive search results.",

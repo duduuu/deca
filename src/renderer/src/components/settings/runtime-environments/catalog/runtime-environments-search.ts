@@ -8,11 +8,11 @@ export const getRuntimeEnvironmentsSearchEntry = createLocalizedCatalog(
   (): SettingsSearchEntry => ({
     title: translate(
       'auto.components.settings.runtime.environments.search.24cc0a2244',
-      'Remote Deca servers'
+      'WSL hosts'
     ),
     description: translate(
       'auto.components.settings.runtime.environments.search.addShareDefault',
-      'Add a remote Deca server, share this computer, or choose where new projects open.'
+      'Add a WSL host or choose where new projects open.'
     ),
     keywords: [
       ...translateSearchKeyword(
@@ -73,19 +73,6 @@ export const getRuntimeEnvironmentsSearchEntry = createLocalizedCatalog(
         'active server'
       ),
       ...translateSearchKeyword(
-        'auto.components.settings.managedServers.search.title',
-        'Deca on your SSH hosts'
-      ),
-      ...translateSearchKeyword('auto.components.settings.managedServers.search.keywordSsh', 'ssh'),
-      ...translateSearchKeyword(
-        'auto.components.settings.runtime.environments.search.shareComputerKeyword',
-        'share this computer'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.runtime.environments.search.accessLinkKeyword',
-        'access link'
-      ),
-      ...translateSearchKeyword(
         'auto.components.settings.runtime.environments.search.installKeyword',
         'install server'
       ),
@@ -104,7 +91,7 @@ export const getWebRuntimeEnvironmentsSearchEntry = createLocalizedCatalog(
   (): SettingsSearchEntry => ({
     title: translate(
       'auto.components.settings.runtime.environments.search.24cc0a2244',
-      'Remote Deca servers'
+      'WSL hosts'
     ),
     description: translate(
       'auto.components.settings.runtime.environments.search.baec27aa8f',

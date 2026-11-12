@@ -134,7 +134,7 @@ export function renderSessionHistorySettingsSection(
       title={t('sessionHistory.settings.title', 'Agent Session Search')}
       description={t(
         'sessionHistory.settings.description',
-        'Search everything your agents have said and done, on this computer and on any paired Deca server.'
+        'Search everything your agents have said and done on this computer and its WSL hosts.'
       )}
       searchEntries={navigation.getSectionSearchEntries('session-history')}
     >

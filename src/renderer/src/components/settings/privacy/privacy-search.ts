@@ -4,10 +4,10 @@ import { createLocalizedCatalog } from '@/i18n/localized-catalog'
 
 export const getPrivacyPaneSearchEntries = createLocalizedCatalog(() => [
   {
-    title: translate('auto.components.settings.privacy.search.a966af0840', 'Privacy & telemetry'),
+    title: translate('auto.components.settings.privacy.search.a966af0840', 'Privacy'),
     description: translate(
       'auto.components.settings.privacy.search.aa3b794c17',
-      'Anonymous product usage data, diagnostics, and telemetry controls.'
+      'Local diagnostics. Deca sends no usage data or telemetry.'
     ),
     keywords: [
       ...translateSearchKeyword('auto.components.settings.privacy.search.10124159f1', 'privacy'),

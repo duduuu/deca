@@ -1824,8 +1824,8 @@
         "225071c560": "실험적",
         "e338c507c1": "문제 해결을 위한 낮은 수준의 호환성 설정입니다.",
         "580a04cd81": "고급",
-        "8400cfe1c1": "익명의 사용 데이터 및 텔레메트리 제어.",
-        "3618579df6": "개인정보 및 텔레메트리",
+        "8400cfe1c1": "로컬 진단. Deca는 사용 데이터를 전송하지 않습니다.",
+        "3618579df6": "개인정보",
         "65ec7d1968": "terminal에서 실행되는 개발자 도구에 대한 macOS 개인 정보 보호 액세스입니다.",
         "d91ae31fbd": "macOS 권한",
         "b351014180": "Deca 통계와 Claude, Codex, OpenCode, Muse 토큰 분석 및 Grok 구독 사용량.",
@@ -8200,7 +8200,7 @@
           "8b017f2506": "실험적",
           "499c1cd7f9": "문제 해결을 위한 낮은 수준의 호환성 설정입니다.",
           "1c87f8d024": "고급",
-          "c1b43dc4e2": "익명의 사용 데이터 및 텔레메트리 제어.",
+          "c1b43dc4e2": "로컬 진단. Deca는 사용 데이터를 전송하지 않습니다.",
           "9b83cc62c2": "terminal에서 실행되는 개발자 도구의 macOS 개인정보 보호 접근 권한입니다.",
           "65660d4548": "macOS 권한",
           "8acf3f22e0": "Deca 통계와 Claude, Codex, OpenCode, Muse 토큰 분석 및 Grok 구독 사용량.",
@@ -8253,7 +8253,7 @@
           "3eac6fb97f": "개발자 도구",
           "4198aae333": "AI 제공업체 계정",
           "084f34826d": "통계 및 사용량",
-          "742ca66ea6": "개인정보 및 텔레메트리",
+          "742ca66ea6": "개인정보",
           "c2bb9fc528": "플로팅 워크스페이스",
           "f1fddf7764": "입력 및 편집",
           "d60b7f0e58": "빠른 명령어",
@@ -9922,8 +9922,8 @@
             "77d3180def": "텔레메트리",
             "4104f6f0f3": "분석",
             "10124159f1": "개인정보",
-            "aa3b794c17": "익명의 제품 사용 데이터, 진단 및 텔레메트리 제어.",
-            "a966af0840": "개인정보 및 텔레메트리"
+            "aa3b794c17": "로컬 진단. Deca는 사용 데이터나 텔레메트리를 전송하지 않습니다.",
+            "a966af0840": "개인정보"
           }
         },
         "quick": {
@@ -10106,11 +10106,11 @@
               "defaultHostKeyword": "기본 호스트",
               "newProjectsKeyword": "새 프로젝트",
               "activeServerKeyword": "활성 서버",
-              "addShareDefault": "원격 Deca 서버를 추가하거나, 이 컴퓨터를 공유하거나, 새 프로젝트를 열 위치를 선택하세요.",
+              "addShareDefault": "WSL 호스트를 추가하거나 새 프로젝트를 열 위치를 선택합니다.",
               "shareComputerKeyword": "이 컴퓨터 공유",
               "accessLinkKeyword": "액세스 링크",
               "installKeyword": "서버 설치",
-              "24cc0a2244": "원격 Deca 서버"
+              "24cc0a2244": "WSL 호스트"
             }
           }
         },
@@ -11907,7 +11907,7 @@
           "submit": "Re-pair",
           "success": "{{name}}와(과) 다시 페어링됨",
           "failed": "다시 페어링 실패",
-          "descriptionShareComputer": "{{name}}이(가) 더 이상 이 컴퓨터를 허용하지 않습니다. {{name}}에서 설정 → 원격 Deca 서버 → 이 컴퓨터 공유를 열고 다른 Deca용 링크를 만든 다음 여기에 붙여 넣으세요."
+          "descriptionShareComputer": "{{name}}이(가) 더 이상 이 컴퓨터를 허용하지 않습니다. 설정 → WSL 호스트에서 제거한 뒤 다시 추가하세요."
         },
         "nodeDistMirrorDialog": {
           "action": "Node.js 미러 사용…",
@@ -17254,7 +17254,7 @@
           "resetScope": "모든 호스트 및 프로젝트 표시",
           "hideAutomationCreated": "자동화로 생성된 워크스페이스 숨기기",
           "hideCliCreated": "CLI로 생성된 워크스페이스 숨기기",
-          "hideOtherClientsAria": "공유 원격 서버에서 다른 Deca 클라이언트로 만든 워크스페이스의 에이전트 숨기기",
+          "hideOtherClientsAria": "다른 Deca 클라이언트에서 만든 워크스페이스의 에이전트 숨기기",
           "hideOtherClients": "다른 클라이언트 에이전트 숨기기"
         },
         "ActivityThreadRow": {
@@ -21343,7 +21343,7 @@
       "clearError": "검색 데이터를 지울 수 없습니다. 다시 시도해 보세요.",
       "webUnsupported": "해당 컴퓨터의 Deca 데스크탑 앱에서 세션 검색을 켜십시오.",
       "title": "에이전트 세션 검색",
-      "description": "이 컴퓨터와 페어링된 Deca 서버에서 에이전트가 말하고 행한 모든 내용을 검색하세요.",
+      "description": "이 컴퓨터와 WSL 호스트에서 에이전트가 말하고 한 모든 내용을 검색합니다.",
       "searchDescription": "이 컴퓨터와 페어링된 서버에 대한 세션 검색을 켜거나 검색 데이터를 지웁니다.",
       "indexComputers": "세션 내부 검색",
       "serverVersion": "Deca v{{version}}",

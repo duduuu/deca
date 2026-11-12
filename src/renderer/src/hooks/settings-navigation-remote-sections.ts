@@ -68,10 +68,10 @@ export function buildRemoteSettingsSections(
       : []),
     {
       id: 'privacy',
-      title: t('auto.hooks.useSettingsNavigationMetadata.3618579df6', 'Privacy & Telemetry'),
+      title: t('auto.hooks.useSettingsNavigationMetadata.3618579df6', 'Privacy'),
       description: t(
         'auto.hooks.useSettingsNavigationMetadata.8400cfe1c1',
-        'Anonymous usage data and telemetry controls.'
+        'Local diagnostics. Deca sends no usage data.'
       ),
       icon: Lock,
       searchEntries: getPrivacyPaneSearchEntries(),

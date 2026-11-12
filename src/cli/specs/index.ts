@@ -13,22 +13,18 @@ import { ENVIRONMENT_COMMAND_SPECS } from './environment'
 import { MANAGED_SERVER_COMMAND_SPECS } from './managed-server'
 import { AGENT_HOOK_COMMAND_SPECS } from './agent-hooks'
 import { AGENT_LAUNCH_COMMAND_SPECS } from './agent-launch'
-import { CONNECTOR_COMMAND_SPECS } from './connector'
 import { DIAGNOSTICS_COMMAND_SPECS } from './diagnostics'
 import { TERMINAL_DAEMON_COMMAND_SPECS } from './terminal-daemon'
 import { EMULATOR_COMMAND_SPECS } from './emulator'
 import { INTROSPECTION_COMMAND_SPECS } from './introspection'
 import { JIRA_COMMAND_SPECS } from './jira'
 import { LINEAR_COMMAND_SPECS } from './linear'
-import { VM_COMMAND_SPECS } from './vm'
-import { VM_ENV_COMMAND_SPECS } from './vm-env'
 import { SKILL_COMMAND_SPECS } from './skills'
 import { SEARCH_COMMAND_SPECS } from './search'
 import { PROFILE_STATE_COMMAND_SPECS } from './profile-state'
 import { REFERENCE_COMMAND_SPECS } from './reference'
 import { PORTS_COMMAND_SPECS } from './ports'
 import { PLUGIN_AUTHORING_COMMAND_SPECS, PLUGIN_RUNTIME_COMMAND_SPECS } from './plugin'
-import { PAIR_COMMAND_SPECS } from './pair'
 import { PLUGIN_VIEW_COMMAND_SPECS } from './plugin-view'
 import { PLUGIN_INSTALL_COMMAND_SPECS } from './plugin-install'
 
@@ -45,7 +41,6 @@ export const COMMAND_SPECS: CommandSpec[] = [
   ...AGENT_HOOK_COMMAND_SPECS,
   ...AGENT_LAUNCH_COMMAND_SPECS,
   ...CHAT_COMMAND_SPECS,
-  ...CONNECTOR_COMMAND_SPECS,
   ...DIAGNOSTICS_COMMAND_SPECS,
   ...TERMINAL_DAEMON_COMMAND_SPECS,
   ...INTROSPECTION_COMMAND_SPECS,
@@ -53,8 +48,6 @@ export const COMMAND_SPECS: CommandSpec[] = [
   ...MANAGED_SERVER_COMMAND_SPECS,
   ...JIRA_COMMAND_SPECS,
   ...LINEAR_COMMAND_SPECS,
-  ...VM_COMMAND_SPECS,
-  ...VM_ENV_COMMAND_SPECS,
   ...EMULATOR_COMMAND_SPECS,
   ...SKILL_COMMAND_SPECS,
   ...SEARCH_COMMAND_SPECS,
@@ -63,6 +56,5 @@ export const COMMAND_SPECS: CommandSpec[] = [
   ...PLUGIN_AUTHORING_COMMAND_SPECS,
   ...PLUGIN_RUNTIME_COMMAND_SPECS,
   ...PLUGIN_VIEW_COMMAND_SPECS,
-  ...PLUGIN_INSTALL_COMMAND_SPECS,
-  ...PAIR_COMMAND_SPECS
+  ...PLUGIN_INSTALL_COMMAND_SPECS
 ]

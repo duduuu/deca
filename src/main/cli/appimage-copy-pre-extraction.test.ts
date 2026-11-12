@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import { mkdir, mkdtemp, rename, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -58,63 +58,5 @@ describe('startAppImageCopyPreExtraction', () => {
     expect(existsSync(copy.payloadLauncherPath)).toBe(true)
     expect(existsSync(resolveAppImageLauncherEndpointPath(cacheRootPath, 'installed'))).toBe(false)
     expect(lines.at(-1)).toContain('Unpacked this AppImage')
-  })
-})
-
-describe('preExtractDownloadedAppImageUpdate', () => {
-  it('unpacks the download into the copy its install will run from', async () => {
-    const { root, appImagePath, cacheRootPath } = await makeFixture()
-    const downloadedFile = join(root, 'apps', '.pending-Deca.AppImage')
-    await writeFile(downloadedFile, 'release 2.0.0', { mode: 0o755 })
-
-    const staged = await preExtraction.preExtractDownloadedAppImageUpdate(
-      downloadedFile,
-      async () => true,
-      {
-        appImagePath,
-        cacheRootPath,
-        probeCache: acceptCache,
-        runExtract: async (path, cwd) => {
-          expect(path).toBe(downloadedFile)
-          await writePayload(cwd)
-        },
-        log: () => {}
-      }
-    )
-    expect(staged).toBe(true)
-
-    // What the updater's install does on one filesystem: a rename, which keeps the file identity.
-    await rename(downloadedFile, appImagePath)
-    const installed = resolveAppImageExtractedRoot({ appImagePath, cacheRootPath })!
-    expect(existsSync(installed.payloadLauncherPath)).toBe(true)
-    expect(existsSync(resolveAppImageLauncherEndpointPath(cacheRootPath, 'installed'))).toBe(false)
-  })
-
-  it('never runs a file that is not the updater download', async () => {
-    const { root, appImagePath, cacheRootPath } = await makeFixture()
-    const planted = join(root, 'Deca-2.0.0.AppImage')
-    await writeFile(planted, 'not an update', { mode: 0o755 })
-    const runExtract = vi.fn()
-
-    expect(
-      await preExtraction.preExtractDownloadedAppImageUpdate(planted, async () => false, {
-        appImagePath,
-        cacheRootPath,
-        probeCache: acceptCache,
-        runExtract
-      })
-    ).toBe(false)
-    expect(
-      await preExtraction.preExtractDownloadedAppImageUpdate(
-        'relative.AppImage',
-        async () => true,
-        {
-          appImagePath,
-          cacheRootPath,
-          runExtract
-        }
-      )
-    ).toBe(false)
-    expect(runExtract).not.toHaveBeenCalled()
   })
 })

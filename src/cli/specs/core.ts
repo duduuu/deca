@@ -3,7 +3,6 @@ import { GLOBAL_FLAGS } from '../args'
 import { WORKTREE_LISTING_SCOPE_NOTES } from './worktree-listing-scope-notes'
 import { WORKTREE_CREATE_COMMAND_SPEC } from './worktree-create'
 import { WORKTREE_SET_COMMAND_SPEC } from './worktree-set'
-import { SERVE_COMMAND_SPECS } from './serve'
 import { REPO_COMMAND_SPECS } from './repo'
 import { TERMINAL_SEND_COMMAND_SPEC } from './terminal-send'
 import { TERMINAL_CLOSE_COMMAND_SPEC } from './terminal-close'
@@ -17,7 +16,6 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS],
     examples: ['deca open', 'deca open --json']
   },
-  ...SERVE_COMMAND_SPECS,
   {
     path: ['status'],
     summary: 'Show app/runtime/graph readiness',

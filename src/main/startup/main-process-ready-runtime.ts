@@ -42,7 +42,6 @@ import { pruneDesktopOrcadArtifactCache } from '../orcad/orcad-artifact-cache-re
 import { runGatedWslMoveDesktopRewritePass } from '../persistence/moving-wsl-projects/wsl-move-desktop-rewrite'
 import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/layout-owner-switch'
 import { repairDuplicatePtyPanesOnStart } from '../runtime/terminal/identity/moved-pane-owner-rekey'
-import { WslUsageReporter } from '../telemetry/wsl-usage-reporter'
 import { ALL_RPC_METHODS } from '../runtime/rpc/methods/rpc-method-registry'
 import { startClaudeCodeThemeSync } from '../claude/theme-sync/claude-code-theme-sync-schedule'
 
@@ -105,9 +104,6 @@ export async function initializeReadyRuntimeServices(): Promise<void> {
   // Defer noncritical plugin-file refresh past first paint.
   runAfterFirstWindowShown(() => {
     refreshInstalledOpenCodeStatusPlugins(store.getSettings())
-  }, WORKTREE_TRASH_SWEEP_FALLBACK_MS)
-  runAfterFirstWindowShown(() => {
-    new WslUsageReporter(store, app.getPath('userData')).start()
   }, WORKTREE_TRASH_SWEEP_FALLBACK_MS)
   runAfterFirstWindowShown(() => {
     void pruneDesktopOrcadArtifactCache(app.getPath('userData')).catch((error) => {

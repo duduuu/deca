@@ -14,7 +14,6 @@ export const CLI_COMMAND_NAMES = [
   'clear',
   'click',
   'clipboard',
-  'connector',
   'console',
   'cookie',
   'dblclick',
@@ -49,7 +48,6 @@ export const CLI_COMMAND_NAMES = [
   'open',
   'open-url',
   'orchestration',
-  'pair',
   'pdf',
   'plugin',
   'ports',
@@ -64,7 +62,6 @@ export const CLI_COMMAND_NAMES = [
   'search',
   'select',
   'select-all',
-  'serve',
   'set',
   'skills',
   'snapshot',
@@ -77,7 +74,6 @@ export const CLI_COMMAND_NAMES = [
   'uncheck',
   'upload',
   'viewport',
-  'vm',
   'wait',
   'worktree'
 ] as const

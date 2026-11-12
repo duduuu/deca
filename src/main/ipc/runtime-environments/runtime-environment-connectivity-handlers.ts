@@ -5,12 +5,13 @@ import {
 import { desktopChatCreationHistory } from '../../runtime/client/navigation/desktop-chat-creation-history'
 import { ipcMain } from 'electron'
 import {
-  addEnvironmentFromPairingCode,
   listEnvironments,
   removeEnvironment,
   resolveEnvironment
 } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import {
+  isDecaReachableRuntimeEnvironment,
+  REMOTE_SERVERS_UNAVAILABLE_MESSAGE,
   redactRuntimeEnvironment,
   type PublicKnownRuntimeEnvironment,
   type RuntimeEnvironmentRemoval
@@ -25,8 +26,6 @@ import type { Store } from '../../persistence/loading-store/store'
 import { retireRemovedRuntimeEnvironment } from './runtime-environment-removal-cleanup'
 import { removeRedundantManagedPairing } from './runtime-environment-redundant-managed-removal'
 import { readSettingsWithRuntimeEnvironmentPreference } from './runtime-environment-preference'
-import { verifyAndAddRuntimeEnvironmentFromPairingCode } from './runtime-environment-pairing-verification'
-import { publishVerifiedPairing } from './runtime-environment-verified-pairing-publish'
 import {
   closeRemoteRuntimeRequestConnection,
   getRuntimeEnvironmentStatusSnapshots
@@ -82,32 +81,13 @@ export function registerRuntimeEnvironmentConnectivityHandlers({
     readSettingsWithRuntimeEnvironmentPreference(store, getUserDataPath())
     return environments.map(publicRuntimeEnvironmentWithHostKey)
   })
-  ipcMain.handle(
-    'runtimeEnvironments:addFromPairingCode',
-    (
-      _event,
-      args: { name: string; pairingCode: string }
-    ): { environment: PublicKnownRuntimeEnvironment } => {
-      // An unverified code must not replace a working pairing.
-      const environment = addEnvironmentFromPairingCode(getUserDataPath(), args)
-      clearRuntimeEnvironmentManualDisconnect(environment.id)
-      return { environment: redactRuntimeEnvironment(environment) }
-    }
-  )
-  ipcMain.handle(
-    'runtimeEnvironments:verifyAndAddFromPairingCode',
-    async (_event, args: { name: string; pairingCode: string; allowLoopback?: boolean }) => {
-      const result = await verifyAndAddRuntimeEnvironmentFromPairingCode(getUserDataPath(), args)
-      if (result.ok) {
-        await publishVerifiedPairing(
-          getUserDataPath(),
-          result,
-          result.updatedExisting ? { invalidateTransport } : null
-        )
-      }
-      return result
-    }
-  )
+  // Deca reaches only this computer's WSL hosts; paired remote servers cannot be added.
+  ipcMain.handle('runtimeEnvironments:addFromPairingCode', () => {
+    throw new Error(REMOTE_SERVERS_UNAVAILABLE_MESSAGE)
+  })
+  ipcMain.handle('runtimeEnvironments:verifyAndAddFromPairingCode', () => {
+    throw new Error(REMOTE_SERVERS_UNAVAILABLE_MESSAGE)
+  })
   ipcMain.handle('runtimeEnvironments:resolve', (_event, args: { selector: string }) =>
     redactRuntimeEnvironment(resolveEnvironment(getUserDataPath(), args.selector))
   )
@@ -173,6 +153,9 @@ export function registerRuntimeEnvironmentConnectivityHandlers({
       args: { selector: string; timeoutMs?: number }
     ): Promise<RuntimeRpcResponse<RuntimeStatus>> => {
       const environment = resolveEnvironment(getUserDataPath(), args.selector)
+      if (!isDecaReachableRuntimeEnvironment(environment)) {
+        throw new Error(REMOTE_SERVERS_UNAVAILABLE_MESSAGE)
+      }
       assertWslHostReachable(environment)
       clearRuntimeEnvironmentManualDisconnect(environment.id)
       noteRuntimeEnvironmentConnectRequested(environment.id)

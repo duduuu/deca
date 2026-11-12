@@ -61,8 +61,6 @@
 1 src/main/startup/configure-process.ts
 1 src/main/startup/event-loop-stall-probe.ts
 1 src/main/startup/synthetic-title-runtime.ts
-1 src/main/telemetry/wsl-usage-reporter.ts
-1 src/main/wsl/host-lifecycle/wsl-hosts-policy-live-update.ts
 1 src/main/wsl/orcad/wsl-orcad-connect-stop-fence.ts
 1 src/renderer/src/app-shell/use-app-session-persistence.ts
 1 src/renderer/src/components/browser-pane/browser-client-page-position-driver.ts

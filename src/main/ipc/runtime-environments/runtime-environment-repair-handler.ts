@@ -1,26 +1,12 @@
 import { ipcMain } from 'electron'
-import type { VerifyAndAddRuntimeEnvironmentResult } from '../../../shared/remote-runtime/pairing/remote-pairing-verification'
-import { verifyAndRepairRuntimeEnvironmentFromPairingCode } from './runtime-environment-pairing-verification'
-import { publishVerifiedPairing } from './runtime-environment-verified-pairing-publish'
+import { REMOTE_SERVERS_UNAVAILABLE_MESSAGE } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 
-export function registerRuntimeEnvironmentRepairHandler({
-  getUserDataPath,
-  invalidateTransport
-}: {
+/** Pairing-code repair only exists for paired remote servers, which Deca never reaches. */
+export function registerRuntimeEnvironmentRepairHandler(_options: {
   getUserDataPath: () => string
   invalidateTransport: (environmentId: string) => Promise<void> | void
 }): void {
-  ipcMain.handle(
-    'runtimeEnvironments:repairFromPairingCode',
-    async (
-      _event,
-      args: { selector: string; pairingCode: string }
-    ): Promise<VerifyAndAddRuntimeEnvironmentResult> => {
-      const result = await verifyAndRepairRuntimeEnvironmentFromPairingCode(getUserDataPath(), args)
-      if (result.ok) {
-        await publishVerifiedPairing(getUserDataPath(), result, { invalidateTransport })
-      }
-      return result
-    }
-  )
+  ipcMain.handle('runtimeEnvironments:repairFromPairingCode', () => {
+    throw new Error(REMOTE_SERVERS_UNAVAILABLE_MESSAGE)
+  })
 }

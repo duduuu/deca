@@ -6,7 +6,7 @@ import type { CliInstallStatus } from '../../shared/cli-install-types'
 import {
   hasAppImagePathEnvironment,
   resolveAppImageRuntimeIdentity
-} from '../updater/linux-package/appimage-runtime-identity'
+} from '../linux-appimage/appimage-runtime-identity'
 import {
   getAppImageCacheRootPath,
   resolveAppImageExtractedRoot,

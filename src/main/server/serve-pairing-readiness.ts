@@ -1,6 +1,6 @@
 import type { OrcaRuntimeRpcServer } from '../runtime/rpc/server/runtime-rpc'
 import { resolveAdvertisedPairingEndpoint } from '../runtime/rpc/server/pairing/network/pairing-endpoint'
-import { assertServeProjectRoot, renderServePairingQr } from './serve-pairing-output'
+import { assertServeProjectRoot } from './serve-pairing-output'
 import type { ServeReadiness, ServeReadinessOutput } from './serve-readiness'
 
 export async function buildServePairingReadiness(
@@ -40,7 +40,7 @@ export async function buildServePairingReadiness(
           deviceId: offer.deviceId,
           webClientUrl: offer.webClientUrl,
           scope: options.mobilePairing ? 'mobile' : 'runtime',
-          qr: options.mobilePairing ? await renderServePairingQr(offer.pairingUrl) : null
+          qr: null
         }
       : offer
   }

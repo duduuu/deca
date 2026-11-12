@@ -176,14 +176,14 @@ export function buildDefaultSettings(args: {
     showAutomationsButton: true,
     artifactsEnabled: true,
     // New profiles only; stored profiles without the key load as false (normalizeLoadedGlobalSettings).
-    artifactSharingEnabled: true,
+    artifactSharingEnabled: false,
     agentSkillSharingEnabled: false,
     nestedWorkerMaxDepth: NESTED_WORKER_MAX_DEPTH_DEFAULT,
     nestedWorkerMaxDepthDefaultedToFour: true,
     orchestrationWorkerAutoReleaseEnabled: true,
     showArtifactsButton: false,
     showSkillsButton: false,
-    showMobileButton: true,
+    showMobileButton: false,
     showPinnedWorktreesInGroups: false,
     ctrlTabOrderMode: 'mru',
     // Why: Orca-first keeps core shortcuts working from a focused terminal; TUI-ownership users opt in.

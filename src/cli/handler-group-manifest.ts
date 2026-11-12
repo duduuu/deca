@@ -3,7 +3,6 @@ import { BROWSER_HANDLER_GROUPS } from './browser/browser-handler-groups'
 import { JIRA_HANDLER_GROUP } from './jira-handler-group'
 import { LINEAR_HANDLER_GROUP } from './linear-handler-group'
 import { REFERENCE_HANDLER_GROUP } from './reference-handler-group'
-import { SERVE_PAIRING_HANDLER_GROUPS } from './serve-pairing-handler-groups'
 import { PLUGIN_HANDLER_GROUPS } from './plugin-handler-groups'
 import { HOST_HANDLER_GROUPS } from './host-handler-groups'
 import { WORKTREE_HANDLER_GROUPS } from './worktree-handler-groups'
@@ -22,20 +21,8 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
   REFERENCE_HANDLER_GROUP,
   {
     name: 'core',
-    keys: ['claude-teams', 'open', 'serve', 'status'],
+    keys: ['claude-teams', 'open', 'status'],
     load: async () => (await import('./handlers/core.js')).CORE_HANDLERS
-  },
-  ...SERVE_PAIRING_HANDLER_GROUPS,
-  {
-    name: 'serve-reset-identity',
-    keys: ['serve reset-identity'],
-    load: async () =>
-      (await import('./handlers/serve-reset-identity.js')).SERVE_RESET_IDENTITY_HANDLERS
-  },
-  {
-    name: 'serve-service',
-    keys: ['serve service install', 'serve service status', 'serve service uninstall'],
-    load: async () => (await import('./handlers/serve-service.js')).SERVE_SERVICE_HANDLERS
   },
   {
     name: 'account',
@@ -179,18 +166,6 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
     name: 'chat',
     keys: ['chat rename', 'chat list', 'chat read', 'chat send', 'chat wait'],
     load: async () => (await import('./handlers/chat.js')).CHAT_HANDLERS
-  },
-  {
-    name: 'connector',
-    keys: [
-      'connector start',
-      'connector send',
-      'connector prompt',
-      'connector answer',
-      'connector cancel',
-      'connector watch'
-    ],
-    load: async () => (await import('./handlers/connector.js')).CONNECTOR_HANDLERS
   },
   {
     name: 'profile-state',

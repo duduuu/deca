@@ -17,9 +17,10 @@ export function filterHostCapabilityBlocks(markdown: string, enabled: ReadonlySe
   )
 }
 
-type SharingSettings = { artifactSharingEnabled?: boolean; agentSkillSharingEnabled?: boolean }
+type SharingSettings = { agentSkillSharingEnabled?: boolean }
 
-/** Mirrors the publish commands' targets; any unreadable state hides the blocks (fail closed). */
+/** Mirrors the publish commands' targets; any unreadable state hides the blocks (fail closed).
+ * Deca never publishes artifacts, so `artifact-publishing` blocks are always stripped. */
 export async function readEnabledHostCapabilities(
   ctx: HandlerContext
 ): Promise<ReadonlySet<GuideHostCapability>> {
@@ -31,9 +32,6 @@ export async function readEnabledHostCapabilities(
       { timeoutMs: 2_000 }
     )
     const settings = response.result?.settings
-    if (settings?.artifactSharingEnabled === true) {
-      enabled.add('artifact-publishing')
-    }
     // `skills share` refuses forwarded and remote invocations, so their hosts cannot publish skills.
     if (
       settings?.agentSkillSharingEnabled === true &&

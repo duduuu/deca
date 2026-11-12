@@ -197,3 +197,24 @@ export function resolveAppImageRuntimeIdentity(
 
   return { appImagePath }
 }
+
+/** True when this process runs from an AppImage mount whose executable and resources sit under APPDIR. */
+export function isLegacyAppImageRuntimeIdentity(identity: {
+  appImagePath: unknown
+  appDirPath: unknown
+  execPath: unknown
+  resourcesPath: unknown
+}): boolean {
+  if (
+    !isAbsolutePath(identity.appImagePath) ||
+    !isAbsolutePath(identity.appDirPath) ||
+    !isAbsolutePath(identity.execPath) ||
+    !isAbsolutePath(identity.resourcesPath)
+  ) {
+    return false
+  }
+  return (
+    isInside(identity.appDirPath, identity.execPath) &&
+    isInside(identity.appDirPath, identity.resourcesPath)
+  )
+}

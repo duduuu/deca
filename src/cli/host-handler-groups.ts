@@ -5,15 +5,7 @@ import type { HandlerGroup } from './handler-group-manifest'
 export const HOST_HANDLER_GROUPS: readonly HandlerGroup[] = [
   {
     name: 'environment',
-    keys: [
-      'host name',
-      'host list',
-      'host rm',
-      'environment add',
-      'environment list',
-      'environment show',
-      'environment rm'
-    ],
+    keys: ['host name', 'host list', 'environment list', 'environment show', 'environment rm'],
     load: async () => (await import('./handlers/environment.js')).ENVIRONMENT_HANDLERS
   },
   {
@@ -28,15 +20,5 @@ export const HOST_HANDLER_GROUPS: readonly HandlerGroup[] = [
       'environment forget'
     ],
     load: async () => (await import('./handlers/managed-server.js')).MANAGED_SERVER_HANDLERS
-  },
-  {
-    name: 'vm',
-    keys: ['vm recipe doctor'],
-    load: async () => (await import('./handlers/vm.js')).VM_HANDLERS
-  },
-  {
-    name: 'vm-env',
-    keys: ['vm env doctor'],
-    load: async () => (await import('./handlers/vm-env.js')).VM_ENV_HANDLERS
   }
 ]

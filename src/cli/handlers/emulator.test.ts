@@ -109,39 +109,6 @@ describe('deca emulator CLI handlers', () => {
     )
   })
 
-  it('rejects relative APK paths for remote runtimes', async () => {
-    remoteMock.mockReturnValue(true)
-
-    await main(
-      ['emulator', 'install', 'build/app.apk', '--pairing-code', 'remote', '--worktree', 'all'],
-      '/repo/project'
-    )
-
-    expect(callMock).not.toHaveBeenCalled()
-    expect(vi.mocked(console.error).mock.calls[0][0]).toContain(
-      'Remote emulator install requires --path to be an absolute path on the remote server.'
-    )
-    expect(process.exitCode).toBe(1)
-  })
-
-  it('preserves absolute server APK paths for remote runtimes', async () => {
-    remoteMock.mockReturnValue(true)
-    queueFixtures(callMock, okFixture('req_install', { ok: true }))
-
-    await main(
-      ['emulator', 'install', 'C:\\tmp\\app.apk', '--pairing-code', 'remote', '--worktree', 'all'],
-      '/repo/project'
-    )
-
-    expect(callMock).toHaveBeenCalledWith('emulator.install', {
-      path: 'C:\\tmp\\app.apk',
-      reinstall: false,
-      device: undefined,
-      emulator: undefined,
-      worktree: undefined
-    })
-  })
-
   it('allows device-wide permission reset without package or permission', async () => {
     queueFixtures(callMock, okFixture('req_permissions', { ok: true }))
 

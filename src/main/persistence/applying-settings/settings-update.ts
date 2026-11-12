@@ -77,8 +77,12 @@ export function updateSettings(
   if ('showMenuBarIcon' in updates) {
     sanitizedUpdates.showMenuBarIcon = updates.showMenuBarIcon === true
   }
+  // Deca never shares artifacts or runs connectors; no writer can turn them on.
   if ('artifactSharingEnabled' in updates) {
-    sanitizedUpdates.artifactSharingEnabled = updates.artifactSharingEnabled === true
+    sanitizedUpdates.artifactSharingEnabled = false
+  }
+  if ('experimentalConnectors' in updates) {
+    sanitizedUpdates.experimentalConnectors = false
   }
   if ('agentSkillSharingEnabled' in updates) {
     sanitizedUpdates.agentSkillSharingEnabled = updates.agentSkillSharingEnabled === true

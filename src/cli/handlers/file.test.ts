@@ -105,18 +105,4 @@ describe('deca file CLI handlers', () => {
     expect(process.exitCode).toBe(1)
     process.exitCode = undefined
   })
-
-  it('requires an explicit worktree for remote file commands', async () => {
-    const priorExitCode = process.exitCode
-
-    await main(['file', 'open-changed', '--pairing-code', 'remote-runtime'], '/tmp/repo/src')
-
-    expect(callMock).not.toHaveBeenCalled()
-    expect(vi.mocked(console.error).mock.calls[0][0]).toContain(
-      'Remote file commands require --worktree'
-    )
-    expect(process.exitCode).toBe(1)
-
-    process.exitCode = priorExitCode
-  })
 })

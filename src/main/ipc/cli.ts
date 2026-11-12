@@ -24,7 +24,7 @@ import {
   runAsWslExecUserAct
 } from '../wsl/discovery/wsl-background-exec-gate'
 import { isWslDistroNotFoundFailure } from '../wsl/discovery/wsl-distro-unsupported'
-import { resolveAppImageRuntimeIdentity } from '../updater/linux-package/appimage-runtime-identity'
+import { resolveAppImageRuntimeIdentity } from '../linux-appimage/appimage-runtime-identity'
 
 const APPIMAGE_REPAIR_RETRY_MS = 30_000
 const localCliRegistrationQueues = new Map<string, Promise<void>>()

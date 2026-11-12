@@ -98,8 +98,9 @@ export function normalizeLoadedGlobalSettings(
     ),
     worktreeVisibilityDefaults: migratedExternalVisibility.defaults,
     prBotAuthorOverrides: normalizePRBotAuthorOverrides(parsed.settings?.prBotAuthorOverrides),
-    // Only fresh profiles take the on default; a stored profile saved before the key existed was off.
-    artifactSharingEnabled: parsed.settings?.artifactSharingEnabled === true,
+    // Deca keeps artifact sharing and connectors off regardless of what an older profile stored.
+    artifactSharingEnabled: false,
+    experimentalConnectors: false,
     // Carry the retired sidekick flag into pet settings.
     experimentalPet: parsed.settings?.experimentalPet ?? readLegacySidekickFlag(parsed) ?? false,
     // Migrate old platform defaults once; retain later opt-outs.

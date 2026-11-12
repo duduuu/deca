@@ -17,14 +17,12 @@ import { getCanonicalUserDataPath } from '../persistence/loading-store/user-data
 import { getAppEnvironment } from '../../shared/app-environment'
 import { loadWslMoveFence } from '../persistence/moving-wsl-projects/wsl-move-scope-guard'
 import { startWslMoveStartup } from '../persistence/moving-wsl-projects/wsl-move-startup'
-import { startWslHostsPolicyLiveUpdates } from '../wsl/host-lifecycle/wsl-hosts-policy-live-update'
 import { runPendingWslDriveUncConversions } from '../wsl/filesystem/wsl-drive-unc-conversion-startup'
 import { createProfileStateStoreForStartup } from '../persistence/profile-state/profile-state-startup-authority'
 import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
 import { initializeBrowserClientHostId } from '../browser/client-hosts/lifecycle/browser-client-host-id'
 import { scheduleSecretProtectionGapReport } from '../host/deferred-secret-protection-report'
 import { withholdUnreachableKeychainForServe } from '../host/serve-keychain-guard'
-import { initSshHostKeyStoreFile } from '../ssh/host-keys/ssh-host-key-store'
 import { initOrcadHeldFenceTokenFile } from '../managed-server/activation/orcad-held-fence-tokens'
 import { neutralizeLegacyTerminalShimDir } from '../pty/shell-startup/legacy-terminal-shim-dir'
 import { createWindowsShellPathHydration } from './windows-shell-path-hydration'
@@ -64,7 +62,6 @@ import { agentHookServer } from '../agent-hooks/server/agent-hook-server'
 import { isAgentStatusHooksEnabled } from '../../shared/agent-hook-listener/configuration/agent-status-hooks-setting'
 import { reportProfileStateWriteFailure } from './profile-state-write-failure'
 import { reportProfileStateSaveDelay } from './profile-state-save-delay'
-import { preloadSsh2 } from '../ssh/authentication/ssh2-module-load'
 
 export async function initializeReadyFoundation(): Promise<void> {
   logStartupMilestone('app-ready')
@@ -173,10 +170,6 @@ export async function initializeReadyFoundation(): Promise<void> {
   }
   const store = profileState.store
   state.store = store
-  // SSH users keep ssh2 loaded before interactive use, as before #35731; others load it on first connect.
-  if (store.getSshTargets().length > 0) {
-    preloadSsh2()
-  }
   setNodeDistMirrorSettingReader(() => store.getSettings().nodeDistMirrorUrl)
   // Main-process-ready waits on interrupted moves being reset or finished, bounded.
   state.wslMoveStartupRewriteReady = startWslMoveStartup(
@@ -196,9 +189,6 @@ export async function initializeReadyFoundation(): Promise<void> {
     }
   )
   installElectronProxyRequestGuard(session.defaultSession)
-  if (!state.isServeMode) {
-    void state.initialProxyApplicationReady.then(startWslHostsPolicyLiveUpdates)
-  }
   // Wait for profile-sidecar location, then defer potentially blocking OS-keyring probes past first paint (STA-5765).
   scheduleSecretProtectionGapReport({
     dataFile: profile.dataFile,
@@ -206,8 +196,6 @@ export async function initializeReadyFoundation(): Promise<void> {
     deferUntilFirstWindow: !state.isServeMode,
     skipInDevelopment: !app.isPackaged
   })
-  // Bind the profile host-key sidecar before connects or accepted trust records silently vanish each launch.
-  initSshHostKeyStoreFile(profile.dataFile)
   initOrcadHeldFenceTokenFile(profile.dataFile)
   // Neutralize legacy shims before PTY handlers, including headless serve which never opens a main window.
   neutralizeLegacyTerminalShimDir(app.getPath('userData'))

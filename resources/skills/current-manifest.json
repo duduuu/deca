@@ -50,22 +50,6 @@
       ]
     },
     {
-      "name": "orca-computer-use",
-      "sourcePath": "skills/orca-computer-use",
-      "packageDigest": "7e1391b350e2c7975729466283850938f93b3482148fee0ea5b323a23260240a",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "size": 2220,
-          "executable": false,
-          "classification": "text",
-          "exactSha256": "36b24d071eb098ddc8b921d4c0edb339af814a2a64b718f256b6cfe9c252ad91",
-          "textNormalizedSha256": "36b24d071eb098ddc8b921d4c0edb339af814a2a64b718f256b6cfe9c252ad91",
-          "identitySha256": "36b24d071eb098ddc8b921d4c0edb339af814a2a64b718f256b6cfe9c252ad91"
-        }
-      ]
-    },
-    {
       "name": "orca-emulator",
       "sourcePath": "skills/orca-emulator",
       "packageDigest": "71c30ec7ebf1386f67d470f09206d4351000de54a939448dcfb5887ab264f02e",

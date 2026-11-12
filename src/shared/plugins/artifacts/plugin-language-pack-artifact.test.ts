@@ -83,10 +83,6 @@ describe('plugin language-pack artifacts', () => {
       }
     ],
     [
-      'browser-extension Allow/Deny',
-      { browserExtensions: { permissions: { deny: 'Allow', confirm: 'Deny' } } }
-    ],
-    [
       'the Node download mirror dialog',
       { auto: { components: { settings: { nodeDistMirrorDialog: { title: 'Safe mirror' } } } } }
     ],

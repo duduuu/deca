@@ -6,7 +6,6 @@ import type {
 } from '../../../../../shared/remote-runtime/pairing/pairing-create-offer-contract'
 import { classifyRemotePairingHostname } from '../../../../../shared/remote-runtime/pairing/remote-pairing-address'
 import type { RuntimePairingReach } from '../../../../../shared/runtime-pairing-reach'
-import { renderServePairingQr } from '../../../../server/serve-pairing-output'
 import { NETWORK_EXPOSURE_FAILED_GUIDANCE } from './network/network-exposure-guidance'
 import { resolveAdvertisedPairingHostname } from './network/pairing-endpoint'
 import {
@@ -159,7 +158,7 @@ export async function createOwnerPairingOffer(
       deviceId: offer.deviceId,
       webClientUrl: offer.webClientUrl,
       connectionMode: offer.connectionMode,
-      qr: await renderServePairingQr(offer.pairingUrl)
+      qr: null
     }
   }
   const offer = await requestRuntimePairingOffer(

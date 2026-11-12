@@ -25,7 +25,6 @@ import {
   BundledSkillExecuteRequestSchema,
   BundledSkillPlanRequestSchema
 } from '../bundled-skill-plan'
-import { DelegatedMobileDeviceSyncParamsSchema } from '../delegated-mobile-device-contract'
 import {
   DesktopBrowserBridgeAttachParams,
   DesktopBrowserBridgeResultParams
@@ -39,14 +38,6 @@ import {
 import { OrcadTerminalCensusParamsSchema } from '../orcad-terminal-census'
 import { CrewSubscribeParams } from '../orchestration/orchestration-crew'
 import { PeerRunCancelParams } from '../orchestration/remote-owned-wire'
-import { RegisterDeviceKeyParamsSchema } from '../remote-runtime/pairing/device-key-registration-contract'
-import { PairingCreateOfferParamsSchema } from '../remote-runtime/pairing/pairing-create-offer-contract'
-import { ExchangePairingTicketParamsSchema } from '../remote-runtime/pairing/ticket-exchange-contract'
-import {
-  PairingGetEndpointsParamsSchema,
-  PairingProvisionRelayParamsSchema
-} from '../remote-runtime/relay/mobile-relay-credential-contract'
-import { MobileRelayHostWorktreesParamsSchema } from '../remote-runtime/relay/mobile-relay-hosts-contract'
 import {
   AccountsUnsubscribeParams,
   AddClaudeFromConfigDirParams,
@@ -171,14 +162,6 @@ import {
   SaveImageAsTempFile,
   StartImageUpload
 } from './clipboard-params'
-import {
-  ConnectorAnswer,
-  ConnectorCancel,
-  ConnectorPendingPrompt,
-  ConnectorSend,
-  ConnectorStart,
-  ConnectorWatch
-} from './connector-params'
 import {
   AttachParams as AttachParamsOfEmulatorParams,
   AxParams,
@@ -550,7 +533,6 @@ import {
   ProjectHostSetupUpdate,
   ProjectUpdate
 } from './project-runtime-params'
-import { RecipeVmWakeParams } from './recipe-vm-wake-params'
 import { ReferenceFind, ReferenceList } from './reference-params'
 import {
   ProjectGroupCreate,
@@ -688,7 +670,6 @@ import {
   TerminalUnsubscribe,
   TerminalUpdateViewport
 } from './terminal-viewport-schemas-params'
-import { UpdaterCheckParams } from './updater-params'
 import { CancelUsageLimitContinueParams } from './usage-limit-continue-params'
 import { LayoutReopenHeldPanesParams } from './workspace-layout-held-panes-params'
 import {
@@ -950,12 +931,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'clipboard.commitImageUpload': CommitImageUpload,
   'clipboard.saveImageAsTempFile': SaveImageAsTempFile,
   'clipboard.startImageUpload': StartImageUpload,
-  'connector.answer': ConnectorAnswer,
-  'connector.cancel': ConnectorCancel,
-  'connector.pendingPrompt': ConnectorPendingPrompt,
-  'connector.send': ConnectorSend,
-  'connector.start': ConnectorStart,
-  'connector.watch': ConnectorWatch,
   'desktopBrowserBridge.attach': DesktopBrowserBridgeAttachParams,
   'desktopBrowserBridge.result': DesktopBrowserBridgeResultParams,
   'diagnostics.memory': null,
@@ -1250,9 +1225,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'managedServer.update': ManagedServerUpdate,
   'markdown.readTab': ActivateTab,
   'markdown.saveTab': SaveMarkdownTab,
-  'mobileRelay.hosts.list': null,
-  'mobileRelay.hosts.worktrees': MobileRelayHostWorktreesParamsSchema,
-  'mobileRelay.projectSections': null,
   'nativeChat.readSession': NativeChatSession,
   'nativeChat.subscribe': NativeChatSession,
   'nativeChat.unsubscribe': NativeChatUnsubscribe,
@@ -1325,12 +1297,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'orchestration.workerStart': WorkerStartParams,
   'orchestration.workerStop': WorkerDispatchParamsOfOrchestrationWorkerStopParams,
   'orchestration.workerTerminalUserInput': OrchestrationWorkerSubjectParams,
-  'pairing.createOffer': PairingCreateOfferParamsSchema,
-  'pairing.delegatedMobileDevice.sync': DelegatedMobileDeviceSyncParamsSchema,
-  'pairing.exchangeTicket': ExchangePairingTicketParamsSchema,
-  'pairing.getEndpoints': PairingGetEndpointsParamsSchema,
-  'pairing.provisionRelay': PairingProvisionRelayParamsSchema,
-  'pairing.registerDeviceKey': RegisterDeviceKeyParamsSchema,
   'plugins.catalogAdd': PluginCatalogAddParams,
   'plugins.catalogList': null,
   'plugins.catalogRemove': PluginCatalogRemoveParams,
@@ -1408,7 +1374,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'runtime.clientCapabilities.update': ClientCapabilitiesUpdate,
   'runtime.clientEvents.subscribe': ClientEventsSubscribeParams,
   'runtime.clientEvents.unsubscribe': ClientEventsUnsubscribeParams,
-  'runtimeEnvironment.wakeRecipeVm': RecipeVmWakeParams,
   'session.readTerminalScrollback': SessionReadTerminalScrollbackParams,
   'session.tabs.activate': ActivateTab,
   'session.tabs.close': CloseTab,
@@ -1528,10 +1493,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'ui.set': UiUpdate,
   'ui.setCollapsed': SetCollapsedParams,
   'ui.setJiraQuickFilters': JiraQuickFilterStateParam,
-  'updater.check': UpdaterCheckParams,
-  'updater.download': null,
-  'updater.getStatus': null,
-  'updater.install': null,
   'workspacePorts.kill': WorkspacePortKillParams,
   'workspacePorts.killHost': WorkspacePortKillHostParams,
   'workspacePorts.probePage': WorkspacePortProbePageParams,

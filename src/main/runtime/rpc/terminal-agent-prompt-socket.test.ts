@@ -19,7 +19,6 @@ import '../orchestration/db/contract-constants'
 import '../orchestration/db/messages/mailbox-routing-page'
 import '../orchestration/db/dispatch-row-writer'
 import '../orchestration/db/attempt-outcome-projection'
-import { OrcaRuntimeRpcServer } from './server/runtime-rpc'
 import { ORCHESTRATION_METHODS } from './methods/orchestration/orchestration'
 import { bindPaneFirst } from '../orca-runtime-tests/bind-first-pane.test-fixture'
 import * as inputAdmission from '../terminal/input/terminal-input-admission'
@@ -65,7 +64,6 @@ const { getWorktreeListingMocks } = vi.hoisted(() => {
 it.each([
   'before',
   'after',
-  'paired',
   'orchestration',
   'codex-startup',
   'codex-replay',
@@ -74,7 +72,6 @@ it.each([
   'real CLI phone admission and delivery: %s',
   async (boundary) => {
     const disconnect = boundary === 'before' || boundary === 'after'
-    const paired = boundary === 'paired'
     const codex = boundary.startsWith('codex-')
     const replay = boundary === 'codex-replay' || boundary === 'codex-cold-replay'
     const hookServer = replay ? new AgentHookServer() : undefined
@@ -94,7 +91,6 @@ it.each([
     const transport = new UnixSocketTransport({ endpoint, kind })
     vi.spyOn(getLocalPtyProvider(), 'write').mockReturnValue(true)
     const promptAdmission = vi.spyOn(inputAdmission, 'assertTerminalInputAdmitted')
-    const rawAdmission = vi.spyOn(inputAdmission, 'createTerminalInputReservation')
     const { runtime, handle, writes } = await createAgentPromptSubmissionRuntime(
       (_host, data) => {
         pasted.resolve()
@@ -233,9 +229,6 @@ it.each([
     if (codex) {
       args.push('--wait-submit', '5')
     }
-    if (paired) {
-      args = args.filter((arg) => arg !== '--enter')
-    }
     if (boundary === 'orchestration') {
       const pane = {
         worktreeId: 'repo-1::/tmp/worktree-a',
@@ -265,27 +258,6 @@ it.each([
         '--json'
       ]
     }
-    const server = paired
-      ? new OrcaRuntimeRpcServer({
-          runtime,
-          methods,
-          userDataPath: root,
-          enableWebSocket: true,
-          wsPort: 0
-        })
-      : null
-    if (server) {
-      await server.start()
-      const offer = server.createPairingOffer({
-        address: '127.0.0.1',
-        name: 'CLI test',
-        scope: 'runtime'
-      })
-      if (!offer.available) {
-        throw new Error('pairing unavailable')
-      }
-      args.push('--pairing-code', offer.pairingUrl)
-    }
     if (!disconnect) {
       await runtime.handleMobileSubscribe('pty-prompt', 'phone-A', { cols: 45, rows: 20 })
       release.resolve()
@@ -306,19 +278,17 @@ it.each([
           boundary === 'orchestration' ? { injected: true } : { send: { accepted: true } }
         )
         expect(writes).toEqual(
-          paired
-            ? ['first']
-            : codex
-              ? [expect.stringContaining(text), '\r', '\r']
-              : [expect.stringContaining('first'), '\r']
+          codex
+            ? [expect.stringContaining(text), '\r', '\r']
+            : [expect.stringContaining('first'), '\r']
         )
         if (codex) {
           expect(held).toBe(false)
           expect(JSON.parse(output).result.send.prompt.stages).toContain('turn_started')
         }
-        expect(paired ? rawAdmission : promptAdmission).toHaveBeenCalledWith(
+        expect(promptAdmission).toHaveBeenCalledWith(
           runtime,
-          paired ? 'programmatic' : 'pty-prompt',
+          'pty-prompt',
           codex ? 'programmatic' : undefined
         )
         expect(runtime.getDriver('pty-prompt')).toEqual({ kind: 'mobile', clientId: 'phone-A' })
@@ -357,7 +327,6 @@ it.each([
         child.stdin.end('exit')
       }
       await exited
-      await server?.stop()
       hookServer?.stop()
       await transport.stop()
       await Promise.allSettled(done)

@@ -38,7 +38,6 @@ import { LINEAR_METHODS } from './integrations/linear/linear'
 import { LINEAR_AGENT_ACCESS_METHODS } from './integrations/linear/linear-agent-access'
 import { JIRA_METHODS } from './integrations/jira/jira'
 import { MANAGED_SERVER_METHODS } from './host-management/managed-server'
-import { RECIPE_VM_WAKE_METHODS } from './host-management/recipe-vm-wake'
 import { ENVIRONMENT_DOCTOR_METHODS } from './host-management/environment-doctor'
 import { SPEECH_METHODS } from './speech/speech'
 import { CLIENT_UI_METHODS } from './client-state/client-ui'
@@ -55,10 +54,7 @@ import { CLIPBOARD_METHODS } from './clipboard/clipboard'
 import { HOST_CAPABILITY_METHODS } from './host-management/host-capabilities'
 import { RUNTIME_CLIENT_CAPABILITY_METHODS } from './client-events/runtime-client-capabilities'
 import { EMULATOR_METHODS } from './emulator/emulator'
-import { PAIRING_METHODS } from './pairing/pairing'
-import { MOBILE_RELAY_HOSTS_METHODS } from './pairing/mobile-relay-hosts'
-import { MOBILE_PROJECT_SECTIONS_METHODS } from './mobile-delivery/mobile-project-sections'
-import { UPDATER_METHODS } from './updater/updater'
+import { ORCAD_PEER_DESKTOP_METHODS } from './pairing/pairing'
 import { AUTOMATIC_WORK_METHODS } from './automations/automatic-work'
 import { AGENT_SESSION_METHODS } from './terminal/agent-session'
 import { STRUCTURED_AGENT_SESSION_METHODS } from './structured-sessions/structured-agent-session'
@@ -68,7 +64,6 @@ import { STRUCTURED_AGENT_SESSION_AGENTS_METHODS } from './structured-sessions/c
 import { MANAGED_RUNTIME_INSTALL_METHODS } from './host-management/managed-runtime-install'
 import { AGENT_HOOK_METHODS } from './agent-hooks/agent-hooks'
 import { AGENT_LAUNCH_METHODS } from './agent-launch/agent-launch'
-import { CONNECTOR_METHODS } from './connectors/connector'
 import {
   LAYOUT_APPLY_METHODS,
   LAYOUT_VIEW_REPORT_METHODS,
@@ -97,7 +92,6 @@ export const ALL_RPC_METHODS = [
   ...STRUCTURED_AGENT_SESSION_AGENTS_METHODS,
   ...MANAGED_RUNTIME_INSTALL_METHODS,
   ...AGENT_LAUNCH_METHODS,
-  ...CONNECTOR_METHODS,
   ...TERMINAL_METHODS,
   ...TERMINAL_ORPHAN_METHODS,
   ...BROWSER_CORE_METHODS,
@@ -130,7 +124,6 @@ export const ALL_RPC_METHODS = [
   ...LINEAR_AGENT_ACCESS_METHODS,
   ...JIRA_METHODS,
   ...MANAGED_SERVER_METHODS,
-  ...RECIPE_VM_WAKE_METHODS,
   ...ENVIRONMENT_DOCTOR_METHODS,
   ...SPEECH_METHODS,
   ...WORKSPACE_PORT_METHODS,
@@ -147,11 +140,8 @@ export const ALL_RPC_METHODS = [
   ...CLIENT_EVENT_METHODS,
   ...CLIENT_UI_METHODS,
   ...EMULATOR_METHODS,
-  ...PAIRING_METHODS,
-  ...MOBILE_RELAY_HOSTS_METHODS,
-  ...MOBILE_PROJECT_SECTIONS_METHODS,
+  ...ORCAD_PEER_DESKTOP_METHODS,
   // Switch point: a window-fed build publishes no sidebar input.
   ...(ORCA_SIDEBAR_INPUTS_IS_MAIN ? SIDEBAR_INPUT_METHODS : []),
-  ...UPDATER_METHODS,
   ...AUTOMATIC_WORK_METHODS
 ]

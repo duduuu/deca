@@ -18,7 +18,6 @@ import {
 import { getAccountsClaudeSearchEntries } from './accounts-claude-search'
 import {
   getAccountsCodexSearchEntries,
-  getAccountsGeminiSearchEntries,
   getAccountsCursorSearchEntries,
   getAccountsGrokSearchEntries,
   getAccountsAntigravitySearchEntries,
@@ -57,7 +56,6 @@ import {
 import { renderAccountsLocationSection } from './scope/accounts-pane-location-section'
 import { renderClaudeAccountsSection } from './claude/accounts-pane-claude-section'
 import { renderCodexAccountsSection } from './codex/accounts-pane-codex-section'
-import { renderGeminiAccountsSection } from './providers/accounts-pane-gemini-section'
 import { renderOpenCodeAccountsSection } from './providers/accounts-pane-opencode-section'
 import { ManagedDataAccountsSection } from './providers/ManagedDataAccountsSection'
 import { renderAccountsRemovalDialogs } from './accounts-pane-removal-dialogs'
@@ -323,9 +321,6 @@ export function AccountsPane({
       : null,
     matchesSettingsSearch(searchQuery, getAccountsCodexSearchEntries())
       ? renderCodexAccountsSection(model, t, intlLocale)
-      : null,
-    matchesSettingsSearch(searchQuery, getAccountsGeminiSearchEntries())
-      ? renderGeminiAccountsSection(model, t)
       : null,
     matchesSettingsSearch(searchQuery, getAccountsAntigravitySearchEntries()) ? (
       <AntigravityAccountsSection

@@ -90,7 +90,6 @@ export abstract class RateLimitServiceFullCyclePreparation extends RateLimitServ
     const openCodeGoApiKey = openCodeGoConfig.apiKey
     const openCodeGoApiKeyError = openCodeGoConfig.apiKeyError
     const openCodeGoApiKeyReadSkipped = openCodeGoConfig.apiKeyReadSkipped
-    const geminiCliOAuthEnabled = this.geminiCliOAuthEnabledResolver?.() ?? false
     // Probe auth during fetch, not hot renderer/mobile getState calls.
     const grokAuthReadResult = readGrokAuthSession()
     this.grokAuthConfigured = grokAuthReadResult.status === 'ok'
@@ -180,7 +179,7 @@ export abstract class RateLimitServiceFullCyclePreparation extends RateLimitServ
             networkProxySettings: this.networkProxySettingsResolver?.(),
             signal
           })),
-      fetchGeminiRateLimits(geminiCliOAuthEnabled),
+      fetchGeminiRateLimits(),
       fetchOpenCodeGoUsage({
         settingsApiKey: openCodeGoApiKey,
         // Store/env keys become known only when the fetch resolves them.

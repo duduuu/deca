@@ -14,7 +14,6 @@ import type {
   ClaudeAuthPreparationResolver,
   OpenCodeGoRateLimitConfig,
   AntigravityUsageEnabledResolver,
-  GeminiCliOAuthEnabledResolver,
   InactiveCodexAccountInfo
 } from './service-types'
 import {
@@ -48,10 +47,6 @@ export class RateLimitService extends RateLimitServiceAccountRefresh {
   ): void {
     this.openCodeGoConfigResolver = resolver
     this.openCodeGoApiKeyResolver = apiKeyResolver ?? null
-  }
-
-  setGeminiCliOAuthEnabledResolver(resolver: GeminiCliOAuthEnabledResolver): void {
-    this.geminiCliOAuthEnabledResolver = resolver
   }
 
   setAntigravityUsageEnabledResolver(resolver: AntigravityUsageEnabledResolver): void {

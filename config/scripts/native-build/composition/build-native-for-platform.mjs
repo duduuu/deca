@@ -15,7 +15,7 @@ if (process.platform === 'linux') {
 }
 
 if (process.platform !== 'darwin') {
-  console.log(`[native-build] no macOS native computer build required on ${process.platform}`)
+  console.log(`[native-build] no macOS native helper build required on ${process.platform}`)
   process.exit(0)
 }
 
@@ -43,7 +43,6 @@ for (const target of [process.stdout, process.stderr]) {
 
 const exitCodes = await Promise.all(
   [
-    'build:computer-macos',
     'build:keyboard-layout-macos',
     'build:notification-status-macos',
     'build:process-footprint-macos'

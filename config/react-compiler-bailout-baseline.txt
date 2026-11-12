@@ -399,7 +399,6 @@
 1 src/renderer/src/components/settings/cli/install/CliSection.tsx
 3 src/renderer/src/components/settings/cli/install/WslCliRegistration.tsx
 2 src/renderer/src/components/settings/cli/install/use-cli-registration-actions.ts
-3 src/renderer/src/components/settings/computer-use/ComputerUsePane.tsx
 2 src/renderer/src/components/settings/developer-permissions/DeveloperPermissionsPane.tsx
 1 src/renderer/src/components/settings/developer-permissions/LocalNetworkConnectionTest.tsx
 1 src/renderer/src/components/settings/general/GlobalWorktreeVisibilitySourcesSetting.tsx

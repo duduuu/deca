@@ -27,12 +27,6 @@ const NON_UNIT_TEST_RUNNERS = [
     mirrors: ["testDir: '.'", "testMatch: '*.spec.ts'"]
   },
   {
-    name: 'computer-use e2e',
-    include: ['tests/e2e/computer-*.e2e.ts'],
-    sources: ['tests/e2e/vitest.config.ts'],
-    mirrors: ["'tests/e2e/computer-*.e2e.ts'"]
-  },
-  {
     // `orca plugin test` runs every example's own tests in Node; the unit test drives it.
     name: 'example plugin tests (orca plugin test)',
     include: ['examples/plugins/*/src/**/*.test.ts', 'examples/plugins/*/src/**/*.test.tsx'],

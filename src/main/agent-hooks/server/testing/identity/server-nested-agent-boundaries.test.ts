@@ -88,41 +88,4 @@ describe('nested provider ownership boundaries', () => {
       server.stop()
     }
   })
-
-  it('keeps nested Pi identity-only metadata off an active owner and permits it after completion', () => {
-    vi.useFakeTimers()
-    vi.setSystemTime(1_000)
-    const server = new AgentHookServer()
-    server.ingestRemote(
-      {
-        ...route,
-        payload: { state: 'working', prompt: 'Parent work', agentType: 'claude' },
-        providerSession: { key: 'session_id', id: 'claude-parent' }
-      },
-      'conn-1'
-    )
-    const before = server.getStatusSnapshot()
-    const pi = {
-      ...route,
-      providerSessionOnly: true,
-      providerSession: {
-        key: 'session_id' as const,
-        id: 'pi-child',
-        transcriptPath: '/tmp/pi-child.jsonl'
-      },
-      payload: { state: 'done' as const, prompt: '', agentType: 'pi' as const }
-    }
-    server.ingestRemote(pi, 'conn-1')
-    expect(server.getStatusSnapshot()).toEqual(before)
-    server.ingestRemote(
-      { ...route, payload: { state: 'done', prompt: 'Parent work', agentType: 'claude' } },
-      'conn-1'
-    )
-    server.ingestRemote(pi, 'conn-1')
-    expect(server.getStatusSnapshot()[0]).toMatchObject({
-      agentType: 'pi',
-      providerSessionOnly: true,
-      providerSession: { id: 'pi-child' }
-    })
-  })
 })

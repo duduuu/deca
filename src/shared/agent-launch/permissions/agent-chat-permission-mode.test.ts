@@ -13,9 +13,6 @@ describe('agent chat permission modes', () => {
     expect(newChatPermissionMode('codex', 'full-access')).toBe('full-access')
     expect(newChatPermissionMode('claude', 'retired-mode')).toBe('ask')
     expect(newChatPermissionMode('claude', undefined)).toBe('ask')
-    expect(newChatPermissionMode('omp', 'full-access')).toBe('full-access')
-    expect(newChatPermissionMode('omp', 'accept-edits')).toBe('ask')
-    expect(newChatPermissionMode('pi', 'full-access')).toBeNull()
   })
 })
 

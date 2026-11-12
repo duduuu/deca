@@ -7,27 +7,27 @@ import {
 describe('selectForegroundProcessCandidate', () => {
   it('keeps a recognized ancestor over a different agent helper below a non-agent', () => {
     const candidates = [
-      { pid: 101, ppid: 100, depth: 1, stat: 'S+', command: 'omp' },
+      { pid: 101, ppid: 100, depth: 1, stat: 'S+', command: 'gemini' },
       { pid: 102, ppid: 101, depth: 2, stat: 'S+', command: 'vendor-ui' },
       { pid: 103, ppid: 102, depth: 3, stat: 'S+', command: 'codex' }
     ]
 
     expect(selectForegroundProcessCandidate(candidates)).toMatchObject({
       candidate: { pid: 101 },
-      recognized: { agent: 'omp' }
+      recognized: { agent: 'gemini' }
     })
   })
 
   it('traverses non-foreground helpers when checking ancestry', () => {
     const all = [
-      { pid: 101, ppid: 100, depth: 1, stat: 'S+', command: 'omp' },
+      { pid: 101, ppid: 100, depth: 1, stat: 'S+', command: 'gemini' },
       { pid: 102, ppid: 101, depth: 2, stat: 'S', command: 'vendor-helper' },
       { pid: 103, ppid: 102, depth: 3, stat: 'S+', command: 'codex' }
     ]
 
     expect(selectForegroundProcessCandidate([all[0], all[2]], all)).toMatchObject({
       candidate: { pid: 101 },
-      recognized: { agent: 'omp' }
+      recognized: { agent: 'gemini' }
     })
   })
 

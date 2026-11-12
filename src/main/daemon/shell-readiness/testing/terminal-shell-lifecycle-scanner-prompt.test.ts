@@ -11,7 +11,7 @@ const D0 = '\x1b]133;D;0\x07'
 const D1 = '\x1b]133;D;1\x07'
 // Captured agent CLI PTY bytes: each bubble paints its own `A … B C D;0` zone while the app runs (#10923).
 const APP_ZONE_TRANSCRIPT = readFileSync(
-  join(__dirname, '../../../runtime/__fixtures__/omp-user-bubble-osc133-zone.txt'),
+  join(__dirname, '../../../runtime/__fixtures__/tui-user-bubble-osc133-zone.txt'),
   'utf8'
 )
 // Orca's bash wrapper bytes: prompt, typed command echo, C, output, D;exit, next prompt.

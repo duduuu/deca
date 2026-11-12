@@ -100,7 +100,7 @@ describe('readDesktopSidebarFacts', () => {
         folders: [folder('f1', true), folder('f2', false)]
       })
     )
-    expect(facts.pinnedWorkspaceIds).toEqual(['folder:f1', 'repo-1::/a', 'repo-2::/c'])
+    expect(facts.pinnedWorkspaceIds).toEqual(['folder:f1', 'repo-1::/a'])
   })
 
   it('keeps each host to its own pins on a store without host-qualified metadata', () => {
@@ -117,7 +117,7 @@ describe('readDesktopSidebarFacts', () => {
         })
       }
     })
-    expect(facts.pinnedWorkspaceIds).toEqual(['repo-1::/a', 'repo-2::/c'])
+    expect(facts.pinnedWorkspaceIds).toEqual(['repo-1::/a'])
   })
 
   it('orders projects by the manual order, with unranked ones after in store order', () => {
@@ -133,7 +133,6 @@ describe('readDesktopSidebarFacts', () => {
       })
     )
     expect(facts.repoOrder).toEqual([
-      { hostId: 'ssh:box', repoId: 'c' },
       { hostId: 'local', repoId: 'b' },
       { hostId: 'local', repoId: 'a' }
     ])

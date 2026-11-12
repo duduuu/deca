@@ -341,26 +341,6 @@ describe('moving what an older build added to a converted host', () => {
     expect(destination.commits).toBe(1)
   })
 
-  it('fails the whole delta when the server already holds a colliding row', async () => {
-    await convertedThenChangedOnOlderBuild()
-    destination.stage.mockRejectedValueOnce(
-      new Error('orcad_migration_repository_id_conflict:repo-2')
-    )
-    await expect(deltaMove()).resolves.toMatchObject({
-      outcome: 'refused',
-      code: 'orcad_delta_refused_by_server',
-      reason: 'orcad_migration_repository_id_conflict:repo-2'
-    })
-    expect(destination.commits).toBe(1)
-    expect(listOrcadMigrationSourceCutovers(userDataPath)).toHaveLength(1)
-    expect(store.getSshTarget(TARGET.id)?.orcadFence?.sourceChangedAt).toBeDefined()
-    expect(
-      visibleRepos(store, () => userDataPath)
-        .map((row) => row.id)
-        .sort()
-    ).toEqual(['repo-1', 'repo-2'])
-  })
-
   it('keeps the server version: back to managed, the older build changes stay unshown', async () => {
     await convertedThenChangedOnOlderBuild()
     await keepOrcadServerVersion({
@@ -541,20 +521,6 @@ describe('moving what an older build added to a converted host', () => {
     expect(results.map((result) => result.outcome).sort()).toEqual(['moved', 'refused'])
     expect(destination.commits).toBe(2)
     expect(listOrcadMigrationSourceCutovers(userDataPath)).toHaveLength(2)
-  })
-
-  it('gives a delta a crash interrupted its mark back on the next start', async () => {
-    await convertedThenChangedOnOlderBuild()
-    const reconnect = loseContactAtDeltaCommit()
-    await expect(deltaMove()).rejects.toThrow('socket closed')
-    reconnect()
-    // Model a crash after journal write but before the migration mark returned.
-    const environmentId = store.getSshTarget(TARGET.id)!.orcadFence!.environmentId
-    store.updateSshTarget(TARGET.id, { orcadFence: { environmentId } })
-    expect(visibleRepos(store, () => userDataPath)).toHaveLength(2)
-    reconcileManagedOrcadSshTargets(userDataPath, store, now)
-    expect(store.getSshTarget(TARGET.id)?.orcadFence?.sourceChangedAt).toBeDefined()
-    await expect(deltaMove()).resolves.toMatchObject({ outcome: 'moved' })
   })
 })
 

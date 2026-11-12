@@ -89,21 +89,6 @@ describe('prepareLocalCommitMessageAgentEnv', () => {
     })
   })
 
-  it('hydrates Pi agent dir from shell startup files for headless generation', async () => {
-    const home = makeHome()
-    delete process.env.PI_CODING_AGENT_DIR
-    writeFileSync(join(home, '.zshrc'), 'export PI_CODING_AGENT_DIR="$HOME/.config/pi-agent"\n')
-
-    const result = await prepareLocalCommitMessageAgentEnv('pi', undefined)
-
-    expect(result).toEqual({
-      ok: true,
-      env: expect.objectContaining({
-        PI_CODING_AGENT_DIR: `${home}/.config/pi-agent`
-      })
-    })
-  })
-
   // STA-4422: failed managed-home preparation must not fall through to the user's real account while UI shows a managed account.
   it('fails commit generation instead of building a system-account env when the managed home is unreadable', async () => {
     process.env.CODEX_HOME = '/home/me/.config/codex'

@@ -3,9 +3,9 @@ import { join } from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
 import { createOsc133CommandFinishedScanner } from './terminal-osc133-command-finished'
 
-// Real OMP 18.10.3 PTY bytes for one prompt: each user bubble ends with `B C D;0` (#10923).
-const OMP_TRANSCRIPT = readFileSync(
-  join(__dirname, '../../../main/runtime/__fixtures__/omp-user-bubble-osc133-zone.txt'),
+// Real TUI agent PTY bytes for one prompt: each user bubble ends with `B C D;0` (#10923).
+const APP_TRANSCRIPT = readFileSync(
+  join(__dirname, '../../../main/runtime/__fixtures__/tui-user-bubble-osc133-zone.txt'),
   'utf8'
 )
 const C = '\x1b]133;C\x07'
@@ -37,11 +37,11 @@ function splitEvery(text: string, size: number): string[] {
 }
 
 describe('OSC 133 zone an app closes for itself', () => {
-  it.each([1, 3, 7, 64, OMP_TRANSCRIPT.length])(
-    'does not read OMP user bubbles as the command finishing (chunks of %d)',
+  it.each([1, 3, 7, 64, APP_TRANSCRIPT.length])(
+    'does not read app user bubbles as the command finishing (chunks of %d)',
     (size) => {
-      expect(OMP_TRANSCRIPT).toContain(`\x1b]133;B\x07${C}${D0}`)
-      const { started, finished } = scanChunks(splitEvery(OMP_TRANSCRIPT, size))
+      expect(APP_TRANSCRIPT).toContain(`\x1b]133;B\x07${C}${D0}`)
+      const { started, finished } = scanChunks(splitEvery(APP_TRANSCRIPT, size))
       expect(finished).toEqual([])
       expect(started).toBeGreaterThan(0)
     }

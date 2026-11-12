@@ -82,7 +82,7 @@ describe('recordProcessGoneCrash', () => {
     ] as const) {
       recordProcessGoneCrash(
         { record, attachDetails } as never,
-        utility('Orca Speech', reason, exitCode),
+        utility('Deca Speech', reason, exitCode),
         new ProcessGoneDedupe(),
         noMinidump
       )

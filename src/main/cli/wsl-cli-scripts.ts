@@ -200,7 +200,7 @@ function bridgeLines(lines: readonly string[]): string {
 
 export function getBridgePathFromCommandPath(commandPath: string): string {
   // Current and legacy command names share one bridge under ~/.local/share/deca.
-  return `${commandPath.replace(/\/\.local\/bin\/(?:orca|orca-ide)$/, '/.local/share/deca')}/orca-wsl-bridge.ps1`
+  return `${commandPath.replace(/\/\.local\/bin\/(?:deca|deca-ide|orca|orca-ide)$/, '/.local/share/deca')}/orca-wsl-bridge.ps1`
 }
 
 export function buildSafeReplaceGuard(path: string, managedMarker: string): string {

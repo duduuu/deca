@@ -11,7 +11,9 @@ import type { RuntimeHostStatusSnapshot } from '../../../shared/remote-runtime/h
 // a socket that dropped mid-request.
 const WEB_CONNECTION_FAILURE_FRAGMENTS = [
   'timed out while connecting to the remote orca runtime',
-  'remote orca runtime connection interrupted'
+  'remote orca runtime connection interrupted',
+  'timed out while connecting to the remote deca runtime',
+  'remote deca runtime connection interrupted'
 ]
 
 function isConnectionFailure(error: unknown): boolean {

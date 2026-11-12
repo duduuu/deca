@@ -1,8 +1,8 @@
 import { COMMAND_TOKEN_SCAN_MAX_CHARS, getCommandTokenPathBasename } from './command-token-scanner'
 import { tokenizeCommandLine } from './agent-status/process/agent-command-line-entrypoint'
 
-// The published launcher names per platform, plus the dev build's.
-const ORCA_CLI_BASENAME = /^orca(?:-dev|-ide)?(?:\.cmd|\.exe)?$/i
+// The published launcher names per platform (deca, deca-ide), the dev build's (orca-dev) and legacy orca.
+const ORCA_CLI_BASENAME = /^(?:deca(?:-ide)?|orca(?:-dev|-ide)?)(?:\.cmd|\.exe)?$/i
 const ENV_ASSIGNMENT = /^[A-Za-z_][A-Za-z0-9_]*=/
 
 /** The arguments of each `orca ...` a shell command line runs, in order. Quoted text is an argument, never a command. */

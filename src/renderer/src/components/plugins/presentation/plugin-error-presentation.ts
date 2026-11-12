@@ -19,7 +19,7 @@ export function pluginInstallErrorMessage(cause: unknown): string {
       'orca-plugin.json is invalid. Ask the plugin author to fix the manifest.'
     )
   }
-  if (detail.includes('requires orca')) {
+  if (detail.includes('requires orca') || detail.includes('requires deca')) {
     return translate(
       'auto.components.settings.pluginError.incompatible',
       'This plugin requires a different Deca version.'
@@ -46,7 +46,10 @@ export function pluginInstallErrorMessage(cause: unknown): string {
   // Why: a fork of an official template keeps its reserved id/publisher, and this refusal used to
   // fall through to a generic failure with no hint to rename (#12598). Checked before the Git
   // heuristic because a reserved key such as `github.x` contains "git".
-  if (detail.includes('reserved for official orca plugins')) {
+  if (
+    detail.includes('reserved for official orca plugins') ||
+    detail.includes('reserved for official deca plugins')
+  ) {
     return translate(
       'auto.components.settings.pluginError.installReservedIdentity',
       'This plugin uses a name reserved for official Deca plugins, which install only from Deca’s catalog. For your own copy or fork, change "id" in orca-plugin.json so it doesn’t start with "orca-", and set "publisher" to your own name.'
@@ -72,7 +75,7 @@ export function invalidPluginErrorMessage(
 ): string {
   const detail = detailValue.toLowerCase()
   // Why everything but a version gap: the user of an installed copy can't fix its files.
-  if (installed && !detail.includes('requires orca')) {
+  if (installed && !(detail.includes('requires orca') || detail.includes('requires deca'))) {
     return t(
       'auto.components.settings.pluginError.installedManifestUnloadable',
       "This version can't load in this Deca. Update or reinstall it."
@@ -96,7 +99,7 @@ export function invalidPluginErrorMessage(
       'A worker or panel file is missing or unsafe. Fix it, then refresh.'
     )
   }
-  if (detail.includes('requires orca')) {
+  if (detail.includes('requires orca') || detail.includes('requires deca')) {
     return t(
       'auto.components.settings.pluginError.incompatible',
       'This plugin requires a different Deca version.'

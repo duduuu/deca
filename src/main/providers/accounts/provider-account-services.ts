@@ -89,7 +89,6 @@ export function createProviderAccountServices(
       workspaceIdOverride: settings.opencodeWorkspaceId
     }
   }, readOpenCodeGoApiKey)
-  rateLimits.setGeminiCliOAuthEnabledResolver(() => store.getSettings().geminiCliOAuthEnabled)
   // Reuse the meter switch so hidden Antigravity usage does not spawn agy.
   rateLimits.setAntigravityUsageEnabledResolver(() =>
     store.getUI().statusBarItems.includes('antigravity')

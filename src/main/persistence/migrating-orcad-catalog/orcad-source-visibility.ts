@@ -1,5 +1,9 @@
 import { getAppEnvironment } from '../../../shared/app-environment'
-import { getRepoExecutionHostId, parseExecutionHostId } from '../../../shared/execution-host'
+import {
+  getRepoExecutionHostId,
+  getRepoRoutingConnectionId,
+  parseExecutionHostId
+} from '../../../shared/execution-host'
 
 import type { FolderWorkspace } from '../../../shared/folder-workspaces/folder-workspace-types'
 import type { ProjectGroup } from '../../../shared/project-group-types'
@@ -80,7 +84,7 @@ export function visibleRepos(
 
 function reposShownWith(allRepos: Repo[], hiddenTargets: readonly string[]): Repo[] {
   // Deca reaches no SSH hosts; their persisted repos stay on disk but are never shown.
-  const repos = withoutWslMovedRepos(allRepos).filter((repo) => !repo.connectionId)
+  const repos = withoutWslMovedRepos(allRepos).filter((repo) => !getRepoRoutingConnectionId(repo))
   if (hiddenTargets.length === 0) {
     return repos
   }

@@ -4,7 +4,6 @@ import type { CodexUsageRange, CodexUsageScope } from '../../../../shared/codex-
 import { useAppStore } from '../../store'
 import { ClaudeUsageLoadingState } from './ClaudeUsageLoadingState'
 import { CodexUsageDetails } from './CodexUsageDetails'
-import { ShareUsageButton } from './ShareUsageButton'
 import { StatCard } from './StatCard'
 import { UsageFilterRadioGroup, UsageTrackingPaneShell } from './UsageTrackingPaneShell'
 import { formatCost, formatTokens, formatUpdatedAt } from './usage-formatters'
@@ -157,11 +156,6 @@ export function CodexUsagePane(): React.JSX.Element {
       )}
       onEnabledChange={handleSetEnabled}
       onRefresh={() => void refreshCodexUsage()}
-      headerAction={
-        summary && daily.length > 0 ? (
-          <ShareUsageButton provider="codex" summary={summary} daily={daily} range={range} />
-        ) : undefined
-      }
     >
       <>
         <div className="grid gap-3 md:grid-cols-3">

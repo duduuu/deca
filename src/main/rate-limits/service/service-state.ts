@@ -15,7 +15,6 @@ import {
   type ClaudeAuthPreparationResolver,
   type OpenCodeGoRateLimitConfig,
   type AntigravityUsageEnabledResolver,
-  type GeminiCliOAuthEnabledResolver,
   DEFAULT_POLL_MS
 } from './service-types'
 import type { NormalizedCodexAccountSelectionTarget } from '../../../shared/codex-selection-lane'
@@ -93,7 +92,6 @@ export abstract class RateLimitServiceState {
   }
   protected openCodeGoConfigResolver: (() => OpenCodeGoRateLimitConfig) | null = null
   protected openCodeGoApiKeyResolver: (() => string | null) | null = null
-  protected geminiCliOAuthEnabledResolver: GeminiCliOAuthEnabledResolver | null = null
   protected antigravityUsageEnabledResolver: AntigravityUsageEnabledResolver | null = null
   protected antigravityFetchTarget: LocalAccountRuntimeTarget = { runtime: 'host', wslDistro: null }
   protected antigravityAccountUsageRecorder: AntigravityAccountUsageRecorder | null = null

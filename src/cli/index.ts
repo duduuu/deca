@@ -9,6 +9,7 @@ import {
   validateCommandAndFlags
 } from './args'
 import { readOrcaCliVersion } from './cli-version'
+import { DECA_VERSION } from '../shared/deca-version'
 import { dispatch } from './dispatch'
 import {
   resolveEnvironmentSelectorForStore,
@@ -57,7 +58,7 @@ export async function main(
       process.exitCode = 1
       return
     }
-    process.stdout.write(`${version}\n`)
+    process.stdout.write(`Deca ${DECA_VERSION} (Orca ${version})\n`)
     return
   }
   if (argv[0] === 'agent-teams-tmux') {

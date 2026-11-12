@@ -4,10 +4,7 @@ import { hasUsageData } from '../../../../shared/usage-provider-windows'
 
 export type UsageProviderSettings = Pick<
   GlobalSettings,
-  | 'codexManagedAccounts'
-  | 'claudeManagedAccounts'
-  | 'opencodeSessionCookie'
-  | 'geminiCliOAuthEnabled'
+  'codexManagedAccounts' | 'claudeManagedAccounts' | 'opencodeSessionCookie'
 > & {
   // Antigravity setup is a checked item plus PATH detection; agy usage needs no Gemini OAuth.
   antigravityUsageConfigured: boolean
@@ -53,7 +50,6 @@ export function hasUsageProviderSettings(
   return Boolean(
     (settings?.codexManagedAccounts?.length ?? 0) > 0 ||
     (settings?.claudeManagedAccounts?.length ?? 0) > 0 ||
-    settings?.geminiCliOAuthEnabled === true ||
     Boolean(settings?.opencodeSessionCookie?.trim()) ||
     settings?.opencodeGoApiKeyConfigured === true ||
     settings?.antigravityUsageConfigured === true ||
@@ -76,7 +72,7 @@ export function hasUsageProviderSettingsForProvider(
     return (settings.codexManagedAccounts?.length ?? 0) > 0
   }
   if (providerId === 'gemini') {
-    return settings.geminiCliOAuthEnabled === true
+    return false
   }
   if (providerId === 'opencode-go') {
     return (

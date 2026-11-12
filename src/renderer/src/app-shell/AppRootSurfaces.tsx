@@ -12,9 +12,7 @@ import { CrashReportDialog } from '../components/crash-report/CrashReportDialog'
 import { MarkdownTemplatePicker } from '../components/editor/markdown/documents/MarkdownTemplatePicker'
 import RecentTabSwitcher from '../components/tab-bar/RecentTabSwitcher'
 import { SkillFreshnessUpdateDialog } from '../components/skills/freshness/SkillFreshnessUpdateDialog'
-import { StarNagAgentValueMomentObserver } from '../components/star-nag/StarNagAgentValueMomentObserver'
 import { NativeChatResumeOnRestartModal } from '../components/native-chat-recovery/NativeChatResumeRuntimeModal'
-import { StarNagToastHost } from '../components/star-nag/StarNagToastHost'
 import { ZoomOverlay } from '../components/ZoomOverlay'
 import { WslMoveDialogHost } from '../components/wsl-move/WslMoveDialog'
 import { MacosUpdateRequirementHost } from '../components/macos-update-requirement/MacosUpdateRequirementHost'
@@ -302,10 +300,6 @@ export const AppRootSurfaces = memo(function AppRootSurfaces(props: {
       <OverlayBoundary boundaryId="overlay.native-chat-resume-on-restart" resetKey={activeView}>
         <NativeChatResumeOnRestartModal />
       </OverlayBoundary>
-      <OverlayBoundary boundaryId="overlay.star-nag-toast" resetKey={activeView}>
-        <StarNagToastHost />
-      </OverlayBoundary>
-      <StarNagAgentValueMomentObserver />
       <OverlayBoundary boundaryId="overlay.zoom" resetKey={activeView}>
         <ZoomOverlay />
       </OverlayBoundary>

@@ -8,8 +8,6 @@ import { utcDayIndex } from '../../../../shared/telemetry-day'
 import '../../../../shared/agent-kind'
 
 // Single source-of-truth for the privacy doc URL so FirstLaunchBanner and PrivacyPane can't drift.
-export const PRIVACY_URL = 'https://www.onorca.dev/docs/telemetry'
-
 let lastTerminalUserInputAt: number | null = null
 
 /** Report admitted xterm input once a minute within each UTC day; main owns consent and daily deduplication. */

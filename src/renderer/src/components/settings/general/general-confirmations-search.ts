@@ -40,7 +40,6 @@ export const getGeneralConfirmationSearchEntries = createLocalizedCatalog(() => 
       ...translateSearchKeyword('auto.components.settings.general.search.command', 'command'),
       ...translateSearchKeyword('auto.components.settings.general.search.confirm', 'confirm'),
       ...translateSearchKeyword('auto.components.settings.general.search.close', 'close'),
-      ...translateSearchKeyword('auto.components.settings.general.search.omp', 'OMP'),
       ...translateSearchKeyword('settings.general.search.keywords.ask_before', 'ask before'),
       translate(
         'auto.components.settings.GeneralPane.confirm_running_work_close',
@@ -86,30 +85,6 @@ export const getGeneralConfirmationSearchEntries = createLocalizedCatalog(() => 
       translate(
         'auto.components.settings.GeneralWorkspaceSettingsSection.3ae2a59ce9',
         'Ask before deleting automations'
-      )
-    ]
-  },
-  artifact: {
-    id: 'general-skip-delete-artifact-confirm',
-    title: translate('settings.general.confirmations.artifact', 'Deleting an artifact'),
-    description: translate(
-      'settings.general.confirmations.artifactHelp',
-      'Anyone with its public link loses access.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('settings.general.search.keywords.confirmations', 'confirmations'),
-      ...translateSearchKeyword('auto.components.settings.general.search.84c67d0108', 'delete'),
-      ...translateSearchKeyword('settings.general.search.keywords.artifact', 'artifact'),
-      ...translateSearchKeyword('settings.general.search.keywords.share', 'share'),
-      ...translateSearchKeyword('settings.general.search.keywords.link', 'link'),
-      ...translateSearchKeyword('auto.components.settings.general.search.9f8558233a', 'confirm'),
-      ...translateSearchKeyword('auto.components.settings.general.search.ca86dd6e27', 'dialog'),
-      ...translateSearchKeyword('auto.components.settings.general.search.7e9b556873', 'skip'),
-      ...translateSearchKeyword('auto.components.settings.general.search.0efc9d96ad', 'prompt'),
-      ...translateSearchKeyword('settings.general.search.keywords.ask_before', 'ask before'),
-      translate(
-        'auto.components.settings.GeneralWorkspaceSettingsSection.2ffd7c4fc8',
-        'Ask before deleting artifacts'
       )
     ]
   }

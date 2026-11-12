@@ -55,8 +55,7 @@ deca plugin dev watch .    # loads this folder into Deca and prints its logs and
 \`\`\`
 
 Deca names the publisher after where the plugin is installed from: the GitHub or GitLab owner of
-its repository, or \`local\` for a folder. See
-https://github.com/stablyai/orca/blob/main/docs/reference/plugin-authoring.md.
+its repository, or \`local\` for a folder.
 `
 }
 

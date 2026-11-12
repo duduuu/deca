@@ -9,14 +9,13 @@ export function getUsageProviderAccountsSectionId(
       return 'accounts-claude'
     case 'codex':
       return 'accounts-codex'
-    case 'gemini':
-      return 'accounts-gemini'
     case 'opencode-go':
       return 'accounts-opencode-go'
     case 'grok':
       return 'accounts-grok'
     case 'cursor':
       return 'accounts-cursor'
+    case 'gemini':
     case 'antigravity':
       // These CLIs keep their own credentials; Orca has no account settings for them.
       return null

@@ -1757,12 +1757,6 @@
   "auto.components.settings.GeneralPane.projectRuntimeDescription": {
     "ko": "별도로 재정의하지 않은 로컬 Windows 프로젝트의 기본 런타임입니다."
   },
-  "auto.components.settings.GeneralSupportSection.6922c1fa2b": {
-    "ko": "GitHub에서 Orca 스타 누르기"
-  },
-  "auto.components.settings.GeneralSupportSection.964acc6bb4": {
-    "ko": "스타"
-  },
   "auto.components.settings.GeneralWorkspaceSettingsSection.5567191a6e": {
     "ko": "찾아보기"
   },
@@ -2309,9 +2303,6 @@
   "auto.components.settings.accounts.search.8b06729e0f": {
     "ko": "활성"
   },
-  "auto.components.settings.accounts.search.b7c2cee442": {
-    "ko": "실험적"
-  },
   "auto.components.settings.accounts.search.bdbd1e668e": {
     "ko": "Windows"
   },
@@ -2543,9 +2534,6 @@
   "auto.components.settings.general.search.2f42852568": {
     "ko": "트리"
   },
-  "auto.components.settings.general.search.36a72f0d9e": {
-    "ko": "GitHub에서 Orca에 스타 주기"
-  },
   "auto.components.settings.general.search.3a73054565": {
     "ko": "우회"
   },
@@ -2567,9 +2555,6 @@
   "auto.components.settings.general.search.93f6ec5e70": {
     "ko": "디렉터리"
   },
-  "auto.components.settings.general.search.bdfb6dc21b": {
-    "ko": "좋아요"
-  },
   "auto.components.settings.general.search.c56cb6f1c2": {
     "ko": "네트워크"
   },
@@ -2581,9 +2566,6 @@
   },
   "auto.components.settings.general.search.e1ee631696": {
     "ko": "편집기"
-  },
-  "auto.components.settings.general.search.e4fb4516d0": {
-    "ko": "스타"
   },
   "auto.components.settings.general.search.ebf8f056b5": {
     "ko": "zed"
@@ -3605,30 +3587,6 @@
   "auto.components.source.control.SourceControlActionVariableChips.4bf6d88039": {
     "ko": "(비어 있음)"
   },
-  "auto.components.star.nag.StarNagToastHost.body": {
-    "ko": "Orca가 마음에 드신다면 GitHub 별표가 다른 개발자가 Orca를 발견하는 데 도움이 됩니다."
-  },
-  "auto.components.star.nag.StarNagToastHost.githubOpened": {
-    "ko": "GitHub 열림"
-  },
-  "auto.components.star.nag.StarNagToastHost.onboardingCompleted": {
-    "ko": "온보딩 완료!"
-  },
-  "auto.components.star.nag.StarNagToastHost.openGithub": {
-    "ko": "GitHub 열기"
-  },
-  "auto.components.star.nag.StarNagToastHost.opening": {
-    "ko": "여는 중…"
-  },
-  "auto.components.star.nag.StarNagToastHost.starOnGithub": {
-    "ko": "GitHub에서 별표 누르기"
-  },
-  "auto.components.star.nag.StarNagToastHost.starredThanks": {
-    "ko": "별표를 눌러주셔서 감사합니다!"
-  },
-  "auto.components.star.nag.StarNagToastHost.starring": {
-    "ko": "별표 누르는 중…"
-  },
   "auto.components.stats.ClaudeUsagePane.cfe2282ffa": {
     "ko": "알 수 없음"
   },
@@ -3688,12 +3646,6 @@
   },
   "auto.components.stats.UsageOverviewPane.e06d1baf5c": {
     "ko": "사용량 개요 새로고침"
-  },
-  "auto.components.stats.share.card.utils.19f4b4dc75": {
-    "ko": "github.com/stablyai/orca"
-  },
-  "auto.components.stats.share.card.utils.7080aeaebb": {
-    "ko": "추론"
   },
   "auto.components.stats.stats.search.26bb901fcd": {
     "ko": "Orca 통계, Claude/Codex/OpenCode 통합 사용량 분석, 토큰, 캐시, 모델, 세션"

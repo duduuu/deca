@@ -14,10 +14,8 @@ import {
   agentPromptSentSchema,
   agentStartedSchema,
   appOpenedSchema,
-  appStarredOrcaSchema,
   featureInteractionUsageBucketReachedSchema,
   repoAddedSchema,
-  starNagOutcomeEventSchema,
   workspaceCreatedSchema
 } from './telemetry-app-event-schemas'
 import {
@@ -135,8 +133,6 @@ export const eventSchemas = {
   agent_dashboard_enabled: agentDashboardEnabledSchema,
   agent_dashboard_opened: agentDashboardOpenedSchema,
   app_opened: appOpenedSchema,
-  app_starred_orca: appStarredOrcaSchema,
-  star_nag_outcome: starNagOutcomeEventSchema,
   feature_interaction_usage_bucket_reached: featureInteractionUsageBucketReachedSchema,
   first_agent_interaction: firstAgentInteractionSchema,
   meaningful_activity_day: meaningfulActivityDaySchema,

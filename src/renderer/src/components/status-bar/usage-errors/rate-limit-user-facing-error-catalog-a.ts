@@ -87,21 +87,6 @@ export const KNOWN_RATE_LIMIT_ERRORS_A: RateLimitKnownError[] = [
     vars: (m) => ({ status: m[1] ?? '' })
   },
   {
-    test: 'Gemini CLI OAuth is disabled in settings',
-    key: 'auto.lib.rateLimits.errors.geminiOauthDisabled',
-    fallback: 'Gemini CLI OAuth is disabled in settings'
-  },
-  {
-    test: 'Gemini CLI credentials not found',
-    key: 'auto.lib.rateLimits.errors.geminiCredentialsNotFound',
-    fallback: 'Gemini CLI credentials not found'
-  },
-  {
-    test: 'Gemini project ID not found',
-    key: 'auto.lib.rateLimits.errors.geminiProjectIdNotFound',
-    fallback: 'Gemini project ID not found'
-  },
-  {
     test: 'Token refresh failed',
     key: 'auto.lib.rateLimits.errors.tokenRefreshFailed',
     fallback: 'Token refresh failed'

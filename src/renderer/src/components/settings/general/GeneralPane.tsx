@@ -5,7 +5,6 @@ import { useAppStore } from '../../../store/index'
 import { CliSection } from '../cli/install/CliSection'
 import { GeneralEditorSettingsSection } from '../editor/GeneralEditorSettingsSection'
 import { GeneralAutoSaveSetting } from '../editor/GeneralAutoSaveSetting'
-import { GeneralSupportSection } from './GeneralSupportSection'
 import { GeneralUpdateSettingsSection } from '../updates/GeneralUpdateSettingsSection'
 import { GeneralWorkspaceSettingsSection } from './GeneralWorkspaceSettingsSection'
 import {
@@ -14,7 +13,6 @@ import {
   getGeneralUpdateSearchEntries
 } from './general-search'
 import { getGeneralEditorSearchDescriptors } from '../editor/general-editor-search'
-import { getGeneralSupportSearchEntries } from './general-support-search'
 import { getGeneralProjectRuntimeSearchEntries } from './project-runtime/general-project-runtime-search'
 import { RecentTabOrderControl } from '../appearance/RecentTabOrderControl'
 import { matchesSettingsSearch, type SettingsSearchEntry } from '../search/settings-search'
@@ -75,12 +73,7 @@ export function GeneralPane(props: GeneralPaneProps): React.JSX.Element {
   const query = useAppStore((state) => state.settingsSearchQuery)
   const refreshRemoteUpdates = useAppStore((state) => state.refreshRemoteServerUpdates)
   const remoteUpdatesRequested = useRef(false)
-  const showAbout =
-    !props.subPage &&
-    matchesSettingsSearch(query, [
-      ...getGeneralUpdateSearchEntries(),
-      ...getGeneralSupportSearchEntries()
-    ])
+  const showAbout = !props.subPage && matchesSettingsSearch(query, getGeneralUpdateSearchEntries())
   useEffect(() => {
     if (showAbout && !remoteUpdatesRequested.current) {
       remoteUpdatesRequested.current = true
@@ -152,10 +145,7 @@ function GeneralRootSettings({
   const autoSaveEntries = getGeneralEditorSearchDescriptors()
     .filter((descriptor) => descriptor.page === null)
     .map(({ entry }) => entry)
-  const aboutMatches = matchesSettingsSearch(query, [
-    ...getGeneralUpdateSearchEntries(),
-    ...getGeneralSupportSearchEntries()
-  ])
+  const aboutMatches = matchesSettingsSearch(query, getGeneralUpdateSearchEntries())
   const worktreeDefaults = settings.worktreeVisibilityDefaults
   const visibilitySummary =
     Object.keys(worktreeDefaults?.sourcePreferences?.builtIn ?? {}).length ||
@@ -291,11 +281,7 @@ function GeneralRootSettings({
           wslCapabilitiesLoading={wslCapabilitiesLoading}
         />
       ) : null}
-      {aboutMatches ? (
-        <GeneralUpdateSettingsSection>
-          <GeneralSupportSection hasPrecedingSections={false} inline />
-        </GeneralUpdateSettingsSection>
-      ) : null}
+      {aboutMatches ? <GeneralUpdateSettingsSection /> : null}
     </>
   )
 }

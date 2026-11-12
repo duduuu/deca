@@ -12,7 +12,6 @@ import type { ClaudeUsageRange, ClaudeUsageScope } from '../../../../shared/clau
 import { useAppStore } from '../../store'
 import { ClaudeUsageDetails } from './ClaudeUsageDetails'
 import { ClaudeUsageLoadingState } from './ClaudeUsageLoadingState'
-import { ShareUsageButton } from './ShareUsageButton'
 import { StatCard } from './StatCard'
 import { UsageFilterRadioGroup, UsageTrackingPaneShell } from './UsageTrackingPaneShell'
 import { formatCost, formatTokens, formatUpdatedAt } from './usage-formatters'
@@ -157,11 +156,6 @@ export function ClaudeUsagePane(): React.JSX.Element {
       )}
       onEnabledChange={handleSetEnabled}
       onRefresh={() => void refreshClaudeUsage()}
-      headerAction={
-        summary && daily.length > 0 ? (
-          <ShareUsageButton provider="claude" summary={summary} daily={daily} range={range} />
-        ) : undefined
-      }
     >
       <>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">

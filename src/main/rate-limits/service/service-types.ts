@@ -33,8 +33,6 @@ export type OpenCodeGoResolvedConfig = OpenCodeGoRateLimitConfig & {
   apiKeyReadSkipped: boolean
 }
 
-export type GeminiCliOAuthEnabledResolver = () => boolean
-
 export type AntigravityUsageEnabledResolver = () => boolean
 export type ActiveRateLimitProvider = ProviderRateLimits['provider']
 export type ActiveProviderState = {

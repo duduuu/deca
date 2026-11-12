@@ -45,12 +45,6 @@ export function GeneralConfirmationsSection({
       checked: !settings.skipDeleteAutomationConfirm,
       onChange: () =>
         updateSettings({ skipDeleteAutomationConfirm: !settings.skipDeleteAutomationConfirm })
-    },
-    {
-      ...entries.artifact,
-      checked: !settings.skipDeleteArtifactConfirm,
-      onChange: () =>
-        updateSettings({ skipDeleteArtifactConfirm: !settings.skipDeleteArtifactConfirm })
     }
   ].filter((row) => matchesSettingsSearch(query, row))
   if (rows.length === 0) {

@@ -16,11 +16,6 @@ const BASE_LOCALE_KEY_OVERRIDES = {
   // because the skills-dialog chip shares the English string but reads as a noun.
   'auto.components.right.sidebar.FileExplorerRow.0fec99bfd7': { zh: '创建副本' },
   'menu.reportCrash': { ko: '크래시 신고...', zh: '报告崩溃...', ja: 'クラッシュを報告...' },
-  'menu.showMobileButton': {
-    ko: 'Orca 모바일 버튼 표시',
-    zh: '显示 Orca Mobile 按钮',
-    ja: 'Orca Mobile ボタンを表示'
-  },
   'menu.toggleLeftSidebar': {
     ko: '왼쪽 사이드바 표시/숨기기',
     zh: '显示/隐藏左侧边栏',

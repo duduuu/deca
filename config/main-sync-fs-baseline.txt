@@ -269,6 +269,7 @@
 3 src/main/linear/linear-legacy-viewer-store.ts
 1 src/main/linear/linear-token-store.ts
 3 src/main/linear/linear-workspace-registry.ts
+9 src/main/linux-appimage/appimage-runtime-identity.ts
 1 src/main/macos-permissions/macos-tcc-prompt-notice.ts
 3 src/main/managed-data-accounts/credential-capture.ts
 18 src/main/managed-data-accounts/profile-removal.ts
@@ -489,10 +490,6 @@
 6 src/main/startup/x-display-artifacts.ts
 2 src/main/stats/stats-file-loader.ts
 2 src/main/text-generation/source-control-prompt-files.ts
-1 src/main/updater/lifecycle/windows-update-install-directory.ts
-9 src/main/updater/linux-package/appimage-runtime-identity.ts
-1 src/main/updater/linux-package/linux-package-install-command.ts
-1 src/main/updater/linux-package/linux-update-package-type.ts
 6 src/main/updater/serve-update-handoff.ts
 2 src/main/usage/provider-lifecycle/usage-provider-store-lifecycle.ts
 1 src/main/usage/scan-worker/usage-scan-worker-spawn.ts

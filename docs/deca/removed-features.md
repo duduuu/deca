@@ -1,9 +1,9 @@
 # Deca: Orca 대비 변경·제거 기능 목록
 
-Deca는 Orca(`stablyai/orca`, 기준 커밋 `7d92d106f49`, v1.4.214)를 사내 전용으로 포크한 앱이다. 로컬 개발 기능은 유지하고, 외부 기기 접속·Orca Cloud·벤더 통신·배포 경로·일부 에이전트 연동을 제거했다.
+Deca는 Orca(`stablyai/orca`, 기준 커밋 `7d92d106f49`, v1.4.214)를 포크한 앱이다. 로컬 개발 기능은 유지하고, 외부 기기 접속·Orca Cloud·벤더 통신·배포 경로·일부 에이전트 연동을 제거했다.
 
 - 브랜치: `internal/deca-fork`
-- 상태: 구현 진행 중. 사내 배포 승인 문서가 아니다.
+- 상태: 구현 진행 중.
 - 검증 상태는 문서 끝의 [검증 현황](#검증-현황)을 따른다.
 
 ## 한눈에 보기
@@ -87,7 +87,7 @@ Deca는 Orca(`stablyai/orca`, 기준 커밋 `7d92d106f49`, v1.4.214)를 사내 �
 | 변경 이력·공지(nudge)·프리릴리스 조회       | 제거                                    |
 | 크래시 덤프                                 | 로컬 저장만(원래도 업로드 안 함)        |
 
-사내 배포는 사내 패키지 배포로 대체한다.
+배포는 직접 빌드하거나 조직의 패키지 배포 경로로 대체한다.
 
 ## 5. 에이전트 연동
 
@@ -99,7 +99,7 @@ Deca는 Orca(`stablyai/orca`, 기준 커밋 `7d92d106f49`, v1.4.214)를 사내 �
 | 그 외                         | Autohand, Ante, Pi, OMP, Prime Agent, Codebuff·Freebuff, Command Code, Hermes, OpenClaw, OpenClaude, Muse, Amp, Aider, Cline, Droid, Goose, Rovo Dev, Continue, Augment, Crush, Kilo Code, Mistral Vibe |
 
 - 진행 상태: 에이전트 제거는 작업 중이며 아직 `internal/deca-fork`에 병합되지 않았다.
-- OpenCode처럼 모델을 고를 수 있는 도구에서 사용자가 직접 중국 모델을 설정하는 것은 Deca 코드로 막을 수 없다. 사내 모델 gateway·네트워크 정책으로 통제한다.
+- OpenCode처럼 모델을 고를 수 있는 도구에서 사용자가 직접 중국 모델을 설정하는 것은 Deca 코드로 막을 수 없다. 필요하면 모델 gateway·네트워크 정책으로 통제한다.
 
 ## 6. 기타 기능
 
@@ -112,18 +112,18 @@ Deca는 Orca(`stablyai/orca`, 기준 커밋 `7d92d106f49`, v1.4.214)를 사내 �
 
 ## 7. CI·배포
 
-| 항목                                                               | 처리                                                                                                                                 |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| GitHub 릴리스, 예약(hourly·daily·adhoc)·dev 채널 빌드              | 제거                                                                                                                                 |
-| Homebrew·`Casks/`, R2 미러, 문서 사이트 배포                       | 제거                                                                                                                                 |
-| 모바일 스토어 릴리스, orca-server artifact, agent-state-rules 배포 | 제거                                                                                                                                 |
-| 서명·릴리스 스크립트, 텔레메트리·진단 secret 요구                  | 제거                                                                                                                                 |
-| PR 검사(lint, 타입 검사, 단위 테스트, e2e)                         | 유지                                                                                                                                 |
-| 사내 패키징 workflow                                               | 미작성(필요 항목: `pnpm build:release`, `electron-builder --win --publish never`, 코드 서명, Rust·MSVC, 버전 지정, 사내 배포 저장소) |
+| 항목                                                               | 처리                                                                                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| GitHub 릴리스, 예약(hourly·daily·adhoc)·dev 채널 빌드              | 제거                                                                                                                            |
+| Homebrew·`Casks/`, R2 미러, 문서 사이트 배포                       | 제거                                                                                                                            |
+| 모바일 스토어 릴리스, orca-server artifact, agent-state-rules 배포 | 제거                                                                                                                            |
+| 서명·릴리스 스크립트, 텔레메트리·진단 secret 요구                  | 제거                                                                                                                            |
+| PR 검사(lint, 타입 검사, 단위 테스트, e2e)                         | 유지                                                                                                                            |
+| 배포 패키징 workflow                                               | 미작성(필요 항목: `pnpm build:release`, `electron-builder --win --publish never`, 코드 서명, Rust·MSVC, 버전 지정, 배포 저장소) |
 
 ## 이 포크가 통제하지 않는 것
 
-Deca는 기능 제거 포크이며 통신 샌드박스가 아니다. AI CLI, MCP 서버, 사용자 셸 명령, 내장 브라우저가 만드는 통신은 사내 네트워크 정책과 승인된 CLI·모델 설정으로 통제한다.
+Deca는 기능 제거 포크이며 통신 샌드박스가 아니다. AI CLI, MCP 서버, 사용자 셸 명령, 내장 브라우저가 만드는 통신은 네트워크 정책과 CLI·모델 설정으로 통제한다.
 
 ## 검증 현황
 

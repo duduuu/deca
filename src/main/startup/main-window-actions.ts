@@ -284,10 +284,6 @@ export function sendOpenSetupGuide(targetWindow?: BrowserWindow | null): void {
   resolveMenuTargetRenderer(targetWindow)?.send('ui:openSetupGuide')
 }
 
-export function sendOpenCrashReport(targetWindow?: BrowserWindow | null): void {
-  resolveMenuTargetRenderer(targetWindow)?.send('ui:openCrashReport')
-}
-
 // After automatic recovery stops, only main-process dialogs can offer retry/quit on a blank window.
 export async function showRendererRecoveryPrompt(
   recentRecoveryCount: number,

@@ -69,14 +69,6 @@ export function CrashReportDialog(): React.JSX.Element | null {
   }, [loadCrashReport])
 
   useEffect(() => {
-    return window.api.ui.onOpenCrashReport(() => {
-      setReport(null)
-      setOpen(true)
-      void loadCrashReport(false)
-    })
-  }, [loadCrashReport])
-
-  useEffect(() => {
     const pendingReport = takePendingReactErrorBoundaryReport()
     if (pendingReport) {
       openCrashReport(pendingReport)

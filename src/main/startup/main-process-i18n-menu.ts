@@ -12,7 +12,6 @@ import { mainProcessState as state } from './main-process-state'
 import {
   getAppMenuQuitHandlers,
   openSettingsFromSystemMenu,
-  sendOpenCrashReport,
   sendOpenFeatureTour,
   sendOpenSetupGuide
 } from './main-window-actions'
@@ -40,10 +39,6 @@ export async function initializeMainProcessI18nAndMenu(): Promise<void> {
     onOpenSetupGuide: (targetWindow) => {
       recordCrashBreadcrumb('setup_guide_opened')
       sendOpenSetupGuide(targetWindow instanceof BrowserWindow ? targetWindow : null)
-    },
-    onOpenCrashReport: (targetWindow) => {
-      recordCrashBreadcrumb('crash_report_opened')
-      sendOpenCrashReport(targetWindow instanceof BrowserWindow ? targetWindow : null)
     },
     onOpenFeatureTour: (targetWindow) => {
       recordCrashBreadcrumb('feature_tour_opened')

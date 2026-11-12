@@ -553,7 +553,18 @@
     "copy": "복사",
     "selectAll": "모두 선택",
     "quitAndStopAllSessions": "완전히 종료...",
-    "quitAndStopAllSessionsTooltip": "실행 중인 에이전트를 포함한 모든 터미널 세션도 중지합니다. 일반 종료는 세션을 계속 실행해 두어 다음 실행 시 Deca가 다시 연결합니다."
+    "quitAndStopAllSessionsTooltip": "실행 중인 에이전트를 포함한 모든 터미널 세션도 중지합니다. 일반 종료는 세션을 계속 실행해 두어 다음 실행 시 Deca가 다시 연결합니다.",
+    "about": "Deca 정보",
+    "cut": "잘라내기",
+    "hide": "Deca 숨기기",
+    "hideOthers": "기타 숨기기",
+    "minimize": "최소화",
+    "redo": "다시 실행",
+    "services": "서비스",
+    "toggleFullScreen": "전체 화면 전환",
+    "undo": "실행 취소",
+    "unhide": "모두 보기",
+    "zoom": "확대/축소"
   },
   "tray": {
     "openOrca": "Deca 열기",
@@ -18026,12 +18037,23 @@
           "theme": "테마",
           "windowsTerminal": "Windows 터미널",
           "notifications": "알림",
-          "integrations": "연동"
+          "integrations": "연동",
+          "agentSurface": "채팅 또는 터미널"
         },
         "actions": {
           "addFirstProject": "첫 프로젝트 추가",
           "continue": "계속",
           "openingAddProject": "프로젝트 추가 화면을 여는 중…"
+        },
+        "agentChat": {
+          "subtitle": "Chat UI 에이전트를 선택하세요. 채팅을 지원하지 않는 에이전트는 대신 터미널에서 열립니다."
+        },
+        "agentSurface": {
+          "pickWhereAgentsOpen": "새 에이전트가 열릴 곳을 선택하세요.",
+          "title": "에이전트를 어떻게 사용하시겠어요?"
+        },
+        "agentTerminal": {
+          "subtitle": "Deca는 모든 CLI 에이전트와 함께 작동합니다. 가장 자주 쓸 에이전트를 선택하세요."
         }
       },
       "skipConfirmation": {
@@ -18065,7 +18087,8 @@
           "sourceBuiltIn": "기본 제공",
           "sourceCommunity": "터미널 팔레트",
           "themes": "테마"
-        }
+        },
+        "changeAnyTime": "설정에서 언제든 바꿀 수 있습니다."
       },
       "integrations": {
         "capabilities": {
@@ -18074,20 +18097,72 @@
           "reviewStatus": "모든 워크트리에서 이슈 상태, 리뷰 상태 및 CI 체크를 확인합니다",
           "managePullRequests": "Deca를 떠나지 않고 PR을 읽고, 댓글을 달고, 병합합니다"
         }
+      },
+      "agentStep": {
+        "agentsOpenIn": "에이전트 여는 방식",
+        "chatAgents": "Chat UI 에이전트",
+        "chatAvailable": "채팅 사용 가능",
+        "chatTip": "채팅도 쓰고 싶다면 언제든 <em>설정 → Chat UI</em>에서 켤 수 있습니다.",
+        "noAgentsForChat": "<em>PATH에서 에이전트를 찾지 못했습니다.</em> Chat UI는 {{agents}}와(과) 함께 작동합니다. 하나를 설치하거나, 계속 진행한 후 나중에 에이전트를 추가하세요.",
+        "noChatAgentsDetected": "<em>Chat UI에서 작동하는 에이전트가 없습니다.</em> 모두 터미널에서 열리므로 터미널 방식이 더 적합합니다.",
+        "opensInTerminalFit": "<em>{{agent}}은(는) 터미널에서 열리므로</em> 터미널 방식이 더 적합합니다.",
+        "terminalAgents": "터미널 에이전트로 사용 가능",
+        "terminalAgentsHint": "Chat UI를 지원하지 않아 터미널에서 열립니다.",
+        "terminalTip": "언제든 <em>설정 → Chat UI</em>에서 다시 바꿀 수 있습니다. <em>+</em> 메뉴에서 어떤 에이전트든 터미널로 시작할 수도 있습니다.",
+        "terminalTipCaption": "탭 표시줄의 <em>+</em>를 클릭한 후 <em>(CLI)</em> 표시가 있는 에이전트를 선택하세요. 채팅 에이전트의 CLI가 설치되어 있으면 해당 행에 마우스를 올리고 터미널 아이콘을 클릭해 CLI를 사용할 수 있습니다.",
+        "terminalTipHow": "터미널에서 에이전트를 시작하는 방법 보기",
+        "terminalTipWeb": "언제든 <em>설정 → 온보딩 체크리스트</em>에서 다시 바꿀 수 있습니다. <em>+</em> 메뉴에서 어떤 에이전트든 터미널로 시작할 수도 있습니다.",
+        "terminalUi": "터미널 UI",
+        "turnOnChat": "지금 켜기",
+        "useTerminalInstead": "대신 터미널 사용",
+        "worksInChat": "Chat UI에서 작동"
+      },
+      "agentSurface": {
+        "chat": {
+          "description": "에이전트가 메시지와 diff가 표시되는 채팅으로 응답합니다.",
+          "label": "Chat UI",
+          "noneDetected": "감지된 에이전트 중 Chat UI에서 작동하는 에이전트가 없습니다.",
+          "terminalFallback": "채팅을 지원하지 않는 에이전트와 이 컴퓨터에서 SSH 또는 WSL로 연 폴더는 여전히 터미널에서 열립니다."
+        },
+        "preview": {
+          "agentMessage": "이제 실패한 요청을 최대 3번까지 다시 시도합니다.",
+          "composerPlaceholder": "후속 질문하기…",
+          "userMessage": "fetchUser에 재시도 추가"
+        },
+        "switchNote": "영구적인 선택이 아닙니다. 언제든 <em>설정 → Chat UI</em>에서 바꿀 수 있습니다.",
+        "terminal": {
+          "description": "각 에이전트의 자체 CLI를 그대로 사용합니다. 모든 CLI 에이전트에서 작동합니다.",
+          "label": "터미널"
+        }
+      },
+      "launchDemo": {
+        "agentMessage": "찾았습니다. 재시도 타이머가 모킹되지 않았습니다.",
+        "cliReady": "{{agent}} CLI 준비됨.",
+        "userMessage": "불안정한 업로드 테스트 수정"
+      },
+      "yoloPermissions": {
+        "fullAccessOverride": "{{agent}}에 여전히 전체 액세스 권한이 있습니다",
+        "overrideDescription": "이 에이전트들은 여전히 확인 없이 명령을 실행하고 파일을 편집할 수 있습니다. 개별 설정이 Yolo 모드보다 우선합니다.",
+        "ownSettingsDescription": "끄면 각 에이전트의 자체 설정을 사용합니다. 개별 에이전트 권한이 이 스위치보다 우선할 수 있습니다.",
+        "saveError": "권한을 변경하지 못했습니다. 다시 시도하세요.",
+        "useAgentOwnSettings": "{{agent}}의 자체 설정 사용",
+        "useOwnSettings": "자체 설정 사용"
       }
     },
     "native-chat": {
       "install": {
         "checking": "이 호스트에서 {{agent}}이(가) 준비되었는지 확인하는 중…",
         "cliInstall": "설치",
-        "cliRecheck": "다시 확인"
+        "cliRecheck": "다시 확인",
+        "cliRecheckFailed": "이 호스트에 설치된 에이전트를 확인하지 못했습니다. 다시 시도하세요."
       },
       "reasoning": "추론",
       "contextMenu": {
         "copyOrcaSessionId": "Deca 세션 ID 복사",
         "orcaSessionIdCopied": "Deca 세션 ID를 복사했습니다",
         "orcaSessionIdCopyFailed": "Deca 세션 ID를 복사하지 못했습니다",
-        "orcaSessionIdTooltip": "이 채팅에 대한 Deca의 ID로, 에이전트 CLI 자체의 세션 ID와는 별개입니다. 에이전트는 Deca를 통해 서로를 가리킬 때 이 ID를 사용합니다."
+        "orcaSessionIdTooltip": "이 채팅에 대한 Deca의 ID로, 에이전트 CLI 자체의 세션 ID와는 별개입니다. 에이전트는 Deca를 통해 서로를 가리킬 때 이 ID를 사용합니다.",
+        "noSessionContext": "사용할 수 있는 채팅 컨텍스트가 없습니다."
       },
       "failureWords": {
         "theAgent": "에이전트",
@@ -18207,7 +18282,16 @@
         "commandAfterAnswer": "에이전트의 질문 또는 승인에 응답한 다음 /{{command}}을(를) 실행하세요.",
         "modelUnavailableUpdate": "{{agent}}에서 {{detail}}을(를) 사용할 수 없습니다. 다시 시작한 후에도 사용하려면 {{agent}}을(를) {{minimumVersion}} 이상으로 업데이트하거나 다른 모델을 선택하고 다시 보내세요.",
         "modelNotSelected": "{{agent}}에 선택된 모델이 없습니다. 모델 선택과 {{agent}} 로그인을 확인한 후 다시 보내세요.",
-        "pluginInputRequired": "\"{{plugin}}\" 플러그인이 터미널 창에서 입력을 기다리고 있어 {{agent}}이(가) 중지되었습니다. 채팅 세션에서 플러그인을 비활성화하거나 {{agent}} 터미널에서 작업을 실행하세요."
+        "pluginInputRequired": "\"{{plugin}}\" 플러그인이 터미널 창에서 입력을 기다리고 있어 {{agent}}이(가) 중지되었습니다. 채팅 세션에서 플러그인을 비활성화하거나 {{agent}} 터미널에서 작업을 실행하세요.",
+        "antigravitySystemNotSignedIn": "Antigravity에 로그인되어 있지 않습니다. 이 채팅이 실행 중인 컴퓨터에서 `agy`를 실행해 로그인한 후 메시지를 다시 보내세요.",
+        "claudeEffortInvalid": "Claude effort 값이 잘못되었습니다. low, medium, high, xhigh, max 중 하나를 선택해 다시 보내세요.",
+        "forkOriginalLatestOnly": "{{agent}}은(는) 원래 채팅의 최신 응답만 포크할 수 있습니다. 해당 채팅을 열고 최신 응답이 끝나면 포크하세요.",
+        "forkOriginalLatestOnlyNamed": "{{agent}}은(는) \"{{detail}}\"의 최신 응답만 포크할 수 있습니다. 해당 채팅을 열고 최신 응답이 끝나면 포크하세요.",
+        "forkOriginalMissing": "{{agent}}이(가) 원래 채팅에서 이 응답을 찾지 못했습니다. 해당 채팅을 열고 그곳에서 포크하세요.",
+        "forkOriginalMissingNamed": "{{agent}}이(가) \"{{detail}}\"에서 이 응답을 찾지 못했습니다. 해당 채팅을 열고 그곳에서 포크하세요.",
+        "forkOriginalUnavailable": "{{agent}}은(는) 원래 채팅에서 이 응답을 포크할 수 없습니다. 해당 채팅을 열고 그곳에서 포크하세요.",
+        "forkOriginalUnavailableNamed": "{{agent}}은(는) \"{{detail}}\"에서 이 응답을 포크할 수 없습니다. 해당 채팅을 열고 그곳에서 포크하세요.",
+        "unconfirmed": "전송 여부를 확인하지 못했습니다. 다시 보내지 않았습니다."
       },
       "writeNotice": {
         "notDoneReadHistory": "이 채팅의 기록을 불러오지 못했습니다.",
@@ -18285,7 +18369,8 @@
         "clearAfterSending": "이전 메시지를 아직 보내는 중입니다. 전송이 끝나면 /clear를 실행하세요.",
         "compactAfterSending": "이전 메시지를 아직 보내는 중입니다. 전송이 끝나면 /compact를 실행하세요.",
         "pendingWork": "이 명령을 사용하기 전에 보류 중인 작업과 메시지가 완료될 때까지 기다리십시오.",
-        "notDoneGoalChangeIncomplete": "목표 변경을 완료하지 못했습니다. 채팅을 확인하세요."
+        "notDoneGoalChangeIncomplete": "목표 변경을 완료하지 못했습니다. 채팅을 확인하세요.",
+        "mailOwnerUnconfirmed": "Deca가 이 메시지가 여전히 이 채팅용인지 확인하지 못했습니다."
       },
       "composer": {
         "planMode": "계획",
@@ -18351,7 +18436,8 @@
           "xhigh": "매우 높음",
           "max": "최대",
           "ultra": "울트라",
-          "standard": "표준"
+          "standard": "표준",
+          "ultracode": "Ultracode"
         },
         "noCommandsOrSkills": "일치하는 명령어 또는 스킬이 없습니다",
         "commands": "명령어",
@@ -18535,7 +18621,11 @@
       "resumeInNewChat": {
         "hostUpdateRequired": "채팅 UI에서 계속하려면 이 호스트의 Deca를 업데이트하세요.",
         "notSavedYet": "{{agent}}이(가) 아직 이 대화를 저장하지 않았습니다. 응답한 후 다시 시도하세요.",
-        "exitUnconfirmed": "{{agent}}이(가) 다른 터미널에서 이 대화를 실행 중입니다. 그곳에서 종료하거나 해당 터미널을 닫은 후 다시 시도하세요."
+        "exitUnconfirmed": "{{agent}}이(가) 다른 터미널에서 이 대화를 실행 중입니다. 그곳에서 종료하거나 해당 터미널을 닫은 후 다시 시도하세요.",
+        "exitUnconfirmedFromTerminal": "{{agent}}이(가) 아직 이 터미널에서 이 대화를 실행 중입니다. 여기에서 {{agent}}을(를) 종료한 후 세션 기록에서 이 대화를 여세요.",
+        "resumeFailed": "{{agent}}이(가) 채팅에서 계속하지 못했습니다. 이 터미널과 호스트 연결을 확인한 후 다시 시도하세요.",
+        "terminalChanged": "{{agent}}을(를) 실행 중인 터미널이 닫히기 전에 바뀌어 Deca가 그대로 두었습니다. 다시 시도하세요.",
+        "terminalExitUnproven": "Deca가 {{agent}}의 터미널을 닫았지만 중지되었는지 확인하지 못해 채팅을 열지 않았습니다. 호스트 연결을 확인한 후 세션 기록에서 대화를 여세요."
       },
       "state": {
         "loading": {
@@ -18593,7 +18683,33 @@
           "file": "계획 파일",
           "reviewTitle": "제안된 계획 검토",
           "refineHint": "계획 다듬기를 선택하면 검토가 닫히고 변경할 내용을 보낼 수 있습니다."
-        }
+        },
+        "allowedByYou": "내가 허용함",
+        "allowedInTerminal": "작업자 터미널에서 허용됨",
+        "answerFailed": "{{name}}: {{detail}}",
+        "answerInTerminal": "작업자 터미널에서 응답하세요",
+        "answeredInChat": "작업자 채팅에서 응답함",
+        "autoDenied": "2:00 후 Claude가 자동 거부함",
+        "countdown": "아무도 응답하지 않으면 {{time}} 후 Claude가 자동으로 거부합니다.",
+        "deniedByCoordinator": "코디네이터가 거부함",
+        "deniedByYou": "내가 거부함",
+        "deniedInTerminal": "작업자 터미널에서 거부됨",
+        "folderTrust": {
+          "exit": "종료",
+          "hint": "에이전트가 이 폴더의 파일을 읽고, 편집하고, 실행하기 전에 확인을 요청합니다.",
+          "title": "이 폴더를 신뢰할까요?",
+          "trust": "폴더 신뢰"
+        },
+        "noLongerOpen": "더 이상 열려 있지 않음",
+        "openWorker": "작업자 열기",
+        "reasonSentAsMessage": "사유(메시지로 전송됨)",
+        "show": "표시",
+        "startupMenu": {
+          "title": "{{value0}}이(가) 터미널에서 선택을 기다리고 있습니다"
+        },
+        "strip_one": "승인 {{count}}건",
+        "strip_other": "승인 {{count}}건",
+        "worker": "작업자 · {{name}}"
       },
       "launchPromptNotDelivered": "전달되지 않음 — 터미널을 확인하세요",
       "taskList": {
@@ -18619,7 +18735,8 @@
         "changedFiles_other": "변경된 파일 {{count}}개",
         "hide": "숨기기",
         "hidden": "Deca에서 더 이상 턴 변경 사항을 표시하지 않습니다",
-        "changedFiles_one": "변경된 파일 {{count}}개"
+        "changedFiles_one": "변경된 파일 {{count}}개",
+        "showMoreFiles": "{{count}}개 더 보기"
       },
       "receipt": {
         "unavailable": "선택한 답변을 사용할 수 없습니다.",
@@ -18654,7 +18771,8 @@
         "safetyReviewApproved": "{{agent}}이(가) 이 작업을 승인했습니다. 세부 정보 보기.",
         "safetyReview": "{{agent}}이(가) 안전 검토 경고를 보고했습니다. 세부 정보 보기.",
         "truncatedResponse": "공급자 응답이 잘렸습니다(원래 크기: {{bytes}}바이트).",
-        "forkedFrom": "분기 원본"
+        "forkedFrom": "분기 원본",
+        "modelFallback": "Claude 모델이 바뀌었습니다: {{from}} → {{to}}."
       },
       "providerFrame": {
         "byteCount_other": "{{count}}바이트",
@@ -18791,7 +18909,8 @@
         "senderReplaced": "{{name}}이(가) 더 이상 해당 터미널에서 실행되지 않습니다. 현재 다른 에이전트가 실행 중입니다. 필요하면 사이드바에서 해당 터미널을 여세요.",
         "senderAmbiguous": "Deca가 {{name}}이(가) 실행 중인 터미널을 확인할 수 없습니다. 사이드바에서 여세요.",
         "senderNotRunning": "{{name}}이(가) 더 이상 실행되지 않습니다. 작업을 계속하려면 사이드바에서 새 에이전트를 시작하세요.",
-        "unnamedSenderSubject": "에이전트"
+        "unnamedSenderSubject": "에이전트",
+        "goToAgent": "에이전트로 이동"
       },
       "goal": {
         "placeholder": "목표를 설명하고, 최상의 결과를 위해 측정 가능한 결과를 정의하세요.",
@@ -18813,7 +18932,8 @@
       "fileLinks": {
         "notFound": "파일을 찾을 수 없습니다: {{value0}}",
         "unverifiable": "{{value0}}을(를) 확인하지 못했습니다: {{value1}}",
-        "unresolved": "이 워크스페이스에서 {{value0}}을(를) 찾을 수 없습니다"
+        "unresolved": "이 워크스페이스에서 {{value0}}을(를) 찾을 수 없습니다",
+        "folderUnavailable": "이 컴퓨터에서 {{value0}} 폴더를 열 수 없습니다"
       },
       "contextUsage": {
         "label": "컨텍스트 {{used}}/{{window}} 토큰, {{percent}}% 사용",
@@ -18864,7 +18984,9 @@
         "moveChanged": "이동하기 전에 대기열이 변경되었습니다. 메시지를 다시 드래그해 보세요.",
         "reorderHint": "드래그하거나 위쪽 및 아래쪽 화살표 키를 사용하여 순서를 변경하세요.",
         "reorderMessage": "메시지 순서 변경",
-        "imageCount": "이미지 {{count}}개"
+        "imageCount": "이미지 {{count}}개",
+        "commandsUnsupported": "대기열에 있는 메시지에는 명령을 저장할 수 없습니다.",
+        "editReturned": "편집 내용이 채팅 입력란에 있습니다."
       },
       "thought": "생각함",
       "thoughtForDuration": "{{duration}} 동안 생각함",
@@ -18880,7 +19002,8 @@
         "start": "시작",
         "unverifiable": "Deca가 {{distro}}이(가) 실행 중인지 확인하지 못했습니다",
         "startToSend": "보내려면 {{distro}}을(를) 시작하세요.",
-        "startDistro": "{{distro}} 시작"
+        "startDistro": "{{distro}} 시작",
+        "startFailed": "{{distro}}을(를) 시작하지 못했습니다. 설정 → 원격 Deca 서버에서 확인하세요."
       },
       "interruptedContinue": {
         "continue": "계속",
@@ -18945,7 +19068,8 @@
         "settingsRejected": "Codex가 선택한 모델과 추론 수준을 적용하지 못했습니다. 이 목표 변경은 전송되지 않았습니다. 선택 항목을 확인하고 다시 시도하세요.",
         "settingsUnconfirmed": "Codex가 선택한 모델과 추론 수준의 적용을 확인하지 않았습니다. 이 목표 변경은 전송되지 않았습니다. 채팅을 확인하고 다시 시도하세요.",
         "pauseUnconfirmed": "Codex 실행은 중지되었지만 목표 일시 중지는 확인되지 않았습니다. 계속하기 전에 목표를 확인하세요.",
-        "stopUnconfirmed": "Codex 중지를 확인하지 못했습니다. 계속하기 전에 채팅을 확인하세요."
+        "stopUnconfirmed": "Codex 중지를 확인하지 못했습니다. 계속하기 전에 채팅을 확인하세요.",
+        "noGoal": "이 채팅에는 Codex가 변경할 목표가 없습니다. /goal 뒤에 목표를 입력해 설정하세요."
       },
       "slashCommandDescriptions": {
         "clearConversation": "대화 지우기",
@@ -19099,7 +19223,11 @@
         "unconfirmedDetail": "채팅이 열렸을 수 있습니다. 다시 분기하기 전에 세션 기록을 확인하세요.",
         "failed": "{{agent}}이(가) 이 채팅을 분기하지 못했습니다",
         "hostUnsupported": "이 호스트에서 이전 버전의 Deca가 실행 중입니다. 호스트의 Deca를 업데이트하고 다시 시도하세요.",
-        "failedDetail": "채팅은 변경되지 않았습니다. 다시 시도하세요."
+        "failedDetail": "채팅은 변경되지 않았습니다. 다시 시도하세요.",
+        "commandDescription": "최신 응답에서 이 채팅 포크",
+        "commandNothing": "아직 포크할 응답이 없습니다.",
+        "commandTakesNoText": "/fork만 보낸 후 새 채팅에서 작성하세요.",
+        "commandWorking": "응답이 끝날 때까지 기다린 후 포크하세요."
       },
       "cardKindHidden": {
         "description": "다음에서 언제든 변경할 수 있습니다:",
@@ -19114,7 +19242,58 @@
         "many_other": "풀 리퀘스트 {{count}}개 열림"
       },
       "splitRight": "오른쪽으로 분할",
-      "splitDown": "아래로 분할"
+      "splitDown": "아래로 분할",
+      "ciResultLine": {
+        "at": "에서",
+        "failingLead": "CI 실패:",
+        "greenLead": "CI 통과:",
+        "hidden": "Deca가 더 이상 CI 결과 줄을 표시하지 않습니다",
+        "hide": "CI 결과 줄 표시 안 함"
+      },
+      "creationChatNotOpened": "워크트리는 준비되었지만 채팅을 열지 못했습니다. 메시지와 함께 열려면 다시 시도하세요.",
+      "editDeliveryNotice": "편집",
+      "explicitChatWslAddHost": "Windows에서 연 WSL 폴더에서는 채팅을 사용할 수 없습니다. 그곳에서 채팅하려면 배포판을 WSL 호스트로 추가하거나(프로젝트 추가 → 원격 호스트 추가 → WSL 배포판 추가) 터미널에서 에이전트를 여세요.",
+      "githubPeek": {
+        "comments": "댓글 {{count}}개",
+        "oneComment": "댓글 1개",
+        "retry": "다시 시도",
+        "unavailable": "미리보기를 사용할 수 없습니다.",
+        "updated": "{{time}}에 업데이트됨"
+      },
+      "sideChat": {
+        "argumentHint": "<question>",
+        "description": "이 채팅 옆 포크에서 곁가지 질문하기",
+        "noReply": "첫 응답 후 사용할 수 있습니다.",
+        "notReady": "곁가지 채팅이 아직 준비되지 않았습니다. 잠시 후 다시 시도하세요.",
+        "questionNotSent": "{{agent}}이(가) 질문을 받지 못했습니다",
+        "questionNotSentDetail": "질문은 아직 이 채팅에 있습니다. 다시 시도하려면 /btw를 다시 보내세요.",
+        "questionUnconfirmed": "{{agent}}이(가) 곁가지 채팅이 질문을 받았는지 확인하지 못했습니다",
+        "questionUnconfirmedDetail": "다시 묻기 전에 곁가지 채팅을 확인하세요. 질문은 아직 이 채팅에 있습니다.",
+        "replyRunning": "이 응답이 끝나면 사용할 수 있습니다.",
+        "textOnly": "곁가지 채팅은 텍스트만 받습니다. 첨부 파일을 제거한 후 다시 보내세요."
+      },
+      "usage": {
+        "account": "이 채팅에서 사용하는 계정",
+        "apiKeyAuth": "API 키로는 Codex 사용량을 확인할 수 없습니다. 사용량을 보려면 ChatGPT 계정으로 Codex에 로그인하세요.",
+        "codexVersion": "이 Codex 버전은 사용량을 보고하지 않습니다. Codex를 업데이트하세요.",
+        "confirmReset": "{{account}}의 Codex 사용 한도 재설정 크레딧 1개를 사용해 해당하는 사용량 기간을 즉시 재설정합니다.",
+        "description": "이 채팅의 Codex 계정 사용량 보기",
+        "failed": "Codex 사용량을 불러오지 못했습니다. 다시 시도하세요.",
+        "loading": "Codex 사용량 불러오는 중…",
+        "outcome": {
+          "alreadyRedeemed": "이미 사용한 재설정 크레딧입니다.",
+          "noCredit": "이 계정에 남은 Codex 재설정 크레딧이 없습니다.",
+          "nothingToReset": "지금은 재설정할 항목이 없습니다.",
+          "reset": "Codex 한도가 재설정되었습니다."
+        },
+        "resetFailed": "Codex 한도를 재설정하지 못했습니다. 다시 시도하세요.",
+        "retry": "다시 시도",
+        "sharedAccount": "현재 공유 계정",
+        "title": "Codex 사용량"
+      },
+      "webPeek": {
+        "unavailable": "이 페이지의 미리보기가 없습니다."
+      }
     },
     "tab": {
       "bar": {
@@ -19337,7 +19516,18 @@
           "forceDeleteRisk_one": "현재 워크스페이스 {{count}}개에 위험 요소가 있으며 강제 삭제가 필요할 수 있음",
           "selectionVanishedCount_one": "선택한 워크스페이스 {{count}}개가 더 이상 존재하지 않습니다.",
           "selectionWithheldCount_one": "선택한 워크스페이스 {{count}}개가 현재 필터에 의해 숨겨져 선택 해제되었습니다.",
-          "selectAllSafetyChecked_one": "안전성 검사를 마친 워크스페이스 {{count}}개 모두 선택"
+          "selectAllSafetyChecked_one": "안전성 검사를 마친 워크스페이스 {{count}}개 모두 선택",
+          "copyPath": "경로 복사",
+          "gitNotChecked": "확인되지 않음",
+          "ignoreTooltip": "무시: 일괄 삭제에서 건너뜀",
+          "moreFlags": "플래그 {{value0}}개 더 보기",
+          "pathLabel": "경로",
+          "projectNamed": "프로젝트: {{value0}}",
+          "restoreFailed": "{{value0}} 무시를 해제하지 못했습니다",
+          "stopIgnoring": "무시 해제",
+          "stopIgnoringNamed": "{{value0}} 무시 해제",
+          "workspaceCount_one": "워크스페이스 {{count}}개",
+          "workspaceCount_other": "워크스페이스 {{count}}개"
         },
         "scan": {
           "progress": "워크스페이스 스캔 중({{value0}}/{{value1}})",
@@ -19385,6 +19575,12 @@
             "unpushed": "푸시되지 않음",
             "unknown": "알 수 없음"
           }
+        },
+        "confirm": {
+          "deleteTitle_one": "워크스페이스 {{count}}개를 삭제할까요?",
+          "deleteTitle_other": "워크스페이스 {{count}}개를 삭제할까요?",
+          "deletingTitle_one": "워크스페이스 {{count}}개 삭제 중",
+          "deletingTitle_other": "워크스페이스 {{count}}개 삭제 중"
         }
       },
       "creation": {
@@ -19508,6 +19704,11 @@
           "scrollback": "스크롤백",
           "snap": "스냅",
           "position": "위치"
+        },
+        "claudeCodeThemeSync": {
+          "9353305ea6": "Claude Code를 터미널 테마에 맞추기",
+          "claude": "claude",
+          "description": "이 컴퓨터의 Claude Code가 터미널 색상을 사용하고 Deca 밖에서도 테마 변경을 바로 따릅니다. 끄면 이전 Claude Code 테마로 돌아갑니다. Claude Code에서 테마를 선택하면 동기화가 중지됩니다."
         }
       },
       "nativeChat": {
@@ -19549,7 +19750,16 @@
         "turnDiffsTitle": "턴 변경 사항",
         "turnDiffsCopy": "각 턴에서 변경한 파일을 줄 수와 함께 응답 아래에 표시합니다.",
         "turnDiffsSearchChangedFiles": "변경된 파일",
-        "turnDiffsSearchEdits": "편집"
+        "turnDiffsSearchEdits": "편집",
+        "ciResultLinesCopy": "에이전트가 열었거나 푸시한 PR에서 CI가 끝나면 채팅에 한 줄로 표시합니다.",
+        "ciResultLinesSearchChecks": "체크",
+        "ciResultLinesSearchPr": "PR",
+        "ciResultLinesTitle": "CI 결과 줄",
+        "linkPreviewsCopy": "웹 링크에 마우스를 올리면 미리보기 카드가 표시됩니다. Deca가 카드를 만들기 위해 페이지를 가져오므로 해당 사이트가 요청을 볼 수 있습니다.",
+        "linkPreviewsSearchHover": "호버 카드",
+        "linkPreviewsSearchUnfurl": "펼치기",
+        "linkPreviewsTitle": "링크 미리보기",
+        "linkPreviewsToggleLabel": "링크 미리보기 켜기/끄기"
       },
       "voice": {
         "dictationLanguage": {
@@ -19677,6 +19887,15 @@
       },
       "repositoryHooks": {
         "availableEnvVars": "사용 가능한 환경 변수"
+      },
+      "RepositoryHooksSection": {
+        "folderArchiveDescription": "워크스페이스가 제거되기 전에 실행되는 로컬 및 공유 스크립트입니다.",
+        "folderArchiveFieldDescription": "워크스페이스가 제거되기 전에 실행됩니다.",
+        "folderDescription": "워크스페이스가 만들어지거나 제거될 때 이 폴더에서 실행되는 스크립트입니다. 모든 워크스페이스가 이 폴더를 공유합니다. 로컬 스크립트는 이 컴퓨터에 저장되고 `orca.yaml` 스크립트는 팀과 공유됩니다.",
+        "folderRunPolicyDescription": "새 워크스페이스를 만들 때의 기본 동작입니다.",
+        "folderSetupDescription": "새 워크스페이스를 만든 후 실행되는 로컬 및 공유 스크립트입니다.",
+        "folderSetupFieldDescription": "새 워크스페이스를 만든 후 실행됩니다. 하위 워크트리 만들기, 의존성 설치, env 파일 복사 등에 사용합니다.",
+        "folderTitle": "워크스페이스 훅"
       }
     },
     "agentChildRow": {
@@ -19732,7 +19951,8 @@
         "yamlSource": "orca.yaml",
         "bothSources": "orca.yaml + 로컬",
         "localSource": "로컬 설정"
-      }
+      },
+      "setupCheckFailed": "설정 구성을 확인하지 못했습니다. 다시 시도하세요."
     },
     "JiraIssueWorkspace": {
       "pendingChange": "다른 이슈 변경이 진행 중입니다."
@@ -19834,7 +20054,20 @@
     },
     "tabGroup": {
       "splitPaneLanding": {
-        "newAgent": "새 에이전트"
+        "newAgent": "새 에이전트",
+        "agents": "에이전트",
+        "browser": "브라우저",
+        "chooseAgent": "에이전트 선택",
+        "closePane": "패널 닫기",
+        "files": "파일",
+        "keyboardHint": "↑↓ Enter로 열기 · → 에이전트 · /로 검색",
+        "markdown": "Markdown",
+        "mobileEmulator": "모바일 에뮬레이터",
+        "new": "새로 만들기",
+        "newNamedAgent": "새 {{agent}} 에이전트",
+        "noMatches": "일치하는 항목 없음",
+        "searchPlaceholder": "에이전트, 터미널 또는 파일 열기…",
+        "terminal": "터미널"
       }
     },
     "contextualTours": {
@@ -19842,11 +20075,99 @@
         "splitChatPane": {
           "title": "채팅 옆에 창 열기",
           "action": "창 분할"
+        },
+        "newTab": {
+          "body": "+를 클릭해 에이전트, 터미널 또는 브라우저 탭을 시작하세요.",
+          "title": "새 에이전트는 여기에서 시작됩니다"
+        },
+        "split": {
+          "bodyWithoutShortcut": "분할 옵션을 보려면 패널을 마우스 오른쪽 버튼으로 클릭하세요."
+        },
+        "splitChat": {
+          "body": "{terminal.splitRight}를 누르거나 채팅 상단의 분할 버튼을 클릭하세요. 각 영역에 별도의 탭이 생깁니다.",
+          "bodyWithoutShortcut": "채팅 상단의 분할 버튼을 클릭하세요. 각 영역에 별도의 탭이 생깁니다."
+        }
+      },
+      "badgeNew": "새 기능",
+      "projectsCollapseAll": {
+        "intro": {
+          "action": "확인",
+          "body": "{sidebar.projects.toggleCollapse}를 누르거나, 이 버튼을 클릭하거나, 프로젝트 헤더를 {{modifier}}-클릭하세요.",
+          "bodyWithoutShortcut": "이 버튼을 클릭하거나 프로젝트 헤더를 {{modifier}}-클릭하세요.",
+          "title": "모든 프로젝트를 한 번에 접기"
         }
       }
     },
     "dictation": {
       "stoppedAfterSilenceSeconds": "{{seconds}}초 동안 조용해서 중지했습니다"
+    },
+    "agentNotes": {
+      "activeAgentNeedsPermission": "활성 에이전트에 권한이 필요합니다.",
+      "activeSubmitFailed": "메모가 활성 터미널에 이미 붙여 넣어졌을 수 있지만 Deca가 제출하지 못했습니다.",
+      "activeTerminalUnavailable": "이 워크트리에서 에이전트 터미널을 연 후 메모를 다시 보내세요.",
+      "empty": "보낼 메모가 없습니다.",
+      "notAgentSession": "{{target}} 터미널은 인식된 에이전트 세션이 아닙니다.",
+      "notReady": "{{target}} 에이전트가 아직 입력을 받을 준비가 되지 않았습니다.",
+      "notWritable": "{{target}} 에이전트가 메모를 받지 않았습니다.",
+      "notWritableSelection": "{{target}} 에이전트가 선택 항목을 받지 않았습니다.",
+      "selectedAgentNeedsPermission": "선택한 에이전트에 권한이 필요합니다.",
+      "selectedSubmitFailed": "메모가 선택한 터미널에 이미 붙여 넣어졌을 수 있지만 Deca가 제출하지 못했습니다.",
+      "selectedTerminalUnavailable": "선택한 터미널을 더 이상 사용할 수 없습니다.",
+      "statusUnverified": "{{target}} 에이전트 상태를 확인하지 못했습니다.",
+      "targetActive": "활성",
+      "targetSelected": "선택한"
+    },
+    "orchestrationCrew": {
+      "asksYou": "확인 요청",
+      "cannotLocate": "이 호스트에서 이 에이전트를 찾을 수 없습니다. 다시 시도하세요.",
+      "chatUnavailable": "이 호스트에서 채팅을 열 수 없습니다. 다시 시도하세요.",
+      "collapse": "오케스트레이션 패널 접기",
+      "copiedAddress": "{{name}}의 주소를 복사했습니다",
+      "copyAddress": "주소 복사",
+      "from": "보낸 사람",
+      "latest": "최신",
+      "managedBy": "관리자",
+      "managing": "관리 중",
+      "mentionAgent": "{{name}} 멘션:",
+      "mentionAll": "모두 멘션",
+      "mentionInMessage": "메시지에서 멘션",
+      "mentionRejected": "터미널이 에이전트 참조를 받지 않았습니다. 다시 시도하세요.",
+      "more": "{{name}} 더 보기",
+      "needsYou_one": "{{count}}개가 사용자를 기다림",
+      "needsYou_other": "{{count}}개가 사용자를 기다림",
+      "noTask": "공유된 작업 없음",
+      "open": "{{name}} 열기",
+      "openChat": "채팅 열기",
+      "openFailed": "{{name}}: {{detail}}",
+      "openOnHost": "{{host}}에서 이 에이전트를 여세요.",
+      "sendingUnavailable": "보낼 수 없음",
+      "show": "오케스트레이션 보기: {{counts}}",
+      "showDetails": "{{name}}의 작업과 최신 메시지 보기",
+      "summary": "오케스트레이션: {{counts}}",
+      "talkingWith": "대화 상대",
+      "task": "작업",
+      "terminalExited": "이 터미널은 종료되었습니다.",
+      "title": "오케스트레이션",
+      "to": "받는 사람",
+      "waitingPrefix": "사용자를 기다리는 중 · ",
+      "workers_one": "작업자 {{count}}명",
+      "workers_other": "작업자 {{count}}명"
+    },
+    "toastFallbacks": {
+      "dropPathsTooLarge": "놓은 경로 목록이 너무 큽니다.",
+      "dropTooManyPaths": "놓은 항목에 경로가 너무 많습니다.",
+      "fileCreateFailed": "'{{name}}'을(를) 만들지 못했습니다.",
+      "fileDuplicateFailed": "'{{name}}'을(를) 복제하지 못했습니다.",
+      "fileMoveFailed": "'{{name}}'을(를) 이동하지 못했습니다.",
+      "fileOwnerResolveFailed": "파일 소유자를 확인하지 못했습니다.",
+      "fileRenameFailed": "'{{name}}'의 이름을 바꾸지 못했습니다.",
+      "filesDropFailed": "파일을 놓지 못했습니다.",
+      "filesResolveDroppedFailed": "놓은 파일을 확인하지 못했습니다.",
+      "filesUploadFailed": "파일을 업로드하지 못했습니다.",
+      "markdownCreateFailed": "제목 없는 Markdown 파일을 만들지 못했습니다.",
+      "markdownOpenFailed": "Markdown 파일을 열지 못했습니다.",
+      "missingBaseBranchHelp": "초기 커밋을 만들거나(예: main) 생성 기준에서 기존 브랜치를 선택한 후 다시 시도하세요.",
+      "worktreeCreateFailed": "워크트리를 만들지 못했습니다."
     }
   },
   "dashboardPopout": {
@@ -19883,7 +20204,8 @@
     "terminal": {
       "focusWorktree": "워크트리 열기",
       "close": "닫기",
-      "remotePreviewUnavailable": "이 원격 세션에 대한 미리 보기가 없습니다. 터미널을 보려면 워크스페이스를 엽니다."
+      "remotePreviewUnavailable": "이 원격 세션에 대한 미리 보기가 없습니다. 터미널을 보려면 워크스페이스를 엽니다.",
+      "previewUnavailable": "미리보기를 사용할 수 없습니다. 이 에이전트를 보려면 워크스페이스를 여세요."
     },
     "close": "대시보드 닫기",
     "settingsTooltip": "보드 설정",
@@ -20128,7 +20450,15 @@
     },
     "toolbar": {
       "annotate": "주석 달기",
-      "annotateOptions": "주석 도구 더 보기"
+      "annotateOptions": "주석 도구 더 보기",
+      "clearNotes": "메모 지우기",
+      "copyAllNotes": "모든 메모 복사",
+      "draw": "그리기",
+      "findOnPage": "페이지에서 찾기",
+      "grab": "가져오기",
+      "profile": "프로필",
+      "resetViewport": "뷰포트 크기 재설정",
+      "resetZoom": "확대/축소 재설정"
     }
   },
   "runtimeRpc": {
@@ -20365,6 +20695,10 @@
         "noContent": "내보낼 내용이 없습니다",
         "timedOut": "내보내기 시간이 초과되었습니다"
       }
+    },
+    "diffTooLarge": {
+      "detail": "이 파일의 한 버전이 10 MB를 넘어 Deca가 텍스트 diff로 불러오지 않습니다.",
+      "title": "diff를 표시하기에 파일이 너무 큼"
     }
   },
   "featureTips": {
@@ -20458,7 +20792,13 @@
       "demoCookie": "쿠키",
       "switchedNoteTitle": "새 Agent는 Chat UI에서 열립니다",
       "switchedNoteBody": "터미널을 선호하시나요? 설정에서 <term>Chat UI</term>를 검색하면 언제든 되돌릴 수 있습니다.",
-      "openSettings": "설정 열기"
+      "openSettings": "설정 열기",
+      "changeInSettings": "언제든 <link>설정 → Chat UI</link>에서 바꿀 수 있습니다.",
+      "dismiss": "닫기",
+      "saveFailed": "Chat UI를 켜지 못했습니다. 설정 → Chat UI에서 켜세요.",
+      "switchToTerminal": "터미널로 전환",
+      "switched": "이제 새 에이전트의 기본값이 Chat UI입니다. 언제든 설정 → Chat UI에서 다시 바꿀 수 있습니다.",
+      "terminalSaveFailed": "터미널로 전환하지 못했습니다. 설정 → Chat UI에서 Chat UI를 끄세요."
     }
   },
   "quickOpen": {
@@ -20896,7 +21236,8 @@
   },
   "common": {
     "retry": "다시 시도",
-    "cancel": "취소"
+    "cancel": "취소",
+    "unassigned": "할당 안 됨"
   },
   "fileExplorer": {
     "root": {
@@ -21962,7 +22303,9 @@
       "128cce6e6d": "제목 설정…",
       "e9da9f872a": "리뷰 노트를 에이전트에 보내기",
       "1524825c2c": "워크스페이스 보드 전환",
-      "d286d1ab85": "창 제목 지우기"
+      "d286d1ab85": "창 제목 지우기",
+      "5468defe61": "모든 프로젝트 접기/펼치기",
+      "tabNewBrowserSplitRight": "오른쪽 분할에 새 브라우저 탭"
     },
     "group": {
       "global": "글로벌",
@@ -22168,7 +22511,11 @@
       "importWarpFolder": "Warp 테마 폴더 가져오기",
       "images": "이미지",
       "repoIconImages": "저장소 아이콘 이미지",
-      "audio": "오디오"
+      "audio": "오디오",
+      "appIconImage": "앱 아이콘 이미지",
+      "importGhosttyConfig": "Ghostty 설정 가져오기",
+      "importKittyConfig": "Kitty 설정 가져오기",
+      "pickAppIcon": "앱 아이콘 선택"
     }
   },
   "taskProviders": {
@@ -22293,7 +22640,11 @@
     "viewed": {
       "markFile": "{{path}}을(를) 본 것으로 표시",
       "unmarkFile": "{{path}}을(를) 본 것으로 표시 해제"
-    }
+    },
+    "imageUploadError": "GitHub가 이 이미지를 업로드하지 못했습니다.",
+    "imageUploadFailed": "이미지를 첨부하지 못했습니다: {{message}}",
+    "pasteImageFile": "GitHub에 첨부하려면 이미지를 파일로 붙여 넣으세요.",
+    "waitForImageUploads": "이미지 업로드가 끝날 때까지 기다린 후 PR 만들기를 다시 시도하세요."
   },
   "agentPicker": {
     "catalogUnsupported": "이 호스트에서는 {{agent}} 모델을 사용할 수 없습니다. 현재 선택을 유지하거나 인수를 사용할 수 있습니다.",
@@ -22817,7 +23168,13 @@
       "sshTargetRemoveFailed": "숨겨진 SSH 대상을 제거할 수 없습니다.",
       "recipeExitedWithoutCode": "레시피가 알 수 없는 코드로 종료되었습니다.",
       "destroyExitedWithoutCode": "삭제 작업이 알 수 없는 코드로 종료되었습니다.",
-      "recipeVmsUnavailable": "Deca에서는 Recipe VM을 사용할 수 없습니다."
+      "recipeVmsUnavailable": "Deca에서는 Recipe VM을 사용할 수 없습니다.",
+      "provisionInterrupted": "이 VM을 만드는 동안 Deca가 중지되었습니다. 공급자 리소스를 해제하려면 VM을 삭제하세요.",
+      "recipeTimedOut": "레시피 {{mode}} 단계가 {{timeout}} 안에 끝나지 않아 Deca가 중지했습니다. 레시피 출력을 확인하거나, 더 오래 걸린다면 orca.yaml의 timeoutSeconds를 늘리세요.",
+      "resumeExited": "재개가 코드 {{exitCode}}(으)로 종료되었습니다.",
+      "resumeExitedWithoutCode": "재개가 알 수 없는 코드로 종료되었습니다.",
+      "suspendExited": "일시 중지가 코드 {{exitCode}}(으)로 종료되었습니다.",
+      "suspendExitedWithoutCode": "일시 중지가 알 수 없는 코드로 종료되었습니다."
     }
   },
   "installDirAcl": {
@@ -22984,6 +23341,15 @@
       "deleteFailed": "{{model}}을(를) 삭제하지 못했습니다.",
       "dismiss": "닫기",
       "cancelDownload": "다운로드 취소"
+    }
+  },
+  "checks": {
+    "gitlabAllowedFailure": "실패 허용",
+    "rerunUnsuccessful": "실패한 항목 다시 실행"
+  },
+  "nestedImport": {
+    "error": {
+      "importFailed": "리포지토리를 가져오지 못했습니다"
     }
   }
 }

@@ -37,9 +37,7 @@ describe('Phase 1 launch plugin content', () => {
     const marketplace = pluginMarketplaceSchema.parse(
       await readJson(join(launchRoot, 'orca-marketplace.json'))
     )
-    expect(marketplace.plugins.map((plugin) => plugin.id).sort()).toEqual([
-      'stablyai.orca-multipass-recipes'
-    ])
+    expect(marketplace.plugins).toEqual([])
     expect(
       marketplace.plugins.filter(
         (plugin) =>
@@ -72,14 +70,14 @@ describe('Phase 1 launch plugin content', () => {
         continue
       }
       const contributes = inspection.manifest.contributes
-      if (contributes.vmRecipes.length > 0) {
-        contributionKinds.add('vm-recipe')
+      if (contributes.iconThemes.length > 0) {
+        contributionKinds.add('icon-theme')
       }
       if (contributes.themes.length > 0) {
         contributionKinds.add('theme')
       }
     }
-    expect(contributionKinds).toEqual(new Set(['vm-recipe', 'theme']))
+    expect(contributionKinds).toEqual(new Set(['icon-theme', 'theme']))
   })
 
   it('boots release-indexed content from the packaged resources layout', async () => {

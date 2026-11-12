@@ -10,6 +10,11 @@
       "pluginKey": "stablyai.orca-vscode-default-themes",
       "path": "stablyai.orca-vscode-default-themes",
       "contentHash": "ce11b29f4c21bedeaa3613e7ce9c4a6863f800e6945754ad1e36d04e24991139"
+    },
+    {
+      "pluginKey": "stablyai.orca-material-icons",
+      "path": "stablyai.orca-material-icons",
+      "contentHash": "c9593b0de1f4f1e7bfc5850d3f521b4fe10ff02057ae109a6572d1722a1f2890"
     }
   ]
 }

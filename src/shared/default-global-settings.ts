@@ -50,7 +50,8 @@ export function buildDefaultSettings(args: {
     pluginAppThemeDark: null,
     editorThemeLight: null,
     editorThemeDark: null,
-    pluginIconTheme: null,
+    // Bundled Material Icon Theme; Settings → Appearance can switch it off.
+    pluginIconTheme: 'plugin:stablyai.orca-material-icons/material',
     leftSidebarAppearanceMode: 'default',
     leftSidebarTintColor: DEFAULT_LEFT_SIDEBAR_TINT_COLOR,
     leftSidebarTintOpacity: DEFAULT_LEFT_SIDEBAR_TINT_OPACITY,

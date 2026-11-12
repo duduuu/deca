@@ -70,7 +70,16 @@ git diff main...HEAD --name-only --diff-filter=A
 git grep -niE "onorca\.dev|posthog|bigmodel|minimax|deepseek|qwen|kimi" -- src config ':!src/renderer/src/i18n/locales'
 ```
 
-## 4. 검증
+## 4. 내장 플러그인 갱신
+
+Deca는 플러그인 마켓을 쓰지 않으므로 Material Icon Theme(`resources/plugins/launch/stablyai.orca-material-icons`)는 저장소에 들어 있는 고정 버전이다. 갱신하려면:
+
+1. [stablyai/orca-plugins](https://github.com/stablyai/orca-plugins)의 `plugins/material-icons`를 특정 커밋 기준으로 받아 폴더를 교체한다(현재: `a501d84`, 1.1.0). 데이터 전용(`"execution": "data"`)인지 확인한다.
+2. `orca-plugin.json`의 `engines.orca`가 Deca `package.json` 버전보다 높으면 Deca 버전으로 낮춘다. Deca는 upstream 릴리스 버전 번호를 찍지 않아 버전 숫자가 실제 코드보다 낮다.
+3. `resources/plugins/launch/bundled-plugins.json`의 `contentHash`를 `src/main/plugins/plugin-content-hash.ts`의 `hashPluginTree`와 같은 방식으로 다시 계산해 넣는다. 파일 줄바꿈은 LF(`.gitattributes`)여야 한다.
+4. `pnpm test src/main/plugins/plugin-launch-content.test.ts config/scripts/desktop-distribution/runtime-verification/verify-packaged-plugin-resources.test.mjs`로 확인한다.
+
+## 5. 검증
 
 ```sh
 pnpm tc
@@ -90,7 +99,7 @@ Windows 테스트 메모:
 
 앱 동작 확인은 `ORCA_BACKGROUND_LAUNCH=1`로 백그라운드 실행 후 CDP 화면 캡처로 한다(AGENTS.md의 Electron UI Validation).
 
-## 5. 마무리
+## 6. 마무리
 
 1. `docs/deca/removed-features.md`에 변경된 내용이 있으면 갱신한다.
 2. 커밋 메시지에 반영한 upstream 범위를 남긴다(예: `merge: upstream stablyai/orca@<sha>`).

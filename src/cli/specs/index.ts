@@ -9,7 +9,6 @@ import { FILE_COMMAND_SPECS } from './file'
 import { PROJECT_COMMAND_SPECS } from './project'
 import { ORCHESTRATION_COMMAND_SPECS } from './orchestration'
 import { withFullRecordFlag } from './orchestration-full-record-flag'
-import { COMPUTER_COMMAND_SPECS } from './computer'
 import { ENVIRONMENT_COMMAND_SPECS } from './environment'
 import { MANAGED_SERVER_COMMAND_SPECS } from './managed-server'
 import { AGENT_HOOK_COMMAND_SPECS } from './agent-hooks'
@@ -43,7 +42,6 @@ export const COMMAND_SPECS: CommandSpec[] = [
   ...BROWSER_BASIC_COMMAND_SPECS,
   ...BROWSER_ADVANCED_COMMAND_SPECS,
   ...ORCHESTRATION_COMMAND_SPECS.map(withFullRecordFlag),
-  ...COMPUTER_COMMAND_SPECS,
   ...AGENT_HOOK_COMMAND_SPECS,
   ...AGENT_LAUNCH_COMMAND_SPECS,
   ...CHAT_COMMAND_SPECS,

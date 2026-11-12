@@ -71,7 +71,7 @@ export const FLAG_HELP_TEXT: Record<string, string> = {
   ref: '--ref <ref>            Base ref to persist for the repo',
   repo: '--repo <selector>      Repo selector such as id:<id>, name:<name>, or path:<path>',
   'restore-window': '--restore-window     Bring the target app/window forward before the operation',
-  session: '--session <id>        Snapshot namespace for a related computer-use workflow',
+  session: '--session <id>        Session id for commands that accept one',
   setup: '--setup run|skip|inherit Setup policy for repo-defined setup hooks',
   surface:
     '--surface chat|terminal Start the agent as a chat or in a terminal, instead of your setting',

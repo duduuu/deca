@@ -1,5 +1,4 @@
 import { resolve as resolvePath } from 'node:path'
-import type { ComputerAppQuery } from '../shared/runtime-types'
 import { resolveFolderWorkspaceSelector } from './folder-workspace-selector'
 import { resolveCallerDistroPathSelector } from './wsl-caller-path-selector'
 import type { RuntimeClient } from './runtime-client'
@@ -19,12 +18,6 @@ import {
   type WorkspaceSelectionPurpose,
   type HostScopedWorktreeSelection
 } from './caller-host-worktree-selection'
-
-export type ComputerCliTarget = {
-  session?: string
-  worktree?: string
-  app: ComputerAppQuery
-}
 
 export function buildCurrentWorktreeSelector(cwd: string): string {
   return `path:${resolvePath(cwd)}`
@@ -195,29 +188,6 @@ export async function getTerminalHandle(
     ...(options.requireUnambiguous ? { requireUnambiguous: true } : {})
   })
   return response.result.handle
-}
-
-export async function getComputerCommandTarget(
-  flags: Map<string, string | boolean>,
-  cwd: string,
-  client: RuntimeClient
-): Promise<ComputerCliTarget> {
-  const app = getRequiredStringFlag(flags, 'app')
-  const session = getOptionalStringFlag(flags, 'session')
-  const worktree = getOptionalStringFlag(flags, 'worktree')
-  if (session && worktree) {
-    throw new RuntimeClientError(
-      'invalid_argument',
-      'Computer-use targeting accepts either --session or --worktree, not both'
-    )
-  }
-  if (session) {
-    return { session, app }
-  }
-  return {
-    app,
-    worktree: await getBrowserWorktreeSelector(flags, cwd, client)
-  }
 }
 
 export type EmulatorCliTarget = {

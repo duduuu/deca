@@ -7,7 +7,6 @@ import { translate } from '@/i18n/i18n'
 import { searchKeywords, translateSearchKeyword } from '../search/settings-search-keywords'
 import { createLocalizedCatalog } from '@/i18n/localized-catalog'
 import { getGeneralProjectRuntimeSearchEntries } from './project-runtime/general-project-runtime-search'
-import { getGeneralSupportSearchEntries } from './general-support-search'
 
 export const getGeneralWorkspaceSearchDescriptors = createLocalizedCatalog(() => [
   generalSetting(GENERAL_SETTING_ANCHORS.folder, {
@@ -208,8 +207,7 @@ export function getGeneralPaneSearchEntries(
     ...(options.includeProjectRuntime === false ? [] : getGeneralProjectRuntimeSearchEntries()),
     ...getGeneralEditorSearchEntries(),
     ...getGeneralCliSearchEntries(),
-    ...getGeneralUpdateSearchEntries(),
-    ...getGeneralSupportSearchEntries()
+    ...getGeneralUpdateSearchEntries()
   ]
 }
 
@@ -225,8 +223,7 @@ export const getGeneralDestinationSearchEntries = createLocalizedCatalog(() => [
     title: translate('settings.general.about.title', 'About'),
     keywords: [
       ...translateSearchKeyword('settings.general.search.keywords.update', 'update'),
-      ...translateSearchKeyword('settings.general.search.keywords.version', 'version'),
-      ...translateSearchKeyword('settings.general.search.keywords.star', 'star')
+      ...translateSearchKeyword('settings.general.search.keywords.version', 'version')
     ]
   }
 ])

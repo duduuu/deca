@@ -689,10 +689,6 @@
           "9abb9be3bc": "Set Up",
           "e1578cd4bc": "Workflows"
         },
-        "SshPane": {
-          "syncedServerPlural": "Synced {{count}} servers",
-          "syncedServerSingular": "Synced {{count}} server"
-        },
         "WarpThemeImportModal": {
           "found_theme": "Found {{value0}} themes",
           "found_theme_one": "Found {{value0}} theme",

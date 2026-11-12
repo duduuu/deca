@@ -563,7 +563,6 @@
         "retainedTerminalPermissions": "If new terminals still use the previous permissions, open Manage Sessions and choose Restart daemon. This closes local terminals and their running commands.",
         "administratorRestartFailed": "Deca could not restart. Try again or use the manual instructions.",
         "manualAdministratorHelp": "Manual instructions",
-        "administratorDocumentation": "Read the guide",
         "cancelAdministratorRestart": "Cancel",
         "closeAdministratorHelp": "Close",
         "restartingAdministrator": "Restarting…",
@@ -1269,7 +1268,6 @@
     "showStatusBar": "Show Status Bar",
     "showTasksButton": "Show Tasks Button",
     "showAutomationsButton": "Show Automations Button",
-    "showMobileButton": "Show Deca Mobile Button",
     "showTitlebarAppName": "Show Titlebar App Name",
     "view": "View",
     "reload": "Reload",
@@ -2268,9 +2266,6 @@
         "a8d2bf8e9e": "No active browser tab to close",
         "f000b2ff76": "No active worktree",
         "7a64b31991": "Local terminal creation is unavailable while a remote runtime is active",
-        "ef223fbb6b": "A device tried to connect but is not paired",
-        "11992d0337": "If this was your phone or another Deca client, re-pair it from Settings → Mobile.",
-        "6573cfe955": "Open Mobile Settings",
         "unresolvedTerminalWorktreeOwner": "Terminal creation is unavailable because the worktree owner could not be resolved"
       },
       "useSettingsNavigationMetadata": {
@@ -3711,7 +3706,6 @@
           "ProjectViewWrapper": {
             "463f1205c0": "Loading project view",
             "23b87ba9f7": "Open in GitHub",
-            "4d2a77a119": "File feature request",
             "55de4fb57a": "{{value0}}. {{value1}}",
             "2edf5e7e77": "{{value0}} — Deca doesn't support {{value1}} project views yet.",
             "7245c3d7ac": "Clear search",
@@ -4285,8 +4279,6 @@
             "retrying": "Retrying…",
             "retryUnavailable": "Retry could not reconnect yet. Try again shortly.",
             "openNewTerminal": "Open new terminal",
-            "a7e2fd2699": "file an issue",
-            "5c8ce20be6": "If this persists, please",
             "cc6d997c65": "Restart the terminal daemon from here to clear stale daemon state.",
             "ownerUnknown": "Deca couldn't verify this terminal's owner.",
             "42b283ecfc": "Deca couldn't safely reconnect this terminal because the host couldn't verify its saved session. Deca left the saved session unchanged. Click Retry to try reconnecting now. If it still cannot reconnect, open a new terminal.",
@@ -6280,8 +6272,6 @@
         "SidebarNav": {
           "80611a8b10": "Search",
           "0c3395fd32": "Search worktrees and browser tabs",
-          "c86d83b5c3": "New",
-          "1b5c41caee": "Deca Mobile",
           "f323383e9a": "Automations",
           "e7ad3c540d": "Open Jira tasks",
           "c39ab10000": "Open Linear tasks",
@@ -7612,7 +7602,6 @@
         "AppearancePane": {
           "b707773a0d": "When enabled, closing the window keeps Deca running in the system tray instead of quitting.",
           "0cd9b8228f": "Choose the app icon shown in the Dock and window switcher.",
-          "61d842eca0": "Show the Deca Mobile shortcut in the sidebar. It remains available from Toolbox.",
           "dc29f3cc0d": "Sidebar",
           "ef89200c1f": "when not in a terminal pane.",
           "fd89b5487c": "Light",
@@ -7648,7 +7637,6 @@
           "3a5d06686d": "Status bar",
           "7be0027489": "Show automations button",
           "8063dd3b6b": "Titlebar app name",
-          "d2b4ddbea0": "Show Deca Mobile button",
           "657a7230a2": "IDE font",
           "95a5581f66": "Minimize to tray on close",
           "e90c5d745a": "Window & sidebar"
@@ -8241,51 +8229,6 @@
           "b1e5af97e9": "Enable mobile emulator",
           "fd698d2d47": "Agent mobile emulator control"
         },
-        "MobileNetworkInterfaceSection": {
-          "b2c384cfd6": "No interfaces found"
-        },
-        "MobilePane": {
-          "dd3cd78d04": "Scan with Deca Mobile",
-          "ee56f1c7e4": "When you leave the mobile app",
-          "3939fd062c": "Revoking a device disconnects it immediately.",
-          "254a6d09e4": "Paired",
-          "e778ecb209": "Or paste this code in the mobile app:",
-          "310924ad2c": "Scan this code with the Deca mobile app. Each code creates a unique device token.",
-          "870e1b5ca5": "Failed to revoke device",
-          "2e3dd0bc29": "Device revoked",
-          "711231348f": "Failed to copy pairing code",
-          "e3c427e020": "Failed to generate QR code",
-          "cb9067c1c1": "WebSocket transport is not running",
-          "d714614dbf": "Failed to refresh network interfaces",
-          "ff865419dc": "After 30 minutes",
-          "d4ba07d914": "After 5 minutes",
-          "c474aa09d8": "After 1 minute",
-          "aa1263e881": "Keep at phone size (default)",
-          "6436e56546": "QR Code for mobile pairing",
-          "1b1b70279a": "No devices paired yet.",
-          "1592afcc7a": "No devices paired yet. Scan the QR code with the Deca mobile app.",
-          "pairingQrError": "This pairing code couldn’t be rendered as a QR code. Copy it into Deca Mobile instead.",
-          "pairingCodeReady": "Pairing code ready",
-          "copyPairingCode": "Copy pairing code",
-          "diagnosticsCopied": "Diagnostics copied",
-          "diagnosticsCopyFailed": "Failed to copy diagnostics",
-          "5e2c7a1f84": "While you're using a terminal on your phone, Deca shrinks it to fit your phone screen. When you close the app or switch away, this controls whether it stays at phone size (so interactive CLI tools don't reflow) or resizes back to your desktop. You can always use Restore or Restore all on the banner to resize manually.",
-          "codeRefreshesAutomatically": "Code refreshes automatically. A copied code works for up to 10 minutes.",
-          "legacyEncryption": "Uses older encryption. Update the Deca app on this device.",
-          "olderPairingMethod": "Uses an older pairing method. Update the Deca app on this phone.",
-          "5f539ff331": "Paired devices"
-        },
-        "MobileSettingsPane": {
-          "b5a2ed83ff": "App Store",
-          "installIntro": "Install Deca Mobile from the",
-          "installOutro": ", then pair below.",
-          "androidApkLabel": "Android APK",
-          "e7a3ae8c4e": "Mobile",
-          "174f4a3c6d": "Control terminals and agents from your phone.",
-          "682293cadf": "Show the Deca Mobile button at the top of the left sidebar.",
-          "d4f2b65f30": "Show the Deca Mobile shortcut in the sidebar.",
-          "49089c92b3": "Show Deca Mobile button"
-        },
         "NotificationsPane": {
           "2772d2f257": "Skip notifications when the triggering worktree is already visible.",
           "2a42dd8d6f": "Notification sound volume",
@@ -8641,20 +8584,6 @@
         "RepositorySourceControlAiSection": {
           "112f3b934f": "Source control AI"
         },
-        "RuntimeAccessGrantList": {
-          "sshAccessCaveat": "Revoking here doesn't stop someone with SSH access to this computer from pairing again. To cut them off, remove their SSH access.",
-          "6f6d5188ed": "Revoke {{value0}}",
-          "434e4a6af6": "Current link",
-          "df142657a5": "Not used yet",
-          "olderPairingMethod": "Uses an older pairing method. Update Deca on the device that uses this link.",
-          "b18d1764ef": "Last used {{value0}}",
-          "linkName": "Link · {{value0}}",
-          "activeLinks": "Active links",
-          "noActiveLinks": "No active links.",
-          "createdAt": "Created {{value0}}",
-          "revoke": "Revoke",
-          "legacyEncryption": "Last used with older encryption. Update Deca where this link is used."
-        },
         "RuntimeEnvironmentsPane": {
           "af53761f31": "Cancel",
           "d2e00809e4": "Switch",
@@ -8694,7 +8623,6 @@
           "connect": "Connect",
           "runtimeReachable": "{{value0}} is reachable.",
           "updateServer": "Update",
-          "updatingServers": "Updating servers…",
           "sshTunnelRequired": "SSH tunnel required",
           "accessRevoked": "{{value0}} no longer accepts this computer. Re-pair it with a new access link.",
           "managedAccessRevoked": "{{value0}} no longer accepts this computer, and Deca couldn't pair with it again over SSH. Connect to try again.",
@@ -8708,57 +8636,6 @@
           "serverReplaced": "{{value0}} is not the Deca server this computer paired with: Deca connects to the host as a different SSH user, or its server was reinstalled. Open the ⋯ menu here and choose Forget…, then connect the SSH host to pair with its current server.",
           "6f303a89a3": "Switch server",
           "4ae8a4a381": "Remove server"
-        },
-        "RuntimePairingGeneratedUrlRows": {
-          "0495f68959": "Copy {{value0}}"
-        },
-        "RuntimePairingUrlGenerator": {
-          "f7cafdc9f3": "Browser link unavailable in this build. The pairing URL still works for Deca clients.",
-          "1ca2e5194d": "Use this URL from a browser that can reach the selected address.",
-          "45cf476df3": "host, host:port, or wss://host/path",
-          "4531ea3158": "Custom address",
-          "360c548cf3": "Refresh connection addresses",
-          "de77eb1b65": "Connection address",
-          "ff80904fc4": "Create a revocable access grant for browser or desktop clients.",
-          "f8500e134a": "Share this Deca server",
-          "d6c081adf4": "Failed to copy URL.",
-          "df0aa45a86": "Copied pairing URL.",
-          "13704d635e": "Copied web client URL.",
-          "e8d83f2b0f": "Failed to revoke shared access.",
-          "9f8e037c4a": "Shared access revoked.",
-          "d797f516b1": "Shared access was already revoked.",
-          "2ed55c841a": "Failed to generate pairing URL.",
-          "11d5248e62": "Generated pairing URL.",
-          "6dd594a507": "Generated web client URL.",
-          "2752126f3e": "Runtime pairing is unavailable.",
-          "95b8be4cea": "Failed to refresh network interfaces.",
-          "1b4e0bbcc5": "Failed to load shared access grants.",
-          "custom-option": "{{address}} (custom)",
-          "add-custom": "Use custom address…",
-          "custom-title": "Custom connection address",
-          "custom-description": "Advertise an address another device can reach — a LAN or Tailscale host, or a full ws(s):// URL.",
-          "custom-hint": "Enter a host, host:port, or a ws(s):// URL.",
-          "custom-cancel": "Cancel",
-          "custom-use": "Use address",
-          "anotherDevice": "Another device",
-          "anotherDeviceHelp": "Tailscale, LAN, or another reachable address",
-          "localOnlyHelp": "A browser or Deca client on this computer",
-          "customAddress": "Custom address",
-          "customAddressHelp": "SSH tunnel, reverse proxy, or custom hostname",
-          "localLink": "Local-only link",
-          "localLinkHelp": "This link only works in a browser or Deca client running on this computer.",
-          "noExternalAddress": "No address for another device was found. Connect this computer to a LAN or Tailscale, refresh, or choose Custom address.",
-          "customInvalid": "Enter a valid host, host:port, IPv6 address, or ws(s):// URL.",
-          "thisComputer": "This computer",
-          "whoOpens": "Who will open the link",
-          "addressLabel": "Address",
-          "createLink": "Create link",
-          "browserLinkLabel": "Browser link",
-          "accessLinkLabel": "Access link",
-          "accessLinkHelp": "Paste this into Add server on the other Deca.",
-          "staleAddressCreate": "The connection address changed. Create a new link for {{address}}.",
-          "linkExpired": "Link expired",
-          "unusedLinkExpires": "Unused link expires at {{time}}"
         },
         "Settings": {
           "3bf149e873": "Project Settings > {{value0}}",
@@ -8931,49 +8808,10 @@
           "683e781027": "New preset"
         },
         "SshDestructiveActionDialog": {
-          "895b216267": "Cancel",
-          "moreTargets": "+{{count}} more"
+          "895b216267": "Cancel"
         },
         "SshPane": {
-          "c0f1c80166": "No SSH targets configured.",
-          "f495689b82": "Import failed",
-          "68c13b4589": "Test failed",
-          "81d08bcddf": "Connection successful",
-          "a43de1d3ee": "Disconnect failed",
-          "e95d5ae10e": "Connection failed",
-          "c2a69510e3": "Failed to remove target",
-          "a0237eb1ca": "Target removed",
-          "2227ce47b6": "Failed to save target",
-          "f602009125": "Target added",
-          "b4ba0ce33d": "Target updated",
-          "4db9afce1c": "Port must be between 1 and 65535",
-          "0e5aa04161": "Host or SSH config alias is required",
-          "f1fc50dad2": "Failed to load SSH targets",
-          "0cda732f43": "Connection test failed",
-          "syncedServerSingular": "Synced {{count}} server",
-          "syncedServerPlural": "Synced {{count}} servers",
-          "noFilterMatch": "No hosts match.",
-          "addHost": "Add host",
-          "alreadyInSync": "~/.ssh/config already in sync"
-        },
-        "SshPassphraseDialog": {
-          "d5a234456f": "Cancel",
-          "c3ce71aad6": "Enter passphrase",
-          "abaa0dc653": "Enter password",
-          "ce4fdf7914": "Enter the passphrase for",
-          "dbf9b6f2d0": "Enter the password for",
-          "c55f105262": "Failed to cancel SSH credential request",
-          "b8e88fd0de": "Failed to submit SSH credential",
-          "405066423c": "Unlock",
-          "bec2c1318f": "Connect",
-          "8a349e3fac": "Passphrase for {{value0}}",
-          "cab3d5f5a5": "Password for {{value0}}",
-          "1f3dde805d": "SSH Key Passphrase",
-          "106bd57f4a": "SSH Password",
-          "a21f9e74c0": "SSH Verification",
-          "981352fb42": "Complete the verification challenge for",
-          "456516603b": "Enter response",
-          "c624f64b86": "Continue"
+          "e95d5ae10e": "Connection failed"
         },
         "SshTargetCard": {
           "ec6543cee9": "Connect",
@@ -8990,34 +8828,15 @@
           "remove": "Remove…"
         },
         "SshTargetDestructiveActions": {
-          "3bb0cf0ee4": "This will remove the target and end any active remote terminals.",
-          "bulkTitleSingular": "Remove {{count}} SSH host?",
-          "bulkTitlePlural": "Remove {{count}} SSH hosts?",
-          "bulkDescription": "Removed hosts disappear from host pickers in workspaces, automations and the sidebar. Your ~/.ssh/config is not changed, and later syncs won’t bring them back.",
-          "bulkAction": "Remove {{count}}",
-          "bulkProgress": "Removing {{done}} of {{count}}…",
-          "bulkConnectedSingular": "{{count}} host is connected. Its remote terminals will be closed.",
-          "bulkConnectedPlural": "{{count}} hosts are connected. Their remote terminals will be closed.",
-          "remove": "Remove",
-          "removing": "Removing",
           "916f480036": "Remove SSH target"
         },
         "SshTargetForm": {
-          "fea9cb402e": "Cancel",
           "feae1d1e69": "Optional. Equivalent to ProxyJump / ssh -J.",
           "11bcb4507a": "bastion.example.com",
           "b2ab248ded": "Jump Host",
           "3b01ca44a0": "Optional. Used for tunneling (e.g. Cloudflare Access, ProxyCommand).",
           "f42d844544": "e.g. cloudflared access ssh --hostname %h",
           "c7d0e18ecb": "Proxy Command",
-          "cb91f6375c": "Optional. SSH agent is used by default.",
-          "d6a5f2ee5c": "~/.ssh/id_ed25519 (leave empty for SSH agent)",
-          "c94cfa634c": "Port",
-          "47e082bc17": "deploy",
-          "dc1dc52aaa": "Username",
-          "2ee9bcd2e8": "server, deploy@server:2222, ssh://server",
-          "ce370ce674": "Host or alias *",
-          "298de87a88": "Label",
           "8c922dffba": "Reuse SSH connection for faster setup",
           "53e9aabfc0": "Uses OpenSSH multiplexing when available. Turn off for hosts with custom SSH restrictions.",
           "proxyConnectionReuse": "Reuse one proxy connection",
@@ -9025,16 +8844,7 @@
           "reconnectOnLaunch": "Reconnect on launch",
           "reconnectOnLaunchHelp": "When off, Deca leaves this host, and any Deca server reached through it, disconnected at launch until you connect it.",
           "allowRemoteCliControl": "Allow this host to control Deca browser tabs in its workspaces",
-          "allowRemoteCliControlHelp": "On by default for new hosts. Agents and orca commands on this host can open, read and use Deca browser tabs on this desktop, only in this host's workspaces and only while it is connected. Tabs it controls show its name. Terminals started on this host by an older Deca also need this on to run deca orchestration commands. It cannot read your files, clipboard or cookies.",
-          "editTitle": "Edit SSH host",
-          "addTitle": "Add SSH host",
-          "editDescription": "Update connection details for this machine. Changes apply on next connect.",
-          "addDescription": "Add a persistent machine you can log into over SSH.",
-          "editingPrefix": "Editing",
-          "addHost": "Add host",
-          "bc9854a353": "My server",
-          "8349b7b4fa": "Identity file",
-          "92ea40234c": "Save changes"
+          "allowRemoteCliControlHelp": "On by default for new hosts. Agents and orca commands on this host can open, read and use Deca browser tabs on this desktop, only in this host's workspaces and only while it is connected. Tabs it controls show its name. Terminals started on this host by an older Deca also need this on to run deca orchestration commands. It cannot read your files, clipboard or cookies."
         },
         "TasksPane": {
           "6b23a34f6d": "Jira",
@@ -9535,14 +9345,10 @@
             "1f2880a9d5": "orca",
             "2cfb3420c0": "app icon",
             "e80c2af428": "Choose the app icon shown in the Dock and window switcher.",
-            "839fb1e3ed": "toolbox",
             "ac79fe4a04": "show",
             "648eeada79": "hide",
             "6cf5f54ce1": "button",
             "5bff6a2ef0": "sidebar",
-            "5e5b8878bf": "phone",
-            "74618577c7": "mobile",
-            "682293cadf": "Show the Deca Mobile button at the top of the left sidebar.",
             "4c920ab2d1": "schedule",
             "58f4e22fa2": "automation",
             "b186f3cefb": "automations",
@@ -9680,7 +9486,6 @@
             },
             "37e6b58b0e": "UI zoom",
             "931c53cd16": "Claude usage",
-            "1b404ee6ad": "Show Deca Mobile button",
             "d408ece868": "Minimize to tray on close",
             "585be839e9": "Gemini usage",
             "20e7d30150": "OpenCode Go usage",
@@ -10329,75 +10134,6 @@
               "0d6e7dba38": "Agent CLI control",
               "f8468700d1": "Mobile emulator"
             }
-          },
-          "pane": {
-            "search": {
-              "dbccde3a60": "close",
-              "9e16be01d6": "background",
-              "3a5e31e84b": "leave",
-              "8015fd9523": "hold",
-              "aa3f736042": "resize",
-              "356c31d6dc": "width",
-              "fadcbfdd99": "fit",
-              "ad08035c5f": "phone",
-              "6cd2bfdb0e": "restore",
-              "b34ad5b3a7": "terminal",
-              "6db86f445f": "mobile",
-              "707fc78052": "Choose what happens to terminals you were viewing on mobile after you close the app or switch away.",
-              "1e711aca11": "When you leave the mobile app",
-              "126afc5dbd": "remote",
-              "70f505f3c3": "lan",
-              "1802188b5d": "wifi",
-              "dd6e671aa9": "address",
-              "1f70d63998": "ip",
-              "d0c89bc4a9": "overlay",
-              "87711f4b8f": "vpn",
-              "16bff559a0": "tailnet",
-              "c690e3ee38": "tailscale",
-              "a023683767": "interface",
-              "7b37c2e557": "network",
-              "3190ef67a4": "Choose which network address to use for mobile pairing.",
-              "7d01f93ec0": "connected",
-              "5e8fda4d7f": "paired",
-              "905c65a308": "revoke",
-              "82783d9b71": "devices",
-              "13419718b3": "Manage paired mobile devices.",
-              "2128a21096": "scan",
-              "e518cbd61c": "pair",
-              "4a0c826f3d": "code",
-              "3c1807a81a": "qr",
-              "7fb728fb2b": "Pair a mobile device by scanning a QR code.",
-              "cb018bcc07": "Connected devices",
-              "1dcb1d1a11": "Mobile pairing",
-              "a068d70f7b": "Network interface"
-            }
-          },
-          "settings": {
-            "search": {
-              "b730ff7049": "app",
-              "8d4ba0ef09": "beta",
-              "6bfa001752": "apk",
-              "a7eececc1d": "android",
-              "7e801801ac": "remote",
-              "0b7e585cb9": "scan",
-              "59b1d75fd1": "code",
-              "87816d1c59": "qr",
-              "cf2c93b479": "pair",
-              "f4ed142753": "phone",
-              "f213400800": "mobile",
-              "671eb4173c": "Control terminals and agents from your phone.",
-              "ffd52a96e4": "Mobile",
-              "682293cadf": "Show the Deca Mobile button at the top of the left sidebar.",
-              "e4f4daea0e": "relay",
-              "5d5af8e041": "iphone",
-              "74618577c7": "mobile",
-              "5e5b8878bf": "phone",
-              "5bff6a2ef0": "sidebar",
-              "6cf5f54ce1": "button",
-              "648eeada79": "hide",
-              "ac79fe4a04": "show",
-              "b305668a18": "Show Deca Mobile button"
-            }
           }
         },
         "notifications": {
@@ -10677,8 +10413,6 @@
               "newProjectsKeyword": "new projects",
               "activeServerKeyword": "active server",
               "addShareDefault": "Add a WSL host or choose where new projects open.",
-              "shareComputerKeyword": "share this computer",
-              "accessLinkKeyword": "access link",
               "installKeyword": "install server",
               "24cc0a2244": "WSL hosts"
             }
@@ -10698,31 +10432,6 @@
             "0ecba9aa5f": "keyboard",
             "ebd7d81e1d": "Choose whether Deca or the focused terminal wins when shortcuts overlap.",
             "d6b5c7dd6d": "Shortcuts in terminal"
-          }
-        },
-        "ssh": {
-          "search": {
-            "d41f296f64": "ping",
-            "237b391f7c": "connection",
-            "8cb870b109": "test",
-            "7efd17e816": "ssh",
-            "96ca5d9a0b": "Test connectivity to an SSH target.",
-            "2cd40ba0d0": "hosts",
-            "5220501141": "config",
-            "3b12e064a4": "import",
-            "7f251a45a8": "Import hosts from ~/.ssh/config.",
-            "f9493b80c0": "server",
-            "8fb1cc87cc": "host",
-            "09395490af": "target",
-            "00d1fda01a": "new",
-            "f7b6383aec": "add",
-            "62826efbe9": "Add a new SSH host.",
-            "d4bcd497c7": "remote",
-            "74c6d90d78": "Manage SSH hosts.",
-            "53ae83cb55": "SSH connections",
-            "893c8717f2": "Import from SSH config",
-            "50416e3809": "Test connection",
-            "004ef87a84": "Add SSH target"
           }
         },
         "tasks": {
@@ -11244,8 +10953,8 @@
           "remoteServer": "Remote server: {{value0}}",
           "remoteServerRateLimit": "{{value0}} API budget is fetched from the CLI on this remote server. Choose another host in the Host menu at the top of Settings to see its budget.",
           "localRateLimit": "{{value0}} API budget is fetched from the CLI on this desktop client. Choose a server in the Host menu at the top of Settings to see its budget.",
-          "remoteServerCredentialsNewProjects": "Credentials and account checks for this provider are owned by this remote server. To use another host, change Settings > Remote Deca Servers > New projects open on.",
-          "localCredentialsNewProjects": "Credentials and account checks for this provider are owned by this desktop client. To use a server, change Settings > Remote Deca Servers > New projects open on."
+          "remoteServerCredentialsNewProjects": "Credentials and account checks for this provider are owned by this host. To use another host, change Settings > WSL hosts > New projects open on.",
+          "localCredentialsNewProjects": "Credentials and account checks for this provider are owned by this desktop client. To use a WSL host, change Settings > WSL hosts > New projects open on."
         },
         "settingOwnership": {
           "clientDefault": "Client default",
@@ -11419,33 +11128,6 @@
           "devOnly": "Dev only",
           "deleteAnywayClicked": "Delete Anyway clicked"
         },
-        "EphemeralVmRuntimesSection": {
-          "cleanupFailed": "Cleanup failed",
-          "cleanupRunning": "Cleanup running",
-          "cleanupDisabled": "Cleanup disabled",
-          "running": "Running",
-          "failed": "Failed",
-          "copiedCleanupCommand": "Copied cleanup command.",
-          "copiedCleanupPayload": "Copied cleanup payload.",
-          "copyCleanupFailed": "Couldn’t copy cleanup command.",
-          "copyCleanup": "Copy command",
-          "retry": "Retry cleanup",
-          "cleanup": "Cleanup",
-          "cloudVmLoadFailed": "Couldn’t load Cloud VM runtimes.",
-          "cloudVmCleanupFailedToast": "Couldn’t clean up Cloud VM runtime.",
-          "cloudVmMarkedCleaned": "Marked Cloud VM runtime as cleaned.",
-          "cloudVmCleaned": "Cleaned up Cloud VM runtime.",
-          "cloudVmRefresh": "Refresh Cloud VM runtimes",
-          "stoppingCleanup": "Stopping…",
-          "stopCleanup": "Stop cleanup",
-          "cleanupStopped": "Cleanup stopped",
-          "stopCleanupFailed": "Couldn’t stop Cloud VM cleanup.",
-          "provisioning": "Provisioning",
-          "untrackedRuntimeHint": "Deca never received this VM’s details. Cleanup runs destroy with only instance ID {{instanceId}}; if it fails, delete the VM in your provider, then remove it from this list.",
-          "removeFromList": "Remove from list",
-          "removeFromListFailed": "Couldn’t remove Cloud VM runtime from the list.",
-          "cca21fb369": "Refresh cloud VMs"
-        },
         "SourceControlActionRepoOverrideNote": {
           "agent": "Agent",
           "agentArgs": "CLI arguments",
@@ -11515,33 +11197,6 @@
           "567633ff50": "Right-click pastes the clipboard into the terminal. Control-click to open the context menu.",
           "c64497148a": "Right-click pastes the clipboard. Control-click opens the context menu."
         },
-        "MobilePairingConnectionOptions": {
-          "ready": "Ready",
-          "connecting": "Connecting",
-          "available": "Available",
-          "reconnecting": "Reconnecting",
-          "unavailable": "Unavailable",
-          "pathGroup": "How the phone reaches this computer",
-          "anywhereTitle": "Deca Relay",
-          "anywhereDescription": "Phone can be on cellular or any Wi‑Fi. Sign-in required for Relay only.",
-          "relayUnavailable": "Deca Relay isn’t available in this build. Use LAN.",
-          "localTitle": "LAN",
-          "localDescription": "Phone must be on this Wi‑Fi or connected through Tailscale. No account needed.",
-          "retrying": "Retrying",
-          "relayCell": "Relay cell"
-        },
-        "MobilePairingSetupSection": {
-          "title": "Pair a phone",
-          "overview": "Generate a QR code, then scan it in Deca Mobile under Pair Desktop.",
-          "step1Title": "Connection",
-          "step2Title": "This computer’s address",
-          "step2LocalDescription": "The phone must be able to reach this address on Tailscale or Wi‑Fi.",
-          "regenerate": "Regenerate QR code",
-          "generate": "Generate QR code",
-          "refresh": "Refresh network interfaces",
-          "step2RelayDescription": "Optional. Pick the Wi‑Fi or Tailscale address your phone should use when nearby — usually faster than Relay. Relay still works when you’re away.",
-          "step2RelayDisclosure": "Also use a faster local path"
-        },
         "MachineNameField": {
           "label": "Machine name",
           "description": "Other devices and hosts see “{{name}}”. Leave this blank to use the computer’s own name.",
@@ -11564,43 +11219,10 @@
           "manageConnectionHint": "Review connected Linear workspaces and API keys in",
           "manageConnectionLink": "Integrations"
         },
-        "MobileRelayBetaNotice": {
-          "notice": "Deca Relay is in beta."
-        },
         "EditorFontFamilySetting": {
           "description": "Font used by file editors and diff views, and by Markdown code when set. Leave empty to follow the terminal font.",
           "placeholder": "Same as terminal font",
           "458ec82128": "Editor font family"
-        },
-        "GeneralRemoteServerUpdates": {
-          "serverCount": "{{value0}} paired servers",
-          "availableCount": "{{value0}} ready to update",
-          "currentCount": "{{value0}} up to date",
-          "manualCount": "{{value0}} manual",
-          "offlineCount": "{{value0}} offline",
-          "description": "Check and update paired Deca servers from this client.",
-          "updating": "Updating servers…",
-          "serverCountOne": "1 paired server",
-          "fdd271abf0": "Remote Deca servers",
-          "e4e5937469": "Check for server updates"
-        },
-        "RemoteServerUpdateDialog": {
-          "versionUnavailable": "Version unavailable",
-          "restartingHelp": "Waiting for the replacement server to reconnect on the new version.",
-          "retry": "Retry",
-          "update": "Update this server",
-          "description": "Review paired servers and update supported installs from this Deca client.",
-          "restartWarning": "Updating restarts these servers. {{value0}} and {{value1}} may briefly disconnect.",
-          "checking": "Checking paired servers…",
-          "empty": "No paired Remote Deca Servers.",
-          "updateAll": "Update all {{value0}} servers",
-          "noUpdates": "All servers are up to date.",
-          "downloadProgress": "{{value0}} download progress",
-          "liveTabOne": "1 live tab",
-          "liveTabs": "{{value0}} live tabs",
-          "livePaneOne": "1 live pane",
-          "livePanes": "{{value0}} live panes",
-          "dca6780b3a": "Update remote Deca servers"
         },
         "RemoteServerUpdateStatus": {
           "checking": "Checking…",
@@ -11941,11 +11563,6 @@
           "optional": "(optional)",
           "headlessHelpPrefix": "Running Deca without a window? On that computer, run"
         },
-        "CloudVmSetupGuide": {
-          "cardTitle": "Cloud VMs",
-          "cardDescription": "Created per workspace from an environment recipe.",
-          "setUpRecipes": "Set up recipes"
-        },
         "ReleaseChannelSection": {
           "webUnavailable": "Switching builds is only available in the desktop app."
         },
@@ -12068,13 +11685,6 @@
           "updateServer": "Update this server to configure source defaults.",
           "updateServerDefaults": "Update this server to configure visibility defaults."
         },
-        "EphemeralVmCleanupStopDialog": {
-          "title": "Stop cleanup?",
-          "description": "The VM may remain running and incur charges. You can retry cleanup later.",
-          "cancel": "Keep cleaning",
-          "stopping": "Stopping…",
-          "confirm": "Stop cleanup"
-        },
         "shortcutDefinitionCatalog": {
           "missionControlConflict": "Blocked by Mission Control. Remap here or change it in System Settings.",
           "bindingConflict": "{{binding}} conflicts with {{actions}}."
@@ -12178,8 +11788,6 @@
             "chooseHost": "Choose a host"
           },
           "search": {
-            "title": "Deca on your SSH hosts",
-            "keywordSsh": "ssh",
             "keywordFormerName": "managed servers"
           },
           "phase": {
@@ -12384,38 +11992,6 @@
             "invalid": "Enter a valid mirror URL."
           }
         },
-        "SshPaneToolbar": {
-          "filter": "Filter hosts",
-          "sync": "Sync ~/.ssh/config",
-          "more": "More SSH host actions",
-          "restoreRemoved": "Restore removed hosts…",
-          "selected": "{{count}} selected",
-          "selectAll": "Select all {{count}}",
-          "clear": "Clear",
-          "removeSelected": "Remove {{count}}",
-          "restoreRemovedCount": "Restore removed hosts ({{count}})…",
-          "hostCount": "{{count}} hosts",
-          "selectMatching": "Select all {{count}} matching",
-          "testSelected": "Test",
-          "clearFilter": "Clear filter",
-          "restoreRemovedLoading": "Restore removed hosts",
-          "restoreRemovedNone": "No removed hosts to restore",
-          "hiddenDeselectedSingular": "{{count}} hidden host deselected",
-          "hiddenDeselectedPlural": "{{count}} hidden hosts deselected"
-        },
-        "SshRestoreRemovedHosts": {
-          "title": "Restore removed hosts?",
-          "description": "Hosts from ~/.ssh/config that you removed in Deca come back in Settings and in every host picker.",
-          "none": "No removed hosts from ~/.ssh/config.",
-          "confirm": "Restore"
-        },
-        "SshTargetList": {
-          "addedInOrca": "Added in Deca",
-          "fromConfig": "From ~/.ssh/config",
-          "filteredCount": "{{count}} of {{total}}",
-          "selectManualGroup": "Select all hosts added in Deca",
-          "selectConfigGroup": "Select all hosts from ~/.ssh/config"
-        },
         "serverList": {
           "addTitle": "Add server",
           "installNoHosts": "No SSH hosts without a Deca server.",
@@ -12454,15 +12030,9 @@
           "thisComputer": "This computer",
           "defaultHostHelp": "Existing projects stay where they are.",
           "defaultHostWebHelp": "This browser opens new projects on the chosen server.",
-          "updateAll": "Update all ({{count}})",
-          "addServer": "Add server",
-          "moreWaysToAdd": "More ways to add a server",
-          "pasteAccessLink": "Paste access link",
           "checkForUpdates": "Check for updates",
           "emptyDescription": "Pair a dev box, a cloud machine, or a desktop at home. Its sessions keep running there when this computer sleeps.",
           "movePaused": "Move paused",
-          "shareTitle": "Share this computer",
-          "done": "Done",
           "unreachableLead": "Deca couldn’t reach this server.",
           "updateFailedLead": "The last update didn’t finish.",
           "unreachableHint": "Check that Deca is running on the server and that this computer can reach its address.",
@@ -12470,16 +12040,8 @@
           "loopbackTip": "A 127.0.0.1 address works only through an SSH tunnel.",
           "lastSeen": "Last seen {{when}}",
           "retry": "Retry",
-          "pasteAccessLinkHelp": "Pair with Deca already running on another machine.",
-          "cloudVm": "Cloud VM",
-          "cloudVmHelp": "Created per workspace from an environment recipe.",
           "addDescriptionShort": "Paste the access link from Share this computer on the other machine.",
           "installHostPlaceholder": "Choose an SSH host without Deca",
-          "oneActiveLink": "1 active link",
-          "activeLinks": "{{value0}} active links",
-          "shareDialogDescriptionRuns": "Anyone with the link can run commands as you on this computer until you revoke it.",
-          "shownAs": "Shown to others as {{name}}",
-          "editName": "Edit",
           "close": "Close",
           "noSavedServers": "No saved servers",
           "hideError": "Hide error",
@@ -12492,24 +12054,6 @@
           "setUpOnSshHost": "Set up Deca on an SSH host",
           "setUp": "Set up",
           "overYourSsh": "Over your SSH connection"
-        },
-        "sshBulkRemove": {
-          "removedCount": "{{count}} removed",
-          "skippedCount": "{{count}} skipped",
-          "failedCount": "{{count}} failed",
-          "skippedManaged": "{{label}} has a Deca server.",
-          "skippedWorkspaces": "{{label}} has workspaces.",
-          "skippedHint": "Remove skipped hosts one at a time to choose what happens to them."
-        },
-        "sshBulkTest": {
-          "passed": "{{count}} reachable",
-          "failed": "{{count}} failed",
-          "alreadyConnected": "{{count}} already connected"
-        },
-        "networkAddress": {
-          "tailscale": "Tailscale · {{address}}",
-          "lan": "Local network · {{address}}",
-          "loopback": "This computer · {{address}}"
         },
         "BundledSkillInstallStatus": {
           "updateServer": "Update Deca on the server to install its skills.",
@@ -14938,210 +14482,6 @@
               }
             }
           }
-        }
-      },
-      "mobile": {
-        "MobileHero": {
-          "a8fb43cf1c": "Continue",
-          "3f90dbd274": "Done",
-          "b622eba64d": "Back",
-          "65b3f2e8bc": "Generating…",
-          "27735e5f4e": "Pairing QR",
-          "010dddcf27": "Copy pairing code",
-          "4c1df4eba7": "Can't scan?",
-          "85067b9e06": "Refresh network interfaces",
-          "dfd2aa9d5d": "Network",
-          "3960f5c339": "Step 2 of 2",
-          "3241f3c26a": "Install QR",
-          "aa97420ba4": "Copy install link",
-          "ac1eb64952": "Android",
-          "711e6f4b47": "iOS",
-          "e75647ace0": "Scan this download QR with your phone's camera. Already have Deca Mobile? Continue to step 2 for the pairing QR.",
-          "0d9b33299e": "Download the app.",
-          "92ddfdfa1f": "Step 1 of 2",
-          "ff48d9d520": "Pair another device",
-          "f9cbf4bb53": "Revoke device",
-          "34f878d04f": "Revoke {{value0}}",
-          "94829abdb1": "Paired",
-          "266c18c105": "Open Deca Mobile to pick up where you left off, or pair another device.",
-          "5410d55d79": "Deca Mobile",
-          "10d27b4cba": "Get started",
-          "da1d5e5ed0": "Available on",
-          "ec0607bf66": "Supported mobile platforms",
-          "b4ccce5cb7": "Control Deca from your phone. Check on agents, review changes, and kick off tasks while you're away from your desk.",
-          "cd4e5e816f": "Your workspaces, in your pocket.",
-          "a6cffbbb0b": "Generate code",
-          "e59a252eca": "Regenerate code",
-          "d0b52871ce": "Your phones are paired.",
-          "051978a785": "Your phone is paired.",
-          "pairingQrError": "This pairing code couldn’t be rendered as a QR code. Copy it into Deca Mobile instead.",
-          "noRelayCode": "No pairing code available",
-          "noPairingCode": "No pairing code available",
-          "qrSignInRequired": "Sign in to create a Relay pairing code",
-          "qrRenderFailed": "QR couldn’t be rendered — copy the code below",
-          "qrGeneratePrompt": "Generate a pairing code to continue",
-          "pairingCodeReady": "Pairing code ready",
-          "pairThisMac": "Pair this Mac.",
-          "pairThisPc": "Pair this PC.",
-          "pairThisComputer": "Pair this computer.",
-          "directAddressDisclosure": "Also use a faster local path",
-          "directAddressHint": "Optional. Pick the Wi‑Fi or Tailscale address your phone should use when nearby — usually faster than Relay. Relay still works when you’re away.",
-          "androidHelp": {
-            "guide": "Install guide"
-          },
-          "openAppAndScan": "Open Deca Mobile, tap <strong>Pair Desktop</strong>, and scan the code."
-        },
-        "MobilePage": {
-          "e17393c6a3": "Phone preview",
-          "baea63c445": "Failed to copy link",
-          "fad833de8d": "Install link copied",
-          "6a66e38943": "Failed to copy pairing code",
-          "3c1f7168bb": "Pairing code copied",
-          "4c8bd11c1a": "Failed to generate pairing code",
-          "b353e18de1": "WebSocket transport is not running",
-          "4e1eb5d55c": "Failed to revoke device",
-          "255372e6e8": "Device revoked",
-          "diagnosticsCopied": "Diagnostics copied",
-          "diagnosticsCopyFailed": "Failed to copy diagnostics"
-        },
-        "MobilePageToolbar": {
-          "ad2284a9e2": "Close · Esc",
-          "9883b58693": "Close Deca Mobile",
-          "fb5f28330e": "Show in sidebar",
-          "c669abcf8f": "Hide from sidebar",
-          "e1c7b4a92d": "Configure in Settings > Mobile.",
-          "f3d8e5b71a": "Adds the shortcut back to the sidebar."
-        },
-        "PhoneCarousel": {
-          "96d651cb87": "Terminal session",
-          "93217b41c1": "Worktree list",
-          "89c7713645": "Deca Mobile home screen"
-        },
-        "mobile": {
-          "platform": {
-            "copy": {
-              "downloadApk": "Download APK",
-              "openAppStore": "Open App Store"
-            }
-          }
-        },
-        "slides": {
-          "HomeSlide": {
-            "a4c3f7b7aa": "Tasks",
-            "cf3f98fa3f": "Disconnected",
-            "19c212e25e": "MacBook Pro",
-            "2f1a1d10c4": "Desktops",
-            "af761a0c0d": "Settings",
-            "5d94e8ddcc": "Deca",
-            "dc1f3f5535": "Jump back in",
-            "c2a0215163": "Waiting for input",
-            "0c14dac908": "2m",
-            "609517273b": "Working",
-            "005afbad3d": "now",
-            "04a94cadee": "40 worktrees · 5 active",
-            "b5308d5e2c": "M1 Mini",
-            "aefd110ea5": "Pair a desktop",
-            "d08ee9c466": "New workspace",
-            "aa44b4a6b2": "Browse your issues and reviews",
-            "eda5c8d01b": "Automations",
-            "cd2ad5b641": "Schedule agent work and view runs"
-          },
-          "TerminalSlide": {
-            "0bb39f8fe6": "Send",
-            "69334b4b10": "Voice dictation",
-            "29f2d13839": "Type a command…",
-            "817090af40": "Ctrl+C",
-            "53ff909568": "Tab",
-            "4930eaaae7": "Esc",
-            "fa22927f13": "Paste",
-            "985373052e": "Switch to phone mode",
-            "58a9ee6003": "tool-call formatting. Want me to add the diff next?",
-            "aa64b519c6": "terminal screen. Tokyonight palette, Menlo, real claude",
-            "e75112c834": "I've replaced the pair-scan slide with a high-fidelity",
-            "3ce3e8c892": "14 passed, 1 skipped (1.8s)",
-            "4b3666f9a9": "src/cache/worktree-cache.test.ts",
-            "1d448b69f7": "PASS",
-            "d39445686a": "src/transport/host-store.test.ts",
-            "a6e7cdc688": "pnpm test --filter mobile",
-            "21b67dfc92": "Bash",
-            "d6d1041a1c": "⎿ Replaced pair-scan slide with terminal session",
-            "336c0e070e": "mobile/orca-mobile-sidebar-mock-v3.html",
-            "6d4ebd5833": "Edit",
-            "fc83e0d5ef": "⎿ Read 2103 lines",
-            "80cc356591": "Read",
-            "2c10d43745": "claude",
-            "e0f98be657": "orca/feat-mobile-page",
-            "2defc05141": "dev@mac",
-            "da121ba48d": "PLAN.md",
-            "e4befee569": "shell",
-            "606aa93192": "Files",
-            "94febb0976": "Source control",
-            "8d6516312d": "2 terminals · claude active",
-            "8432787c4e": "feat/mobile-page",
-            "8fd998acd3": "Back"
-          },
-          "WorktreeListSlide": {
-            "357a519567": "Active",
-            "79a24ff530": "Pinned",
-            "22971156df": "Repo",
-            "17f9e0d226": "Recent",
-            "0e3e809a4b": "Filter",
-            "b4271864bd": "MacBook Pro",
-            "cefd048225": "Back"
-          }
-        },
-        "CustomNetworkAddressDialog": {
-          "title": "Custom network address",
-          "description": "Advertise an address your phone can reach — for example a Tailscale hostname, IP address, or reverse-proxy URL.",
-          "label": "Address",
-          "placeholder": "home.example.com:8443 or https://example.com/orca",
-          "hint": "Enter an IPv4/IPv6 address, hostname, or full HTTP(S)/WebSocket URL. Ports are optional.",
-          "cancel": "Cancel",
-          "use": "Use address",
-          "confirmationError": "This address could not produce a scannable pairing code. Check the address and try again."
-        },
-        "NetworkInterfacePicker": {
-          "no-address-selected": "No address selected",
-          "trigger-label": "Network address to advertise",
-          "custom-option": "{{address}} (custom)",
-          "add-custom": "Add custom address…",
-          "custom-section": "Custom",
-          "remove-custom": "Remove {{address}}"
-        },
-        "WindowsFirewallNotice": {
-          "repair-success": "Windows Firewall now allows Deca Mobile on private networks",
-          "repair-failed": "Could not update the Windows Firewall rules",
-          "public-title": "Windows marks this network as public",
-          "missing-title": "Allow phone connections through Windows Firewall",
-          "public-description": "Change this trusted Wi-Fi network to Private before allowing Deca Mobile connections.",
-          "missing-description": "Windows may block the pairing server. Add a rule for this Deca app and TCP port {{port}} on Private networks.",
-          "open-settings": "Open network settings",
-          "waiting": "Waiting for Windows…",
-          "allow": "Allow phone connections",
-          "repair-unverified": "Windows Firewall access could not be verified",
-          "blocked-title": "Windows may be blocking Deca Mobile",
-          "blocked-description": "An existing inbound Block rule can override the pairing exception. Repair removes conflicting TCP rules for this Deca app, then allows port {{port}} on Private networks.",
-          "repair": "Repair firewall access",
-          "relay-note": "Pairing still works over Deca Relay — allowing this only adds the faster local connection."
-        },
-        "MobileRelayMintFailureNotice": {
-          "retryingTitle": "Retrying Deca Relay…",
-          "unavailableTitle": "Deca Relay isn’t available on this desktop.",
-          "title": "Couldn’t create a Relay pairing code.",
-          "retryingBody": "Creating a new pairing code. This can take a moment over a remote connection.",
-          "unavailableBody": "Use LAN to pair over Tailscale or the same Wi‑Fi.",
-          "body": "Retry, or use LAN to pair over Tailscale or the same Wi‑Fi.",
-          "useLan": "Use LAN",
-          "retrying": "Retrying…",
-          "retry": "Retry Relay",
-          "copyDiagnostics": "Copy diagnostics",
-          "reconnectTitle": "Your Deca account session expired.",
-          "reconnectBody": "Sign in again to use Deca Relay, or use LAN to pair over Tailscale or the same Wi‑Fi.",
-          "notEntitledTitle": "Deca Relay isn’t included with this Deca account.",
-          "rateLimitedBody": "Deca Relay is busy. Wait a minute and retry, or use LAN to pair over Tailscale or the same Wi‑Fi."
-        },
-        "relayClockSkewMessage": {
-          "message": "Your computer's clock is off by about {{seconds}} seconds. Turn on automatic time, then retry."
         }
       },
       "gitlab": {
@@ -18065,18 +17405,6 @@
           "copy": "Copy"
         }
       },
-      "orca": {
-        "profiles": {
-          "signout": {
-            "confirm": {
-              "title": "Sign out of Deca?",
-              "description": "Artifacts and Deca Relay will be unavailable until you sign in again. Your local projects and worktrees won't be affected.",
-              "cancel": "Cancel",
-              "action": "Sign out"
-            }
-          }
-        }
-      },
       "linear-issue-attribute-filter-dropdowns": {
         "removeFilter": "Remove {{value0}} filter",
         "teamRequired": "Select a team to load status, assignees, and labels for this workspace.",
@@ -18695,18 +18023,14 @@
         },
         "looks": {
           "activeNow": "now",
-          "browsePlugins": "Browse plugins",
-          "browseThemePlugins": "Browse theme plugins",
           "colorMode": "Color mode",
           "darkLook": "Dark look",
           "darkLooks": "Dark looks",
           "lightLook": "Light look",
           "lightLooks": "Light looks",
-          "moreThemes": "More themes",
           "next": "More looks",
           "orcaDark": "Deca Dark",
           "orcaLight": "Deca Light",
-          "pluginsHint": "More themes are available as plugins.",
           "previous": "Previous looks",
           "showsWhenDark": "Shows when your system is dark",
           "showsWhenLight": "Shows when your system is light",
@@ -19685,7 +19009,7 @@
         "reconnect": "Reconnect",
         "stopped": "{{distro}} is stopped",
         "start": "Start",
-        "startFailed": "Couldn’t start {{distro}}. Check it in Settings → Remote Deca Servers.",
+        "startFailed": "Couldn’t start {{distro}}. Check it in Settings → WSL hosts.",
         "unverifiable": "Deca couldn't check whether {{distro}} is running",
         "startToSend": "Start {{distro}} to send.",
         "startDistro": "Start {{distro}}"
@@ -22528,7 +21852,8 @@
       "settingsError": "Could not load your settings.",
       "loadingSettings": "Loading settings…",
       "loading": "Loading language…",
-      "saving": "Saving language…"
+      "saving": "Saving language…",
+      "switch": "Switch language"
     }
   },
   "resourceManager": {
@@ -23616,7 +22941,6 @@
     "dismiss": "Got it",
     "checkingAction": "Checking your Mac…",
     "updateAction": "How to update macOS",
-    "discussionAction": "Join the discussion",
     "checkAction": "Check compatibility",
     "settingsStatus": "Deca {{version}} requires macOS {{macos}} or later. This is the latest version for this Mac."
   },

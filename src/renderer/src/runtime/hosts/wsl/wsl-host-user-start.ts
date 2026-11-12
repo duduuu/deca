@@ -26,7 +26,7 @@ export function startWslHostAndReloadProjects(environmentId: string): Promise<bo
   // probe's command line, so the toast names the distro and where its reason shows instead.
   const failure = translate(
     'components.native-chat.hostOutage.startFailed',
-    'Couldn’t start {{distro}}. Check it in Settings → Remote Deca Servers.',
+    'Couldn’t start {{distro}}. Check it in Settings → WSL hosts.',
     { distro: useAppStore.getState().wslHostStatuses[environmentId]?.distro ?? environmentId }
   )
   const start = (async () => {

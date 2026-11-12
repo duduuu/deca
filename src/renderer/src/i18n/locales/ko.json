@@ -86,7 +86,6 @@
       "windows": {
         "administratorApproval": "Windows에서 승인을 요청합니다. 평소 사용하는 계정을 사용하세요.",
         "administratorDialogScope": "이 변경은 앱 전체의 권한에 적용됩니다. SSH와 WSL은 각자의 권한을 유지합니다.",
-        "administratorDocumentation": "가이드 읽기",
         "administratorLabel": "관리자 모드",
         "administratorPromptCancellation": "Windows 프롬프트를 취소하면 Deca가 유지된 터미널과 함께 다시 열립니다. SSH와 WSL 권한은 각자의 호스트에서 계속 제어됩니다.",
         "administratorRestartConsequences": "먼저 작업을 저장하세요. 승인 후 현재 로컬 터미널 호스트의 터미널과 에이전트가 닫힙니다. 복원된 탭은 새 관리자 셸을 엽니다.",
@@ -516,7 +515,7 @@
         "extraArgs": "추가 CLI 인수",
         "launchOptions": "모델 및 권한",
         "savedLaunchOptions": "저장된 옵션: {{value0}}. 이전 서버는 서버의 권한 설정을 사용합니다.",
-        "effort": "Effort"
+        "effort": "노력 수준"
       },
       "actionPermissions": {
         "sameAsAgent": "{{agent}}와(과) 동일"
@@ -815,7 +814,6 @@
     "showStatusBar": "상태 표시줄 표시",
     "showTasksButton": "작업 버튼 표시",
     "showAutomationsButton": "자동화 버튼 표시",
-    "showMobileButton": "Deca 모바일 버튼 표시",
     "showTitlebarAppName": "제목 표시줄 앱 이름 표시",
     "view": "보기",
     "reload": "새로고침",
@@ -1528,7 +1526,7 @@
         }
       },
       "pluginCommandKeybindings": {
-        "group": "Plugins"
+        "group": "플러그인"
       },
       "activateAiVaultStructuredSession": {
         "unavailable": "구조화된 에이전트 세션은 아직 사용할 수 없습니다. 잠시 후 다시 시도하세요.",
@@ -1813,9 +1811,6 @@
         "a8d2bf8e9e": "닫을 활성 브라우저 탭이 없습니다.",
         "f000b2ff76": "활성 작업 트리 없음",
         "7a64b31991": "원격 런타임이 활성화된 동안에는 로컬 terminal 생성을 사용할 수 없습니다.",
-        "ef223fbb6b": "장치가 연결을 시도했지만 페어링되지 않았습니다.",
-        "11992d0337": "귀하의 휴대폰이거나 다른 Deca 클라이언트인 경우 설정 → 모바일에서 다시 페어링하세요.",
-        "6573cfe955": "모바일 설정 열기",
         "unresolvedTerminalWorktreeOwner": "작업 트리 소유자를 확인할 수 없어 터미널 생성을 사용할 수 없습니다.",
         "unsent_notes_close_canceled": "브라우저 탭 {{value0}}에 보내지 않은 메모가 있어 사용자가 탭을 열어 두었습니다"
       },
@@ -2406,8 +2401,8 @@
         "branchName": "브랜치 이름",
         "branchNamePlaceholder": "feature/my-branch",
         "connectTimedOut": "연결 시간이 초과되었습니다. 백그라운드에서 여전히 연결 중일 수 있습니다.",
-        "connectingHost": "Connecting…",
-        "connectHost": "Connect",
+        "connectingHost": "연결 중…",
+        "connectHost": "연결",
         "addHost": "호스트 추가",
         "addSshHost": "SSH 호스트 추가",
         "addSshHostHint": "SSH로 기존 컴퓨터 사용",
@@ -2580,7 +2575,7 @@
         "dd5d9a4f17": "{{value0}}에 업데이트됨",
         "71a3c0f9d2": "워크스페이스 시작",
         "filesUnavailable": "변경된 파일을 불러오지 못했습니다.",
-        "filesRetry": "Retry",
+        "filesRetry": "다시 시도",
         "77482513f8": "닫기",
         "2f5195c6a0": "다시 열기",
         "4b8ae7303f": "차이를 불러오지 못했습니다.",
@@ -2970,7 +2965,7 @@
         "42e466b9f1": "정규식",
         "90c61387d9": "대소문자 구분",
         "e07012f26e": "검색...",
-        "10e039b591": "No results"
+        "10e039b591": "결과 없음"
       },
       "UpdateCard": {
         "68b235d264": "업데이트하려면 다시 시작하세요.",
@@ -3205,7 +3200,6 @@
           "ProjectViewWrapper": {
             "463f1205c0": "프로젝트 보기 로드 중",
             "23b87ba9f7": "GitHub에서 열기",
-            "4d2a77a119": "기능 요청 제출",
             "55de4fb57a": "{{value0}}. {{value1}}",
             "2edf5e7e77": "{{value0}} — Deca는 아직 {{value1}} 프로젝트 보기를 지원하지 않습니다.",
             "7245c3d7ac": "검색 지우기",
@@ -3775,8 +3769,6 @@
           },
           "TerminalErrorToast": {
             "e4aa243f8c": "데몬 재시작",
-            "a7e2fd2699": "이슈 등록",
-            "5c8ce20be6": "문제가 계속되면",
             "cc6d997c65": "오래된 데몬 상태를 지우려면 여기에서 terminal 데몬을 다시 시작하세요.",
             "remoteTerminalClosed": "원격 터미널이 종료되었습니다.",
             "retry": "다시 시도",
@@ -4649,9 +4641,9 @@
           "UsagePercentageDisplayChangeNotice": {
             "title": "사용량이 이제 사용된 %로 표시됩니다",
             "body": "남은 양 표시를 원하시나요? 설정에서 변경할 수 있습니다.",
-            "dismiss": "Dismiss",
+            "dismiss": "닫기",
             "openSettings": "설정 열기",
-            "gotIt": "Got it"
+            "gotIt": "확인"
           },
           "UsageRosterPanel": {
             "title": "사용량",
@@ -4708,7 +4700,7 @@
           },
           "SkillUpdateStatusSegment": {
             "runningLabel": "스킬 업데이트 중",
-            "runningOne": "Updating {{value0}}…",
+            "runningOne": "{{value0}} 업데이트 중…",
             "runningAria": "스킬 업데이트 중입니다. 세부정보를 열려면 클릭하세요.",
             "successLabel": "스킬 업데이트됨",
             "successAria": "스킬이 업데이트되었습니다. 세부정보를 열려면 클릭하세요.",
@@ -4737,7 +4729,7 @@
             "update_required": "업데이트 필요",
             "update_required_summary": "Deca 버전이 호환되지 않습니다",
             "update_required_explanation": "이 컴퓨터나 서버의 Deca를 업데이트한 후 다시 연결하세요.",
-            "repair": "Re-pair…",
+            "repair": "다시 페어링…",
             "open_settings": "설정 열기…",
             "server_replaced": "다른 서버",
             "server_replaced_summary": "이 호스트에서 이 컴퓨터와 페어링한 서버와 다른 Deca 서버가 실행 중입니다",
@@ -5267,8 +5259,8 @@
           "close": "닫기",
           "progressAria": "스킬 업데이트 중",
           "errorTitle": "업데이트가 완료되지 않았습니다",
-          "updating": "Updating…",
-          "done": "Done",
+          "updating": "업데이트 중…",
+          "done": "완료",
           "finishedWithProblems": "일부 스킬에 확인이 필요합니다",
           "repair": "이전 업데이트가 중단되었습니다. 업데이트하면 복구됩니다.",
           "hideFolders": "폴더 숨기기",
@@ -5293,7 +5285,7 @@
           "updateAvailable": "업데이트 가능",
           "upToDate": "최신 상태",
           "installed": "설치됨",
-          "details": "Details",
+          "details": "세부 정보",
           "needsAttention": "스킬 검토",
           "checking": "확인 중...",
           "checkFailed": "확인 실패",
@@ -5651,8 +5643,8 @@
         "SleepTwinWorkspaceDialog": {
           "title": "워크스페이스 절전",
           "alsoSleeps": "{{hosts}}의 복사본도 절전 모드로 전환합니다",
-          "cancel": "Cancel",
-          "confirm": "Sleep"
+          "cancel": "취소",
+          "confirm": "절전"
         },
         "RemoveFolderDialog": {
           "4dc5b5065b": "제거",
@@ -5737,8 +5729,6 @@
         "SidebarNav": {
           "80611a8b10": "검색",
           "0c3395fd32": "작업 트리 및 브라우저 탭 검색",
-          "c86d83b5c3": "신규",
-          "1b5c41caee": "Deca 모바일",
           "f323383e9a": "자동화",
           "e7ad3c540d": "Jira 작업 열기",
           "c39ab10000": "Linear 작업 열기",
@@ -6466,7 +6456,7 @@
           "2d3e4f5a6b": "연결 확인",
           "3c4d5e6f7a": "호스트 관리…",
           "6e7f8a9b0c": "호스트 제거…",
-          "repair": "Re-pair…"
+          "repair": "다시 페어링…"
         },
         "WorkspaceKanbanDrawer": {
           "1975a4e480": "작업 상태 동기화 실패",
@@ -6547,7 +6537,7 @@
           "saving": "저장 중...",
           "save": "저장",
           "label": "레이블",
-          "sshLabelPlaceholder": "Dev box",
+          "sshLabelPlaceholder": "개발 서버",
           "sshHost": "호스트 또는 별칭",
           "sshHostPlaceholder": "deploy@server:22",
           "username": "사용자 이름",
@@ -6556,7 +6546,7 @@
           "identityFile": "신원 파일",
           "identityFilePlaceholder": "~/.ssh/id_ed25519 (선택 사항)",
           "nameInOrca": "Deca에 표시할 이름",
-          "serverNamePlaceholder": "Dev box",
+          "serverNamePlaceholder": "개발 서버",
           "accessLink": "액세스 링크",
           "pairingCodePlaceholder": "orca://pair?code=...",
           "sshImportAlreadySynced": "~/.ssh/config가 이미 동기화되어 있습니다.",
@@ -6606,11 +6596,11 @@
           "savedHostBody": "이 워크스페이스의 프로젝트는 {{host}}의 Deca 서버가 제공하지 않으므로 Deca가 그곳에서 삭제할 수 없습니다. Deca에서 제거할 수 있으며, {{host}}의 파일, Git 워크트리, 브랜치는 그대로 남습니다."
         },
         "MarkdownImageLightbox": {
-          "image": "Image",
+          "image": "이미지",
           "expand": "이미지 확대"
         },
         "WorktreeDeveloperMenu": {
-          "developer": "Developer",
+          "developer": "개발자",
           "parkTerminal": "터미널 보관"
         },
         "WorkspaceKanbanSearchField": {
@@ -7091,7 +7081,6 @@
         "AppearancePane": {
           "b707773a0d": "활성화하면 창을 닫아도 Deca가 종료되지 않고 시스템 트레이에서 계속 실행됩니다.",
           "0cd9b8228f": "Dock 및 창 전환기에 표시된 앱 아이콘을 선택합니다.",
-          "61d842eca0": "사이드바에 Deca Mobile 바로가기를 표시합니다. 도구 상자에서는 계속 사용할 수 있습니다.",
           "dc29f3cc0d": "사이드바",
           "ef89200c1f": "터미널 패널에 없을 때.",
           "fd89b5487c": "라이트",
@@ -7127,7 +7116,6 @@
           "3a5d06686d": "상태 표시줄",
           "7be0027489": "자동화 버튼 표시",
           "8063dd3b6b": "제목 표시줄 앱 이름",
-          "d2b4ddbea0": "Deca 모바일 버튼 표시",
           "657a7230a2": "IDE 글꼴",
           "95a5581f66": "닫을 때 트레이로 최소화",
           "e90c5d745a": "창 및 사이드바"
@@ -7681,51 +7669,6 @@
           "b1e5af97e9": "모바일 에뮬레이터 활성화",
           "fd698d2d47": "에이전트 모바일 에뮬레이터 제어"
         },
-        "MobileNetworkInterfaceSection": {
-          "b2c384cfd6": "인터페이스를 찾을 수 없습니다."
-        },
-        "MobilePane": {
-          "dd3cd78d04": "Deca 모바일로 스캔",
-          "ee56f1c7e4": "모바일 앱을 나갈 때",
-          "3939fd062c": "장치를 취소하면 즉시 연결이 끊어집니다.",
-          "254a6d09e4": "페어링됨",
-          "e778ecb209": "또는 모바일 앱에 다음 코드를 붙여넣으세요.",
-          "310924ad2c": "Deca 모바일 앱으로 이 코드를 스캔하세요. 각 코드는 고유한 장치 토큰을 생성합니다.",
-          "870e1b5ca5": "기기를 취소하지 못했습니다.",
-          "2e3dd0bc29": "기기의 연결 권한을 해제했습니다.",
-          "711231348f": "페어링 코드를 복사하지 못했습니다.",
-          "e3c427e020": "QR 코드를 생성하지 못했습니다.",
-          "cb9067c1c1": "WebSocket 전송이 실행되고 있지 않습니다.",
-          "d714614dbf": "네트워크 인터페이스를 새로고침하지 못했습니다.",
-          "ff865419dc": "30분 후",
-          "d4ba07d914": "5분 후",
-          "c474aa09d8": "1분 후",
-          "aa1263e881": "휴대폰 크기로 유지(기본값)",
-          "6436e56546": "모바일 페어링을 위한 QR 코드",
-          "1b1b70279a": "아직 페어링된 기기가 없습니다.",
-          "1592afcc7a": "아직 페어링된 기기가 없습니다. Deca 모바일 앱으로 QR 코드를 스캔하세요.",
-          "pairingQrError": "이 페어링 코드를 QR 코드로 표시할 수 없습니다. 대신 Deca Mobile에 복사하세요.",
-          "pairingCodeReady": "페어링 코드 준비됨",
-          "copyPairingCode": "페어링 코드 복사",
-          "diagnosticsCopied": "진단이 복사되었습니다.",
-          "diagnosticsCopyFailed": "진단을 복사하지 못했습니다.",
-          "5e2c7a1f84": "휴대폰에서 터미널을 사용하는 동안 Deca는 휴대폰 화면에 맞게 터미널을 축소합니다. 앱을 닫거나 다른 앱으로 전환할 때, 휴대폰 화면 크기를 유지할지(대화형 CLI 도구의 레이아웃 재배치 방지) 아니면 데스크톱 크기로 다시 조정할지 제어합니다. 배너에서 언제든지 '복원' 또는 '모두 복원'을 사용해 수동으로 크기를 조정할 수 있습니다.",
-          "codeRefreshesAutomatically": "코드는 자동으로 새로 고쳐집니다. 복사한 코드는 최대 10분 동안 사용할 수 있습니다.",
-          "legacyEncryption": "이전 암호화 방식을 사용합니다. 이 기기에서 Deca 앱을 업데이트하세요.",
-          "olderPairingMethod": "이전 페어링 방식을 사용 중입니다. 이 휴대폰의 Deca 앱을 업데이트하세요.",
-          "5f539ff331": "페어링된 장치"
-        },
-        "MobileSettingsPane": {
-          "b5a2ed83ff": "앱스토어",
-          "e7a3ae8c4e": "모바일",
-          "174f4a3c6d": "휴대폰에서 terminals과 agents를 제어하세요.",
-          "682293cadf": "왼쪽 사이드바 상단에 Deca Mobile 버튼을 표시합니다.",
-          "d4f2b65f30": "사이드바에 Deca Mobile 바로가기를 표시합니다.",
-          "installIntro": "다음 스토어에서 Deca Mobile 설치",
-          "installOutro": "하고 아래에서 페어링하세요.",
-          "androidApkLabel": "Android APK",
-          "49089c92b3": "Deca Mobile 버튼 표시"
-        },
         "NotificationsPane": {
           "2772d2f257": "알림을 발생시킨 워크트리가 이미 화면에 보이면 알림을 건너뜁니다.",
           "2a42dd8d6f": "알림음 볼륨",
@@ -8075,20 +8018,6 @@
         "RepositorySourceControlAiSection": {
           "112f3b934f": "소스 제어 AI"
         },
-        "RuntimeAccessGrantList": {
-          "sshAccessCaveat": "여기서 취소해도 이 컴퓨터에 SSH로 접근할 수 있는 사람은 다시 페어링할 수 있습니다. 차단하려면 해당 SSH 접근 권한을 제거하세요.",
-          "6f6d5188ed": "{{value0}} 취소",
-          "434e4a6af6": "현재 링크",
-          "df142657a5": "아직 사용되지 않음",
-          "olderPairingMethod": "이전 페어링 방식을 사용 중입니다. 이 링크를 사용하는 기기의 Deca를 업데이트하세요.",
-          "b18d1764ef": "마지막으로 사용된 날짜: {{value0}}",
-          "linkName": "링크 · {{value0}}",
-          "activeLinks": "활성 링크",
-          "noActiveLinks": "활성 링크가 없습니다.",
-          "createdAt": "생성 {{value0}}",
-          "revoke": "취소",
-          "legacyEncryption": "마지막으로 이전 암호화 방식으로 사용되었습니다. 이 링크를 사용하는 곳에서 Deca를 업데이트하세요."
-        },
         "RuntimeEnvironmentsPane": {
           "af53761f31": "취소",
           "d2e00809e4": "전환",
@@ -8124,7 +8053,6 @@
           "connect": "연결",
           "runtimeReachable": "{{value0}}에 연결할 수 있습니다.",
           "updateServer": "업데이트",
-          "updatingServers": "서버 업데이트 중…",
           "sshTunnelRequired": "SSH 터널 필요",
           "serverWorkspaceWindowClosed": "워크스페이스 창이 닫혔습니다.",
           "serverRuntimeUnavailable": "Deca를 사용할 수 없습니다.",
@@ -8133,7 +8061,7 @@
           "accessRevoked": "{{value0}}에서는 더 이상 이 컴퓨터를 사용할 수 없습니다. 새로운 액세스 링크로 다시 페어링하세요.",
           "managedAccessRevoked": "{{value0}}이(가) 더 이상 이 컴퓨터를 허용하지 않으며, Deca가 SSH로 다시 페어링하지 못했습니다. 연결하여 다시 시도하세요.",
           "connectAccessRevoked": "{{value0}}이(가) 더 이상 이 컴퓨터를 허용하지 않습니다. 연결하여 다시 시도하세요.",
-          "repair": "Re-pair…",
+          "repair": "다시 페어링…",
           "serverAccessRevoked": "액세스 취소됨",
           "pairedTwice": "{{value0}}와(과) 같은 서버가 두 번 페어링되었습니다. 프로젝트를 편집하려면 하나를 제거하세요.",
           "removeDefaultServerDescription": "이 서버는 새 프로젝트의 기본 호스트입니다. 제거하기 전에 '새 프로젝트를 여는 위치'에서 다른 서버를 선택하세요. 기존 세션은 그대로 유지됩니다.",
@@ -8142,57 +8070,6 @@
           "serverReplaced": "{{value0}}은(는) 이 컴퓨터와 페어링한 Deca 서버가 아닙니다. Deca가 다른 SSH 사용자로 연결하거나 서버가 다시 설치되었습니다. 여기서 ⋯ 메뉴를 열고 삭제…를 선택한 다음 SSH 호스트에 연결하여 현재 서버와 페어링하세요.",
           "6f303a89a3": "서버 전환",
           "4ae8a4a381": "서버 제거"
-        },
-        "RuntimePairingGeneratedUrlRows": {
-          "0495f68959": "{{value0}} 복사"
-        },
-        "RuntimePairingUrlGenerator": {
-          "f7cafdc9f3": "이 빌드에서는 브라우저 링크를 사용할 수 없습니다. Deca 클라이언트에서는 페어링 URL이 계속 작동합니다.",
-          "1ca2e5194d": "선택한 주소에 접근할 수 있는 브라우저에서 이 URL을 사용하세요.",
-          "45cf476df3": "host, host:port 또는 wss://host/path",
-          "4531ea3158": "맞춤 주소",
-          "360c548cf3": "연결 주소 새로 고침",
-          "de77eb1b65": "연결 주소",
-          "ff80904fc4": "브라우저 또는 데스크톱 클라이언트에 대해 취소 가능한 액세스 권한을 만듭니다.",
-          "f8500e134a": "이 Deca 서버 공유",
-          "d6c081adf4": "URL을 복사하지 못했습니다.",
-          "df0aa45a86": "페어링 URL을 복사했습니다.",
-          "13704d635e": "웹 클라이언트 URL을 복사했습니다.",
-          "e8d83f2b0f": "공유 액세스를 취소하지 못했습니다.",
-          "9f8e037c4a": "공유 액세스가 취소되었습니다.",
-          "d797f516b1": "공유 액세스가 이미 취소되었습니다.",
-          "2ed55c841a": "페어링 URL을 생성하지 못했습니다.",
-          "11d5248e62": "생성된 페어링 URL입니다.",
-          "6dd594a507": "생성된 웹 클라이언트 URL.",
-          "2752126f3e": "런타임 페어링을 사용할 수 없습니다.",
-          "95b8be4cea": "네트워크 인터페이스를 새로고침하지 못했습니다.",
-          "1b4e0bbcc5": "공유 액세스 권한을 로드하지 못했습니다.",
-          "custom-option": "{{address}} (사용자 지정)",
-          "add-custom": "사용자 지정 주소 사용…",
-          "custom-title": "사용자 지정 연결 주소",
-          "custom-description": "다른 기기가 연결할 수 있는 주소를 알립니다. LAN 또는 Tailscale 호스트, 또는 전체 ws(s):// URL입니다.",
-          "custom-hint": "호스트, host:port 또는 ws(s):// URL을 입력하세요.",
-          "custom-cancel": "취소",
-          "custom-use": "주소 사용",
-          "anotherDevice": "다른 기기",
-          "anotherDeviceHelp": "Tailscale, LAN 또는 연결 가능한 다른 주소",
-          "localOnlyHelp": "이 컴퓨터의 브라우저 또는 Deca 클라이언트",
-          "customAddress": "사용자 지정 주소",
-          "customAddressHelp": "SSH 터널, 리버스 프록시 또는 사용자 지정 호스트 이름",
-          "localLink": "로컬 전용 링크",
-          "localLinkHelp": "이 링크는 이 컴퓨터에서 실행 중인 브라우저 또는 Deca 클라이언트에서만 작동합니다.",
-          "noExternalAddress": "다른 기기용 주소를 찾지 못했습니다. 이 컴퓨터를 LAN 또는 Tailscale에 연결한 후 새로 고치거나 사용자 지정 주소를 선택하세요.",
-          "customInvalid": "올바른 호스트, 호스트:포트, IPv6 주소 또는 ws(s):// URL을 입력하세요.",
-          "thisComputer": "이 컴퓨터",
-          "whoOpens": "링크를 열 사람",
-          "addressLabel": "주소",
-          "createLink": "링크 만들기",
-          "browserLinkLabel": "브라우저 링크",
-          "accessLinkLabel": "액세스 링크",
-          "accessLinkHelp": "다른 Deca의 '서버 추가'에 붙여 넣으세요.",
-          "staleAddressCreate": "연결 주소가 바뀌었습니다. {{address}}용 새 링크를 만드세요.",
-          "linkExpired": "링크가 만료되었습니다",
-          "unusedLinkExpires": "사용하지 않은 링크는 {{time}}에 만료됩니다"
         },
         "Settings": {
           "3bf149e873": "프로젝트 설정 > {{value0}}",
@@ -8365,49 +8242,10 @@
           "683e781027": "새로운 사전 설정"
         },
         "SshDestructiveActionDialog": {
-          "895b216267": "취소",
-          "moreTargets": "외 {{count}}개"
+          "895b216267": "취소"
         },
         "SshPane": {
-          "c0f1c80166": "구성된 SSH 대상이 없습니다.",
-          "f495689b82": "가져오기 실패",
-          "68c13b4589": "테스트 실패",
-          "81d08bcddf": "연결 성공",
-          "a43de1d3ee": "연결 해제 실패",
-          "e95d5ae10e": "연결 실패",
-          "c2a69510e3": "대상을 제거하지 못했습니다.",
-          "a0237eb1ca": "대상이 제거되었습니다.",
-          "2227ce47b6": "대상을 저장하지 못했습니다.",
-          "f602009125": "대상이 추가됨",
-          "b4ba0ce33d": "타겟이 업데이트되었습니다.",
-          "4db9afce1c": "포트는 1에서 65535 사이여야 합니다.",
-          "0e5aa04161": "호스트 또는 SSH 구성 별칭이 필요합니다.",
-          "f1fc50dad2": "SSH 대상을 로드하지 못했습니다.",
-          "0cda732f43": "연결 테스트 실패",
-          "syncedServerSingular": "서버 {{count}}개를 동기화했습니다.",
-          "syncedServerPlural": "서버 {{count}}개를 동기화했습니다.",
-          "noFilterMatch": "일치하는 호스트가 없습니다.",
-          "addHost": "호스트 추가",
-          "alreadyInSync": "~/.ssh/config가 이미 동기화되어 있습니다."
-        },
-        "SshPassphraseDialog": {
-          "d5a234456f": "취소",
-          "c3ce71aad6": "암호 문구를 입력하세요",
-          "abaa0dc653": "비밀번호를 입력하세요",
-          "ce4fdf7914": "다음 연결 대상에 사용할 SSH 키의 암호 문구를 입력하세요:",
-          "dbf9b6f2d0": "다음 연결 대상의 비밀번호를 입력하세요:",
-          "c55f105262": "SSH 자격 증명 요청을 취소하지 못했습니다.",
-          "b8e88fd0de": "SSH 자격 증명을 제출하지 못했습니다.",
-          "405066423c": "잠금 해제",
-          "bec2c1318f": "연결",
-          "8a349e3fac": "{{value0}}의 암호 문구",
-          "cab3d5f5a5": "{{value0}}의 비밀번호",
-          "1f3dde805d": "SSH 키 암호 문구",
-          "106bd57f4a": "SSH 비밀번호",
-          "a21f9e74c0": "SSH 확인",
-          "981352fb42": "다음 연결 대상의 인증 요청을 완료하세요:",
-          "456516603b": "응답 입력",
-          "c624f64b86": "계속"
+          "e95d5ae10e": "연결 실패"
         },
         "SshTargetCard": {
           "ec6543cee9": "연결",
@@ -8424,51 +8262,23 @@
           "remove": "제거…"
         },
         "SshTargetDestructiveActions": {
-          "3bb0cf0ee4": "그러면 대상이 제거되고 활성 원격 terminals이 종료됩니다.",
-          "bulkTitleSingular": "SSH 호스트 {{count}}개를 제거할까요?",
-          "bulkTitlePlural": "SSH 호스트 {{count}}개를 제거할까요?",
-          "bulkDescription": "제거한 호스트는 워크스페이스, 자동화, 사이드바의 호스트 선택 목록에서 사라집니다. ~/.ssh/config는 변경되지 않으며, 이후 동기화해도 다시 추가되지 않습니다.",
-          "bulkAction": "{{count}}개 제거",
-          "bulkProgress": "{{count}}개 중 {{done}}번째 제거 중…",
-          "bulkConnectedSingular": "호스트 {{count}}개가 연결되어 있습니다. 원격 터미널이 닫힙니다.",
-          "bulkConnectedPlural": "호스트 {{count}}개가 연결되어 있습니다. 원격 터미널이 닫힙니다.",
-          "916f480036": "SSH 대상 제거",
-          "remove": "제거",
-          "removing": "제거 중"
+          "916f480036": "SSH 대상 제거"
         },
         "SshTargetForm": {
-          "fea9cb402e": "취소",
           "feae1d1e69": "선택 사항. ProxyJump / ssh -J와 동일합니다.",
           "11bcb4507a": "bastion.example.com",
           "b2ab248ded": "점프 호스트",
           "3b01ca44a0": "선택 사항. 터널링에 사용됩니다(예: Cloudflare Access, ProxyCommand).",
           "f42d844544": "예: cloudflared access ssh --hostname %h",
           "c7d0e18ecb": "프록시 명령",
-          "cb91f6375c": "선택 사항. 기본적으로 SSH agent가 사용됩니다.",
-          "d6a5f2ee5c": "~/.ssh/id_ed25519(SSH agent를 사용하려면 비워 두세요)",
-          "c94cfa634c": "포트",
-          "47e082bc17": "deploy",
-          "dc1dc52aaa": "사용자 이름",
-          "2ee9bcd2e8": "server, deploy@server:2222, ssh://server",
-          "ce370ce674": "호스트 또는 별칭 *",
-          "298de87a88": "레이블",
           "8c922dffba": "더 빠른 설정을 위해 SSH 연결 재사용",
           "53e9aabfc0": "사용 가능한 경우 OpenSSH 멀티플렉싱을 사용합니다. 사용자 지정 SSH 제한이 있는 호스트에서는 끄세요.",
-          "editTitle": "SSH 호스트 편집",
-          "addTitle": "SSH 호스트 추가",
-          "editDescription": "이 머신의 연결 세부 정보를 업데이트합니다. 변경 사항은 다음 연결 시 적용됩니다.",
-          "addDescription": "SSH로 로그인할 수 있는 영구 머신을 추가합니다.",
-          "editingPrefix": "편집 중",
           "reconnectOnLaunch": "시작 시 다시 연결",
           "reconnectOnLaunchHelp": "끄면 Deca가 시작될 때 이 호스트와 이 호스트를 통해 연결되는 Deca 서버를 직접 연결할 때까지 연결하지 않습니다.",
           "allowRemoteCliControl": "이 호스트가 작업 공간의 Deca 브라우저 탭을 제어하도록 허용",
           "allowRemoteCliControlHelp": "새 호스트에서는 기본적으로 켜져 있습니다. 이 호스트의 에이전트와 orca 명령은 이 호스트의 작업 공간에서만, 연결되어 있는 동안에만 이 데스크톱의 Deca 브라우저 탭을 열고 읽고 사용할 수 있습니다. 제어 중인 탭에는 호스트 이름이 표시됩니다. 이 호스트에서 이전 버전의 Deca가 시작한 터미널에서 orca 오케스트레이션 명령을 실행하려면 이 설정도 켜져 있어야 합니다. 파일, 클립보드, 쿠키는 읽을 수 없습니다.",
-          "addHost": "호스트 추가",
           "proxyConnectionReuse": "프록시 연결 하나를 재사용",
-          "proxyConnectionReuseHelp": "느린 ProxyCommand 또는 ProxyJump 호스트를 통한 연결이 빨라집니다. ssh_config가 호스트별 Match 또는 %h 규칙에 의존하지 않는 경우에만 사용하세요.",
-          "bc9854a353": "내 서버",
-          "8349b7b4fa": "개인 키 파일",
-          "92ea40234c": "변경 사항 저장"
+          "proxyConnectionReuseHelp": "느린 ProxyCommand 또는 ProxyJump 호스트를 통한 연결이 빨라집니다. ssh_config가 호스트별 Match 또는 %h 규칙에 의존하지 않는 경우에만 사용하세요."
         },
         "TasksPane": {
           "6b23a34f6d": "Jira",
@@ -8964,14 +8774,10 @@
             "1f2880a9d5": "orca",
             "2cfb3420c0": "앱 아이콘",
             "e80c2af428": "Dock 및 창 전환기에 표시된 앱 아이콘을 선택합니다.",
-            "839fb1e3ed": "도구 상자",
             "ac79fe4a04": "표시",
             "648eeada79": "숨기기",
             "6cf5f54ce1": "버튼",
             "5bff6a2ef0": "사이드바",
-            "5e5b8878bf": "핸드폰",
-            "74618577c7": "모바일",
-            "682293cadf": "왼쪽 사이드바 상단에 Deca Mobile 버튼을 표시합니다.",
             "4c920ab2d1": "일정",
             "58f4e22fa2": "오토메이션",
             "b186f3cefb": "자동화",
@@ -9103,7 +8909,6 @@
             "matchTerminal": "Terminal에 맞춤",
             "37e6b58b0e": "UI 줌",
             "931c53cd16": "Claude 사용량",
-            "1b404ee6ad": "Deca 모바일 버튼 표시",
             "d408ece868": "닫을 때 트레이로 최소화",
             "585be839e9": "Gemini 사용량",
             "20e7d30150": "OpenCode Go 사용량",
@@ -9759,75 +9564,6 @@
               "0d6e7dba38": "에이전트 CLI 제어",
               "f8468700d1": "모바일 에뮬레이터"
             }
-          },
-          "pane": {
-            "search": {
-              "dbccde3a60": "닫기",
-              "9e16be01d6": "배경",
-              "3a5e31e84b": "나가기",
-              "8015fd9523": "유지",
-              "aa3f736042": "크기 조정",
-              "356c31d6dc": "너비",
-              "fadcbfdd99": "맞춤",
-              "ad08035c5f": "핸드폰",
-              "6cd2bfdb0e": "복원",
-              "b34ad5b3a7": "터미널",
-              "6db86f445f": "모바일",
-              "707fc78052": "앱을 닫거나 다른 곳으로 전환한 후 모바일에서 보고 있던 terminals에 어떤 일이 발생하는지 선택하세요.",
-              "1e711aca11": "모바일 앱을 나갈 때",
-              "126afc5dbd": "원격",
-              "70f505f3c3": "LAN",
-              "1802188b5d": "와이파이",
-              "dd6e671aa9": "주소",
-              "1f70d63998": "IP",
-              "d0c89bc4a9": "오버레이",
-              "87711f4b8f": "VPN",
-              "16bff559a0": "tailnet",
-              "c690e3ee38": "tailscale",
-              "a023683767": "인터페이스",
-              "7b37c2e557": "네트워크",
-              "3190ef67a4": "모바일 페어링에 사용할 네트워크 주소를 선택하세요.",
-              "7d01f93ec0": "연결됨",
-              "5e8fda4d7f": "페어링됨",
-              "905c65a308": "취소",
-              "82783d9b71": "장치",
-              "13419718b3": "페어링된 모바일 장치를 관리합니다.",
-              "2128a21096": "스캔",
-              "e518cbd61c": "페어링",
-              "4a0c826f3d": "코드",
-              "3c1807a81a": "qr",
-              "7fb728fb2b": "QR 코드를 스캔하여 모바일 장치를 페어링하세요.",
-              "cb018bcc07": "연결된 장치",
-              "1dcb1d1a11": "모바일 페어링",
-              "a068d70f7b": "네트워크 인터페이스"
-            }
-          },
-          "settings": {
-            "search": {
-              "b730ff7049": "앱",
-              "8d4ba0ef09": "베타",
-              "6bfa001752": "APK",
-              "a7eececc1d": "android",
-              "7e801801ac": "원격",
-              "0b7e585cb9": "스캔",
-              "59b1d75fd1": "코드",
-              "87816d1c59": "qr",
-              "cf2c93b479": "페어링",
-              "f4ed142753": "핸드폰",
-              "f213400800": "모바일",
-              "671eb4173c": "휴대폰에서 terminals과 agents를 제어하세요.",
-              "ffd52a96e4": "모바일",
-              "682293cadf": "왼쪽 사이드바 상단에 Deca Mobile 버튼을 표시합니다.",
-              "e4f4daea0e": "릴레이",
-              "5d5af8e041": "iPhone",
-              "74618577c7": "모바일",
-              "5e5b8878bf": "핸드폰",
-              "5bff6a2ef0": "사이드바",
-              "6cf5f54ce1": "단추",
-              "648eeada79": "숨기기",
-              "ac79fe4a04": "표시",
-              "b305668a18": "Deca Mobile 버튼 표시"
-            }
           }
         },
         "notifications": {
@@ -10107,8 +9843,6 @@
               "newProjectsKeyword": "새 프로젝트",
               "activeServerKeyword": "활성 서버",
               "addShareDefault": "WSL 호스트를 추가하거나 새 프로젝트를 열 위치를 선택합니다.",
-              "shareComputerKeyword": "이 컴퓨터 공유",
-              "accessLinkKeyword": "액세스 링크",
               "installKeyword": "서버 설치",
               "24cc0a2244": "WSL 호스트"
             }
@@ -10132,31 +9866,6 @@
             "ebd7d81e1d": "단축키가 겹칠 때 Deca와 포커스된 터미널 중 어느 쪽이 우선할지 선택합니다.",
             "groupShortcut": "{{value0}} 바로가기",
             "d6b5c7dd6d": "Terminal의 단축키"
-          }
-        },
-        "ssh": {
-          "search": {
-            "d41f296f64": "핑",
-            "237b391f7c": "연결",
-            "8cb870b109": "테스트",
-            "7efd17e816": "SSH",
-            "96ca5d9a0b": "SSH 대상에 대한 연결을 테스트합니다.",
-            "2cd40ba0d0": "호스트",
-            "5220501141": "구성",
-            "3b12e064a4": "가져오기",
-            "7f251a45a8": "~/.ssh/config에서 호스트를 가져옵니다.",
-            "f9493b80c0": "서버",
-            "8fb1cc87cc": "호스트",
-            "09395490af": "대상",
-            "00d1fda01a": "새로운",
-            "f7b6383aec": "추가",
-            "62826efbe9": "새 SSH 호스트를 추가합니다.",
-            "d4bcd497c7": "원격",
-            "74c6d90d78": "SSH 호스트를 관리합니다.",
-            "53ae83cb55": "SSH 연결",
-            "893c8717f2": "SSH 구성에서 가져오기",
-            "50416e3809": "연결 테스트",
-            "004ef87a84": "SSH 대상 추가"
           }
         },
         "tasks": {
@@ -10755,8 +10464,8 @@
           "remoteServer": "원격 서버: {{value0}}",
           "remoteServerRateLimit": "{{value0}} API 예산은 이 원격 서버의 CLI에서 가져옵니다. 다른 호스트의 예산을 보려면 설정 상단의 호스트 메뉴에서 선택하세요.",
           "localRateLimit": "{{value0}} API 예산은 이 데스크톱 클라이언트의 CLI에서 가져옵니다. 서버의 예산을 보려면 설정 상단의 호스트 메뉴에서 선택하세요.",
-          "remoteServerCredentialsNewProjects": "이 공급자의 자격 증명과 계정 확인은 이 원격 서버가 관리합니다. 다른 호스트를 사용하려면 설정 > 원격 Deca 서버 > 새 프로젝트를 여는 위치를 변경하세요.",
-          "localCredentialsNewProjects": "이 공급자의 자격 증명과 계정 확인은 이 데스크톱 클라이언트가 관리합니다. 서버를 사용하려면 설정 > 원격 Deca 서버 > 새 프로젝트를 여는 위치를 변경하세요."
+          "remoteServerCredentialsNewProjects": "이 공급자의 자격 증명과 계정 확인은 이 호스트가 관리합니다. 다른 호스트를 사용하려면 설정 > WSL 호스트 > 새 프로젝트 열기 위치를 변경하세요.",
+          "localCredentialsNewProjects": "이 공급자의 자격 증명과 계정 확인은 이 데스크톱 클라이언트가 관리합니다. WSL 호스트를 사용하려면 설정 > WSL 호스트 > 새 프로젝트 열기 위치를 변경하세요."
         },
         "settingOwnership": {
           "clientDefault": "클라이언트 기본값",
@@ -10930,33 +10639,6 @@
           "devOnly": "개발 전용",
           "deleteAnywayClicked": "무시하고 삭제를 클릭했습니다."
         },
-        "EphemeralVmRuntimesSection": {
-          "cleanupFailed": "정리 실패",
-          "cleanupRunning": "정리 실행 중",
-          "cleanupDisabled": "정리가 비활성화되었습니다.",
-          "running": "실행 중",
-          "failed": "실패",
-          "copiedCleanupCommand": "정리 명령을 복사했습니다.",
-          "copiedCleanupPayload": "정리 페이로드를 복사했습니다.",
-          "copyCleanupFailed": "정리 명령을 복사할 수 없습니다.",
-          "copyCleanup": "명령어 복사",
-          "retry": "정리 다시 시도",
-          "cleanup": "정리",
-          "cloudVmLoadFailed": "클라우드 VM 런타임을 불러올 수 없습니다.",
-          "cloudVmCleanupFailedToast": "클라우드 VM 런타임을 정리할 수 없습니다.",
-          "cloudVmMarkedCleaned": "클라우드 VM 런타임을 정리됨으로 표시했습니다.",
-          "cloudVmCleaned": "클라우드 VM 런타임을 정리했습니다.",
-          "cloudVmRefresh": "클라우드 VM 런타임 새로 고침",
-          "stoppingCleanup": "중지 중…",
-          "stopCleanup": "정리 중지",
-          "cleanupStopped": "정리가 중지되었습니다.",
-          "stopCleanupFailed": "클라우드 VM 정리를 중지할 수 없습니다.",
-          "cca21fb369": "Cloud VM 새로 고침",
-          "provisioning": "프로비저닝 중",
-          "removeFromList": "목록에서 제거",
-          "removeFromListFailed": "Cloud VM 런타임을 목록에서 제거하지 못했습니다.",
-          "untrackedRuntimeHint": "Deca가 이 VM의 세부 정보를 받지 못했습니다. 정리 작업은 인스턴스 ID {{instanceId}}만으로 삭제를 실행합니다. 실패하면 공급자에서 VM을 삭제한 후 이 목록에서 제거하세요."
-        },
         "SourceControlActionRepoOverrideNote": {
           "agent": "에이전트",
           "agentArgs": "CLI 인수",
@@ -11026,33 +10708,6 @@
           "567633ff50": "우클릭하면 클립보드 내용을 터미널에 붙여넣습니다. 컨텍스트 메뉴를 열려면 Control 클릭하세요.",
           "c64497148a": "우클릭하면 클립보드를 붙여넣습니다. Control 클릭으로 컨텍스트 메뉴를 엽니다."
         },
-        "MobilePairingConnectionOptions": {
-          "ready": "준비됨",
-          "connecting": "연결 중",
-          "available": "사용 가능",
-          "reconnecting": "다시 연결 중",
-          "unavailable": "사용할 수 없음",
-          "localDescription": "휴대폰이 이 Wi‑Fi에 있거나 Tailscale로 연결되어 있어야 합니다. 계정이 필요하지 않습니다.",
-          "pathGroup": "휴대폰이 이 컴퓨터에 연결되는 방식",
-          "anywhereTitle": "Deca Relay",
-          "anywhereDescription": "휴대폰이 모바일 네트워크 또는 모든 Wi‑Fi에서 연결할 수 있습니다. 로그인은 Relay에만 필요합니다.",
-          "relayUnavailable": "이 빌드에서는 Deca Relay를 사용할 수 없습니다. LAN을 사용하세요.",
-          "localTitle": "LAN",
-          "retrying": "재시도 중",
-          "relayCell": "릴레이 셀"
-        },
-        "MobilePairingSetupSection": {
-          "title": "휴대폰 페어링",
-          "regenerate": "다시 생성",
-          "generate": "QR 코드 생성",
-          "refresh": "네트워크 인터페이스 새로 고침",
-          "overview": "QR 코드를 생성한 후 Deca Mobile의 Pair Desktop에서 스캔하세요.",
-          "step1Title": "연결 방식",
-          "step2Title": "이 컴퓨터의 주소",
-          "step2LocalDescription": "휴대폰이 Tailscale 또는 Wi‑Fi를 통해 이 주소에 접근할 수 있어야 합니다.",
-          "step2RelayDescription": "선택 사항. 근처에 있을 때(같은 Wi‑Fi 또는 Tailscale) 휴대폰이 사용할 주소를 고르세요. 보통 Relay보다 빠릅니다. 외부에 있을 때는 여전히 Relay를 사용합니다.",
-          "step2RelayDisclosure": "더 빠른 로컬 경로도 사용"
-        },
         "MachineNameField": {
           "label": "머신 이름",
           "description": "다른 장치와 호스트에는 “{{name}}”(으)로 표시됩니다. 비워 두면 컴퓨터 자체의 이름을 사용합니다.",
@@ -11075,43 +10730,10 @@
           "manageConnectionHint": "연결된 Linear 워크스페이스와 API 키는 다음에서 확인할 수 있습니다.",
           "manageConnectionLink": "연동"
         },
-        "MobileRelayBetaNotice": {
-          "notice": "Deca Relay는 베타 버전입니다."
-        },
         "EditorFontFamilySetting": {
           "description": "파일 편집기 및 diff 보기에서 사용되는 글꼴입니다. 비워두면 터미널 글꼴을 따릅니다.",
           "placeholder": "터미널 글꼴과 동일",
           "458ec82128": "편집기 글꼴"
-        },
-        "GeneralRemoteServerUpdates": {
-          "serverCount": "페어링된 서버 {{value0}}개",
-          "availableCount": "{{value0}}개 업데이트 가능",
-          "currentCount": "{{value0}}개 최신 상태",
-          "manualCount": "{{value0}}개 수동 업데이트",
-          "offlineCount": "{{value0}}개 오프라인",
-          "description": "이 클라이언트에서 페어링된 Deca 서버를 확인하고 업데이트합니다.",
-          "updating": "서버 업데이트 중…",
-          "serverCountOne": "페어링된 서버 1개",
-          "fdd271abf0": "원격 Deca 서버",
-          "e4e5937469": "서버 업데이트 확인"
-        },
-        "RemoteServerUpdateDialog": {
-          "versionUnavailable": "버전 확인 불가",
-          "restartingHelp": "새 버전으로 교체된 서버가 다시 연결되기를 기다리는 중입니다.",
-          "retry": "다시 시도",
-          "update": "이 서버 업데이트",
-          "description": "페어링된 서버를 확인하고, 지원되는 설치본을 이 Deca 클라이언트에서 업데이트합니다.",
-          "restartWarning": "업데이트하면 이 서버들이 다시 시작됩니다. {{value0}} 및 {{value1}}의 연결이 잠시 끊길 수 있습니다.",
-          "checking": "페어링된 서버 확인 중…",
-          "empty": "페어링된 원격 Deca 서버가 없습니다.",
-          "updateAll": "{{value0}}개 서버 업데이트",
-          "noUpdates": "사용 가능한 업데이트 없음",
-          "downloadProgress": "{{value0}} 다운로드 진행률",
-          "liveTabOne": "1개 활성 탭",
-          "liveTabs": "{{value0}}개 활성 탭",
-          "livePaneOne": "1개 활성 패널",
-          "livePanes": "{{value0}}개 활성 패널",
-          "dca6780b3a": "원격 Deca 서버 업데이트"
         },
         "RemoteServerUpdateStatus": {
           "checking": "확인 중…",
@@ -11498,11 +11120,6 @@
           "optional": "(선택 사항)",
           "headlessHelpPrefix": "창 없이 Deca를 실행하나요? 그 컴퓨터에서 다음을 실행하세요:"
         },
-        "CloudVmSetupGuide": {
-          "cardTitle": "Cloud VM",
-          "cardDescription": "환경 레시피로 작업 공간마다 생성됩니다.",
-          "setUpRecipes": "레시피 설정"
-        },
         "GlobalWorktreeVisibilitySourcesSetting": {
           "saveFailed": "가시성 기본값을 저장할 수 없습니다.",
           "updateServer": "소스 기본값을 구성하려면 이 서버를 업데이트하세요.",
@@ -11625,13 +11242,6 @@
             }
           }
         },
-        "EphemeralVmCleanupStopDialog": {
-          "title": "정리를 중지하시겠습니까?",
-          "description": "VM은 계속 실행될 수 있으며 요금이 부과될 수 있습니다. 나중에 정리를 다시 시도할 수 있습니다.",
-          "cancel": "정리 계속",
-          "stopping": "중지 중…",
-          "confirm": "정리 중지"
-        },
         "contrast": {
           "description": "텍스트 가독성을 높이거나 터미널 프로그램에서 선택한 색상을 유지합니다.",
           "ratio": "대비 타겟",
@@ -11736,8 +11346,6 @@
             "chooseHost": "호스트 선택"
           },
           "search": {
-            "title": "SSH 호스트의 Deca",
-            "keywordSsh": "ssh",
             "keywordFormerName": "관리형 서버"
           },
           "phase": {
@@ -11903,8 +11511,8 @@
           "chip": "WSL"
         },
         "RuntimeRepairDialog": {
-          "title": "Re-pair {{name}}",
-          "submit": "Re-pair",
+          "title": "{{name}} 다시 페어링",
+          "submit": "다시 페어링",
           "success": "{{name}}와(과) 다시 페어링됨",
           "failed": "다시 페어링 실패",
           "descriptionShareComputer": "{{name}}이(가) 더 이상 이 컴퓨터를 허용하지 않습니다. 설정 → WSL 호스트에서 제거한 뒤 다시 추가하세요."
@@ -11936,51 +11544,6 @@
           "terminalsRunning": "이 호스트에서 터미널 {{count}}개가 아직 실행 중입니다. 닫은 후 Deca 서버를 다시 시작하세요.",
           "cancel": "취소",
           "confirm": "다시 시작"
-        },
-        "SshPaneToolbar": {
-          "filter": "호스트 필터",
-          "sync": "~/.ssh/config 동기화",
-          "more": "SSH 호스트 작업 더 보기",
-          "restoreRemoved": "제거한 호스트 복원…",
-          "selected": "{{count}}개 선택됨",
-          "selectAll": "{{count}}개 모두 선택",
-          "clear": "선택 해제",
-          "removeSelected": "{{count}}개 제거",
-          "restoreRemovedCount": "제거한 호스트 복원({{count}})…",
-          "hostCount": "호스트 {{count}}개",
-          "selectMatching": "일치하는 {{count}}개 모두 선택",
-          "testSelected": "테스트",
-          "clearFilter": "필터 지우기",
-          "restoreRemovedLoading": "제거한 호스트 복원",
-          "restoreRemovedNone": "복원할 제거된 호스트가 없습니다",
-          "hiddenDeselectedSingular": "숨겨진 호스트 {{count}}개 선택 해제됨",
-          "hiddenDeselectedPlural": "숨겨진 호스트 {{count}}개 선택 해제됨"
-        },
-        "SshRestoreRemovedHosts": {
-          "title": "제거한 호스트를 복원할까요?",
-          "description": "Deca에서 제거한 ~/.ssh/config 호스트가 설정과 모든 호스트 선택 목록에 다시 표시됩니다.",
-          "none": "~/.ssh/config에서 제거한 호스트가 없습니다.",
-          "confirm": "복원"
-        },
-        "SshTargetList": {
-          "addedInOrca": "Deca에서 추가함",
-          "fromConfig": "~/.ssh/config에서 가져옴",
-          "filteredCount": "{{total}}개 중 {{count}}개",
-          "selectManualGroup": "Deca에서 추가한 호스트 모두 선택",
-          "selectConfigGroup": "~/.ssh/config의 호스트 모두 선택"
-        },
-        "sshBulkRemove": {
-          "removedCount": "{{count}}개 제거됨",
-          "skippedCount": "{{count}}개 건너뜀",
-          "failedCount": "{{count}}개 실패",
-          "skippedManaged": "{{label}}에 Deca 서버가 있습니다.",
-          "skippedWorkspaces": "{{label}}에 워크스페이스가 있습니다.",
-          "skippedHint": "건너뛴 호스트는 하나씩 제거하면서 처리 방법을 선택하세요."
-        },
-        "sshBulkTest": {
-          "passed": "{{count}}개 연결 가능",
-          "failed": "{{count}}개 실패",
-          "alreadyConnected": "{{count}}개 이미 연결됨"
         },
         "serverList": {
           "addTitle": "서버 추가",
@@ -12020,15 +11583,9 @@
           "thisComputer": "이 컴퓨터",
           "defaultHostHelp": "기존 프로젝트는 그대로 유지됩니다.",
           "defaultHostWebHelp": "이 브라우저는 선택한 서버에서 새 프로젝트를 엽니다.",
-          "updateAll": "모두 업데이트({{count}})",
-          "addServer": "서버 추가",
-          "moreWaysToAdd": "서버를 추가하는 다른 방법",
-          "pasteAccessLink": "액세스 링크 붙여 넣기",
           "checkForUpdates": "업데이트 확인",
           "emptyDescription": "개발 머신, 클라우드 머신 또는 집에 있는 데스크톱을 페어링하세요. 이 컴퓨터가 절전 모드여도 세션은 그곳에서 계속 실행됩니다.",
           "movePaused": "이전 일시 중지됨",
-          "shareTitle": "이 컴퓨터 공유",
-          "done": "완료",
           "unreachableLead": "Deca가 이 서버에 연결하지 못했습니다.",
           "updateFailedLead": "마지막 업데이트가 완료되지 않았습니다.",
           "unreachableHint": "서버에서 Deca가 실행 중이고 이 컴퓨터가 해당 주소에 연결할 수 있는지 확인하세요.",
@@ -12036,16 +11593,8 @@
           "loopbackTip": "127.0.0.1 주소는 SSH 터널을 통해서만 작동합니다.",
           "lastSeen": "마지막 확인 {{when}}",
           "retry": "다시 시도",
-          "pasteAccessLinkHelp": "다른 컴퓨터에서 이미 실행 중인 Deca와 페어링합니다.",
-          "cloudVm": "Cloud VM",
-          "cloudVmHelp": "환경 레시피로 작업 공간마다 생성됩니다.",
           "addDescriptionShort": "다른 컴퓨터의 '이 컴퓨터 공유'에서 만든 액세스 링크를 붙여 넣으세요.",
           "installHostPlaceholder": "Deca가 없는 SSH 호스트 선택",
-          "oneActiveLink": "활성 링크 1개",
-          "activeLinks": "활성 링크 {{value0}}개",
-          "shareDialogDescriptionRuns": "링크가 있는 사람은 취소할 때까지 이 컴퓨터에서 사용자 권한으로 명령을 실행할 수 있습니다.",
-          "shownAs": "다른 사람에게 {{name}}(으)로 표시됨",
-          "editName": "편집",
           "close": "닫기",
           "neverConnected": "연결된 적 없음",
           "noSavedServers": "저장된 서버 없음",
@@ -12058,11 +11607,6 @@
           "setUpOnSshHost": "SSH 호스트에 Deca 설정",
           "setUp": "설정",
           "overYourSsh": "내 SSH 연결을 통해"
-        },
-        "networkAddress": {
-          "tailscale": "Tailscale · {{address}}",
-          "lan": "로컬 네트워크 · {{address}}",
-          "loopback": "이 컴퓨터 · {{address}}"
         },
         "BundledSkillInstallStatus": {
           "updateServer": "스킬을 설치하려면 서버의 Deca를 업데이트하세요.",
@@ -12586,7 +12130,7 @@
               "retry": "다시 시도"
             },
             "sync": {
-              "pending": "Syncing…",
+              "pending": "동기화 중…",
               "branch": "브랜치 동기화"
             },
             "7e4b2a19c0": "답글을 게시할 GitHub PR을 확인하지 못했습니다.",
@@ -12658,7 +12202,7 @@
             "d0fb0f4bf2": "commits 새로 고침",
             "9f7535d22b": "Refs는 정확한 commit을 가리키는 브랜치 또는 태그 이름입니다. Git에 commit에 대한 명명된 참조가 있는 경우에만 나타납니다.",
             "9289ba0cb9": "refs란 무엇인가요?",
-            "d836037d02": "Commits",
+            "d836037d02": "커밋",
             "8232c8b2f2": "{{value0}} commit 열기: {{value1}}",
             "e5e81e59a6": "commits 크기 조정",
             "6d1e0a7c3b": "commit 파일을 로드하지 못했습니다"
@@ -13151,10 +12695,10 @@
                 "d7a2f9c401": "해결되지 않은 댓글 {{value0}}개 보내기",
                 "a6de3e5a20": "대기 중인 댓글 지우기",
                 "f8a2c91d04": "에이전트 대기열에 추가",
-                "b4e8a1c902": "Queued",
-                "e8b4c1a903": "Resolved · {{value0}}",
+                "b4e8a1c902": "대기 중",
+                "e8b4c1a903": "해결됨 · {{value0}}",
                 "c3a8e5d710": "리뷰 필요 · {{value0}}",
-                "a7f0c7e8d1": "Queue",
+                "a7f0c7e8d1": "대기열",
                 "8a621a2c4f": "그룹화",
                 "b13f85d75c": "타임라인",
                 "f5cf324efa": "댓글 표시 옵션",
@@ -13460,7 +13004,7 @@
                   "9e779995dd": "{{value0}} 만들기",
                   "226b85a3a7": "가져오기",
                   "323bb614aa": "Commit 및 동기화",
-                  "2b8e6595fd": "Commit",
+                  "2b8e6595fd": "커밋",
                   "04d709801d": "병합하지 않고 원격에서 가져오기(fetch)",
                   "titleCheckOutBranchToPush": "commits을 푸시하기 전에 브랜치를 체크아웃하세요",
                   "titleLinkedReviewTargetUnavailable": "연결된 리뷰 브랜치 대상을 사용할 수 없습니다",
@@ -13571,7 +13115,7 @@
               },
               "primary": {
                 "action": {
-                  "ed93b4f14f": "Commit",
+                  "ed93b4f14f": "커밋",
                   "946a8a05ea": "이 브랜치에 대해 {{value0}}을 만듭니다.",
                   "e7ffa46946": "{{value0}} 만들기",
                   "95550cff15": "푸시",
@@ -13922,9 +13466,9 @@
           "pull": {
             "policy": {
               "notice": {
-                "merge": "Merge",
+                "merge": "병합",
                 "mergeDescription": "로컬과 원격이 모두 변경된 경우 병합 commit을 만듭니다.",
-                "rebase": "Rebase",
+                "rebase": "리베이스",
                 "rebaseDescription": "로컬 commits을 원격 브랜치 위에 다시 적용합니다.",
                 "fastForwardOnly": "fast-forward만 허용",
                 "fastForwardOnlyDescription": "병합이나 리베이스가 필요 없을 때만 pull합니다.",
@@ -13966,7 +13510,7 @@
             "refresh": {
               "error": {
                 "copy": {
-                  "580025e7b7": "GitHub is unavailable",
+                  "580025e7b7": "GitHub를 사용할 수 없음",
                   "01c85b5770": "GitHub의 API를 일시적으로 사용할 수 없습니다. 이 패널은 복구되면 자동으로 다시 로드됩니다.",
                   "d1a9f2b165": "GitHub에 연결할 수 없음",
                   "7d01d42a3a": "지금은 GitHub에 연결할 수 없습니다. 연결을 확인한 후 잠시 후 다시 시도해 보세요.",
@@ -14379,7 +13923,7 @@
             "searchJira": "Jira 이슈 검색 또는 이슈 URL 붙여넣기",
             "jiraMode": "Jira",
             "jiraSelectBindFailed": "이 Jira 이슈를 연결할 수 없습니다. 해당 사이트를 선택하거나 Jira를 다시 연결한 후 다시 시도하세요.",
-            "emoji": "Emoji",
+            "emoji": "이모지",
             "loadingLinearIssue": "Linear 문제 로드 중…",
             "linearLoginUnreadableTitle": "Linear 다시 연결",
             "linearLoginUnreadableBody": "저장된 Linear 로그인을 읽을 수 없습니다. 설정에서 다시 연결하세요.",
@@ -14432,210 +13976,6 @@
               }
             }
           }
-        }
-      },
-      "mobile": {
-        "MobileHero": {
-          "a8fb43cf1c": "Continue",
-          "3f90dbd274": "완료",
-          "b622eba64d": "뒤로",
-          "65b3f2e8bc": "생성 중…",
-          "27735e5f4e": "QR 페어링",
-          "010dddcf27": "페어링 코드 복사",
-          "4c1df4eba7": "스캔할 수 없나요?",
-          "85067b9e06": "네트워크 인터페이스 새로 고침",
-          "dfd2aa9d5d": "네트워크",
-          "3960f5c339": "2/2단계",
-          "3241f3c26a": "QR 설치",
-          "aa97420ba4": "설치 링크 복사",
-          "ac1eb64952": "Android",
-          "711e6f4b47": "iOS",
-          "e75647ace0": "휴대폰 카메라로 이 다운로드용 QR 코드를 스캔하세요. 이미 Deca Mobile이 있나요? 페어링 QR 코드를 보려면 2단계로 이동하세요.",
-          "0d9b33299e": "앱 다운로드.",
-          "92ddfdfa1f": "2단계 중 1단계",
-          "ff48d9d520": "다른 장치와 페어링",
-          "f9cbf4bb53": "기기 취소",
-          "34f878d04f": "{{value0}} 취소",
-          "94829abdb1": "페어링됨",
-          "266c18c105": "Deca Mobile을 열어 중단한 부분부터 다시 시작하거나 다른 장치를 페어링하세요.",
-          "5410d55d79": "Deca 모바일",
-          "10d27b4cba": "시작하기",
-          "da1d5e5ed0": "지원 플랫폼",
-          "ec0607bf66": "지원되는 모바일 플랫폼",
-          "b4ccce5cb7": "휴대폰에서 Deca를 제어하세요. 자리를 비운 동안 agents를 확인하고, 변경 사항을 리뷰하고, 작업을 시작하세요.",
-          "cd4e5e816f": "주머니 속의 워크스페이스.",
-          "a6cffbbb0b": "코드 생성",
-          "e59a252eca": "코드 재생성",
-          "d0b52871ce": "휴대전화가 페어링되었습니다.",
-          "051978a785": "휴대전화가 페어링되었습니다.",
-          "pairingQrError": "이 페어링 코드를 QR 코드로 표시할 수 없습니다. 대신 Deca Mobile에 복사하세요.",
-          "directAddressDisclosure": "더 빠른 로컬 경로도 사용",
-          "directAddressHint": "선택 사항. 근처에 있을 때(같은 Wi‑Fi 또는 Tailscale) 휴대폰이 사용할 주소를 고르세요. 보통 Relay보다 빠릅니다. 외부에 있을 때는 여전히 Relay를 사용합니다.",
-          "noRelayCode": "사용 가능한 페어링 코드가 없습니다.",
-          "noPairingCode": "사용 가능한 페어링 코드가 없습니다.",
-          "qrSignInRequired": "Relay 페어링 코드를 생성하려면 로그인하세요.",
-          "qrRenderFailed": "QR을 렌더링할 수 없습니다. 아래 코드를 복사하세요.",
-          "qrGeneratePrompt": "계속하려면 페어링 코드를 생성하세요.",
-          "pairingCodeReady": "페어링 코드 준비됨",
-          "pairThisMac": "이 Mac을 페어링하세요.",
-          "pairThisPc": "이 PC를 페어링하세요.",
-          "pairThisComputer": "이 컴퓨터를 페어링하십시오.",
-          "androidHelp": {
-            "guide": "설치 가이드"
-          },
-          "openAppAndScan": "Deca Mobile을 열고 <strong>데스크탑 페어링</strong>을 탭한 다음 코드를 스캔하세요."
-        },
-        "MobilePage": {
-          "e17393c6a3": "휴대폰 미리보기",
-          "baea63c445": "링크를 복사하지 못했습니다.",
-          "fad833de8d": "설치 링크 복사됨",
-          "6a66e38943": "페어링 코드를 복사하지 못했습니다.",
-          "3c1f7168bb": "페어링 코드가 복사되었습니다.",
-          "4c8bd11c1a": "페어링 코드를 생성하지 못했습니다.",
-          "b353e18de1": "WebSocket 전송이 실행되고 있지 않습니다.",
-          "4e1eb5d55c": "기기를 취소하지 못했습니다.",
-          "255372e6e8": "기기가 취소되었습니다.",
-          "diagnosticsCopied": "진단이 복사되었습니다.",
-          "diagnosticsCopyFailed": "진단을 복사하지 못했습니다."
-        },
-        "MobilePageToolbar": {
-          "ad2284a9e2": "닫기 · Esc",
-          "9883b58693": "Deca 모바일 닫기",
-          "fb5f28330e": "사이드바에 표시",
-          "c669abcf8f": "사이드바에서 숨기기",
-          "e1c7b4a92d": "설정 > 모바일에서 구성하세요.",
-          "f3d8e5b71a": "단축키를 왼쪽 사이드바에 다시 추가합니다."
-        },
-        "PhoneCarousel": {
-          "96d651cb87": "Terminal 세션",
-          "93217b41c1": "워크트리 목록",
-          "89c7713645": "Deca 모바일 홈 화면"
-        },
-        "mobile": {
-          "platform": {
-            "copy": {
-              "downloadApk": "APK 다운로드",
-              "openAppStore": "App Store 열기"
-            }
-          }
-        },
-        "slides": {
-          "HomeSlide": {
-            "a4c3f7b7aa": "작업",
-            "cf3f98fa3f": "연결이 끊김",
-            "19c212e25e": "맥북 프로",
-            "2f1a1d10c4": "데스크탑",
-            "af761a0c0d": "설정",
-            "5d94e8ddcc": "Deca",
-            "005afbad3d": "방금",
-            "04a94cadee": "워크트리 40개 · 활성 5개",
-            "0c14dac908": "2분",
-            "609517273b": "작업 중",
-            "aa44b4a6b2": "이슈와 리뷰 둘러보기",
-            "aefd110ea5": "데스크톱 페어링",
-            "b5308d5e2c": "M1 Mini",
-            "c2a0215163": "입력 대기 중",
-            "cd2ad5b641": "에이전트 작업 예약 및 실행 보기",
-            "d08ee9c466": "새 워크스페이스",
-            "dc1f3f5535": "바로 이어서 하기",
-            "eda5c8d01b": "자동화"
-          },
-          "TerminalSlide": {
-            "0bb39f8fe6": "보내기",
-            "69334b4b10": "음성 받아쓰기",
-            "29f2d13839": "명령을 입력하세요…",
-            "817090af40": "Ctrl+C",
-            "53ff909568": "Tab",
-            "4930eaaae7": "Esc",
-            "fa22927f13": "붙여넣기",
-            "985373052e": "휴대폰 모드로 전환",
-            "58a9ee6003": "도구 호출 형식. 다음으로 diff를 추가할까요?",
-            "aa64b519c6": "terminal 화면. Tokyonight palette, Menlo, real claude",
-            "e75112c834": "페어 스캔 슬라이드를 고화질로 교체했습니다.",
-            "3ce3e8c892": "14개 통과, 1개 건너뛰기(1.8초)",
-            "4b3666f9a9": "src/cache/worktree-cache.test.ts",
-            "1d448b69f7": "통과",
-            "d39445686a": "src/transport/host-store.test.ts",
-            "a6e7cdc688": "pnpm test --filter mobile",
-            "21b67dfc92": "Bash",
-            "d6d1041a1c": "⎿ 페어 스캔 슬라이드를 terminal 세션으로 대체했습니다.",
-            "336c0e070e": "mobile/orca-mobile-sidebar-mock-v3.html",
-            "6d4ebd5833": "편집",
-            "fc83e0d5ef": "⎿ 2103줄 읽기",
-            "80cc356591": "읽기",
-            "2c10d43745": "claude",
-            "e0f98be657": "orca/feat-mobile-page",
-            "2defc05141": "dev@mac",
-            "da121ba48d": "PLAN.md",
-            "e4befee569": "셸",
-            "606aa93192": "파일",
-            "94febb0976": "소스 제어",
-            "8d6516312d": "terminals 2개 · claude 활성",
-            "8432787c4e": "feat/mobile-page",
-            "8fd998acd3": "뒤로"
-          },
-          "WorktreeListSlide": {
-            "357a519567": "활성",
-            "79a24ff530": "고정됨",
-            "22971156df": "Repo",
-            "17f9e0d226": "최근",
-            "0e3e809a4b": "필터",
-            "b4271864bd": "맥북 프로",
-            "cefd048225": "뒤로"
-          }
-        },
-        "CustomNetworkAddressDialog": {
-          "title": "사용자 지정 네트워크 주소",
-          "description": "휴대폰에서 접근할 수 있는 주소를 지정하세요. 예: Tailscale 호스트 이름, IP 주소 또는 리버스 프록시 URL.",
-          "label": "주소",
-          "placeholder": "home.example.com:8443 또는 https://example.com/orca",
-          "hint": "IPv4/IPv6 주소, 호스트 이름 또는 전체 HTTP(S)/WebSocket URL을 입력하세요. 포트는 선택 사항입니다.",
-          "cancel": "취소",
-          "use": "주소 사용",
-          "confirmationError": "이 주소로 스캔 가능한 페어링 코드를 만들 수 없습니다. 주소를 확인하고 다시 시도하세요."
-        },
-        "NetworkInterfacePicker": {
-          "trigger-label": "알릴 네트워크 주소",
-          "custom-option": "{{address}} (사용자 지정)",
-          "add-custom": "사용자 지정 주소 추가…",
-          "no-address-selected": "선택한 주소가 없습니다.",
-          "custom-section": "사용자 지정",
-          "remove-custom": "{{address}} 제거"
-        },
-        "WindowsFirewallNotice": {
-          "repair-success": "이제 Windows 방화벽이 개인 네트워크에서 Deca Mobile을 허용합니다",
-          "repair-failed": "Windows 방화벽 규칙을 업데이트할 수 없습니다",
-          "public-title": "Windows가 이 네트워크를 공용으로 표시합니다",
-          "missing-title": "Windows 방화벽에서 휴대폰 연결 허용",
-          "public-description": "Deca Mobile 연결을 허용하기 전에 이 신뢰할 수 있는 Wi-Fi 네트워크를 개인으로 변경하세요.",
-          "missing-description": "Windows가 페어링 서버를 차단할 수 있습니다. 개인 네트워크에서 이 Deca 앱과 TCP 포트 {{port}}에 대한 규칙을 추가하세요.",
-          "open-settings": "네트워크 설정 열기",
-          "waiting": "Windows 대기 중…",
-          "allow": "휴대폰 연결 허용",
-          "repair-unverified": "Windows 방화벽 액세스를 확인할 수 없습니다",
-          "blocked-title": "Windows가 Deca Mobile을 차단하고 있을 수 있습니다",
-          "blocked-description": "기존 인바운드 차단 규칙이 페어링 예외보다 우선할 수 있습니다. 복구를 실행하면 이 Deca 앱의 충돌하는 TCP 규칙을 제거한 다음 개인 네트워크에서 포트 {{port}}을(를) 허용합니다.",
-          "repair": "방화벽 액세스 복구",
-          "relay-note": "페어링은 Deca Relay를 통해 계속 작동합니다. 허용하면 더 빠른 로컬 연결이 추가될 뿐입니다."
-        },
-        "MobileRelayMintFailureNotice": {
-          "retryingTitle": "Deca 릴레이를 다시 시도하는 중…",
-          "unavailableTitle": "이 데스크탑에서는 Deca Relay를 사용할 수 없습니다.",
-          "title": "Relay 페어링 코드를 생성할 수 없습니다.",
-          "retryingBody": "새로운 페어링 코드를 생성합니다. 원격 연결에서는 잠시 시간이 걸릴 수 있습니다.",
-          "unavailableBody": "Tailscale 또는 동일한 Wi-Fi를 통해 페어링하려면 LAN을 사용하세요.",
-          "body": "다시 시도하거나 LAN을 사용하여 Tailscale 또는 동일한 Wi-Fi를 통해 페어링하세요.",
-          "useLan": "LAN 사용",
-          "retrying": "재시도 중…",
-          "retry": "릴레이 재시도",
-          "copyDiagnostics": "진단 복사",
-          "reconnectTitle": "Deca 계정 세션이 만료되었습니다.",
-          "reconnectBody": "Deca Relay를 사용하려면 다시 로그인하거나 LAN을 사용하여 Tailscale 또는 동일한 Wi-Fi를 통해 페어링하세요.",
-          "notEntitledTitle": "이 Deca 계정에는 Deca Relay가 포함되어 있지 않습니다.",
-          "rateLimitedBody": "Deca Relay가 사용 중입니다. 1분 정도 기다렸다가 다시 시도하거나, LAN을 사용해 Tailscale 또는 동일한 Wi‑Fi로 페어링하세요."
-        },
-        "relayClockSkewMessage": {
-          "message": "컴퓨터 시계가 약 {{seconds}}초 어긋나 있습니다. 자동 시간 설정을 켠 다음 다시 시도하세요."
         }
       },
       "gitlab": {
@@ -14854,7 +14194,7 @@
             "c30cd930ff": "PR 생성",
             "ea0100dd15": "모두 보기",
             "e725000cd7": "변경 사항",
-            "a079083a6c": "Commit",
+            "a079083a6c": "커밋",
             "7347fa5839": "메시지",
             "d1a7f15876": "AI로 commit 메시지 생성",
             "cd8a3a39d7": "commits 3개 앞섬"
@@ -16521,8 +15861,8 @@
             "0c79b7634d": "다운로드한 파일을 열 수 없습니다. 파일이 이동되었거나 삭제되었을 수 있습니다.",
             "397d9dc923": "다운로드한 파일을 표시할 수 없습니다. 파일이 이동되었거나 삭제되었을 수 있습니다.",
             "39c04fed61": "다운로드 일시 중지됨",
-            "5c3d530a68": "Downloaded",
-            "4bb7424d6b": "Canceled",
+            "5c3d530a68": "다운로드됨",
+            "4bb7424d6b": "취소됨",
             "6e776f9ef9": "다운로드 실패",
             "756bfc25c9": "열기",
             "09a9489aa5": "표시",
@@ -17343,9 +16683,9 @@
             "1d947a07ab": "자체 호스팅 Jira 기본 URL, 사용자 이름, 비밀번호로 이슈를 탐색하세요.",
             "f49708c369": "Jira 인증 방법",
             "84a810dd0e": "Username & password",
-            "8d1223fa5c": "Username",
+            "8d1223fa5c": "사용자 이름",
             "be9eba0a1b": "username",
-            "70035652d7": "Password",
+            "70035652d7": "비밀번호",
             "c50abbf340": "Jira 계정 비밀번호",
             "d8737db691": "Jira Server 또는 Data Center 계정의 사용자 이름과 비밀번호를 사용하세요.",
             "createTokenInSettings": "<link>Atlassian 계정 설정</link>에서 토큰을 만드세요."
@@ -17557,18 +16897,6 @@
       "nativeChat": {
         "contextMenu": {
           "copy": "복사"
-        }
-      },
-      "orca": {
-        "profiles": {
-          "signout": {
-            "confirm": {
-              "title": "Deca에서 로그아웃할까요?",
-              "description": "이 기기의 Deca에서 로그아웃됩니다. 로컬 프로젝트와 워크트리에는 영향을 주지 않습니다.",
-              "cancel": "취소",
-              "action": "로그아웃"
-            }
-          }
         }
       },
       "linear-issue-attribute-filter-dropdowns": {
@@ -17900,17 +17228,17 @@
       "TaskPageJiraSavedFilters": {
         "6c381858a1": "저장된 필터",
         "d14121662d": "아직 저장된 필터가 없습니다.",
-        "af0dd8c528": "Edit {{value0}}",
+        "af0dd8c528": "{{value0}} 편집",
         "bae9bd87bf": "최대 {{value0}}개의 필터를 저장할 수 있습니다.",
         "85506127a5": "현재 필터 저장",
         "7aef259c28": "Jira 필터 편집",
         "4f0e55d2e5": "Jira 필터 저장",
         "466c1b12ce": "빠른 액세스를 위해 이 JQL 쿼리에 이름을 지정합니다.",
-        "e4c2f52972": "Name",
+        "e4c2f52972": "이름",
         "0ab71bb840": "이 이름을 가진 저장된 필터가 이미 존재합니다.",
         "42ce360813": "JQL",
         "7b21c59a26": "필터 삭제",
-        "a62f9db53d": "Cancel",
+        "a62f9db53d": "취소",
         "c77189bc0c": "필터 업데이트",
         "19af906d12": "필터 저장"
       },
@@ -18241,18 +17569,14 @@
         },
         "looks": {
           "activeNow": "현재",
-          "browsePlugins": "플러그인 둘러보기",
-          "browseThemePlugins": "테마 플러그인 둘러보기",
           "colorMode": "색상 모드",
           "darkLook": "다크 룩",
           "darkLooks": "다크 룩",
           "lightLook": "라이트 룩",
           "lightLooks": "라이트 룩",
-          "moreThemes": "더 많은 테마",
           "next": "더 많은 룩",
           "orcaDark": "Deca 다크",
           "orcaLight": "Deca 라이트",
-          "pluginsHint": "더 많은 테마를 플러그인으로 사용할 수 있습니다.",
           "previous": "이전 룩",
           "showsWhenDark": "시스템이 다크 모드일 때 표시",
           "showsWhenLight": "시스템이 라이트 모드일 때 표시",
@@ -19176,7 +18500,7 @@
         "unverifiable": "Deca가 {{distro}}이(가) 실행 중인지 확인하지 못했습니다",
         "startToSend": "보내려면 {{distro}}을(를) 시작하세요.",
         "startDistro": "{{distro}} 시작",
-        "startFailed": "{{distro}}을(를) 시작하지 못했습니다. 설정 → 원격 Deca 서버에서 확인하세요."
+        "startFailed": "{{distro}}을(를) 시작할 수 없습니다. 설정 → WSL 호스트에서 확인하세요."
       },
       "interruptedContinue": {
         "continue": "계속",
@@ -21462,16 +20786,16 @@
     "noMatches": "일치하는 프리셋이 없습니다.",
     "allFiles": "저장소의 모든 파일",
     "editNamed": "프리셋 편집: {{name}}",
-    "addPath": "Add a folder",
+    "addPath": "폴더 추가",
     "noPathMatches": "폴더를 찾을 수 없습니다.",
     "repositoryRoot": "리포지토리 루트",
     "loadingPaths": "폴더 읽는 중…",
     "pathsUnavailable": "이 폴더를 읽을 수 없습니다. 대신 경로를 입력하세요.",
-    "pathAdded": "Added",
-    "openFolder": "Open {{name}}",
+    "pathAdded": "추가됨",
+    "openFolder": "{{name}} 열기",
     "findOrTypePath": "폴더를 찾거나 경로를 입력하세요...",
     "noDirectories": "아직 추가된 폴더가 없습니다.",
-    "removePath": "Remove {{name}}",
+    "removePath": "{{name}} 제거",
     "addTypedPathCode": "<path/> 추가"
   },
   "accounts": {
@@ -21696,7 +21020,7 @@
       "confirmStopTitle": "공유 서버를 중지하시겠습니까?",
       "confirmStopDescription": "이는 ORCA 외부 세션을 포함하여 이를 공유하는 모든 공개 Codex 세션을 종료합니다.",
       "cancel": "취소",
-      "runs": "Runs"
+      "runs": "실행"
     },
     "paneMove": {
       "failed": "분할 창을 새 탭으로 이동할 수 없습니다."
@@ -22311,7 +21635,8 @@
       "settingsError": "설정을 불러오지 못했습니다.",
       "loadingSettings": "설정 불러오는 중…",
       "loading": "언어 불러오는 중…",
-      "saving": "언어 저장 중…"
+      "saving": "언어 저장 중…",
+      "switch": "언어 전환"
     }
   },
   "resourceManager": {
@@ -23504,7 +22829,6 @@
     "dismiss": "확인",
     "checkingAction": "Mac 확인 중…",
     "updateAction": "macOS 업데이트 방법",
-    "discussionAction": "토론에 참여",
     "checkAction": "호환성 확인",
     "settingsStatus": "Deca {{version}}에는 macOS {{macos}} 이상이 필요합니다. 이 버전이 이 Mac의 최신 버전입니다."
   },

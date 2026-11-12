@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { SearchableSetting } from '../section-layout/SearchableSetting'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { useTranslate } from '@/i18n/use-translate'
-import { GeneralRemoteServerUpdates } from './GeneralRemoteServerUpdates'
 import { DECA_VERSION } from '../../../../../shared/deca-version'
 
 // Deca is updated through the internal package channel; About only reports the installed version.
@@ -47,7 +46,6 @@ export function GeneralUpdateSettingsSection({
           </p>
         </div>
       </SearchableSetting>
-      <GeneralRemoteServerUpdates />
       {children}
     </SettingsGroup>
   )

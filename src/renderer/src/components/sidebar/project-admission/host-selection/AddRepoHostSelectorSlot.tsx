@@ -32,8 +32,6 @@ export function AddRepoHostSelectorSlot({
         onOpenChange={hostSelection.setHostSelectorOpen}
         onSelectHost={(hostId) => void hostSelection.handleSelectAddProjectHost(hostId)}
         onConnectHost={(hostId) => void hostSelection.handleConnectAddProjectHost(hostId)}
-        onAddSshHost={() => setAddRemoteHostMode('ssh')}
-        onAddRemoteServer={() => setAddRemoteHostMode('server')}
         onAddWslHost={wslHostsAcceptNewWork ? () => setAddRemoteHostMode('wsl') : undefined}
         wslHostsPausedNote={wslHostsPaused ? getWslHostsPausedShortLabel(t) : undefined}
         onOpenWslHostsSetting={openWslHostsExperimentalSetting}

@@ -2,9 +2,6 @@ import { canShowRightSidebarForView } from '@/components/right-sidebar/visibilit
 import { runBuiltInOrReplacement } from '@/lib/plugins/commands/plugin-command-replacements'
 import { showTerminalShortcutCaptureNotification } from '@/lib/notifications/terminal-shortcut-capture-notification'
 import { TOGGLE_FLOATING_TERMINAL_EVENT } from '@/components/floating-terminal/floating-terminal'
-import { subscribeToUnpairedDeviceAuthNotification } from '../unpaired-device-auth-notification'
-import { translate } from '@/i18n/i18n'
-import { toast } from 'sonner'
 import { useAppStore } from '../../store/index'
 import { openPluginInstallLink } from '../../store/plugins/navigation/plugin-preview-request'
 
@@ -51,35 +48,6 @@ export function registerSettingsAndSidebarIpcBridge(unsubs: (() => void)[]): voi
     window.api.ui.onOpenSetupGuide?.(() => {
       useAppStore.getState().openModal('setup-guide', { telemetrySource: 'help_menu' })
     }) ?? (() => {})
-  )
-
-  // Lost-registry auth loops need a visible remedy on either end; main throttles this notice once per session.
-  unsubs.push(
-    subscribeToUnpairedDeviceAuthNotification(window.api.mobile, () => {
-      toast.warning(
-        translate(
-          'auto.hooks.useIpcEvents.ef223fbb6b',
-          'A device tried to connect but is not paired'
-        ),
-        {
-          id: 'unpaired-device-auth-failure',
-          description: translate(
-            'auto.hooks.useIpcEvents.11992d0337',
-            'If this was your phone or another Deca client, re-pair it from Settings → Mobile.'
-          ),
-          // Why: main emits this recovery path once per session, so it must remain visible until acted on or dismissed.
-          duration: Infinity,
-          action: {
-            label: translate('auto.hooks.useIpcEvents.6573cfe955', 'Open Mobile Settings'),
-            onClick: () => {
-              const store = useAppStore.getState()
-              store.openSettingsTarget({ pane: 'mobile', repoId: null })
-              store.openSettingsPage()
-            }
-          }
-        }
-      )
-    })
   )
 
   unsubs.push(

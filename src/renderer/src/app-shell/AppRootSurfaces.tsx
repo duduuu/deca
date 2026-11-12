@@ -72,14 +72,6 @@ const DictationController = lazy(() =>
     default: module.DictationController
   }))
 )
-const SshPassphraseDialog = lazy(() =>
-  import('../components/ssh-authentication/SshPassphraseDialog').then((module) => ({
-    default: module.SshPassphraseDialog
-  }))
-)
-const RemoteServerUpdateDialog = lazy(
-  () => import('../components/settings/runtime-environments/updates/RemoteServerUpdateDialog')
-)
 const ContextualTourOverlay = lazy(() =>
   import('../components/contextual-tours/ContextualTourOverlay').then((module) => ({
     default: module.ContextualTourOverlay
@@ -133,7 +125,6 @@ export const AppRootSurfaces = memo(function AppRootSurfaces(props: {
   const dictationState = useAppStore((s) => s.dictationState)
   const updateStatus = useAppStore((s) => s.updateStatus)
   const activeContextualTourId = useAppStore((s) => s.activeContextualTourId)
-  const hasSshCredentialRequest = useAppStore((s) => s.sshCredentialQueue.length > 0)
 
   const shouldMountSetupGuideTelemetryObserver = persistedUIReady
   const shouldMountUpdateCard = shouldMountUpdateCardForStatus(updateStatus)
@@ -315,13 +306,6 @@ export const AppRootSurfaces = memo(function AppRootSurfaces(props: {
           </ModalBoundary>
         ) : null}
       </Suspense>
-      {hasSshCredentialRequest ? (
-        <Suspense fallback={null}>
-          <ModalBoundary boundaryId="modal.ssh-passphrase" resetKey={activeModal}>
-            <SshPassphraseDialog />
-          </ModalBoundary>
-        </Suspense>
-      ) : null}
       <ModalBoundary boundaryId="modal.markdown-template-picker" resetKey={activeModal}>
         <MarkdownTemplatePicker />
       </ModalBoundary>
@@ -379,11 +363,6 @@ export const AppRootSurfaces = memo(function AppRootSurfaces(props: {
       <OverlayBoundary boundaryId="overlay.skill-freshness-update-dialog">
         <SkillFreshnessUpdateDialog />
       </OverlayBoundary>
-      <Suspense fallback={null}>
-        <OverlayBoundary boundaryId="overlay.remote-server-update-dialog">
-          <RemoteServerUpdateDialog />
-        </OverlayBoundary>
-      </Suspense>
     </>
   )
 })

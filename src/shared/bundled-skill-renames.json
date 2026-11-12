@@ -1,1 +1,4 @@
-{}
+{
+  "orca-jira": ["jira-tickets"],
+  "orca-linear": ["linear-tickets"]
+}

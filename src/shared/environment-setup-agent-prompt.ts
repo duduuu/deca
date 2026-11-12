@@ -27,7 +27,7 @@ export function buildEnvironmentSetupAgentPrompt(args: {
       ? `\`deca vm recipe doctor ${args.recipeId} --json\``
       : '`deca vm recipe doctor <recipe-id> --json`'
   const lines = [
-    'Use the orca-per-workspace-env skill to make this repo run in a per-workspace environment. If the skill is not installed, load it with `deca skills get orca-per-workspace-env`.',
+    'Make this repo run in a per-workspace environment.',
     '',
     'Goal: write or repair `environmentRecipes` and `scripts.setup` in orca.yaml, plus any scripts they call.',
     `- Run ${recipeDoctor} and fix every failing check.`,

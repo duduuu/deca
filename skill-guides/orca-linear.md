@@ -14,8 +14,7 @@ Use `ORCA linear` when Linear is the source of task context or ticket updates.
 
 `ORCA` is a placeholder for the executable you resolved in the stub; substitute it before running.
 
-`orca-linear` and `linear-tickets` are skill names, not CLI namespaces. Always run
-`ORCA linear ...` commands.
+`orca-linear` is a skill name, not a CLI namespace. Always run `ORCA linear ...` commands.
 
 Prefer `--json` for agent-driven calls. Use plain chat updates when no Linear-linked task exists or when the user did not ask to touch Linear.
 

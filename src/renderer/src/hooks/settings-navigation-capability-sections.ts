@@ -1,7 +1,6 @@
 import { LinearIcon } from '@/components/icons/LinearIcon'
 import { getAccountsPaneSearchEntries } from '@/components/settings/accounts/accounts-search'
 import { getAgentsPaneSearchEntries } from '@/components/settings/agents/agents-search'
-import { getComputerUsePaneSearchEntries } from '@/components/settings/computer-use/computer-use-search'
 import { getGeneralPaneSearchEntries } from '@/components/settings/general/general-search'
 import { getIntegrationsPaneSearchEntries } from '@/components/settings/integrations/integrations-search'
 import { getLinearAgentSkillPaneSearchEntries } from '@/components/settings/skills/linear/linear-agent-skill-search'
@@ -11,15 +10,7 @@ import { getVoicePaneSearchEntries } from '@/components/settings/voice/voice-pan
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 import type { SettingsNavSection } from '@/components/settings/navigation/settings-navigation-types'
-import {
-  Blocks,
-  Bot,
-  Mic,
-  MousePointerClick,
-  Network,
-  SlidersHorizontal,
-  UserCog
-} from 'lucide-react'
+import { Blocks, Bot, Mic, Network, SlidersHorizontal, UserCog } from 'lucide-react'
 import type { SettingsNavigationBuildOptions } from './settings-navigation-build-options'
 
 export function buildCapabilitySettingsSections(
@@ -88,17 +79,6 @@ export function buildCapabilitySettingsSections(
       : []),
     ...(showDesktopOnlySettings
       ? [
-          {
-            id: 'computer-use',
-            title: t('auto.hooks.useSettingsNavigationMetadata.b35e92364b', 'Computer Use'),
-            description: t(
-              'auto.hooks.useSettingsNavigationMetadata.0059bd17f3',
-              'Enable agents to control any app on your computer.'
-            ),
-            icon: MousePointerClick,
-            searchEntries: getComputerUsePaneSearchEntries(),
-            group: 'capabilities'
-          },
           {
             id: 'voice',
             title: t('auto.hooks.useSettingsNavigationMetadata.6a50cdcd7c', 'Voice'),

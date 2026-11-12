@@ -116,9 +116,6 @@ function AgentCapabilitiesSetupForRuntime(
       if (featureSetup.browserUse) {
         recordFeatureInteraction('agent-browser-setup')
       }
-      if (featureSetup.computerUse) {
-        recordFeatureInteraction('computer-use-setup')
-      }
       if (featureSetup.orchestration) {
         recordFeatureInteraction('agent-orchestration-setup')
       }
@@ -157,14 +154,6 @@ function AgentCapabilitiesSetupForRuntime(
           translate(
             'auto.components.feature.wall.AgentCapabilitiesSetupAction.c605f51f2b',
             'Capability setup ready'
-          )
-        )
-      }
-      if (result.computerUsePermissionsOpened) {
-        toast.message(
-          translate(
-            'auto.components.feature.wall.AgentCapabilitiesSetupAction.e9eb197e12',
-            'Opened Computer Use permissions'
           )
         )
       }

@@ -27,17 +27,11 @@ export function useSettingsNavigationActions(
     setHighlightedSettingsTarget,
     setGeneralSubPage,
     setActiveSectionId,
-    setPendingNavRequestTick,
     setSettingsSearchQuery,
     settingsSearchQuery,
     releaseNativeAccounts
   } = model
-  const {
-    confirmDiscardSourceControlAiPromptChanges,
-    contentScrollRef,
-    pendingNavSectionRef,
-    pendingScrollTargetRef
-  } = interactions
+  const { confirmDiscardSourceControlAiPromptChanges, contentScrollRef } = interactions
   const scrollToSection = useCallback(
     async (sectionId: string): Promise<void> => {
       if (sectionId !== activeSectionId && !(await confirmDiscardSourceControlAiPromptChanges())) {
@@ -69,28 +63,7 @@ export function useSettingsNavigationActions(
     ]
   )
 
-  const openComputerUseFromBrowser = useCallback(async () => {
-    if (!(await confirmDiscardSourceControlAiPromptChanges())) {
-      return
-    }
-    pendingNavSectionRef.current = 'computer-use'
-    pendingScrollTargetRef.current = 'computer-use'
-    if (settingsSearchQuery !== '') {
-      setSettingsSearchQuery('')
-      return
-    }
-    // Pending refs cannot schedule the jump effect; trigger a render.
-    setPendingNavRequestTick((tick) => tick + 1)
-  }, [
-    confirmDiscardSourceControlAiPromptChanges,
-    pendingNavSectionRef,
-    pendingScrollTargetRef,
-    setPendingNavRequestTick,
-    setSettingsSearchQuery,
-    settingsSearchQuery
-  ])
-
-  return { scrollToSection, openComputerUseFromBrowser }
+  return { scrollToSection }
 }
 
 export type SettingsNavigationActions = ReturnType<typeof useSettingsNavigationActions>

@@ -27,7 +27,6 @@ import { TERMINAL_DAEMON_METHODS } from './terminal/terminal-daemon'
 import { ACCOUNT_METHODS } from './accounts/accounts'
 import { ANTIGRAVITY_ACCOUNT_METHODS } from './accounts/antigravity-accounts'
 import { PREFLIGHT_METHODS } from './preflight/preflight'
-import { COMPUTER_METHODS } from './computer/computer'
 import { SESSION_TAB_METHODS } from './session-tabs/session-tabs'
 import { NATIVE_CHAT_METHODS } from './native-chat/native-chat'
 import { FILE_METHODS } from './files/files'
@@ -117,7 +116,6 @@ export const ALL_RPC_METHODS = [
   ...ACCOUNT_METHODS,
   ...ANTIGRAVITY_ACCOUNT_METHODS,
   ...PREFLIGHT_METHODS,
-  ...COMPUTER_METHODS,
   ...SESSION_TAB_METHODS,
   ...WORKSPACE_LAYOUT_METHODS,
   // Switch point: a window-owned build registers no layout command.

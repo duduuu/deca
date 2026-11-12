@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Globe2, MonitorCog, Workflow } from 'lucide-react'
+import { Globe2, Workflow } from 'lucide-react'
 import { translate } from '@/i18n/i18n'
 import type { OnboardingFeatureSetupId } from '../onboarding/onboarding-feature-setup'
 
@@ -42,21 +42,5 @@ export const AGENT_CAPABILITY_SETUP_ROWS: readonly AgentCapabilitySetupRow[] = [
       )
     },
     icon: <Globe2 className="size-4" />
-  },
-  {
-    id: 'computerUse',
-    get title() {
-      return translate(
-        'auto.components.feature.wall.AgentCapabilitiesSetupAction.362a07517d',
-        'Computer Use'
-      )
-    },
-    get description() {
-      return translate(
-        'auto.components.feature.wall.AgentCapabilitiesSetupAction.1b51644c2d',
-        'Let agents control the desktop, moving the cursor, clicking, and typing in any app.'
-      )
-    },
-    icon: <MonitorCog className="size-4" />
   }
 ]

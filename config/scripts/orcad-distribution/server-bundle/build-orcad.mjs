@@ -40,7 +40,6 @@ import {
   ORCAD_EMOJI_SHORTCODE_DATASET,
   ORCAD_CLI_ENTRY_FILENAME,
   ORCAD_CLI_PACKAGE_FILENAME,
-  ORCAD_COMPUTER_USE_RUNTIME_ARTIFACTS,
   ORCAD_LAUNCHER_FILENAME,
   ORCAD_SERVER_ENTRY_FILENAME,
   ORCAD_NODE_PTY_DIR,
@@ -209,10 +208,6 @@ cpSync(join(ROOT, 'resources', 'licenses', 'ripgrep'), join(OUT_DIR, 'ripgrep', 
 cpSync(join(ROOT, 'resources', 'native-chat-visuals'), join(OUT_DIR, 'native-chat-visuals'), {
   recursive: true
 })
-for (const artifact of ORCAD_COMPUTER_USE_RUNTIME_ARTIFACTS) {
-  mkdirSync(dirname(join(OUT_DIR, artifact)), { recursive: true })
-  copyFileSync(join(ROOT, 'native', ...artifact.split('/')), join(OUT_DIR, ...artifact.split('/')))
-}
 
 // Build children individually to land flat beside orcad.js; multi-entry outdir mirrors source directories and breaks runtime resolution.
 function buildForkedChild(entryPoint, outfile) {

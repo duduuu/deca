@@ -111,13 +111,6 @@ export const ORCAD_PORT_SCAN_COMMAND_WORKER_ENTRY = 'port-scan-command-worker-en
 export const ORCAD_SESSION_SCANNER_SERVICE_ENTRY = 'session-scanner-service-entry.js'
 /** Worker thread SessionSearchWorkerClient loads; without it remote session search is unavailable. */
 export const ORCAD_SESSION_SEARCH_WORKER_ENTRY = 'session-search-worker-entry.js'
-// Equals COMPUTER_SIDECAR_ENTRY_FILENAME, and the desktop's out/main entry name.
-export const ORCAD_COMPUTER_SIDECAR_ENTRY = 'computer-sidecar.js'
-/** Plain scripts, one copy for every target: each platform's sidecar runs only its own. */
-export const ORCAD_COMPUTER_USE_RUNTIME_ARTIFACTS = [
-  'computer-use-linux/runtime.py',
-  'computer-use-windows/runtime.ps1'
-] as const
 
 // Kept here because build-orcad.mjs imports this manifest directly under Node type stripping.
 export const ORCAD_RIPGREP_ARTIFACTS = [
@@ -211,9 +204,6 @@ export const ORCAD_ARTIFACTS: readonly OrcadArtifact[] = [
   { filename: 'claude-conversation-fork-worker-entry.js' },
   // Dictation loads the recognizer named by deca serve (#31174).
   { filename: 'stt-worker.js' },
-  // The forked computer sidecar finds platform runtimes beside itself (#31777).
-  { filename: ORCAD_COMPUTER_SIDECAR_ENTRY },
-  ...ORCAD_COMPUTER_USE_RUNTIME_ARTIFACTS.map((filename) => ({ filename })),
   // Target-specific even when the JavaScript bundle is shared across packaged slots.
   { filename: ORCAD_SERVER_TARGET_FILENAME },
   // orcad never depends on a host runtime or host-installed native module.

@@ -174,22 +174,6 @@ import {
   SaveImageAsTempFile,
   StartImageUpload
 } from './clipboard-params'
-import { ComputerCapabilitiesParams, ComputerPermissionsStatusParams } from './computer-params'
-import {
-  Click,
-  ComputerObserveTarget,
-  ComputerPermissions,
-  Drag as DragOfComputerSchemasParams,
-  Hotkey,
-  ListApps,
-  ListWindows,
-  PasteText,
-  PerformSecondaryAction,
-  PressKey,
-  Scroll as ScrollOfComputerSchemasParams,
-  SetValue,
-  TypeText
-} from './computer-schemas-params'
 import {
   ConnectorAnswer,
   ConnectorCancel,
@@ -974,21 +958,6 @@ export const RPC_PARAMS_BY_METHOD = {
   'clipboard.commitImageUpload': CommitImageUpload,
   'clipboard.saveImageAsTempFile': SaveImageAsTempFile,
   'clipboard.startImageUpload': StartImageUpload,
-  'computer.capabilities': ComputerCapabilitiesParams,
-  'computer.click': Click,
-  'computer.drag': DragOfComputerSchemasParams,
-  'computer.getAppState': ComputerObserveTarget,
-  'computer.hotkey': Hotkey,
-  'computer.listApps': ListApps,
-  'computer.listWindows': ListWindows,
-  'computer.pasteText': PasteText,
-  'computer.performSecondaryAction': PerformSecondaryAction,
-  'computer.permissions': ComputerPermissions,
-  'computer.permissionsStatus': ComputerPermissionsStatusParams,
-  'computer.pressKey': PressKey,
-  'computer.scroll': ScrollOfComputerSchemasParams,
-  'computer.setValue': SetValue,
-  'computer.typeText': TypeText,
   'connector.answer': ConnectorAnswer,
   'connector.cancel': ConnectorCancel,
   'connector.pendingPrompt': ConnectorPendingPrompt,

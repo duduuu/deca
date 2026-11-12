@@ -351,7 +351,6 @@ module.exports = {
     'out/main/session-search-worker-entry.js',
     'out/main/plugin-host-entry.js',
     'out/main/browser-extension-native-host-supervisor-entry.js',
-    'out/main/computer-sidecar.js',
     'out/main/parcel-watcher-process-entry.js',
     'out/main/orcad/orcad-local-serve-selection-entry.js',
     'out/main/orcad/orcad-stale-lock-reclaim.js',

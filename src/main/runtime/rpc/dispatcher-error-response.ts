@@ -3,7 +3,6 @@ import { mapBrowserError } from './browser-error-response'
 import { ZodError } from 'zod'
 import { InvalidArgumentError, formatZodError } from './core'
 import type { RpcEnvelopeMeta, RpcRequest, RpcResponse } from './core'
-import { computerUseErrorRecoveryData } from '../../../shared/computer-use-error-recovery'
 import { errorResponse, mapEmulatorError, mapRuntimeError } from './errors'
 import { PluginHookDeniedError } from '../../plugins/hooks/plugin-hook-dispatch'
 
@@ -12,15 +11,7 @@ export function invalidArgumentResponse(
   meta: RpcEnvelopeMeta,
   message: string
 ): RpcResponse {
-  return errorResponse(
-    request.id,
-    meta,
-    'invalid_argument',
-    message,
-    request.method.startsWith('computer.')
-      ? computerUseErrorRecoveryData('invalid_argument')
-      : undefined
-  )
+  return errorResponse(request.id, meta, 'invalid_argument', message)
 }
 
 export function mapDispatcherError(

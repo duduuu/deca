@@ -3,10 +3,7 @@ import { applyDocumentTheme } from '@/app-shell/appearance/document-theme'
 import { resolvePaintedTheme } from '@/app-shell/appearance/terminal-app-theme'
 import { useSettingsNavigationMetadata } from '@/hooks/useSettingsNavigationMetadata'
 import type { SettingsNavInstallStatus } from '@/components/settings/navigation/settings-navigation-types'
-import {
-  COMPUTER_USE_SKILL_NAME,
-  ORCHESTRATION_SKILL_NAME
-} from '@/lib/skills/installation/agent-feature-skill-names'
+import { ORCHESTRATION_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
 import {
   getAgentSkillNavInstallStatus,
   getLinearAgentSkillNavInstallStatus
@@ -53,8 +50,6 @@ export function useSettingsNavigationModel(
     loading: linearSkillLoading,
     skills: linearSkills
   } = model.linearSkill
-  const { installed: computerUseSkillInstalled, loading: computerUseSkillLoading } =
-    model.computerUseSkill
   const capabilityInstallStatusBySectionId = useMemo(() => {
     const applicableSkillPlan = model.skillFreshnessApplies ? model.skillPlan : null
     const next = new Map<string, SettingsNavInstallStatus>([
@@ -80,15 +75,6 @@ export function useSettingsNavigationModel(
       )
     }
     if (model.showDesktopOnlySettings) {
-      next.set(
-        'computer-use',
-        getAgentSkillNavInstallStatus({
-          name: COMPUTER_USE_SKILL_NAME,
-          installed: computerUseSkillInstalled,
-          loading: computerUseSkillLoading,
-          plan: applicableSkillPlan
-        })
-      )
       if (model.settings) {
         next.set(
           'voice',
@@ -102,8 +88,6 @@ export function useSettingsNavigationModel(
     }
     return next
   }, [
-    computerUseSkillInstalled,
-    computerUseSkillLoading,
     linearSkillInstalled,
     linearSkillLoading,
     linearSkills,

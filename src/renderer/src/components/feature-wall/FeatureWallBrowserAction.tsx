@@ -93,7 +93,6 @@ export function BrowserAction(props: { done: boolean }): React.JSX.Element {
 // Browser grab-to-agent needs only the CLI and browser skill.
 const BROWSER_ONLY_FEATURE_SETUP: OnboardingFeatureSetupSelection = {
   browserUse: true,
-  computerUse: false,
   orchestration: false,
   linearTickets: false
 }

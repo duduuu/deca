@@ -14,7 +14,6 @@ import { SearchableSetting } from '../../section-layout/SearchableSetting'
 import { matchesSettingsSearch } from '../../search/settings-search'
 import { getBrowserUsePaneSearchEntries } from './browser-use-search'
 import { BrowserUseExamples } from './BrowserUseExamples'
-import { BrowserUseComputerUseNotice } from './BrowserUseComputerUseNotice'
 import { BrowserUseEnableSwitch } from './BrowserUseEnableSwitch'
 import { BrowserUseSkillStep } from './BrowserUseSkillStep'
 import { BrowserUseCookieImportStep } from './BrowserUseCookieImportStep'
@@ -22,12 +21,10 @@ import { useTranslate } from '@/i18n/use-translate'
 
 type BrowserUseSetupProps = {
   onConfigureMoreBrowsers?: () => void
-  onOpenComputerUse?: () => void
 }
 
 export function BrowserUseSetup({
-  onConfigureMoreBrowsers,
-  onOpenComputerUse
+  onConfigureMoreBrowsers
 }: BrowserUseSetupProps = {}): React.JSX.Element {
   const t = useTranslate()
   const searchQuery = useAppStore((s) => s.settingsSearchQuery)
@@ -138,10 +135,6 @@ export function BrowserUseSetup({
           />
         </div>
       </div>
-
-      {onOpenComputerUse ? (
-        <BrowserUseComputerUseNotice onOpenComputerUse={onOpenComputerUse} />
-      ) : null}
 
       {showSkillStep ? (
         <SearchableSetting

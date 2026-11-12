@@ -1,24 +1,4 @@
 export {
-  COMPUTER_ERROR_CODES,
-  type ComputerActionMetadata,
-  type ComputerActionResult,
-  type ComputerActionVerification,
-  type ComputerAppInfo,
-  type ComputerAppQuery,
-  type ComputerErrorCode,
-  type ComputerListAppsResult,
-  type ComputerListWindowsResult,
-  type ComputerProviderCapabilities,
-  type ComputerScreenshotData,
-  type ComputerScreenshotMetadata,
-  type ComputerScreenshotStatus,
-  type ComputerSnapshotData,
-  type ComputerSnapshotResult,
-  type ComputerWindowInfo,
-  type ComputerWindowListWindow
-} from './computer-use-runtime-types'
-
-export {
   BROWSER_UNAVAILABLE_ERROR_CODE,
   browserUnavailableMessage,
   CLIENT_NAVIGATION_PUBLICATION_EPOCH_SUFFIX,

@@ -50,7 +50,6 @@ import { motionSafeScrollBehavior } from '@/hooks/usePrefersReducedMotion'
 type BrowserPaneProps = {
   settings: GlobalSettings
   updateSettings: (updates: Partial<GlobalSettings>) => void
-  onOpenComputerUse?: () => void
 }
 
 function cancelBrowserSessionCookieScrollFrames(frameIds: MutableRefObject<number[]>): void {
@@ -60,11 +59,7 @@ function cancelBrowserSessionCookieScrollFrames(frameIds: MutableRefObject<numbe
   frameIds.current = []
 }
 
-export function BrowserPane({
-  settings,
-  updateSettings,
-  onOpenComputerUse
-}: BrowserPaneProps): React.JSX.Element {
+export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): React.JSX.Element {
   const t = useTranslate()
   const languageRevision = useUiLanguageRevision()
   const searchQuery = useAppStore((s) => s.settingsSearchQuery)
@@ -252,10 +247,7 @@ export function BrowserPane({
     <div ref={setBrowserPaneRootNode} className="space-y-8">
       {showBrowserUse ? (
         <SettingsGroup>
-          <BrowserUseSetup
-            onConfigureMoreBrowsers={scrollToSessionCookies}
-            onOpenComputerUse={onOpenComputerUse}
-          />
+          <BrowserUseSetup onConfigureMoreBrowsers={scrollToSessionCookies} />
         </SettingsGroup>
       ) : null}
 

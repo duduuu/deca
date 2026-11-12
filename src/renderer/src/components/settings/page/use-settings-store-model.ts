@@ -11,7 +11,6 @@ import { isMacUserAgent, isWindowsUserAgent } from '@/app-shell/platform/user-ag
 import { useConfirmationDialog } from '@/components/confirmation-dialog-context'
 import { isWebClientLocation } from '@/app-shell/platform/web-client-location'
 import {
-  COMPUTER_USE_SKILL_NAME,
   LINEAR_AGENT_SKILL_NAMES,
   ORCHESTRATION_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
@@ -129,11 +128,6 @@ export function useSettingsStoreModel() {
     discoveryTarget: activeSkillRuntime.discoveryTarget,
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
   })
-  const computerUseSkill = useInstalledAgentSkill(COMPUTER_USE_SKILL_NAME, {
-    enabled: showDesktopOnlySettings,
-    discoveryTarget: activeSkillRuntime.discoveryTarget,
-    sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
-  })
   const skillFreshnessApplies = activeSkillRuntime.bundledSkillTarget !== null
   const { plan: skillPlan } = useSkillFreshness(activeSkillRuntime.bundledSkillTarget)
   const [voiceModelStatesLoading, setVoiceModelStatesLoading] = useState(showDesktopOnlySettings)
@@ -243,7 +237,6 @@ export function useSettingsStoreModel() {
     linearConnected,
     orchestrationSkill,
     linearSkill,
-    computerUseSkill,
     skillFreshnessApplies,
     skillPlan,
     voiceModelStatesLoading,

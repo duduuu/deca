@@ -14,9 +14,6 @@ export type FeatureWallSetupProgressInput = {
   featureInteractions: FeatureInteractionState
   hasConnectedTaskSource: boolean
   browserUseSkillInstalled: boolean
-  computerUseSkillInstalled: boolean
-  computerUsePermissionsReady: boolean
-  computerUseUnavailable?: boolean
   orchestrationSkillInstalled: boolean
   gitRepoCount: number
   worktreesByRepo: Record<string, Worktree[]>
@@ -44,19 +41,11 @@ function countAvailableNonMainWorktrees(worktreesByRepo: Record<string, Worktree
 
 export type AgentCapabilitiesState = {
   browserUseSkillInstalled: boolean
-  computerUseSkillInstalled: boolean
-  computerUseReady: boolean
-  computerUseUnavailable: boolean
   orchestrationSkillInstalled: boolean
 }
 
 export function isAgentCapabilitiesDone(state: AgentCapabilitiesState): boolean {
-  return (
-    state.browserUseSkillInstalled &&
-    state.computerUseSkillInstalled &&
-    (state.computerUseReady || state.computerUseUnavailable) &&
-    state.orchestrationSkillInstalled
-  )
+  return state.browserUseSkillInstalled && state.orchestrationSkillInstalled
 }
 
 // Upgrade eligibility keeps the pre-browser rules as the live checklist evolves.
@@ -71,8 +60,6 @@ export function hasCompletedPreBrowserSetup(input: FeatureWallSetupProgressInput
     countAvailableNonMainWorktrees(selectWorktreesByRepo(input)) >= 1 &&
     input.hasConnectedTaskSource &&
     input.browserUseSkillInstalled &&
-    input.computerUseSkillInstalled &&
-    (input.computerUsePermissionsReady || input.computerUseUnavailable === true) &&
     input.orchestrationSkillInstalled &&
     input.hasSetupScript
   )
@@ -81,11 +68,7 @@ export function hasCompletedPreBrowserSetup(input: FeatureWallSetupProgressInput
 export function getFeatureWallSetupProgress(
   input: FeatureWallSetupProgressInput
 ): FeatureWallSetupProgress {
-  const agentCapabilitiesDone = isAgentCapabilitiesDone({
-    ...input,
-    computerUseReady: input.computerUsePermissionsReady,
-    computerUseUnavailable: input.computerUseUnavailable === true
-  })
+  const agentCapabilitiesDone = isAgentCapabilitiesDone(input)
   const stepDone: Record<FeatureWallSetupStepId, boolean> = {
     'default-agent': Boolean(input.settings?.defaultTuiAgent),
     'add-two-repos': input.gitRepoCount >= 2,

@@ -66,7 +66,7 @@ describe('CopilotHookService', () => {
     })
 
     it('replaces the legacy .ps1 registration on install and keeps user hooks', () => {
-      const legacyPath = join(tmpDir, '.orca', 'agent-hooks', 'copilot-hook.ps1')
+      const legacyPath = join(tmpDir, '.deca', 'agent-hooks', 'copilot-hook.ps1')
       const configPath = join(copilotHome, 'hooks', 'orca.json')
       mkdirSync(join(copilotHome, 'hooks'), { recursive: true })
       const userHook = { type: 'command', powershell: 'Write-Output user-hook', timeoutSec: 3 }
@@ -91,7 +91,7 @@ describe('CopilotHookService', () => {
 
       expect(service.install().state).toBe('installed')
       const hooks = readHooksJson(configPath)?.hooks ?? {}
-      const scriptPath = join(tmpDir, '.orca', 'agent-hooks', 'copilot-hook.cmd')
+      const scriptPath = join(tmpDir, '.deca', 'agent-hooks', 'copilot-hook.cmd')
       for (const eventName of COPILOT_EVENTS) {
         const managed = {
           type: 'command',

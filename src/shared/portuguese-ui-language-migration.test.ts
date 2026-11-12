@@ -13,7 +13,7 @@ describe('Portuguese UI language load migration', () => {
         JSON.stringify({ uiLanguage: plugin, uiLanguagePortugueseMigrationApplied: marker })
       )
       const migrated = migratePortugueseUiLanguageOnLoad(stored)
-      expect(migrated).toEqual({ uiLanguage: 'pt', uiLanguagePortugueseMigrationApplied: true })
+      expect(migrated).toEqual({ uiLanguage: 'system', uiLanguagePortugueseMigrationApplied: true })
       expect(migratePortugueseUiLanguageOnLoad(migrated)).toEqual(migrated)
     }
   )

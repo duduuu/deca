@@ -6,13 +6,13 @@ const agentTeams = TUI_AGENT_CONFIG['claude-agent-teams']
 
 describe('Claude Agent Teams launch name on the launching host', () => {
   it('uses plain orca on a headless Linux server, whose PATH has no orca-ide (#33920)', () => {
-    installFakeAppEnvironment({ getCliLauncherPath: () => '/home/u/.orca/cli/bin/orca' })
+    installFakeAppEnvironment({ getCliLauncherPath: () => '/home/u/.deca/cli/bin/deca' })
     expect(getTuiAgentLaunchCommand(agentTeams, 'linux')).toBe('deca claude-teams')
   })
 
   it('keeps the orca-ide rename for WSL under a Windows server', () => {
     installFakeAppEnvironment({
-      getCliLauncherPath: () => 'C:\\Users\\u\\.orca\\cli\\bin\\orca.exe'
+      getCliLauncherPath: () => 'C:\\Users\\u\\.deca\\cli\\bin\\deca.exe'
     })
     expect(getTuiAgentLaunchCommand(agentTeams, 'linux')).toBe('deca-ide claude-teams')
   })

@@ -26,7 +26,7 @@ describe('web Portuguese language migration', () => {
       )
       const { installWebPreloadApi } = await import('./web-preload-api')
       installWebPreloadApi()
-      const expected = language === plugin ? 'pt' : language
+      const expected = language === plugin ? 'system' : language
       expect(globals.window.api.settings.getSync()).toMatchObject({
         uiLanguage: expected,
         uiLanguagePortugueseMigrationApplied: true

@@ -176,7 +176,7 @@ describe('CursorHookService', () => {
       homedirMock.mockReturnValue(installHome)
       expect(new CursorHookService().install().state).toBe('installed')
       const config = readInstalledCursorHooks(installHome)
-      unlinkSync(join(installHome, '.orca', 'agent-hooks', CURSOR_SCRIPT_FILE_NAME))
+      unlinkSync(join(installHome, '.deca', 'agent-hooks', CURSOR_SCRIPT_FILE_NAME))
 
       for (const eventName of CURSOR_EVENTS) {
         const command = requireRegisteredCommand(config, eventName)

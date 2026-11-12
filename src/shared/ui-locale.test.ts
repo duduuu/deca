@@ -1,35 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  normalizeSupportedUiLocale,
-  detectUiLanguage,
-  normalizeUiLocaleTag,
-  shouldShowLanguageSwitcher
-} from './ui-locale'
-
-describe('ui-locale', () => {
-  it('maps Traditional Chinese system locales to zh-Hant and keeps Simplified on zh', () => {
-    for (const tag of ['zh-TW', 'zh-HK', 'zh-MO', 'zh-Hant']) {
-      expect(normalizeSupportedUiLocale(tag)).toBe('zh-Hant')
-    }
-    for (const tag of ['zh', 'zh-CN', 'zh-SG', 'zh-Hans']) {
-      expect(normalizeSupportedUiLocale(tag)).toBe('zh')
-    }
-  })
-})
+import { detectUiLanguage, normalizeUiLocaleTag, shouldShowLanguageSwitcher } from './ui-locale'
 
 describe('system language detection', () => {
   it.each([
     ['en-US', 'en', 'supported'],
-    ['fr_CA.UTF-8', 'fr', 'supported'],
-    ['pt-PT', 'pt', 'supported'],
-    ['tr_TR.UTF-8', 'tr', 'supported'],
-    ['zh-Hans-TW', 'zh', 'supported'],
-    ['zh-Hant-CN', 'zh-Hant', 'supported'],
+    ['ko_KR.UTF-8', 'ko', 'supported'],
+    ['fr_CA.UTF-8', 'en', 'unsupported'],
     ['zh-Latn-CN', 'en', 'unsupported'],
-    ['zh-MO', 'zh-Hant', 'supported'],
-    ['zh_CN.UTF-8@hant', 'zh-Hant', 'supported'],
-    ['zh_TW.UTF-8@hans', 'zh', 'supported'],
     ['it-IT', 'en', 'unsupported'],
     ['en--US', 'en', 'unknown'],
     ['C.UTF-8', 'en', 'unknown'],

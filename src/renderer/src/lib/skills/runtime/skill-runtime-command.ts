@@ -72,7 +72,8 @@ export function buildSkillCommandForRuntime(
 ): string {
   const resolvedRuntime = runtime ?? LOCAL_HOST_AGENT_RUNTIME
   if (resolvedRuntime.runtime === 'wsl') {
-    return forceEnglishGitMessages(command)
+    // WSL terminals put the Deca CLI on PATH as `deca-ide`.
+    return forceEnglishGitMessages(command.replace(/^deca /, 'deca-ide '))
   }
   if (currentPlatform === 'win32') {
     return wrapWindowsSkillCommandWithNpxPrerequisite(command, currentPlatform, 'copied-command')

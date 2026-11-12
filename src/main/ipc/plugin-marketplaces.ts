@@ -1,15 +1,6 @@
-import {
-  installCatalogReleaseWithApproval,
-  readPreviewAccessGrowth
-} from '../plugins/catalog/plugin-update-approval'
 import { ipcMain } from 'electron'
-import { z } from 'zod'
-import { PLUGIN_COMMIT_PATTERN } from '../../shared/plugins/installation/plugin-install-lockfile'
-import { isQualifiedPluginKey } from '../../shared/plugins/manifest/plugin-manifest'
-import { pluginMarketplaceGitSourceSchema } from '../../shared/plugins/catalog/plugin-marketplace'
 import type { PluginMarketplaceInstaller } from '../plugins/catalog/plugin-marketplace-installer'
 import type { PluginMarketplaceService } from '../plugins/catalog/plugin-marketplace-service'
-import { PLUGIN_MARKETPLACE_SOURCE_ID_PATTERN } from '../plugins/catalog/plugin-marketplace-store'
 import type { PluginService } from '../plugins/plugin-service'
 import type {
   PluginAutoUpdateState,
@@ -19,6 +10,8 @@ import type { GlobalSettings } from '../../shared/global-settings-types'
 import { pluginFileTypeSchema } from '../../shared/plugins/contributions/plugin-file-type'
 import { findPluginFileTypeSuggestion } from '../plugins/catalog/plugin-file-type-suggestion'
 
+const PLUGIN_MARKETPLACES_UNAVAILABLE_MESSAGE = 'Plugin marketplaces are not available in Deca.'
+
 export type PluginMarketplaceHandlerServices = {
   marketplace: PluginMarketplaceService
   installer: PluginMarketplaceInstaller
@@ -27,32 +20,11 @@ export type PluginMarketplaceHandlerServices = {
 /** The consent write path (applyPluginConsent), bound to the store by the caller. */
 export type PluginApproveConsent = (pluginKey: string, reviewedFingerprint: string) => Promise<void>
 
-const sourceIdSchema = z.string().regex(PLUGIN_MARKETPLACE_SOURCE_ID_PATTERN)
-const removeMarketplaceSchema = z.strictObject({ sourceId: sourceIdSchema })
-const refreshMarketplaceSchema = z.strictObject({ sourceId: sourceIdSchema.optional() })
-const marketplacePluginSchema = z.strictObject({
-  marketplaceSourceId: sourceIdSchema,
-  pluginKey: z.string().refine(isQualifiedPluginKey, 'invalid qualified plugin key')
-})
-const installMarketplacePluginSchema = marketplacePluginSchema.extend({
-  marketplaceCommit: z.string().regex(PLUGIN_COMMIT_PATTERN),
-  resolvedCommit: z.string().regex(PLUGIN_COMMIT_PATTERN),
-  /** Ask main to approve in the same step if the installed plugin is content only. */
-  enableIfData: z.literal(true).optional(),
-  /** The preview's consentFingerprint: one-click approves only these exact bytes. */
-  expectedFingerprint: z.string().min(1).max(256).optional(),
-  /** The page was opened from an `deca://plugins/...` link; only labels install telemetry. */
-  fromInstallLink: z.literal(true).optional()
-})
-const installedPluginSchema = z.strictObject({
-  pluginKey: z.string().refine(isQualifiedPluginKey, 'invalid qualified plugin key')
-})
-
 export function registerPluginMarketplaceHandlers(
   pluginService: PluginService,
   services: PluginMarketplaceHandlerServices,
   getSettings: () => GlobalSettings,
-  approveConsent: PluginApproveConsent
+  _approveConsent: PluginApproveConsent
 ): void {
   // Why cached only: this runs on every file open, which must never wait on a catalog fetch.
   ipcMain.handle(
@@ -71,63 +43,21 @@ export function registerPluginMarketplaceHandlers(
       })
     }
   )
-  // Startup defers the official seed; a marketplace view must not wait for that timer.
-  const ensureOfficialSeed = (): void => {
-    if (getSettings().pluginSystemEnabled === true) {
-      void services.marketplace.seedOfficialSource().catch(() => undefined)
-      void services.marketplace.seedCommunitySource().catch(() => undefined)
-    }
-  }
-  ipcMain.handle('plugins:listMarketplaces', () => {
-    ensureOfficialSeed()
-    return services.marketplace.listSources()
-  })
-  ipcMain.handle('plugins:addMarketplace', async (_event, args: unknown) => {
-    const source = pluginMarketplaceGitSourceSchema.parse(args)
-    return services.marketplace.addSource(source)
-  })
-  ipcMain.handle('plugins:removeMarketplace', async (_event, args: unknown) => {
-    const { sourceId } = removeMarketplaceSchema.parse(args)
-    await services.marketplace.removeSource(sourceId)
-    return services.marketplace.listSources()
-  })
-  ipcMain.handle('plugins:refreshMarketplaces', async (_event, args: unknown) => {
-    const { sourceId } = refreshMarketplaceSchema.parse(args ?? {})
-    return sourceId
-      ? [await services.marketplace.refreshSource(sourceId)]
-      : services.marketplace.refreshAll()
-  })
-  ipcMain.handle('plugins:listMarketplacePlugins', () => {
-    ensureOfficialSeed()
-    return services.marketplace.listPlugins()
-  })
-  ipcMain.handle('plugins:previewMarketplacePlugin', async (_event, args: unknown) => {
-    const parsed = marketplacePluginSchema.parse(args)
-    return services.installer.preview(parsed.marketplaceSourceId, parsed.pluginKey)
-  })
-  ipcMain.handle('plugins:installMarketplacePlugin', async (_event, args: unknown) => {
-    const { enableIfData, expectedFingerprint, fromInstallLink, ...identity } =
-      installMarketplacePluginSchema.parse(args)
-    return installCatalogReleaseWithApproval({
-      pluginKey: identity.pluginKey,
-      pluginService,
-      install: () =>
-        services.installer.install(identity, {
-          trigger: fromInstallLink ? 'deep_link' : 'catalog'
-        }),
-      approve: approveConsent,
-      ...(enableIfData ? { enableIfData: { expectedFingerprint } } : {})
+  // Deca ships no plugin marketplaces: listings stay empty and nothing is fetched or installed.
+  ipcMain.handle('plugins:listMarketplaces', () => [])
+  ipcMain.handle('plugins:listMarketplacePlugins', () => [])
+  ipcMain.handle('plugins:refreshMarketplaces', () => [])
+  for (const channel of [
+    'plugins:addMarketplace',
+    'plugins:removeMarketplace',
+    'plugins:previewMarketplacePlugin',
+    'plugins:installMarketplacePlugin',
+    'plugins:previewMarketplaceUpdate'
+  ]) {
+    ipcMain.handle(channel, () => {
+      throw new Error(PLUGIN_MARKETPLACES_UNAVAILABLE_MESSAGE)
     })
-  })
-  ipcMain.handle('plugins:previewMarketplaceUpdate', async (_event, args: unknown) => {
-    const { pluginKey } = installedPluginSchema.parse(args)
-    const preview = await services.installer.previewInstalledUpdate(pluginKey)
-    const installed = pluginService.findValidPlugin(pluginKey)
-    if (!installed) {
-      return preview
-    }
-    return { ...preview, accessGrowth: await readPreviewAccessGrowth(installed, preview) }
-  })
+  }
   // Auto-update, review notices and install counts are vendor-network features absent from this build.
   ipcMain.handle('plugins:getAutoUpdateState', (): PluginAutoUpdateState => ({
     updated: {},
@@ -139,17 +69,8 @@ export function registerPluginMarketplaceHandlers(
   ipcMain.handle('plugins:getInstallCounts', (): Promise<Record<string, number>> =>
     Promise.resolve({})
   )
-  ipcMain.handle('plugins:getRollbackVersion', (_event, args: unknown) => {
-    const { pluginKey } = installedPluginSchema.parse(args)
-    return services.installer.rollbackVersion(pluginKey)
-  })
-  ipcMain.handle('plugins:rollbackMarketplacePlugin', async (_event, args: unknown) => {
-    const { pluginKey } = installedPluginSchema.parse(args)
-    await pluginService.deactivatePlugin(pluginKey)
-    const result = await services.installer.rollback(pluginKey)
-    if (result.ok) {
-      await pluginService.refresh()
-    }
-    return result
+  ipcMain.handle('plugins:getRollbackVersion', () => null)
+  ipcMain.handle('plugins:rollbackMarketplacePlugin', () => {
+    throw new Error(PLUGIN_MARKETPLACES_UNAVAILABLE_MESSAGE)
   })
 }

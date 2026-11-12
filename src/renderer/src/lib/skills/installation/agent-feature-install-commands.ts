@@ -6,9 +6,9 @@ import {
   ORCHESTRATION_SKILL_NAME
 } from './agent-feature-skill-names'
 
-/** The interactive install, pinned to this build; also the update, since `add` re-copies. */
+/** Installs the copy this build ships through the bundled `deca skills install`. */
 export function buildAgentFeatureSkillInstallCommand(skillNames: readonly string[]): string {
-  return buildPinnedSkillInstallCommand(skillNames, { sourceCommit: ORCA_BUILD_COMMIT })
+  return buildPinnedSkillInstallCommand(skillNames)
 }
 
 export const ORCHESTRATION_SKILL_INSTALL_COMMAND = buildAgentFeatureSkillInstallCommand([

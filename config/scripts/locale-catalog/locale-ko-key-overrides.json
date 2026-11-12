@@ -1673,9 +1673,6 @@
   "auto.components.settings.BrowserPane.cd47bc9622": {
     "ko": "새 브라우저 탭의 기본 프로필을 선택합니다. 쿠키를 가져오고 탭별로 프로필을 전환하려면 다음을 이용하세요:"
   },
-  "auto.components.settings.BrowserUseComputerUseNotice.15b5e680ba": {
-    "ko": "컴퓨터 사용 열기"
-  },
   "auto.components.settings.CommitMessageAiPane.15b60d54b2": {
     "ko": "예: ollama run llama3.1 {prompt}"
   },
@@ -2482,30 +2479,6 @@
   },
   "auto.components.settings.commit.message.ai.search.b7d50da4d8": {
     "ko": "템플릿"
-  },
-  "auto.components.settings.computerUseSummary.checkingDescription": {
-    "ko": "Orca가 Computer Use 도우미의 macOS 개인정보 보호 권한을 확인하고 있습니다."
-  },
-  "auto.components.settings.computerUseSummary.checkingTitle": {
-    "ko": "Computer Use 액세스 확인 중입니다."
-  },
-  "auto.components.settings.computerUseSummary.permissionsRequired": {
-    "ko": "agents가 앱 창을 조작하려면 먼저 {{value0}} 권한{{value1}}이 필요합니다."
-  },
-  "auto.components.settings.computerUseSummary.permissionsTitle": {
-    "ko": "로컬 앱을 사용하려면 설정을 완료하세요."
-  },
-  "auto.components.settings.computerUseSummary.readyDescription": {
-    "ko": "요청하면 Agents가 앱 창을 검사하고 조작할 수 있습니다."
-  },
-  "auto.components.settings.computerUseSummary.readyTitle": {
-    "ko": "Computer Use를 사용할 준비가 되었습니다."
-  },
-  "auto.components.settings.computerUseSummary.unavailableDescription": {
-    "ko": "{{value0}} 때문에 Computer Use 권한을 사용할 수 없습니다."
-  },
-  "auto.components.settings.computerUseSummary.unavailableTitle": {
-    "ko": "Computer Use를 사용할 수 없습니다."
   },
   "auto.components.settings.developer.permissions.search.00e954319e": {
     "ko": "Whisper"
@@ -4411,9 +4384,6 @@
   },
   "components.settings.terminal.clipboard.search.leading": {
     "ko": "선행"
-  },
-  "auto.components.settings.ComputerUsePane.697005758f": {
-    "ko": "macOS '개인정보 보호 및 보안'을 열었습니다"
   },
   "auto.components.settings.DeveloperPermissionsPane.6f011b9bf6": {
     "ko": "터미널 도구는 Orca의 macOS 개인정보 보호 환경 안에서 실행됩니다."

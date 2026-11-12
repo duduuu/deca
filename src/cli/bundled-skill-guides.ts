@@ -236,8 +236,7 @@ const ORCA_CLI_MARKDOWN = [
   "  \"Deca browser\". Also use for opening, testing, screenshotting, or checking how a local or",
   "  external web page renders while working in Deca, unless the user or project names another",
   "  browser tool; plain HTTP or API calls (curl, fetch) do not need it. Prefer it over raw git",
-  "  worktree, ad hoc PTYs, or Computer Use when Deca state is involved. Use Computer Use only",
-  "  when a visible window needs GUI control that a CLI, filesystem, or API cannot do.",
+  "  worktree or ad hoc PTYs when Deca state is involved.",
   "---",
   "",
   "# Deca CLI",
@@ -4136,7 +4135,7 @@ export const BUNDLED_SKILL_GUIDES = [
   },
   {
     name: "orca-cli",
-    description: "Operate Deca-managed worktrees, folder contexts, terminals, repos, automations, worktree comments, and Deca's embedded browser through the `deca` CLI. Use when the user says \"$orca-cli\", \"Deca worktree\", \"child worktree\", \"spawn codex/claude in a worktree\", \"read/wait/send Deca terminal\", \"handoff\" / \"handover\" / \"give this to another agent\", or \"Deca browser\". Also use for opening, testing, screenshotting, or checking how a local or external web page renders while working in Deca, unless the user or project names another browser tool; plain HTTP or API calls (curl, fetch) do not need it. Prefer it over raw git worktree, ad hoc PTYs, or Computer Use when Deca state is involved. Use Computer Use only when a visible window needs GUI control that a CLI, filesystem, or API cannot do.",
+    description: "Operate Deca-managed worktrees, folder contexts, terminals, repos, automations, worktree comments, and Deca's embedded browser through the `deca` CLI. Use when the user says \"$orca-cli\", \"Deca worktree\", \"child worktree\", \"spawn codex/claude in a worktree\", \"read/wait/send Deca terminal\", \"handoff\" / \"handover\" / \"give this to another agent\", or \"Deca browser\". Also use for opening, testing, screenshotting, or checking how a local or external web page renders while working in Deca, unless the user or project names another browser tool; plain HTTP or API calls (curl, fetch) do not need it. Prefer it over raw git worktree or ad hoc PTYs when Deca state is involved.",
     markdown: ORCA_CLI_MARKDOWN,
     aliases: [],
     references: [{ name: "artifacts", markdown: ORCA_CLI_ARTIFACTS_REFERENCE_MARKDOWN }, { name: "automations", markdown: ORCA_CLI_AUTOMATIONS_REFERENCE_MARKDOWN }, { name: "browser", markdown: ORCA_CLI_BROWSER_REFERENCE_MARKDOWN }, { name: "plugins", markdown: ORCA_CLI_PLUGINS_REFERENCE_MARKDOWN }, { name: "skill-sharing", markdown: ORCA_CLI_SKILL_SHARING_REFERENCE_MARKDOWN }]

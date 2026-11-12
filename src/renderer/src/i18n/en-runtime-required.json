@@ -629,12 +629,6 @@
         }
       },
       "settings": {
-        "ComputerUsePane": {
-          "07bbe4c4cb": "Screenshots",
-          "0c9a33f468": "Capture app windows so agents can inspect visual state.",
-          "4d03dec2d0": "Read app interface trees and perform requested actions.",
-          "6b5a2cd3a5": "Accessibility"
-        },
         "McpConfigSection": {
           "detectedServers_one": "{{detected}} detected · {{count}} server",
           "detectedServers_other": "{{detected}} detected · {{count}} servers"
@@ -779,10 +773,6 @@
             "shortcut": "shortcut",
             "subagent": "subagent"
           }
-        },
-        "computerUseSummary": {
-          "permissionsRequired_one": "{{value0}} permission required before agents can operate app windows.",
-          "permissionsRequired_other": "{{value0}} permissions required before agents can operate app windows."
         },
         "privacy": {
           "search": {

@@ -8,8 +8,7 @@ description: >-
   "Deca browser". Also use for opening, testing, screenshotting, or checking how a local or
   external web page renders while working in Deca, unless the user or project names another
   browser tool; plain HTTP or API calls (curl, fetch) do not need it. Prefer it over raw git
-  worktree, ad hoc PTYs, or Computer Use when Deca state is involved. Use Computer Use only
-  when a visible window needs GUI control that a CLI, filesystem, or API cannot do.
+  worktree or ad hoc PTYs when Deca state is involved.
 ---
 
 # Deca CLI

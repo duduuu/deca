@@ -2455,8 +2455,6 @@
         "5f32ac08f3": "Finish the onboarding checklist for core Deca workflows.",
         "8ac3de82f5": "Local speech-to-text dictation with on-device models.",
         "6a50cdcd7c": "Voice",
-        "0059bd17f3": "Enable agents to control any app on your computer.",
-        "b35e92364b": "Computer Use",
         "cd50cec5d7": "Coordinate multiple coding agents through Deca.",
         "58a868e8e4": "Orchestration",
         "7c79d3b7bf": "Optional",
@@ -7933,11 +7931,6 @@
           "80bffd32bf": "Import cookies",
           "bd7d68f138": "From file…"
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "If cookie import is not the right fit, Computer Use can control local apps and may use existing logged-in browser sessions where applicable. Install the Orca Computer Use skill; macOS also requires privacy permissions.",
-          "333984cf90": "Use an existing browser session",
-          "9895ed44de": "Open computer use"
-        },
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "Enable agent browser use"
         },
@@ -8046,30 +8039,6 @@
           "407d28bde6": "cli",
           "54038660e0": "command",
           "25350d670f": "custom"
-        },
-        "ComputerUsePane": {
-          "1735461723": "Enables agents to inspect and operate local desktop apps.",
-          "93255aaf18": "Orca Computer Use skill",
-          "45f8e22c2e": "Open",
-          "d95d1cfab8": "Refresh",
-          "0c29da5805": "Ready",
-          "3383ea1aab": "Could not reset Computer Use permissions",
-          "f189f448a3": "Reset Computer Use access",
-          "5c45349665": "Could not open Computer Use permissions",
-          "7801ac08ec": "Computer Use permissions are only required on macOS",
-          "740766c291": "Computer Use setup is already complete",
-          "697005758f": "Opened macOS Privacy & Security",
-          "794807aa21": "Queued macOS Privacy & Security; a newer request or a reset may replace it",
-          "2168fa5ab0": "Could not load Computer Use permissions",
-          "0c9a33f468": "Capture app windows so agents can inspect visual state.",
-          "07bbe4c4cb": "Screenshots",
-          "4d03dec2d0": "Read app interface trees and perform requested actions.",
-          "6b5a2cd3a5": "Accessibility",
-          "6b17602073": "Reset access",
-          "506f2acf7a": "Resetting access...",
-          "statusGranted": "Granted",
-          "statusUnsupported": "macOS only",
-          "statusNotEnabled": "Not enabled"
         },
         "DeveloperPermissionsPane": {
           "4c17304beb": "Refresh",
@@ -9051,7 +9020,6 @@
           "6855b0f77d": "Finish the core workflows that make Deca useful for parallel agent work.",
           "6d119427ef": "Onboarding checklist",
           "5063bb47a5": "Voice",
-          "7118953f14": "Enable agents to control any app on your computer.",
           "475980f53d": "Coordinate multiple coding agents through Deca.",
           "00c3a7950d": "Orchestration",
           "21f09426ea": "Optional. Deca works with your existing provider logins; add accounts only if you want Deca to help switch between them.",
@@ -9078,7 +9046,6 @@
           "d09b9d8f00": "Git & source control",
           "3eac6fb97f": "Dev tools",
           "4198aae333": "AI provider accounts",
-          "3f3e11cb5d": "Computer use",
           "084f34826d": "Stats & usage",
           "742ca66ea6": "Privacy & telemetry",
           "c2bb9fc528": "Floating workspace",
@@ -10098,7 +10065,6 @@
               "59968bb9b4": "authenticated browser",
               "62e2a790c0": "existing session",
               "63a66da648": "system browser",
-              "20c1323d1e": "computer use",
               "ab349a2dd0": "arc",
               "2e1b09897b": "edge",
               "088e7a9012": "chrome",
@@ -10157,20 +10123,6 @@
                 "0b946b2abe": "Adds action recipes for Source Control commit, pull request, branch-name, and fix actions.",
                 "24dbdfca78": "Show Source Control AI actions"
               }
-            }
-          }
-        },
-        "computer": {
-          "use": {
-            "search": {
-              "6e88da3508": "skill",
-              "798be54d7e": "automation",
-              "e27f8bafbf": "screenshot",
-              "26c1290d83": "screen recording",
-              "82f01c2d2c": "accessibility",
-              "fefb452f5b": "computer use",
-              "9210db582b": "Allow agents to inspect screenshots and operate local apps when you ask.",
-              "c3c3d70b5e": "Computer use"
             }
           }
         },
@@ -11546,17 +11498,6 @@
         "ProviderHostScopeControl": {
           "scope_label": "{{value0}}: {{value1}}",
           "change_host": "Open Remote Servers"
-        },
-        "computerUseSummary": {
-          "checkingTitle": "Checking Computer Use access.",
-          "checkingDescription": "Deca is checking macOS privacy permissions for the Computer Use helper.",
-          "unavailableTitle": "Computer Use is unavailable.",
-          "unavailableDescription": "Computer Use permissions are unavailable because {{value0}}.",
-          "readyTitle": "Computer Use is ready.",
-          "readyDescription": "Agents can inspect and operate app windows when you ask.",
-          "permissionsTitle": "Finish setup to use local apps.",
-          "permissionsRequired_one": "{{value0}} permission required before agents can operate app windows.",
-          "permissionsRequired_other": "{{value0}} permissions required before agents can operate app windows."
         },
         "providerAccountScope": {
           "remoteServer": "Remote server: {{value0}}",
@@ -15531,13 +15472,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "Installed",
-            "1b51644c2d": "Let agents control the desktop, moving the cursor, clicking, and typing in any app.",
-            "362a07517d": "Computer Use",
             "5e8fe5a72d": "Give agents direct access to Deca's browser so they can test pages, capture screenshots, and act on what they see.",
             "e638da007a": "Agent Browser Use",
             "c61c91e642": "Let agents coordinate through Deca to keep large, multi-step tasks moving to completion.",
             "ac07f8887f": "Agent Orchestration",
-            "e9eb197e12": "Opened Computer Use permissions",
             "c605f51f2b": "Capability setup ready",
             "1aa657d8f4": "Some capability setup needs attention",
             "installSkills": "Install skills",
@@ -15728,13 +15666,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "Installed",
-                  "5c9293e51a": "checking app access",
                   "aa8e143a2f": "Could not check install",
                   "9b33e7fb13": "Checking install",
-                  "6d2b0a84e1": "Unavailable in this build",
-                  "notInstalled": "Not installed",
-                  "needsMacAccess": "Needs macOS access",
-                  "requiresOrcaDesktop": "Requires Deca Desktop"
+                  "notInstalled": "Not installed"
                 }
               }
             }

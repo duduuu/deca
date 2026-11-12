@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path'
 import {
   hasAppImagePathEnvironment,
   resolveAppImageRuntimeIdentity
-} from '../updater/linux-package/appimage-runtime-identity'
+} from '../linux-appimage/appimage-runtime-identity'
 import {
   ensureAppImageExtractedRoot,
   resolveAppImageCacheRootPath,

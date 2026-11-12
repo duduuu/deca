@@ -28,10 +28,7 @@ import {
 } from '../browser/site-settings/permissions/browser-media-access'
 import type { OrcaRuntimeService } from '../runtime/orca-runtime'
 import type { RuntimeWorktreeLifecycleEvent } from '../runtime/workspaces/lifecycle/worktree-lifecycle-event'
-import type {
-  PreQuitCleanupFailureMode,
-  UpdateInstallMode
-} from '../updater/lifecycle/updater-state'
+import type { PreQuitCleanupFailureMode, UpdateInstallMode } from '../updater/updater-service'
 import { scheduleHistoryGc } from '../pty/history/terminal-history-gc'
 import { openCodeHookService, openCode2HookService } from '../opencode/hook-service'
 import { listLiveDaemonPtyIds } from '../daemon/providers/lifecycle/daemon-provider-state'

@@ -1,7 +1,5 @@
-// Deca is distributed through the internal package channel, so the in-app updater is inert:
-// no feed, release, changelog or nudge requests are ever made.
+// Deca ships without an in-app updater: no feed, release, changelog or nudge requests are ever made.
 import { app } from 'electron'
-import type { BrowserWindow } from 'electron'
 import type {
   LinuxPackageInstallInstructions,
   UpdateCheckOptions,
@@ -13,9 +11,12 @@ import type {
   RemoteServerUpdateSupport
 } from '../../shared/remote-server-update'
 import type { ReleaseBuild, ReleaseChannel } from '../../shared/release-channel'
-import type { ReleaseBuildListOptions } from './releases/updater-release-build-cache'
-import type { UpdaterSetupOptions } from './lifecycle/updater-setup'
-import type { UpdateInstallMode } from './lifecycle/updater-state'
+
+export type UpdateInstallMode =
+  | 'interactive'
+  | 'supervised-headless-serve'
+  | 'unsupported-headless-serve'
+export type PreQuitCleanupFailureMode = 'continue' | 'abort'
 
 const IDLE_STATUS: UpdateStatus = { state: 'idle' }
 
@@ -79,7 +80,7 @@ export async function showLinuxPackage(): Promise<void> {}
 
 export async function listAvailableReleaseBuilds(
   _channel: ReleaseChannel,
-  _options?: ReleaseBuildListOptions
+  _options?: { force?: boolean }
 ): Promise<ReleaseBuild[]> {
   return []
 }
@@ -87,8 +88,3 @@ export async function listAvailableReleaseBuilds(
 export function dismissNudge(): void {}
 
 export function dismissAvailableUpdate(): void {}
-
-export function setupAutoUpdater(
-  _mainWindow: BrowserWindow | null,
-  _opts?: UpdaterSetupOptions
-): void {}

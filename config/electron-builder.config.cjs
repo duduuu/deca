@@ -128,7 +128,7 @@ const nativeChatVisualsResource = {
   from: 'resources/native-chat-visuals',
   to: 'native-chat-visuals'
 }
-// SSH deploy resolves process.resourcesPath/relay; extraResources keeps bundles on real disk.
+// WSL guest deploy resolves process.resourcesPath/relay; extraResources keeps bundles on real disk.
 const relayExtraResource = {
   from: 'out/relay',
   to: 'relay'
@@ -733,7 +733,7 @@ module.exports = {
   // Dual-arch builds need target node-pty rebuilds or Intel Macs get arm64 binaries and posix_spawnp failure.
   // beforeBuild performs targeted rebuild then returns false to skip optional cpu-features.
   npmRebuild: true,
-  // Deca ships through the internal package channel; no update feed or release publishing.
+  // Deca has no update feed or release publishing.
   publish: null
 }
 

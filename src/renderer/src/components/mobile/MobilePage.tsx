@@ -7,7 +7,6 @@ import type { PairingNetworkInterface } from '../../../../shared/pairing-address
 import { translate } from '@/i18n/i18n'
 import { useMobilePageEscape } from './use-mobile-page-escape'
 import { MobilePageContent } from './MobilePageContent'
-import { useMobileInstallQr } from './use-mobile-install-qr'
 import {
   canMintMobilePairingOffer,
   type MobilePairingConnectionMode
@@ -79,7 +78,6 @@ export default function MobilePage(): React.JSX.Element {
     showPairedDevices,
     stage
   } = useMobilePagePairedDevices({ stepIdx, setStepIdx })
-  const installQrUrl = useMobileInstallQr(stage, platform)
   const { copyInstallUrl, openAndroidInstallGuide, openInstallUrl } =
     useMobileInstallActions(platform)
 
@@ -340,7 +338,7 @@ export default function MobilePage(): React.JSX.Element {
       beforeCustomAddressChange={beforeCustomAddressChange}
       handleBack={handleBack}
       handleContinue={handleContinue}
-      installQrUrl={installQrUrl}
+      installQrUrl={null}
       loadNetworkInterfaces={() => void loadNetworkInterfaces()}
       networkInterfaces={networkInterfaces}
       openAndroidInstallGuide={openAndroidInstallGuide}

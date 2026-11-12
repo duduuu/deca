@@ -1,7 +1,15 @@
 import { expect, it, vi } from 'vitest'
-import { updaterMainWindow } from '../updater/testing/updater-test-main-window'
+import type { BrowserWindow } from 'electron'
 import { LOCAL_BUILD_COMPATIBILITY_CONTRACT } from '../../shared/local-build-compatibility-contract'
 import type { LocalBuildCandidate } from './local-build-candidate'
+
+function updaterMainWindow(send: (channel: string, ...args: unknown[]) => void): BrowserWindow {
+  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the switch reaches its window only through isDestroyed and webContents.isDestroyed/send.
+  return {
+    isDestroyed: () => false,
+    webContents: { isDestroyed: () => false, send }
+  } as unknown as BrowserWindow
+}
 
 const { showOpenDialog, showMessageBox, loadCandidate } = vi.hoisted(() => ({
   showOpenDialog: vi.fn(),

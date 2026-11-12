@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { relativePathInsideRoot } from '../../../../shared/cross-platform-path'
-import { resolveAppImageRuntimeIdentity } from '../../../updater/linux-package/appimage-runtime-identity'
+import { resolveAppImageRuntimeIdentity } from '../../../linux-appimage/appimage-runtime-identity'
 import type { DurableDaemonScopeCommand } from '../../process-scopes/daemon-cgroup-scope'
 import { envWithoutAppImageRuntime } from '../../../pty/shell-startup/appimage-terminal-env'
 

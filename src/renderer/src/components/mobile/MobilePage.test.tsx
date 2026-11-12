@@ -36,7 +36,6 @@ vi.mock('sonner', () => ({
   toast: { error: vi.fn(), message: vi.fn(), success: vi.fn() }
 }))
 
-vi.mock('./use-mobile-install-qr', () => ({ useMobileInstallQr: () => null }))
 vi.mock('./use-mobile-page-escape', () => ({ useMobilePageEscape: vi.fn() }))
 vi.mock('./pairing/mobile-pairing-device-polling', () => ({
   useMobilePairingDevicePolling: vi.fn()

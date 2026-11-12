@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ExternalLink, Puzzle, Settings2 } from 'lucide-react'
+import { Settings2 } from 'lucide-react'
 import { Trans } from 'react-i18next'
 import { toast } from 'sonner'
 import { track } from '@/diagnostics/telemetry/telemetry'
@@ -8,7 +8,7 @@ import { GhosttyDiscoveryRow } from './GhosttyDiscoveryRow'
 import { i18n, translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 import { ThemeSlotControl, useThemeLooks } from './ThemeLookGallery'
-import { ThemeLookCarousel, openThemePluginDirectory } from './ThemeLookCarousel'
+import { ThemeLookCarousel } from './ThemeLookCarousel'
 import { ThemeModeControl } from './ThemeModeControl'
 import { themeLookSettingsUpdate } from './onboarding-theme-look-settings'
 import { terminalConfigImportSettingsUpdate } from '../../../../shared/terminal/appearance/terminal-config-import-preview'
@@ -245,23 +245,6 @@ export function ThemeStep({
       />
 
       <div className="space-y-1.5 px-1 text-[12px] text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <Puzzle className="size-3.5" />
-          <span>
-            {t(
-              'components.onboarding.theme.looks.pluginsHint',
-              'More themes are available as plugins.'
-            )}
-          </span>
-          <button
-            type="button"
-            className="inline-flex items-center gap-1 font-medium text-foreground underline-offset-4 hover:underline"
-            onClick={openThemePluginDirectory}
-          >
-            {t('components.onboarding.theme.looks.browseThemePlugins', 'Browse theme plugins')}
-            <ExternalLink className="size-3" />
-          </button>
-        </div>
         <div className="flex items-center gap-2">
           <Settings2 className="size-3.5" />
           <span>

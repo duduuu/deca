@@ -9,9 +9,6 @@ import { projectViewErrorMessage } from './project-view-error-copy'
 import { isRenderableProjectViewLayout } from '../../../../shared/github/project-types'
 import type { GitHubProjectViewSummary } from '../../../../shared/github/project-types'
 import type { GitHubProjectViewError } from '../../../../shared/github/project-result-types'
-import { openAppHttpLink } from '@/lib/browser/navigation/app-http-link-open'
-
-const ORCA_FEATURE_REQUEST_URL = 'https://github.com/stablyai/orca/issues/new'
 
 export function ProjectViewTabStrip({
   views,
@@ -71,8 +68,8 @@ function ProjectViewTab({
           ? view.name
           : t(
               'auto.components.github.project.ProjectViewWrapper.2edf5e7e77',
-              "{{value0}} — Deca doesn't support {{value1}} project views yet. File a feature request at {{value2}}.",
-              { value0: view.name, value1: layoutLabel, value2: ORCA_FEATURE_REQUEST_URL }
+              "{{value0}} — Deca doesn't support {{value1}} project views yet.",
+              { value0: view.name, value1: layoutLabel }
             )
       }
       className={cn(
@@ -103,8 +100,8 @@ function ProjectViewTab({
           tabIndex={0}
           aria-label={t(
             'auto.components.github.project.ProjectViewWrapper.55de4fb57a',
-            '{{value0}}. {{value1}} File a feature request at {{value2}}.',
-            { value0: view.name, value1: message, value2: ORCA_FEATURE_REQUEST_URL }
+            '{{value0}}. {{value1}}',
+            { value0: view.name, value1: message }
           )}
           className="inline-flex shrink-0 cursor-not-allowed rounded-t-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
         >
@@ -120,18 +117,6 @@ function ProjectViewTab({
               'Switch to a Table, Board, or Roadmap view to work with this project in Deca.'
             )}
           </p>
-          <Button
-            type="button"
-            size="xs"
-            variant="outline"
-            onClick={(event) => openAppHttpLink(ORCA_FEATURE_REQUEST_URL, { event })}
-          >
-            {t(
-              'auto.components.github.project.ProjectViewWrapper.4d2a77a119',
-              'File feature request'
-            )}
-            <ExternalLink className="size-3" />
-          </Button>
         </div>
       </HoverCardContent>
     </HoverCard>

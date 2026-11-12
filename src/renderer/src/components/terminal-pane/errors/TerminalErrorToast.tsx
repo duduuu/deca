@@ -150,21 +150,6 @@ export function TerminalErrorToast({
                 'Restart the terminal daemon from here to clear stale daemon state.'
               )}
             </>
-          ) : showIssueLink ? (
-            <>
-              {'\n'}
-              {t(
-                'auto.components.terminal.pane.TerminalErrorToast.5c8ce20be6',
-                'If this persists, please'
-              )}{' '}
-              <a
-                href="https://github.com/stablyai/orca/issues"
-                style={{ color: 'inherit', textDecoration: 'underline' }}
-              >
-                {t('auto.components.terminal.pane.TerminalErrorToast.a7e2fd2699', 'file an issue')}
-              </a>
-              .
-            </>
           ) : null}
           {showClientEnvironment && footer ? `\n\n${footer}` : null}
           {paneOwnerUnverified && retryFailed

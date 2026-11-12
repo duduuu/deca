@@ -19,7 +19,6 @@ import { useTranslate } from '@/i18n/use-translate'
 
 const MACOS_UPDATE_GUIDE_URL = 'https://support.apple.com/en-us/108382'
 const VENTURA_COMPATIBILITY_URL = 'https://support.apple.com/en-us/102861'
-const MACOS_SUPPORT_DISCUSSION_URL = 'https://github.com/stablyai/orca/discussions/38765'
 
 export function MacosUpdateRequirementDialog({
   open,
@@ -43,11 +42,9 @@ export function MacosUpdateRequirementDialog({
   const cannotUpgrade = support === 'unsupported'
   const primaryUrl = canUpgrade
     ? MACOS_UPDATE_GUIDE_URL
-    : cannotUpgrade
-      ? MACOS_SUPPORT_DISCUSSION_URL
-      : isVenturaRequirement(macos)
-        ? VENTURA_COMPATIBILITY_URL
-        : MACOS_UPDATE_GUIDE_URL
+    : cannotUpgrade || isVenturaRequirement(macos)
+      ? VENTURA_COMPATIBILITY_URL
+      : MACOS_UPDATE_GUIDE_URL
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -157,9 +154,7 @@ export function MacosUpdateRequirementDialog({
               ? t('macosUpdateRequirement.checkingAction', 'Checking your Mac…')
               : canUpgrade
                 ? t('macosUpdateRequirement.updateAction', 'How to update macOS')
-                : cannotUpgrade
-                  ? t('macosUpdateRequirement.discussionAction', 'Join the discussion')
-                  : t('macosUpdateRequirement.checkAction', 'Check compatibility')}
+                : t('macosUpdateRequirement.checkAction', 'Check compatibility')}
             {!checking ? <ArrowUpRight className="size-4" aria-hidden /> : null}
           </Button>
         </DialogFooter>

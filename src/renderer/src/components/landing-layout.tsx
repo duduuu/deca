@@ -27,7 +27,7 @@ export function LandingBrand(): React.JSX.Element {
         />
       </div>
       <h1 className="text-4xl font-bold text-foreground tracking-tight">
-        {t('auto.components.Landing.6ca6ff404e', 'ORCA')}
+        {t('auto.components.Landing.6ca6ff404e', 'DECA')}
       </h1>
     </>
   )

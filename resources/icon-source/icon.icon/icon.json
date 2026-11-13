@@ -30,7 +30,7 @@
           "image-name": "logo.svg",
           "name": "logo",
           "position": {
-            "scale": 3,
+            "scale": 6.4,
             "translation-in-points": [0, 0]
           }
         }

@@ -36,6 +36,16 @@ export function isAiVaultAgent(value: unknown): value is AiVaultAgent {
   return AI_VAULT_AGENTS.some((agent) => agent === value)
 }
 
+// Why: Deca reads only Claude and Codex session history; other agents' transcripts stay unread.
+export const AI_VAULT_READABLE_AGENTS = [
+  'claude',
+  'codex'
+] as const satisfies readonly AiVaultAgent[]
+
+export function isAiVaultReadableAgent(agent: string): boolean {
+  return AI_VAULT_READABLE_AGENTS.some((readable) => readable === agent)
+}
+
 /** The agents Session History may list `agent`'s sessions under. */
 export function aiVaultHistoryAgents(agent: AiVaultAgent): AiVaultAgent[] {
   // One OpenCode store holds both versions' sessions, and the scanner labels current ones `opencode2`.

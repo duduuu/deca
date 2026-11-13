@@ -1,4 +1,3 @@
-import { consumeCodexRateLimitResetCredit } from '../providers/codex/codex-fetcher'
 import { RateLimitServiceInactiveAccounts } from './service-inactive-accounts'
 import { hasUsageWindows } from './service-result-policy'
 import {
@@ -97,41 +96,13 @@ export abstract class RateLimitServiceAccountRefresh extends RateLimitServiceIna
     return this.getState()
   }
 
-  async consumeCodexRateLimitResetCredit(options: {
+  // Why: Deca only reads usage; it never spends a ChatGPT rate-limit reset credit.
+  async consumeCodexRateLimitResetCredit(_options: {
     idempotencyKey: string
     target: RateLimitRuntimeTarget
     codexHomePath: string | null
   }): Promise<CodexRateLimitResetResult> {
-    const codexTarget = normalizeCodexAccountSelectionTarget(options.target)
-    const codexHomePath = options.codexHomePath
-    const scopedStateBeforeReset = this.getState()
-    const missingWslCodexHome = codexHomePath
-      ? null
-      : this.getMissingWslCodexHomeResult(codexTarget)
-    if (missingWslCodexHome) {
-      if (this.isSameCodexTarget(this.codexFetchTarget, codexTarget)) {
-        await this.fetchCodexOnly({ force: true })
-      }
-      throw new Error(missingWslCodexHome.error ?? 'Codex home unavailable')
-    }
-    try {
-      const outcome = await consumeCodexRateLimitResetCredit({
-        codexHomePath,
-        idempotencyKey: options.idempotencyKey
-      })
-      const state = await this.fetchCodexResetResultState(
-        codexTarget,
-        codexHomePath,
-        scopedStateBeforeReset,
-        outcome
-      )
-      return { outcome, state }
-    } catch (error) {
-      if (this.isSameCodexTarget(this.codexFetchTarget, codexTarget)) {
-        await this.fetchCodexOnly({ force: true })
-      }
-      throw error
-    }
+    throw new Error('Codex rate-limit resets are unavailable in Deca')
   }
 
   async refreshForClaudeAccountChange(

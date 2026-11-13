@@ -1,7 +1,4 @@
-import type {
-  CodexRateLimitResetOutcome,
-  ProviderRateLimits
-} from '../../../../shared/rate-limit-types'
+import type { ProviderRateLimits } from '../../../../shared/rate-limit-types'
 import { isCodexAuthError } from '../../../../shared/codex-auth-errors'
 import {
   buildWslExecArgs,
@@ -32,10 +29,7 @@ import {
 import type { CodexRateLimitFetchOptions } from './codex-rate-limit-fetch-options'
 import { abortedCodexRateLimitResult } from './codex-rate-limit-fetch-result'
 import { terminateCodexProbeChild } from '../../../codex-cli/codex-probe-termination'
-import {
-  consumeCodexRateLimitResetCreditFromBackend,
-  supplementCodexRateLimitResetCredits
-} from './codex-reset-credit-client'
+import { supplementCodexRateLimitResetCredits } from './codex-reset-credit-client'
 import { readCodexRateLimitsViaRpc } from './codex-rpc-rate-limit-probe'
 import {
   getHiddenProbeWslCwdSetupCommands,
@@ -119,13 +113,6 @@ async function fetchViaRpc(options?: CodexRateLimitFetchOptions): Promise<Provid
     fetchOptions: options,
     terminate: () => terminateCodexProbeChild(child)
   })
-}
-
-export function consumeCodexRateLimitResetCredit(options: {
-  codexHomePath?: string | null
-  idempotencyKey: string
-}): Promise<CodexRateLimitResetOutcome> {
-  return consumeCodexRateLimitResetCreditFromBackend(options, requestCodexBackend)
 }
 
 async function supplementBackendMetadata(

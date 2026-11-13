@@ -36,7 +36,6 @@ import {
   isPluginFramePartition,
   PLUGIN_FRAME_GUEST_RENDERER_ARGUMENTS
 } from '../plugins/panels/plugin-frame-guest-registry'
-import { attachBrowserPasswordGuest } from '../browser-passwords/browser-password-guest-service'
 
 /** orca-preview is outside normal browser URL admission; require the doc partition and a main-minted user-preview grant. */
 function isAdmissibleDocPreviewAttach(partition: string, src: string): boolean {
@@ -167,7 +166,6 @@ export function installMainWindowWebviewSecurity(mainWindow: BrowserWindow): voi
     browserRouteWebContentsRegistry.attachGuest(guest)
     // Proxies cannot block WebRTC UDP; enforce it per WebContents.
     enforceLocalSshWebRtcPolicyForGuest(guest)
-    attachBrowserPasswordGuest(guest)
   })
 }
 

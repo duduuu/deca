@@ -2,10 +2,6 @@ const sanitizeDirectoryMock: Mock = vi.hoisted(() => vi.fn())
 vi.mock('./floating-workspace-directory', () => ({
   sanitizeFloatingWorkspaceDirectorySetting: sanitizeDirectoryMock
 }))
-const confirmBrowserPasswordOwnerMock: Mock = vi.hoisted(() => vi.fn())
-vi.mock('../browser-passwords/browser-password-reauth', () => ({
-  confirmBrowserPasswordOwner: confirmBrowserPasswordOwnerMock
-}))
 import { vi, type Mock } from 'vitest'
 
 const {
@@ -120,7 +116,6 @@ const store: Record<string, Mock> = {
 
 export {
   sanitizeDirectoryMock,
-  confirmBrowserPasswordOwnerMock,
   applyAppIconMock,
   applyAgentStatusHooksEnabledMock,
   reconcileClaudeAgentViewMock,

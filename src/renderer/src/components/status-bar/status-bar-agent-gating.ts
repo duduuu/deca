@@ -10,10 +10,20 @@ const CLI_GATED_ITEMS: ReadonlySet<StatusBarItem> = new Set([
   'grok'
 ])
 
+// Why: Deca never fetches these meters (no browser cookies or foreign credential reads).
+const UNREPORTED_USAGE_ITEMS: ReadonlySet<StatusBarItem> = new Set([
+  'opencode-go',
+  'grok',
+  'cursor'
+])
+
 export function isStatusBarItemAvailable(
   id: StatusBarItem,
   detectedAgentIds: TuiAgent[] | null
 ): boolean {
+  if (UNREPORTED_USAGE_ITEMS.has(id)) {
+    return false
+  }
   if (!CLI_GATED_ITEMS.has(id)) {
     return true
   }

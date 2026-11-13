@@ -4,11 +4,6 @@ import type { ProviderRateLimits } from '../../../shared/rate-limit-types'
 import type { RateLimitService } from './rate-limit-service'
 import { fetchCodexRateLimits } from '../providers/codex/codex-fetcher'
 import { fetchGeminiRateLimits } from '../providers/gemini/gemini-usage-fetcher'
-import { fetchGrokRateLimits } from '../providers/grok/grok-fetcher'
-import { readGrokAuthSession } from '../providers/grok/grok-auth'
-import { fetchCursorRateLimits } from '../providers/cursor/cursor-fetcher'
-import { readCursorAuthSession } from '../providers/cursor/cursor-auth'
-import { fetchOpenCodeGoUsage } from '../providers/opencode-go/opencode-go-usage-source-selection'
 import { fetchAntigravityRateLimits } from '../providers/antigravity/antigravity-usage-fetcher'
 export type Deferred<T> = {
   promise: Promise<T>
@@ -75,9 +70,6 @@ export function unavailableProvider(
 export function mockFreshBackgroundProviderFetches(): void {
   vi.mocked(fetchCodexRateLimits).mockImplementation(async () => okProvider('codex', 24))
   vi.mocked(fetchGeminiRateLimits).mockImplementation(async () => okProvider('gemini', 0))
-  vi.mocked(fetchOpenCodeGoUsage).mockImplementation(async () => okProvider('opencode-go', 0))
-  vi.mocked(fetchGrokRateLimits).mockImplementation(async () => unavailableProvider('grok'))
-  vi.mocked(fetchCursorRateLimits).mockImplementation(async () => unavailableProvider('cursor'))
   vi.mocked(fetchAntigravityRateLimits).mockImplementation(async () =>
     unavailableProvider('antigravity')
   )
@@ -86,19 +78,7 @@ export function mockFreshBackgroundProviderFetches(): void {
 export function resetRateLimitProviderMocks(): void {
   vi.clearAllMocks()
   vi.mocked(fetchGeminiRateLimits).mockResolvedValue(okProvider('gemini', 0, Date.now()))
-  vi.mocked(fetchOpenCodeGoUsage).mockResolvedValue(okProvider('opencode-go', 0, Date.now()))
-  vi.mocked(fetchGrokRateLimits).mockResolvedValue({
-    provider: 'grok',
-    session: null,
-    weekly: null,
-    updatedAt: Date.now(),
-    error: null,
-    status: 'unavailable'
-  })
-  vi.mocked(fetchCursorRateLimits).mockResolvedValue(unavailableProvider('cursor'))
   vi.mocked(fetchAntigravityRateLimits).mockResolvedValue(unavailableProvider('antigravity'))
-  vi.mocked(readGrokAuthSession).mockReturnValue({ status: 'missing' })
-  vi.mocked(readCursorAuthSession).mockResolvedValue({ status: 'missing' })
 }
 
 type RateLimitWindow = Parameters<RateLimitService['attach']>[0]

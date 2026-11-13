@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { AgentIcon } from '@/components/agent/icons/AgentIcon'
-import { ClaudeIcon, GeminiIcon, OpenAIIcon, OpenCodeGoIcon } from './icons'
+import { ClaudeIcon, GeminiIcon, OpenAIIcon } from './icons'
 import { useTranslate } from '@/i18n/use-translate'
 import { isStatusBarItemAvailable } from './status-bar-agent-gating'
 import type { StatusBarController } from './use-status-bar-controller'
@@ -87,38 +87,6 @@ export function StatusBarVisibilityMenu({
             {t('auto.components.status.bar.StatusBar.antigravityUsage', 'Antigravity Usage')}
           </DropdownMenuCheckboxItem>
         )}
-        <DropdownMenuCheckboxItem
-          checked={statusBarItems.includes('opencode-go')}
-          onCheckedChange={() => {
-            recordFeatureInteraction('usage-tracking')
-            toggleStatusBarItem('opencode-go')
-          }}
-        >
-          <OpenCodeGoIcon size={14} />
-          {t('auto.components.status.bar.StatusBar.8c86cd77b0', 'OpenCode Go Usage')}
-        </DropdownMenuCheckboxItem>
-        {isStatusBarItemAvailable('grok', detectedAgentIds) && (
-          <DropdownMenuCheckboxItem
-            checked={statusBarItems.includes('grok')}
-            onCheckedChange={() => {
-              recordFeatureInteraction('usage-tracking')
-              toggleStatusBarItem('grok')
-            }}
-          >
-            <AgentIcon agent="grok" size={14} />
-            {t('auto.components.status.bar.StatusBar.grokUsageMenu', 'Grok Usage')}
-          </DropdownMenuCheckboxItem>
-        )}
-        <DropdownMenuCheckboxItem
-          checked={statusBarItems.includes('cursor')}
-          onCheckedChange={() => {
-            recordFeatureInteraction('usage-tracking')
-            toggleStatusBarItem('cursor')
-          }}
-        >
-          <AgentIcon agent="cursor" size={14} />
-          {t('auto.components.status.bar.StatusBar.cursorUsageMenu', 'Cursor Usage')}
-        </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
           checked={statusBarItems.includes('ssh')}
           onCheckedChange={() => {

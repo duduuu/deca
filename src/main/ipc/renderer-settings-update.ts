@@ -17,11 +17,5 @@ export function sanitizeRendererSettingsUpdate(
   delete sanitizedArgs.pluginConsents
   delete sanitizedArgs.disabledPlugins
   delete sanitizedArgs.pluginExternalHostGrants
-  if (
-    'browserPasswordsFillRequiresReauth' in sanitizedArgs &&
-    typeof sanitizedArgs.browserPasswordsFillRequiresReauth !== 'boolean'
-  ) {
-    delete sanitizedArgs.browserPasswordsFillRequiresReauth
-  }
   return sanitizedArgs
 }

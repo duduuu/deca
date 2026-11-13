@@ -1,14 +1,9 @@
 import { fetchActiveClaudeRateLimits } from '../providers/claude/claude-active-usage-fetch'
 import { fetchCodexRateLimits } from '../providers/codex/codex-fetcher'
 import { fetchGeminiRateLimits } from '../providers/gemini/gemini-usage-fetcher'
-import { fetchGrokRateLimits } from '../providers/grok/grok-fetcher'
-import { readGrokAuthSession } from '../providers/grok/grok-auth'
-import { fetchCursorRateLimits } from '../providers/cursor/cursor-fetcher'
-import { readCursorAuthSession } from '../providers/cursor/cursor-auth'
 import { fetchAntigravityRateLimits } from '../providers/antigravity/antigravity-usage-fetcher'
 import { antigravityUsageDisabledSnapshot } from '../providers/antigravity/antigravity-usage-snapshot'
-import { createHash } from 'node:crypto'
-import { fetchOpenCodeGoUsage } from '../providers/opencode-go/opencode-go-usage-source-selection'
+import { unreportedUsageSnapshot } from './disabled-usage-snapshot'
 import { RateLimitServiceAntigravityAccounts } from './service-antigravity-accounts'
 import type { SettledProviderResult } from './service-sibling-provider-result'
 import type { ClaudeRuntimeAuthPreparation } from '../../claude-accounts/runtime-auth/runtime-auth-types'
@@ -84,26 +79,8 @@ export abstract class RateLimitServiceFullCyclePreparation extends RateLimitServ
     const codexProvenance = codexFetchGated
       ? null
       : this.getCodexProvenance(codexTarget, codexHomePath)
-    const openCodeGoConfig = this.resolveOpenCodeGoConfig()
-    const cookie = openCodeGoConfig.sessionCookie
-    const workspaceIdOverride = openCodeGoConfig.workspaceIdOverride
-    const openCodeGoApiKey = openCodeGoConfig.apiKey
-    const openCodeGoApiKeyError = openCodeGoConfig.apiKeyError
-    const openCodeGoApiKeyReadSkipped = openCodeGoConfig.apiKeyReadSkipped
-    // Probe auth during fetch, not hot renderer/mobile getState calls.
-    const grokAuthReadResult = readGrokAuthSession()
-    this.grokAuthConfigured = grokAuthReadResult.status === 'ok'
-
-    // Config changes discard old-account usage; hash credentials because only identity changes matter.
-    const apiKeyFingerprint = openCodeGoApiKey
-      ? createHash('sha256').update(openCodeGoApiKey).digest('hex')
-      : ''
-    const currentConfigHash = `${cookie}|${workspaceIdOverride}|${apiKeyFingerprint}|${openCodeGoApiKeyError ?? ''}`
-    const opencodeConfigChanged = currentConfigHash !== this.lastOpencodeConfigHash
-    if (opencodeConfigChanged) {
-      this.lastOpencodeConfigHash = currentConfigHash
-      this.opencodeFetchGeneration += 1
-    }
+    // Why: OpenCode Go usage is never fetched, so its config never changes mid-session.
+    const opencodeConfigChanged = false
     const opencodeGeneration = this.opencodeFetchGeneration
 
     this.updateState({
@@ -114,26 +91,18 @@ export abstract class RateLimitServiceFullCyclePreparation extends RateLimitServ
         ? codexStateBeforeFetch
         : this.withFetchingStatus(previousState.codex, 'codex'),
       gemini: this.withFetchingStatus(previousState.gemini, 'gemini'),
-      opencodeGo: opencodeConfigChanged
-        ? this.withFetchingStatus(null, 'opencode-go')
-        : this.withFetchingStatus(previousState.opencodeGo, 'opencode-go'),
+      opencodeGo: unreportedUsageSnapshot('opencode-go'),
       antigravity: antigravityFetchAllowed
         ? this.withFetchingStatus(previousState.antigravity, 'antigravity')
         : (previousState.antigravity ?? antigravityUsageDisabledSnapshot()),
-      grok: this.withFetchingStatus(previousState.grok, 'grok'),
-      cursor: this.withFetchingStatus(previousState.cursor, 'cursor')
+      grok: unreportedUsageSnapshot('grok'),
+      cursor: unreportedUsageSnapshot('cursor')
     })
 
-    // Async Keychain/worker DB reads must not delay other providers.
-    const cursorResultPromise = readCursorAuthSession()
-      .then((authReadResult) => {
-        this.cursorAuthConfigured = authReadResult.status === 'ok'
-        return fetchCursorRateLimits({ signal, authReadResult })
-      })
-      .then(
-        (value) => ({ status: 'fulfilled', value }) as const,
-        (reason) => ({ status: 'rejected', reason }) as const
-      )
+    const cursorResultPromise = Promise.resolve({
+      status: 'fulfilled',
+      value: unreportedUsageSnapshot('cursor')
+    } as const)
 
     // Hidden meters avoid the CLI spawn; the separate promise keeps other providers responsive.
     const antigravityResultPromise = (
@@ -149,13 +118,10 @@ export abstract class RateLimitServiceFullCyclePreparation extends RateLimitServ
 
     const missingWslCodexHome =
       codexFetchGated || codexHomePath ? null : this.getMissingWslCodexHomeResult(codexTarget)
-    const grokResultPromise = fetchGrokRateLimits({
-      signal,
-      authReadResult: grokAuthReadResult
-    }).then(
-      (value) => ({ status: 'fulfilled', value }) as const,
-      (reason) => ({ status: 'rejected', reason }) as const
-    )
+    const grokResultPromise = Promise.resolve({
+      status: 'fulfilled',
+      value: unreportedUsageSnapshot('grok')
+    } as const)
 
     // Live display does not waive automated Retry-After gates.
     const claudeFetchGated =
@@ -180,41 +146,11 @@ export abstract class RateLimitServiceFullCyclePreparation extends RateLimitServ
             signal
           })),
       fetchGeminiRateLimits(),
-      fetchOpenCodeGoUsage({
-        settingsApiKey: openCodeGoApiKey,
-        // Store/env keys become known only when the fetch resolves them.
-        onApiKeyResolved: (resolution) => {
-          // A credential change invalidates stale in-flight presence results.
-          if (opencodeGeneration !== this.opencodeFetchGeneration) {
-            return
-          }
-          // An undecryptable or briefly unreadable saved key still counts, so the bar stays up.
-          this.openCodeGoApiKeyConfigured =
-            resolution.status === 'found' ||
-            openCodeGoApiKeyError !== null ||
-            openCodeGoApiKeyReadSkipped
-        },
-        cookie,
-        workspaceIdOverride: workspaceIdOverride || undefined,
-        networkProxySettings: this.networkProxySettingsResolver?.(),
-        signal
-      })
+      Promise.resolve(unreportedUsageSnapshot('opencode-go'))
     ])
 
     if (signal.aborted) {
       return null
-    }
-    // Decryption diagnosis fills only an otherwise undiagnosed empty result; preserve actual cookie failures.
-    if (
-      openCodeGoApiKeyError &&
-      opencodeGoResult.status === 'fulfilled' &&
-      opencodeGoResult.value.status === 'unavailable'
-    ) {
-      opencodeGoResult.value = {
-        ...opencodeGoResult.value,
-        error: openCodeGoApiKeyError,
-        status: 'error'
-      }
     }
     return {
       claudeTarget,

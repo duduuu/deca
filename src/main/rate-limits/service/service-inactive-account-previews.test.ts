@@ -26,28 +26,8 @@ vi.mock('../providers/gemini/gemini-usage-fetcher', () => ({
   fetchGeminiRateLimits: vi.fn()
 }))
 
-vi.mock('../providers/opencode-go/opencode-go-usage-source-selection', () => ({
-  fetchOpenCodeGoUsage: vi.fn()
-}))
-
 vi.mock('../providers/antigravity/antigravity-usage-fetcher', () => ({
   fetchAntigravityRateLimits: vi.fn()
-}))
-
-vi.mock('../providers/grok/grok-fetcher', () => ({
-  fetchGrokRateLimits: vi.fn()
-}))
-
-vi.mock('../providers/cursor/cursor-fetcher', () => ({
-  fetchCursorRateLimits: vi.fn()
-}))
-
-vi.mock('../providers/cursor/cursor-auth', () => ({
-  readCursorAuthSession: vi.fn()
-}))
-
-vi.mock('../providers/grok/grok-auth', () => ({
-  readGrokAuthSession: vi.fn(() => ({ status: 'missing' }))
 }))
 
 describe('RateLimitService', () => {

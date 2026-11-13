@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { EyeOffDismissButton } from '@/components/dismiss/EyeOffDismissButton'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { useAppStore } from '../../store'
-import { ClaudeIcon, GeminiIcon, OpenAIIcon, OpenCodeGoIcon } from './icons'
+import { ClaudeIcon, OpenAIIcon } from './icons'
 import { useTranslate } from '@/i18n/use-translate'
 import { getUsageOwnerHostScope, type RemoteUsageOwner } from './use-owner-usage-rate-limits'
 
@@ -102,8 +102,6 @@ export function StatusBarUsageEmptyCta({
                 </span>
                 <ClaudeIcon size={13} />
                 <OpenAIIcon size={13} />
-                <GeminiIcon size={13} />
-                <OpenCodeGoIcon size={13} />
               </div>
             </>
           )}

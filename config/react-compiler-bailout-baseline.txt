@@ -54,7 +54,6 @@
 1 src/renderer/src/components/browser-pane/assemble-chrome/use-browser-chrome-tool-fold.ts
 1 src/renderer/src/components/browser-pane/devtools-dock/BrowserDevToolsDock.tsx
 1 src/renderer/src/components/browser-pane/host-guest/use-browser-page-webview-lifecycle.ts
-2 src/renderer/src/components/browser-pane/passwords/BrowserPasswordFillDropdown.tsx
 1 src/renderer/src/components/browser-pane/stream-remote/use-remote-browser-page-input.ts
 4 src/renderer/src/components/browser-pane/stream-remote/use-remote-browser-page-lifecycle.ts
 1 src/renderer/src/components/browser-pane/stream-remote/use-remote-browser-page-navigation.ts
@@ -374,12 +373,9 @@
 3 src/renderer/src/components/right-sidebar/use-right-sidebar-tab-routing.ts
 1 src/renderer/src/components/runtime-access/RuntimeRepairDialog.tsx
 1 src/renderer/src/components/session-search/use-session-search-status.ts
-7 src/renderer/src/components/settings/accounts/AccountsPane.tsx
+2 src/renderer/src/components/settings/accounts/AccountsPane.tsx
 3 src/renderer/src/components/settings/accounts/providers/AntigravityAccountsSection.tsx
-1 src/renderer/src/components/settings/accounts/providers/CursorAccountsSection.tsx
-2 src/renderer/src/components/settings/accounts/providers/GrokAccountsSection.tsx
 2 src/renderer/src/components/settings/accounts/providers/ManagedDataAccountsSection.tsx
-1 src/renderer/src/components/settings/accounts/usage/accounts-pane-opencode-credentials.tsx
 1 src/renderer/src/components/settings/advanced/AdvancedPane.tsx
 2 src/renderer/src/components/settings/agents/launch/AgentCatalogRow.tsx
 1 src/renderer/src/components/settings/agents/launch/AgentLaunchSettingsSection.tsx

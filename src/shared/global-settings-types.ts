@@ -272,6 +272,8 @@ export type GlobalSettings = GlobalSettingsBase & {
   browserProfileScope?: BrowserProfileScope
   /** Profile new tabs use per browser host when no repo/workspace profile applies; missing = Default. */
   browserDefaultProfileIdByHostId?: Partial<Record<ExecutionHostId, string>>
+  /** Lets browser pages use passkeys and security keys; missing = off. */
+  browserPasskeysEnabled?: boolean
   /** Routes SSH-workspace browser pages through the workspace's SSH host; off = plain local browsing. */
   browserSshWorkspaceRoutingEnabled?: boolean
   /** Per-target opt-outs recorded from the routing error card's "Browse from this device instead". */

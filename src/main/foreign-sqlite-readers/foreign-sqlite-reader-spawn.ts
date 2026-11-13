@@ -3,7 +3,6 @@ import { stat } from 'node:fs/promises'
 import type { Worker } from 'node:worker_threads'
 import { spawnWorkerThread } from '../worker-threads/worker-thread-spawn'
 import { currentWorkerEntryLayout } from '../worker-threads/worker-thread-entry-path'
-import type { CursorDesktopProfileReadResult } from './cursor-profile-result'
 import { ForeignSqliteReaderClient } from './foreign-sqlite-reader-client'
 import { resolveForeignSqliteReaderEntryPath } from './foreign-sqlite-reader-entry-path'
 import type { BinderSessionRow, OpenCodeSessionCursor } from './opencode-binder-sessions-result'
@@ -25,10 +24,6 @@ let sharedClient: ForeignSqliteReaderClient | null = null
 function getSharedClient(): ForeignSqliteReaderClient {
   sharedClient ??= new ForeignSqliteReaderClient({ workerFactory: defaultWorkerFactory })
   return sharedClient
-}
-
-export function readCursorDesktopProfile(dbPath: string): Promise<CursorDesktopProfileReadResult> {
-  return getSharedClient().readCursorProfile(dbPath)
 }
 
 export function readOpenCodePromptFailure(

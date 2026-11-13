@@ -75,72 +75,6 @@ export const getAccountsCodexSearchEntries = createLocalizedCatalog(() => [
   }
 ])
 
-export const getAccountsOpencodeSearchEntries = createLocalizedCatalog(() => [
-  {
-    title: translate(
-      'auto.components.settings.accounts.search.f0e6678f99',
-      'OpenCode Go session cookie'
-    ),
-    description: translate(
-      'auto.components.settings.accounts.search.25591bf95b',
-      'Paste the full opencode.ai Cookie header, including __Host-console_session, for rate limit fetching.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('auto.components.settings.accounts.search.8dcbef1856', 'opencode'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.61f7d1fcbe', 'cookie'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.9c4e40cf6b', 'session'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.37020a02c2', 'console'),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.e949b08ffb',
-        'rate limit'
-      ),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.86edc96bc9', 'status bar')
-    ]
-  },
-  {
-    title: translate(
-      'auto.components.settings.accounts.search.8eef999193',
-      'OpenCode Go workspace id'
-    ),
-    description: translate(
-      'auto.components.settings.accounts.search.38d22ff8d6',
-      'Optional workspace ID override if the automatic lookup fails.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('auto.components.settings.accounts.search.8dcbef1856', 'opencode'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.be8b621bdc', 'workspace'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.421c6be25e', 'id'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.7e67d7d1b6', 'wrk'),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.e949b08ffb',
-        'rate limit'
-      ),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.86edc96bc9', 'status bar')
-    ]
-  }
-])
-
-export const getAccountsGrokSearchEntries = createLocalizedCatalog(() => [
-  {
-    title: translate('auto.components.settings.accounts.search.f4a8c2e1b7', 'Grok (xAI) Usage'),
-    description: translate(
-      'auto.components.settings.accounts.search.e3b7d1f9a2',
-      'OAuth sign-in via Grok CLI (grok login) for weekly credit usage.'
-    ),
-    keywords: [
-      ...translateSearchKeyword('auto.components.settings.accounts.search.d2c6a0e8f1', 'grok'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.c1b5f9d7e0', 'xai'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.b0a4e8c6d9', 'oauth'),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.a9f3d7b5c8', 'login'),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.e949b08ffb',
-        'rate limit'
-      ),
-      ...translateSearchKeyword('auto.components.settings.accounts.search.86edc96bc9', 'status bar')
-    ]
-  }
-])
-
 export const getAccountsAntigravitySearchEntries = createLocalizedCatalog(() => [
   {
     title: translate('accounts.antigravity.fd47b5a5dd', 'Antigravity accounts'),
@@ -159,44 +93,9 @@ export const getAccountsAntigravitySearchEntries = createLocalizedCatalog(() => 
   }
 ])
 
-export const getAccountsCursorSearchEntries = createLocalizedCatalog(() => [
-  {
-    title: translate('auto.components.settings.accounts.search.cursor.39bbdebe13', 'Cursor usage'),
-    description: translate(
-      'auto.components.settings.accounts.search.cursor.description',
-      'Plan usage read from the Cursor sign-in already on this computer (cursor-agent login).'
-    ),
-    keywords: [
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.cursor.kw.cursor',
-        'cursor'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.cursor.kw.usage',
-        'usage'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.cursor.kw.spend',
-        'spend'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.cursor.kw.rateLimit',
-        'rate limit'
-      ),
-      ...translateSearchKeyword(
-        'auto.components.settings.accounts.search.cursor.kw.statusBar',
-        'status bar'
-      )
-    ]
-  }
-])
-
 export const getAccountsPaneSearchEntries = createLocalizedCatalog((): SettingsSearchEntry[] => [
   ...getAccountsLocationSearchEntries(),
   ...getAccountsClaudeSearchEntries(),
   ...getAccountsCodexSearchEntries(),
-  ...getAccountsOpencodeSearchEntries(),
-  ...getAccountsGrokSearchEntries(),
-  ...getAccountsAntigravitySearchEntries(),
-  ...getAccountsCursorSearchEntries()
+  ...getAccountsAntigravitySearchEntries()
 ])

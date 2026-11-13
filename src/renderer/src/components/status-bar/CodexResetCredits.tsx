@@ -13,13 +13,10 @@ import {
 import { useTranslate } from '@/i18n/use-translate'
 import { STATUS_BAR_CONTEXT_MENU_EXEMPT_PROPS } from './status-bar-context-menu-policy'
 
+// Why: Deca shows reset credits read-only and never spends one, so the redeem props go unused.
 export function CodexResetCredits({
   resetCreditCount,
-  resetCreditExpiry,
-  canRedeemReset,
-  isRedeemingReset,
-  onReset,
-  renderAction
+  resetCreditExpiry
 }: {
   resetCreditCount: number
   resetCreditExpiry: string | null
@@ -29,14 +26,6 @@ export function CodexResetCredits({
   renderAction?: (action: React.ReactNode) => React.ReactNode
 }): React.JSX.Element {
   const t = useTranslate()
-  const action = (
-    <Button variant="outline" size="xs" disabled={isRedeemingReset} onClick={onReset}>
-      {isRedeemingReset ? <Loader2 className="size-3.5 animate-spin" /> : null}
-      {isRedeemingReset
-        ? t('auto.components.status.bar.StatusBar.25d8bbde69', 'Using reset…')
-        : t('auto.components.status.bar.StatusBar.e159fc1fd7', 'Reset now')}
-    </Button>
-  )
   return (
     <div className="flex items-center justify-between gap-2">
       <div className="min-w-0 text-2xs text-muted-foreground">
@@ -50,7 +39,6 @@ export function CodexResetCredits({
         )}
         {resetCreditExpiry ? <div>{resetCreditExpiry}</div> : null}
       </div>
-      {canRedeemReset ? (renderAction ? renderAction(action) : action) : null}
     </div>
   )
 }

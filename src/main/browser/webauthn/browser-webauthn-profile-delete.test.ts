@@ -23,9 +23,6 @@ vi.mock('electron', () => ({
   webContents: { fromFrame: fromFrameMock }
 }))
 
-vi.mock('../../browser-passwords/browser-password-vaults', () => ({
-  forgetBrowserPasswordVault: () => true
-}))
 vi.mock('../guest-lifecycle/manager/browser-manager', () => ({
   browserManager: {
     getRendererContextForGuest: getRendererContextForGuestMock,
@@ -52,6 +49,7 @@ import {
   cancelAllBrowserWebAuthnAccountRequests,
   respondToBrowserWebAuthnAccountRequest
 } from './browser-webauthn-account-picker'
+import { watchBrowserPasskeysSetting } from './browser-webauthn-access'
 
 type MockSession = Electron.Session & EventEmitter
 
@@ -89,6 +87,10 @@ describe('browser WebAuthn profile deletion', () => {
   const sessionsByPartition = new Map<string, MockSession>()
 
   beforeEach(() => {
+    watchBrowserPasskeysSetting({
+      getSettings: () => ({ browserPasskeysEnabled: true }),
+      onSettingsChanged: () => {}
+    })
     setBrowserNetworkProxySettingsResolver(null)
     sessionsByPartition.clear()
     sessionFromPartitionMock.mockReset()

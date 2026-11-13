@@ -25,6 +25,7 @@ import { AgentIcon } from '@/components/agent/icons/AgentIcon'
 import { cn } from '@/lib/class-names'
 import {
   AI_VAULT_AGENTS,
+  AI_VAULT_READABLE_AGENTS,
   type AiVaultAgent,
   type AiVaultGroup,
   type AiVaultScope
@@ -313,7 +314,7 @@ export function VaultViewMenu({
             </DropdownMenuItem>
           </div>
         </div>
-        {AI_VAULT_AGENTS.map((agent) => (
+        {AI_VAULT_READABLE_AGENTS.map((agent) => (
           <DropdownMenuCheckboxItem
             key={agent}
             checked={agents.includes(agent)}

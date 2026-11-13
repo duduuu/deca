@@ -108,5 +108,4 @@ export type AccountsPaneSectionModel = {
   codexRateLimitTarget: RateLimitRuntimeTarget
   setRemoveCodexTarget: Dispatch<SetStateAction<RemoveAccountTarget | null>>
   runCodexAccountAction: CodexAccountActionRunner
-  recordOpenCodeSettingEdit: (field: 'cookie' | 'workspaceId' | 'apiKey') => void
 }

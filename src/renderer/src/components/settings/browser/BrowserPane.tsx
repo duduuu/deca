@@ -19,11 +19,11 @@ import { BrowserSshWorkspaceRoutingSetting } from './routing/BrowserSshWorkspace
 import { BrowserProfileScopeSetting } from './profiles/BrowserProfileScopeSetting'
 import { BrowserUserAgentSetting } from './BrowserUserAgentSetting'
 import { BrowserSitePermissionsSetting } from './BrowserSitePermissionsSetting'
+import { BrowserPasskeysSetting } from './BrowserPasskeysSetting'
+import { getBrowserPasskeysSearchEntry } from './browser-passkeys-search'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { BrowserSessionCookiesSection } from './profiles/BrowserSessionCookiesSection'
 import { BrowserNewProfileDialog } from './profiles/BrowserNewProfileDialog'
-import { BrowserPasswordsSection } from './passwords/BrowserPasswordsSection'
-import { getBrowserPasswordsSearchEntry } from './passwords/browser-passwords-copy'
 import {
   createBrowserHomePageDraftState,
   resolveBrowserHomePageDraftState
@@ -32,14 +32,11 @@ import { buildSidebarHostOptions } from '../../sidebar/worktree-list/controls/si
 import { getHostDisplayLabelOverrides } from '../../../../../shared/host-setting-overrides'
 import {
   getSettingsFocusedExecutionHostId,
-  LOCAL_EXECUTION_HOST_ID,
   type ExecutionHostId
 } from '../../../../../shared/execution-host'
 import { isMacUserAgent } from '@/app-shell/platform/user-agent-platform'
-import { isWebClientLocation } from '@/app-shell/platform/web-client-location'
 import { useTranslate } from '@/i18n/use-translate'
 import { translateHostDisplayLabel } from '../../sidebar/execution-host-label'
-import { translateBrowserSessionProfileLabel } from '@/lib/browser/profiles/browser-session-profile-label'
 import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
 import { resolveAvailableBrowserSessionHostId } from './profiles/browser-session-host-selection'
 import { getDefaultBrowserProfileForHost } from '@/store/slices/browser/hosts/browser-host-state'
@@ -103,9 +100,9 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
   const showSshWorkspaceRouting = matchesSettingsSearch(searchQuery, [browserSearchEntries[9]])
   const showUserAgent = matchesSettingsSearch(searchQuery, [browserSearchEntries[10]])
   const showSitePermissions = matchesSettingsSearch(searchQuery, [browserSearchEntries[11]])
+  const showPasskeys = matchesSettingsSearch(searchQuery, [getBrowserPasskeysSearchEntry()])
   const showProfileScope = matchesSettingsSearch(searchQuery, [browserSearchEntries[12]])
   const showLinkRoutingBackground = matchesSettingsSearch(searchQuery, [browserSearchEntries[13]])
-  const showPasswords = matchesSettingsSearch(searchQuery, [getBrowserPasswordsSearchEntry(t)])
   const showBrowserUse = matchesSettingsSearch(searchQuery, getBrowserUsePaneSearchEntries())
   const isMac = isMacUserAgent()
   const linkRoutingDescription = getBrowserLinkRoutingDescription(
@@ -162,10 +159,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
   const activeBrowserSessionProfileId =
     useAppStore((s) => getDefaultBrowserProfileForHost(s, selectedBrowserSessionHostId)) ??
     'default'
-  const activeBrowserSessionProfileLabel = translateBrowserSessionProfileLabel(
-    browserSessionProfiles.find((profile) => profile.id === activeBrowserSessionProfileId)?.label,
-    activeBrowserSessionProfileId
-  )
   useEffect(() => {
     const requestedHostId = browserSessionHostIdOverride ?? settingsFocusedHostId
     if (selectedBrowserSessionHostId !== requestedHostId) {
@@ -184,11 +177,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
     [setBrowserSessionHostId]
   )
 
-  const showPasswordsSection =
-    showPasswords &&
-    !isWebClientLocation() &&
-    selectedBrowserSessionHostId === LOCAL_EXECUTION_HOST_ID
-
   return (
     <div className="space-y-8">
       {showBrowserUse ? (
@@ -202,6 +190,7 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
       showDefaultZoom ||
       showUserAgent ||
       showSitePermissions ||
+      showPasskeys ||
       showLinkRouting ||
       showLinkRoutingModifier ||
       showLinkRoutingBackground ? (
@@ -236,6 +225,10 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
           {showUserAgent ? <BrowserUserAgentSetting hostId={settingsFocusedHostId} /> : null}
 
           {showSitePermissions ? <BrowserSitePermissionsSetting /> : null}
+
+          {showPasskeys ? (
+            <BrowserPasskeysSetting settings={settings} updateSettings={updateSettings} />
+          ) : null}
 
           {showLinkRouting ? (
             <BrowserLinkRoutingSetting
@@ -307,7 +300,7 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
         </SettingsGroup>
       ) : null}
 
-      {showCookies || showPasswordsSection ? (
+      {showCookies ? (
         <SettingsGroup>
           {showCookies ? (
             <BrowserSessionCookiesSection
@@ -320,16 +313,6 @@ export function BrowserPane({ settings, updateSettings }: BrowserPaneProps): Rea
               onSelectHost={selectBrowserSessionHost}
               onSelectDefaultProfile={() => setDefaultBrowserSessionProfileId(null)}
               onSelectProfile={setDefaultBrowserSessionProfileId}
-            />
-          ) : null}
-
-          {/* The vault lives on this computer only, so it follows the local host's profiles. */}
-          {showPasswordsSection ? (
-            <BrowserPasswordsSection
-              browserProfileId={activeBrowserSessionProfileId}
-              profileLabel={activeBrowserSessionProfileLabel}
-              settings={settings}
-              updateSettings={updateSettings}
             />
           ) : null}
         </SettingsGroup>

@@ -18,11 +18,8 @@ import {
 import { getAccountsClaudeSearchEntries } from './accounts-claude-search'
 import {
   getAccountsCodexSearchEntries,
-  getAccountsCursorSearchEntries,
-  getAccountsGrokSearchEntries,
   getAccountsAntigravitySearchEntries,
-  getAccountsLocationSearchEntries,
-  getAccountsOpencodeSearchEntries
+  getAccountsLocationSearchEntries
 } from './accounts-search'
 import { getRemoteAccountsPaneScope } from '../../provider-accounts/provider-account-scope'
 import { ProviderHostScopeControl } from '../../provider-accounts/ProviderHostScopeControl'
@@ -35,11 +32,9 @@ import {
   providerAccountIsActiveInView,
   providerAccountMatchesView
 } from '../../provider-accounts/provider-account-visibility'
-import { GrokAccountsSection } from './providers/GrokAccountsSection'
 import { AntigravityAccountsSection } from './providers/AntigravityAccountsSection'
 import type { RuntimeClientTarget } from '../../../../../shared/runtime-client-target'
 import { runtimeTargetEnvironmentId } from '@/runtime/rpc/targets/runtime-client-target'
-import { CursorAccountsSection } from './providers/CursorAccountsSection'
 import type {
   AccountsPaneProps,
   AccountsPaneSectionModel,
@@ -56,7 +51,6 @@ import {
 import { renderAccountsLocationSection } from './scope/accounts-pane-location-section'
 import { renderClaudeAccountsSection } from './claude/accounts-pane-claude-section'
 import { renderCodexAccountsSection } from './codex/accounts-pane-codex-section'
-import { renderOpenCodeAccountsSection } from './providers/accounts-pane-opencode-section'
 import { ManagedDataAccountsSection } from './providers/ManagedDataAccountsSection'
 import { renderAccountsRemovalDialogs } from './accounts-pane-removal-dialogs'
 
@@ -82,9 +76,6 @@ export function AccountsPane({
   const recordFeatureInteraction = useAppStore((s) => s.recordFeatureInteraction)
   const fetchSettings = useAppStore((s) => s.fetchSettings)
   const runtimeEnvironments = useAppStore((s) => s.runtimeEnvironments)
-  const recordedOpenCodeSettingEditsRef = useRef<Set<'cookie' | 'workspaceId' | 'apiKey'>>(
-    new Set()
-  )
   const localAccountRuntime = getSelectedAccountRuntime(
     nativeAccounts ? { ...settings, localAccountRuntime: 'host' } : settings,
     wslSupportedPlatform,
@@ -196,14 +187,6 @@ export function AccountsPane({
   const accountRuntimeUnavailable =
     accountRuntime.runtime === 'wsl' && !wslAvailable && !wslCapabilitiesLoading
 
-  const recordOpenCodeSettingEdit = (field: 'cookie' | 'workspaceId' | 'apiKey'): void => {
-    if (recordedOpenCodeSettingEditsRef.current.has(field)) {
-      return
-    }
-    recordedOpenCodeSettingEditsRef.current.add(field)
-    recordFeatureInteraction('usage-tracking')
-  }
-
   useEffect(() => {
     const owner: RuntimeClientTarget = scopeEnvironmentId
       ? { kind: 'environment', environmentId: scopeEnvironmentId }
@@ -300,8 +283,7 @@ export function AccountsPane({
     codexRateLimits,
     codexRateLimitTarget,
     setRemoveCodexTarget,
-    runCodexAccountAction,
-    recordOpenCodeSettingEdit
+    runCodexAccountAction
   }
   const visibleSections = [
     !searchQuery || /opencode|devin|account/i.test(searchQuery) ? (
@@ -330,15 +312,6 @@ export function AccountsPane({
         label={accountRuntimeSentenceLabel}
         ownerPlatform={accountOwnerPlatform}
       />
-    ) : null,
-    matchesSettingsSearch(searchQuery, getAccountsOpencodeSearchEntries())
-      ? renderOpenCodeAccountsSection(model, t)
-      : null,
-    matchesSettingsSearch(searchQuery, getAccountsGrokSearchEntries()) ? (
-      <GrokAccountsSection key="grok" />
-    ) : null,
-    matchesSettingsSearch(searchQuery, getAccountsCursorSearchEntries()) ? (
-      <CursorAccountsSection key="cursor" />
     ) : null
   ]
 

@@ -1,5 +1,4 @@
 import type { ContextBridge, IpcRenderer, WebFrame } from 'electron'
-import { installBrowserPasswordDetector } from './browser-password-detector'
 import {
   installBrowserWindowCloseGuard,
   PRELOAD_BROWSER_GUEST_WINDOW_CLOSE_CHANNEL
@@ -25,11 +24,3 @@ if (process.isMainFrame) {
 }
 // Every frame this preload runs in also got Electron's throwing prompt.
 contextBridge.executeInMainWorld({ func: installBrowserWindowPrompt, args: [] })
-
-// Why no contextBridge exposure: page script must not be able to call into the detector.
-installBrowserPasswordDetector({
-  send: (channel, payload) => ipcRenderer.send(channel, payload),
-  on: (channel, listener) => {
-    ipcRenderer.on(channel, (_event, payload: unknown) => listener(payload))
-  }
-})

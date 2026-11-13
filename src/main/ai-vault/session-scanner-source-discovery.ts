@@ -1,8 +1,10 @@
 import { delimiter } from 'node:path'
-import type { AiVaultAgent, AiVaultScanIssue } from '../../shared/ai-vault/contracts/ai-vault-types'
+import {
+  isAiVaultReadableAgent,
+  type AiVaultAgent,
+  type AiVaultScanIssue
+} from '../../shared/ai-vault/contracts/ai-vault-types'
 import { discoverFiles } from './session-scanner-discovery'
-import { opencodeDiscoveries } from './scanners/opencode/session-scanner-opencode-sources'
-import { antigravityDiscoveries } from './scanners/antigravity/session-scanner-antigravity-sources'
 import { AI_VAULT_AGENT_SOURCES, type AiVaultAgentSource } from './session-scanner-agent-sources'
 import { normalizedWslHomeDirs } from './session-scanner-roots'
 import { configureOpenCodeWslReaders } from './scanners/opencode/reader-transport/session-scanner-opencode-wsl-client'
@@ -22,11 +24,10 @@ export async function discoverAiVaultSessionSources(args: {
   }
   const wslHomeDirs = normalizedWslHomeDirs(options.wslHomeDirs)
 
-  return Promise.all([
-    ...opencodeDiscoveries(options, wslHomeDirs, limitPerAgent, issues),
-    ...antigravityDiscoveries(options, wslHomeDirs, limitPerAgent, issues),
-    ...Object.entries(AI_VAULT_AGENT_SOURCES).flatMap(([agent, source]) =>
-      source
+  // OpenCode/Antigravity discoveries are skipped: they are not readable agents.
+  return Promise.all(
+    Object.entries(AI_VAULT_AGENT_SOURCES).flatMap(([agent, source]) =>
+      source && isAiVaultReadableAgent(agent)
         ? agentDiscoveries(
             agent as AiVaultAgent,
             source,
@@ -37,7 +38,7 @@ export async function discoverAiVaultSessionSources(args: {
           )
         : []
     )
-  ])
+  )
 }
 
 function agentDiscoveries(

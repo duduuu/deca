@@ -1,4 +1,5 @@
 import type { Session } from 'electron'
+import type { GlobalSettings } from '../../../shared/global-settings-types'
 import {
   cancelBrowserWebAuthnAccountRequestsForSession,
   requestBrowserWebAuthnAccount
@@ -12,6 +13,22 @@ type SelectWebAuthnAccountHandler = (
   callback: (credentialId?: string | null) => void
 ) => Promise<void>
 const selectWebAuthnAccountHandlers = new WeakMap<Session, SelectWebAuthnAccountHandler>()
+// Why: Deca keeps browser passkeys/security keys off until the user opts in.
+let browserPasskeysEnabled = false
+
+type BrowserPasskeysSettingsSource = {
+  getSettings: () => Pick<GlobalSettings, 'browserPasskeysEnabled'>
+  onSettingsChanged: (listener: (updates: Partial<GlobalSettings>) => void) => unknown
+}
+
+export function watchBrowserPasskeysSetting(store: BrowserPasskeysSettingsSource): void {
+  browserPasskeysEnabled = store.getSettings().browserPasskeysEnabled === true
+  store.onSettingsChanged((updates) => {
+    if ('browserPasskeysEnabled' in updates) {
+      browserPasskeysEnabled = updates.browserPasskeysEnabled === true
+    }
+  })
+}
 
 function isSecureBrowserOrigin(rawOrigin: string | undefined): boolean {
   if (!rawOrigin) {
@@ -46,7 +63,9 @@ export function allowsBrowserWebAuthnPermission(
   permission: string,
   details?: { securityOrigin?: string }
 ): boolean {
-  return permission === 'hid' && isSecureBrowserOrigin(details?.securityOrigin)
+  return (
+    browserPasskeysEnabled && permission === 'hid' && isSecureBrowserOrigin(details?.securityOrigin)
+  )
 }
 
 function handleBrowserSelectHidDevice(
@@ -55,7 +74,7 @@ function handleBrowserSelectHidDevice(
   callback: (deviceId?: string) => void
 ): void {
   event.preventDefault()
-  if (!isSecureBrowserOrigin(details.frame?.url)) {
+  if (!browserPasskeysEnabled || !isSecureBrowserOrigin(details.frame?.url)) {
     callback(undefined)
     return
   }
@@ -70,6 +89,10 @@ async function handleBrowserSelectWebAuthnAccount(
   callback: (credentialId?: string | null) => void
 ): Promise<void> {
   event.preventDefault()
+  if (!browserPasskeysEnabled) {
+    callback(null)
+    return
+  }
   if (details.accounts.length <= 1) {
     callback(details.accounts[0]?.credentialId ?? null)
     return
@@ -85,6 +108,7 @@ async function handleBrowserSelectWebAuthnAccount(
 export function installBrowserWebAuthnAccessHandlers(browserSession: Session): void {
   browserSession.setDevicePermissionHandler((details) => {
     return (
+      browserPasskeysEnabled &&
       details.deviceType === 'hid' &&
       isSecureBrowserOrigin(details.origin) &&
       isFidoHidDevice(details.device)

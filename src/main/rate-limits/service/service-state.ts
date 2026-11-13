@@ -21,7 +21,6 @@ import type { NormalizedCodexAccountSelectionTarget } from '../../../shared/code
 import type { NormalizedClaudeAccountSelectionTarget } from '../../claude-accounts/runtime-selection'
 import type { InactiveClaudeAccount } from '../providers/claude/claude-managed-account-usage'
 import type { NetworkProxySettings } from '../../../shared/network-proxy'
-import { readGrokAuthSession } from '../providers/grok/grok-auth'
 
 export abstract class RateLimitServiceState {
   protected state: InternalRateLimitState = {
@@ -33,8 +32,8 @@ export abstract class RateLimitServiceState {
     grok: null,
     cursor: null
   }
-  protected grokAuthConfigured = readGrokAuthSession().status === 'ok'
-  // Async Keychain/desktop DB probing belongs in fetch cycles, never synchronous construction.
+  // Why: Deca never reads Grok/Cursor credentials, so these stay false.
+  protected grokAuthConfigured = false
   protected cursorAuthConfigured = false
   protected openCodeGoApiKeyConfigured = false
   protected pollInterval: number = DEFAULT_POLL_MS

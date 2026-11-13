@@ -1,5 +1,4 @@
 import { sanitizeRendererSettingsUpdate } from './renderer-settings-update'
-import { confirmBrowserPasswordOwner } from '../browser-passwords/browser-password-reauth'
 import { getClaudeAgentViewService } from '../claude/agent-view/agent-view-service'
 import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron'
 import type { Store } from '../persistence/loading-store/store'
@@ -166,15 +165,6 @@ export function registerSettingsHandlers(
     }
     if (args.theme) {
       nativeTheme.themeSource = args.theme
-    }
-    if (
-      sanitizedArgs.browserPasswordsFillRequiresReauth === false &&
-      (store.getSettings().browserPasswordsFillRequiresReauth !== true ||
-        !(await confirmBrowserPasswordOwner('turn off saved password fill authentication', {
-          always: true
-        })))
-    ) {
-      delete sanitizedArgs.browserPasswordsFillRequiresReauth
     }
     // No-op UI saves must not inflate settings_changed adoption telemetry.
     const before = store.getSettings()

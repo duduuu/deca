@@ -1,8 +1,7 @@
 import type { CursorAccountStatus } from '../../shared/rate-limit-types'
-import { readCursorAuthSession } from '../rate-limits/providers/cursor/cursor-auth'
-import { isCursorSessionTokenExpired } from '../rate-limits/providers/cursor/cursor-session-token'
 
-function signedOut(error: string | null): CursorAccountStatus {
+// Why: Deca never reads Cursor's Keychain token or desktop state DB.
+export async function getCursorAccountStatus(): Promise<CursorAccountStatus> {
   return {
     signedIn: false,
     email: null,
@@ -10,23 +9,6 @@ function signedOut(error: string | null): CursorAccountStatus {
     credentialSource: null,
     planType: null,
     tokenFresh: false,
-    error
-  }
-}
-
-export async function getCursorAccountStatus(): Promise<CursorAccountStatus> {
-  const readResult = await readCursorAuthSession()
-  if (readResult.status !== 'ok') {
-    return signedOut(readResult.status === 'error' ? readResult.error : null)
-  }
-  const session = readResult.session
-  return {
-    signedIn: true,
-    email: session.email,
-    displayName: session.displayName,
-    credentialSource: session.source,
-    planType: session.membershipType,
-    tokenFresh: !isCursorSessionTokenExpired(session.token),
     error: null
   }
 }

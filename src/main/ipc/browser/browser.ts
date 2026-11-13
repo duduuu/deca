@@ -31,10 +31,8 @@ import type {
 import { respondToBrowserPagePrompt } from '../../browser/guest-lifecycle/prompts/browser-page-prompts'
 import { recordActiveBrowserPage } from '../../browser/extensions/tabs-and-windows/browser-extension-tab-model'
 import { announceRegisteredBrowserExtensionTab } from '../../browser/extensions/tabs-and-windows/browser-extension-tab-lifecycle'
-import {
-  registerBrowserPasswordsHandlers,
-  type BrowserPasswordsSettingsSource
-} from './browser-passwords-ipc'
+
+import { watchBrowserPasskeysSetting } from '../../browser/webauthn/browser-webauthn-access'
 
 let agentBrowserBridgeRef: AgentBrowserBridge | null = null
 
@@ -50,7 +48,10 @@ export function setAgentBrowserBridgeRef(bridge: AgentBrowserBridge | null): voi
   agentBrowserBridgeRef = bridge
 }
 
-export function registerBrowserHandlers(store: BrowserPasswordsSettingsSource): void {
+export function registerBrowserHandlers(
+  store: Parameters<typeof watchBrowserPasskeysSetting>[0]
+): void {
+  watchBrowserPasskeysSetting(store)
   resetGrabModeState()
   ipcMain.removeHandler('browser:registerGuest')
   ipcMain.removeHandler('browser:isGuestRegistered')
@@ -254,6 +255,4 @@ export function registerBrowserHandlers(store: BrowserPasswordsSettingsSource): 
   registerBrowserGrabHandlers()
 
   registerBrowserSessionProfileHandlers()
-
-  registerBrowserPasswordsHandlers(store)
 }

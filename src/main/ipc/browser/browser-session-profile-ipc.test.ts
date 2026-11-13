@@ -15,7 +15,6 @@ vi.mock('../../browser/identity/mode/browser-identity-mode-store', () => ({
   getBrowserIdentityModeStatus: vi.fn(() => ({ identity: {}, migrationNotice: null }))
 }))
 
-vi.mock('./browser-passwords-ipc', () => ({ registerBrowserPasswordsHandlers: vi.fn() }))
 vi.mock('electron', () => ({
   BrowserWindow: { fromWebContents: vi.fn() },
   ipcMain: { handle: handleMock, removeHandler: removeHandlerMock },
@@ -61,7 +60,7 @@ describe('browser session profile IPC', () => {
     event: { sender: Electron.WebContents },
     mode: unknown
   ) => Promise<unknown> {
-    registerBrowserHandlers({ getSettings: vi.fn() })
+    registerBrowserHandlers({ getSettings: vi.fn(() => ({})), onSettingsChanged: vi.fn() })
     return handleMock.mock.calls.find(([channel]) => channel === 'browser:identity:set')?.[1]
   }
 

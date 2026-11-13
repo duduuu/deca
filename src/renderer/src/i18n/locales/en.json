@@ -416,26 +416,6 @@
       "laptop-l": "Laptop L — 1440 × 900",
       "desktop": "Desktop — 1920 × 1080"
     },
-    "passwords": {
-      "savePrompt": {
-        "open": "Saved password offer",
-        "updateTitle": "Update password?",
-        "saveTitle": "Save password?",
-        "username": "Username",
-        "password": "Password",
-        "never": "Never for this site",
-        "notNow": "Not now",
-        "update": "Update",
-        "save": "Save",
-        "saveChip": "Save password",
-        "updateChip": "Update password"
-      },
-      "fill": {
-        "noUsername": "(no username)",
-        "title": "Saved logins",
-        "otherLogins": "Other logins on this site"
-      }
-    },
     "toolbar": {
       "annotate": "Annotate",
       "grab": "Grab",
@@ -768,78 +748,14 @@
         "repoProfileLabel": "Repo: {{name}}",
         "worktreeProfileLabel": "Workspace: {{name}}"
       },
-      "passwords": {
-        "searchKeywords": {
-          "passwords": "passwords",
-          "autofill": "autofill",
-          "vault": "vault",
-          "logins": "logins",
-          "import": "import",
-          "csv": "csv",
-          "touchId": "touch id"
-        },
-        "authFailed": "Could not confirm it was you",
-        "copied": "Password copied. Deca clears it from the clipboard in 2 minutes.",
-        "search": "Search {{count}} passwords",
-        "add": "Add",
-        "noMatches": "No saved passwords match.",
-        "noUsername": "(no username)",
-        "edit": "Edit",
-        "copy": "Copy password",
-        "delete": "Delete…",
-        "neverHeading": "Never saved for {{count}} sites",
-        "removeNever": "Remove",
-        "deleteAllConfirmTitle": "Delete all password data?",
-        "deleteAllConfirmDescription": "Every saved password in the {{profile}} profile is permanently deleted. This can’t be undone.",
-        "deleteAll": "Delete data",
-        "deletedAll": "Password data deleted",
-        "form": {
-          "invalidSite": "Enter a website address, like example.com.",
-          "invalidPassword": "Enter a password.",
-          "duplicate": "A password for this username is already saved for this site.",
-          "unavailable": "Could not save this password.",
-          "editTitle": "Edit password",
-          "addTitle": "Add password",
-          "site": "Site",
-          "sitePlaceholder": "example.com",
-          "username": "Username",
-          "password": "Password",
-          "currentHint": "Save the password you use on this site today.",
-          "note": "Note",
-          "cancel": "Cancel",
-          "save": "Save",
-          "description": "Deca fills it when you pick it under a sign-in field on this site.",
-          "usernamePlaceholder": "Email or username",
-          "addNote": "Add a note"
-        },
-        "hide": "Hide password",
-        "show": "Show password",
-        "offerToSave": "Offer to save passwords",
-        "offerToSaveDescription": "After you sign in to a site in Deca’s browser, offer to save the login.",
-        "fillReauth": "Ask for Touch ID before filling",
-        "fillReauthDescription": "For a shared computer. Showing or copying a password already asks.",
-        "noReauth": "This computer can’t confirm it’s you with Touch ID, so passwords show and fill without a check.",
-        "reauthUnavailable": "Touch ID can’t be used right now, so Deca won’t show, copy or fill a password that needs it.",
-        "deleteAllTitle": "Delete all password data",
-        "deleteAllDescription": "Every saved password, note and never-save site in the {{profile}} profile.",
-        "empty": "Deca offers to save a login after you sign in. You can also bring them from another browser or a CSV file.",
-        "account": "{{username}} on {{site}}",
-        "lastUsed": "Used {{when}}",
-        "copyFor": "Copy password for {{account}}",
-        "editFor": "Edit {{account}}",
-        "moreActions": "More actions for {{account}}",
-        "accountCount": "{{count}} accounts",
-        "deleteConfirmTitle": "Delete the {{site}} password for {{username}}?",
-        "deleteConfirmDescription": "Deca won’t fill it anymore. This can’t be undone.",
-        "deleteConfirm": "Delete",
-        "profileDescription": "Saved logins for the {{profile}} profile. Deca fills one only when you pick it under a sign-in field.",
-        "unavailableTitle": "Saved passwords are off on this computer",
-        "emptyTitle": "No saved passwords yet",
-        "searchLabel": "Search passwords",
-        "deleteAllAction": "Delete…",
-        "title": "Passwords",
-        "description": "Saved logins for Deca’s browser: add, import, edit and delete them.",
-        "httpSuffix": " · http"
+      "passkeys": {
+        "title": "Passkeys and security keys",
+        "description": "Let sites in the browser sign in with passkeys or USB security keys. Off by default.",
+        "search": {
+          "passkey": "passkey",
+          "webauthn": "webauthn",
+          "securityKey": "security key"
+        }
       }
     },
     "agents": {
@@ -2315,7 +2231,7 @@
         "cd50cec5d7": "Coordinate multiple coding agents through Deca.",
         "58a868e8e4": "Orchestration",
         "7c79d3b7bf": "Optional",
-        "b1c2f8b0ac": "Optional account switching and usage setup for Claude, Codex, Gemini, OpenCode Go, and Grok.",
+        "b1c2f8b0ac": "Optional account switching and usage setup for Claude, Codex, and other agents.",
         "f70ac54d38": "AI Provider Accounts",
         "4121f7a0a2": "Manage AI agents, set a default, and customize commands.",
         "b49abbd2f7": "Agents",
@@ -4877,7 +4793,6 @@
             "9659e38343": "Ports",
             "d1e1a7a6bf": "Resource Manager",
             "24ac89df1a": "Remote Hosts",
-            "8c86cd77b0": "OpenCode Go Usage",
             "c1df0d67ec": "Gemini Usage",
             "c0909c686e": "Codex Usage",
             "3885eb74d8": "Claude Usage",
@@ -4908,14 +4823,12 @@
             "c0e972d726": "Cancel",
             "remoteServerLabel": "Remote server",
             "antigravityUsage": "Antigravity Usage",
-            "grokUsageMenu": "Grok Usage",
             "floatingTerminalNewActivity": "{{label}}, new activity",
             "4fba7dc1e7": "{{value0}} bal",
             "4025a6f62f": "Unlimited",
             "a95969101f": "{{value0}} credits",
             "codexSignInSuccess": "Signed in to Codex",
             "codexSignInError": "Codex sign-in failed. Please try again.",
-            "cursorUsageMenu": "Cursor Usage",
             "hiddenUsageProviders": "Also: {{value0}}",
             "rateLimitResetsAvailable_one": "{{count}} rate-limit reset available",
             "rateLimitResetsAvailable_other": "{{count}} rate-limit resets available",
@@ -7436,19 +7349,6 @@
           "63843e37e2": "Remove Claude Account?",
           "380a7736cc": "Removing this account permanently deletes its managed Codex home, including all Codex session history and MCP logins stored inside. This cannot be undone. If the account is currently active, Deca falls back to the system default Codex login.",
           "0d47394635": "Remove Codex Account?",
-          "ae3b21eb6c": "opencode.ai/workspace/wrk_…/go",
-          "51c9104e13": "Find this in the URL after logging into opencode.ai (e.g.",
-          "b398b834c9": "Clear",
-          "a122332371": "wrk_… (leave blank for automatic lookup)",
-          "dbdb0b0bd8": "Workspace ID override",
-          "d70a5287a4": "Optional workspace ID override if the automatic lookup fails.",
-          "d5267cce63": "). The auth cookie still covers workspace discovery; auth alone is not enough for usage. OpenCode Go auth is web-based and shared across Windows and WSL terminals.",
-          "62ab430f94": "Paste the full Cookie header from your browser's DevTools → Network → any opencode.ai request, including __Host-console_session (e.g.",
-          "37b4b4a3f7": "auth=…; __Host-console_session=…",
-          "67e3c33670": "OpenCode Go session cookie",
-          "0335bd31d5": "Paste the full opencode.ai Cookie header, including __Host-console_session, for rate limit fetching.",
-          "ea631977b5": "Configure OpenCode Go provider settings.",
-          "4ac10b4d08": "OpenCode Go",
           "db209ee572": "Remove",
           "8a0f870153": "Re-authenticate",
           "3d245ef7d9": "Codex reported this sign-in is out of date",
@@ -7482,10 +7382,6 @@
           "e4a28e8894": "Codex reported that the {{value0}} login needs a fresh sign-in. Sign in again before starting new Codex sessions.",
           "75ca9b718e": "Codex reported that the active account needs a fresh sign-in. Re-authenticate it before starting new Codex sessions.",
           "e05d0ff737": "Use your current {{value0}} Claude login.",
-          "73ea15f24b": "Saved",
-          "23afe8f226": "Not saved",
-          "f38b9cc4bd": "Replace",
-          "590a3130f9": "Save",
           "remoteServerFallback": "the remote server",
           "loadAccountsFailed": "Could not load provider accounts.",
           "accountScopePrefix": "Account scope",
@@ -7504,25 +7400,12 @@
           "codexLoginLinkCopy": "Copy link",
           "codexLoginLinkOpen": "Open",
           "codexLoginLinkCopyFailed": "Could not copy the link.",
-          "opencodeGo": {
-            "apiKey": {
-              "description": "Optional override. Deca otherwise uses the key OpenCode saved when you ran /connect, then OPENCODE_API_KEY.",
-              "label": "OpenCode Go API key",
-              "placeholder": "Leave blank to use the key saved by /connect or OPENCODE_API_KEY",
-              "help": "Used for OpenCode Go usage in the status bar. The session cookie below is only needed for legacy console (OpenCode Black) accounts.",
-              "checking": "Checking…",
-              "unavailable": "Status unavailable",
-              "9447604f08": "OpenCode Go API key"
-            }
-          },
           "remoteScopeLocalAccountsKeptHostPicker": "Accounts managed on this desktop are unchanged. Choose this computer in the Host menu at the top of Settings to view them.",
           "91a1b78e67": "Account location",
           "699680a328": "Remove account",
           "89b9a151c3": "Claude accounts",
           "bd16d363ed": "Codex accounts",
-          "4d274a02f0": "OpenCode Go session cookie",
-          "7e9977b560": "Add account",
-          "109431f707": "OpenCode Go workspace id"
+          "7e9977b560": "Add account"
         },
         "AdvancedPane": {
           "40b29e0bf3": "Restart",
@@ -9180,15 +9063,6 @@
           "search": {
             "86edc96bc9": "status bar",
             "e949b08ffb": "rate limit",
-            "7e67d7d1b6": "wrk",
-            "421c6be25e": "id",
-            "be8b621bdc": "workspace",
-            "8dcbef1856": "opencode",
-            "38d22ff8d6": "Optional workspace ID override if the automatic lookup fails.",
-            "9c4e40cf6b": "session",
-            "61f7d1fcbe": "cookie",
-            "37020a02c2": "console",
-            "25591bf95b": "Paste the full opencode.ai Cookie header, including __Host-console_session, for rate limit fetching.",
             "35b461d817": "sign in",
             "f2d666a886": "optional",
             "8b06729e0f": "active",
@@ -9210,26 +9084,13 @@
             "bdbd1e668e": "windows",
             "593720c17f": "location",
             "b84a5b0c8a": "Choose whether provider accounts are inspected and added on this device or in WSL.",
-            "f4a8c2e1b7": "Grok (xAI) Usage",
-            "e3b7d1f9a2": "OAuth sign-in via Grok CLI (grok login) for weekly credit usage.",
-            "d2c6a0e8f1": "grok",
-            "c1b5f9d7e0": "xai",
-            "b0a4e8c6d9": "oauth",
             "a9f3d7b5c8": "login",
             "cursor": {
-              "description": "Plan usage read from the Cursor sign-in already on this computer (cursor-agent login).",
               "kw": {
-                "cursor": "cursor",
-                "usage": "usage",
-                "spend": "spend",
-                "rateLimit": "rate limit",
-                "statusBar": "status bar"
-              },
-              "39bbdebe13": "Cursor usage"
+                "usage": "usage"
+              }
             },
             "5e2101f61f": "Account location",
-            "f0e6678f99": "OpenCode Go session cookie",
-            "8eef999193": "OpenCode Go workspace id",
             "54c541fc6e": "Codex accounts",
             "4518496456": "Active Codex account",
             "be3a748ebb": "Claude accounts"
@@ -11164,25 +11025,6 @@
             }
           }
         },
-        "GrokAccountsSection": {
-          "a1b2c3d4e5": "Grok (xAI)",
-          "f6e5d4c3b2": "Shows weekly credit usage from your Grok CLI sign-in (session file ~/.grok/auth.json).",
-          "0d8e77bc40": "Grok CLI docs",
-          "ad47a33f72": "Loading…",
-          "b2c3d4e5f6": "Signed in",
-          "e5f6a7b8c9": "Not signed in to Grok CLI",
-          "f6a7b8c9d0": "In a terminal, run grok login, then click Refresh usage here.",
-          "3325d996cb": "Refresh usage",
-          "a8f3e2c1b4": "Weekly credits",
-          "b7e2d9f0a3": "Same weekly credit % as the grok /usage screen in the terminal.",
-          "c6d1a8f4e2": "Resets {{when}}",
-          "e6dadc1e2b": "Monthly usage",
-          "75e396bf42": "Included monthly usage for Grok unified-billing accounts.",
-          "b36fa2c908": "Signed in. Deca reads the Grok CLI session stored on disk.",
-          "f08c41de73": "Session expired — run grok on the computer running Deca and wait for it to start. If prompted, complete sign-in, then click Refresh usage. No chat message is needed.",
-          "0bb18642b7": "Usage",
-          "a8f4139350": "Grok reported no usage percentage for this account."
-        },
         "AppearanceWindowSidebarSection": {
           "usagePercentageDisplayUsed": "Used",
           "usagePercentageDisplayRemaining": "Remaining"
@@ -11700,31 +11542,6 @@
         "TerminalRenderingSection": {
           "fffab5890b": "Display images directly in the terminal using SIXEL, iTerm2 (IIP), and Kitty graphics protocols.",
           "08db7947d8": "Inline images"
-        },
-        "CursorAccountsSection": {
-          "source": {
-            "keychain": "macOS Keychain (cursor-agent)",
-            "cli": "Cursor CLI auth file",
-            "desktop": "Cursor IDE"
-          },
-          "title": "Cursor",
-          "subtitle": "Shows your Cursor plan usage from the sign-in already on this computer. Deca only reads it — it never changes your Cursor login.",
-          "dashboardLink": "Cursor dashboard",
-          "loading": "Loading…",
-          "signedIn": "Signed in",
-          "signedInFrom": "Signed in. Deca reads the session stored in {{source}}.",
-          "signedInGeneric": "Signed in. Deca reads the Cursor session stored on this computer.",
-          "expired": "Sign-in expired — run cursor-agent login on the computer running Deca, then click Refresh usage.",
-          "signedOut": "No Cursor sign-in found on this computer",
-          "signedOutHelp": "Sign in with Cursor IDE, or run cursor-agent login in a terminal, then click Refresh usage here.",
-          "refreshUsage": "Refresh usage",
-          "usageTitle": "Plan usage",
-          "usageDescription": "Cursor bills two pools that reset with your billing cycle, plus on-demand spend once they run out.",
-          "planTotal": "Plan",
-          "resets": "Resets {{when}}",
-          "usageLabel": "Usage",
-          "noAllowance": "Cursor reported no usage allowance for this account.",
-          "staleUsage": "Last known usage — the latest refresh failed: {{reason}}"
         },
         "UnsealedCredentialNotice": {
           "body": "{{credential}} is stored unencrypted — this system has no OS keyring Deca can use. Anyone who can read your disk or a backup of it can read the credential. Install and unlock gnome-keyring or kwallet, then save it again to seal it."

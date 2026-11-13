@@ -14,7 +14,6 @@ const {
   getMediaAccessStatusMock: vi.fn(),
   removeCertificateRequestGuardMock: vi.fn()
 }))
-const forgetBrowserPasswordVaultMock = vi.hoisted(() => vi.fn(() => true))
 const processUserAgentMode = vi.hoisted(() => {
   const state: { value: 'clean' | 'native' } = { value: 'clean' }
   return state
@@ -52,10 +51,6 @@ vi.mock('../../guest-lifecycle/manager/browser-manager', () => ({
     removeCertificateRequestGuard: removeCertificateRequestGuardMock,
     resolvePagePromptTarget: vi.fn(() => null)
   }
-}))
-
-vi.mock('../../../browser-passwords/browser-password-vaults', () => ({
-  forgetBrowserPasswordVault: forgetBrowserPasswordVaultMock
 }))
 
 import { browserSessionRegistry } from './browser-session-registry'

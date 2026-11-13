@@ -4,7 +4,6 @@ import { useAppStore } from '@/store'
 import type { BrowserReloadTrigger } from '../navigate/browser-reload-action'
 import BrowserAddressBar from './BrowserAddressBar'
 import { BrowserChromeToolbar } from './browser-chrome-toolbar'
-import { BrowserPasswordSaveButton } from '../passwords/BrowserPasswordSaveButton'
 import { BrowserReloadControl } from './browser-reload-control'
 import { BrowserToolbarMenu } from './BrowserToolbarMenu'
 import { BrowserOpenSourceFileButton, BrowserPageStateChips } from './browser-address-chips'
@@ -171,7 +170,6 @@ export function BrowserPageToolbar({
           leadingIcon={<SshEgressIndicator worktreeId={worktreeId} />}
           trailing={
             <>
-              <BrowserPasswordSaveButton browserPageId={browserPageId} isActive={isActive} />
               <BrowserPageStateChips
                 browserPageId={browserPageId}
                 url={currentBrowserUrl}

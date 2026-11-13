@@ -87,7 +87,7 @@ it('lists a recovered session without an issue on fresh and cached scans', async
   }
 })
 
-it.each(['claude', 'kiro'] as const)(
+it.each<'claude' | 'kiro'>(['claude'])(
   'retains %s unreadable errors across restart and clears them on recovery or replacement',
   async (agent) => {
     const root = await tempRoot('orca-record-budget-unreadable-')

@@ -13,3 +13,11 @@ export function disabledUsageSnapshot(
     status: 'idle'
   }
 }
+
+// Why: Deca never reads Cursor/Grok/OpenCode credentials or browser cookies, so their meters stay hidden.
+export function unreportedUsageSnapshot(
+  provider: ProviderRateLimits['provider'],
+  now: number = Date.now()
+): ProviderRateLimits {
+  return { ...disabledUsageSnapshot(provider, now), status: 'unavailable' }
+}

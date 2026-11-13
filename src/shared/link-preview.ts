@@ -28,4 +28,4 @@ export function linkPreviewSize(preview: LinkPreview): number {
 }
 
 /** Why: Deca refuses web link previews; fetching them reveals the URL to the site. */
-export const DECA_WEB_LINK_PREVIEWS_ENABLED = false as boolean
+export const DECA_WEB_LINK_PREVIEWS_ENABLED: boolean = false

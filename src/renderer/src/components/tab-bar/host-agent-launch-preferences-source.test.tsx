@@ -91,7 +91,7 @@ it('projects one capable source through cold, deadline, late, failed-refresh and
     expect(quick.backendStartup).toMatchObject({
       command: expect.stringContaining("'--verbose'"),
       env: { KEEP: 'caller' },
-      launchConfig: { agentArgs: '--dangerously-skip-permissions --verbose' }
+      launchConfig: { agentArgs: '--permission-mode default --verbose' }
     })
     expect(quick.startupPlan?.launchCommand).not.toContain('desktop')
     expect(quick.startupPlan?.launchCommand).not.toContain("'low'")
@@ -115,7 +115,7 @@ it('projects one capable source through cold, deadline, late, failed-refresh and
     })
     expect(direct.startupPlan).toMatchObject({
       env: { KEEP: 'caller' },
-      launchConfig: { agentArgs: '--dangerously-skip-permissions --verbose' }
+      launchConfig: { agentArgs: '--permission-mode default --verbose' }
     })
     expect(direct.startupPlan?.launchCommand).not.toContain('desktop')
     expect(direct.startupPlan?.launchCommand).not.toContain("'low'")

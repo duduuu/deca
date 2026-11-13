@@ -1,5 +1,6 @@
 import { app, ipcMain } from 'electron'
-import type { BrowserWindow } from 'electron'
+import type { BrowserWindow, IpcMainInvokeEvent } from 'electron'
+import { isTrustedUIRenderer } from '../ipc/ui'
 import type { ReleaseBuildListResult, UpdateCheckOptions } from '../../shared/update-status-types'
 import { RELEASE_CHANNELS, type ReleaseChannel } from '../../shared/release-channel'
 import type { Store } from '../persistence/loading-store/store'
@@ -45,8 +46,14 @@ export function registerUpdaterHandlers(_store: Store): void {
     'updater:quitAndInstall': () => quitAndInstall(),
     'updater:dismissNudge': () => dismissNudge(),
     'updater:dismissAvailableUpdate': () => dismissAvailableUpdate(),
-    'updater:getLinuxPackageInstallInstructions': () => getLinuxPackageInstallInstructions(),
-    'updater:showLinuxPackage': () => showLinuxPackage(),
+    'updater:getLinuxPackageInstallInstructions': (event: IpcMainInvokeEvent) => {
+      assertTrustedUpdaterRecoverySender(event)
+      return getLinuxPackageInstallInstructions()
+    },
+    'updater:showLinuxPackage': (event: IpcMainInvokeEvent) => {
+      assertTrustedUpdaterRecoverySender(event)
+      return showLinuxPackage()
+    },
     'updater:listBuilds': async (
       _event: unknown,
       channel: ReleaseChannel
@@ -60,5 +67,11 @@ export function registerUpdaterHandlers(_store: Store): void {
   for (const [channel, handler] of Object.entries(handlers)) {
     ipcMain.removeHandler(channel)
     ipcMain.handle(channel, handler as Parameters<typeof ipcMain.handle>[1])
+  }
+}
+
+function assertTrustedUpdaterRecoverySender(event: IpcMainInvokeEvent): void {
+  if (!isTrustedUIRenderer(event.sender)) {
+    throw new Error('Unauthorized updater package recovery sender')
   }
 }

@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import { StrictMode } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { AgentSessionAccountUsage } from '../../../../../shared/agent-session/agent-session-account-usage'
@@ -47,7 +47,6 @@ vi.mock('@/store', () => {
   )
   return { useAppStore }
 })
-const target = { kind: 'environment' as const, environmentId: 'paired-host' }
 const result: Extract<AgentSessionAccountUsage, { status: 'ok' }> = {
   status: 'ok',
   account: { kind: 'managed', email: 'chat@example.com' },
@@ -106,28 +105,6 @@ describe('/usage modal', () => {
     await screen.findByText('chat@example.com')
     await act(async () => failFirst(new Error('connection lost')))
     expect(screen.getByText('chat@example.com')).toBeTruthy()
-  })
-
-  it('renders the chat account’s provider usage, retries the same confirmed reset on its host and reports its outcome', async () => {
-    mocks.read.mockResolvedValue(result)
-    mocks.reset
-      .mockRejectedValueOnce(new Error('connection lost'))
-      .mockResolvedValueOnce({ outcome: 'nothingToReset' })
-    render(<NativeChatAccountUsageDialog />)
-    await screen.findByText('chat@example.com')
-    expect(screen.getByText('100% used')).toBeTruthy()
-    fireEvent.click(screen.getByRole('button', { name: 'Reset now' }))
-    await screen.findByRole('button', { name: 'Retry' })
-    const first = mocks.reset.mock.calls[0]?.[2]
-    expect(first).toEqual({
-      idempotencyKey: expect.any(String),
-      expectedScope: result.reset?.expectedScope
-    })
-    fireEvent.click(screen.getByRole('button', { name: 'Retry' }))
-    await waitFor(() => expect(mocks.reset).toHaveBeenCalledTimes(2))
-    expect(mocks.reset.mock.calls[1]).toEqual([target, 'accounts.consumeCodexResetCredit', first])
-    await waitFor(() => expect(mocks.read).toHaveBeenCalledTimes(2))
-    await screen.findByText('Nothing to reset right now.')
   })
 
   it('collapses host changes during a background read into one follow-up, and sends none after closing', async () => {

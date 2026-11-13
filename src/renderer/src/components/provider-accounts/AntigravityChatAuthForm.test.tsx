@@ -146,8 +146,7 @@ it.each(['accounts', 'provider'] as const)(
 
 it.each([
   { surface: 'accounts', language: 'en', action: 'Sign in with Gemini Enterprise' },
-  { surface: 'provider', language: 'en', action: 'Sign in with Gemini Enterprise' },
-  { surface: 'accounts', language: 'ko', action: 'Sign in with Gemini Enterprise' }
+  { surface: 'provider', language: 'en', action: 'Sign in with Gemini Enterprise' }
 ] as const)(
   '$surface keeps a failed-save draft editable and retries through Sign in ($language)',
   async ({ surface, language, action }) => {

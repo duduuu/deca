@@ -8,24 +8,16 @@ type Osc52ClipboardSettings = Pick<
 export function normalizeOsc52ClipboardDefaultOn(
   settings: Partial<Osc52ClipboardSettings> | undefined
 ): Osc52ClipboardSettings {
-  const defaultedOn = settings?.terminalAllowOsc52ClipboardDefaultedOnForAllUsers === true
-
   return {
-    // Only migration-stamped profiles distinguish explicit opt-out from the old persisted false default.
-    terminalAllowOsc52Clipboard: defaultedOn
-      ? (settings?.terminalAllowOsc52Clipboard ?? true)
-      : true,
+    // Why: Deca keeps OSC 52 off until the user opts in, so terminal output cannot silently rewrite the clipboard.
+    terminalAllowOsc52Clipboard: settings?.terminalAllowOsc52Clipboard ?? false,
     terminalAllowOsc52ClipboardDefaultedOnForAllUsers: true
   }
 }
 
-/** Notify when migration enables OSC 52 over persisted false: both stores saved the old default,
- * so deliberate opt-outs cannot be distinguished. Fresh profiles lack that value and are excluded. */
+/** Deca never flips a persisted opt-out on, so there is nothing to announce. */
 export function osc52ClipboardDefaultOnOverridesPersistedOff(
-  settings: Partial<Osc52ClipboardSettings> | undefined
+  _settings: Partial<Osc52ClipboardSettings> | undefined
 ): boolean {
-  return (
-    settings?.terminalAllowOsc52ClipboardDefaultedOnForAllUsers !== true &&
-    settings?.terminalAllowOsc52Clipboard === false
-  )
+  return false
 }

@@ -11,6 +11,11 @@ description: >-
 
 # Deca Plugin Authoring
 
+> **Deca loads only look-only plugins:** `contributes.themes`, `contributes.terminalThemes` and
+> `contributes.iconThemes`, with no `main` and no `capabilities`. Deca refuses to install or load
+> any other plugin. If the user asks for a panel, command, editor, syntax, language pack, hook or
+> worker, explain that Deca does not run it, and offer a theme or icon theme instead.
+
 `ORCA` is a placeholder for the executable you resolved in the stub; substitute it before running.
 Pass `--json` to every `ORCA plugin` command and branch on `error.code`, not on wording.
 

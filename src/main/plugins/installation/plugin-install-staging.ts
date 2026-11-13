@@ -21,6 +21,7 @@ import type {
   PluginInstallSource,
   PluginLockEntry
 } from '../../../shared/plugins/installation/plugin-install-lockfile'
+import { decaPluginPolicyError } from '../../../shared/plugins/deca-plugin-policy'
 import { validatePluginInstallTree } from '../plugin-artifact-validation'
 import { renamePluginFileWithWindowsRetry } from './plugin-atomic-file-write'
 import { hashPluginTree } from '../plugin-content-hash'
@@ -74,6 +75,10 @@ async function readInstallManifest(
       ok: false,
       error: `plugin requires Deca ${parsed.manifest.engines.orca} (this is ${hostVersion})`
     }
+  }
+  const decaPolicyError = decaPluginPolicyError(parsed.manifest)
+  if (decaPolicyError) {
+    return { ok: false, error: decaPolicyError }
   }
   return { ok: true, manifest: parsed.manifest }
 }

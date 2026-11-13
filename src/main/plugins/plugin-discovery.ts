@@ -22,6 +22,7 @@ import {
   hasDeclarativePluginContributions,
   requiresPluginContentApproval
 } from '../../shared/plugins/approval/plugin-consent-fingerprint'
+import { decaPluginPolicyError } from '../../shared/plugins/deca-plugin-policy'
 import { validateDeclaredPluginArtifacts } from './plugin-artifact-validation'
 import { validatePluginFontArtifacts } from './plugin-font-files'
 import { readPluginManifestText } from './plugin-manifest-file'
@@ -126,6 +127,10 @@ async function readManifestDir(
       error: `requires Deca ${manifest.engines.orca} (this is ${hostVersion})`,
       isDev
     }
+  }
+  const decaPolicyError = decaPluginPolicyError(manifest)
+  if (decaPolicyError) {
+    return { pluginKey, rootDir, error: decaPolicyError, isDev }
   }
   const artifacts = await validateDeclaredPluginArtifacts(rootDir, manifest, {
     allowCaseMismatch: !isDev

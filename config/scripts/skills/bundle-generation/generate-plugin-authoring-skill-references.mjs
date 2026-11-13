@@ -69,7 +69,8 @@ const bullet = (member) => `- ${withSummary(code(member.text), member.summary)}`
 
 function document(title, intro, sections) {
   const lines = [`# ${title}`, '', GENERATED_NOTE, '', ...intro, ...sections.flat()]
-  return `${lines.join('\n').trimEnd()}\n`
+  // Why: the shared .d.ts sources still name the upstream `orca` CLI; Deca guides show `deca`.
+  return `${lines.join('\n').trimEnd().replaceAll('`orca plugin ', '`deca plugin ')}\n`
 }
 
 function childrenLabel(policy, catalog) {
@@ -160,7 +161,7 @@ function renderTesting({ testing }) {
   return document(
     'Test kit (`orca/testing`)',
     [
-      '`ORCA plugin test` runs `*.test.ts(x)` files in Node with `orca` and `orca/testing` resolved to what this Orca ships, and plugin sources (panels and the worker `main`) loaded as Orca loads them. Every act resolves once the panel or worker has settled: `await` it and never add sleeps.',
+      '`ORCA plugin test` runs `*.test.ts(x)` files in Node with `orca` and `orca/testing` resolved to what this Deca ships, and plugin sources (panels and the worker `main`) loaded as Deca loads them. Every act resolves once the panel or worker has settled: `await` it and never add sleeps.',
       ''
     ],
     [
@@ -425,7 +426,7 @@ function renderCli({ cli, cliView }) {
     'Plugin CLI commands',
     [
       [
-        '`ORCA` is the Orca executable you resolved. Every command takes `--json`; branch on `error.code`.',
+        '`ORCA` is the Deca executable you resolved. Every command takes `--json`; branch on `error.code`.',
         exitCodes,
         ...otherExitCodes.map((note) => `Except ${note}`),
         "Run `ORCA <command> --help` for a command's notes."
@@ -434,7 +435,11 @@ function renderCli({ cli, cliView }) {
         .join(' '),
       ''
     ],
-    [specs.map((spec) => `- ${code(spec.usage.replace(/^orca /u, 'ORCA '))}: ${spec.summary}`)]
+    [
+      specs.map(
+        (spec) => `- ${code(spec.usage.replace(/^(?:orca|deca) /u, 'ORCA '))}: ${spec.summary}`
+      )
+    ]
   )
 }
 

@@ -23,7 +23,7 @@ import {
   Wrench,
   type LucideIcon
 } from 'lucide-react'
-import type { RepoIcon } from '../../../../shared/repo-icon'
+import { isLocalRepoIconImageSource, type RepoIcon } from '../../../../shared/repo-icon'
 import { cn } from '@/lib/class-names'
 import { translate } from '@/i18n/i18n'
 import { createLocalizedCatalog } from '@/i18n/localized-catalog'
@@ -142,7 +142,9 @@ export function RepoIconGlyph({
   iconClassName?: string
   color?: string
 }): React.JSX.Element {
-  const imageSrc = repoIcon?.type === 'image' ? repoIcon.src : null
+  // Why: Deca never loads remote favicon or GitHub avatar icons; only local data images render.
+  const imageSrc =
+    repoIcon?.type === 'image' && isLocalRepoIconImageSource(repoIcon.source) ? repoIcon.src : null
   // Private GHES avatars may require cookies; track failed URLs without hiding later replacement icons.
   const [failedImageSrc, setFailedImageSrc] = React.useState<string | null>(null)
 

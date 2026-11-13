@@ -65,26 +65,12 @@ export function isOpenInAppPresetAdded(
   )
 }
 
+/** Why: Deca never asks Google's favicon service for app icons; every app gets the generic glyph. */
 export function OpenInApplicationIcon({
-  application,
   size = 14
 }: {
   application: Pick<OpenInApplication, 'command'>
   size?: number
 }): React.JSX.Element {
-  const preset = getOpenInAppPreset(application)
-  if (preset) {
-    return (
-      <img
-        src={`https://www.google.com/s2/favicons?domain=${preset.faviconDomain}&sz=64`}
-        width={size}
-        height={size}
-        alt=""
-        aria-hidden
-        className={cn('shrink-0', preset.iconClassName)}
-        style={{ borderRadius: 2 }}
-      />
-    )
-  }
-  return <AppWindow width={size} height={size} />
+  return <AppWindow width={size} height={size} className={cn('shrink-0')} />
 }

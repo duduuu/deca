@@ -58,7 +58,6 @@ export function ChatBehaviorSetting({
     ...(hostQueuesMessages ? [entries.queueFollowUps] : []),
     entries.scrollToLatestOnSend,
     entries.markNewMessages,
-    entries.linkPreviews,
     entries.shellEnvironment
   ]
   if (!forceVisible && !matchesSettingsSearch(query, rows)) {
@@ -69,7 +68,6 @@ export function ChatBehaviorSetting({
   const autoContinueEnabled = settings.nativeChatAutoContinueAfterUsageLimit === true
   const scrollToLatestOnSend = nativeChatScrollsToLatestOnSend(settings)
   const markNewMessages = nativeChatMarksNewMessages(settings)
-  const linkPreviewsEnabled = settings.nativeChatLinkPreviews !== false
   return (
     <section id="chat-behavior" className="space-y-3">
       <SettingsSubsectionHeader title={getChatBehaviorTitle(t)} />
@@ -179,23 +177,6 @@ export function ChatBehaviorSetting({
                 checked={markNewMessages}
                 ariaLabel={entries.markNewMessages.title}
                 onChange={() => updateSettings({ nativeChatMarkNewMessages: !markNewMessages })}
-              />
-            </SearchableSetting>
-            <SearchableSetting
-              {...entries.linkPreviews}
-              id={entries.linkPreviews.targetSectionId}
-              forceVisible={forceVisible}
-              className="max-w-none"
-            >
-              <SettingsSwitchRow
-                label={entries.linkPreviews.title}
-                description={entries.linkPreviews.description}
-                checked={linkPreviewsEnabled}
-                ariaLabel={t(
-                  'components.settings.nativeChat.linkPreviewsToggleLabel',
-                  'Toggle link previews'
-                )}
-                onChange={() => updateSettings({ nativeChatLinkPreviews: !linkPreviewsEnabled })}
               />
             </SearchableSetting>
             <SearchableSetting

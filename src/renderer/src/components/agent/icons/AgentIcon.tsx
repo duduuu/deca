@@ -48,20 +48,7 @@ export function AgentIcon({
       />
     )
   }
-  if (catalogEntry?.faviconDomain) {
-    // Use Google’s favicon service only when no SVG or bundled favicon exists, as in the README badges.
-    return (
-      <img
-        src={`https://www.google.com/s2/favicons?domain=${catalogEntry.faviconDomain}&sz=64`}
-        width={size}
-        height={size}
-        className={className}
-        alt=""
-        aria-hidden
-        style={{ borderRadius: 2 }}
-      />
-    )
-  }
+  // Why: Deca never asks Google's favicon service; agents without a bundled icon get a letter.
   return (
     <AgentLetterIcon
       letter={getAgentLabel(agent).charAt(0).toUpperCase()}

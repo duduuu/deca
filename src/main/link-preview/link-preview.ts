@@ -1,4 +1,5 @@
 import {
+  DECA_WEB_LINK_PREVIEWS_ENABLED,
   linkPreviewSize,
   type LinkPreviewRequest,
   type LinkPreviewResult
@@ -48,7 +49,7 @@ function evictOldest(keep: string): void {
 /** Never throws; blocked, failed and title-less pages are all `unavailable`. */
 export function getLinkPreview(request: LinkPreviewRequest): Promise<LinkPreviewResult> {
   const key = cacheKey(request.url)
-  if (!key) {
+  if (!key || !DECA_WEB_LINK_PREVIEWS_ENABLED) {
     return Promise.resolve(UNAVAILABLE)
   }
   const now = Date.now()

@@ -14,6 +14,11 @@ const LUCIDE_ICON_NAME_PATTERN = /^[A-Za-z][A-Za-z0-9]*$/
 const isRepoIconImageSource = (value: string): value is RepoIconImageSource =>
   value === 'upload' || value === 'file' || value === 'favicon' || value === 'github'
 
+/** Why: Deca keeps only icons stored as local data; favicon and GitHub sources fetch remote URLs. */
+export function isLocalRepoIconImageSource(source: RepoIconImageSource): boolean {
+  return source === 'upload' || source === 'file'
+}
+
 export function faviconUrlFromWebsite(rawUrl: string): string | null {
   const trimmed = rawUrl.trim()
   if (!trimmed) {
@@ -72,6 +77,9 @@ function normalizeGitHubAvatarHost(rawHost?: string): string {
 }
 
 function computeIsSupportedImageSrc(src: string, source: RepoIconImageSource): boolean {
+  if (!isLocalRepoIconImageSource(source)) {
+    return false
+  }
   if (source === 'upload') {
     return (
       /^data:image\/png;base64,[A-Za-z0-9+/=\s]+$/i.test(src) &&

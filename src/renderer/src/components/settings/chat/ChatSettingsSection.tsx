@@ -2,7 +2,6 @@ import { useTranslate } from '@/i18n/use-translate'
 import { AppearanceChatSection } from '../appearance/chat/AppearanceChatSection'
 import { ChatBehaviorSetting } from './ChatBehaviorSetting'
 import { ChatNamingSetting } from './ChatNamingSetting'
-import { NativeChatInlineVisualsSetting } from './NativeChatInlineVisualsSetting'
 import { SettingsSection } from '../section-layout/SettingsSection'
 import { SettingsSubsectionHeader } from '../form-controls/SettingsFormControls'
 import { matchesSettingsSearch, type SettingsSearchEntry } from '../search/settings-search'
@@ -112,13 +111,6 @@ export function ChatSettingsSection({
               { title: getChatTurnActivityTitle(t) }
             ])}
           />
-          {showDesktopOnlySettings ? (
-            <NativeChatInlineVisualsSetting
-              settings={settings}
-              updateSettings={updateSettings}
-              forceVisible={matchesSettingsSearch(query, [{ title }])}
-            />
-          ) : null}
           <ChatBehaviorSetting
             settings={settings}
             updateSettings={updateSettings}

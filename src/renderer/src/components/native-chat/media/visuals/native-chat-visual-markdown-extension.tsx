@@ -7,6 +7,7 @@ import {
   isNativeChatVisualFileName
 } from '../../../../../../shared/native-chat/native-chat-visual-directive'
 import { NativeChatInlineVisual } from './NativeChatInlineVisual'
+import { DECA_NATIVE_CHAT_INLINE_VISUALS_ENABLED } from '../../../../../../shared/native-chat/deca-inline-visuals-policy'
 import type { NativeChatVisualOwner } from './native-chat-visual-owner'
 import { useNativeChatVisualOwner } from './native-chat-visual-owner'
 import {
@@ -69,7 +70,10 @@ export function useNativeChatVisualMarkdownExtension(
   const owner = useNativeChatVisualOwner()
   const [nonce] = useState(newNonce)
   return useMemo(
-    () => (owner && messageId ? createVisualExtension(owner, nonce) : undefined),
+    () =>
+      DECA_NATIVE_CHAT_INLINE_VISUALS_ENABLED && owner && messageId
+        ? createVisualExtension(owner, nonce)
+        : undefined,
     [messageId, nonce, owner]
   )
 }

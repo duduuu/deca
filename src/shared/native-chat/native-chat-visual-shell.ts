@@ -3,14 +3,8 @@ import { PANEL_DESIGN_TOKEN_ALLOWLIST } from '../plugins/frames/plugin-panel-des
 /** Shared Electron-free sandbox document. Parse CSP before visual markup so later HTML cannot loosen it.
  * Allow pinned-CDN scripts/styles/fonts/images only; block fetch/sockets/frames/forms. Allowed-CDN requests can still carry data: disclosed accepted risk, not a no-egress guarantee. */
 
-export const NATIVE_CHAT_VISUAL_CDN_ORIGINS = [
-  'https://cdn.jsdelivr.net',
-  'https://unpkg.com',
-  'https://cdnjs.cloudflare.com',
-  'https://esm.sh',
-  'https://fonts.googleapis.com',
-  'https://fonts.gstatic.com'
-] as const
+// Why: Deca allows no CDN origin, so a visual frame can never reach the network.
+export const NATIVE_CHAT_VISUAL_CDN_ORIGINS: readonly string[] = []
 
 const ASSET_SOURCES = `'unsafe-inline' data: blob: ${NATIVE_CHAT_VISUAL_CDN_ORIGINS.join(' ')}`
 const MEDIA_SOURCES = `data: blob: ${NATIVE_CHAT_VISUAL_CDN_ORIGINS.join(' ')}`

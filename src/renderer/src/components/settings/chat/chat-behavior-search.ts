@@ -90,18 +90,6 @@ export const getChatBehaviorEntriesByKey = createLocalizedCatalog(() => ({
     ),
     keywords: [translate('components.settings.nativeChat.markNewMessagesSearchUnread', 'unread')]
   },
-  linkPreviews: {
-    targetSectionId: 'chat-link-previews',
-    title: translate('components.settings.nativeChat.linkPreviewsTitle', 'Link previews'),
-    description: translate(
-      'components.settings.nativeChat.linkPreviewsCopy',
-      'Hovering a web link shows a preview card. Deca fetches the page to build it, so the site can see the request.'
-    ),
-    keywords: [
-      translate('components.settings.nativeChat.linkPreviewsSearchUnfurl', 'unfurl'),
-      translate('components.settings.nativeChat.linkPreviewsSearchHover', 'hover card')
-    ]
-  },
   shellEnvironment: {
     targetSectionId: 'chat-shell-environment',
     title: translate(

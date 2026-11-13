@@ -26,3 +26,6 @@ export function linkPreviewSize(preview: LinkPreview): number {
     preview.faviconDataUrl
   ].reduce((total, text) => total + (text?.length ?? 0), 0)
 }
+
+/** Why: Deca refuses web link previews; fetching them reveals the URL to the site. */
+export const DECA_WEB_LINK_PREVIEWS_ENABLED = false as boolean

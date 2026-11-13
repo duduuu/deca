@@ -9,7 +9,6 @@ import { TooltipProvider } from '../../ui/tooltip'
 import { ActiveSettingsSectionProvider } from '../section-layout/SettingsSection'
 import { getChatAppearanceSearchEntries } from '../appearance/chat/chat-appearance-search'
 import { getChatNamingSearchEntry } from './chat-naming-search'
-import { getChatInlineVisualsSearchEntry } from './chat-inline-visuals-search'
 import { getChatBehaviorSearchEntries } from './chat-behavior-search'
 import { getChatTurnActivitySearchEntries } from './chat-turn-activity-search'
 import { AGENT_SESSION_QUEUED_MESSAGES_RUNTIME_CAPABILITY } from '../../../../../shared/agent-session/agent-session-runtime-capabilities'
@@ -57,9 +56,7 @@ function renderChat(
           ...getChatAppearanceSearchEntries(),
           ...getChatTurnActivitySearchEntries(),
           ...getChatBehaviorSearchEntries(),
-          ...(showDesktopOnlySettings
-            ? [getChatNamingSearchEntry(), getChatInlineVisualsSearchEntry()]
-            : [])
+          ...(showDesktopOnlySettings ? [getChatNamingSearchEntry()] : [])
         ]}
         showDesktopOnlySettings={showDesktopOnlySettings}
         isMounted

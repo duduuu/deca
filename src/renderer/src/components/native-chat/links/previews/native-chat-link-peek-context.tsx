@@ -1,5 +1,6 @@
 import { createContext, useMemo, type ReactNode } from 'react'
 import { useAppStore } from '@/store'
+import { DECA_WEB_LINK_PREVIEWS_ENABLED } from '../../../../../../shared/link-preview'
 import type { NativeChatFileLinkContext } from '../actions/native-chat-file-link-context'
 import { useNativeChatGitHubRepo, type NativeChatGitHubRepo } from './native-chat-github-repo'
 
@@ -23,8 +24,9 @@ export function NativeChatLinkPeekProvider({
   children: ReactNode
 }): React.JSX.Element {
   const githubRepo = useNativeChatGitHubRepo(fileLinkContext?.worktreeId)
+  // Why: Deca never fetches third-party pages for previews.
   const webPreviewsEnabled = useAppStore(
-    (state) => state.settings?.nativeChatLinkPreviews !== false
+    (state) => DECA_WEB_LINK_PREVIEWS_ENABLED && state.settings?.nativeChatLinkPreviews !== false
   )
   const runtimeEnvironmentId = fileLinkContext?.runtimeEnvironmentId ?? null
   const value = useMemo(

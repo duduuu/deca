@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { cn } from '@/lib/class-names'
+import { isDecaBlockedRemoteImageUrl } from '../../../../shared/deca-blocked-remote-images'
 
 function githubAvatarUrl(login: string): string {
   return `https://github.com/${encodeURIComponent(login)}.png?size=64`
@@ -55,7 +56,9 @@ export function GitHubUserAvatar({
 }): React.JSX.Element {
   // Track the failed URL so late detail enrichment can retry a GHES avatar after the public-login fallback fails.
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
-  const src = resolveGitHubUserAvatarSrc(login, avatarUrl)
+  const resolvedSrc = resolveGitHubUserAvatarSrc(login, avatarUrl)
+  // Why: Deca shows initials rather than requesting public GitHub avatars.
+  const src = resolvedSrc && !isDecaBlockedRemoteImageUrl(resolvedSrc) ? resolvedSrc : null
   if (src && failedSrc !== src) {
     return (
       <img

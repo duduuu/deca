@@ -163,7 +163,8 @@ export function buildDefaultSettings(args: {
     nativeChatShellEnvironmentVariables: [],
     nativeChatSessionOptions: {},
     // New chats of agents on their own settings; others start in their agent permission.
-    nativeChatPermissionMode: 'full-access',
+    // Why: Deca starts agents asking before edits and commands; users can still widen it.
+    nativeChatPermissionMode: 'ask',
     openInApplications: [...DEFAULT_OPEN_IN_APPLICATIONS],
     rightSidebarOpenByDefault: true,
     showGitIgnoredFiles: true,
@@ -249,7 +250,7 @@ export function buildDefaultSettings(args: {
     agentLaunchChoices: {},
     agentDefaultEnv: {},
     agentYoloDefaultsMigrated: true,
-    agentPermissionDefault: 'full-access',
+    agentPermissionDefault: 'ask',
     agentPermissionOverrides: {},
     agentStatusHooksEnabled: true,
     claudeSubagentNavigationEnabled: true,

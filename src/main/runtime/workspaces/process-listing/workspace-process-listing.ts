@@ -1,3 +1,4 @@
+import { DECA_NATIVE_CHAT_INLINE_VISUALS_ENABLED } from '../../../../shared/native-chat/deca-inline-visuals-policy'
 import { getRepoHostIdentityForParts } from '../../../../shared/repo-host-identity'
 import { createRepoRowExecutionHostLookup } from '../../../../shared/execution-host/worktree-execution-host-resolution'
 import { resolveWorktreeHostRouting } from '../catalog/worktree-launch-host-repo'
@@ -264,7 +265,9 @@ export abstract class OrcaRuntimeWithGetWorktreePs extends RuntimeChatWorkerEven
       usageLimitAutoContinue: this.usageLimitAutoContinueHostDeps(),
       idleSweep: { idleMs: () => nativeChatIdleStopMs(this.requireStore().getSettings()) },
       nativeChatVisuals: {
-        isEnabled: () => this.requireStore().getSettings().nativeChatInlineVisuals !== false
+        isEnabled: () =>
+          DECA_NATIVE_CHAT_INLINE_VISUALS_ENABLED &&
+          this.requireStore().getSettings().nativeChatInlineVisuals !== false
       },
       resolveAgentFullAccess: (agent) =>
         isTuiAgent(agent) &&

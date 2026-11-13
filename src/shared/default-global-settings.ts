@@ -131,8 +131,8 @@ export function buildDefaultSettings(args: {
     terminalClipboardOnSelect: false,
     // Trim only the shared leading-space gutter, preserving relative indentation.
     terminalCopyTrimsGutter: true,
-    // Default OSC52 supports Zellij/tmux/nvim with queries disabled and capped writes; the stamp migrates persisted false once in both Electron and web localStorage stores.
-    terminalAllowOsc52Clipboard: true,
+    // Why: Deca ships OSC 52 clipboard writes off; tmux/Zellij/nvim users opt in from Terminal settings.
+    terminalAllowOsc52Clipboard: false,
     terminalAllowOsc52ClipboardDefaultedOnForAllUsers: true,
     claudeAgentTeamsMode: 'off',
     terminalScrollbackRows: DESKTOP_TERMINAL_SCROLLBACK_ROWS_DEFAULT,

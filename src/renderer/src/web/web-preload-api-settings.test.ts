@@ -14,21 +14,6 @@ describe('web settings preload API', () => {
     vi.unstubAllGlobals()
   })
 
-  it('arms the OSC 52 notice when ui.get is the read that runs the migration', async () => {
-    // Seed after module load to model another tab’s storage update; first ui.get must migrate settings before snapshotting UI or it erases the one-shot notice arm.
-    const globals = installBrowserGlobals('Linux')
-    const { installWebPreloadApi } = await import('./web-preload-api')
-    installWebPreloadApi()
-    globals.storage.setItem(
-      'orca.web.settings.v1',
-      JSON.stringify({ terminalAllowOsc52Clipboard: false })
-    )
-
-    const ui = await globals.window.api.ui.get()
-
-    expect(ui.osc52ClipboardDefaultOnNoticePending).toBe(true)
-  })
-
   it('keeps a completed settings merge when the paired host is removed mid-read', async () => {
     let resolveSettings!: (value: RuntimeRpcResponse<unknown>) => void
     const settingsRead = new Promise<RuntimeRpcResponse<unknown>>(

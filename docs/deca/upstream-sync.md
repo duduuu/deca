@@ -109,6 +109,8 @@ Windows 테스트 메모:
 - 별도 worktree에서 작업할 때 `node_modules`를 메인 체크아웃으로 junction한 채 pnpm을 실행하지 않는다. 메인의 패키지 링크가 worktree 기준 경로로 다시 써져 깨진다. worktree마다 `pnpm install --offline --frozen-lockfile`로 따로 설치한다.
 - 플러그인 기계 장치 테스트는 코드 플러그인 fixture를 쓰므로 `config/scripts/test-runtime/environment/vitest-deca-plugin-policy-off.ts`에서 Deca 플러그인 정책을 끈 상태로 돈다. 정책 자체는 `src/main/plugins/deca-plugin-policy.test.ts`가 검사한다.
 
+e2e는 핵심 묶음부터 돌린다: `SKIP_BUILD=1 pnpm test:e2e:workspace-session-golden`(첫 실행은 `SKIP_BUILD` 없이 빌드), `source-control-golden`, `agent-tui-golden`, `tab-bar-agent-launch-golden`. 테스트 프로필은 UI 언어를 영어로 고정하므로 한국어 Windows에서도 돈다.
+
 앱 동작 확인은 `ORCA_BACKGROUND_LAUNCH=1`로 백그라운드 실행 후 CDP 화면 캡처로 한다(AGENTS.md의 Electron UI Validation).
 
 ## 6. 마무리
